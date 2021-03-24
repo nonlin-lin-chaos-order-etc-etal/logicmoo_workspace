@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.lps.pl')).
-% Sun, 21 Mar 2021 23:28:18 GMT File: <stream>(0x555567431300)%;
+% Tue, 23 Mar 2021 19:06:58 GMT File: <stream>(0x555567c05d00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -60,20 +60,21 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(floor))).
-:- call_pel_directive(ignore(floor)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',24).
+:- call_pel_directive(ignore(floor)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(buildingOf))).
 :- call_pel_directive(ignore(buildingOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(skyOf))).
 :- call_pel_directive(ignore(skyOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(groundOf))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',24).
 :- call_pel_directive(ignore(groundOf)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',26).
@@ -90,8 +91,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
-:- call_pel_directive(ignore(walkFromTo)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',26).
+:- call_pel_directive(ignore(walkFromTo)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
@@ -106,6 +107,7 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(side2))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',26).
 :- call_pel_directive(ignore(side2)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',29).
@@ -176,70 +178,70 @@
 % From E: 
 % 
 % t(location,location1).
-location(location1).
+isa(location1,location).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',41).
 % portal DummyPortal1
 % From E: 
 % 
 % t(portal,dummyPortal1).
-portal(dummyPortal1).
+isa(dummyPortal1,portal).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',43).
 % agent Smoker1
 % From E: 
 % 
 % t(agent,smoker1).
-agent(smoker1).
+isa(smoker1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',45).
 % cigarette Cigarette1
 % From E: 
 % 
 % t(cigarette,cigarette1).
-cigarette(cigarette1).
+isa(cigarette1,cigarette).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',47).
 % container Package1
 % From E: 
 % 
 % t(container,package1).
-container(package1).
+isa(package1,container).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',49).
 % physobj Surface1
 % From E: 
 % 
 % t(physobj,surface1).
-physobj(surface1).
+isa(surface1,physobj).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',51).
 % physobj LightingDevice1
 % From E: 
 % 
 % t(physobj,lightingDevice1).
-physobj(lightingDevice1).
+isa(lightingDevice1,physobj).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',53).
 % ashtray AshTray1
 % From E: 
 % 
 % t(ashtray,ashTray1).
-ashtray(ashTray1).
+isa(ashTray1,ashtray).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',55).
 % physobj Trash1
 % From E: 
 % 
 % t(physobj,trash1).
-physobj(trash1).
+isa(trash1,physobj).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',57).
 % smoke Smoke1
 % From E: 
 % 
 % t(smoke,smoke1).
-smoke(smoke1).
+isa(smoke1,smoke).
 %; prune
 
 % sort ona, onb
@@ -251,6 +253,7 @@ sort(ona).
 % From E: 
 % 
 % sort(onb).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',59).
 sort(onb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',61).
@@ -258,7 +261,7 @@ sort(onb).
 % From E: 
 % 
 % fluent(on(ona,onb)).
-mpred_prop(on(ona, onb), fluent).
+mpred_prop(on(ona,onb),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',61).
 fluents([on/2]).
 
@@ -268,7 +271,7 @@ fluents([on/2]).
 % event(placeOn(agent,ona,onb)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',61).
 events([placeOn/3]).
-mpred_prop(placeOn(agent, ona, onb), action).
+mpred_prop(placeOn(agent,ona,onb),action).
 actions([placeOn/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',63).
@@ -277,8 +280,8 @@ actions([placeOn/3]).
 % 
 % event(takeOffOf(agent,ona,onb)).
 events([takeOffOf/3]).
-mpred_prop(takeOffOf(agent, ona, onb), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',63).
+mpred_prop(takeOffOf(agent,ona,onb),action).
 actions([takeOffOf/3]).
 
 % ona! LightingDevice1, Package1, Cigarette1
@@ -286,28 +289,28 @@ actions([takeOffOf/3]).
 % 
 % t(ona,lightingDevice1).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',63).
-ona(lightingDevice1).
+isa(lightingDevice1,ona).
 % From E: 
 % 
 % t(ona,package1).
-ona(package1).
+isa(package1,ona).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',63).
 % From E: 
 % 
 % t(ona,cigarette1).
-ona(cigarette1).
+isa(cigarette1,ona).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',65).
 % onb! Surface1, AshTray1
 % From E: 
 % 
 % t(onb,surface1).
-onb(surface1).
+isa(surface1,onb).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',65).
 % From E: 
 % 
 % t(onb,ashTray1).
-onb(ashTray1).
+isa(ashTray1,onb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',67).
 % sort insidea, insideb
@@ -326,7 +329,7 @@ sort(insideb).
 % From E: 
 % 
 % fluent(inside(insidea,insideb)).
-mpred_prop(inside(insidea, insideb), fluent).
+mpred_prop(inside(insidea,insideb),fluent).
 fluents([inside/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',69).
@@ -335,8 +338,8 @@ fluents([inside/2]).
 % 
 % event(putInside(agent,insidea,insideb)).
 events([putInside/3]).
-mpred_prop(putInside(agent, insidea, insideb), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',69).
+mpred_prop(putInside(agent,insidea,insideb),action).
 actions([putInside/3]).
 
 % event! TakeOutOf(agent,insidea,insideb)
@@ -345,7 +348,7 @@ actions([putInside/3]).
 % event(takeOutOf(agent,insidea,insideb)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',69).
 events([takeOutOf/3]).
-mpred_prop(takeOutOf(agent, insidea, insideb), action).
+mpred_prop(takeOutOf(agent,insidea,insideb),action).
 actions([takeOutOf/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',71).
@@ -353,19 +356,19 @@ actions([takeOutOf/3]).
 % From E: 
 % 
 % t(insidea,cigarette1).
-insidea(cigarette1).
+isa(cigarette1,insidea).
 
 % insideb! Package1, Trash1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',71).
 % From E: 
 % 
 % t(insideb,package1).
-insideb(package1).
+isa(package1,insideb).
 % From E: 
 % 
 % t(insideb,trash1).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',71).
-insideb(trash1).
+isa(trash1,insideb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',74).
 % sort lighta, lightb, lightc
@@ -381,14 +384,15 @@ sort(lightb).
 % From E: 
 % 
 % sort(lightc).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',74).
 sort(lightc).
 
 % event! LightWith(lighta,lightb,lightc)
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',74).
 % From E: 
 % 
 % event(lightWith(lighta,lightb,lightc)).
-mpred_prop(lightWith(lighta, lightb, lightc), event).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',74).
+mpred_prop(lightWith(lighta,lightb,lightc),event).
 events([lightWith/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',76).
@@ -396,21 +400,21 @@ events([lightWith/3]).
 % From E: 
 % 
 % t(lighta,smoker1).
-lighta(smoker1).
+isa(smoker1,lighta).
 
 % lightb! Cigarette1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',76).
 % From E: 
 % 
 % t(lightb,cigarette1).
-lightb(cigarette1).
+isa(cigarette1,lightb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',78).
 % lightc! LightingDevice1
 % From E: 
 % 
 % t(lightc,lightingDevice1).
-lightc(lightingDevice1).
+isa(lightingDevice1,lightc).
 %; initial state
 % [agent,object]
  % !HoldsAt(Holding(agent,object),0).
@@ -419,7 +423,6 @@ lightc(lightingDevice1).
 % 
 % holds(
 %    not(holding(Agent,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',80).
 initially(not(holding(Agent,Object))).
 
 
@@ -436,11 +439,11 @@ initially(not(sittingOn(Agent,Physobj))).
 
 % [agent,physobj]
  % !HoldsAt(LyingOn(agent,physobj),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',82).
 % From E: 
 % 
 % holds(
 %    not(lyingOn(Agent,Physobj)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',82).
 initially(not(lyingOn(Agent,Physobj))).
 
 
@@ -466,7 +469,7 @@ initially(on(package1,surface1)).
 %           Physobj2=surface1)), 
 %    holds(
 %       not(on(Physobj1,Physobj2)), 0)).
-if(initially(on(Physobj1, Physobj2)),  (equals(Physobj1, package1), equals(Physobj2, surface1))).
+if(at(not(on(Physobj1, Physobj2)), 0), not((equals(Physobj1, package1), equals(Physobj2, surface1)))).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',88).
@@ -559,7 +562,7 @@ initially(inside(cigarette1,package1)).
 %    holds(
 %       not(inside(Physobj1,Physobj2)), 0)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoking.e',96).
-if(initially(inside(Physobj1, Physobj2)),  (equals(Physobj1, cigarette1), equals(Physobj2, package1))).
+if(at(not(inside(Physobj1, Physobj2)), 0), not((equals(Physobj1, cigarette1), equals(Physobj2, package1)))).
 
 
 %; narrative

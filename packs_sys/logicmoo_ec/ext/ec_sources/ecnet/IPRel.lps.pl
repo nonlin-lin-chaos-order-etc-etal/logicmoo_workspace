@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.lps.pl')).
-% Sun, 21 Mar 2021 23:28:10 GMT File: <stream>(0x55556865cf00)%;
+% Tue, 23 Mar 2021 19:06:50 GMT File: <stream>(0x5555681ba900)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -29,7 +29,7 @@
 % From E: 
 % 
 % fluent(friendOf(agent,agent)).
-mpred_prop(friendOf(agent, agent), fluent).
+mpred_prop(friendOf(agent,agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',14).
 fluents([friendOf/2]).
 
@@ -38,7 +38,7 @@ fluents([friendOf/2]).
 % From E: 
 % 
 % fluent(neutralOf(agent,agent)).
-mpred_prop(neutralOf(agent, agent), fluent).
+mpred_prop(neutralOf(agent,agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',16).
 fluents([neutralOf/2]).
 
@@ -47,7 +47,7 @@ fluents([neutralOf/2]).
 % From E: 
 % 
 % fluent(enemyOf(agent,agent)).
-mpred_prop(enemyOf(agent, agent), fluent).
+mpred_prop(enemyOf(agent,agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',18).
 fluents([enemyOf/2]).
 
@@ -57,8 +57,8 @@ fluents([enemyOf/2]).
 % 
 % event(becomeFriends(agent,agent)).
 events([becomeFriends/2]).
-mpred_prop(becomeFriends(agent, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',20).
+mpred_prop(becomeFriends(agent,agent),action).
 actions([becomeFriends/2]).
 
 % event BecomeNeutral(agent,agent)
@@ -67,7 +67,7 @@ actions([becomeFriends/2]).
 % event(becomeNeutral(agent,agent)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',20).
 events([becomeNeutral/2]).
-mpred_prop(becomeNeutral(agent, agent), action).
+mpred_prop(becomeNeutral(agent,agent),action).
 actions([becomeNeutral/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',22).
@@ -76,8 +76,8 @@ actions([becomeNeutral/2]).
 % 
 % event(becomeEnemies(agent,agent)).
 events([becomeEnemies/2]).
-mpred_prop(becomeEnemies(agent, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',22).
+mpred_prop(becomeEnemies(agent,agent),action).
 actions([becomeEnemies/2]).
 
 
@@ -94,10 +94,9 @@ actions([becomeEnemies/2]).
 %    holds(
 %       not(enemyOf(Agent1,Agent2)), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',24).
-if(enemyOf(Agent1,Agent2),
-   not(friendOf(Agent1,Agent2))).
+if(at(not(enemyOf(Agent1,Agent2)),Time),
+   at(friendOf(Agent1,Agent2),Time)).
 
 
 % [agent1,agent2,time]
@@ -113,9 +112,8 @@ if(enemyOf(Agent1,Agent2),
 %    holds(
 %       not(enemyOf(Agent1,Agent2)), 
 %       Time)).
- %   [Time].
-if(enemyOf(Agent1,Agent2),
-   not(neutralOf(Agent1,Agent2))).
+if(at(not(enemyOf(Agent1,Agent2)),Time),
+   at(neutralOf(Agent1,Agent2),Time)).
 
 
 % [agent1,agent2,time]
@@ -131,9 +129,8 @@ if(enemyOf(Agent1,Agent2),
 %    holds(
 %       friendOf(Agent2,Agent1), 
 %       Time)).
- %   [Time].
-if(not(friendOf(Agent2,Agent1)),
-   not(friendOf(Agent1,Agent2))).
+if(at(friendOf(Agent2,Agent1),Time),
+   at(friendOf(Agent1,Agent2),Time)).
 
 
 % [agent1,agent2,time]
@@ -149,9 +146,8 @@ if(not(friendOf(Agent2,Agent1)),
 %    holds(
 %       neutralOf(Agent2,Agent1), 
 %       Time)).
- %   [Time].
-if(not(neutralOf(Agent2,Agent1)),
-   not(neutralOf(Agent1,Agent2))).
+if(at(neutralOf(Agent2,Agent1),Time),
+   at(neutralOf(Agent1,Agent2),Time)).
 
 
 % [agent1,agent2,time]
@@ -167,9 +163,8 @@ if(not(neutralOf(Agent2,Agent1)),
 %    holds(
 %       enemyOf(Agent2,Agent1), 
 %       Time)).
- %   [Time].
-if(not(enemyOf(Agent2,Agent1)),
-   not(enemyOf(Agent1,Agent2))).
+if(at(enemyOf(Agent2,Agent1),Time),
+   at(enemyOf(Agent1,Agent2),Time)).
 
 
 % [agent1,agent2,time]
@@ -181,7 +176,6 @@ if(not(enemyOf(Agent2,Agent1)),
 %    becomeFriends(Agent1,Agent2), 
 %    friendOf(Agent1,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',45).
 initiates(becomeFriends(Agent1,Agent2),
 	  friendOf(Agent1,Agent2)).
@@ -196,7 +190,6 @@ initiates(becomeFriends(Agent1,Agent2),
 %    becomeFriends(Agent1,Agent2), 
 %    friendOf(Agent2,Agent1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',47).
 initiates(becomeFriends(Agent1,Agent2),
 	  friendOf(Agent2,Agent1)).
@@ -211,7 +204,6 @@ initiates(becomeFriends(Agent1,Agent2),
 %    becomeFriends(Agent1,Agent2), 
 %    neutralOf(Agent1,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',51).
 terminates(becomeFriends(Agent1,Agent2),
 	   neutralOf(Agent1,Agent2)).
@@ -226,7 +218,6 @@ terminates(becomeFriends(Agent1,Agent2),
 %    becomeFriends(Agent1,Agent2), 
 %    neutralOf(Agent2,Agent1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',53).
 terminates(becomeFriends(Agent1,Agent2),
 	   neutralOf(Agent2,Agent1)).
@@ -241,7 +232,6 @@ terminates(becomeFriends(Agent1,Agent2),
 %    becomeFriends(Agent1,Agent2), 
 %    enemyOf(Agent1,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',57).
 terminates(becomeFriends(Agent1,Agent2),
 	   enemyOf(Agent1,Agent2)).
@@ -256,7 +246,6 @@ terminates(becomeFriends(Agent1,Agent2),
 %    becomeFriends(Agent1,Agent2), 
 %    enemyOf(Agent2,Agent1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',59).
 terminates(becomeFriends(Agent1,Agent2),
 	   enemyOf(Agent2,Agent1)).
@@ -271,7 +260,6 @@ terminates(becomeFriends(Agent1,Agent2),
 %    becomeEnemies(Agent1,Agent2), 
 %    enemyOf(Agent1,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',63).
 initiates(becomeEnemies(Agent1,Agent2),
 	  enemyOf(Agent1,Agent2)).
@@ -286,7 +274,6 @@ initiates(becomeEnemies(Agent1,Agent2),
 %    becomeEnemies(Agent1,Agent2), 
 %    enemyOf(Agent2,Agent1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',65).
 initiates(becomeEnemies(Agent1,Agent2),
 	  enemyOf(Agent2,Agent1)).
@@ -301,7 +288,6 @@ initiates(becomeEnemies(Agent1,Agent2),
 %    becomeEnemies(Agent1,Agent2), 
 %    neutralOf(Agent1,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',69).
 terminates(becomeEnemies(Agent1,Agent2),
 	   neutralOf(Agent1,Agent2)).
@@ -316,7 +302,6 @@ terminates(becomeEnemies(Agent1,Agent2),
 %    becomeEnemies(Agent1,Agent2), 
 %    neutralOf(Agent2,Agent1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',71).
 terminates(becomeEnemies(Agent1,Agent2),
 	   neutralOf(Agent2,Agent1)).
@@ -331,7 +316,6 @@ terminates(becomeEnemies(Agent1,Agent2),
 %    becomeEnemies(Agent1,Agent2), 
 %    friendOf(Agent1,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',75).
 terminates(becomeEnemies(Agent1,Agent2),
 	   friendOf(Agent1,Agent2)).
@@ -346,7 +330,6 @@ terminates(becomeEnemies(Agent1,Agent2),
 %    becomeEnemies(Agent1,Agent2), 
 %    friendOf(Agent2,Agent1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',77).
 terminates(becomeEnemies(Agent1,Agent2),
 	   friendOf(Agent2,Agent1)).
@@ -361,7 +344,6 @@ terminates(becomeEnemies(Agent1,Agent2),
 %    becomeNeutral(Agent1,Agent2), 
 %    neutralOf(Agent1,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',81).
 initiates(becomeNeutral(Agent1,Agent2),
 	  neutralOf(Agent1,Agent2)).
@@ -376,7 +358,6 @@ initiates(becomeNeutral(Agent1,Agent2),
 %    becomeNeutral(Agent1,Agent2), 
 %    neutralOf(Agent2,Agent1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',83).
 initiates(becomeNeutral(Agent1,Agent2),
 	  neutralOf(Agent2,Agent1)).
@@ -391,7 +372,6 @@ initiates(becomeNeutral(Agent1,Agent2),
 %    becomeNeutral(Agent1,Agent2), 
 %    friendOf(Agent1,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',87).
 terminates(becomeNeutral(Agent1,Agent2),
 	   friendOf(Agent1,Agent2)).
@@ -406,7 +386,6 @@ terminates(becomeNeutral(Agent1,Agent2),
 %    becomeNeutral(Agent1,Agent2), 
 %    friendOf(Agent2,Agent1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',89).
 terminates(becomeNeutral(Agent1,Agent2),
 	   friendOf(Agent2,Agent1)).
@@ -421,7 +400,6 @@ terminates(becomeNeutral(Agent1,Agent2),
 %    becomeNeutral(Agent1,Agent2), 
 %    enemyOf(Agent1,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',93).
 terminates(becomeNeutral(Agent1,Agent2),
 	   enemyOf(Agent1,Agent2)).
@@ -436,7 +414,6 @@ terminates(becomeNeutral(Agent1,Agent2),
 %    becomeNeutral(Agent1,Agent2), 
 %    enemyOf(Agent2,Agent1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',95).
 terminates(becomeNeutral(Agent1,Agent2),
 	   enemyOf(Agent2,Agent1)).
@@ -455,9 +432,8 @@ terminates(becomeNeutral(Agent1,Agent2),
 %    holds(
 %       like(Agent1,Agent2), 
 %       Time)).
- %   [Time].
-if(not(like(Agent1,Agent2)),
-   not(friendOf(Agent1,Agent2))).
+if(at(like(Agent1,Agent2),Time),
+   at(friendOf(Agent1,Agent2),Time)).
 
 
 % [agent1,agent2,time]
@@ -473,16 +449,15 @@ if(not(like(Agent1,Agent2)),
 %    holds(
 %       dislike(Agent1,Agent2), 
 %       Time)).
- %   [Time].
-if(not(dislike(Agent1,Agent2)),
-   not(enemyOf(Agent1,Agent2))).
+if(at(dislike(Agent1,Agent2),Time),
+   at(enemyOf(Agent1,Agent2),Time)).
 
 % fluent AcquaintanceOf(agent,agent)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',105).
 % From E: 
 % 
 % fluent(acquaintanceOf(agent,agent)).
-mpred_prop(acquaintanceOf(agent, agent), fluent).
+mpred_prop(acquaintanceOf(agent,agent),fluent).
 fluents([acquaintanceOf/2]).
 
 
@@ -494,9 +469,8 @@ fluents([acquaintanceOf/2]).
 % holds(
 %    acquaintanceOf(Agent,Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',108).
-acquaintanceOf(Agent,Agent).
+at(acquaintanceOf(Agent,Agent),Time).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',110).
@@ -512,10 +486,9 @@ acquaintanceOf(Agent,Agent).
 %    holds(
 %       acquaintanceOf(Agent2,Agent1), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',110).
-if(not(acquaintanceOf(Agent2,Agent1)),
-   not(acquaintanceOf(Agent1,Agent2))).
+if(at(acquaintanceOf(Agent2,Agent1),Time),
+   at(acquaintanceOf(Agent1,Agent2),Time)).
 
 % event Introduce(agent,agent)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',113).
@@ -523,7 +496,7 @@ if(not(acquaintanceOf(Agent2,Agent1)),
 % 
 % event(introduce(agent,agent)).
 events([introduce/2]).
-mpred_prop(introduce(agent, agent), action).
+mpred_prop(introduce(agent,agent),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',113).
 actions([introduce/2]).
 
@@ -539,7 +512,6 @@ actions([introduce/2]).
 %    introduce(Agent1,Agent2), 
 %    acquaintanceOf(Agent1,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',116).
 initiates(introduce(Agent1,Agent2),
 	  acquaintanceOf(Agent1,Agent2)).
@@ -556,7 +528,6 @@ initiates(introduce(Agent1,Agent2),
 %    introduce(Agent1,Agent2), 
 %    acquaintanceOf(Agent2,Agent1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',122).
 initiates(introduce(Agent1,Agent2),
 	  acquaintanceOf(Agent2,Agent1)).
@@ -567,7 +538,7 @@ initiates(introduce(Agent1,Agent2),
 % 
 % event(introduceMutual(agent,agent,agent)).
 events([introduceMutual/3]).
-mpred_prop(introduceMutual(agent, agent, agent), action).
+mpred_prop(introduceMutual(agent,agent,agent),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',125).
 actions([introduceMutual/3]).
 
@@ -583,7 +554,6 @@ actions([introduceMutual/3]).
 %    introduceMutual(Agent1,Agent2,Agent3), 
 %    acquaintanceOf(Agent2,Agent3), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',128).
 initiates(introduceMutual(Agent1,Agent2,Agent3),
 	  acquaintanceOf(Agent2,Agent3)).
@@ -600,7 +570,6 @@ initiates(introduceMutual(Agent1,Agent2,Agent3),
 %    introduceMutual(Agent1,Agent2,Agent3), 
 %    acquaintanceOf(Agent3,Agent2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',134).
 initiates(introduceMutual(Agent1,Agent2,Agent3),
 	  acquaintanceOf(Agent3,Agent2)).
@@ -624,10 +593,8 @@ initiates(introduceMutual(Agent1,Agent2,Agent3),
 %       holds(
 %          acquaintanceOf(Agent1,Agent3), 
 %          Time))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/IPRel.e',139).
- if((not(acquaintanceOf(Agent1, Agent2));not(acquaintanceOf(Agent1, Agent3))),
-      not(introduceMutual(Agent1, Agent2, Agent3))).
+if((at(acquaintanceOf(Agent1, Agent2), Time), at(acquaintanceOf(Agent1, Agent3), Time)), happens(introduceMutual(Agent1, Agent2, Agent3), Time)).
 
 
 %; End of file.

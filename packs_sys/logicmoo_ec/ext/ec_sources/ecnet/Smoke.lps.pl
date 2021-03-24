@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.lps.pl')).
-% Sun, 21 Mar 2021 23:28:17 GMT File: <stream>(0x555567430900)%;
+% Tue, 23 Mar 2021 19:06:58 GMT File: <stream>(0x555567c0fb00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -29,7 +29,7 @@
 % From E: 
 % 
 % fluent(craveNicotine(agent)).
-mpred_prop(craveNicotine(agent), fluent).
+mpred_prop(craveNicotine(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',14).
 fluents([craveNicotine/1]).
 
@@ -38,7 +38,7 @@ fluents([craveNicotine/1]).
 % From E: 
 % 
 % fluent(nicotineCravingSatisfied(agent)).
-mpred_prop(nicotineCravingSatisfied(agent), fluent).
+mpred_prop(nicotineCravingSatisfied(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',16).
 fluents([nicotineCravingSatisfied/1]).
 
@@ -46,6 +46,7 @@ fluents([nicotineCravingSatisfied/1]).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(nicotineCravingSatisfied))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',16).
 :- call_pel_directive(noninertial(nicotineCravingSatisfied)).
 
 
@@ -62,10 +63,9 @@ fluents([nicotineCravingSatisfied/1]).
 %    holds(
 %       not(nicotineCravingSatisfied(Agent)), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',19).
-if(nicotineCravingSatisfied(Agent), not(craveNicotine(Agent))),
-if(not(craveNicotine(Agent)), nicotineCravingSatisfied(Agent)).
+at(craveNicotine(Agent), Time) <->
+    at(not(nicotineCravingSatisfied(Agent)), Time).
 
 % event Smoke(agent,cigarette)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',22).
@@ -73,7 +73,7 @@ if(not(craveNicotine(Agent)), nicotineCravingSatisfied(Agent)).
 % 
 % event(smoke(agent,cigarette)).
 events([smoke/2]).
-mpred_prop(smoke(agent, cigarette), action).
+mpred_prop(smoke(agent,cigarette),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',22).
 actions([smoke/2]).
 
@@ -91,10 +91,9 @@ actions([smoke/2]).
 %    holds(
 %       holding(Agent,Cigarette), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',25).
-if(not(holding(Agent,Cigarette)),
-   not(smoke(Agent,Cigarette))).
+if(at(holding(Agent,Cigarette),Time),
+   happens(smoke(Agent,Cigarette),Time)).
 
 
 % [agent,cigarette,time]
@@ -106,7 +105,6 @@ if(not(holding(Agent,Cigarette)),
 %    smoke(Agent,Cigarette), 
 %    craveNicotine(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',30).
 terminates(smoke(Agent,Cigarette),
 	   craveNicotine(Agent)).
@@ -117,8 +115,8 @@ terminates(smoke(Agent,Cigarette),
 % 
 % event(puff(agent,cigarette)).
 events([puff/2]).
-mpred_prop(puff(agent, cigarette), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',32).
+mpred_prop(puff(agent,cigarette),action).
 actions([puff/2]).
 
 
@@ -135,10 +133,9 @@ actions([puff/2]).
 %    happens(
 %       smoke(Agent,Cigarette), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',34).
-if(not(smoke(Agent,Cigarette)),
-   not(puff(Agent,Cigarette))).
+if(happens(smoke(Agent,Cigarette),Time),
+   happens(puff(Agent,Cigarette),Time)).
 
 % event BlowOutSmoke(agent,smoke)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',37).
@@ -146,7 +143,7 @@ if(not(smoke(Agent,Cigarette)),
 % 
 % event(blowOutSmoke(agent,smoke)).
 events([blowOutSmoke/2]).
-mpred_prop(blowOutSmoke(agent, smoke), action).
+mpred_prop(blowOutSmoke(agent,smoke),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Smoke.e',37).
 actions([blowOutSmoke/2]).
 

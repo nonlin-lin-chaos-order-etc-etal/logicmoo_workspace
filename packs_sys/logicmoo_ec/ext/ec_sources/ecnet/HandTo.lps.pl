@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.lps.pl')).
-% Sun, 21 Mar 2021 23:28:10 GMT File: <stream>(0x555567b36500)%;
+% Tue, 23 Mar 2021 19:06:50 GMT File: <stream>(0x555567199e00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -28,8 +28,8 @@
 % 
 % event(handTo(agent,agent,physobj)).
 events([handTo/3]).
-mpred_prop(handTo(agent, agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.e',12).
+mpred_prop(handTo(agent,agent,physobj),action).
 actions([handTo/3]).
 
 
@@ -44,7 +44,6 @@ actions([handTo/3]).
 %    handTo(Agent1,Agent2,Physobj), 
 %    holding(Agent2,Physobj), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.e',14).
 initiates(handTo(Agent1,Agent2,Physobj),
 	  holding(Agent2,Physobj)).
@@ -61,7 +60,6 @@ initiates(handTo(Agent1,Agent2,Physobj),
 %    handTo(Agent1,Agent2,Physobj), 
 %    holding(Agent1,Physobj), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.e',20).
 terminates(handTo(Agent1,Agent2,Physobj),
 	   holding(Agent1,Physobj)).
@@ -80,9 +78,8 @@ terminates(handTo(Agent1,Agent2,Physobj),
 %    holds(
 %       holding(Agent1,Physobj), 
 %       Time)).
- %   [Time].
-if(not(holding(Agent1,Physobj)),
-   not(handTo(Agent1,Agent2,Physobj))).
+if(at(holding(Agent1,Physobj),Time),
+   happens(handTo(Agent1,Agent2,Physobj),Time)).
 
 % event ShakeHands(agent,agent)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.e',27).
@@ -90,7 +87,7 @@ if(not(holding(Agent1,Physobj)),
 % 
 % event(shakeHands(agent,agent)).
 events([shakeHands/2]).
-mpred_prop(shakeHands(agent, agent), action).
+mpred_prop(shakeHands(agent,agent),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.e',27).
 actions([shakeHands/2]).
 
@@ -100,11 +97,12 @@ actions([shakeHands/2]).
 % 
 % event(writeOn(agent,paper,pen)).
 events([writeOn/3]).
-mpred_prop(writeOn(agent, paper, pen), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.e',30).
+mpred_prop(writeOn(agent,paper,pen),action).
 actions([writeOn/3]).
 % From E: 
 % 
 % ':-'(call_pel_directive(translate(ending,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.lps.pl'))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.e',30).
 :- call_pel_directive(translate(ending,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HandTo.lps.pl')).

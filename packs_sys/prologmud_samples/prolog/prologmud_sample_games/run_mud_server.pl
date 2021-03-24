@@ -155,7 +155,7 @@ check_startup_flags:-
 :- initialization(check_startup_flags, restore_state).
 
 system:set_modules(M) :- '$set_typein_module'(M),'$set_source_module'(M),module(M).
-set_modules_baseKB :- set_modules(baseKB).
+system:set_modules_baseKB :- set_modules(baseKB).
 
 :- initialization(set_modules_baseKB, restore_state).
 :- initialization(set_modules_baseKB, now).

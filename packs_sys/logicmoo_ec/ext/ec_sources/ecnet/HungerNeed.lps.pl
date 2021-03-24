@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HungerNeed.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HungerNeed.lps.pl')).
-% Sun, 21 Mar 2021 23:28:10 GMT File: <stream>(0x5555677e0800)
+% Tue, 23 Mar 2021 19:06:50 GMT File: <stream>(0x5555681cd300)
 
 
 %;
@@ -32,7 +32,7 @@
 % From E: 
 % 
 % fluent(hungry(agent)).
-mpred_prop(hungry(agent), fluent).
+mpred_prop(hungry(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HungerNeed.e',14).
 fluents([hungry/1]).
 
@@ -41,7 +41,7 @@ fluents([hungry/1]).
 % From E: 
 % 
 % fluent(satiated(agent)).
-mpred_prop(satiated(agent), fluent).
+mpred_prop(satiated(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HungerNeed.e',16).
 fluents([satiated/1]).
 
@@ -49,6 +49,7 @@ fluents([satiated/1]).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(satiated))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HungerNeed.e',16).
 :- call_pel_directive(noninertial(satiated)).
 
 
@@ -64,10 +65,9 @@ fluents([satiated/1]).
 %    holds(
 %       not(satiated(Agent)), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HungerNeed.e',19).
-if(satiated(Agent), not(hungry(Agent))),
-if(not(hungry(Agent)), satiated(Agent)).
+at(hungry(Agent), Time) <->
+    at(not(satiated(Agent)), Time).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HungerNeed.e',21).
 % event Eat(agent,food)
@@ -75,8 +75,8 @@ if(not(hungry(Agent)), satiated(Agent)).
 % 
 % event(eat(agent,food)).
 events([eat/2]).
-mpred_prop(eat(agent, food), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HungerNeed.e',21).
+mpred_prop(eat(agent,food),action).
 actions([eat/2]).
 
 
@@ -101,9 +101,8 @@ actions([eat/2]).
 %          holds(
 %             at_loc(Food,Location), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HungerNeed.e',25).
-exists(Location,  (at_loc(Agent, Location), at_loc(Food, Location);not(eat(Agent, Food)))).
+exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Food, Location), Time)), happens(eat(Agent, Food), Time))).
 
 
 % [agent,food,time]
@@ -115,7 +114,6 @@ exists(Location,  (at_loc(Agent, Location), at_loc(Food, Location);not(eat(Agent
 %    eat(Agent,Food), 
 %    hungry(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/HungerNeed.e',30).
 terminates(eat(Agent,Food),hungry(Agent)).
 

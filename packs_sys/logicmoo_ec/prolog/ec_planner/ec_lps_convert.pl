@@ -44,6 +44,7 @@ assert_lps(axiom(Stuff,List)):- !,must_or_rtrace(list_to_conjuncts(List,Body)),!
 assert_lps(Stuff):- assert_ep4lps(db,Stuff).
 
 print_tree_cmt(C,P):-
+ echo_format('~N'),
  mention_o_s_l,
  notrace((echo_format('~N'),  
   with_output_to(string(S), in_cmt((
@@ -57,7 +58,8 @@ already_lps(:- _):-!.
 already_lps(option(_,_)):-!.
 already_lps(false(_)):-!.
 already_lps(mpred_prop(_,_)):-!.
-already_lps(sort(_)):-!.
+already_lps(isa(_,_)):-!. 
+already_lps(sort(_)):-!. 
 already_lps(subsort(_,_)):-!.
 
 atomic_or_var(Form):- ( \+ compound_gt(Form,0) ; Form='$VAR'(_); Form='$STRING'(_)),!.
@@ -70,7 +72,8 @@ vars_to_dvars(Term,CTerm):-
   must_det_l((   
   term_variables(Term,Vars),must_maplist(get_1_vname,Vars,Names),
   copy_term(Term:Vars,CTerm:CVars),
-  must_maplist(=,Names,CVars))),!.
+  must_maplist(=,Names,CVars),
+  nop(writeq(Term:Vars-->CTerm:CVars)))),!.
 
 
 assert_ep4lps(Mod,Form):-
@@ -89,23 +92,29 @@ assert_ep(Mod,Form):-
   must_or_rtrace(assert_post(Mod,Form,Lps)),!.
 
 
+must_or_rtrace_l((A,B)):- !, must_or_rtrace_l(A),!, must_or_rtrace_l(B).
+must_or_rtrace_l((C->A;B)):- !, (C-> must_or_rtrace_l(A);must_or_rtrace_l(B)).
+must_or_rtrace_l(A):- must_or_rtrace(A),!.
+
 %assert_post(Mod,_,include(F)):- include_e_lps_file_now(Type,Mod:F).
 %assert_post(Mod,_,load(F)):- include_e_lps_file_now(Type,Mod:F). 
 %assert_post(Mod,_,include(F)):- !, with_e_file(assert_ep4lps(Mod),current_output, [ec(F)]). 
 %assert_post(Mod,_,load(X)):- nop(assert_ep(Mod,include(X))),!.
 assert_post(Mod,Form,Lps):- is_list(Lps),!, maplist(assert_post(Mod,Form),Lps).
-assert_post(Mod,t(Type,Inst),_):- atom(Type), M=..[Type,Inst],!,assert_post(Mod,M,M),!.
+%assert_post(Mod,t(Type,Inst),_):- atom(Type), M=..[Type,Inst],!,assert_post(Mod,M,M),!.
 assert_post(Mod,_Form,Lps):- already_lps(Lps),!,print_lps_syntax(yellow,Lps),must_or_rtrace(assert_pl(Mod,Lps)).
 assert_post(Mod,_Form,Lps):- 
+ must_or_rtrace_l((
   lps_xform_ec(Mod,Lps,Prolog),
-  must_or_rtrace((Lps\==Prolog->(ignore(( /*(Form\==Prolog,Lps==Prolog)-> */
+  must_or_rtrace_l((Lps\==Prolog->
+   ((ignore(( /*(Form\==Prolog,Lps==Prolog)-> */
     print_lps_syntax(yellow,Lps),
      nop(pprint_ecp(yellow,Lps)))),
-    pprint_ecp_cmt(cyan,Prolog),pprint_ecp_cmt(white,"% ================================="))
+    pprint_ecp_cmt(cyan,Prolog),pprint_ecp_cmt(white,"% =================================")))
    ;assert_lps_try_harder(Prolog))),
-  must_or_rtrace(assert_pl(Mod,Prolog)),!.
+  must_or_rtrace(assert_pl(Mod,Prolog)))),!.
 
-assert_post(Mod,_Form,Lps):- must_or_rtrace(assert_pl(Mod,Lps)).
+assert_post(Mod,_Form,Lps):- dumpST, must_or_rtrace(assert_pl(Mod,Lps)).
 
 print_lps_syntax(Color,Lps):- 
  \+ \+ notrace((with_lps_operators2(user,
@@ -117,15 +126,18 @@ unarity_zero_c(C,CC):- compound(C),compound_name_arity(C,CC,0).
 
 
 lps_xform_ec(Mod,Lps0,Prolog):-
+ must_or_rtrace_l((
  unarity_zero(Lps0,Lps1),
  unnumbervars(Lps1,Lps),
  % =(Lps0,Lps),
- with_vars_relocked((with_vars_locked((
+ with_vars_relocked((
+ with_vars_locked((
  locally(current_prolog_flag(lps_translation_only_HIDE,true),
    locally(t_l:is_lps_program_module(Mod),
+    (unlock_vars(Prolog),
     % on_x_fail
-    (lps_term_expander:lps_f_term_expansion_now(Mod,Lps,Prolog)))))))),!.
-lps_xform_ec(_Mod,Prolog,Prolog):-!.
+    (lps_term_expander:lps_f_term_expansion_now(Mod,Lps,Prolog))))))))))),!.
+%lps_xform_ec(_Mod,Prolog,Prolog):-!.
 
 :- export_transparent(with_lps_operators2/2).
 with_lps_operators2(M,Goal):- 
@@ -181,29 +193,35 @@ get_time_arg(Holds1,T1):- compound_gt(Holds1,1),
    time_arg(F,N),
    arg(N,Holds1,T1),can_be_time_arg(T1),( var(T1); compound(T1)),!.
 
-ep_to_lps_remove_time(FormI,Form):- bagof(Time,Sub^(sub_term(Sub,FormI),get_time_arg(Sub,Time)),TArgs),
+ep_to_lps_remove_time(FormI,Form):- fail,
+  bagof(Time,Sub^(sub_term(Sub,FormI),get_time_arg(Sub,Time)),TArgs),
   sort(TArgs,STArgs),  
   pprint_ecp_cmt(green,STArgs),
   ((STArgs=[Time],is_ftVar(Time)) -> (remove_time_arg(Time,FormI,Form), \+ sub_var(Time,Form)) ; FormI=Form),!.
 ep_to_lps_remove_time(FormI,FormI).
+
+
+correct_builtin_at_names(F1,F2):- map_nonvars(p,rename_at_bis,F1,F2).
+rename_at_bis(neg(F), not(F1)):- compound(F),!,correct_builtin_at_names(F,F1).
+rename_at_bis(at(X,Y), at_place(X,Y)):-!.
+rename_at_bis(false(F), not(F1)):- compound(F),!,correct_builtin_at_names(F,F1).
+rename_at_bis(F, F1):- atom(F), atom_concat(F1,'_at',F), builtin_pred(F1).
 
 ep_to_lps(Form,Lps):- atomic_or_var(Form),!,Lps=Form.
 ep_to_lps(t(Type,Inst),Lps):- !, ep_to_lps(isa(Inst,Type),Lps).
 ep_to_lps(Form,Lps):- already_lps(Form),!,Lps=Form.
 %ep_to_lps(t(Type,Inst),Lps):- atom(Type), M=..[Type,Inst],!,ep_to_lps(M,Lps).
 ep_to_lps(FormI,LpsO):-
-  remove_builtin_ats(FormI,FormII),
+  correct_builtin_at_names(FormI,FormII),
   ep_to_lps_remove_time(FormII,Form),
-  ep_to_lps_arg(1,[],Form,Lps), ep_to_lps_arg(2,[],Lps,LpsO),!.
-
-%ep_to_lps_pass2(Lps,LpsO):- subst(Lps,holds,holds,LpsO).
-ep_to_lps_pass2(Lps,LpsO):- subst(Lps,holds,at,LpsO).
-ep_to_lps_pass2(Lps,LpsO):- must_or_rtrace((fix_axiom_head(_Global,Lps,LpsM),over_pass(2,[],LpsM,LpsO))),!.
+  ep_to_lps_arg(1,[],Form,Lps), 
+  ep_to_lps_arg(2,[],Lps,Lps2),
+  ep_to_lps_arg(3,[],Lps2,LpsO),!.
 
 ep_to_lps_arg(_Pass,_Top,Form,Lps):- atomic_or_var(Form),!,Lps=Form.
 ep_to_lps_arg(_Pass,_Top,Form,Lps):- already_lps(Form),!,Lps=Form.
-%ep_to_lps_arg(Pass, Top,Form,Lps):- (over_pass(Pass,Top,Form,LpsM) -> Form\=@=LpsM),!,ep_to_lps_arg(Pass, Top,LpsM,Lps).
-ep_to_lps_arg(Pass, Top,Form,Lps):- 
+ep_to_lps_arg(Pass, Top,Form,Lps):- (over_pass(Pass,Top,Form,LpsM) -> Form\=@=LpsM),!,ep_to_lps_arg(Pass, Top,LpsM,Lps).
+ep_to_lps_arg(Pass, Top, Form,Lps):- 
    compound_name_arguments(Form,F,Args),
    must_maplist(ep_to_lps_arg(Pass,[F|Top]),Args,ArgsO),
    compound_name_arguments_maybe_zero(LpsM,F,ArgsO),
@@ -212,6 +230,7 @@ ep_to_lps_arg(Pass, Top,Form,Lps):-
 compound_name_arguments_maybe_zero(F,F,[]):- \+ compound(F), !.
 compound_name_arguments_maybe_zero(LpsM,F,ArgsO):- (compound(LpsM);atom(F)),!,compound_name_arguments(LpsM,F,ArgsO),!.
 %compound_name_arguments_maybe_zero(LpsM,F,ArgsO):- dumpST,break.
+
 map_nonvars(_,_Pred2,Data,DData):- is_ftVar(Data), !, DData = Data.
 map_nonvars(O, Pred2,Data,DData):- once(call(Pred2,Data,MData)), Data\=@=MData,!, map_nonvars(O, Pred2,MData,DData).
 map_nonvars(_,_Pred2,Data,DData):- atomic_or_var(Data), !, DData=Data.
@@ -227,23 +246,16 @@ map_nonvars(O, Pred2,Data,DData):-
 
 :- use_module(library(lps_syntax)).
 
-over_pass_ex(_Top, X, _):- atomic_or_var(X),!,fail.
+final_top_pass( X, _):- atomic_or_var(X),!,fail.
 
-over_pass_ex(_Top,'->'(at(F1,T1),initiates(E,F2,T2)),Becomes):- T1==T2,  
+final_top_pass('->'(at(F1,T1),initiates(E,F2,T2)),Becomes):- T1==T2,  
    Becomes = (F1->initiates(E,F2)).
-over_pass_ex(_Top,'->'(at(F1,T1),terminates(E,F2,T2)),Becomes):- T1==T2,  
+final_top_pass('->'(at(F1,T1),terminates(E,F2,T2)),Becomes):- T1==T2,  
   Becomes = (F1->terminates(E,F2)).
-over_pass_ex(_Top,'->'(holds(F1,T1),initiates(E,F2,T2)),Becomes):- T1==T2,  
+final_top_pass('->'(holds(F1,T1),initiates(E,F2,T2)),Becomes):- T1==T2,  
    Becomes = (F1->initiates(E,F2)).
-over_pass_ex(_Top,'->'(holds(F1,T1),terminates(E,F2,T2)),Becomes):- T1==T2,  
+final_top_pass('->'(holds(F1,T1),terminates(E,F2,T2)),Becomes):- T1==T2,  
   Becomes = (F1->terminates(E,F2)).
-
-over_pass(_Pass,_Top, X, X):- atomic_or_var(X),!.
-over_pass(_Pass,_Top, X, X):- functor(X,_,1), arg(1,X,Var), is_ftVar(Var),!.
-over_pass(_Pass,_Top,at(X,Y),loc_at(X,Y)).
-over_pass(_Pass,_Top,metreqs(X),X).
-
-over_pass(2,Top, X, Y):- over_pass_ex(Top, X, Y),!.
 
 % [waiter,agent,food,time]
 % HoldsAt(BeWaiter1(waiter),time) ->
@@ -252,46 +264,54 @@ over_pass(2,Top, X, Y):- over_pass_ex(Top, X, Y),!.
 %           time).
 
 
-over_pass(Pass,Top,neg(X),Rest):- ep_to_lps_arg(Pass,Top,not(X),Rest).
-
-over_pass(2,_Top,not(initially(P)),initially(not(P))):- !.
-over_pass(2,_Top,holds(Fluent, Time),initially(Fluent)):- nonvar(Time), get_zero(Time), !.
+over_pass(Pass,Top,neg(X),Rest):- over_pass(Pass,Top,not(X),Rest).
+over_pass(_Pass,_Top, X, X):- atomic_or_var(X),!.
+over_pass(_Pass,_Top, X, X):- functor(X,_,1), arg(1,X,Var), is_ftVar(Var),!.
+over_pass(_Pass,_Top,metreqs(X),X).
+% over_pass(3,[], X, Y):- final_top_pass(X, Y),!.
+over_pass(2,[],not(initially(P)),initially(not(P))):- !.
+over_pass(2,[],holds(Fluent, Time),initially(Fluent)):- nonvar(Time), get_zero(Time), !.
 %over_pass(_Pass,_Top,holds(Fluent, Time),at(Fluent, Time)):- !.
-over_pass(2,[],happens(Event,Time),(observe Event at Time)):- !.
-over_pass(2,_Top,happens(Event,Time),(Event at Time)):- !.
+over_pass(2,[],  happens(Event,Time),(observe Event at Time)):- !.
+over_pass(2,[],  happens(Event,Time1,Time2),(observe Event from Time1 to Time2)):- !.
+% over_pass(2,_Top,happens(Event,Time),(Event at Time)):- !.
 % observe(from(muestra_del_general('+86-555000001'),to(2,3)))
+
 over_pass(2,  [],initiates(Event,Fluent,Time), initiates(Event,Fluent)):- is_ftVar(Time), !.
 over_pass(2,  [],terminates(Event,Fluent,Time),terminates(Event,Fluent)):- is_ftVar(Time), !.
 over_pass(2,  [],releases(Event,Fluent,Time),releases(Event,Fluent)):- is_ftVar(Time), !.
-
 over_pass(2,_Top,initiates(Event,Fluent,Time), (Event initiates Fluent at Time)):- !.
 over_pass(2,_Top,terminates(Event,Fluent,Time),(Event terminates Fluent at Time)):- !.
 over_pass(2,_Top,releases(Event,Fluent,Time),(Event terminates Fluent at Time)):- !.
 
 over_pass(_,_Top, not(exists(_,X)), not(X)):-!.
 over_pass(_Pass,_Top, not(initially(X)),(initially not X)):-!.
-over_pass(_Pass,_Top, not(at(X,T)),holds(not(X),T)).
+%over_pass(_Pass,_Top, not(at(X,T)),holds(not(X),T)).
 over_pass(_Pass,_Top, not(holds(X,T)),holds(not(X),T)).
+over_pass(_Pass,_Top, happens(not(X),T),not(happens(X,T))).
+over_pass(_Pass,_Top, happens(not(X),T1,T2),not(happens(X,T1,T2))).
 
-over_pass(2,_Top, holds(Fluent, From, To),holds(Fluent, From, To)):- !.
-
-
-
+%over_pass(2,_Top, holds(Fluent, From, To),holds(Fluent, From, To)):- !.
 %over_pass(_Pass,_Top,happensAt(Event,Time),at(observe(Event),Time)):- !.
-over_pass(_Pass,_Top,Form,LpsO):- Form=..[EFP,X], argtype_pred4lps(EFP,_), protify(EFP,X,Lps),!,flatten([Lps],LpsO).
+
+over_pass(_Pass,_Top,Form,LpsO):- Form=..[EFP,X], needs_protify(EFP,_), protify(EFP,X,Lps),!,flatten([Lps],LpsO).
 over_pass(_Pass,_Top,X=Y,Lps):- \+ atomic_or_var(X), append_term(X,Y,Lps).
 
-over_pass(Pass,[],','(X1,X2),(Lps1,Lps2)):- over_pass(Pass,[],X1,Lps1),over_pass(Pass,[],X2,Lps2).
+over_pass(3,[],(X1,X2), List):- over_pass(Pass,[],X1,Lps1),over_pass(Pass,[],X2,Lps2),
+ listify(Lps1,List1),listify(Lps2,List2),append(List1,List2,List).
+over_pass(3,_,holds(X,T),at(X,T)).
 over_pass(Pass,_Top,','(X1,X2),(Lps1,Lps2)):- over_pass(Pass,n,X1,Lps1),over_pass(Pass,n,X2,Lps2).
 
 %over_pass(Pass,_Top,';'(not(X2);X1),if(X2,X1)):- !.
 over_pass(_Pass,[],(A;B),if(AA, BB)):- clausify_pnf_conv(B,BB),clausify_pnf_conv(not(A),AA),simply_atomic(BB).
 
-%over_pass(_Pass,_Top,'->'(X1,X2),(X2 if X1)):- simply_atomic_or_conj(X1),simply_atomic_or_conj(X2),!.
 
 over_pass(Pass,Top,exists(Stuff,'<->'(X1,X2)),[Lps1,Lps2]):- simply_atomic_or_conj(X1),simply_atomic_or_conj(X2), over_pass(Pass,Top,'->'(X1,exists(Stuff,X2)),Lps1),over_pass(Pass,Top,'->'(X2,exists(Stuff,X1)),Lps2).
 over_pass(Pass,Top,'<->'(X1,X2),[Lps1,Lps2]):- simply_atomic_or_conj(X1),simply_atomic_or_conj(X2), over_pass(Pass,Top,'->'(X1,X2),Lps1),over_pass(Pass,Top,'->'(X2,X1),Lps2).
+
+over_pass(2,_Top,'->'(X1,X2),(X2 if X1)):- simply_atomic_or_conj(X1),simply_atomic_or_conj(X2),!.
 over_pass(_Pass,_Top,'->'(X1,X2),(X2 if X1)):- simply_atomic(X1),simply_atomic_or_conj(X2),!.
+over_pass(3,_Top,'->'(X1,X2),(X2 if X1)).
 
 over_pass(Pass,Top, In, Out) :- Top==[], clausify_pnf_conv(In,Mid)-> \+ sub_var(Mid,In), !, over_pass(Pass,Top, Mid, Out).
 over_pass(_Pass,_Top,X1,X1):- simply_atomic(X1),!.
@@ -313,12 +333,9 @@ into_false_conj(X1,Out):- \+ (X1 = false(_)), into_pnf_conj(X1,Lps) -> negate_to
 into_false_conj((A;B),if(AA, BB)):- clausify_pnf_conv(B,BB),clausify_pnf_conv(not(A),AA).
 into_pnf_conj(X0,Lps):- clausify_pnf_conv(X0,X1),pnf(X1,X2),nnf(X2,X3),conjuncts_to_list(X3,X3L),list_to_conjuncts(X3L,X4), Lps = X4.
 
-removes_at(F,_):- sent_op_f(F),!,fail.
 
 
-remove_builtin_ats(F1,F2):- map_nonvars(p,rem_at,F1,F2).
-rem_at(false(F), not(F1)):- compound(F),!,remove_builtin_ats(F,F1).
-rem_at(F, F1):- atom(F), atom_concat(F1,'_at',F), builtin_pred(F1).
+
 
 %removes_at(F,F1):- F=F1.
 remove_time_arg(_Time,Holds,Holds):- atomic_or_var(Holds), !.
@@ -331,6 +348,7 @@ remove_time_arg(Time,holds(Holds,T1),Holds):- T1==Time.
 remove_time_arg(Time,at(Holds,T1),Holds):- T1==Time.
 %remove_time_arg(Time,Holds,HoldsMT):- Holds=..[F|Args],append(Left,[T1],Args),T1==Time,removes_at(F,F1),HoldsMT=..[F1|Left],!.
 remove_time_arg(Time,Holds,HoldsMT):- Holds=..[F|Args],must_maplist(remove_time_arg(Time),Args,Left),HoldsMT=..[F|Left],!.
+%removes_at(F,_):- sent_op_f(F),!,fail.
 
 simply_atomic_or_conj(X1):- var(X1),!,fail.
 simply_atomic_or_conj((X1,X2)):- !, simply_atomic_or_conj(X1),simply_atomic_or_conj(X2).
@@ -348,9 +366,9 @@ sent_op_f(F):- upcase_atom(F,FU),FU=F.
 
 simply_atomic_arg(A):- once(var(A);simply_atomic(A)). 
 
+assert_lps_try_harder_now(X1,X1):- !. %@todo unworkarround
 assert_lps_try_harder_now((X2 if X1),(if X1 then X2)):- simply_atomic_or_conj(X1), simply_atomic(X2).
 assert_lps_try_harder_now((X2 if X1),(if X1 then X2)):- simply_atomic_or_conj(X1), simply_atomic_or_conj(X2).
-assert_lps_try_harder_now(X1,X1):- !. %@todo unworkarround
 assert_lps_try_harder(Prolog):- assert_lps_try_harder_now(Prolog,Again),
   lps_xform_ec(db,Again,PrologAgain),Again\==PrologAgain,!, 
    print_lps_syntax(yellow,Again),
@@ -359,23 +377,23 @@ assert_lps_try_harder(Prolog):- assert_lps_try_harder_now(Prolog,Again),
    !.
 assert_lps_try_harder(Prolog):- pprint_ecp(red,Prolog).
 
-argtype_pred4lps(event,events).
-argtype_pred4lps(fluent,fluents).
-argtype_pred4lps(action,actions).
-argtype_pred4lps(predicate,predicates).
-argtype_pred4lps(Action,Actions):- arg_info(domain,Action,arginfo),atom_concat(Action,"s",Actions).
+needs_protify(event,events).
+needs_protify(fluent,fluents).
+needs_protify(action,actions).
+needs_protify(predicate,predicates).
+needs_protify(Action,Actions):- arg_info(domain,Action,arginfo),atom_concat(Action,"s",Actions).
 
 protify(both,Form,[Lps1,Lps2]):- protify(events,Form,Lps1),protify(action,Form,Lps2).
 protify(Type,Form,Lps):- is_list(Form),!,must_maplist(protify(Type),Form,Lps).
-protify(Type,Form,Lps):- argtype_pred4lps(Type,LPSType), \+ callable(Form),!,Lps=..[LPSType,[Form]].
-protify(Type,Form,Lps):- argtype_pred4lps(Type,LPSType), \+ compound(Form),!,Lps=..[LPSType,[Form/0]].
-protify(Type,F/A, Lps):- argtype_pred4lps(Type,LPSType), integer(A),!,Lps=..[LPSType,[F/A]].
+protify(Type,Form,Lps):- needs_protify(Type,LPSType), \+ callable(Form),!,Lps=..[LPSType,[Form]].
+protify(Type,Form,Lps):- needs_protify(Type,LPSType), \+ compound(Form),!,Lps=..[LPSType,[Form/0]].
+protify(Type,F/A, Lps):- needs_protify(Type,LPSType), integer(A),!,Lps=..[LPSType,[F/A]].
 protify(Type,(X1,X2),[Lps1,Lps2]):- !, protify(Type,X1,Lps1),protify(Type,X2,Lps2).
 %protify(Type,X,Lps):- cfunctor(X,F,A),Lps=(F/A).
 protify(Event,X,LPS):- ((event) == Event), compound(X), arg(1,X,Agent),
   is_agent_ec(Agent),
   !,protify(both,X,LPS).
-protify(Type,X,[mpred_prop(X,Type),LPS]):- argtype_pred4lps(Type,LPSType),protify(LPSType,X,LPS).
+protify(Type,X,[mpred_prop(X,Type),LPS]):- needs_protify(Type,LPSType),protify(LPSType,X,LPS).
 protify(LPSType,X,LPS):- cfunctor(X,F,A),cfunctor(_Lps,F,A),!,Pred=..[LPSType,[F/A]],LPS=[Pred].
 
 is_agent_ec(Agent):- \+ atom(Agent),!,fail.

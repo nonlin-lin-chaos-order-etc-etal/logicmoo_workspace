@@ -122,6 +122,7 @@ print_e_to_string_b(H, HS):- print_e_to_string(H, HS),!.
 
 % print_e_to_string(T, _Ops, S):- with_output_to(string(S),print_tree_with_final(T,'')),!.
 
+print_e_to_string(T,_Ops, S):- string(T),!,S=T.
 print_e_to_string(T, Ops, S):- member(Infix,['<-']), member(Infix, Ops), !, 
    subst(T,Infix,(':-'),T0), 
    clause_to_string(T0,S0), !,
@@ -212,6 +213,7 @@ is_output_lang(_).
 %pprint_ec(C, P):- pprint_ec_and_f(C, P, '~n').
 
 :- export(pprint_ecp_cmt/2).
+
 pprint_ecp_cmt(C, P):-
  quietly((echo_format('~N'),  
   print_e_to_string(P, S0),

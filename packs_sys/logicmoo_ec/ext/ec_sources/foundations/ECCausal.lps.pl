@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.lps.pl')).
-% Sun, 21 Mar 2021 23:28:21 GMT File: <stream>(0x555565a0f200)%;
+% Tue, 23 Mar 2021 19:07:01 GMT File: <stream>(0x555567c0ff00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -39,7 +39,7 @@
 % From E: 
 % 
 % predicate(started(fluent,time)).
-mpred_prop(started(fluent, time), predicate).
+mpred_prop(started(fluent,time),predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',24).
 predicates([started/2]).
 
@@ -47,8 +47,8 @@ predicates([started/2]).
 % From E: 
 % 
 % predicate(stopped(fluent,time)).
-mpred_prop(stopped(fluent, time), predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',24).
+mpred_prop(stopped(fluent,time),predicate).
 predicates([stopped/2]).
 
 
@@ -67,10 +67,12 @@ predicates([stopped/2]).
 %          ','(
 %             happens(Event,Time), 
 %             initiates_at(Event,Fluent,Time))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',27).
-if((not(holds(Fluent, Time)), not(thereExists(Event,  (loc_at(Event, Time), initiates(Event, at(Fluent, Time)))))), not(started(Fluent, Time))),
-if(not(started(Fluent, Time)),  (not(holds(Fluent, Time)), not(thereExists(Event,  (loc_at(Event, Time), initiates(Event, at(Fluent, Time))))))).
+started(Fluent, Time) <->
+    (   at(Fluent, Time)
+    ;   thereExists(Event,
+                     (happens(Event, Time), initiates(Event, at(Fluent, Time))))
+    ).
 
 
 % [fluent,time]
@@ -90,17 +92,19 @@ if(not(started(Fluent, Time)),  (not(holds(Fluent, Time)), not(thereExists(Event
 %          ','(
 %             happens(Event,Time), 
 %             terminates_at(Event,Fluent,Time))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',33).
-if((holds(Fluent, Time), not(thereExists(Event,  (loc_at(Event, Time), terminates(Event, at(Fluent, Time)))))), not(stopped(Fluent, Time))),
-if(not(stopped(Fluent, Time)),  (holds(Fluent, Time), not(thereExists(Event,  (loc_at(Event, Time), terminates(Event, at(Fluent, Time))))))).
+stopped(Fluent, Time) <->
+    (   at(not(Fluent), Time)
+    ;   thereExists(Event,
+                     (happens(Event, Time), terminates(Event, at(Fluent, Time))))
+    ).
 
 % predicate Initiated(fluent,time)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',36).
 % From E: 
 % 
 % predicate(initiated(fluent,time)).
-mpred_prop(initiated(fluent, time), predicate).
+mpred_prop(initiated(fluent,time),predicate).
 predicates([initiated/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',38).
@@ -108,7 +112,7 @@ predicates([initiated/2]).
 % From E: 
 % 
 % predicate(terminated(fluent,time)).
-mpred_prop(terminated(fluent, time), predicate).
+mpred_prop(terminated(fluent,time),predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',38).
 predicates([terminated/2]).
 
@@ -128,10 +132,11 @@ predicates([terminated/2]).
 %              ','(
 %                 happens(Event,Time), 
 %                 terminates_at(Event,Fluent,Time)))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',40).
-if((not(started(Fluent, Time));thereExists(Event,  (loc_at(Event, Time), terminates(Event, at(Fluent, Time))))), not(initiated(Fluent, Time))),
-if(not(initiated(Fluent, Time)),  (not(started(Fluent, Time));thereExists(Event,  (loc_at(Event, Time), terminates(Event, at(Fluent, Time)))))).
+initiated(Fluent, Time) <->
+    started(Fluent, Time),
+    not(thereExists(Event,
+                     (happens(Event, Time), terminates(Event, at(Fluent, Time))))).
 
 
 % [fluent,time]
@@ -149,10 +154,11 @@ if(not(initiated(Fluent, Time)),  (not(started(Fluent, Time));thereExists(Event,
 %              ','(
 %                 happens(Event,Time), 
 %                 initiates_at(Event,Fluent,Time)))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',46).
-if((not(stopped(Fluent, Time));thereExists(Event,  (loc_at(Event, Time), initiates(Event, at(Fluent, Time))))), not(terminated(Fluent, Time))),
-if(not(terminated(Fluent, Time)),  (not(stopped(Fluent, Time));thereExists(Event,  (loc_at(Event, Time), initiates(Event, at(Fluent, Time)))))).
+terminated(Fluent, Time) <->
+    stopped(Fluent, Time),
+    not(thereExists(Event,
+                     (happens(Event, Time), initiates(Event, at(Fluent, Time))))).
 
 
 %; End of file.

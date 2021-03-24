@@ -87,3 +87,4 @@ run_pipeline(input='A\040person\040who\040loves\040all\040animals\040is\040loved
 run_tests.
 lisitng(run_tests).
 ec_common:run_tests.
+threads.

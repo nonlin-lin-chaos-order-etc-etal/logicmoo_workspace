@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.lps.pl')).
-% Sun, 21 Mar 2021 23:28:15 GMT File: <stream>(0x555567319a00)%;
+% Tue, 23 Mar 2021 19:06:56 GMT File: <stream>(0x55556732b500)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -67,20 +67,21 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(floor))).
-:- call_pel_directive(ignore(floor)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',25).
+:- call_pel_directive(ignore(floor)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(buildingOf))).
 :- call_pel_directive(ignore(buildingOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(skyOf))).
 :- call_pel_directive(ignore(skyOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(groundOf))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',25).
 :- call_pel_directive(ignore(groundOf)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',27).
@@ -97,8 +98,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(on))).
-:- call_pel_directive(ignore(on)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',27).
+:- call_pel_directive(ignore(on)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(placeOn))).
@@ -113,8 +114,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(happy))).
-:- call_pel_directive(ignore(happy)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',27).
+:- call_pel_directive(ignore(happy)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(becomeAngryAt))).
@@ -134,8 +135,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
-:- call_pel_directive(ignore(walkFromTo)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',29).
+:- call_pel_directive(ignore(walkFromTo)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
@@ -150,12 +151,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(intentionToWalkIn))).
-:- call_pel_directive(ignore(intentionToWalkIn)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',29).
+:- call_pel_directive(ignore(intentionToWalkIn)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(invitedIn))).
 :- call_pel_directive(ignore(invitedIn)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',29).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(inviteIn))).
@@ -175,13 +177,14 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(letGoOf))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',31).
 :- call_pel_directive(ignore(letGoOf)).
 
 % ignore Greet, SayGoodbye, Order, KnowOrder
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',31).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(greet))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',31).
 :- call_pel_directive(ignore(greet)).
 % From E: 
 % 
@@ -195,6 +198,7 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(knowOrder))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',31).
 :- call_pel_directive(ignore(knowOrder)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',33).
@@ -218,20 +222,21 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(pickUp))).
-:- call_pel_directive(ignore(pickUp)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',33).
+:- call_pel_directive(ignore(pickUp)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(letGoOf))).
 :- call_pel_directive(ignore(letGoOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',33).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(hold))).
 :- call_pel_directive(ignore(hold)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',33).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(holding))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',33).
 :- call_pel_directive(ignore(holding)).
 % From E: 
 % 
@@ -325,21 +330,21 @@
 % From E: 
 % 
 % t(outside,nearLocation1).
-outside(nearLocation1).
+isa(nearLocation1,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',50).
 % street Street1
 % From E: 
 % 
 % t(street,street1).
-street(street1).
+isa(street1,street).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',52).
 % outside Location1
 % From E: 
 % 
 % t(outside,location1).
-outside(location1).
+isa(location1,outside).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',54).
@@ -367,14 +372,14 @@ side2(street1,location1).
 % From E: 
 % 
 % t(outside,beforeLocation1).
-outside(beforeLocation1).
+isa(beforeLocation1,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',59).
 % street StreetToLocation1
 % From E: 
 % 
 % t(street,streetToLocation1).
-street(streetToLocation1).
+isa(streetToLocation1,street).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',61).
@@ -402,14 +407,14 @@ side2(streetToLocation1,location1).
 % From E: 
 % 
 % t(outside,betweenLocation1And2).
-outside(betweenLocation1And2).
+isa(betweenLocation1And2,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',66).
 % street StreetToBetweenLocation1And2
 % From E: 
 % 
 % t(street,streetToBetweenLocation1And2).
-street(streetToBetweenLocation1And2).
+isa(streetToBetweenLocation1And2,street).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',68).
@@ -437,14 +442,14 @@ side2(streetToBetweenLocation1And2,betweenLocation1And2).
 % From E: 
 % 
 % t(outside,location2).
-outside(location2).
+isa(location2,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',72).
 % street StreetToLocation2
 % From E: 
 % 
 % t(street,streetToLocation2).
-street(streetToLocation2).
+isa(streetToLocation2,street).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',74).
@@ -472,14 +477,14 @@ side2(streetToLocation2,location2).
 % From E: 
 % 
 % t(outside,nearLocation2).
-outside(nearLocation2).
+isa(nearLocation2,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',79).
 % street Street2
 % From E: 
 % 
 % t(street,street2).
-street(street2).
+isa(street2,street).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',81).
@@ -507,42 +512,42 @@ side2(street2,nearLocation2).
 % From E: 
 % 
 % t(agent,passenger1).
-agent(passenger1).
+isa(passenger1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',86).
 % agent Driver1
 % From E: 
 % 
 % t(agent,driver1).
-agent(driver1).
+isa(driver1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',88).
 % chair CarriageSeat1
 % From E: 
 % 
 % t(chair,carriageSeat1).
-chair(carriageSeat1).
+isa(carriageSeat1,chair).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',90).
 % carriage Carriage1
 % From E: 
 % 
 % t(carriage,carriage1).
-carriage(carriage1).
+isa(carriage1,carriage).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',92).
 % vehicledoor CarriageDoor1
 % From E: 
 % 
 % t(vehicledoor,carriageDoor1).
-vehicledoor(carriageDoor1).
+isa(carriageDoor1,vehicledoor).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',94).
 % horse Horse1
 % From E: 
 % 
 % t(horse,horse1).
-horse(horse1).
+isa(horse1,horse).
 %; prune
 
 % sort sita, sitb
@@ -554,6 +559,7 @@ sort(sita).
 % From E: 
 % 
 % sort(sitb).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',96).
 sort(sitb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',98).
@@ -561,7 +567,7 @@ sort(sitb).
 % From E: 
 % 
 % event(lieOn(sita,sitb)).
-mpred_prop(lieOn(sita, sitb), event).
+mpred_prop(lieOn(sita,sitb),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',98).
 events([lieOn/2]).
 
@@ -569,8 +575,8 @@ events([lieOn/2]).
 % From E: 
 % 
 % event(sitOn(sita,sitb)).
-mpred_prop(sitOn(sita, sitb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',98).
+mpred_prop(sitOn(sita,sitb),event).
 events([sitOn/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',100).
@@ -578,7 +584,7 @@ events([sitOn/2]).
 % From E: 
 % 
 % event(riseFrom(sita,sitb)).
-mpred_prop(riseFrom(sita, sitb), event).
+mpred_prop(riseFrom(sita,sitb),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',100).
 events([riseFrom/2]).
 
@@ -586,8 +592,8 @@ events([riseFrom/2]).
 % From E: 
 % 
 % fluent(lyingOn(sita,sitb)).
-mpred_prop(lyingOn(sita, sitb), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',100).
+mpred_prop(lyingOn(sita,sitb),fluent).
 fluents([lyingOn/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',102).
@@ -595,7 +601,7 @@ fluents([lyingOn/2]).
 % From E: 
 % 
 % fluent(sittingOn(sita,sitb)).
-mpred_prop(sittingOn(sita, sitb), fluent).
+mpred_prop(sittingOn(sita,sitb),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',102).
 fluents([sittingOn/2]).
 
@@ -604,14 +610,14 @@ fluents([sittingOn/2]).
 % 
 % t(sita,passenger1).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',102).
-sita(passenger1).
+isa(passenger1,sita).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',104).
 % sitb! CarriageSeat1
 % From E: 
 % 
 % t(sitb,carriageSeat1).
-sitb(carriageSeat1).
+isa(carriageSeat1,sitb).
 %; release
 
 % option manualrelease on
@@ -630,17 +636,16 @@ sitb(carriageSeat1).
 % 
 % not(released_at(
 %        diameter(Ball,Diameter), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',108).
 not(released_at(diameter(Ball,Diameter),0)).
 
 
 % [agent, object]
  % !ReleasedAt(Holding(agent, object), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',108).
 % From E: 
 % 
 % not(released_at(
 %        holding(Agent,Object), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',108).
 not(released_at(holding(Agent,Object),0)).
 
 
@@ -657,11 +662,11 @@ not(released_at(doorUnlocked(Door),0)).
 
 % [door]
  % !ReleasedAt(DoorIsOpen(door), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',110).
 % From E: 
 % 
 % not(released_at(
 %        doorIsOpen(Door), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',110).
 not(released_at(doorIsOpen(Door),0)).
 
 
@@ -678,11 +683,11 @@ not(released_at(sleep0(Agent),0)).
 
 % [agent]
  % !ReleasedAt(Sleep1(agent), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',112).
 % From E: 
 % 
 % not(released_at(
 %        sleep1(Agent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',112).
 not(released_at(sleep1(Agent),0)).
 
 
@@ -699,11 +704,11 @@ not(released_at(sleep2(Agent),0)).
 
 % [agent]
  % !ReleasedAt(Sleep3(agent), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',114).
 % From E: 
 % 
 % not(released_at(
 %        sleep3(Agent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',114).
 not(released_at(sleep3(Agent),0)).
 
 
@@ -720,11 +725,11 @@ not(released_at(sleep4(Agent),0)).
 
 % [agent]
  % !ReleasedAt(Sleep5(agent), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',116).
 % From E: 
 % 
 % not(released_at(
 %        sleep5(Agent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',116).
 not(released_at(sleep5(Agent),0)).
 
 
@@ -741,11 +746,11 @@ not(released_at(sleep6(Agent),0)).
 
 % [agent, physobj]
  % !ReleasedAt(LyingOn(agent, physobj), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',118).
 % From E: 
 % 
 % not(released_at(
 %        lyingOn(Agent,Physobj), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',118).
 not(released_at(lyingOn(Agent,Physobj),0)).
 
 
@@ -762,11 +767,11 @@ not(released_at(sittingOn(Agent,Physobj),0)).
 
 % [agent]
  % !ReleasedAt(Standing(agent), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',120).
 % From E: 
 % 
 % not(released_at(
 %        standing(Agent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',120).
 not(released_at(standing(Agent),0)).
 
 
@@ -783,11 +788,11 @@ not(released_at(dressed(Agent),0)).
 
 % [agent1, agent2, physobj]
  % !ReleasedAt(KnowRequest(agent1, agent2, physobj), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',122).
 % From E: 
 % 
 % not(released_at(
 %        knowRequest(Agent1,Agent2,Physobj), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',122).
 not(released_at(knowRequest(Agent1,Agent2,Physobj),0)).
 
 
@@ -804,11 +809,11 @@ not(released_at(pointedToward(Horse,Street),0)).
 
 % [horse, vehicle]
  % !ReleasedAt(HitchedTo(horse, vehicle), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',124).
 % From E: 
 % 
 % not(released_at(
 %        hitchedTo(Horse,Vehicle), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',124).
 not(released_at(hitchedTo(Horse,Vehicle),0)).
 
 
@@ -825,11 +830,11 @@ not(released_at(onVehicle(Object,Vehicleon),0)).
 
 % [object, vehiclein]
  % !ReleasedAt(InVehicle(object, vehiclein), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',126).
 % From E: 
 % 
 % not(released_at(
 %        inVehicle(Object,Vehiclein), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',126).
 not(released_at(inVehicle(Object,Vehiclein),0)).
 
 
@@ -846,11 +851,11 @@ not(released_at(vehicleDoorIsOpen(Vehicledoor),0)).
 
 % [ticketagent]
  % !ReleasedAt(BeTicketAgent0(ticketagent), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',128).
 % From E: 
 % 
 % not(released_at(
 %        beTicketAgent0(Ticketagent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',128).
 not(released_at(beTicketAgent0(Ticketagent),0)).
 
 
@@ -867,11 +872,11 @@ not(released_at(beTicketAgent1(Ticketagent),0)).
 
 % [ticketagent]
  % !ReleasedAt(BeTicketAgent2(ticketagent), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',130).
 % From E: 
 % 
 % not(released_at(
 %        beTicketAgent2(Ticketagent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',130).
 not(released_at(beTicketAgent2(Ticketagent),0)).
 
 
@@ -910,8 +915,7 @@ released_at(at_loc(driver1,Location),0).
 %       Object\=driver1), 
 %    not(released_at(
 %           at_loc(Object,Location), 0))).
- if(released_at(at_loc(Object, Location), 0),
-       (not({dif(Object, carriageSeat1)});not({dif(Object, driver1)}))).
+if(not(released_at(at_loc(Object, Location), 0)),  ({dif(Object, carriageSeat1)}, {dif(Object, driver1)})).
 
 
 %; initial state
@@ -922,17 +926,16 @@ released_at(at_loc(driver1,Location),0).
 % 
 % holds(
 %    not(holding(Agent,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',140).
 initially(not(holding(Agent,Object))).
 
 
 % [agent,physobj]
  % !HoldsAt(SittingOn(agent,physobj),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',140).
 % From E: 
 % 
 % holds(
 %    not(sittingOn(Agent,Physobj)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',140).
 initially(not(sittingOn(Agent,Physobj))).
 
 
@@ -949,11 +952,11 @@ initially(not(lyingOn(Agent,Physobj))).
 
 % [physobj1,physobj2]
  % !HoldsAt(On(physobj1, physobj2),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',142).
 % From E: 
 % 
 % holds(
 %    not(on(Physobj1,Physobj2)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',142).
 initially(not(on(Physobj1,Physobj2))).
 
 
@@ -970,11 +973,11 @@ initially(dressed(Agent)).
 
 % [agent]
  % HoldsAt(Awake(agent),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',144).
 % From E: 
 % 
 % holds(
 %    awake(Agent), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',144).
 initially(awake(Agent)).
 
 
@@ -991,11 +994,11 @@ initially(sleep3(Agent)).
 
 % [agent]
  % HoldsAt(Standing(agent),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',146).
 % From E: 
 % 
 % holds(
 %    standing(Agent), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',146).
 initially(standing(Agent)).
 
 
@@ -1062,8 +1065,7 @@ initially(inVehicle(driver1,carriage1)).
 %       Object\=driver1), 
 %    holds(
 %       not(inVehicle(Object,carriage1)), 0)).
- if(initially(inVehicle(Object, carriage1)),
-       (not({dif(Object, carriageSeat1)});not({dif(Object, driver1)}))).
+if(at(not(inVehicle(Object, carriage1)), 0),  ({dif(Object, carriageSeat1)}, {dif(Object, driver1)})).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',156).
@@ -1079,11 +1081,11 @@ initially(not(knowOrder(Agent1,Agent2,Physobj))).
 
 % [agent1,agent2,physobj]
  % !HoldsAt(KnowRequest(agent1,agent2,physobj),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',156).
 % From E: 
 % 
 % holds(
 %    not(knowRequest(Agent1,Agent2,Physobj)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RidingInACarriage.e',156).
 initially(not(knowRequest(Agent1,Agent2,Physobj))).
 
 

@@ -528,3 +528,14 @@ eggdrop -m
 ssh 10.0.0.138
 cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
 eggdrop -m
+cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
+eggdrop
+eggdrop -m
+ls
+git checkout .
+eggdrop -m
+cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
+eggdrop -m
+git checkout .
+git checkout .
+eggdrop

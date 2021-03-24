@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.lps.pl')).
-% Sun, 21 Mar 2021 23:28:11 GMT File: <stream>(0x555567a2be00)
+% Tue, 23 Mar 2021 19:06:51 GMT File: <stream>(0x55556a28f900)
 
 
 %;
@@ -53,14 +53,14 @@
 % From E: 
 % 
 % subsort(height,integer).
-subsort(height, integer).
+subsort(height,integer).
 
 % sort distance: integer
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',35).
 % From E: 
 % 
 % subsort(distance,integer).
-subsort(distance, integer).
+subsort(distance,integer).
 %; Height
 %; The height of object is height.
 
@@ -69,7 +69,7 @@ subsort(distance, integer).
 % From E: 
 % 
 % fluent(height(object,height)).
-mpred_prop(height(object, height), fluent).
+mpred_prop(height(object,height),fluent).
 fluents([height/2]).
 
 
@@ -92,10 +92,8 @@ fluents([height/2]).
 %          height(Object,Height2), 
 %          Time)), 
 %    Height1=Height2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',45).
- if(not(equals(Height1, Height2)),
-       (not(height(Object, Height1));not(height(Object, Height2)))).
+if(equals(Height1, Height2),  (at(height(Object, Height1), Time), at(height(Object, Height2), Time))).
 
 
 % [object,time]
@@ -107,10 +105,9 @@ fluents([height/2]).
 %    holds(
 %       height(Object,Height), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',51).
 exists(Height,
- height(Object,Height)).
+ at(height(Object,Height),Time)).
 
 
 %; falling
@@ -121,7 +118,7 @@ exists(Height,
 % From E: 
 % 
 % fluent(fallingFromTo(physobj,physobj,physobj)).
-mpred_prop(fallingFromTo(physobj, physobj, physobj), fluent).
+mpred_prop(fallingFromTo(physobj,physobj,physobj),fluent).
 fluents([fallingFromTo/3]).
 
 
@@ -133,7 +130,7 @@ fluents([fallingFromTo/3]).
 % From E: 
 % 
 % event(startFallingFromTo(physobj,physobj,physobj)).
-mpred_prop(startFallingFromTo(physobj, physobj, physobj), event).
+mpred_prop(startFallingFromTo(physobj,physobj,physobj),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',59).
 events([startFallingFromTo/3]).
 
@@ -145,7 +142,7 @@ events([startFallingFromTo/3]).
 % From E: 
 % 
 % event(collideWith(physobj,physobj)).
-mpred_prop(collideWith(physobj, physobj), event).
+mpred_prop(collideWith(physobj,physobj),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',61).
 events([collideWith/2]).
 
@@ -166,7 +163,6 @@ events([collideWith/2]).
 %    startFallingFromTo(Physobj1,Physobj2,Physobj3), 
 %    fallingFromTo(Physobj1,Physobj2,Physobj3), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',67).
 initiates(startFallingFromTo(Physobj1,
 			     Physobj2,
@@ -201,10 +197,8 @@ initiates(startFallingFromTo(Physobj1,
 %             height(Physobj2,Height2), 
 %             Time))), 
 %    Height1=Height2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',78).
- if(not(equals(Height1, Height2)),
-       (not(startFallingFromTo(Physobj1, Physobj2, Physobj3));not(height(Physobj1, Height1));not(height(Physobj2, Height2)))).
+if(equals(Height1, Height2),  (happens(startFallingFromTo(Physobj1, Physobj2, Physobj3), Time), at(height(Physobj1, Height1), Time), at(height(Physobj2, Height2), Time))).
 
 
 %; A state constraint says that a physical object
@@ -227,10 +221,8 @@ initiates(startFallingFromTo(Physobj1,
 %       ','(
 %          Physobj1\=Physobj3, 
 %          Physobj2\=Physobj3))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',87).
- if((not({dif(Physobj1, Physobj2)});not({dif(Physobj1, Physobj3)});not({dif(Physobj2, Physobj3)})),
-      not(fallingFromTo(Physobj1, Physobj2, Physobj3))).
+if(({dif(Physobj1, Physobj2)}, {dif(Physobj1, Physobj3)}, {dif(Physobj2, Physobj3)}), at(fallingFromTo(Physobj1, Physobj2, Physobj3), Time)).
 
 
 %; A state constraint says that the sky cannot fall:
@@ -242,8 +234,8 @@ initiates(startFallingFromTo(Physobj1,
 % holds(
 %    not(fallingFromTo(Sky,Physobj1,Physobj2)), 
 %    Time).
- %   [Time].
-not(fallingFromTo(Sky,Physobj1,Physobj2)).
+at(not(fallingFromTo(Sky,Physobj1,Physobj2)),
+   Time).
 
 
 %; A releases axiom states that if
@@ -262,7 +254,6 @@ not(fallingFromTo(Sky,Physobj1,Physobj2)).
 %    startFallingFromTo(Physobj1,Physobj2,Physobj3), 
 %    height(Physobj1,Height), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',102).
 releases(startFallingFromTo(Physobj1,
 			    Physobj2,
@@ -298,15 +289,8 @@ releases(startFallingFromTo(Physobj1,
 %       Time, 
 %       height(Physobj1,Height2), 
 %       Offset)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',116).
- if(not(trajectory(fallingFromTo(Physobj1,
-                                   Physobj2,
-                                   Physobj3),
-                     Time,
-                     height(Physobj1, Height2),
-                     Offset)),
-       (not(holds(height(Physobj1, Height1), Time));not(equals(Height2, Height1-Offset)))).
+if(trajectory(fallingFromTo(Physobj1, Physobj2, Physobj3), Time, height(Physobj1, Height2), Offset),  (at(height(Physobj1, Height1), Time), equals(Height2, Height1-Offset))).
 
 
 %; A trigger axiom states that
@@ -340,10 +324,8 @@ releases(startFallingFromTo(Physobj1,
 %    happens(
 %       collideWith(Physobj1,Physobj3), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',130).
- if(not(collideWith(Physobj1, Physobj3)),
-       (not(fallingFromTo(Physobj1, Physobj2, Physobj3));not(height(Physobj1, Height));not(height(Physobj3, Height)))).
+if(happens(collideWith(Physobj1, Physobj3), Time),  (at(fallingFromTo(Physobj1, Physobj2, Physobj3), Time), at(height(Physobj1, Height), Time), at(height(Physobj3, Height), Time))).
 
 
 %; An effect axiom states that
@@ -369,14 +351,11 @@ releases(startFallingFromTo(Physobj1,
 %       collideWith(Physobj1,Physobj3), 
 %       on(Physobj1,Physobj3), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',143).
-if(not(initiates(collideWith(Physobj1,Physobj3),
-		 at(on(Physobj1,Physobj3),Time))),
-   not(holds(fallingFromTo(Physobj1,
-			   Physobj2,
-			   Physobj3),
-	     Time))).
+if(initiates(collideWith(Physobj1,Physobj3),
+	     at(on(Physobj1,Physobj3),Time)),
+   at(fallingFromTo(Physobj1,Physobj2,Physobj3),
+      Time)).
 
 
 %; An effect axiom states that
@@ -400,11 +379,10 @@ if(not(initiates(collideWith(Physobj1,Physobj3),
 %       collideWith(Physobj1,Physobj2), 
 %       height(Physobj1,Height), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',154).
-if(not(initiates(collideWith(Physobj1,Physobj2),
-		 at(height(Physobj1,Height),Time))),
-   not(holds(height(Physobj2,Height),Time))).
+if(initiates(collideWith(Physobj1,Physobj2),
+	     at(height(Physobj1,Height),Time)),
+   at(height(Physobj2,Height),Time)).
 
 
 %;[physobj1,physobj2,height1,height2,time]
@@ -438,17 +416,14 @@ if(not(initiates(collideWith(Physobj1,Physobj2),
 %       collideWith(Physobj1,Physobj3), 
 %       fallingFromTo(Physobj1,Physobj2,Physobj3), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',176).
-if(not(terminates(collideWith(Physobj1,Physobj3),
-		  at(fallingFromTo(Physobj1,
-				   Physobj2,
-				   Physobj3),
-		     Time))),
-   not(holds(fallingFromTo(Physobj1,
-			   Physobj2,
-			   Physobj3),
-	     Time))).
+if(terminates(collideWith(Physobj1,Physobj3),
+	      at(fallingFromTo(Physobj1,
+			       Physobj2,
+			       Physobj3),
+		 Time)),
+   at(fallingFromTo(Physobj1,Physobj2,Physobj3),
+      Time)).
 
 
 %; flying
@@ -459,7 +434,7 @@ if(not(terminates(collideWith(Physobj1,Physobj3),
 % From E: 
 % 
 % fluent(flyingFromTo(agent,physobj,physobj)).
-mpred_prop(flyingFromTo(agent, physobj, physobj), fluent).
+mpred_prop(flyingFromTo(agent,physobj,physobj),fluent).
 fluents([flyingFromTo/3]).
 
 
@@ -472,8 +447,8 @@ fluents([flyingFromTo/3]).
 % 
 % event(startFlyingFromTo(agent,physobj,physobj)).
 events([startFlyingFromTo/3]).
-mpred_prop(startFlyingFromTo(agent, physobj, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',187).
+mpred_prop(startFlyingFromTo(agent,physobj,physobj),action).
 actions([startFlyingFromTo/3]).
 
 
@@ -485,8 +460,8 @@ actions([startFlyingFromTo/3]).
 % 
 % event(reach(agent,physobj)).
 events([reach/2]).
-mpred_prop(reach(agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',189).
+mpred_prop(reach(agent,physobj),action).
 actions([reach/2]).
 
 
@@ -506,7 +481,6 @@ actions([reach/2]).
 %    startFlyingFromTo(Agent,Physobj1,Physobj2), 
 %    flyingFromTo(Agent,Physobj1,Physobj2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',195).
 initiates(startFlyingFromTo(Agent,Physobj1,Physobj2),
 	  flyingFromTo(Agent,Physobj1,Physobj2)).
@@ -538,10 +512,8 @@ initiates(startFlyingFromTo(Agent,Physobj1,Physobj2),
 %             height(Physobj1,Height2), 
 %             Time))), 
 %    Height1=Height2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',205).
- if(not(equals(Height1, Height2)),
-       (not(startFlyingFromTo(Agent, Physobj1, Physobj2));not(height(Agent, Height1));not(height(Physobj1, Height2)))).
+if(equals(Height1, Height2),  (happens(startFlyingFromTo(Agent, Physobj1, Physobj2), Time), at(height(Agent, Height1), Time), at(height(Physobj1, Height2), Time))).
 
 
 %; A state constraint says that an agent
@@ -557,10 +529,10 @@ initiates(startFlyingFromTo(Agent,Physobj1,Physobj2),
 %       flyingFromTo(Agent,Physobj1,Physobj2), 
 %       Time), 
 %    Physobj1\=Physobj2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',213).
-if(not({dif(Physobj1,Physobj2)}),
-   not(flyingFromTo(Agent,Physobj1,Physobj2))).
+if({dif(Physobj1,Physobj2)},
+   at(flyingFromTo(Agent,Physobj1,Physobj2),
+      Time)).
 
 
 %; A releases axiom states that if an agent
@@ -578,7 +550,6 @@ if(not({dif(Physobj1,Physobj2)}),
 %    startFlyingFromTo(Agent,Physobj1,Physobj2), 
 %    height(Agent,Height), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',221).
 releases(startFlyingFromTo(Agent,Physobj1,Physobj2),
 	 height(Agent,Height)).
@@ -612,13 +583,8 @@ releases(startFlyingFromTo(Agent,Physobj1,Physobj2),
 %       Time, 
 %       height(Agent,Height2), 
 %       Offset)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',235).
- if(not(trajectory(flyingFromTo(Agent, Physobj1, Physobj2),
-                     Time,
-                     height(Agent, Height2),
-                     Offset)),
-       (not(holds(height(Agent, Height1), Time));not(equals(Height2, Height1+Offset)))).
+if(trajectory(flyingFromTo(Agent, Physobj1, Physobj2), Time, height(Agent, Height2), Offset),  (at(height(Agent, Height1), Time), equals(Height2, Height1+Offset))).
 
 
 %; A trigger axiom states that
@@ -651,10 +617,8 @@ releases(startFlyingFromTo(Agent,Physobj1,Physobj2),
 %    happens(
 %       reach(Agent,Physobj2), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',248).
- if(not(reach(Agent, Physobj2)),
-       (not(flyingFromTo(Agent, Physobj1, Physobj2));not(height(Agent, Height));not(height(Physobj2, Height)))).
+if(happens(reach(Agent, Physobj2), Time),  (at(flyingFromTo(Agent, Physobj1, Physobj2), Time), at(height(Agent, Height), Time), at(height(Physobj2, Height), Time))).
 
 
 %; An effect axiom states that
@@ -675,11 +639,10 @@ releases(startFlyingFromTo(Agent,Physobj1,Physobj2),
 %       reach(Agent,Physobj), 
 %       height(Agent,Height), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',258).
-if(not(initiates(reach(Agent,Physobj),
-		 at(height(Agent,Height),Time))),
-   not(holds(height(Physobj,Height),Time))).
+if(initiates(reach(Agent,Physobj),
+	     at(height(Agent,Height),Time)),
+   at(height(Physobj,Height),Time)).
 
 
 %;[agent,physobj,height1,height2,time]
@@ -710,15 +673,14 @@ if(not(initiates(reach(Agent,Physobj),
 %       reach(Agent,Physobj2), 
 %       flyingFromTo(Agent,Physobj1,Physobj2), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',275).
-if(not(terminates(reach(Agent,Physobj2),
-		  at(flyingFromTo(Agent,
-				  Physobj1,
-				  Physobj2),
-		     Time))),
-   not(holds(flyingFromTo(Agent,Physobj1,Physobj2),
-	     Time))).
+if(terminates(reach(Agent,Physobj2),
+	      at(flyingFromTo(Agent,
+			      Physobj1,
+			      Physobj2),
+		 Time)),
+   at(flyingFromTo(Agent,Physobj1,Physobj2),
+      Time)).
 
 
 %; A releases axiom states that
@@ -733,7 +695,6 @@ if(not(terminates(reach(Agent,Physobj2),
 %    hold(Agent,Physobj), 
 %    height(Physobj,Height), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',284).
 releases(hold(Agent,Physobj),
 	 height(Physobj,Height)).
@@ -762,11 +723,8 @@ releases(hold(Agent,Physobj),
 %       letGoOf(Agent,Physobj), 
 %       height(Physobj,Height), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',293).
- if(not(initiates(letGoOf(Agent, Physobj),
-                    at(height(Physobj, Height), Time))),
-       (thereExists(Object, partOf(Physobj, Object));not(holds(height(Physobj, Height), Time)))).
+if(initiates(letGoOf(Agent, Physobj), at(height(Physobj, Height), Time)),  (not(thereExists(Object, partOf(Physobj, Object))), at(height(Physobj, Height), Time))).
 
 
 %; A state constraint says that
@@ -791,10 +749,8 @@ releases(hold(Agent,Physobj),
 %    holds(
 %       height(Physobj,Height), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',302).
- if(not(height(Physobj, Height)),
-       (not(holding(Agent, Physobj));not(height(Agent, Height)))).
+if(at(height(Physobj, Height), Time),  (at(holding(Agent, Physobj), Time), at(height(Agent, Height), Time))).
 
 
 %; A state constraint says that if a physical object
@@ -817,10 +773,8 @@ releases(hold(Agent,Physobj),
 %    holds(
 %       height(Physobj,Height), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OMSpace.e',311).
- if(not(height(Physobj, Height)),
-       (not(partOf(Physobj, Object));not(height(Object, Height)))).
+if(at(height(Physobj, Height), Time),  (partOf(Physobj, Object), at(height(Object, Height), Time))).
 
 
 %;event Catch(agent,physobj)

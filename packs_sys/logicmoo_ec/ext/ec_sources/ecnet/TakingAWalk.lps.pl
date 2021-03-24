@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.lps.pl')).
-% Sun, 21 Mar 2021 23:28:19 GMT File: <stream>(0x5555672c9c00)%;
+% Tue, 23 Mar 2021 19:06:59 GMT File: <stream>(0x555567be9300)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -67,20 +67,21 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(floor))).
-:- call_pel_directive(ignore(floor)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',25).
+:- call_pel_directive(ignore(floor)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(buildingOf))).
 :- call_pel_directive(ignore(buildingOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(skyOf))).
 :- call_pel_directive(ignore(skyOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(groundOf))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',25).
 :- call_pel_directive(ignore(groundOf)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',27).
@@ -97,8 +98,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(on))).
-:- call_pel_directive(ignore(on)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',27).
+:- call_pel_directive(ignore(on)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(placeOn))).
@@ -113,8 +114,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(happy))).
-:- call_pel_directive(ignore(happy)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',27).
+:- call_pel_directive(ignore(happy)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(becomeAngryAt))).
@@ -134,8 +135,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
-:- call_pel_directive(ignore(walkFromTo)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',29).
+:- call_pel_directive(ignore(walkFromTo)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
@@ -150,12 +151,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(intentionToWalkIn))).
-:- call_pel_directive(ignore(intentionToWalkIn)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',29).
+:- call_pel_directive(ignore(intentionToWalkIn)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(invitedIn))).
 :- call_pel_directive(ignore(invitedIn)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',29).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(inviteIn))).
@@ -175,13 +177,14 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(letGoOf))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',31).
 :- call_pel_directive(ignore(letGoOf)).
 
 % ignore Greet, SayGoodbye, Order, KnowOrder
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',31).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(greet))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',31).
 :- call_pel_directive(ignore(greet)).
 % From E: 
 % 
@@ -195,6 +198,7 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(knowOrder))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',31).
 :- call_pel_directive(ignore(knowOrder)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',33).
@@ -211,12 +215,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(riseFrom))).
-:- call_pel_directive(ignore(riseFrom)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',33).
+:- call_pel_directive(ignore(riseFrom)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(lyingOn))).
 :- call_pel_directive(ignore(lyingOn)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',33).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(sittingOn))).
@@ -283,63 +288,63 @@
 % From E: 
 % 
 % t(room,origin1).
-room(origin1).
+isa(origin1,room).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',46).
 % door OriginDoor1
 % From E: 
 % 
 % t(door,originDoor1).
-door(originDoor1).
+isa(originDoor1,door).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',48).
 % outside OriginOutside1
 % From E: 
 % 
 % t(outside,originOutside1).
-outside(originOutside1).
+isa(originOutside1,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',50).
 % street StreetFromOriginToMiddle1
 % From E: 
 % 
 % t(street,streetFromOriginToMiddle1).
-street(streetFromOriginToMiddle1).
+isa(streetFromOriginToMiddle1,street).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',52).
 % outside Middle1
 % From E: 
 % 
 % t(outside,middle1).
-outside(middle1).
+isa(middle1,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',54).
 % street StreetFromMiddleToDestination1
 % From E: 
 % 
 % t(street,streetFromMiddleToDestination1).
-street(streetFromMiddleToDestination1).
+isa(streetFromMiddleToDestination1,street).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',56).
 % outside DestinationOutside1
 % From E: 
 % 
 % t(outside,destinationOutside1).
-outside(destinationOutside1).
+isa(destinationOutside1,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',58).
 % door DestinationDoor1
 % From E: 
 % 
 % t(door,destinationDoor1).
-door(destinationDoor1).
+isa(destinationDoor1,door).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',60).
 % room Destination1
 % From E: 
 % 
 % t(room,destination1).
-room(destination1).
+isa(destination1,room).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',62).
@@ -432,21 +437,21 @@ side2(destinationDoor1,destination1).
 % From E: 
 % 
 % t(agent,walker1).
-agent(walker1).
+isa(walker1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',76).
 % clothing Clothes1
 % From E: 
 % 
 % t(clothing,clothes1).
-clothing(clothes1).
+isa(clothes1,clothing).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',78).
 % umbrella Umbrella1
 % From E: 
 % 
 % t(umbrella,umbrella1).
-umbrella(umbrella1).
+isa(umbrella1,umbrella).
 %; initial state
 % [agent,object]
  % !HoldsAt(Holding(agent,object),0).
@@ -455,7 +460,6 @@ umbrella(umbrella1).
 % 
 % holds(
 %    not(holding(Agent,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',80).
 initially(not(holding(Agent,Object))).
 
 
@@ -472,11 +476,11 @@ initially(dressed(Agent)).
 
 % [agent]
  % HoldsAt(Awake(agent),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',82).
 % From E: 
 % 
 % holds(
 %    awake(Agent), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',82).
 initially(awake(Agent)).
 
 
@@ -493,11 +497,11 @@ initially(sleep3(Agent)).
 
 % [agent]
  % HoldsAt(Standing(agent),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',84).
 % From E: 
 % 
 % holds(
 %    standing(Agent), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',84).
 initially(standing(Agent)).
 
 
@@ -570,14 +574,14 @@ initially(at_loc(umbrella1,origin1)).
 
 % [outside,time]
  % HoldsAt(Raining(outside),time).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',92).
 % From E: 
 % 
 % holds(
 %    raining(Outside), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',92).
-raining(Outside).
+at(raining(Outside),Time).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingAWalk.e',94).

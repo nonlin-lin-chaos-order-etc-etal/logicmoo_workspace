@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.lps.pl')).
-% Sun, 21 Mar 2021 23:28:17 GMT File: <stream>(0x555567338200)%;
+% Tue, 23 Mar 2021 19:06:57 GMT File: <stream>(0x555567c04f00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -43,7 +43,7 @@
 % 
 % event(wakeUp(agent)).
 events([wakeUp/1]).
-mpred_prop(wakeUp(agent), action).
+mpred_prop(wakeUp(agent),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',27).
 actions([wakeUp/1]).
 
@@ -57,7 +57,7 @@ actions([wakeUp/1]).
 % event(getTired(agent)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',30).
 events([getTired/1]).
-mpred_prop(getTired(agent), action).
+mpred_prop(getTired(agent),action).
 actions([getTired/1]).
 
 
@@ -70,7 +70,7 @@ actions([getTired/1]).
 % event(fallAsleep(agent)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',33).
 events([fallAsleep/1]).
-mpred_prop(fallAsleep(agent), action).
+mpred_prop(fallAsleep(agent),action).
 actions([fallAsleep/1]).
 
 
@@ -81,8 +81,8 @@ actions([fallAsleep/1]).
 % From E: 
 % 
 % fluent(sleep0(agent)).
-mpred_prop(sleep0(agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',36).
+mpred_prop(sleep0(agent),fluent).
 fluents([sleep0/1]).
 
 
@@ -93,7 +93,7 @@ fluents([sleep0/1]).
 % From E: 
 % 
 % fluent(sleep1(agent)).
-mpred_prop(sleep1(agent), fluent).
+mpred_prop(sleep1(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',39).
 fluents([sleep1/1]).
 
@@ -105,7 +105,7 @@ fluents([sleep1/1]).
 % From E: 
 % 
 % fluent(sleep2(agent)).
-mpred_prop(sleep2(agent), fluent).
+mpred_prop(sleep2(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',41).
 fluents([sleep2/1]).
 
@@ -117,7 +117,7 @@ fluents([sleep2/1]).
 % From E: 
 % 
 % fluent(sleep3(agent)).
-mpred_prop(sleep3(agent), fluent).
+mpred_prop(sleep3(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',43).
 fluents([sleep3/1]).
 
@@ -129,7 +129,7 @@ fluents([sleep3/1]).
 % From E: 
 % 
 % fluent(sleep4(agent)).
-mpred_prop(sleep4(agent), fluent).
+mpred_prop(sleep4(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',45).
 fluents([sleep4/1]).
 
@@ -141,7 +141,7 @@ fluents([sleep4/1]).
 % From E: 
 % 
 % fluent(sleep5(agent)).
-mpred_prop(sleep5(agent), fluent).
+mpred_prop(sleep5(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',47).
 fluents([sleep5/1]).
 
@@ -153,7 +153,7 @@ fluents([sleep5/1]).
 % From E: 
 % 
 % fluent(sleep6(agent)).
-mpred_prop(sleep6(agent), fluent).
+mpred_prop(sleep6(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',49).
 fluents([sleep6/1]).
 
@@ -175,7 +175,7 @@ xor([sleep0,sleep1,sleep2,sleep3,sleep4,sleep5,sleep6]).
 % From E: 
 % 
 % fluent(asleep(agent)).
-mpred_prop(asleep(agent), fluent).
+mpred_prop(asleep(agent),fluent).
 fluents([asleep/1]).
 
 
@@ -187,7 +187,7 @@ fluents([asleep/1]).
 % From E: 
 % 
 % fluent(awake(agent)).
-mpred_prop(awake(agent), fluent).
+mpred_prop(awake(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',59).
 fluents([awake/1]).
 
@@ -195,6 +195,7 @@ fluents([awake/1]).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(asleep))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',59).
 :- call_pel_directive(noninertial(asleep)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',61).
@@ -216,10 +217,9 @@ fluents([awake/1]).
 %    holds(
 %       sleep0(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',63).
-if(not(sleep0(Agent)), not(asleep(Agent))),
-if(not(asleep(Agent)), not(sleep0(Agent))).
+at(asleep(Agent), Time) <->
+    at(sleep0(Agent), Time).
 
 
 %; In all other sleep states, the agent is awake:
@@ -261,10 +261,15 @@ if(not(asleep(Agent)), not(sleep0(Agent))).
 %                   holds(
 %                      sleep6(Agent), 
 %                      Time))))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',67).
-if((not(sleep1(Agent)), not(sleep2(Agent)), not(sleep3(Agent)), not(sleep4(Agent)), not(sleep5(Agent)), not(sleep6(Agent))), not(awake(Agent))),
-if(not(awake(Agent)),  (not(sleep1(Agent)), not(sleep2(Agent)), not(sleep3(Agent)), not(sleep4(Agent)), not(sleep5(Agent)), not(sleep6(Agent)))).
+at(awake(Agent), Time) <->
+    (   at(sleep1(Agent), Time)
+    ;   at(sleep2(Agent), Time)
+    ;   at(sleep3(Agent), Time)
+    ;   at(sleep4(Agent), Time)
+    ;   at(sleep5(Agent), Time)
+    ;   at(sleep6(Agent), Time)
+    ).
 
 
 %; A number of axioms are used to specify the transitions of
@@ -282,7 +287,6 @@ if(not(awake(Agent)),  (not(sleep1(Agent)), not(sleep2(Agent)), not(sleep3(Agent
 %    wakeUp(Agent), 
 %    sleep0(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',82).
 terminates(wakeUp(Agent),sleep0(Agent)).
 
@@ -296,7 +300,6 @@ terminates(wakeUp(Agent),sleep0(Agent)).
 %    wakeUp(Agent), 
 %    sleep1(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',84).
 initiates(wakeUp(Agent),sleep1(Agent)).
 
@@ -313,9 +316,9 @@ initiates(wakeUp(Agent),sleep1(Agent)).
 %    holds(
 %       sleep0(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',86).
-if(not(sleep0(Agent)),not(wakeUp(Agent))).
+if(at(sleep0(Agent),Time),
+   happens(wakeUp(Agent),Time)).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',88).
@@ -332,7 +335,6 @@ if(not(sleep0(Agent)),not(wakeUp(Agent))).
 %    riseFrom(Agent,Bed), 
 %    sleep1(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',92).
 terminates(riseFrom(Agent,Bed),sleep1(Agent)).
 
@@ -346,7 +348,6 @@ terminates(riseFrom(Agent,Bed),sleep1(Agent)).
 %    riseFrom(Agent,Bed), 
 %    sleep2(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',94).
 initiates(riseFrom(Agent,Bed),sleep2(Agent)).
 
@@ -363,9 +364,9 @@ initiates(riseFrom(Agent,Bed),sleep2(Agent)).
 %    holds(
 %       sleep1(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',96).
-if(not(sleep1(Agent)),not(riseFrom(Agent,Bed))).
+if(at(sleep1(Agent),Time),
+   happens(riseFrom(Agent,Bed),Time)).
 
 
 %;--
@@ -381,7 +382,6 @@ if(not(sleep1(Agent)),not(riseFrom(Agent,Bed))).
 %    getDressed(Agent), 
 %    sleep2(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',103).
 terminates(getDressed(Agent),sleep2(Agent)).
 
@@ -395,7 +395,6 @@ terminates(getDressed(Agent),sleep2(Agent)).
 %    getDressed(Agent), 
 %    sleep3(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',105).
 initiates(getDressed(Agent),sleep3(Agent)).
 
@@ -412,9 +411,9 @@ initiates(getDressed(Agent),sleep3(Agent)).
 %    holds(
 %       sleep2(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',107).
-if(not(sleep2(Agent)),not(getDressed(Agent))).
+if(at(sleep2(Agent),Time),
+   happens(getDressed(Agent),Time)).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',109).
@@ -431,7 +430,6 @@ if(not(sleep2(Agent)),not(getDressed(Agent))).
 %    getTired(Agent), 
 %    sleep3(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',113).
 terminates(getTired(Agent),sleep3(Agent)).
 
@@ -445,7 +443,6 @@ terminates(getTired(Agent),sleep3(Agent)).
 %    getTired(Agent), 
 %    sleep4(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',115).
 initiates(getTired(Agent),sleep4(Agent)).
 
@@ -462,9 +459,9 @@ initiates(getTired(Agent),sleep4(Agent)).
 %    holds(
 %       sleep3(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',117).
-if(not(sleep3(Agent)),not(getTired(Agent))).
+if(at(sleep3(Agent),Time),
+   happens(getTired(Agent),Time)).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',119).
@@ -481,7 +478,6 @@ if(not(sleep3(Agent)),not(getTired(Agent))).
 %    getUndressed(Agent), 
 %    sleep4(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',123).
 terminates(getUndressed(Agent),sleep4(Agent)).
 
@@ -495,7 +491,6 @@ terminates(getUndressed(Agent),sleep4(Agent)).
 %    getUndressed(Agent), 
 %    sleep5(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',125).
 initiates(getUndressed(Agent),sleep5(Agent)).
 
@@ -512,9 +507,9 @@ initiates(getUndressed(Agent),sleep5(Agent)).
 %    holds(
 %       sleep4(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',127).
-if(not(sleep4(Agent)),not(getUndressed(Agent))).
+if(at(sleep4(Agent),Time),
+   happens(getUndressed(Agent),Time)).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',129).
@@ -531,7 +526,6 @@ if(not(sleep4(Agent)),not(getUndressed(Agent))).
 %    lieOn(Agent,Bed), 
 %    sleep5(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',133).
 terminates(lieOn(Agent,Bed),sleep5(Agent)).
 
@@ -545,7 +539,6 @@ terminates(lieOn(Agent,Bed),sleep5(Agent)).
 %    lieOn(Agent,Bed), 
 %    sleep6(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',135).
 initiates(lieOn(Agent,Bed),sleep6(Agent)).
 
@@ -562,9 +555,9 @@ initiates(lieOn(Agent,Bed),sleep6(Agent)).
 %    holds(
 %       sleep5(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',137).
-if(not(sleep5(Agent)),not(lieOn(Agent,Bed))).
+if(at(sleep5(Agent),Time),
+   happens(lieOn(Agent,Bed),Time)).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',139).
@@ -581,7 +574,6 @@ if(not(sleep5(Agent)),not(lieOn(Agent,Bed))).
 %    fallAsleep(Agent), 
 %    sleep6(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',143).
 terminates(fallAsleep(Agent),sleep6(Agent)).
 
@@ -595,7 +587,6 @@ terminates(fallAsleep(Agent),sleep6(Agent)).
 %    fallAsleep(Agent), 
 %    sleep0(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',145).
 initiates(fallAsleep(Agent),sleep0(Agent)).
 
@@ -612,9 +603,9 @@ initiates(fallAsleep(Agent),sleep0(Agent)).
 %    holds(
 %       sleep6(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',147).
-if(not(sleep6(Agent)),not(fallAsleep(Agent))).
+if(at(sleep6(Agent),Time),
+   happens(fallAsleep(Agent),Time)).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',149).
@@ -626,7 +617,7 @@ if(not(sleep6(Agent)),not(fallAsleep(Agent))).
 % From E: 
 % 
 % fluent(actOnSleep5(agent)).
-mpred_prop(actOnSleep5(agent), fluent).
+mpred_prop(actOnSleep5(agent),fluent).
 fluents([actOnSleep5/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',153).
@@ -651,9 +642,9 @@ fluents([actOnSleep5/1]).
 %    holds(
 %       not(actOnSleep5(Agent)), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',158).
-if(actOnSleep5(Agent),sleep5(Agent)).
+if(at(not(actOnSleep5(Agent)),Time),
+   at(not(sleep5(Agent)),Time)).
 
 
 %; Undressed is like IntentionToPlay
@@ -689,10 +680,8 @@ if(actOnSleep5(Agent),sleep5(Agent)).
 %    happens(
 %       lieOn(Agent,Bed), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',168).
- if(not(lieOn(Agent, Bed)),
-       (not(sleep5(Agent));not(actOnSleep5(Agent));not(at_loc(Agent, Room));not(at_loc(Bed, Room)))).
+if(happens(lieOn(Agent, Bed), Time),  (at(sleep5(Agent), Time), at(actOnSleep5(Agent), Time), at(at_loc(Agent, Room), Time), at(at_loc(Bed, Room), Time))).
 
 
 %; A precondition axiom states that for
@@ -732,9 +721,8 @@ if(actOnSleep5(Agent),sleep5(Agent)).
 %                holds(
 %                   at_loc(Bed,Room), 
 %                   Time)))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',185).
-exists(Room,  (sleep5(Agent), actOnSleep5(Agent), at_loc(Agent, Room), at_loc(Bed, Room);not(lieOn(Agent, Bed)))).
+exists(Room, if((at(sleep5(Agent), Time), at(actOnSleep5(Agent), Time), at(at_loc(Agent, Room), Time), at(at_loc(Bed, Room), Time)), happens(lieOn(Agent, Bed), Time))).
 
 
 %; (body) posture
@@ -746,7 +734,7 @@ exists(Room,  (sleep5(Agent), actOnSleep5(Agent), at_loc(Agent, Room), at_loc(Be
 % 
 % event(lieOn(agent,physobj)).
 events([lieOn/2]).
-mpred_prop(lieOn(agent, physobj), action).
+mpred_prop(lieOn(agent,physobj),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',191).
 actions([lieOn/2]).
 
@@ -760,7 +748,7 @@ actions([lieOn/2]).
 % event(sitOn(agent,physobj)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',194).
 events([sitOn/2]).
-mpred_prop(sitOn(agent, physobj), action).
+mpred_prop(sitOn(agent,physobj),action).
 actions([sitOn/2]).
 
 
@@ -785,9 +773,8 @@ actions([sitOn/2]).
 %          holds(
 %             at_loc(Physobj,Location), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',199).
-exists(Location,  (at_loc(Agent, Location), at_loc(Physobj, Location);not(sitOn(Agent, Physobj)))).
+exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Physobj, Location), Time)), happens(sitOn(Agent, Physobj), Time))).
 
 
 %; agent rises from physobj.
@@ -798,8 +785,8 @@ exists(Location,  (at_loc(Agent, Location), at_loc(Physobj, Location);not(sitOn(
 % 
 % event(riseFrom(agent,physobj)).
 events([riseFrom/2]).
-mpred_prop(riseFrom(agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',204).
+mpred_prop(riseFrom(agent,physobj),action).
 actions([riseFrom/2]).
 
 
@@ -810,8 +797,8 @@ actions([riseFrom/2]).
 % From E: 
 % 
 % fluent(lyingOn(agent,physobj)).
-mpred_prop(lyingOn(agent, physobj), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',206).
+mpred_prop(lyingOn(agent,physobj),fluent).
 fluents([lyingOn/2]).
 
 
@@ -822,7 +809,7 @@ fluents([lyingOn/2]).
 % From E: 
 % 
 % fluent(sittingOn(agent,physobj)).
-mpred_prop(sittingOn(agent, physobj), fluent).
+mpred_prop(sittingOn(agent,physobj),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',209).
 fluents([sittingOn/2]).
 
@@ -834,7 +821,7 @@ fluents([sittingOn/2]).
 % From E: 
 % 
 % fluent(standing(agent)).
-mpred_prop(standing(agent), fluent).
+mpred_prop(standing(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',211).
 fluents([standing/1]).
 
@@ -846,8 +833,8 @@ fluents([standing/1]).
 % From E: 
 % 
 % fluent(lying(agent)).
-mpred_prop(lying(agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',213).
+mpred_prop(lying(agent),fluent).
 fluents([lying/1]).
 
 
@@ -858,7 +845,7 @@ fluents([lying/1]).
 % From E: 
 % 
 % fluent(sitting(agent)).
-mpred_prop(sitting(agent), fluent).
+mpred_prop(sitting(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',216).
 fluents([sitting/1]).
 
@@ -866,6 +853,7 @@ fluents([sitting/1]).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(lying))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',216).
 :- call_pel_directive(noninertial(lying)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',218).
@@ -897,9 +885,9 @@ xor([lying,sitting,standing]).
 %    holds(
 %       lying(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',223).
-if(not(lying(Agent)),not(lyingOn(Agent,Physobj))).
+if(at(lying(Agent),Time),
+   at(lyingOn(Agent,Physobj),Time)).
 
 
 % [agent,physobj,time]
@@ -915,8 +903,8 @@ if(not(lying(Agent)),not(lyingOn(Agent,Physobj))).
 %    holds(
 %       sitting(Agent), 
 %       Time)).
- %   [Time].
-if(not(sitting(Agent)),not(sittingOn(Agent,Physobj))).
+if(at(sitting(Agent),Time),
+   at(sittingOn(Agent,Physobj),Time)).
 
 
 %; State constraints represent that an agent can lie or sit
@@ -937,10 +925,8 @@ if(not(sitting(Agent)),not(sittingOn(Agent,Physobj))).
 %          lyingOn(Agent,Physobj2), 
 %          Time)), 
 %    Physobj1=Physobj2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',233).
- if(not(equals(Physobj1, Physobj2)),
-       (not(lyingOn(Agent, Physobj1));not(lyingOn(Agent, Physobj2)))).
+if(equals(Physobj1, Physobj2),  (at(lyingOn(Agent, Physobj1), Time), at(lyingOn(Agent, Physobj2), Time))).
 
 
 % [agent,physobj1,physobj2,time]
@@ -959,10 +945,8 @@ if(not(sitting(Agent)),not(sittingOn(Agent,Physobj))).
 %          sittingOn(Agent,Physobj2), 
 %          Time)), 
 %    Physobj1=Physobj2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',239).
- if(not(equals(Physobj1, Physobj2)),
-       (not(sittingOn(Agent, Physobj1));not(sittingOn(Agent, Physobj2)))).
+if(equals(Physobj1, Physobj2),  (at(sittingOn(Agent, Physobj1), Time), at(sittingOn(Agent, Physobj2), Time))).
 
 
 %; An effect axiom states that if an agent is standing and
@@ -984,11 +968,10 @@ if(not(sitting(Agent)),not(sittingOn(Agent,Physobj))).
 %       lieOn(Agent,Physobj), 
 %       lyingOn(Agent,Physobj), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',246).
-if(not(initiates(lieOn(Agent,Physobj),
-		 at(lyingOn(Agent,Physobj),Time))),
-   not(holds(standing(Agent),Time))).
+if(initiates(lieOn(Agent,Physobj),
+	     at(lyingOn(Agent,Physobj),Time)),
+   at(standing(Agent),Time)).
 
 
 %; An effect axiom states that if an agent
@@ -1005,7 +988,6 @@ if(not(initiates(lieOn(Agent,Physobj),
 %    lieOn(Agent,Physobj), 
 %    standing(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',255).
 terminates(lieOn(Agent,Physobj),standing(Agent)).
 
@@ -1029,11 +1011,10 @@ terminates(lieOn(Agent,Physobj),standing(Agent)).
 %       sitOn(Agent,Physobj), 
 %       sittingOn(Agent,Physobj), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',263).
-if(not(initiates(sitOn(Agent,Physobj),
-		 at(sittingOn(Agent,Physobj),Time))),
-   not(holds(standing(Agent),Time))).
+if(initiates(sitOn(Agent,Physobj),
+	     at(sittingOn(Agent,Physobj),Time)),
+   at(standing(Agent),Time)).
 
 
 %; An effect axiom states that if an agent
@@ -1050,7 +1031,6 @@ if(not(initiates(sitOn(Agent,Physobj),
 %    sitOn(Agent,Physobj), 
 %    standing(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',272).
 terminates(sitOn(Agent,Physobj),standing(Agent)).
 
@@ -1080,9 +1060,10 @@ terminates(sitOn(Agent,Physobj),standing(Agent)).
 %       riseFrom(Agent,Physobj), 
 %       standing(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',281).
-if(not(initiates(riseFrom(Agent, Physobj), at(standing(Agent), Time))),  (not(holds(sittingOn(Agent, Physobj), Time)), not(holds(lyingOn(Agent, Physobj), Time)))).
+ if(initiates(riseFrom(Agent, Physobj),
+                at(standing(Agent), Time)),
+       (at(sittingOn(Agent, Physobj), Time);at(lyingOn(Agent, Physobj), Time))).
 
 
 %; An effect axiom states that if an agent is sitting on
@@ -1105,11 +1086,10 @@ if(not(initiates(riseFrom(Agent, Physobj), at(standing(Agent), Time))),  (not(ho
 %       riseFrom(Agent,Physobj), 
 %       sittingOn(Agent,Physobj), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',292).
-if(not(terminates(riseFrom(Agent,Physobj),
-		  at(sittingOn(Agent,Physobj),Time))),
-   not(holds(sittingOn(Agent,Physobj),Time))).
+if(terminates(riseFrom(Agent,Physobj),
+	      at(sittingOn(Agent,Physobj),Time)),
+   at(sittingOn(Agent,Physobj),Time)).
 
 
 %; An effect axiom states that if an agent is lying on
@@ -1132,11 +1112,10 @@ if(not(terminates(riseFrom(Agent,Physobj),
 %       riseFrom(Agent,Physobj), 
 %       lyingOn(Agent,Physobj), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',302).
-if(not(terminates(riseFrom(Agent,Physobj),
-		  at(lyingOn(Agent,Physobj),Time))),
-   not(holds(lyingOn(Agent,Physobj),Time))).
+if(terminates(riseFrom(Agent,Physobj),
+	      at(lyingOn(Agent,Physobj),Time)),
+   at(lyingOn(Agent,Physobj),Time)).
 
 
 %; dressing
@@ -1148,7 +1127,7 @@ if(not(terminates(riseFrom(Agent,Physobj),
 % 
 % event(getDressed(agent)).
 events([getDressed/1]).
-mpred_prop(getDressed(agent), action).
+mpred_prop(getDressed(agent),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',310).
 actions([getDressed/1]).
 
@@ -1161,8 +1140,8 @@ actions([getDressed/1]).
 % 
 % event(getUndressed(agent)).
 events([getUndressed/1]).
-mpred_prop(getUndressed(agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',313).
+mpred_prop(getUndressed(agent),action).
 actions([getUndressed/1]).
 
 
@@ -1173,7 +1152,7 @@ actions([getUndressed/1]).
 % From E: 
 % 
 % fluent(dressed(agent)).
-mpred_prop(dressed(agent), fluent).
+mpred_prop(dressed(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',315).
 fluents([dressed/1]).
 
@@ -1188,7 +1167,6 @@ fluents([dressed/1]).
 %    getDressed(Agent), 
 %    dressed(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',317).
 initiates(getDressed(Agent),dressed(Agent)).
 
@@ -1202,7 +1180,6 @@ initiates(getDressed(Agent),dressed(Agent)).
 %    getUndressed(Agent), 
 %    dressed(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleep.e',319).
 terminates(getUndressed(Agent),dressed(Agent)).
 

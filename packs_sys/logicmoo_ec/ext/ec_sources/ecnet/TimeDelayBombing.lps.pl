@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.lps.pl')).
-% Sun, 21 Mar 2021 23:28:19 GMT File: <stream>(0x555567339f00)%;
+% Tue, 23 Mar 2021 19:06:59 GMT File: <stream>(0x55556611c100)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -49,27 +49,28 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(near))).
-:- call_pel_directive(ignore(near)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',25).
+:- call_pel_directive(ignore(near)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(inside))).
 :- call_pel_directive(ignore(inside)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
 :- call_pel_directive(ignore(walkFromTo)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',25).
 :- call_pel_directive(ignore(runFromTo)).
 
 % ignore RollAlong, Diameter, Move, HoldSome, PutInside
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(rollAlong))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',25).
 :- call_pel_directive(ignore(rollAlong)).
 % From E: 
 % 
@@ -83,8 +84,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(holdSome))).
-:- call_pel_directive(ignore(holdSome)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',25).
+:- call_pel_directive(ignore(holdSome)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(putInside))).
@@ -104,12 +105,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(doorUnlock))).
-:- call_pel_directive(ignore(doorUnlock)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',27).
+:- call_pel_directive(ignore(doorUnlock)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(doorLock))).
 :- call_pel_directive(ignore(doorLock)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkThroughDoor12))).
@@ -124,8 +126,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkDownStaircase))).
-:- call_pel_directive(ignore(walkDownStaircase)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',27).
+:- call_pel_directive(ignore(walkDownStaircase)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkUpStaircase))).
@@ -199,7 +201,7 @@
 % From E: 
 % 
 % t(bomb,bomb1).
-bomb(bomb1).
+isa(bomb1,bomb).
 
 
 % BombTimeDelay(Bomb1)=3.
@@ -208,7 +210,6 @@ bomb(bomb1).
 % 
 % '='(
 %    bombTimeDelay(bomb1), 3).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',41).
 bombTimeDelay(bomb1,3).
 
 
@@ -220,28 +221,27 @@ bombTimeDelay(bomb1,3).
 % holds(
 %    not(destroyedDeterminingFluent(bomb1)), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',43).
-not(destroyedDeterminingFluent(bomb1)).
+at(not(destroyedDeterminingFluent(bomb1)),Time).
 
 
 % [time]
  % !HoldsAt(DamagedDeterminingFluent(Bomb1),time).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',43).
 % From E: 
 % 
 % holds(
 %    not(damagedDeterminingFluent(bomb1)), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',43).
-not(damagedDeterminingFluent(bomb1)).
+at(not(damagedDeterminingFluent(bomb1)),Time).
 
 % agent Perp1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',45).
 % From E: 
 % 
 % t(agent,perp1).
-agent(perp1).
+isa(perp1,agent).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',45).
@@ -253,28 +253,27 @@ agent(perp1).
 % holds(
 %    not(injuredDeterminingFluent(perp1)), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',47).
-not(injuredDeterminingFluent(perp1)).
+at(not(injuredDeterminingFluent(perp1)),Time).
 
 
 % [time]
  % !HoldsAt(KilledDeterminingFluent(Perp1),time).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',47).
 % From E: 
 % 
 % holds(
 %    not(killedDeterminingFluent(perp1)), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',47).
-not(killedDeterminingFluent(perp1)).
+at(not(killedDeterminingFluent(perp1)),Time).
 
 % agent HumanTarget1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',49).
 % From E: 
 % 
 % t(agent,humanTarget1).
-agent(humanTarget1).
+isa(humanTarget1,agent).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',51).
@@ -327,11 +326,11 @@ initially(not(injured(humanTarget1))).
 
 % [object]
  % !HoldsAt(Holding(HumanTarget1,object),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',55).
 % From E: 
 % 
 % holds(
 %    not(holding(humanTarget1,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',55).
 initially(not(holding(humanTarget1,Object))).
 
 
@@ -353,28 +352,27 @@ initially(at_loc(humanTarget1,outside1)).
 % holds(
 %    killedDeterminingFluent(humanTarget1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',59).
-killedDeterminingFluent(humanTarget1).
+at(killedDeterminingFluent(humanTarget1),Time).
 
 
 % [time]
  % !HoldsAt(InjuredDeterminingFluent(HumanTarget1),time).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',59).
 % From E: 
 % 
 % holds(
 %    not(injuredDeterminingFluent(humanTarget1)), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',59).
-not(injuredDeterminingFluent(humanTarget1)).
+at(not(injuredDeterminingFluent(humanTarget1)),Time).
 
 % agent HumanTarget2
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',61).
 % From E: 
 % 
 % t(agent,humanTarget2).
-agent(humanTarget2).
+isa(humanTarget2,agent).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',63).
@@ -427,11 +425,11 @@ initially(not(injured(humanTarget2))).
 
 % [object]
  % !HoldsAt(Holding(HumanTarget2,object),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',67).
 % From E: 
 % 
 % holds(
 %    not(holding(humanTarget2,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',67).
 initially(not(holding(humanTarget2,Object))).
 
 
@@ -453,28 +451,27 @@ initially(at_loc(humanTarget2,outside1)).
 % holds(
 %    killedDeterminingFluent(humanTarget2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',71).
-killedDeterminingFluent(humanTarget2).
+at(killedDeterminingFluent(humanTarget2),Time).
 
 
 % [time]
  % !HoldsAt(InjuredDeterminingFluent(HumanTarget2),time).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',71).
 % From E: 
 % 
 % holds(
 %    not(injuredDeterminingFluent(humanTarget2)), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',71).
-not(injuredDeterminingFluent(humanTarget2)).
+at(not(injuredDeterminingFluent(humanTarget2)),Time).
 
 % agent HumanTarget3
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',73).
 % From E: 
 % 
 % t(agent,humanTarget3).
-agent(humanTarget3).
+isa(humanTarget3,agent).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',75).
@@ -527,11 +524,11 @@ initially(not(injured(humanTarget3))).
 
 % [object]
  % !HoldsAt(Holding(HumanTarget3,object),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',79).
 % From E: 
 % 
 % holds(
 %    not(holding(humanTarget3,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',79).
 initially(not(holding(humanTarget3,Object))).
 
 
@@ -553,28 +550,27 @@ initially(at_loc(humanTarget3,outside1)).
 % holds(
 %    killedDeterminingFluent(humanTarget3), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',83).
-killedDeterminingFluent(humanTarget3).
+at(killedDeterminingFluent(humanTarget3),Time).
 
 
 % [time]
  % !HoldsAt(InjuredDeterminingFluent(HumanTarget3),time).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',83).
 % From E: 
 % 
 % holds(
 %    not(injuredDeterminingFluent(humanTarget3)), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',83).
-not(injuredDeterminingFluent(humanTarget3)).
+at(not(injuredDeterminingFluent(humanTarget3)),Time).
 
 % agent HumanTarget4
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',85).
 % From E: 
 % 
 % t(agent,humanTarget4).
-agent(humanTarget4).
+isa(humanTarget4,agent).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',87).
@@ -627,11 +623,11 @@ initially(not(injured(humanTarget4))).
 
 % [object]
  % !HoldsAt(Holding(HumanTarget4,object),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',91).
 % From E: 
 % 
 % holds(
 %    not(holding(humanTarget4,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',91).
 initially(not(holding(humanTarget4,Object))).
 
 
@@ -653,28 +649,27 @@ initially(at_loc(humanTarget4,outside1)).
 % holds(
 %    killedDeterminingFluent(humanTarget4), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',95).
-killedDeterminingFluent(humanTarget4).
+at(killedDeterminingFluent(humanTarget4),Time).
 
 
 % [time]
  % !HoldsAt(InjuredDeterminingFluent(HumanTarget4),time).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',95).
 % From E: 
 % 
 % holds(
 %    not(injuredDeterminingFluent(humanTarget4)), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',95).
-not(injuredDeterminingFluent(humanTarget4)).
+at(not(injuredDeterminingFluent(humanTarget4)),Time).
 
 % physobj PhysTarget1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',97).
 % From E: 
 % 
 % t(physobj,physTarget1).
-physobj(physTarget1).
+isa(physTarget1,physobj).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',99).
@@ -704,9 +699,8 @@ initially(at_loc(physTarget1,outside1)).
 % holds(
 %    destroyedDeterminingFluent(physTarget1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',101).
-destroyedDeterminingFluent(physTarget1).
+at(destroyedDeterminingFluent(physTarget1),Time).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',103).
@@ -717,9 +711,8 @@ destroyedDeterminingFluent(physTarget1).
 % holds(
 %    not(damagedDeterminingFluent(physTarget1)), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',103).
-not(damagedDeterminingFluent(physTarget1)).
+at(not(damagedDeterminingFluent(physTarget1)),Time).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',105).
@@ -730,42 +723,42 @@ not(damagedDeterminingFluent(physTarget1)).
 % 
 % t(outside,outside1).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',105).
-outside(outside1).
+isa(outside1,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',107).
 % outside Outside2
 % From E: 
 % 
 % t(outside,outside2).
-outside(outside2).
+isa(outside2,outside).
 
 % room Inside1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',107).
 % From E: 
 % 
 % t(room,inside1).
-room(inside1).
+isa(inside1,room).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',109).
 % door Door1
 % From E: 
 % 
 % t(door,door1).
-door(door1).
+isa(door1,door).
 
 % building Building1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',109).
 % From E: 
 % 
 % t(building,building1).
-building(building1).
+isa(building1,building).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',111).
 % street Street1
 % From E: 
 % 
 % t(street,street1).
-street(street1).
+isa(street1,street).
 
 
 % Side1(Door1)=Outside1.
@@ -847,7 +840,6 @@ side2(street1,outside2).
 % 
 % holds(
 %    alive(perp1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TimeDelayBombing.e',119).
 initially(alive(perp1)).
 
 

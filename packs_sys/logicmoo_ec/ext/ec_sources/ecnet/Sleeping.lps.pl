@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.lps.pl')).
-% Sun, 21 Mar 2021 23:28:17 GMT File: <stream>(0x5555672b0700)%;
+% Tue, 23 Mar 2021 19:06:57 GMT File: <stream>(0x555567be9300)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -60,20 +60,21 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(floor))).
-:- call_pel_directive(ignore(floor)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',24).
+:- call_pel_directive(ignore(floor)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(buildingOf))).
 :- call_pel_directive(ignore(buildingOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(skyOf))).
 :- call_pel_directive(ignore(skyOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(groundOf))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',24).
 :- call_pel_directive(ignore(groundOf)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',26).
@@ -163,21 +164,21 @@
 % From E: 
 % 
 % t(door,door1).
-door(door1).
+isa(door1,door).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',43).
 % room Room0
 % From E: 
 % 
 % t(room,room0).
-room(room0).
+isa(room0,room).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',45).
 % room Room1
 % From E: 
 % 
 % t(room,room1).
-room(room1).
+isa(room1,room).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',47).
@@ -205,21 +206,21 @@ side2(door1,room1).
 % From E: 
 % 
 % t(agent,sleeper1).
-agent(sleeper1).
+isa(sleeper1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',52).
 % bed Bed1
 % From E: 
 % 
 % t(bed,bed1).
-bed(bed1).
+isa(bed1,bed).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',54).
 % outside Outside1
 % From E: 
 % 
 % t(outside,outside1).
-outside(outside1).
+isa(outside1,outside).
 %; initial state
 % [agent,object]
  % !HoldsAt(Holding(agent,object),0).
@@ -228,7 +229,6 @@ outside(outside1).
 % 
 % holds(
 %    not(holding(Agent,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',56).
 initially(not(holding(Agent,Object))).
 
 
@@ -245,11 +245,11 @@ initially(not(sittingOn(Agent,Physobj))).
 
 % [agent,physobj]
  % !HoldsAt(LyingOn(agent,physobj),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',58).
 % From E: 
 % 
 % holds(
 %    not(lyingOn(Agent,Physobj)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Sleeping.e',58).
 initially(not(lyingOn(Agent,Physobj))).
 
 

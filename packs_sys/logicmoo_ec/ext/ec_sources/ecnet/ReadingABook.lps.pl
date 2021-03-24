@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.lps.pl')).
-% Sun, 21 Mar 2021 23:28:13 GMT File: <stream>(0x555567722300)
+% Tue, 23 Mar 2021 19:06:53 GMT File: <stream>(0x555568199b00)
 
 
 %;
@@ -63,20 +63,21 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(floor))).
-:- call_pel_directive(ignore(floor)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',24).
+:- call_pel_directive(ignore(floor)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(buildingOf))).
 :- call_pel_directive(ignore(buildingOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(skyOf))).
 :- call_pel_directive(ignore(skyOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(groundOf))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',24).
 :- call_pel_directive(ignore(groundOf)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',26).
@@ -95,12 +96,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFrom))).
-:- call_pel_directive(ignore(walkFrom)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',26).
+:- call_pel_directive(ignore(walkFrom)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
 :- call_pel_directive(ignore(walkFromTo)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',26).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
@@ -181,21 +183,21 @@
 % From E: 
 % 
 % t(door,door1).
-door(door1).
+isa(door1,door).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',43).
 % room Room0
 % From E: 
 % 
 % t(room,room0).
-room(room0).
+isa(room0,room).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',45).
 % room Room1
 % From E: 
 % 
 % t(room,room1).
-room(room1).
+isa(room1,room).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',47).
@@ -223,35 +225,35 @@ side2(door1,room1).
 % From E: 
 % 
 % t(agent,reader1).
-agent(reader1).
+isa(reader1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',52).
 % book Book1
 % From E: 
 % 
 % t(book,book1).
-book(book1).
+isa(book1,book).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',54).
 % chair Chair1
 % From E: 
 % 
 % t(chair,chair1).
-chair(chair1).
+isa(chair1,chair).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',56).
 % physobj BookSupport1
 % From E: 
 % 
 % t(physobj,bookSupport1).
-physobj(bookSupport1).
+isa(bookSupport1,physobj).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',58).
 % content Content1
 % From E: 
 % 
 % t(content,content1).
-content(content1).
+isa(content1,content).
 %; initial state
 % [agent,object]
  % !HoldsAt(Holding(agent,object),0).
@@ -260,7 +262,6 @@ content(content1).
 % 
 % holds(
 %    not(holding(Agent,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',60).
 initially(not(holding(Agent,Object))).
 
 
@@ -277,11 +278,11 @@ initially(not(sittingOn(Agent,Physobj))).
 
 % [agent,physobj]
  % !HoldsAt(LyingOn(agent,physobj),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',62).
 % From E: 
 % 
 % holds(
 %    not(lyingOn(Agent,Physobj)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',62).
 initially(not(lyingOn(Agent,Physobj))).
 
 
@@ -293,7 +294,7 @@ initially(not(lyingOn(Agent,Physobj))).
 %        holds(
 %           bookIsOpenTo(book1,Page), 0))).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',64).
-not(thereExists(Page,initially(bookIsOpenTo(book1,Page)))).
+not(thereExists(Page,at(bookIsOpenTo(book1,Page),0))).
 
 
 % [physobj1,physobj2]
@@ -308,7 +309,7 @@ not(thereExists(Page,initially(bookIsOpenTo(book1,Page)))).
 %           Physobj2=bookSupport1)), 
 %    holds(
 %       not(on(Physobj1,Physobj2)), 0)).
-if(initially(on(Physobj1, Physobj2)),  (equals(Physobj1, book1), equals(Physobj2, bookSupport1))).
+if(at(not(on(Physobj1, Physobj2)), 0), not((equals(Physobj1, book1), equals(Physobj2, bookSupport1)))).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',68).

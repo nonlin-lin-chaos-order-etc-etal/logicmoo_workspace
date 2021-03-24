@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.lps.pl')).
-% Sun, 21 Mar 2021 23:28:16 GMT File: <stream>(0x555567430a00)%;
+% Tue, 23 Mar 2021 19:06:56 GMT File: <stream>(0x555567c07b00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -38,7 +38,7 @@
 % From E: 
 % 
 % fluent(at_loc(object,location)).
-mpred_prop(at_loc(object, location), fluent).
+mpred_prop(at_loc(object,location),fluent).
 fluents([at_loc/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',24).
@@ -61,12 +61,10 @@ fluents([at_loc/2]).
 %       released_at(
 %          at_loc(Object1,Location), 
 %          Time))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',26).
 exists(Object2,
-  (   released_at(at_loc(Object1, Location), Time)
-   ;   not(partOf(Object1, Object2))
-   )).
+ if(released_at(at_loc(Object1,Location),Time),
+   partOf(Object1,Object2))).
 
 
 %; A state constraint says that an object
@@ -87,10 +85,8 @@ exists(Object2,
 %          at_loc(Object,Location2), 
 %          Time)), 
 %    Location1=Location2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',32).
- if(not(equals(Location1, Location2)),
-       (not(at_loc(Object, Location1));not(at_loc(Object, Location2)))).
+if(equals(Location1, Location2),  (at(at_loc(Object, Location1), Time), at(at_loc(Object, Location2), Time))).
 
 
 %; connectivity
@@ -134,7 +130,7 @@ function(buildingOf(room),building).
 % From E: 
 % 
 % fluent(nearPortal(object,portal)).
-mpred_prop(nearPortal(object, portal), fluent).
+mpred_prop(nearPortal(object,portal),fluent).
 fluents([nearPortal/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',49).
@@ -173,9 +169,8 @@ fluents([nearPortal/2]).
 %          holds(
 %             at_loc(Object,Location), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',57).
-exists(Location,  (((side1(Portal, Location);side2(Portal, Location)), at_loc(Object, Location);not(nearPortal(Object, Portal))), (nearPortal(Object, Portal);not(side1(Portal, Location)), not(side2(Portal, Location));not(at_loc(Object, Location))))).
+exists(Location,  (at(nearPortal(Object, Portal), Time)<->(side1(Portal, Location);side2(Portal, Location)), at(at_loc(Object, Location), Time))).
 
 
 %; locking and unlocking doors
@@ -187,7 +182,7 @@ exists(Location,  (((side1(Portal, Location);side2(Portal, Location)), at_loc(Ob
 % 
 % event(doorUnlock(agent,door)).
 events([doorUnlock/2]).
-mpred_prop(doorUnlock(agent, door), action).
+mpred_prop(doorUnlock(agent,door),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',64).
 actions([doorUnlock/2]).
 
@@ -200,8 +195,8 @@ actions([doorUnlock/2]).
 % 
 % event(doorLock(agent,door)).
 events([doorLock/2]).
-mpred_prop(doorLock(agent, door), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',67).
+mpred_prop(doorLock(agent,door),action).
 actions([doorLock/2]).
 
 
@@ -212,7 +207,7 @@ actions([doorLock/2]).
 % From E: 
 % 
 % fluent(doorUnlocked(door)).
-mpred_prop(doorUnlocked(door), fluent).
+mpred_prop(doorUnlocked(door),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',69).
 fluents([doorUnlocked/1]).
 
@@ -246,10 +241,8 @@ fluents([doorUnlocked/1]).
 %          holds(
 %             nearPortal(Agent,Door), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',76).
- if((not(awake(Agent));doorUnlocked(Door);not(nearPortal(Agent, Door))),
-      not(doorUnlock(Agent, Door))).
+if((at(awake(Agent), Time), at(not(doorUnlocked(Door)), Time), at(nearPortal(Agent, Door), Time)), happens(doorUnlock(Agent, Door), Time)).
 
 
 %; An effect axiom states that
@@ -264,7 +257,6 @@ fluents([doorUnlocked/1]).
 %    doorUnlock(Agent,Door), 
 %    doorUnlocked(Door), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',85).
 initiates(doorUnlock(Agent,Door),doorUnlocked(Door)).
 
@@ -297,10 +289,8 @@ initiates(doorUnlock(Agent,Door),doorUnlocked(Door)).
 %          holds(
 %             nearPortal(Agent,Door), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',93).
- if((not(awake(Agent));not(doorUnlocked(Door));not(nearPortal(Agent, Door))),
-      not(doorLock(Agent, Door))).
+if((at(awake(Agent), Time), at(doorUnlocked(Door), Time), at(nearPortal(Agent, Door), Time)), happens(doorLock(Agent, Door), Time)).
 
 
 %; An effect axiom states that
@@ -315,7 +305,6 @@ initiates(doorUnlock(Agent,Door),doorUnlocked(Door)).
 %    doorLock(Agent,Door), 
 %    doorUnlocked(Door), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',102).
 terminates(doorLock(Agent,Door),doorUnlocked(Door)).
 
@@ -334,9 +323,9 @@ terminates(doorLock(Agent,Door),doorUnlocked(Door)).
 %    holds(
 %       doorUnlocked(Door), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',107).
-if(not(doorUnlocked(Door)),not(doorIsOpen(Door))).
+if(at(doorUnlocked(Door),Time),
+   at(doorIsOpen(Door),Time)).
 
 
 %; opening and closing doors
@@ -348,7 +337,7 @@ if(not(doorUnlocked(Door)),not(doorIsOpen(Door))).
 % 
 % event(doorOpen(agent,door)).
 events([doorOpen/2]).
-mpred_prop(doorOpen(agent, door), action).
+mpred_prop(doorOpen(agent,door),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',112).
 actions([doorOpen/2]).
 
@@ -361,8 +350,8 @@ actions([doorOpen/2]).
 % 
 % event(doorClose(agent,door)).
 events([doorClose/2]).
-mpred_prop(doorClose(agent, door), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',115).
+mpred_prop(doorClose(agent,door),action).
 actions([doorClose/2]).
 
 
@@ -373,7 +362,7 @@ actions([doorClose/2]).
 % From E: 
 % 
 % fluent(doorIsOpen(door)).
-mpred_prop(doorIsOpen(door), fluent).
+mpred_prop(doorIsOpen(door),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',117).
 fluents([doorIsOpen/1]).
 
@@ -413,10 +402,8 @@ fluents([doorIsOpen/1]).
 %             holds(
 %                nearPortal(Agent,Door), 
 %                Time))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',125).
- if((not(awake(Agent));doorIsOpen(Door);not(doorUnlocked(Door));not(nearPortal(Agent, Door))),
-      not(doorOpen(Agent, Door))).
+if((at(awake(Agent), Time), at(not(doorIsOpen(Door)), Time), at(doorUnlocked(Door), Time), at(nearPortal(Agent, Door), Time)), happens(doorOpen(Agent, Door), Time)).
 
 
 %; An effect axiom states that
@@ -431,7 +418,6 @@ fluents([doorIsOpen/1]).
 %    doorOpen(Agent,Door), 
 %    doorIsOpen(Door), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',135).
 initiates(doorOpen(Agent,Door),doorIsOpen(Door)).
 
@@ -470,10 +456,8 @@ initiates(doorOpen(Agent,Door),doorIsOpen(Door)).
 %             holds(
 %                nearPortal(Agent,Door), 
 %                Time))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',144).
- if((not(awake(Agent));not(doorIsOpen(Door));not(doorUnlocked(Door));not(nearPortal(Agent, Door))),
-      not(doorClose(Agent, Door))).
+if((at(awake(Agent), Time), at(doorIsOpen(Door), Time), at(doorUnlocked(Door), Time), at(nearPortal(Agent, Door), Time)), happens(doorClose(Agent, Door), Time)).
 
 
 %; An effect axiom states that
@@ -488,7 +472,6 @@ initiates(doorOpen(Agent,Door),doorIsOpen(Door)).
 %    doorClose(Agent,Door), 
 %    doorIsOpen(Door), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',154).
 terminates(doorClose(Agent,Door),doorIsOpen(Door)).
 
@@ -502,7 +485,7 @@ terminates(doorClose(Agent,Door),doorIsOpen(Door)).
 % 
 % event(walkThroughDoor12(agent,door)).
 events([walkThroughDoor12/2]).
-mpred_prop(walkThroughDoor12(agent, door), action).
+mpred_prop(walkThroughDoor12(agent,door),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',159).
 actions([walkThroughDoor12/2]).
 
@@ -515,8 +498,8 @@ actions([walkThroughDoor12/2]).
 % 
 % event(walkThroughDoor21(agent,door)).
 events([walkThroughDoor21/2]).
-mpred_prop(walkThroughDoor21(agent, door), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',162).
+mpred_prop(walkThroughDoor21(agent,door),action).
 actions([walkThroughDoor21/2]).
 
 
@@ -556,10 +539,8 @@ actions([walkThroughDoor21/2]).
 %                at_loc(Agent, 
 %                   side1(Door)), 
 %                Time))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',170).
- if((not(awake(Agent));not(standing(Agent));not(doorIsOpen(Door));not(at_loc(Agent, side1(Door)))),
-      not(walkThroughDoor12(Agent, Door))).
+if((at(awake(Agent), Time), at(standing(Agent), Time), at(doorIsOpen(Door), Time), at(at_loc(Agent, side1(Door)), Time)), happens(walkThroughDoor12(Agent, Door), Time)).
 
 
 % [agent,door,time]
@@ -591,10 +572,8 @@ actions([walkThroughDoor21/2]).
 %                at_loc(Agent, 
 %                   side2(Door)), 
 %                Time))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',178).
- if((not(awake(Agent));not(standing(Agent));not(doorIsOpen(Door));not(at_loc(Agent, side2(Door)))),
-      not(walkThroughDoor21(Agent, Door))).
+if((at(awake(Agent), Time), at(standing(Agent), Time), at(doorIsOpen(Door), Time), at(at_loc(Agent, side2(Door)), Time)), happens(walkThroughDoor21(Agent, Door), Time)).
 
 
 %; Effect axioms state that
@@ -614,11 +593,10 @@ actions([walkThroughDoor21/2]).
 %       walkThroughDoor12(Agent,Door), 
 %       at_loc(Agent,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',187).
-if(not(initiates(walkThroughDoor12(Agent,Door),
-		 at(at_loc(Agent,Location),Time))),
-   not(side2(Door,Location))).
+if(initiates(walkThroughDoor12(Agent,Door),
+	     at(at_loc(Agent,Location),Time)),
+   side2(Door,Location)).
 
 
 % [agent,door,location,time]
@@ -635,10 +613,9 @@ if(not(initiates(walkThroughDoor12(Agent,Door),
 %       walkThroughDoor21(Agent,Door), 
 %       at_loc(Agent,Location), 
 %       Time)).
- %   [Time].
-if(not(initiates(walkThroughDoor21(Agent,Door),
-		 at(at_loc(Agent,Location),Time))),
-   not(side1(Door,Location))).
+if(initiates(walkThroughDoor21(Agent,Door),
+	     at(at_loc(Agent,Location),Time)),
+   side1(Door,Location)).
 
 
 % [agent,door,location,time]
@@ -655,10 +632,9 @@ if(not(initiates(walkThroughDoor21(Agent,Door),
 %       walkThroughDoor12(Agent,Door), 
 %       at_loc(Agent,Location), 
 %       Time)).
- %   [Time].
-if(not(terminates(walkThroughDoor12(Agent,Door),
-		  at(at_loc(Agent,Location),Time))),
-   not(side1(Door,Location))).
+if(terminates(walkThroughDoor12(Agent,Door),
+	      at(at_loc(Agent,Location),Time)),
+   side1(Door,Location)).
 
 
 % [agent,door,location,time]
@@ -675,10 +651,9 @@ if(not(terminates(walkThroughDoor12(Agent,Door),
 %       walkThroughDoor21(Agent,Door), 
 %       at_loc(Agent,Location), 
 %       Time)).
- %   [Time].
-if(not(terminates(walkThroughDoor21(Agent,Door),
-		  at(at_loc(Agent,Location),Time))),
-   not(side2(Door,Location))).
+if(terminates(walkThroughDoor21(Agent,Door),
+	      at(at_loc(Agent,Location),Time)),
+   side2(Door,Location)).
 
 
 %; walking from one end of a street to another
@@ -690,7 +665,7 @@ if(not(terminates(walkThroughDoor21(Agent,Door),
 % 
 % event(walkStreet12(agent,street)).
 events([walkStreet12/2]).
-mpred_prop(walkStreet12(agent, street), action).
+mpred_prop(walkStreet12(agent,street),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',205).
 actions([walkStreet12/2]).
 
@@ -703,8 +678,8 @@ actions([walkStreet12/2]).
 % 
 % event(walkStreet21(agent,street)).
 events([walkStreet21/2]).
-mpred_prop(walkStreet21(agent, street), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',208).
+mpred_prop(walkStreet21(agent,street),action).
 actions([walkStreet21/2]).
 
 
@@ -738,10 +713,8 @@ actions([walkStreet21/2]).
 %             at_loc(Agent, 
 %                side1(Street)), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',215).
- if((not(awake(Agent));not(standing(Agent));not(at_loc(Agent, side1(Street)))),
-      not(walkStreet12(Agent, Street))).
+if((at(awake(Agent), Time), at(standing(Agent), Time), at(at_loc(Agent, side1(Street)), Time)), happens(walkStreet12(Agent, Street), Time)).
 
 
 % [agent,street,time]
@@ -768,10 +741,8 @@ actions([walkStreet21/2]).
 %             at_loc(Agent, 
 %                side2(Street)), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',222).
- if((not(awake(Agent));not(standing(Agent));not(at_loc(Agent, side2(Street)))),
-      not(walkStreet21(Agent, Street))).
+if((at(awake(Agent), Time), at(standing(Agent), Time), at(at_loc(Agent, side2(Street)), Time)), happens(walkStreet21(Agent, Street), Time)).
 
 
 %; Effect axioms state that
@@ -791,11 +762,10 @@ actions([walkStreet21/2]).
 %       walkStreet12(Agent,Street), 
 %       at_loc(Agent,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',230).
-if(not(initiates(walkStreet12(Agent,Street),
-		 at(at_loc(Agent,Location),Time))),
-   not(side2(Street,Location))).
+if(initiates(walkStreet12(Agent,Street),
+	     at(at_loc(Agent,Location),Time)),
+   side2(Street,Location)).
 
 
 % [agent,street,location,time]
@@ -812,10 +782,9 @@ if(not(initiates(walkStreet12(Agent,Street),
 %       walkStreet21(Agent,Street), 
 %       at_loc(Agent,Location), 
 %       Time)).
- %   [Time].
-if(not(initiates(walkStreet21(Agent,Street),
-		 at(at_loc(Agent,Location),Time))),
-   not(side1(Street,Location))).
+if(initiates(walkStreet21(Agent,Street),
+	     at(at_loc(Agent,Location),Time)),
+   side1(Street,Location)).
 
 
 % [agent,street,location,time]
@@ -832,10 +801,9 @@ if(not(initiates(walkStreet21(Agent,Street),
 %       walkStreet12(Agent,Street), 
 %       at_loc(Agent,Location), 
 %       Time)).
- %   [Time].
-if(not(terminates(walkStreet12(Agent,Street),
-		  at(at_loc(Agent,Location),Time))),
-   not(side1(Street,Location))).
+if(terminates(walkStreet12(Agent,Street),
+	      at(at_loc(Agent,Location),Time)),
+   side1(Street,Location)).
 
 
 % [agent,street,location,time]
@@ -852,10 +820,9 @@ if(not(terminates(walkStreet12(Agent,Street),
 %       walkStreet21(Agent,Street), 
 %       at_loc(Agent,Location), 
 %       Time)).
- %   [Time].
-if(not(terminates(walkStreet21(Agent,Street),
-		  at(at_loc(Agent,Location),Time))),
-   not(side2(Street,Location))).
+if(terminates(walkStreet21(Agent,Street),
+	      at(at_loc(Agent,Location),Time)),
+   side2(Street,Location)).
 
 
 %; floors
@@ -879,7 +846,7 @@ function(floor(room),integer).
 % 
 % event(walkDownStaircase(agent,staircase)).
 events([walkDownStaircase/2]).
-mpred_prop(walkDownStaircase(agent, staircase), action).
+mpred_prop(walkDownStaircase(agent,staircase),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',253).
 actions([walkDownStaircase/2]).
 
@@ -892,8 +859,8 @@ actions([walkDownStaircase/2]).
 % 
 % event(walkUpStaircase(agent,staircase)).
 events([walkUpStaircase/2]).
-mpred_prop(walkUpStaircase(agent, staircase), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',256).
+mpred_prop(walkUpStaircase(agent,staircase),action).
 actions([walkUpStaircase/2]).
 
 
@@ -926,10 +893,8 @@ actions([walkUpStaircase/2]).
 %             at_loc(Agent, 
 %                side2(Staircase)), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',262).
- if((not(awake(Agent));not(standing(Agent));not(at_loc(Agent, side2(Staircase)))),
-      not(walkDownStaircase(Agent, Staircase))).
+if((at(awake(Agent), Time), at(standing(Agent), Time), at(at_loc(Agent, side2(Staircase)), Time)), happens(walkDownStaircase(Agent, Staircase), Time)).
 
 
 % [agent,staircase,time]
@@ -956,10 +921,8 @@ actions([walkUpStaircase/2]).
 %             at_loc(Agent, 
 %                side1(Staircase)), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',269).
- if((not(awake(Agent));not(standing(Agent));not(at_loc(Agent, side1(Staircase)))),
-      not(walkUpStaircase(Agent, Staircase))).
+if((at(awake(Agent), Time), at(standing(Agent), Time), at(at_loc(Agent, side1(Staircase)), Time)), happens(walkUpStaircase(Agent, Staircase), Time)).
 
 
 %; Effect axioms state that
@@ -979,11 +942,10 @@ actions([walkUpStaircase/2]).
 %       walkDownStaircase(Agent,Staircase), 
 %       at_loc(Agent,Room), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',277).
-if(not(initiates(walkDownStaircase(Agent,Staircase),
-		 at(at_loc(Agent,Room),Time))),
-   not(side1(Staircase,Room))).
+if(initiates(walkDownStaircase(Agent,Staircase),
+	     at(at_loc(Agent,Room),Time)),
+   side1(Staircase,Room)).
 
 
 % [agent,staircase,room,time]
@@ -1000,10 +962,9 @@ if(not(initiates(walkDownStaircase(Agent,Staircase),
 %       walkDownStaircase(Agent,Staircase), 
 %       at_loc(Agent,Room), 
 %       Time)).
- %   [Time].
-if(not(terminates(walkDownStaircase(Agent,Staircase),
-		  at(at_loc(Agent,Room),Time))),
-   not(side2(Staircase,Room))).
+if(terminates(walkDownStaircase(Agent,Staircase),
+	      at(at_loc(Agent,Room),Time)),
+   side2(Staircase,Room)).
 
 
 % [agent,staircase,room,time]
@@ -1020,10 +981,9 @@ if(not(terminates(walkDownStaircase(Agent,Staircase),
 %       walkUpStaircase(Agent,Staircase), 
 %       at_loc(Agent,Room), 
 %       Time)).
- %   [Time].
-if(not(initiates(walkUpStaircase(Agent,Staircase),
-		 at(at_loc(Agent,Room),Time))),
-   not(side2(Staircase,Room))).
+if(initiates(walkUpStaircase(Agent,Staircase),
+	     at(at_loc(Agent,Room),Time)),
+   side2(Staircase,Room)).
 
 
 % [agent,staircase,room,time]
@@ -1040,10 +1000,9 @@ if(not(initiates(walkUpStaircase(Agent,Staircase),
 %       walkUpStaircase(Agent,Staircase), 
 %       at_loc(Agent,Room), 
 %       Time)).
- %   [Time].
-if(not(terminates(walkUpStaircase(Agent,Staircase),
-		  at(at_loc(Agent,Room),Time))),
-   not(side1(Staircase,Room))).
+if(terminates(walkUpStaircase(Agent,Staircase),
+	      at(at_loc(Agent,Room),Time)),
+   side1(Staircase,Room)).
 
 
 %; A state constraint says that if an agent is outside,
@@ -1061,9 +1020,9 @@ if(not(terminates(walkUpStaircase(Agent,Staircase),
 %    holds(
 %       dressed(Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',295).
-if(not(dressed(Agent)),not(at_loc(Agent,Outside))).
+if(at(dressed(Agent),Time),
+   at(at_loc(Agent,Outside),Time)).
 
 
 %; room looks out onto outside.
@@ -1084,7 +1043,7 @@ function(lookOutOnto(room),outside).
 % From E: 
 % 
 % predicate(adjacent(location,location)).
-mpred_prop(adjacent(location, location), predicate).
+mpred_prop(adjacent(location,location),predicate).
 predicates([adjacent/2]).
 
 
@@ -1123,7 +1082,7 @@ predicates([adjacent/2]).
 %                side1(Portal), 
 %                Location2))))).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',308).
-exists(Portal,  (((side1(Portal, Location1), side2(Portal, Location2);side2(Portal, Location1), side1(Portal, Location2));not(adjacent(Location1, Location2))), (adjacent(Location1, Location2);(not(side1(Portal, Location1));not(side2(Portal, Location2))), (not(side2(Portal, Location1));not(side1(Portal, Location2)))))).
+exists(Portal,  (adjacent(Location1, Location2)<->side1(Portal, Location1), side2(Portal, Location2);side2(Portal, Location1), side1(Portal, Location2))).
 
 
 %; The ground of outside is ground.
@@ -1162,10 +1121,9 @@ function(skyOf(outside),sky).
 %    holds(
 %       at_loc(Ground,Outside), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RTSpace.e',322).
-if(not(at_loc(Ground,Outside)),
-   not(groundOf(Outside,Ground))).
+if(at(at_loc(Ground,Outside),Time),
+   groundOf(Outside,Ground)).
 
 
 % [outside,sky,time]
@@ -1181,9 +1139,8 @@ if(not(at_loc(Ground,Outside)),
 %    holds(
 %       at_loc(Sky,Outside), 
 %       Time)).
- %   [Time].
-if(not(at_loc(Sky,Outside)),
-   not(skyOf(Outside,Sky))).
+if(at(at_loc(Sky,Outside),Time),
+   skyOf(Outside,Sky)).
 
 
 %; End of file.

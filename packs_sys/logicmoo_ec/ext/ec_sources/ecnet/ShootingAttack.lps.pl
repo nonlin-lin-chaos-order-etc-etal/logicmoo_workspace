@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.lps.pl')).
-% Sun, 21 Mar 2021 23:28:16 GMT File: <stream>(0x5555672b0600)%;
+% Tue, 23 Mar 2021 19:06:56 GMT File: <stream>(0x555567c07900)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -49,12 +49,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(near))).
-:- call_pel_directive(ignore(near)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',25).
+:- call_pel_directive(ignore(near)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
 :- call_pel_directive(ignore(walkFromTo)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
@@ -69,12 +70,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(diameter))).
-:- call_pel_directive(ignore(diameter)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',25).
+:- call_pel_directive(ignore(diameter)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(move))).
 :- call_pel_directive(ignore(move)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(holdSome))).
@@ -94,12 +96,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(doorUnlock))).
-:- call_pel_directive(ignore(doorUnlock)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',27).
+:- call_pel_directive(ignore(doorUnlock)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(doorLock))).
 :- call_pel_directive(ignore(doorLock)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkThroughDoor12))).
@@ -114,8 +117,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkDownStaircase))).
-:- call_pel_directive(ignore(walkDownStaircase)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',27).
+:- call_pel_directive(ignore(walkDownStaircase)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkUpStaircase))).
@@ -194,14 +197,14 @@
 % From E: 
 % 
 % t(gun,gun1).
-gun(gun1).
+isa(gun1,gun).
 
 % bullet Bullet1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',41).
 % From E: 
 % 
 % t(bullet,bullet1).
-bullet(bullet1).
+isa(bullet1,bullet).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',43).
@@ -227,14 +230,14 @@ initially(intact(bullet1)).
 % From E: 
 % 
 % t(agent,perp1).
-agent(perp1).
+isa(perp1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',48).
 % physobj PhysTarget1
 % From E: 
 % 
 % t(physobj,physTarget1).
-physobj(physTarget1).
+isa(physTarget1,physobj).
 
 
 % HoldsAt(Intact(PhysTarget1),0).
@@ -243,7 +246,6 @@ physobj(physTarget1).
 % 
 % holds(
 %    intact(physTarget1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',48).
 initially(intact(physTarget1)).
 
 
@@ -264,20 +266,21 @@ initially(at_loc(physTarget1,outside1)).
 % From E: 
 % 
 % sort(shoota).
-sort(shoota).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',52).
+sort(shoota).
 % From E: 
 % 
 % sort(shootb).
 sort(shootb).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',52).
 % From E: 
 % 
 % sort(shooto).
 sort(shooto).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',52).
 % From E: 
 % 
 % sort(shooth).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',52).
 sort(shooth).
 % From E: 
 % 
@@ -289,7 +292,7 @@ sort(shootp).
 % From E: 
 % 
 % event(shoot(shoota,shootb,shooto)).
-mpred_prop(shoot(shoota, shootb, shooto), event).
+mpred_prop(shoot(shoota,shootb,shooto),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',54).
 events([shoot/3]).
 
@@ -297,8 +300,8 @@ events([shoot/3]).
 % From E: 
 % 
 % event(shootInjure(shoota,shootb,shooth)).
-mpred_prop(shootInjure(shoota, shootb, shooth), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',54).
+mpred_prop(shootInjure(shoota,shootb,shooth),event).
 events([shootInjure/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',56).
@@ -306,7 +309,7 @@ events([shootInjure/3]).
 % From E: 
 % 
 % event(shootKill(shoota,shootb,shooth)).
-mpred_prop(shootKill(shoota, shootb, shooth), event).
+mpred_prop(shootKill(shoota,shootb,shooth),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',56).
 events([shootKill/3]).
 
@@ -314,8 +317,8 @@ events([shootKill/3]).
 % From E: 
 % 
 % event(shootDamage(shoota,shootb,shootp)).
-mpred_prop(shootDamage(shoota, shootb, shootp), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',56).
+mpred_prop(shootDamage(shoota,shootb,shootp),event).
 events([shootDamage/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',58).
@@ -323,7 +326,7 @@ events([shootDamage/3]).
 % From E: 
 % 
 % event(shootDestroy(shoota,shootb,shootp)).
-mpred_prop(shootDestroy(shoota, shootb, shootp), event).
+mpred_prop(shootDestroy(shoota,shootb,shootp),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',58).
 events([shootDestroy/3]).
 
@@ -332,28 +335,28 @@ events([shootDestroy/3]).
 % 
 % t(shoota,perp1).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',58).
-shoota(perp1).
+isa(perp1,shoota).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',60).
 % shootb! Gun1
 % From E: 
 % 
 % t(shootb,gun1).
-shootb(gun1).
+isa(gun1,shootb).
 
 % shooto! PhysTarget1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',60).
 % From E: 
 % 
 % t(shooto,physTarget1).
-shooto(physTarget1).
+isa(physTarget1,shooto).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',62).
 % shootp! PhysTarget1
 % From E: 
 % 
 % t(shootp,physTarget1).
-shootp(physTarget1).
+isa(physTarget1,shootp).
 %; room-scale topological space
 
 % outside Outside1
@@ -361,42 +364,42 @@ shootp(physTarget1).
 % From E: 
 % 
 % t(outside,outside1).
-outside(outside1).
+isa(outside1,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',66).
 % outside Outside2
 % From E: 
 % 
 % t(outside,outside2).
-outside(outside2).
+isa(outside2,outside).
 
 % room Inside1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',66).
 % From E: 
 % 
 % t(room,inside1).
-room(inside1).
+isa(inside1,room).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',68).
 % door Door1
 % From E: 
 % 
 % t(door,door1).
-door(door1).
+isa(door1,door).
 
 % building Building1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',68).
 % From E: 
 % 
 % t(building,building1).
-building(building1).
+isa(building1,building).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',70).
 % street Street1
 % From E: 
 % 
 % t(street,street1).
-street(street1).
+isa(street1,street).
 
 
 % Side1(Door1)=Outside1.
@@ -478,7 +481,6 @@ side2(street1,outside2).
 % 
 % holds(
 %    alive(perp1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ShootingAttack.e',78).
 initially(alive(perp1)).
 
 

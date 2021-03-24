@@ -196,6 +196,8 @@ demo_test(Match):- mmake,
   abdemo(Goal))).
 
 match_test(X,Y):- (var(X);var(Y)),!.
+match_test(X,Y):- is_list(X),member(XX,X),match_test(XX,Y),!.
+match_test(X,Y):- is_list(Y),member(YY,Y),match_test(X,YY),!.
 match_test(X,Y):- term_to_atom(X,X1),term_to_atom(Y,Y1), (sub_atom(X1,_,_,_,Y1) ; sub_atom(Y1,_,_,_,X1)),!.
 
 

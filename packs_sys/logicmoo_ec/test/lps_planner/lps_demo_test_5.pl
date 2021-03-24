@@ -14,7 +14,8 @@ lps_pddl_convert:test_logicmoo_lps_pddl_readerA :-
 subtype(assembly, object).
 subtype(resource, object).
 
-fluents available((either, resource, assembly)).
+fluents available(resource).
+fluents available(assembly).
 fluents complete(assembly).
 fluents requires(assembly, resource).
 fluents committed(resource, assembly).
@@ -40,8 +41,8 @@ release(Res, As)terminates committed(Res, As)if enabled_action_release(Res, As).
 fluents enabled_action_assemble(Part, Whole, Res, Prev, P, Tp).
 actions assemble(Part, Whole).
 enabled_action_assemble(Part, Whole, Res, Prev, P, Tp)at T0 if isa(Part, assembly), isa(Whole, assembly), all(typed(resource, Res), pddl_imply(requires(Whole, Res), committed(Res, Whole)))at T0, (part_of(Part, Whole);transient_part(Part, Whole))at T0, available(Part)at T0, all(typed(assembly, Prev), pddl_imply(assemble_order(Prev, Part, Whole), incorporated(Prev, Whole)))at T0.
-assemble(Part, Whole)initiates incorporated(Part, Whole)if enabled_action_assemble(Part, Whole, Res, Prev, P, Tp).
-assemble(Part, Whole)initiates complete(Whole)if enabled_action_assemble(Part, Whole, Res, Prev, P, Tp), not exists(typed(assembly, P),  (part_of(P, Whole), not P=Part, not incorporated(P, Whole))), not exists(typed(assembly, Tp),  (transient_part(Tp, Whole), incorporated(Tp, Whole))).
+assemble(Part, Whole)initiates incorporated(Part, Whole) if enabled_action_assemble(Part, Whole, Res, Prev, P, Tp).
+assemble(Part, Whole)initiates complete(Whole) if enabled_action_assemble(Part, Whole, Res, Prev, P, Tp), not exists(typed(assembly, P),  (part_of(P, Whole), not P=Part, not incorporated(P, Whole))), not exists(typed(assembly, Tp),  (transient_part(Tp, Whole), incorporated(Tp, Whole))).
 assemble(Part, Whole)initiates available(Whole)if enabled_action_assemble(Part, Whole, Res, Prev, P, Tp), not exists(typed(assembly, P),  (part_of(P, Whole), not P=Part, not incorporated(P, Whole))), not exists(typed(assembly, Tp),  (transient_part(Tp, Whole), incorporated(Tp, Whole))).
 assemble(Part, Whole)terminates available(Part)if enabled_action_assemble(Part, Whole, Res, Prev, P, Tp).
 

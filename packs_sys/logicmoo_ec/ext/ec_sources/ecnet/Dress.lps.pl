@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.lps.pl')).
-% Sun, 21 Mar 2021 23:28:08 GMT File: <stream>(0x5555686dbe00)%;
+% Tue, 23 Mar 2021 19:06:49 GMT File: <stream>(0x555567a97700)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -31,8 +31,8 @@
 % 
 % event(putOn(agent,clothing)).
 events([putOn/2]).
-mpred_prop(putOn(agent, clothing), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',15).
+mpred_prop(putOn(agent,clothing),action).
 actions([putOn/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',17).
@@ -41,8 +41,8 @@ actions([putOn/2]).
 % 
 % event(takeOff(agent,clothing)).
 events([takeOff/2]).
-mpred_prop(takeOff(agent, clothing), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',17).
+mpred_prop(takeOff(agent,clothing),action).
 actions([takeOff/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',19).
@@ -50,7 +50,7 @@ actions([takeOff/2]).
 % From E: 
 % 
 % fluent(wearing(agent,clothing)).
-mpred_prop(wearing(agent, clothing), fluent).
+mpred_prop(wearing(agent,clothing),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',19).
 fluents([wearing/2]).
 
@@ -66,7 +66,6 @@ fluents([wearing/2]).
 %    putOn(Agent,Clothing), 
 %    wearing(Agent,Clothing), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',21).
 initiates(putOn(Agent,Clothing),
 	  wearing(Agent,Clothing)).
@@ -97,9 +96,8 @@ initiates(putOn(Agent,Clothing),
 %             holds(
 %                at_loc(Clothing,Location), 
 %                Time))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',29).
-exists(Location,  (not(wearing(Agent, Clothing)), at_loc(Agent, Location), at_loc(Clothing, Location);not(putOn(Agent, Clothing)))).
+exists(Location, if((at(not(wearing(Agent, Clothing)), Time), at(at_loc(Agent, Location), Time), at(at_loc(Clothing, Location), Time)), happens(putOn(Agent, Clothing), Time))).
 
 
 % [agent,clothing,time]
@@ -113,7 +111,6 @@ exists(Location,  (not(wearing(Agent, Clothing)), at_loc(Agent, Location), at_lo
 %    takeOff(Agent,Clothing), 
 %    wearing(Agent,Clothing), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',33).
 terminates(takeOff(Agent,Clothing),
 	   wearing(Agent,Clothing)).
@@ -132,9 +129,8 @@ terminates(takeOff(Agent,Clothing),
 %    holds(
 %       wearing(Agent,Clothing), 
 %       Time)).
- %   [Time].
-if(not(wearing(Agent,Clothing)),
-   not(takeOff(Agent,Clothing))).
+if(at(wearing(Agent,Clothing),Time),
+   happens(takeOff(Agent,Clothing),Time)).
 
 
 % [agent,clothing,location,time]
@@ -146,7 +142,6 @@ if(not(wearing(Agent,Clothing)),
 %    putOn(Agent,Clothing), 
 %    at_loc(Clothing,Location), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',42).
 releases(putOn(Agent,Clothing),
 	 at_loc(Clothing,Location)).
@@ -170,10 +165,8 @@ releases(putOn(Agent,Clothing),
 %    holds(
 %       at_loc(Clothing,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',44).
- if(not(at_loc(Clothing, Location)),
-       (not(wearing(Agent, Clothing));not(at_loc(Agent, Location)))).
+if(at(at_loc(Clothing, Location), Time),  (at(wearing(Agent, Clothing), Time), at(at_loc(Agent, Location), Time))).
 
 
 %;[agent,clothing,location1,location2,time]
@@ -194,11 +187,10 @@ releases(putOn(Agent,Clothing),
 %       takeOff(Agent,Clothing), 
 %       at_loc(Clothing,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Dress.e',54).
-if(not(initiates(takeOff(Agent,Clothing),
-		 at(at_loc(Clothing,Location),Time))),
-   not(holds(at_loc(Agent,Location),Time))).
+if(initiates(takeOff(Agent,Clothing),
+	     at(at_loc(Clothing,Location),Time)),
+   at(at_loc(Agent,Location),Time)).
 
 
 %; End of file.

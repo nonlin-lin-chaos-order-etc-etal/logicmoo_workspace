@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.lps.pl')).
-% Sun, 21 Mar 2021 23:28:13 GMT File: <stream>(0x555567866200)%;
+% Tue, 23 Mar 2021 19:06:53 GMT File: <stream>(0x555555fa9b00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -60,20 +60,21 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(floor))).
-:- call_pel_directive(ignore(floor)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',24).
+:- call_pel_directive(ignore(floor)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(buildingOf))).
 :- call_pel_directive(ignore(buildingOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(skyOf))).
 :- call_pel_directive(ignore(skyOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(groundOf))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',24).
 :- call_pel_directive(ignore(groundOf)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',26).
@@ -90,8 +91,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
-:- call_pel_directive(ignore(walkFromTo)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',26).
+:- call_pel_directive(ignore(walkFromTo)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
@@ -106,6 +107,7 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(side2))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',26).
 :- call_pel_directive(ignore(side2)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',29).
@@ -183,63 +185,63 @@
 % From E: 
 % 
 % t(location,location1).
-location(location1).
+isa(location1,location).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',42).
 % portal DummyPortal1
 % From E: 
 % 
 % t(portal,dummyPortal1).
-portal(dummyPortal1).
+isa(dummyPortal1,portal).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',44).
 % agent Recipient1
 % From E: 
 % 
 % t(agent,recipient1).
-agent(recipient1).
+isa(recipient1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',46).
 % letter Letter1
 % From E: 
 % 
 % t(letter,letter1).
-letter(letter1).
+isa(letter1,letter).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',48).
 % container Envelope1
 % From E: 
 % 
 % t(container,envelope1).
-container(envelope1).
+isa(envelope1,container).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',50).
 % physobj Surface1
 % From E: 
 % 
 % t(physobj,surface1).
-physobj(surface1).
+isa(surface1,physobj).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',52).
 % chair Chair1
 % From E: 
 % 
 % t(chair,chair1).
-chair(chair1).
+isa(chair1,chair).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',54).
 % content Content1
 % From E: 
 % 
 % t(content,content1).
-content(content1).
+isa(content1,content).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',56).
 % agent Carrier1
 % From E: 
 % 
 % t(agent,carrier1).
-agent(carrier1).
+isa(carrier1,agent).
 %; prune
 
 % sort ona, onb
@@ -251,6 +253,7 @@ sort(ona).
 % From E: 
 % 
 % sort(onb).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',58).
 sort(onb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',60).
@@ -258,7 +261,7 @@ sort(onb).
 % From E: 
 % 
 % fluent(on(ona,onb)).
-mpred_prop(on(ona, onb), fluent).
+mpred_prop(on(ona,onb),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',60).
 fluents([on/2]).
 
@@ -268,7 +271,7 @@ fluents([on/2]).
 % event(placeOn(agent,ona,onb)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',60).
 events([placeOn/3]).
-mpred_prop(placeOn(agent, ona, onb), action).
+mpred_prop(placeOn(agent,ona,onb),action).
 actions([placeOn/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',62).
@@ -277,8 +280,8 @@ actions([placeOn/3]).
 % 
 % event(takeOffOf(agent,ona,onb)).
 events([takeOffOf/3]).
-mpred_prop(takeOffOf(agent, ona, onb), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',62).
+mpred_prop(takeOffOf(agent,ona,onb),action).
 actions([takeOffOf/3]).
 
 % ona! Envelope1, Letter1
@@ -286,18 +289,18 @@ actions([takeOffOf/3]).
 % 
 % t(ona,envelope1).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',62).
-ona(envelope1).
+isa(envelope1,ona).
 % From E: 
 % 
 % t(ona,letter1).
-ona(letter1).
+isa(letter1,ona).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',64).
 % onb! Surface1
 % From E: 
 % 
 % t(onb,surface1).
-onb(surface1).
+isa(surface1,onb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',66).
 % sort insidea, insideb
@@ -316,7 +319,7 @@ sort(insideb).
 % From E: 
 % 
 % fluent(inside(insidea,insideb)).
-mpred_prop(inside(insidea, insideb), fluent).
+mpred_prop(inside(insidea,insideb),fluent).
 fluents([inside/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',68).
@@ -325,8 +328,8 @@ fluents([inside/2]).
 % 
 % event(putInside(agent,insidea,insideb)).
 events([putInside/3]).
-mpred_prop(putInside(agent, insidea, insideb), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',68).
+mpred_prop(putInside(agent,insidea,insideb),action).
 actions([putInside/3]).
 
 % event! TakeOutOf(agent,insidea,insideb)
@@ -335,7 +338,7 @@ actions([putInside/3]).
 % event(takeOutOf(agent,insidea,insideb)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',68).
 events([takeOutOf/3]).
-mpred_prop(takeOutOf(agent, insidea, insideb), action).
+mpred_prop(takeOutOf(agent,insidea,insideb),action).
 actions([takeOutOf/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',70).
@@ -343,14 +346,14 @@ actions([takeOutOf/3]).
 % From E: 
 % 
 % t(insidea,letter1).
-insidea(letter1).
+isa(letter1,insidea).
 
 % insideb! Envelope1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',70).
 % From E: 
 % 
 % t(insideb,envelope1).
-insideb(envelope1).
+isa(envelope1,insideb).
 %; initial state
 % [agent,physobj]
  % !HoldsAt(SittingOn(agent,physobj),0).
@@ -359,7 +362,6 @@ insideb(envelope1).
 % 
 % holds(
 %    not(sittingOn(Agent,Physobj)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',73).
 initially(not(sittingOn(Agent,Physobj))).
 
 
@@ -481,7 +483,7 @@ initially(inside(letter1,envelope1)).
 %           Physobj2=envelope1)), 
 %    holds(
 %       not(inside(Physobj1,Physobj2)), 0)).
-if(initially(inside(Physobj1, Physobj2)),  (equals(Physobj1, letter1), equals(Physobj2, envelope1))).
+if(at(not(inside(Physobj1, Physobj2)), 0), not((equals(Physobj1, letter1), equals(Physobj2, envelope1)))).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',89).
@@ -507,7 +509,7 @@ initially(not(see(Agent,Object))).
 %           Object=envelope1)), 
 %    holds(
 %       not(holding(Agent,Object)), 0)).
-if(initially(holding(Agent, Object)),  (equals(Agent, carrier1), equals(Object, envelope1))).
+if(at(not(holding(Agent, Object)), 0), not((equals(Agent, carrier1), equals(Object, envelope1)))).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',93).
@@ -522,11 +524,11 @@ initially(holding(carrier1,envelope1)).
 
 % [physobj1,physobj2]
  % !HoldsAt(On(physobj1, physobj2),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',93).
 % From E: 
 % 
 % holds(
 %    not(on(Physobj1,Physobj2)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingALetter.e',93).
 initially(not(on(Physobj1,Physobj2))).
 
 

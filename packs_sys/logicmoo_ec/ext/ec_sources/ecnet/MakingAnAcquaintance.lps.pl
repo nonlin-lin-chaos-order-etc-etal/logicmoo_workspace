@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.lps.pl')).
-% Sun, 21 Mar 2021 23:28:11 GMT File: <stream>(0x5555679d6f00)%;
+% Tue, 23 Mar 2021 19:06:51 GMT File: <stream>(0x5555681cd700)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -53,12 +53,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(buildingOf))).
-:- call_pel_directive(ignore(buildingOf)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',24).
+:- call_pel_directive(ignore(buildingOf)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(skyOf))).
 :- call_pel_directive(ignore(skyOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(groundOf))).
@@ -73,12 +74,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFrom))).
-:- call_pel_directive(ignore(walkFrom)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',24).
+:- call_pel_directive(ignore(walkFrom)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
 :- call_pel_directive(ignore(walkFromTo)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
@@ -105,8 +107,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(neutralOf))).
-:- call_pel_directive(ignore(neutralOf)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',26).
+:- call_pel_directive(ignore(neutralOf)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(enemyOf))).
@@ -126,13 +128,14 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(becomeEnemies))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',28).
 :- call_pel_directive(ignore(becomeEnemies)).
 
 % ignore Happy, Calm, Unhappy
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',28).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(happy))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',28).
 :- call_pel_directive(ignore(happy)).
 % From E: 
 % 
@@ -158,13 +161,14 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(becomeUnhappy))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',30).
 :- call_pel_directive(ignore(becomeUnhappy)).
 
 % ignore AngryAt, BecomeAngryAt
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',30).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(angryAt))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',30).
 :- call_pel_directive(ignore(angryAt)).
 % From E: 
 % 
@@ -185,8 +189,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(dislike))).
-:- call_pel_directive(ignore(dislike)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',32).
+:- call_pel_directive(ignore(dislike)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(likeSnow))).
@@ -213,8 +217,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(intendToWalkIn))).
-:- call_pel_directive(ignore(intendToWalkIn)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',34).
+:- call_pel_directive(ignore(intendToWalkIn)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(intentionToWalkIn))).
@@ -229,12 +233,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(greet))).
-:- call_pel_directive(ignore(greet)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',34).
+:- call_pel_directive(ignore(greet)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(sayGoodbye))).
 :- call_pel_directive(ignore(sayGoodbye)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',34).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(cryForJoy))).
@@ -254,13 +259,14 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(threatenedBy))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',36).
 :- call_pel_directive(ignore(threatenedBy)).
 
 % ignore Order, KnowOrder, Request, KnowRequest
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',36).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(order))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',36).
 :- call_pel_directive(ignore(order)).
 % From E: 
 % 
@@ -274,6 +280,7 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(knowRequest))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',36).
 :- call_pel_directive(ignore(knowRequest)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',39).
@@ -344,35 +351,35 @@
 % From E: 
 % 
 % t(location,location1).
-location(location1).
+isa(location1,location).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',51).
 % portal DummyPortal1
 % From E: 
 % 
 % t(portal,dummyPortal1).
-portal(dummyPortal1).
+isa(dummyPortal1,portal).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',53).
 % agent Introducer1
 % From E: 
 % 
 % t(agent,introducer1).
-agent(introducer1).
+isa(introducer1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',55).
 % agent Introducee1
 % From E: 
 % 
 % t(agent,introducee1).
-agent(introducee1).
+isa(introducee1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',57).
 % agent Introduced1
 % From E: 
 % 
 % t(agent,introduced1).
-agent(introduced1).
+isa(introduced1,agent).
 %; initial state
 % [agent,physobj]
  % !HoldsAt(SittingOn(agent,physobj),0).
@@ -381,7 +388,6 @@ agent(introduced1).
 % 
 % holds(
 %    not(sittingOn(Agent,Physobj)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',59).
 initially(not(sittingOn(Agent,Physobj))).
 
 
@@ -398,11 +404,11 @@ initially(not(lyingOn(Agent,Physobj))).
 
 % [agent]
  % HoldsAt(Dressed(agent),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',61).
 % From E: 
 % 
 % holds(
 %    dressed(Agent), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',61).
 initially(dressed(Agent)).
 
 
@@ -419,11 +425,11 @@ initially(awake(Agent)).
 
 % [agent]
  % HoldsAt(Sleep3(agent),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',63).
 % From E: 
 % 
 % holds(
 %    sleep3(Agent), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/MakingAnAcquaintance.e',63).
 initially(sleep3(Agent)).
 
 

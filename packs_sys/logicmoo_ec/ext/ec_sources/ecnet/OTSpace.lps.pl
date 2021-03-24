@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.lps.pl')).
-% Sun, 21 Mar 2021 23:28:12 GMT File: <stream>(0x555567803900)%;
+% Tue, 23 Mar 2021 19:06:52 GMT File: <stream>(0x5555684acb00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -35,7 +35,7 @@
 % From E: 
 % 
 % predicate(partOf(physobj,object)).
-mpred_prop(partOf(physobj, object), predicate).
+mpred_prop(partOf(physobj,object),predicate).
 predicates([partOf/2]).
 
 
@@ -59,10 +59,8 @@ predicates([partOf/2]).
 %    holds(
 %       at_loc(Physobj,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',26).
- if(not(at_loc(Physobj, Location)),
-       (not(partOf(Physobj, Object));not(at_loc(Object, Location)))).
+if(at(at_loc(Physobj, Location), Time),  (partOf(Physobj, Object), at(at_loc(Object, Location), Time))).
 
 
 %; rolling a snowball bigger
@@ -74,7 +72,7 @@ predicates([partOf/2]).
 % 
 % event(rollAlong(agent,stuff,stuff)).
 events([rollAlong/3]).
-mpred_prop(rollAlong(agent, stuff, stuff), action).
+mpred_prop(rollAlong(agent,stuff,stuff),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',33).
 actions([rollAlong/3]).
 
@@ -86,7 +84,7 @@ actions([rollAlong/3]).
 % From E: 
 % 
 % fluent(diameter(ball,diameter)).
-mpred_prop(diameter(ball, diameter), fluent).
+mpred_prop(diameter(ball,diameter),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',36).
 fluents([diameter/2]).
 
@@ -109,10 +107,8 @@ fluents([diameter/2]).
 %          diameter(Ball,Diameter2), 
 %          Time)), 
 %    Diameter1=Diameter2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',40).
- if(not(equals(Diameter1, Diameter2)),
-       (not(diameter(Ball, Diameter1));not(diameter(Ball, Diameter2)))).
+if(equals(Diameter1, Diameter2),  (at(diameter(Ball, Diameter1), Time), at(diameter(Ball, Diameter2), Time))).
 
 
 %; Effect axiom state that if an agent rolls some snow along
@@ -136,11 +132,8 @@ fluents([diameter/2]).
 %       rollAlong(Agent,Snow1,Snow2), 
 %       diameter(Snow1,Diameter2), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',46).
- if(not(initiates(rollAlong(Agent, Snow1, Snow2),
-                    at(diameter(Snow1, Diameter2), Time))),
-       (not(holds(diameter(Snow1, Diameter1), Time));not(equals(Diameter2, Diameter1+1)))).
+if(initiates(rollAlong(Agent, Snow1, Snow2), at(diameter(Snow1, Diameter2), Time)),  (at(diameter(Snow1, Diameter1), Time), equals(Diameter2, Diameter1+1))).
 
 
 % [agent,snow1,snow2,diameter1,time]
@@ -159,11 +152,10 @@ fluents([diameter/2]).
 %       rollAlong(Agent,Snow1,Snow2), 
 %       diameter(Snow1,Diameter1), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',54).
-if(not(terminates(rollAlong(Agent,Snow1,Snow2),
-		  at(diameter(Snow1,Diameter1),Time))),
-   not(holds(diameter(Snow1,Diameter1),Time))).
+if(terminates(rollAlong(Agent,Snow1,Snow2),
+	      at(diameter(Snow1,Diameter1),Time)),
+   at(diameter(Snow1,Diameter1),Time)).
 
 
 %; A precondition axiom states that
@@ -186,7 +178,7 @@ if(not(terminates(rollAlong(Agent,Snow1,Snow2),
 % From E: 
 % 
 % event(move(object)).
-mpred_prop(move(object), event).
+mpred_prop(move(object),event).
 events([move/1]).
 
 
@@ -199,7 +191,7 @@ events([move/1]).
 % From E: 
 % 
 % fluent(holding(agent,physobj)).
-mpred_prop(holding(agent, physobj), fluent).
+mpred_prop(holding(agent,physobj),fluent).
 fluents([holding/2]).
 
 
@@ -212,8 +204,8 @@ fluents([holding/2]).
 % 
 % event(hold(agent,physobj)).
 events([hold/2]).
-mpred_prop(hold(agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',82).
+mpred_prop(hold(agent,physobj),action).
 actions([hold/2]).
 
 
@@ -225,8 +217,8 @@ actions([hold/2]).
 % 
 % event(holdSome(agent,stuff,stuff)).
 events([holdSome/3]).
-mpred_prop(holdSome(agent, stuff, stuff), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',84).
+mpred_prop(holdSome(agent,stuff,stuff),action).
 actions([holdSome/3]).
 
 
@@ -238,8 +230,8 @@ actions([holdSome/3]).
 % 
 % event(letGoOf(agent,physobj)).
 events([letGoOf/2]).
-mpred_prop(letGoOf(agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',86).
+mpred_prop(letGoOf(agent,physobj),action).
 actions([letGoOf/2]).
 
 
@@ -256,7 +248,6 @@ actions([letGoOf/2]).
 %    hold(Agent,Physobj), 
 %    holding(Agent,Physobj), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',91).
 initiates(hold(Agent,Physobj),
 	  holding(Agent,Physobj)).
@@ -284,7 +275,6 @@ initiates(hold(Agent,Physobj),
 %    letGoOf(Agent,Physobj), 
 %    holding(Agent,Physobj), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',108).
 terminates(letGoOf(Agent,Physobj),
 	   holding(Agent,Physobj)).
@@ -306,10 +296,9 @@ terminates(letGoOf(Agent,Physobj),
 %    holds(
 %       holding(Agent,Physobj), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',114).
-if(not(holding(Agent,Physobj)),
-   not(letGoOf(Agent,Physobj))).
+if(at(holding(Agent,Physobj),Time),
+   happens(letGoOf(Agent,Physobj),Time)).
 
 
 %; A releases axiom states that if an agent holds
@@ -325,7 +314,6 @@ if(not(holding(Agent,Physobj)),
 %    hold(Agent,Physobj), 
 %    at_loc(Physobj,Location), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',122).
 releases(hold(Agent,Physobj),
 	 at_loc(Physobj,Location)).
@@ -352,10 +340,8 @@ releases(hold(Agent,Physobj),
 %    holds(
 %       at_loc(Physobj,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',128).
- if(not(at_loc(Physobj, Location)),
-       (not(holding(Agent, Physobj));not(at_loc(Agent, Location)))).
+if(at(at_loc(Physobj, Location), Time),  (at(holding(Agent, Physobj), Time), at(at_loc(Agent, Location), Time))).
 
 
 %; A releases axiom states that if an agent holds
@@ -374,11 +360,10 @@ releases(hold(Agent,Physobj),
 %       hold(Agent,Physobj2), 
 %       at_loc(Physobj1,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',137).
-if(not(terminates(hold(Agent,Physobj2),
-		  at(at_loc(Physobj1,Location),Time))),
-   not(partOf(Physobj1,Physobj2))).
+if(terminates(hold(Agent,Physobj2),
+	      at(at_loc(Physobj1,Location),Time)),
+   partOf(Physobj1,Physobj2)).
 
 
 %; Further, if an agent holds a physical object,
@@ -397,11 +382,10 @@ if(not(terminates(hold(Agent,Physobj2),
 %       hold(Agent,Physobj1), 
 %       at_loc(Physobj2,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',145).
-if(not(terminates(hold(Agent,Physobj1),
-		  at(at_loc(Physobj2,Location),Time))),
-   not(partOf(Physobj1,Physobj2))).
+if(terminates(hold(Agent,Physobj1),
+	      at(at_loc(Physobj2,Location),Time)),
+   partOf(Physobj1,Physobj2)).
 
 
 %;[agent,physobj,location1,location2,time]
@@ -427,11 +411,8 @@ if(not(terminates(hold(Agent,Physobj1),
 %       letGoOf(Agent,Physobj), 
 %       at_loc(Physobj,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',155).
- if(not(initiates(letGoOf(Agent, Physobj),
-                    at(at_loc(Physobj, Location), Time))),
-       (thereExists(Object, partOf(Physobj, Object));not(holds(at_loc(Agent, Location), Time)))).
+if(initiates(letGoOf(Agent, Physobj), at(at_loc(Physobj, Location), Time)),  (not(thereExists(Object, partOf(Physobj, Object))), at(at_loc(Agent, Location), Time))).
 
 
 %;[agent,physobj1,physobj2,location1,location2,time]
@@ -461,11 +442,8 @@ if(not(terminates(hold(Agent,Physobj1),
 %       letGoOf(Agent,Physobj1), 
 %       at_loc(Physobj2,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',167).
- if(not(initiates(letGoOf(Agent, Physobj1),
-                    at(at_loc(Physobj2, Location), Time))),
-       (not(partOf(Physobj1, Physobj2));thereExists(Object, partOf(Physobj2, Object));not(holds(at_loc(Agent, Location), Time)))).
+if(initiates(letGoOf(Agent, Physobj1), at(at_loc(Physobj2, Location), Time)),  (partOf(Physobj1, Physobj2), not(thereExists(Object, partOf(Physobj2, Object))), at(at_loc(Agent, Location), Time))).
 
 
 %; An effect axiom states that if an agent is at a location
@@ -485,11 +463,10 @@ if(not(terminates(hold(Agent,Physobj1),
 %       letGoOf(Agent,Physobj), 
 %       at_loc(Physobj,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',176).
-if(not(initiates(letGoOf(Agent,Physobj),
-		 at(at_loc(Physobj,Location),Time))),
-   not(holds(at_loc(Agent,Location),Time))).
+if(initiates(letGoOf(Agent,Physobj),
+	     at(at_loc(Physobj,Location),Time)),
+   at(at_loc(Agent,Location),Time)).
 
 
 %; An effect axiom states that if an agent picks up
@@ -506,7 +483,6 @@ if(not(initiates(letGoOf(Agent,Physobj),
 %    holdSome(Agent,Stuff1,Stuff2), 
 %    holding(Agent,Stuff1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',183).
 initiates(holdSome(Agent,Stuff1,Stuff2),
 	  holding(Agent,Stuff1)).
@@ -547,9 +523,8 @@ initiates(holdSome(Agent,Stuff1,Stuff2),
 %                holds(
 %                   at_loc(Stuff2,Location), 
 %                   Time)))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',197).
-exists(Location,  (partOf(Stuff1, Stuff2), at_loc(Agent, Location), at_loc(Stuff1, Location), at_loc(Stuff2, Location);not(holdSome(Agent, Stuff1, Stuff2)))).
+exists(Location, if((partOf(Stuff1, Stuff2), at(at_loc(Agent, Location), Time), at(at_loc(Stuff1, Location), Time), at(at_loc(Stuff2, Location), Time)), happens(holdSome(Agent, Stuff1, Stuff2), Time))).
 
 
 %; A releases axiom states that if an agent picks up some
@@ -565,7 +540,6 @@ exists(Location,  (partOf(Stuff1, Stuff2), at_loc(Agent, Location), at_loc(Stuff
 %    holdSome(Agent,Stuff1,Stuff2), 
 %    at_loc(Stuff1,Location), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',206).
 releases(holdSome(Agent,Stuff1,Stuff2),
 	 at_loc(Stuff1,Location)).
@@ -579,7 +553,7 @@ releases(holdSome(Agent,Stuff1,Stuff2),
 % From E: 
 % 
 % fluent(inside(physobj,physobj)).
-mpred_prop(inside(physobj, physobj), fluent).
+mpred_prop(inside(physobj,physobj),fluent).
 fluents([inside/2]).
 
 
@@ -592,8 +566,8 @@ fluents([inside/2]).
 % 
 % event(putInside(agent,physobj,physobj)).
 events([putInside/3]).
-mpred_prop(putInside(agent, physobj, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',214).
+mpred_prop(putInside(agent,physobj,physobj),action).
 actions([putInside/3]).
 
 
@@ -605,8 +579,8 @@ actions([putInside/3]).
 % 
 % event(takeOutOf(agent,physobj,physobj)).
 events([takeOutOf/3]).
-mpred_prop(takeOutOf(agent, physobj, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',216).
+mpred_prop(takeOutOf(agent,physobj,physobj),action).
 actions([takeOutOf/3]).
 
 
@@ -624,10 +598,9 @@ actions([takeOutOf/3]).
 %       inside(Physobj1,Physobj2), 
 %       Time), 
 %    Physobj1\=Physobj2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',220).
-if(not({dif(Physobj1,Physobj2)}),
-   not(inside(Physobj1,Physobj2))).
+if({dif(Physobj1,Physobj2)},
+   at(inside(Physobj1,Physobj2),Time)).
 
 
 %; A state constraint says that if a physical object is
@@ -646,10 +619,9 @@ if(not({dif(Physobj1,Physobj2)}),
 %    holds(
 %       not(inside(Physobj2,Physobj1)), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',227).
-if(inside(Physobj2,Physobj1),
-   not(inside(Physobj1,Physobj2))).
+if(at(not(inside(Physobj2,Physobj1)),Time),
+   at(inside(Physobj1,Physobj2),Time)).
 
 
 %; An effect axiom states that if an agent puts a physical
@@ -665,7 +637,6 @@ if(inside(Physobj2,Physobj1),
 %    putInside(Agent,Physobj1,Physobj2), 
 %    inside(Physobj1,Physobj2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',234).
 initiates(putInside(Agent,Physobj1,Physobj2),
 	  inside(Physobj1,Physobj2)).
@@ -684,7 +655,6 @@ initiates(putInside(Agent,Physobj1,Physobj2),
 %    putInside(Agent,Physobj1,Physobj2), 
 %    holding(Agent,Physobj1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',241).
 terminates(putInside(Agent,Physobj1,Physobj2),
 	   holding(Agent,Physobj1)).
@@ -717,7 +687,6 @@ terminates(putInside(Agent,Physobj1,Physobj2),
 %    takeOutOf(Agent,Physobj1,Physobj2), 
 %    inside(Physobj1,Physobj2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',263).
 terminates(takeOutOf(Agent,Physobj1,Physobj2),
 	   inside(Physobj1,Physobj2)).
@@ -762,9 +731,8 @@ terminates(takeOutOf(Agent,Physobj1,Physobj2),
 %                holds(
 %                   at_loc(Physobj2,Location), 
 %                   Time)))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',278).
-exists(Location,  (inside(Physobj1, Physobj2), at_loc(Agent, Location), at_loc(Physobj1, Location), at_loc(Physobj2, Location);not(takeOutOf(Agent, Physobj1, Physobj2)))).
+exists(Location, if((at(inside(Physobj1, Physobj2), Time), at(at_loc(Agent, Location), Time), at(at_loc(Physobj1, Location), Time), at(at_loc(Physobj2, Location), Time)), happens(takeOutOf(Agent, Physobj1, Physobj2), Time))).
 
 
 %; A releases axiom states that if an agent puts a physical
@@ -781,7 +749,6 @@ exists(Location,  (inside(Physobj1, Physobj2), at_loc(Agent, Location), at_loc(P
 %    putInside(Agent,Physobj1,Physobj2), 
 %    at_loc(Physobj1,Location), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',287).
 releases(putInside(Agent,Physobj1,Physobj2),
 	 at_loc(Physobj1,Location)).
@@ -808,10 +775,8 @@ releases(putInside(Agent,Physobj1,Physobj2),
 %    holds(
 %       at_loc(Physobj1,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',294).
- if(not(at_loc(Physobj1, Location)),
-       (not(inside(Physobj1, Physobj2));not(at_loc(Physobj2, Location)))).
+if(at(at_loc(Physobj1, Location), Time),  (at(inside(Physobj1, Physobj2), Time), at(at_loc(Physobj2, Location), Time))).
 
 
 %; An effect axiom states that if an agent takes a physical
@@ -828,7 +793,6 @@ releases(putInside(Agent,Physobj1,Physobj2),
 %    takeOutOf(Agent,Physobj1,Physobj2), 
 %    holding(Agent,Physobj1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',302).
 initiates(takeOutOf(Agent,Physobj1,Physobj2),
 	  holding(Agent,Physobj1)).
@@ -842,7 +806,7 @@ initiates(takeOutOf(Agent,Physobj1,Physobj2),
 % From E: 
 % 
 % fluent(on(physobj,physobj)).
-mpred_prop(on(physobj, physobj), fluent).
+mpred_prop(on(physobj,physobj),fluent).
 fluents([on/2]).
 
 
@@ -855,7 +819,7 @@ fluents([on/2]).
 % event(placeOn(agent,physobj,physobj)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',312).
 events([placeOn/3]).
-mpred_prop(placeOn(agent, physobj, physobj), action).
+mpred_prop(placeOn(agent,physobj,physobj),action).
 actions([placeOn/3]).
 
 
@@ -868,8 +832,8 @@ actions([placeOn/3]).
 % 
 % event(takeOffOf(agent,physobj,physobj)).
 events([takeOffOf/3]).
-mpred_prop(takeOffOf(agent, physobj, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',315).
+mpred_prop(takeOffOf(agent,physobj,physobj),action).
 actions([takeOffOf/3]).
 
 
@@ -887,10 +851,9 @@ actions([takeOffOf/3]).
 %       on(Physobj1,Physobj2), 
 %       Time), 
 %    Physobj1\=Physobj2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',319).
-if(not({dif(Physobj1,Physobj2)}),
-   not(on(Physobj1,Physobj2))).
+if({dif(Physobj1,Physobj2)},
+   at(on(Physobj1,Physobj2),Time)).
 
 
 %; A state constraint says that if a physical object is
@@ -909,10 +872,9 @@ if(not({dif(Physobj1,Physobj2)}),
 %    holds(
 %       not(on(Physobj2,Physobj1)), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',326).
-if(on(Physobj2,Physobj1),
-   not(on(Physobj1,Physobj2))).
+if(at(not(on(Physobj2,Physobj1)),Time),
+   at(on(Physobj1,Physobj2),Time)).
 
 
 %; An effect axiom states that if an agent places a physical
@@ -928,7 +890,6 @@ if(on(Physobj2,Physobj1),
 %    placeOn(Agent,Physobj1,Physobj2), 
 %    on(Physobj1,Physobj2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',333).
 initiates(placeOn(Agent,Physobj1,Physobj2),
 	  on(Physobj1,Physobj2)).
@@ -947,7 +908,6 @@ initiates(placeOn(Agent,Physobj1,Physobj2),
 %    placeOn(Agent,Physobj1,Physobj2), 
 %    holding(Agent,Physobj1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',340).
 terminates(placeOn(Agent,Physobj1,Physobj2),
 	   holding(Agent,Physobj1)).
@@ -980,7 +940,6 @@ terminates(placeOn(Agent,Physobj1,Physobj2),
 %    takeOffOf(Agent,Physobj1,Physobj2), 
 %    on(Physobj1,Physobj2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',362).
 terminates(takeOffOf(Agent,Physobj1,Physobj2),
 	   on(Physobj1,Physobj2)).
@@ -999,7 +958,6 @@ terminates(takeOffOf(Agent,Physobj1,Physobj2),
 %    takeOffOf(Agent,Physobj1,Physobj2), 
 %    holding(Agent,Physobj1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',369).
 initiates(takeOffOf(Agent,Physobj1,Physobj2),
 	  holding(Agent,Physobj1)).
@@ -1044,9 +1002,8 @@ initiates(takeOffOf(Agent,Physobj1,Physobj2),
 %                holds(
 %                   at_loc(Physobj2,Location), 
 %                   Time)))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',384).
-exists(Location,  (on(Physobj1, Physobj2), at_loc(Agent, Location), at_loc(Physobj1, Location), at_loc(Physobj2, Location);not(takeOffOf(Agent, Physobj1, Physobj2)))).
+exists(Location, if((at(on(Physobj1, Physobj2), Time), at(at_loc(Agent, Location), Time), at(at_loc(Physobj1, Location), Time), at(at_loc(Physobj2, Location), Time)), happens(takeOffOf(Agent, Physobj1, Physobj2), Time))).
 
 
 %; A releases axiom states that if an agent places a physical
@@ -1064,7 +1021,6 @@ exists(Location,  (on(Physobj1, Physobj2), at_loc(Agent, Location), at_loc(Physo
 %    placeOn(Agent,Physobj1,Physobj2), 
 %    at_loc(Physobj1,Location), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',393).
 releases(placeOn(Agent,Physobj1,Physobj2),
 	 at_loc(Physobj1,Location)).
@@ -1091,17 +1047,15 @@ releases(placeOn(Agent,Physobj1,Physobj2),
 %    holds(
 %       at_loc(Physobj1,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',401).
- if(not(at_loc(Physobj1, Location)),
-       (not(on(Physobj1, Physobj2));not(at_loc(Physobj2, Location)))).
+if(at(at_loc(Physobj1, Location), Time),  (at(on(Physobj1, Physobj2), Time), at(at_loc(Physobj2, Location), Time))).
 
 % fluent Near(agent,object)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',405).
 % From E: 
 % 
 % fluent(near(agent,object)).
-mpred_prop(near(agent, object), fluent).
+mpred_prop(near(agent,object),fluent).
 fluents([near/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',407).
@@ -1110,8 +1064,8 @@ fluents([near/2]).
 % 
 % event(walkFromTo(agent,object,object)).
 events([walkFromTo/3]).
-mpred_prop(walkFromTo(agent, object, object), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',407).
+mpred_prop(walkFromTo(agent,object,object),action).
 actions([walkFromTo/3]).
 
 % event WalkFrom(agent,object)
@@ -1120,7 +1074,7 @@ actions([walkFromTo/3]).
 % event(walkFrom(agent,object)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',407).
 events([walkFrom/2]).
-mpred_prop(walkFrom(agent, object), action).
+mpred_prop(walkFrom(agent,object),action).
 actions([walkFrom/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',409).
@@ -1129,8 +1083,8 @@ actions([walkFrom/2]).
 % 
 % event(runFromTo(agent,object,object)).
 events([runFromTo/3]).
-mpred_prop(runFromTo(agent, object, object), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',409).
+mpred_prop(runFromTo(agent,object,object),action).
 actions([runFromTo/3]).
 
 
@@ -1145,7 +1099,6 @@ actions([runFromTo/3]).
 %    walkFromTo(Agent,Object1,Object2), 
 %    near(Agent,Object2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',411).
 initiates(walkFromTo(Agent,Object1,Object2),
 	  near(Agent,Object2)).
@@ -1162,7 +1115,6 @@ initiates(walkFromTo(Agent,Object1,Object2),
 %    walkFromTo(Agent,Object1,Object2), 
 %    near(Agent,Object1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',417).
 terminates(walkFromTo(Agent,Object1,Object2),
 	   near(Agent,Object1)).
@@ -1193,9 +1145,8 @@ terminates(walkFromTo(Agent,Object1,Object2),
 %             holds(
 %                at_loc(Object2,Location), 
 %                Time))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',422).
-exists(Location,  (at_loc(Agent, Location), at_loc(Object1, Location), at_loc(Object2, Location);not(walkFromTo(Agent, Object1, Object2)))).
+exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Object1, Location), Time), at(at_loc(Object2, Location), Time)), happens(walkFromTo(Agent, Object1, Object2), Time))).
 
 
 % [agent,object1,object2,time]
@@ -1209,7 +1160,6 @@ exists(Location,  (at_loc(Agent, Location), at_loc(Object1, Location), at_loc(Ob
 %    runFromTo(Agent,Object1,Object2), 
 %    near(Agent,Object2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',429).
 initiates(runFromTo(Agent,Object1,Object2),
 	  near(Agent,Object2)).
@@ -1226,7 +1176,6 @@ initiates(runFromTo(Agent,Object1,Object2),
 %    runFromTo(Agent,Object1,Object2), 
 %    near(Agent,Object1), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',434).
 terminates(runFromTo(Agent,Object1,Object2),
 	   near(Agent,Object1)).
@@ -1257,9 +1206,8 @@ terminates(runFromTo(Agent,Object1,Object2),
 %             holds(
 %                at_loc(Object2,Location), 
 %                Time))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',439).
-exists(Location,  (at_loc(Agent, Location), at_loc(Object1, Location), at_loc(Object2, Location);not(runFromTo(Agent, Object1, Object2)))).
+exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Object1, Location), Time), at(at_loc(Object2, Location), Time)), happens(runFromTo(Agent, Object1, Object2), Time))).
 
 
 % [agent,object,time]
@@ -1273,7 +1221,6 @@ exists(Location,  (at_loc(Agent, Location), at_loc(Object1, Location), at_loc(Ob
 %    walkFrom(Agent,Object), 
 %    near(Agent,Object), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',446).
 terminates(walkFrom(Agent,Object),
 	   near(Agent,Object)).
@@ -1312,10 +1259,8 @@ terminates(walkFrom(Agent,Object),
 %    happens(
 %       walkFrom(Agent,Object), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',451).
- if(not(walkFrom(Agent, Object)),
-       (not(near(Agent, Object));not(at_loc(Agent, Location));not(at_loc(Object, Location));not(side1(Door, Location));not(walkThroughDoor12(Agent, Door)))).
+if(happens(walkFrom(Agent, Object), Time),  (at(near(Agent, Object), Time), at(at_loc(Agent, Location), Time), at(at_loc(Object, Location), Time), side1(Door, Location), happens(walkThroughDoor12(Agent, Door), Time))).
 
 
 % [agent,object,location,door,time]
@@ -1351,10 +1296,8 @@ terminates(walkFrom(Agent,Object),
 %    happens(
 %       walkFrom(Agent,Object), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',459).
- if(not(walkFrom(Agent, Object)),
-       (not(near(Agent, Object));not(at_loc(Agent, Location));not(at_loc(Object, Location));not(side2(Door, Location));not(walkThroughDoor21(Agent, Door)))).
+if(happens(walkFrom(Agent, Object), Time),  (at(near(Agent, Object), Time), at(at_loc(Agent, Location), Time), at(at_loc(Object, Location), Time), side2(Door, Location), happens(walkThroughDoor21(Agent, Door), Time))).
 
 
 % [agent,object,room,staircase,time]
@@ -1390,10 +1333,8 @@ terminates(walkFrom(Agent,Object),
 %    happens(
 %       walkFrom(Agent,Object), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',467).
- if(not(walkFrom(Agent, Object)),
-       (not(near(Agent, Object));not(at_loc(Agent, Room));not(at_loc(Object, Room));not(side1(Staircase, Room));not(walkUpStaircase(Agent, Staircase)))).
+if(happens(walkFrom(Agent, Object), Time),  (at(near(Agent, Object), Time), at(at_loc(Agent, Room), Time), at(at_loc(Object, Room), Time), side1(Staircase, Room), happens(walkUpStaircase(Agent, Staircase), Time))).
 
 
 % [agent,object,room,staircase,time]
@@ -1429,10 +1370,8 @@ terminates(walkFrom(Agent,Object),
 %    happens(
 %       walkFrom(Agent,Object), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/OTSpace.e',475).
- if(not(walkFrom(Agent, Object)),
-       (not(near(Agent, Object));not(at_loc(Agent, Room));not(at_loc(Object, Room));not(side2(Staircase, Room));not(walkDownStaircase(Agent, Staircase)))).
+if(happens(walkFrom(Agent, Object), Time),  (at(near(Agent, Object), Time), at(at_loc(Agent, Room), Time), at(at_loc(Object, Room), Time), side2(Staircase, Room), happens(walkDownStaircase(Agent, Staircase), Time))).
 
 
 %; End of file.

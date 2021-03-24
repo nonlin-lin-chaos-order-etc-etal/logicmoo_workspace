@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.lps.pl')).
-% Sun, 21 Mar 2021 23:28:10 GMT File: <stream>(0x555567aa7d00)%;
+% Tue, 23 Mar 2021 19:06:51 GMT File: <stream>(0x55556a047d00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -49,12 +49,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(near))).
-:- call_pel_directive(ignore(near)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',25).
+:- call_pel_directive(ignore(near)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
 :- call_pel_directive(ignore(walkFromTo)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
@@ -69,12 +70,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(diameter))).
-:- call_pel_directive(ignore(diameter)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',25).
+:- call_pel_directive(ignore(diameter)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(move))).
 :- call_pel_directive(ignore(move)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(holdSome))).
@@ -94,13 +96,14 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(doorLock))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',27).
 :- call_pel_directive(ignore(doorLock)).
 
 % ignore WalkDownStaircase, WalkUpStaircase
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkDownStaircase))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',27).
 :- call_pel_directive(ignore(walkDownStaircase)).
 % From E: 
 % 
@@ -121,12 +124,13 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(order))).
-:- call_pel_directive(ignore(order)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',30).
+:- call_pel_directive(ignore(order)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(knowOrder))).
 :- call_pel_directive(ignore(knowOrder)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',30).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(sayGoodbye))).
@@ -141,6 +145,7 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(invitedIn))).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',30).
 :- call_pel_directive(ignore(invitedIn)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',32).
@@ -159,8 +164,8 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(dislike))).
-:- call_pel_directive(ignore(dislike)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',32).
+:- call_pel_directive(ignore(dislike)).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(likeSnow))).
@@ -241,14 +246,14 @@
 % From E: 
 % 
 % t(gun,gun1).
-gun(gun1).
+isa(gun1,gun).
 
 % bullet Bullet1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',46).
 % From E: 
 % 
 % t(bullet,bullet1).
-bullet(bullet1).
+isa(bullet1,bullet).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',48).
@@ -274,14 +279,14 @@ initially(intact(bullet1)).
 % From E: 
 % 
 % t(agent,perp1).
-agent(perp1).
+isa(perp1,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',53).
 % agent HumanTarget1
 % From E: 
 % 
 % t(agent,humanTarget1).
-agent(humanTarget1).
+isa(humanTarget1,agent).
 
 
 % HoldsAt(Calm(HumanTarget1),0).
@@ -290,7 +295,6 @@ agent(humanTarget1).
 % 
 % holds(
 %    calm(humanTarget1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',53).
 initially(calm(humanTarget1)).
 
 
@@ -344,11 +348,11 @@ initially(not(injured(humanTarget1))).
 
 % [object]
  % !HoldsAt(Holding(HumanTarget1,object),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',59).
 % From E: 
 % 
 % holds(
 %    not(holding(humanTarget1,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',59).
 initially(not(holding(humanTarget1,Object))).
 
 
@@ -364,11 +368,11 @@ initially(at_loc(humanTarget1,outside1)).
 
 % [physobj1,physobj2]
  % !HoldsAt(Inside(physobj1,physobj2),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',61).
 % From E: 
 % 
 % holds(
 %    not(inside(Physobj1,Physobj2)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',61).
 initially(not(inside(Physobj1,Physobj2))).
 
 
@@ -388,12 +392,13 @@ sort(shootb).
 % From E: 
 % 
 % sort(shooto).
-sort(shooto).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',65).
+sort(shooto).
 % From E: 
 % 
 % sort(shooth).
 sort(shooth).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',65).
 % From E: 
 % 
 % sort(shootp).
@@ -404,7 +409,7 @@ sort(shootp).
 % From E: 
 % 
 % event(shoot(shoota,shootb,shooto)).
-mpred_prop(shoot(shoota, shootb, shooto), event).
+mpred_prop(shoot(shoota,shootb,shooto),event).
 events([shoot/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',67).
@@ -412,7 +417,7 @@ events([shoot/3]).
 % From E: 
 % 
 % event(shootInjure(shoota,shootb,shooth)).
-mpred_prop(shootInjure(shoota, shootb, shooth), event).
+mpred_prop(shootInjure(shoota,shootb,shooth),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',67).
 events([shootInjure/3]).
 
@@ -420,8 +425,8 @@ events([shootInjure/3]).
 % From E: 
 % 
 % event(shootKill(shoota,shootb,shooth)).
-mpred_prop(shootKill(shoota, shootb, shooth), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',67).
+mpred_prop(shootKill(shoota,shootb,shooth),event).
 events([shootKill/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',69).
@@ -429,7 +434,7 @@ events([shootKill/3]).
 % From E: 
 % 
 % event(shootDamage(shoota,shootb,shootp)).
-mpred_prop(shootDamage(shoota, shootb, shootp), event).
+mpred_prop(shootDamage(shoota,shootb,shootp),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',69).
 events([shootDamage/3]).
 
@@ -437,8 +442,8 @@ events([shootDamage/3]).
 % From E: 
 % 
 % event(shootDestroy(shoota,shootb,shootp)).
-mpred_prop(shootDestroy(shoota, shootb, shootp), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',69).
+mpred_prop(shootDestroy(shoota,shootb,shootp),event).
 events([shootDestroy/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',71).
@@ -446,28 +451,28 @@ events([shootDestroy/3]).
 % From E: 
 % 
 % t(shoota,perp1).
-shoota(perp1).
+isa(perp1,shoota).
 
 % shootb! Gun1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',71).
 % From E: 
 % 
 % t(shootb,gun1).
-shootb(gun1).
+isa(gun1,shootb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',73).
 % shooto! HumanTarget1
 % From E: 
 % 
 % t(shooto,humanTarget1).
-shooto(humanTarget1).
+isa(humanTarget1,shooto).
 
 % shooth! HumanTarget1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',73).
 % From E: 
 % 
 % t(shooth,humanTarget1).
-shooth(humanTarget1).
+isa(humanTarget1,shooth).
 %; room-scale topological space
 
 % outside Outside1
@@ -475,42 +480,42 @@ shooth(humanTarget1).
 % From E: 
 % 
 % t(outside,outside1).
-outside(outside1).
+isa(outside1,outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',78).
 % outside Outside2
 % From E: 
 % 
 % t(outside,outside2).
-outside(outside2).
+isa(outside2,outside).
 
 % room Inside1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',78).
 % From E: 
 % 
 % t(room,inside1).
-room(inside1).
+isa(inside1,room).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',80).
 % door Door1
 % From E: 
 % 
 % t(door,door1).
-door(door1).
+isa(door1,door).
 
 % building Building1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',80).
 % From E: 
 % 
 % t(building,building1).
-building(building1).
+isa(building1,building).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',82).
 % street Street1
 % From E: 
 % 
 % t(street,street1).
-street(street1).
+isa(street1,street).
 
 
 % Side1(Door1)=Outside2.
@@ -592,7 +597,6 @@ side2(street1,outside2).
 % 
 % holds(
 %    calm(perp1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',90).
 initially(calm(perp1)).
 
 
@@ -646,11 +650,11 @@ initially(not(injured(perp1))).
 
 % [object]
  % !HoldsAt(Holding(Perp1,object),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',96).
 % From E: 
 % 
 % holds(
 %    not(holding(perp1,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',96).
 initially(not(holding(perp1,Object))).
 
 
@@ -704,11 +708,11 @@ initially(doorUnlocked(door1)).
 
 % [agent1,agent2]
  % !HoldsAt(ThreatenedBy(agent1,agent2),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',102).
 % From E: 
 % 
 % holds(
 %    not(threatenedBy(Agent1,Agent2)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',102).
 initially(not(threatenedBy(Agent1,Agent2))).
 
 
@@ -725,11 +729,11 @@ initially(not(angryAt(Agent1,Agent2))).
 
 % [physobj1,physobj2]
  % !HoldsAt(Inside(physobj1,physobj2),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',104).
 % From E: 
 % 
 % holds(
 %    not(inside(Physobj1,Physobj2)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Kidnapping.e',104).
 initially(not(inside(Physobj1,Physobj2))).
 
 

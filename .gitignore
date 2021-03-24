@@ -28,3 +28,4 @@ pldoc/
 *.vtg*
 modified_sys/
 
+packs_web/logicmoo_webui/serv*/

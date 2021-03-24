@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.lps.pl')).
-% Sun, 21 Mar 2021 23:28:06 GMT File: <stream>(0x555567a4d500)%;
+% Tue, 23 Mar 2021 19:25:06 GMT File: <stream>(0x5555684b2000)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -22,8 +22,8 @@
 %; IBM - Initial implementation
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.e',11).
 % event Read(agent,text,content)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.e',11).
 % From E: 
 % 
 % event(read(agent,text,content)).
@@ -41,8 +41,8 @@ events([thinkAbout/2]).
 mpred_prop(thinkAbout(agent, content), action).
 actions([thinkAbout/2]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.e',13).
 % event Think(agent)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.e',13).
 % From E: 
 % 
 % event(think(agent)).
@@ -60,8 +60,8 @@ events([understand/2]).
 mpred_prop(understand(agent, content), action).
 actions([understand/2]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.e',15).
 % event Dream(agent)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.e',15).
 % From E: 
 % 
 % event(dream(agent)).
@@ -84,10 +84,16 @@ actions([dream/1]).
 %    holds(
 %       see(Agent,Text), 
 %       Time)).
- %   [Time].
+not see(Agent, Text)at Time if not happens(read(Agent, Text, Content), Time).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.e',17).
-if(not(see(Agent,Text)),
-   not(read(Agent,Text,Content))).
+
+ /*  l_int(holds(not(see(Agent,Text)),Time),
+           [ holds(not(happens(read(Agent,Text,Content),
+     			  Time)),
+     	      Time)
+           ]).
+ */
+ %  "% =================================".
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.e',20).
 % From E: 
 % 

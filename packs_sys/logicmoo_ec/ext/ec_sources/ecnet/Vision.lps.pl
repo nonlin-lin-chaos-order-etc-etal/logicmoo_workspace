@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vision.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vision.lps.pl')).
-% Sun, 21 Mar 2021 23:28:20 GMT File: <stream>(0x5555672b0200)%;
+% Tue, 23 Mar 2021 19:07:00 GMT File: <stream>(0x555567be8000)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -32,7 +32,7 @@
 % 
 % event(lookAt(agent,object)).
 events([lookAt/2]).
-mpred_prop(lookAt(agent, object), action).
+mpred_prop(lookAt(agent,object),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vision.e',15).
 actions([lookAt/2]).
 
@@ -44,8 +44,8 @@ actions([lookAt/2]).
 % From E: 
 % 
 % fluent(see(agent,object)).
-mpred_prop(see(agent, object), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vision.e',18).
+mpred_prop(see(agent,object),fluent).
 fluents([see/2]).
 
 
@@ -63,7 +63,6 @@ fluents([see/2]).
 %    lookAt(Agent,Object), 
 %    see(Agent,Object), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vision.e',23).
 initiates(lookAt(Agent,Object),
 	  see(Agent,Object)).
@@ -104,11 +103,10 @@ initiates(lookAt(Agent,Object),
 %       lookAt(Agent,Object1), 
 %       see(Agent,Object2), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vision.e',50).
-if(not(terminates(lookAt(Agent,Object1),
-		  at(see(Agent,Object2),Time))),
-   not({dif(Object1,Object2)})).
+if(terminates(lookAt(Agent,Object1),
+	      at(see(Agent,Object2),Time)),
+   {dif(Object1,Object2)}).
 
 
 %; Several effect axioms state that if an
@@ -125,7 +123,6 @@ if(not(terminates(lookAt(Agent,Object1),
 %    walkThroughDoor12(Agent,Door), 
 %    see(Agent,Object), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vision.e',59).
 terminates(walkThroughDoor12(Agent,Door),
 	   see(Agent,Object)).
@@ -142,7 +139,6 @@ terminates(walkThroughDoor12(Agent,Door),
 %    walkThroughDoor21(Agent,Door), 
 %    see(Agent,Object), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vision.e',63).
 terminates(walkThroughDoor21(Agent,Door),
 	   see(Agent,Object)).
@@ -159,7 +155,6 @@ terminates(walkThroughDoor21(Agent,Door),
 %    walkUpStaircase(Agent,Door), 
 %    see(Agent,Object), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vision.e',67).
 terminates(walkUpStaircase(Agent,Door),
 	   see(Agent,Object)).
@@ -176,7 +171,6 @@ terminates(walkUpStaircase(Agent,Door),
 %    walkDownStaircase(Agent,Door), 
 %    see(Agent,Object), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vision.e',71).
 terminates(walkDownStaircase(Agent,Door),
 	   see(Agent,Object)).

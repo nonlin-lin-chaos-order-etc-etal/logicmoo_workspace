@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e.lps'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e.lps')).
-% Sun, 21 Mar 2021 23:29:08 GMT File: <stream>(0x5555672c9800)%;
+% Tue, 23 Mar 2021 16:22:28 GMT File: <stream>(0x5555671f0e00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -31,15 +31,15 @@
 %; }
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',21).
 % option modeldiff on
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',21).
 % From E: 
 % 
 % ':-'(call_pel_directive(option(modeldiff,on))).
 :- call_pel_directive(option(modeldiff, on)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',23).
 % load foundations/Root.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',23).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('foundations/Root.e'))).
@@ -52,31 +52,31 @@
 % ':-'(call_pel_directive(load('foundations/EC.e'))).
 :- call_pel_directive(load('foundations/EC.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',26).
 % sort agent
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',26).
 % From E: 
 % 
 % sort(agent).
 sort(agent).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',28).
 % include examples/FrankEtAl2003/FrankEtAl.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',28).
 % From E: 
 % 
 % ':-'(call_pel_directive(include('examples/FrankEtAl2003/FrankEtAl.e'))).
 :- call_pel_directive(include('examples/FrankEtAl2003/FrankEtAl.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',30).
 % agent Bob, Jilly
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',30).
 % From E: 
 % 
 % t(agent,bob).
-agent(bob).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',30).
+isa(bob,agent).
 % From E: 
 % 
 % t(agent,jilly).
-agent(jilly).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',30).
+isa(jilly,agent).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',32).
@@ -126,7 +126,7 @@ initially(not(sunShining())).
 %          holds(
 %             playComputerGame(jilly), 1)))).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',36).
-if((not(holds(playSoccer(bob), 1));not(holds(playSoccer(jilly), 1))),  (holds(playHideAndSeek(bob), 1), holds(playHideAndSeek(jilly), 1);holds(playComputerGame(bob), 1), holds(playComputerGame(jilly), 1))).
+if((at(not(playSoccer(bob)), 1);at(not(playSoccer(jilly)), 1)),  (at(playHideAndSeek(bob), 1), at(playHideAndSeek(jilly), 1);at(playComputerGame(bob), 1), at(playComputerGame(jilly), 1))).
 
 
 %;; one wins
@@ -142,7 +142,7 @@ if((not(holds(playSoccer(bob), 1));not(holds(playSoccer(jilly), 1))),  (holds(pl
 %    holds(
 %       win(jilly), 1)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',42).
-if(not(holds(win(bob),1)),holds(win(jilly),1)).
+if(at(not(win(bob)),1),at(win(jilly),1)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/Story1.e',44).
 % range time 0 1

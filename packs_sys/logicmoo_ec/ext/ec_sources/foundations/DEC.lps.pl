@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.lps.pl')).
-% Sun, 21 Mar 2021 23:28:21 GMT File: <stream>(0x5555672c8500)%;
+% Tue, 23 Mar 2021 19:07:01 GMT File: <stream>(0x555567be8700)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -39,14 +39,14 @@
 % From E: 
 % 
 % subsort(time,integer).
-subsort(time, integer).
+subsort(time,integer).
 
 % sort offset: integer
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',24).
 % From E: 
 % 
 % subsort(offset,integer).
-subsort(offset, integer).
+subsort(offset,integer).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',27).
 % reified sort fluent
@@ -67,7 +67,7 @@ reified_sorts([event/0]).
 % From E: 
 % 
 % predicate(happens(event,time)).
-mpred_prop(happens(event, time), predicate).
+mpred_prop(happens(event,time),predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',30).
 predicates([happens/2]).
 
@@ -75,8 +75,8 @@ predicates([happens/2]).
 % From E: 
 % 
 % predicate(holds(fluent,time)).
-mpred_prop(holds(fluent, time), predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',30).
+mpred_prop(holds(fluent,time),predicate).
 predicates([holds/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',32).
@@ -84,7 +84,7 @@ predicates([holds/2]).
 % From E: 
 % 
 % predicate(released_at(fluent,time)).
-mpred_prop(released_at(fluent, time), predicate).
+mpred_prop(released_at(fluent,time),predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',32).
 predicates([released_at/2]).
 
@@ -93,7 +93,7 @@ predicates([released_at/2]).
 % From E: 
 % 
 % predicate(initiates_at(event,fluent,time)).
-mpred_prop(initiates(event, fluent, time), predicate).
+mpred_prop(initiates(event,fluent,time),predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',34).
 predicates([initiates/3]).
 
@@ -101,8 +101,8 @@ predicates([initiates/3]).
 % From E: 
 % 
 % predicate(terminates_at(event,fluent,time)).
-mpred_prop(terminates(event, fluent, time), predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',34).
+mpred_prop(terminates(event,fluent,time),predicate).
 predicates([terminates/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',36).
@@ -110,7 +110,7 @@ predicates([terminates/3]).
 % From E: 
 % 
 % predicate(releases_at(event,fluent,time)).
-mpred_prop(releases(event, fluent, time), predicate).
+mpred_prop(releases(event,fluent,time),predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',36).
 predicates([releases/3]).
 
@@ -121,6 +121,7 @@ predicates([releases/3]).
 %  !ReleasedAt(fluent,time+1) &
 %  !({event} Happens(event,time) & Terminates(event,fluent,time))) ->
 % HoldsAt(fluent,time+1).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',38).
 % From E: 
 % 
 % '->'(
@@ -133,9 +134,8 @@ predicates([releases/3]).
 %                    happens(Event,Time), 
 %                    terminates_at(Event,Fluent,Time)))))), 
 %    holds(Fluent,Time+1)).
- %   [Time, Time+1].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',38).
-if(not(holds(Fluent, Time+1)),  (not(holds(Fluent, Time));released_at(Fluent, Time+1);thereExists(Event,  (loc_at(Event, Time), terminates(Event, at(Fluent, Time)))))).
+if(at(Fluent, Time+1),  (at(Fluent, Time), not(released_at(Fluent, Time+1)), not(thereExists(Event,  (happens(Event, Time), terminates(Event, at(Fluent, Time))))))).
 
 
 % [fluent,time]
@@ -160,9 +160,8 @@ if(not(holds(Fluent, Time+1)),  (not(holds(Fluent, Time));released_at(Fluent, Ti
 %    holds(
 %       not(Fluent), 
 %       Time+1)).
- %   [Time, Time+1].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',45).
-if(holds(Fluent, Time+1),  (holds(Fluent, Time);released_at(Fluent, Time+1);thereExists(Event,  (loc_at(Event, Time), initiates(Event, at(Fluent, Time)))))).
+if(at(not(Fluent), Time+1),  (at(not(Fluent), Time), not(released_at(Fluent, Time+1)), not(thereExists(Event,  (happens(Event, Time), initiates(Event, at(Fluent, Time))))))).
 
 
 % [fluent,time]
@@ -180,9 +179,8 @@ if(holds(Fluent, Time+1),  (holds(Fluent, Time);released_at(Fluent, Time+1);ther
 %                 happens(Event,Time), 
 %                 releases_at(Event,Fluent,Time))))), 
 %    not(released_at(Fluent,Time+1))).
- %   [Time, Time+1].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',51).
-if(released_at(Fluent, Time+1),  (released_at(Fluent, Time);thereExists(Event,  (loc_at(Event, Time), terminates(Event, at(Fluent, Time)))))).
+if(not(released_at(Fluent, Time+1)),  (not(released_at(Fluent, Time)), not(thereExists(Event,  (happens(Event, Time), terminates(Event, at(Fluent, Time))))))).
 
 
 % [fluent,time]
@@ -204,9 +202,8 @@ if(released_at(Fluent, Time+1),  (released_at(Fluent, Time);thereExists(Event,  
 %                    initiates_at(Event,Fluent,Time), 
 %                    terminates_at(Event,Fluent,Time)))))), 
 %    released_at(Fluent,Time+1)).
- %   [Time, Time+1].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/DEC.e',56).
-if(not(released_at(Fluent, Time+1)),  (not(released_at(Fluent, Time));thereExists(Event,  (loc_at(Event, Time), (initiates(Event, at(Fluent, Time));terminates(Event, at(Fluent, Time))))))).
+if(released_at(Fluent, Time+1),  (released_at(Fluent, Time), not(thereExists(Event,  (happens(Event, Time), (initiates(Event, at(Fluent, Time));terminates(Event, at(Fluent, Time)))))))).
 
 
 % [event,fluent,time]
@@ -222,9 +219,7 @@ if(not(released_at(Fluent, Time+1)),  (not(released_at(Fluent, Time));thereExist
 %    ','(
 %       holds(Fluent,Time+1), 
 %       not(released_at(Fluent,Time+1)))).
- %   [Time, Time+1].
- if((not(holds(Fluent, Time+1));released_at(Fluent, Time+1)),
-       (not(holds(Event, Time));not(initiates(Event, at(Fluent, Time))))).
+if((at(Fluent, Time+1), not(released_at(Fluent, Time+1))),  (happens(Event, Time), initiates(Event, at(Fluent, Time)))).
 
 
 % [event,fluent,time]
@@ -242,9 +237,7 @@ if(not(released_at(Fluent, Time+1)),  (not(released_at(Fluent, Time));thereExist
 %          not(Fluent), 
 %          Time+1), 
 %       not(released_at(Fluent,Time+1)))).
- %   [Time, Time+1].
- if((holds(Fluent, Time+1);released_at(Fluent, Time+1)),
-       (not(holds(Event, Time));not(terminates(Event, at(Fluent, Time))))).
+if((at(not(Fluent), Time+1), not(released_at(Fluent, Time+1))),  (happens(Event, Time), terminates(Event, at(Fluent, Time)))).
 
 
 % [event,fluent,time]
@@ -258,9 +251,7 @@ if(not(released_at(Fluent, Time+1)),  (not(released_at(Fluent, Time));thereExist
 %       happens(Event,Time), 
 %       releases_at(Event,Fluent,Time)), 
 %    released_at(Fluent,Time+1)).
- %   [Time, Time+1].
- if(not(released_at(Fluent, Time+1)),
-       (not(holds(Event, Time));not(terminates(Event, at(Fluent, Time))))).
+if(released_at(Fluent, Time+1),  (happens(Event, Time), terminates(Event, at(Fluent, Time)))).
 
 
 %; End of file.

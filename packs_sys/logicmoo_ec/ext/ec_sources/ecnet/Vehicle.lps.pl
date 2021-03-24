@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.lps.pl')).
-% Sun, 21 Mar 2021 23:28:19 GMT File: <stream>(0x5555672b0d00)%;
+% Tue, 23 Mar 2021 19:06:59 GMT File: <stream>(0x555567be9900)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -29,35 +29,35 @@
 % From E: 
 % 
 % subsort(vehicle,physobj).
-subsort(vehicle, physobj).
+subsort(vehicle,physobj).
 
 % sort vehiclein: vehicle
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',14).
 % From E: 
 % 
 % subsort(vehiclein,vehicle).
-subsort(vehiclein, vehicle).
+subsort(vehiclein,vehicle).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',16).
 % sort vehicleon: vehicle
 % From E: 
 % 
 % subsort(vehicleon,vehicle).
-subsort(vehicleon, vehicle).
+subsort(vehicleon,vehicle).
 
 % sort train: vehicleon
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',16).
 % From E: 
 % 
 % subsort(train,vehicleon).
-subsort(train, vehicleon).
+subsort(train,vehicleon).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',18).
 % sort carriage: vehiclein
 % From E: 
 % 
 % subsort(carriage,vehiclein).
-subsort(carriage, vehiclein).
+subsort(carriage,vehiclein).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',20).
 % sort vehicledoor
@@ -72,7 +72,7 @@ sort(vehicledoor).
 % From E: 
 % 
 % event(rideTrack12(train,track)).
-mpred_prop(rideTrack12(train, track), event).
+mpred_prop(rideTrack12(train,track),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',24).
 events([rideTrack12/2]).
 
@@ -81,7 +81,7 @@ events([rideTrack12/2]).
 % From E: 
 % 
 % event(rideTrack21(train,track)).
-mpred_prop(rideTrack21(train, track), event).
+mpred_prop(rideTrack21(train,track),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',26).
 events([rideTrack21/2]).
 
@@ -100,10 +100,9 @@ events([rideTrack21/2]).
 %       at_loc(Train, 
 %          side1(Track)), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',28).
-if(not(at_loc(Train,side1(Track))),
-   not(rideTrack12(Train,Track))).
+if(at(at_loc(Train,side1(Track)),Time),
+   happens(rideTrack12(Train,Track),Time)).
 
 
 % [train,track,time]
@@ -120,9 +119,8 @@ if(not(at_loc(Train,side1(Track))),
 %       at_loc(Train, 
 %          side2(Track)), 
 %       Time)).
- %   [Time].
-if(not(at_loc(Train,side2(Track))),
-   not(rideTrack21(Train,Track))).
+if(at(at_loc(Train,side2(Track)),Time),
+   happens(rideTrack21(Train,Track),Time)).
 
 
 % [train,track,location,time]
@@ -139,10 +137,9 @@ if(not(at_loc(Train,side2(Track))),
 %       rideTrack12(Train,Track), 
 %       at_loc(Train,Location), 
 %       Time)).
- %   [Time].
-if(not(initiates(rideTrack12(Train,Track),
-		 at(at_loc(Train,Location),Time))),
-   not(side2(Track,Location))).
+if(initiates(rideTrack12(Train,Track),
+	     at(at_loc(Train,Location),Time)),
+   side2(Track,Location)).
 
 
 % [train,track,location,time]
@@ -159,10 +156,9 @@ if(not(initiates(rideTrack12(Train,Track),
 %       rideTrack21(Train,Track), 
 %       at_loc(Train,Location), 
 %       Time)).
- %   [Time].
-if(not(initiates(rideTrack21(Train,Track),
-		 at(at_loc(Train,Location),Time))),
-   not(side1(Track,Location))).
+if(initiates(rideTrack21(Train,Track),
+	     at(at_loc(Train,Location),Time)),
+   side1(Track,Location)).
 
 
 % [train,track,location,time]
@@ -179,10 +175,9 @@ if(not(initiates(rideTrack21(Train,Track),
 %       rideTrack12(Train,Track), 
 %       at_loc(Train,Location), 
 %       Time)).
- %   [Time].
-if(not(terminates(rideTrack12(Train,Track),
-		  at(at_loc(Train,Location),Time))),
-   not(side1(Track,Location))).
+if(terminates(rideTrack12(Train,Track),
+	      at(at_loc(Train,Location),Time)),
+   side1(Track,Location)).
 
 
 % [train,track,location,time]
@@ -199,10 +194,9 @@ if(not(terminates(rideTrack12(Train,Track),
 %       rideTrack21(Train,Track), 
 %       at_loc(Train,Location), 
 %       Time)).
- %   [Time].
-if(not(terminates(rideTrack21(Train,Track),
-		  at(at_loc(Train,Location),Time))),
-   not(side2(Track,Location))).
+if(terminates(rideTrack21(Train,Track),
+	      at(at_loc(Train,Location),Time)),
+   side2(Track,Location)).
 
 
 %; DriveStreet
@@ -212,7 +206,7 @@ if(not(terminates(rideTrack21(Train,Track),
 % From E: 
 % 
 % event(driveStreet12(vehicle,street)).
-mpred_prop(driveStreet12(vehicle, street), event).
+mpred_prop(driveStreet12(vehicle,street),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',54).
 events([driveStreet12/2]).
 
@@ -221,7 +215,7 @@ events([driveStreet12/2]).
 % From E: 
 % 
 % event(driveStreet21(vehicle,street)).
-mpred_prop(driveStreet21(vehicle, street), event).
+mpred_prop(driveStreet21(vehicle,street),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',56).
 events([driveStreet21/2]).
 
@@ -240,10 +234,9 @@ events([driveStreet21/2]).
 %       at_loc(Vehicle, 
 %          side1(Street)), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',58).
-if(not(at_loc(Vehicle,side1(Street))),
-   not(driveStreet12(Vehicle,Street))).
+if(at(at_loc(Vehicle,side1(Street)),Time),
+   happens(driveStreet12(Vehicle,Street),Time)).
 
 
 % [vehicle,street,time]
@@ -260,9 +253,8 @@ if(not(at_loc(Vehicle,side1(Street))),
 %       at_loc(Vehicle, 
 %          side2(Street)), 
 %       Time)).
- %   [Time].
-if(not(at_loc(Vehicle,side2(Street))),
-   not(driveStreet21(Vehicle,Street))).
+if(at(at_loc(Vehicle,side2(Street)),Time),
+   happens(driveStreet21(Vehicle,Street),Time)).
 
 
 % [vehicle,street,location,time]
@@ -279,10 +271,9 @@ if(not(at_loc(Vehicle,side2(Street))),
 %       driveStreet12(Vehicle,Street), 
 %       at_loc(Vehicle,Location), 
 %       Time)).
- %   [Time].
-if(not(initiates(driveStreet12(Vehicle,Street),
-		 at(at_loc(Vehicle,Location),Time))),
-   not(side2(Street,Location))).
+if(initiates(driveStreet12(Vehicle,Street),
+	     at(at_loc(Vehicle,Location),Time)),
+   side2(Street,Location)).
 
 
 % [vehicle,street,location,time]
@@ -299,10 +290,9 @@ if(not(initiates(driveStreet12(Vehicle,Street),
 %       driveStreet21(Vehicle,Street), 
 %       at_loc(Vehicle,Location), 
 %       Time)).
- %   [Time].
-if(not(initiates(driveStreet21(Vehicle,Street),
-		 at(at_loc(Vehicle,Location),Time))),
-   not(side1(Street,Location))).
+if(initiates(driveStreet21(Vehicle,Street),
+	     at(at_loc(Vehicle,Location),Time)),
+   side1(Street,Location)).
 
 
 % [vehicle,street,location,time]
@@ -319,10 +309,9 @@ if(not(initiates(driveStreet21(Vehicle,Street),
 %       driveStreet12(Vehicle,Street), 
 %       at_loc(Vehicle,Location), 
 %       Time)).
- %   [Time].
-if(not(terminates(driveStreet12(Vehicle,Street),
-		  at(at_loc(Vehicle,Location),Time))),
-   not(side1(Street,Location))).
+if(terminates(driveStreet12(Vehicle,Street),
+	      at(at_loc(Vehicle,Location),Time)),
+   side1(Street,Location)).
 
 
 % [vehicle,street,location,time]
@@ -339,10 +328,9 @@ if(not(terminates(driveStreet12(Vehicle,Street),
 %       driveStreet21(Vehicle,Street), 
 %       at_loc(Vehicle,Location), 
 %       Time)).
- %   [Time].
-if(not(terminates(driveStreet21(Vehicle,Street),
-		  at(at_loc(Vehicle,Location),Time))),
-   not(side2(Street,Location))).
+if(terminates(driveStreet21(Vehicle,Street),
+	      at(at_loc(Vehicle,Location),Time)),
+   side2(Street,Location)).
 
 
 %; Pulling
@@ -353,8 +341,8 @@ if(not(terminates(driveStreet21(Vehicle,Street),
 % 
 % event(pointToward(agent,horse,street)).
 events([pointToward/3]).
-mpred_prop(pointToward(agent, horse, street), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',84).
+mpred_prop(pointToward(agent,horse,street),action).
 actions([pointToward/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',86).
@@ -362,7 +350,7 @@ actions([pointToward/3]).
 % From E: 
 % 
 % fluent(pointedToward(horse,street)).
-mpred_prop(pointedToward(horse, street), fluent).
+mpred_prop(pointedToward(horse,street),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',86).
 fluents([pointedToward/2]).
 
@@ -383,10 +371,8 @@ fluents([pointedToward/2]).
 %          pointedToward(Horse,Street2), 
 %          Time)), 
 %    Street1=Street2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',88).
- if(not(equals(Street1, Street2)),
-       (not(pointedToward(Horse, Street1));not(pointedToward(Horse, Street2)))).
+if(equals(Street1, Street2),  (at(pointedToward(Horse, Street1), Time), at(pointedToward(Horse, Street2), Time))).
 
 
 % [agent,horse,street,time]
@@ -400,7 +386,6 @@ fluents([pointedToward/2]).
 %    pointToward(Agent,Horse,Street), 
 %    pointedToward(Horse,Street), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',94).
 initiates(pointToward(Agent,Horse,Street),
 	  pointedToward(Horse,Street)).
@@ -422,12 +407,10 @@ initiates(pointToward(Agent,Horse,Street),
 %       pointToward(Agent,Horse,Street2), 
 %       pointedToward(Horse,Street1), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',99).
-if(not(terminates(pointToward(Agent,Horse,Street2),
-		  at(pointedToward(Horse,Street1),
-		     Time))),
-   not(holds(pointedToward(Horse,Street1),Time))).
+if(terminates(pointToward(Agent,Horse,Street2),
+	      at(pointedToward(Horse,Street1),Time)),
+   at(pointedToward(Horse,Street1),Time)).
 
 
 % [horse,vehicle,street,time]
@@ -441,7 +424,6 @@ if(not(terminates(pointToward(Agent,Horse,Street2),
 %    pullStreet12(Horse,Vehicle,Street), 
 %    pointedToward(Horse,Street), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',105).
 terminates(pullStreet12(Horse,Vehicle,Street),
 	   pointedToward(Horse,Street)).
@@ -458,7 +440,6 @@ terminates(pullStreet12(Horse,Vehicle,Street),
 %    pullStreet21(Horse,Vehicle,Street), 
 %    pointedToward(Horse,Street), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',110).
 terminates(pullStreet21(Horse,Vehicle,Street),
 	   pointedToward(Horse,Street)).
@@ -477,9 +458,8 @@ terminates(pullStreet21(Horse,Vehicle,Street),
 %    holds(
 %       nearPortal(Horse,Street), 
 %       Time)).
- %   [Time].
-if(not(nearPortal(Horse,Street)),
-   not(pointedToward(Horse,Street))).
+if(at(nearPortal(Horse,Street),Time),
+   at(pointedToward(Horse,Street),Time)).
 
 % event Lash(agent,horse)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',117).
@@ -487,7 +467,7 @@ if(not(nearPortal(Horse,Street)),
 % 
 % event(lash(agent,horse)).
 events([lash/2]).
-mpred_prop(lash(agent, horse), action).
+mpred_prop(lash(agent,horse),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',117).
 actions([lash/2]).
 
@@ -496,7 +476,7 @@ actions([lash/2]).
 % From E: 
 % 
 % fluent(hitchedTo(horse,vehicle)).
-mpred_prop(hitchedTo(horse, vehicle), fluent).
+mpred_prop(hitchedTo(horse,vehicle),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',120).
 fluents([hitchedTo/2]).
 
@@ -519,10 +499,8 @@ fluents([hitchedTo/2]).
 %    holds(
 %       at_loc(Horse,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',122).
- if(not(at_loc(Horse, Location)),
-       (not(hitchedTo(Horse, Vehicle));not(at_loc(Vehicle, Location)))).
+if(at(at_loc(Horse, Location), Time),  (at(hitchedTo(Horse, Vehicle), Time), at(at_loc(Vehicle, Location), Time))).
 
 
 % [agent,horse,vehicle,street,time]
@@ -554,10 +532,8 @@ fluents([hitchedTo/2]).
 %    happens(
 %       pullStreet12(Horse,Vehicle,Street), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',128).
- if(not(pullStreet12(Horse, Vehicle, Street)),
-       (not(lash(Agent, Horse));not(pointedToward(Horse, Street));not(hitchedTo(Horse, Vehicle));not(at_loc(Horse, side1(Street))))).
+if(happens(pullStreet12(Horse, Vehicle, Street), Time),  (happens(lash(Agent, Horse), Time), at(pointedToward(Horse, Street), Time), at(hitchedTo(Horse, Vehicle), Time), at(at_loc(Horse, side1(Street)), Time))).
 
 
 % [agent,horse,vehicle,street,time]
@@ -589,17 +565,15 @@ fluents([hitchedTo/2]).
 %    happens(
 %       pullStreet21(Horse,Vehicle,Street), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',135).
- if(not(pullStreet21(Horse, Vehicle, Street)),
-       (not(lash(Agent, Horse));not(pointedToward(Horse, Street));not(hitchedTo(Horse, Vehicle));not(at_loc(Horse, side2(Street))))).
+if(happens(pullStreet21(Horse, Vehicle, Street), Time),  (happens(lash(Agent, Horse), Time), at(pointedToward(Horse, Street), Time), at(hitchedTo(Horse, Vehicle), Time), at(at_loc(Horse, side2(Street)), Time))).
 
 % event PullStreet12(horse,vehicle,street)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',140).
 % From E: 
 % 
 % event(pullStreet12(horse,vehicle,street)).
-mpred_prop(pullStreet12(horse, vehicle, street), event).
+mpred_prop(pullStreet12(horse,vehicle,street),event).
 events([pullStreet12/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',143).
@@ -607,7 +581,7 @@ events([pullStreet12/3]).
 % From E: 
 % 
 % event(pullStreet21(horse,vehicle,street)).
-mpred_prop(pullStreet21(horse, vehicle, street), event).
+mpred_prop(pullStreet21(horse,vehicle,street),event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',143).
 events([pullStreet21/3]).
 
@@ -625,10 +599,10 @@ events([pullStreet21/3]).
 %    happens(
 %       driveStreet12(Vehicle,Street), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',145).
-if(not(driveStreet12(Vehicle,Street)),
-   not(pullStreet12(Horse,Vehicle,Street))).
+if(happens(driveStreet12(Vehicle,Street),Time),
+   happens(pullStreet12(Horse,Vehicle,Street),
+	   Time)).
 
 
 % [horse,vehicle,street,time]
@@ -644,9 +618,9 @@ if(not(driveStreet12(Vehicle,Street)),
 %    happens(
 %       driveStreet21(Vehicle,Street), 
 %       Time)).
- %   [Time].
-if(not(driveStreet21(Vehicle,Street)),
-   not(pullStreet21(Horse,Vehicle,Street))).
+if(happens(driveStreet21(Vehicle,Street),Time),
+   happens(pullStreet21(Horse,Vehicle,Street),
+	   Time)).
 
 
 % [horse,vehicle,street,time]
@@ -663,9 +637,9 @@ if(not(driveStreet21(Vehicle,Street)),
 %       at_loc(Horse, 
 %          side1(Street)), 
 %       Time)).
- %   [Time].
-if(not(at_loc(Horse,side1(Street))),
-   not(pullStreet12(Horse,Vehicle,Street))).
+if(at(at_loc(Horse,side1(Street)),Time),
+   happens(pullStreet12(Horse,Vehicle,Street),
+	   Time)).
 
 
 % [horse,vehicle,street,time]
@@ -682,9 +656,9 @@ if(not(at_loc(Horse,side1(Street))),
 %       at_loc(Horse, 
 %          side2(Street)), 
 %       Time)).
- %   [Time].
-if(not(at_loc(Horse,side2(Street))),
-   not(pullStreet21(Horse,Vehicle,Street))).
+if(at(at_loc(Horse,side2(Street)),Time),
+   happens(pullStreet21(Horse,Vehicle,Street),
+	   Time)).
 
 
 % [horse,vehicle,street,location,time]
@@ -701,10 +675,9 @@ if(not(at_loc(Horse,side2(Street))),
 %       pullStreet12(Horse,Vehicle,Street), 
 %       at_loc(Horse,Location), 
 %       Time)).
- %   [Time].
-if(not(initiates(pullStreet12(Horse,Vehicle,Street),
-		 at(at_loc(Horse,Location),Time))),
-   not(side2(Street,Location))).
+if(initiates(pullStreet12(Horse,Vehicle,Street),
+	     at(at_loc(Horse,Location),Time)),
+   side2(Street,Location)).
 
 
 % [horse,vehicle,street,location,time]
@@ -721,10 +694,9 @@ if(not(initiates(pullStreet12(Horse,Vehicle,Street),
 %       pullStreet21(Horse,Vehicle,Street), 
 %       at_loc(Horse,Location), 
 %       Time)).
- %   [Time].
-if(not(initiates(pullStreet21(Horse,Vehicle,Street),
-		 at(at_loc(Horse,Location),Time))),
-   not(side1(Street,Location))).
+if(initiates(pullStreet21(Horse,Vehicle,Street),
+	     at(at_loc(Horse,Location),Time)),
+   side1(Street,Location)).
 
 
 % [horse,vehicle,street,location,time]
@@ -741,10 +713,9 @@ if(not(initiates(pullStreet21(Horse,Vehicle,Street),
 %       pullStreet12(Horse,Vehicle,Street), 
 %       at_loc(Horse,Location), 
 %       Time)).
- %   [Time].
-if(not(terminates(pullStreet12(Horse,Vehicle,Street),
-		  at(at_loc(Horse,Location),Time))),
-   not(side1(Street,Location))).
+if(terminates(pullStreet12(Horse,Vehicle,Street),
+	      at(at_loc(Horse,Location),Time)),
+   side1(Street,Location)).
 
 
 % [horse,vehicle,street,location,time]
@@ -761,10 +732,9 @@ if(not(terminates(pullStreet12(Horse,Vehicle,Street),
 %       pullStreet21(Horse,Vehicle,Street), 
 %       at_loc(Horse,Location), 
 %       Time)).
- %   [Time].
-if(not(terminates(pullStreet21(Horse,Vehicle,Street),
-		  at(at_loc(Horse,Location),Time))),
-   not(side2(Street,Location))).
+if(terminates(pullStreet21(Horse,Vehicle,Street),
+	      at(at_loc(Horse,Location),Time)),
+   side2(Street,Location)).
 
 
 %; OnVehicle
@@ -774,7 +744,7 @@ if(not(terminates(pullStreet21(Horse,Vehicle,Street),
 % From E: 
 % 
 % fluent(onVehicle(object,vehicleon)).
-mpred_prop(onVehicle(object, vehicleon), fluent).
+mpred_prop(onVehicle(object,vehicleon),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',179).
 fluents([onVehicle/2]).
 
@@ -784,8 +754,8 @@ fluents([onVehicle/2]).
 % 
 % event(getOnVehicle(agent,vehicleon)).
 events([getOnVehicle/2]).
-mpred_prop(getOnVehicle(agent, vehicleon), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',181).
+mpred_prop(getOnVehicle(agent,vehicleon),action).
 actions([getOnVehicle/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',183).
@@ -794,8 +764,8 @@ actions([getOnVehicle/2]).
 % 
 % event(getOffVehicle(agent,vehicleon)).
 events([getOffVehicle/2]).
-mpred_prop(getOffVehicle(agent, vehicleon), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',183).
+mpred_prop(getOffVehicle(agent,vehicleon),action).
 actions([getOffVehicle/2]).
 
 
@@ -810,10 +780,9 @@ actions([getOffVehicle/2]).
 %       onVehicle(Vehicleon1,Vehicleon2), 
 %       Time), 
 %    Vehicleon1\=Vehicleon2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',185).
-if(not({dif(Vehicleon1,Vehicleon2)}),
-   not(onVehicle(Vehicleon1,Vehicleon2))).
+if({dif(Vehicleon1,Vehicleon2)},
+   at(onVehicle(Vehicleon1,Vehicleon2),Time)).
 
 
 % [vehicleon1,vehicleon2,time]
@@ -829,9 +798,8 @@ if(not({dif(Vehicleon1,Vehicleon2)}),
 %    holds(
 %       not(onVehicle(Vehicleon2,Vehicleon1)), 
 %       Time)).
- %   [Time].
-if(onVehicle(Vehicleon2,Vehicleon1),
-   not(onVehicle(Vehicleon1,Vehicleon2))).
+if(at(not(onVehicle(Vehicleon2,Vehicleon1)),Time),
+   at(onVehicle(Vehicleon1,Vehicleon2),Time)).
 
 
 % [agent,vehicleon,time]
@@ -843,7 +811,6 @@ if(onVehicle(Vehicleon2,Vehicleon1),
 %    getOnVehicle(Agent,Vehicleon), 
 %    onVehicle(Agent,Vehicleon), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',194).
 initiates(getOnVehicle(Agent,Vehicleon),
 	  onVehicle(Agent,Vehicleon)).
@@ -870,9 +837,8 @@ initiates(getOnVehicle(Agent,Vehicleon),
 %          holds(
 %             at_loc(Vehicleon,Location), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',198).
-exists(Location,  (at_loc(Agent, Location), at_loc(Vehicleon, Location);not(getOnVehicle(Agent, Vehicleon)))).
+exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Vehicleon, Location), Time)), happens(getOnVehicle(Agent, Vehicleon), Time))).
 
 
 % [agent,vehicleon,time]
@@ -884,7 +850,6 @@ exists(Location,  (at_loc(Agent, Location), at_loc(Vehicleon, Location);not(getO
 %    getOffVehicle(Agent,Vehicleon), 
 %    onVehicle(Agent,Vehicleon), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',203).
 terminates(getOffVehicle(Agent,Vehicleon),
 	   onVehicle(Agent,Vehicleon)).
@@ -903,10 +868,9 @@ terminates(getOffVehicle(Agent,Vehicleon),
 %    holds(
 %       onVehicle(Agent,Vehicleon), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',205).
-if(not(onVehicle(Agent,Vehicleon)),
-   not(getOffVehicle(Agent,Vehicleon))).
+if(at(onVehicle(Agent,Vehicleon),Time),
+   happens(getOffVehicle(Agent,Vehicleon),Time)).
 
 
 % [agent,vehicleon,location,time]
@@ -920,7 +884,6 @@ if(not(onVehicle(Agent,Vehicleon)),
 %    getOnVehicle(Agent,Vehicleon), 
 %    at_loc(Agent,Location), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',210).
 releases(getOnVehicle(Agent,Vehicleon),
 	 at_loc(Agent,Location)).
@@ -948,11 +911,10 @@ releases(getOnVehicle(Agent,Vehicleon),
 %       getOffVehicle(Agent,Vehicleon), 
 %       at_loc(Agent,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',221).
-if(not(initiates(getOffVehicle(Agent,Vehicleon),
-		 at(at_loc(Agent,Location),Time))),
-   not(holds(at_loc(Vehicleon,Location),Time))).
+if(initiates(getOffVehicle(Agent,Vehicleon),
+	     at(at_loc(Agent,Location),Time)),
+   at(at_loc(Vehicleon,Location),Time)).
 
 
 % [object,vehicleon,location,time]
@@ -973,10 +935,8 @@ if(not(initiates(getOffVehicle(Agent,Vehicleon),
 %    holds(
 %       at_loc(Object,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',228).
- if(not(at_loc(Object, Location)),
-       (not(onVehicle(Object, Vehicleon));not(at_loc(Vehicleon, Location)))).
+if(at(at_loc(Object, Location), Time),  (at(onVehicle(Object, Vehicleon), Time), at(at_loc(Vehicleon, Location), Time))).
 
 
 %; InVehicle
@@ -986,7 +946,7 @@ if(not(initiates(getOffVehicle(Agent,Vehicleon),
 % From E: 
 % 
 % fluent(inVehicle(object,vehiclein)).
-mpred_prop(inVehicle(object, vehiclein), fluent).
+mpred_prop(inVehicle(object,vehiclein),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',234).
 fluents([inVehicle/2]).
 
@@ -996,8 +956,8 @@ fluents([inVehicle/2]).
 % 
 % event(getInVehicle(agent,vehiclein)).
 events([getInVehicle/2]).
-mpred_prop(getInVehicle(agent, vehiclein), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',236).
+mpred_prop(getInVehicle(agent,vehiclein),action).
 actions([getInVehicle/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',238).
@@ -1006,8 +966,8 @@ actions([getInVehicle/2]).
 % 
 % event(getOutOfVehicle(agent,vehiclein)).
 events([getOutOfVehicle/2]).
-mpred_prop(getOutOfVehicle(agent, vehiclein), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',238).
+mpred_prop(getOutOfVehicle(agent,vehiclein),action).
 actions([getOutOfVehicle/2]).
 
 
@@ -1022,10 +982,9 @@ actions([getOutOfVehicle/2]).
 %       inVehicle(Vehiclein1,Vehiclein2), 
 %       Time), 
 %    Vehiclein1\=Vehiclein2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',240).
-if(not({dif(Vehiclein1,Vehiclein2)}),
-   not(inVehicle(Vehiclein1,Vehiclein2))).
+if({dif(Vehiclein1,Vehiclein2)},
+   at(inVehicle(Vehiclein1,Vehiclein2),Time)).
 
 
 % [vehiclein1,vehiclein2,time]
@@ -1041,9 +1000,8 @@ if(not({dif(Vehiclein1,Vehiclein2)}),
 %    holds(
 %       not(inVehicle(Vehiclein2,Vehiclein1)), 
 %       Time)).
- %   [Time].
-if(inVehicle(Vehiclein2,Vehiclein1),
-   not(inVehicle(Vehiclein1,Vehiclein2))).
+if(at(not(inVehicle(Vehiclein2,Vehiclein1)),Time),
+   at(inVehicle(Vehiclein1,Vehiclein2),Time)).
 
 
 % [agent,vehiclein,time]
@@ -1055,7 +1013,6 @@ if(inVehicle(Vehiclein2,Vehiclein1),
 %    getInVehicle(Agent,Vehiclein), 
 %    inVehicle(Agent,Vehiclein), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',249).
 initiates(getInVehicle(Agent,Vehiclein),
 	  inVehicle(Agent,Vehiclein)).
@@ -1082,9 +1039,8 @@ initiates(getInVehicle(Agent,Vehiclein),
 %          holds(
 %             at_loc(Vehiclein,Location), 
 %             Time)))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',253).
-exists(Location,  (at_loc(Agent, Location), at_loc(Vehiclein, Location);not(getInVehicle(Agent, Vehiclein)))).
+exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Vehiclein, Location), Time)), happens(getInVehicle(Agent, Vehiclein), Time))).
 
 
 % [agent,vehiclein,time]
@@ -1096,7 +1052,6 @@ exists(Location,  (at_loc(Agent, Location), at_loc(Vehiclein, Location);not(getI
 %    getOutOfVehicle(Agent,Vehiclein), 
 %    inVehicle(Agent,Vehiclein), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',258).
 terminates(getOutOfVehicle(Agent,Vehiclein),
 	   inVehicle(Agent,Vehiclein)).
@@ -1115,10 +1070,9 @@ terminates(getOutOfVehicle(Agent,Vehiclein),
 %    holds(
 %       inVehicle(Agent,Vehiclein), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',260).
-if(not(inVehicle(Agent,Vehiclein)),
-   not(getOutOfVehicle(Agent,Vehiclein))).
+if(at(inVehicle(Agent,Vehiclein),Time),
+   happens(getOutOfVehicle(Agent,Vehiclein),Time)).
 
 
 % [agent,vehiclein,location,time]
@@ -1132,7 +1086,6 @@ if(not(inVehicle(Agent,Vehiclein)),
 %    getInVehicle(Agent,Vehiclein), 
 %    at_loc(Agent,Location), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',265).
 releases(getInVehicle(Agent,Vehiclein),
 	 at_loc(Agent,Location)).
@@ -1160,11 +1113,10 @@ releases(getInVehicle(Agent,Vehiclein),
 %       getOutOfVehicle(Agent,Vehiclein), 
 %       at_loc(Agent,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',276).
-if(not(initiates(getOutOfVehicle(Agent,Vehiclein),
-		 at(at_loc(Agent,Location),Time))),
-   not(holds(at_loc(Vehiclein,Location),Time))).
+if(initiates(getOutOfVehicle(Agent,Vehiclein),
+	     at(at_loc(Agent,Location),Time)),
+   at(at_loc(Vehiclein,Location),Time)).
 
 
 % [object,vehiclein,location,time]
@@ -1185,10 +1137,8 @@ if(not(initiates(getOutOfVehicle(Agent,Vehiclein),
 %    holds(
 %       at_loc(Object,Location), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',283).
- if(not(at_loc(Object, Location)),
-       (not(inVehicle(Object, Vehiclein));not(at_loc(Vehiclein, Location)))).
+if(at(at_loc(Object, Location), Time),  (at(inVehicle(Object, Vehiclein), Time), at(at_loc(Vehiclein, Location), Time))).
 
 
 %; vehicle door
@@ -1200,8 +1150,8 @@ if(not(initiates(getOutOfVehicle(Agent,Vehiclein),
 % 
 % event(vehicleDoorOpen(agent,vehicledoor)).
 events([vehicleDoorOpen/2]).
-mpred_prop(vehicleDoorOpen(agent, vehicledoor), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',290).
+mpred_prop(vehicleDoorOpen(agent,vehicledoor),action).
 actions([vehicleDoorOpen/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',292).
@@ -1210,8 +1160,8 @@ actions([vehicleDoorOpen/2]).
 % 
 % event(vehicleDoorClose(agent,vehicledoor)).
 events([vehicleDoorClose/2]).
-mpred_prop(vehicleDoorClose(agent, vehicledoor), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',292).
+mpred_prop(vehicleDoorClose(agent,vehicledoor),action).
 actions([vehicleDoorClose/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',294).
@@ -1219,7 +1169,7 @@ actions([vehicleDoorClose/2]).
 % From E: 
 % 
 % fluent(vehicleDoorIsOpen(vehicledoor)).
-mpred_prop(vehicleDoorIsOpen(vehicledoor), fluent).
+mpred_prop(vehicleDoorIsOpen(vehicledoor),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',294).
 fluents([vehicleDoorIsOpen/1]).
 
@@ -1242,10 +1192,8 @@ fluents([vehicleDoorIsOpen/1]).
 %       holds(
 %          not(vehicleDoorIsOpen(Vehicledoor)), 
 %          Time))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',296).
- if((not(awake(Agent));vehicleDoorIsOpen(Vehicledoor)),
-      not(vehicleDoorOpen(Agent, Vehicledoor))).
+if((at(awake(Agent), Time), at(not(vehicleDoorIsOpen(Vehicledoor)), Time)), happens(vehicleDoorOpen(Agent, Vehicledoor), Time)).
 
 
 % [agent,vehicledoor,time]
@@ -1259,7 +1207,6 @@ fluents([vehicleDoorIsOpen/1]).
 %    vehicleDoorOpen(Agent,Vehicledoor), 
 %    vehicleDoorIsOpen(Vehicledoor), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',302).
 initiates(vehicleDoorOpen(Agent,Vehicledoor),
 	  vehicleDoorIsOpen(Vehicledoor)).
@@ -1283,10 +1230,8 @@ initiates(vehicleDoorOpen(Agent,Vehicledoor),
 %       holds(
 %          vehicleDoorIsOpen(Vehicledoor), 
 %          Time))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',307).
- if((not(awake(Agent));not(vehicleDoorIsOpen(Vehicledoor))),
-      not(vehicleDoorClose(Agent, Vehicledoor))).
+if((at(awake(Agent), Time), at(vehicleDoorIsOpen(Vehicledoor), Time)), happens(vehicleDoorClose(Agent, Vehicledoor), Time)).
 
 
 % [agent,vehicledoor,time]
@@ -1300,7 +1245,6 @@ initiates(vehicleDoorOpen(Agent,Vehicledoor),
 %    vehicleDoorClose(Agent,Vehicledoor), 
 %    vehicleDoorIsOpen(Vehicledoor), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',312).
 terminates(vehicleDoorClose(Agent,Vehicledoor),
 	   vehicleDoorIsOpen(Vehicledoor)).
@@ -1313,14 +1257,14 @@ terminates(vehicleDoorClose(Agent,Vehicledoor),
 % From E: 
 % 
 % subsort(ticketagent,agent).
-subsort(ticketagent, agent).
+subsort(ticketagent,agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',320).
 % fluent BeTicketAgent0(ticketagent)
 % From E: 
 % 
 % fluent(beTicketAgent0(ticketagent)).
-mpred_prop(beTicketAgent0(ticketagent), fluent).
+mpred_prop(beTicketAgent0(ticketagent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',320).
 fluents([beTicketAgent0/1]).
 
@@ -1328,8 +1272,8 @@ fluents([beTicketAgent0/1]).
 % From E: 
 % 
 % fluent(beTicketAgent1(ticketagent)).
-mpred_prop(beTicketAgent1(ticketagent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',320).
+mpred_prop(beTicketAgent1(ticketagent),fluent).
 fluents([beTicketAgent1/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',322).
@@ -1337,7 +1281,7 @@ fluents([beTicketAgent1/1]).
 % From E: 
 % 
 % fluent(beTicketAgent2(ticketagent)).
-mpred_prop(beTicketAgent2(ticketagent), fluent).
+mpred_prop(beTicketAgent2(ticketagent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',322).
 fluents([beTicketAgent2/1]).
 
@@ -1355,6 +1299,7 @@ xor([beTicketAgent0,beTicketAgent1,beTicketAgent2]).
 % Terminates(Request(agent,ticketagent,ticket),
 %            BeTicketAgent0(ticketagent),
 %            time).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',326).
 % From E: 
 % 
 % '->'(
@@ -1365,11 +1310,10 @@ xor([beTicketAgent0,beTicketAgent1,beTicketAgent2]).
 %       request(Agent,Ticketagent,Ticket), 
 %       beTicketAgent0(Ticketagent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',326).
-if(not(terminates(request(Agent,Ticketagent,Ticket),
-		  at(beTicketAgent0(Ticketagent),Time))),
-   not(holds(beTicketAgent0(Ticketagent),Time))).
+if(terminates(request(Agent,Ticketagent,Ticket),
+	      at(beTicketAgent0(Ticketagent),Time)),
+   at(beTicketAgent0(Ticketagent),Time)).
 
 
 % [ticketagent,agent,ticket,time]
@@ -1388,11 +1332,10 @@ if(not(terminates(request(Agent,Ticketagent,Ticket),
 %       request(Agent,Ticketagent,Ticket), 
 %       beTicketAgent1(Ticketagent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',333).
-if(not(initiates(request(Agent,Ticketagent,Ticket),
-		 at(beTicketAgent1(Ticketagent),Time))),
-   not(holds(beTicketAgent0(Ticketagent),Time))).
+if(initiates(request(Agent,Ticketagent,Ticket),
+	     at(beTicketAgent1(Ticketagent),Time)),
+   at(beTicketAgent0(Ticketagent),Time)).
 
 
 % [ticketagent,agent,ticket,time]
@@ -1413,10 +1356,8 @@ if(not(initiates(request(Agent,Ticketagent,Ticket),
 %    happens(
 %       pickUp(Ticketagent,Ticket), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',339).
- if(not(pickUp(Ticketagent, Ticket)),
-       (not(beTicketAgent1(Ticketagent));not(knowRequest(Ticketagent, Agent, Ticket)))).
+if(happens(pickUp(Ticketagent, Ticket), Time),  (at(beTicketAgent1(Ticketagent), Time), at(knowRequest(Ticketagent, Agent, Ticket), Time))).
 
 
 % [ticketagent,ticket,time]
@@ -1435,11 +1376,10 @@ if(not(initiates(request(Agent,Ticketagent,Ticket),
 %       pickUp(Ticketagent,Ticket), 
 %       beTicketAgent1(Ticketagent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',344).
-if(not(terminates(pickUp(Ticketagent,Ticket),
-		  at(beTicketAgent1(Ticketagent),Time))),
-   not(holds(beTicketAgent1(Ticketagent),Time))).
+if(terminates(pickUp(Ticketagent,Ticket),
+	      at(beTicketAgent1(Ticketagent),Time)),
+   at(beTicketAgent1(Ticketagent),Time)).
 
 
 % [ticketagent,ticket,time]
@@ -1458,11 +1398,10 @@ if(not(terminates(pickUp(Ticketagent,Ticket),
 %       pickUp(Ticketagent,Ticket), 
 %       beTicketAgent2(Ticketagent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',350).
-if(not(initiates(pickUp(Ticketagent,Ticket),
-		 at(beTicketAgent2(Ticketagent),Time))),
-   not(holds(beTicketAgent1(Ticketagent),Time))).
+if(initiates(pickUp(Ticketagent,Ticket),
+	     at(beTicketAgent2(Ticketagent),Time)),
+   at(beTicketAgent1(Ticketagent),Time)).
 
 
 % [ticketagent,agent,ticket,time]
@@ -1483,10 +1422,8 @@ if(not(initiates(pickUp(Ticketagent,Ticket),
 %    happens(
 %       handTo(Ticketagent,Agent,Ticket), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',356).
- if(not(handTo(Ticketagent, Agent, Ticket)),
-       (not(beTicketAgent2(Ticketagent));not(knowRequest(Ticketagent, Agent, Ticket)))).
+if(happens(handTo(Ticketagent, Agent, Ticket), Time),  (at(beTicketAgent2(Ticketagent), Time), at(knowRequest(Ticketagent, Agent, Ticket), Time))).
 
 
 % [ticketagent,ticket,agent,time]
@@ -1505,11 +1442,10 @@ if(not(initiates(pickUp(Ticketagent,Ticket),
 %       handTo(Ticketagent,Agent,Ticket), 
 %       beTicketAgent2(Ticketagent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',361).
-if(not(terminates(handTo(Ticketagent,Agent,Ticket),
-		  at(beTicketAgent2(Ticketagent),Time))),
-   not(holds(beTicketAgent2(Ticketagent),Time))).
+if(terminates(handTo(Ticketagent,Agent,Ticket),
+	      at(beTicketAgent2(Ticketagent),Time)),
+   at(beTicketAgent2(Ticketagent),Time)).
 
 
 % [ticketagent,ticket,agent,time]
@@ -1528,11 +1464,10 @@ if(not(terminates(handTo(Ticketagent,Agent,Ticket),
 %       handTo(Ticketagent,Agent,Ticket), 
 %       beTicketAgent0(Ticketagent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Vehicle.e',367).
-if(not(initiates(handTo(Ticketagent,Agent,Ticket),
-		 at(beTicketAgent0(Ticketagent),Time))),
-   not(holds(beTicketAgent2(Ticketagent),Time))).
+if(initiates(handTo(Ticketagent,Agent,Ticket),
+	     at(beTicketAgent0(Ticketagent),Time)),
+   at(beTicketAgent2(Ticketagent),Time)).
 
 
 %; End of file.

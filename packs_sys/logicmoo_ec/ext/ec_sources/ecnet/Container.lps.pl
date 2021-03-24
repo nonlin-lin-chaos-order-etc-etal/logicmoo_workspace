@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.lps.pl')).
-% Sun, 21 Mar 2021 23:28:07 GMT File: <stream>(0x555567cea900)%;
+% Tue, 23 Mar 2021 19:25:06 GMT File: <stream>(0x555569f41e00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -26,9 +26,9 @@
 %;
 %; linkage to OTSpace(M):
 % [agent,container1,container2,time]
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.e',17).
 % Happens(TakeOutOf(agent,container1,container2),time) ->
 % HoldsAt(ContainerIsOpen(container2),time).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.e',17).
 % From E: 
 % 
 % '->'(
@@ -38,10 +38,18 @@
 %    holds(
 %       containerIsOpen(Container2), 
 %       Time)).
- %   [Time].
+not containerIsOpen(Container2)at Time if not happens(takeOutOf(Agent, Container1, Container2), Time).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.e',17).
-if(not(containerIsOpen(Container2)),
-   not(takeOutOf(Agent,Container1,Container2))).
+
+ /*  l_int(holds(not(containerIsOpen(Container2)),Time),
+           [ holds(not(happens(takeOutOf(Agent,
+     				    Container1,
+     				    Container2),
+     			  Time)),
+     	      Time)
+           ]).
+ */
+ %  "% =================================".
 
 
 % [agent,container1,container2,time]
@@ -57,9 +65,17 @@ if(not(containerIsOpen(Container2)),
 %    holds(
 %       containerIsOpen(Container2), 
 %       Time)).
- %   [Time].
-if(not(containerIsOpen(Container2)),
-   not(putInside(Agent,Container1,Container2))).
+not containerIsOpen(Container2)at Time if not happens(putInside(Agent, Container1, Container2), Time).
+
+ /*  l_int(holds(not(containerIsOpen(Container2)),Time),
+           [ holds(not(happens(putInside(Agent,
+     				    Container1,
+     				    Container2),
+     			  Time)),
+     	      Time)
+           ]).
+ */
+ %  "% =================================".
 
 
 %; agent opens container.
@@ -128,10 +144,20 @@ fluents([containerClosed/1]).
 %    holds(
 %       not(containerIsOpen(Container)), 
 %       Time)).
- %   [Time].
+containerIsOpen(Container)at Time if not containerClosed(Container)at Time.
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.e',36).
-if(containerIsOpen(Container), not(containerClosed(Container))),
-if(not(containerClosed(Container)), containerIsOpen(Container)).
+
+ /*  l_int(holds(containerIsOpen(Container),Time),
+           [holds(not(containerClosed(Container)),Time)]).
+ */
+ %  "% =================================".
+not containerClosed(Container)at Time if containerIsOpen(Container)at Time.
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.e',36).
+
+ /*  l_int(holds(not(containerClosed(Container)),Time),
+           [holds(containerIsOpen(Container),Time)]).
+ */
+ %  "% =================================".
 
 
 %; A precondition axiom states that
@@ -162,10 +188,13 @@ if(not(containerClosed(Container)), containerIsOpen(Container)).
 %          holds(
 %             holding(Agent,Container), 
 %             Time)))).
- %   [Time].
+not awake(Agent)at Time;containerIsOpen(Container)at Time;not holding(Agent, Container)at Time if not happens(containerOpen(Agent, Container), Time).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.e',45).
- if((not(awake(Agent));containerIsOpen(Container);not(holding(Agent, Container))),
-      not(containerOpen(Agent, Container))).
+
+ /*   if((at(not(awake(Agent)), Time);at(containerIsOpen(Container), Time);at(not(holding(Agent, Container)), Time)),
+           not(happens(containerOpen(Agent, Container), Time))).
+ */
+ %  "% =================================".
 
 
 %; An effect axiom states that
@@ -180,10 +209,16 @@ if(not(containerClosed(Container)), containerIsOpen(Container)).
 %    containerOpen(Agent,Container), 
 %    containerIsOpen(Container), 
 %    Time).
- %   [Time].
+containerOpen(Agent, Container)initiates containerIsOpen(Container).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.e',54).
-initiates(containerOpen(Agent,Container),
-	  containerIsOpen(Container)).
+
+ /*  initiated(happens(containerOpen(Agent,Container),
+     		  Time_from,
+     		  Time_until),
+     	  containerIsOpen(Container),
+     	  []).
+ */
+ %  "% =================================".
 
 
 %; A precondition axiom states that
@@ -214,10 +249,13 @@ initiates(containerOpen(Agent,Container),
 %          holds(
 %             holding(Agent,Container), 
 %             Time)))).
- %   [Time].
+not awake(Agent)at Time;not containerIsOpen(Container)at Time;not holding(Agent, Container)at Time if not happens(containerClose(Agent, Container), Time).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.e',62).
- if((not(awake(Agent));not(containerIsOpen(Container));not(holding(Agent, Container))),
-      not(containerClose(Agent, Container))).
+
+ /*   if((at(not(awake(Agent)), Time);at(not(containerIsOpen(Container)), Time);at(not(holding(Agent, Container)), Time)),
+           not(happens(containerClose(Agent, Container), Time))).
+ */
+ %  "% =================================".
 
 
 %; An effect axiom states that
@@ -232,10 +270,16 @@ initiates(containerOpen(Agent,Container),
 %    containerClose(Agent,Container), 
 %    containerIsOpen(Container), 
 %    Time).
- %   [Time].
+containerClose(Agent, Container)terminates containerIsOpen(Container).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Container.e',71).
-terminates(containerClose(Agent,Container),
-	   containerIsOpen(Container)).
+
+ /*  terminated(happens(containerClose(Agent,Container),
+     		   Time_from,
+     		   Time_until),
+     	   containerIsOpen(Container),
+     	   []).
+ */
+ %  "% =================================".
 
 
 %; End of file.

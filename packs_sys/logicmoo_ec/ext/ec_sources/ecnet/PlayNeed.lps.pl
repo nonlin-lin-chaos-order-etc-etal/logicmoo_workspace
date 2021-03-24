@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.lps.pl')).
-% Sun, 21 Mar 2021 23:28:12 GMT File: <stream>(0x5555676b5b00)%;
+% Tue, 23 Mar 2021 19:06:52 GMT File: <stream>(0x555567331f00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -47,7 +47,7 @@
 % From E: 
 % 
 % fluent(hungryToPlay(agent)).
-mpred_prop(hungryToPlay(agent), fluent).
+mpred_prop(hungryToPlay(agent),fluent).
 fluents([hungryToPlay/1]).
 
 
@@ -59,7 +59,7 @@ fluents([hungryToPlay/1]).
 % From E: 
 % 
 % fluent(intentionToPlay(agent,outside)).
-mpred_prop(intentionToPlay(agent, outside), fluent).
+mpred_prop(intentionToPlay(agent,outside),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',35).
 fluents([intentionToPlay/2]).
 
@@ -71,7 +71,7 @@ fluents([intentionToPlay/2]).
 % From E: 
 % 
 % fluent(satiatedFromPlay(agent)).
-mpred_prop(satiatedFromPlay(agent), fluent).
+mpred_prop(satiatedFromPlay(agent),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',37).
 fluents([satiatedFromPlay/1]).
 
@@ -94,7 +94,7 @@ xor([hungryToPlay,intentionToPlay,satiatedFromPlay]).
 % 
 % event(intendToPlay(agent,outside)).
 events([intendToPlay/2]).
-mpred_prop(intendToPlay(agent, outside), action).
+mpred_prop(intendToPlay(agent,outside),action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',43).
 actions([intendToPlay/2]).
 
@@ -107,8 +107,8 @@ actions([intendToPlay/2]).
 % 
 % event(play(agent,outside)).
 events([play/2]).
-mpred_prop(play(agent, outside), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',46).
+mpred_prop(play(agent,outside),action).
 actions([play/2]).
 
 
@@ -119,8 +119,8 @@ actions([play/2]).
 % From E: 
 % 
 % fluent(actOnIntentionToPlay(agent,outside)).
-mpred_prop(actOnIntentionToPlay(agent, outside), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',48).
+mpred_prop(actOnIntentionToPlay(agent,outside),fluent).
 fluents([actOnIntentionToPlay/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',50).
@@ -172,10 +172,8 @@ fluents([actOnIntentionToPlay/2]).
 %    happens(
 %       intendToPlay(Agent,Outside), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',57).
- if(not(intendToPlay(Agent, Outside)),
-       (not(hungryToPlay(Agent));not(likeSnow(Agent));not(at_loc(Agent, Room));not(lookOutOnto(Room, Outside));not(awake(Agent));not(snowing(Outside)))).
+if(happens(intendToPlay(Agent, Outside), Time),  (at(hungryToPlay(Agent), Time), at(likeSnow(Agent), Time), at(at_loc(Agent, Room), Time), lookOutOnto(Room, Outside), at(awake(Agent), Time), at(snowing(Outside), Time))).
 
 
 %; A story understanding program will need a detailed representation
@@ -224,7 +222,6 @@ fluents([actOnIntentionToPlay/2]).
 %    intendToPlay(Agent,Outside), 
 %    intentionToPlay(Agent,Outside), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',104).
 initiates(intendToPlay(Agent,Outside),
 	  intentionToPlay(Agent,Outside)).
@@ -239,7 +236,6 @@ initiates(intendToPlay(Agent,Outside),
 %    intendToPlay(Agent,Outside), 
 %    hungryToPlay(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',108).
 terminates(intendToPlay(Agent,Outside),
 	   hungryToPlay(Agent)).
@@ -274,10 +270,8 @@ terminates(intendToPlay(Agent,Outside),
 %    happens(
 %       play(Agent,Outside), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',115).
- if(not(play(Agent, Outside)),
-       (not(intentionToPlay(Agent, Outside));not(actOnIntentionToPlay(Agent, Outside));not(at_loc(Agent, Outside)))).
+if(happens(play(Agent, Outside), Time),  (at(intentionToPlay(Agent, Outside), Time), at(actOnIntentionToPlay(Agent, Outside), Time), at(at_loc(Agent, Outside), Time))).
 
 
 %; Effect axioms state that if an agent plays in an
@@ -293,7 +287,6 @@ terminates(intendToPlay(Agent,Outside),
 %    play(Agent,Outside), 
 %    satiatedFromPlay(Agent), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',125).
 initiates(play(Agent,Outside),
 	  satiatedFromPlay(Agent)).
@@ -308,7 +301,6 @@ initiates(play(Agent,Outside),
 %    play(Agent,Outside), 
 %    intentionToPlay(Agent,Outside), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PlayNeed.e',129).
 terminates(play(Agent,Outside),
 	   intentionToPlay(Agent,Outside)).

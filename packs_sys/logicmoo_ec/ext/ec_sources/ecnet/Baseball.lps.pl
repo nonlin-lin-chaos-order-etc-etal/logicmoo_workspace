@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.lps.pl')).
-% Sun, 21 Mar 2021 23:28:06 GMT File: <stream>(0x55556721bf00)%;
+% Tue, 23 Mar 2021 19:25:05 GMT File: <stream>(0x5555684b2800)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -41,22 +41,22 @@
 %; }
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',31).
 % sort ballgame
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',31).
 % From E: 
 % 
 % sort(ballgame).
 sort(ballgame).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',33).
 % sort hardball: ball
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',33).
 % From E: 
 % 
 % subsort(hardball,ball).
 subsort(hardball, ball).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',35).
 % sort base: physobj
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',35).
 % From E: 
 % 
 % subsort(base,physobj).
@@ -71,15 +71,15 @@ subsort(firstbase, base).
 %;sort secondbase: base
 %;sort thirdbase: base
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',39).
 % sort homeplate: base
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',39).
 % From E: 
 % 
 % subsort(homeplate,base).
 subsort(homeplate, base).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',41).
 % sort mound: physobj
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',41).
 % From E: 
 % 
 % subsort(mound,physobj).
@@ -95,8 +95,8 @@ subsort(pitchermound, mound).
 %;sort bench: furniture
 %;sort playerbench: bench
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',48).
 % sort field: physobj
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',48).
 % From E: 
 % 
 % subsort(field,physobj).
@@ -104,8 +104,8 @@ subsort(field, physobj).
 %;sort shortstoparea: field
 %;sort catcherarea: field
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',53).
 % sort outfield: field
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',53).
 % From E: 
 % 
 % subsort(outfield,field).
@@ -114,8 +114,8 @@ subsort(outfield, field).
 %;sort centerfield: outfield
 %;sort rightfield: outfield
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',58).
 % function BallOf(ballgame): hardball
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',58).
 % From E: 
 % 
 % function(
@@ -135,8 +135,8 @@ function(firstBaseOf(ballgame),firstbase).
 %;function SecondBaseOf(ballgame): secondbase
 %;function ThirdBaseOf(ballgame): thirdbase
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',62).
 % function HomeplateOf(ballgame): homeplate
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',62).
 % From E: 
 % 
 % function(
@@ -154,8 +154,8 @@ function(homeplateOf(ballgame),homeplate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',62).
 function(outfieldOf(ballgame),outfield).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',64).
 % function PitchermoundOf(ballgame): pitchermound
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',64).
 % From E: 
 % 
 % function(
@@ -173,42 +173,40 @@ function(pitchermoundOf(ballgame),pitchermound).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',64).
 function(playerbenchOf(ballgame),playerbench).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',67).
 % predicate HomeTeamPlayer(ballgame,agent)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',67).
 % From E: 
 % 
 % predicate(homeTeamPlayer(ballgame,agent)).
 mpred_prop(homeTeamPlayer(ballgame, agent), predicate).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',67).
 predicates([homeTeamPlayer/2]).
 
 % predicate VisitingTeamPlayer(ballgame,agent)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',67).
 % From E: 
 % 
 % predicate(visitingTeamPlayer(ballgame,agent)).
 mpred_prop(visitingTeamPlayer(ballgame, agent), predicate).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',67).
 predicates([visitingTeamPlayer/2]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',69).
 % predicate Player(ballgame,agent)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',69).
 % From E: 
 % 
 % predicate(player(ballgame,agent)).
 mpred_prop(player(ballgame, agent), predicate).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',69).
 predicates([player/2]).
 
 % predicate OnOppositeTeams(ballgame,agent,agent)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',69).
 % From E: 
 % 
 % predicate(onOppositeTeams(ballgame,agent,agent)).
 mpred_prop(onOppositeTeams(ballgame, agent, agent), predicate).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',69).
 predicates([onOppositeTeams/3]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',72).
 % event Pitch(ballgame,agent,hardball,agent)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',72).
 % From E: 
 % 
 % event(pitch(ballgame, agent, hardball, 
@@ -226,8 +224,8 @@ mpred_prop(pitchInStrikeZone(ballgame, agent, hardball, agent), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',72).
 events([pitchInStrikeZone/4]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',74).
 % event PitchOutOfStrikeZone(ballgame,agent,hardball,agent)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',74).
 % From E: 
 % 
 % event(pitchOutOfStrikeZone(ballgame, agent, hardball, 
@@ -244,55 +242,52 @@ mpred_prop(swing(ballgame, agent, hardball), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',74).
 events([swing/3]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',76).
 % event SwingMiss(ballgame,agent,hardball)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',76).
 % From E: 
 % 
 % event(swingMiss(ballgame,agent,hardball)).
 mpred_prop(swingMiss(ballgame, agent, hardball), event).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',76).
 events([swingMiss/3]).
 
 % event SwingHit(ballgame,agent,hardball)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',76).
 % From E: 
 % 
 % event(swingHit(ballgame,agent,hardball)).
 mpred_prop(swingHit(ballgame, agent, hardball), event).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',76).
 events([swingHit/3]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',78).
 % event SwingHitFair(ballgame,agent,hardball)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',78).
 % From E: 
 % 
 % event(swingHitFair(ballgame,agent,hardball)).
 mpred_prop(swingHitFair(ballgame, agent, hardball), event).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',78).
 events([swingHitFair/3]).
 
 % event SwingHitFoul(ballgame,agent,hardball)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',78).
 % From E: 
 % 
 % event(swingHitFoul(ballgame,agent,hardball)).
 mpred_prop(swingHitFoul(ballgame, agent, hardball), event).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',78).
 events([swingHitFoul/3]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',80).
 % event SwingHitFairFly(ballgame,agent,hardball)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',80).
 % From E: 
 % 
 % event(swingHitFairFly(ballgame,agent,hardball)).
 mpred_prop(swingHitFairFly(ballgame, agent, hardball), event).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',80).
 events([swingHitFairFly/3]).
 
 % event SwingHitFairGround(ballgame,agent,hardball)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',80).
 % From E: 
 % 
 % event(swingHitFairGround(ballgame,agent,hardball)).
 mpred_prop(swingHitFairGround(ballgame, agent, hardball), event).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',80).
 events([swingHitFairGround/3]).
 
 
@@ -305,9 +300,13 @@ events([swingHitFairGround/3]).
 % '->'(
 %    homeTeamPlayer(Ballgame,Agent), 
 %    not(visitingTeamPlayer(Ballgame,Agent))).
+visitingTeamPlayer(Ballgame, Agent)if not homeTeamPlayer(Ballgame, Agent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',83).
-if(visitingTeamPlayer(Ballgame,Agent),
-   not(homeTeamPlayer(Ballgame,Agent))).
+
+ /*  if(visitingTeamPlayer(Ballgame,Agent),
+        not(homeTeamPlayer(Ballgame,Agent))).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent]
@@ -318,9 +317,15 @@ if(visitingTeamPlayer(Ballgame,Agent),
 % '->'(
 %    homeTeamPlayer(Ballgame,Agent), 
 %    player(Ballgame,Agent)).
+not player(Ballgame, Agent)if not homeTeamPlayer(Ballgame, Agent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',86).
-if(not(player(Ballgame,Agent)),
-   not(homeTeamPlayer(Ballgame,Agent))).
+
+ /*  l_int(holds(not(player(Ballgame,Agent)),Time_at),
+           [ holds(not(homeTeamPlayer(Ballgame,Agent)),
+     	      Time_at)
+           ]).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent]
@@ -331,9 +336,15 @@ if(not(player(Ballgame,Agent)),
 % '->'(
 %    visitingTeamPlayer(Ballgame,Agent), 
 %    player(Ballgame,Agent)).
+not player(Ballgame, Agent)if not visitingTeamPlayer(Ballgame, Agent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',88).
-if(not(player(Ballgame,Agent)),
-   not(visitingTeamPlayer(Ballgame,Agent))).
+
+ /*  l_int(holds(not(player(Ballgame,Agent)),Time_at),
+           [ holds(not(visitingTeamPlayer(Ballgame,Agent)),
+     	      Time_at)
+           ]).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent1,agent2]
@@ -354,9 +365,19 @@ if(not(player(Ballgame,Agent)),
 %       ','(
 %          homeTeamPlayer(Ballgame,Agent2), 
 %          visitingTeamPlayer(Ballgame,Agent1)))).
+(not homeTeamPlayer(Ballgame, Agent1);not visitingTeamPlayer(Ballgame, Agent2)), (not homeTeamPlayer(Ballgame, Agent2);not visitingTeamPlayer(Ballgame, Agent1))if not onOppositeTeams(Ballgame, Agent1, Agent2).
+ %  if(((not(homeTeamPlayer(Ballgame, Agent1));not(visitingTeamPlayer(Ballgame, Agent2))), (not(homeTeamPlayer(Ballgame, Agent2));not(visitingTeamPlayer(Ballgame, Agent1)))), not(onOppositeTeams(Ballgame, Agent1, Agent2))).
+ %  "% =================================".
+not onOppositeTeams(Ballgame, Agent1, Agent2)if(not homeTeamPlayer(Ballgame, Agent1);not visitingTeamPlayer(Ballgame, Agent2)), (not homeTeamPlayer(Ballgame, Agent2);not visitingTeamPlayer(Ballgame, Agent1)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',92).
-if(((not(homeTeamPlayer(Ballgame, Agent1));not(visitingTeamPlayer(Ballgame, Agent2))), (not(homeTeamPlayer(Ballgame, Agent2));not(visitingTeamPlayer(Ballgame, Agent1)))), not(onOppositeTeams(Ballgame, Agent1, Agent2))),
-if(not(onOppositeTeams(Ballgame, Agent1, Agent2)),  ((not(homeTeamPlayer(Ballgame, Agent1));not(visitingTeamPlayer(Ballgame, Agent2))), (not(homeTeamPlayer(Ballgame, Agent2));not(visitingTeamPlayer(Ballgame, Agent1))))).
+
+ /*   l_int(holds(not(onOppositeTeams(Ballgame, Agent1, Agent2)),
+                    Time_at),
+              [  (not(homeTeamPlayer(Ballgame, Agent1));not(visitingTeamPlayer(Ballgame, Agent2))),
+                 (not(homeTeamPlayer(Ballgame, Agent2));not(visitingTeamPlayer(Ballgame, Agent1)))
+              ]).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent1,hardball,agent2,pitchermound,homeplate,time]
@@ -391,10 +412,13 @@ if(not(onOppositeTeams(Ballgame, Agent1, Agent2)),  ((not(homeTeamPlayer(Ballgam
 %             near(Agent2,Homeplate), 
 %             Time), 
 %          onOppositeTeams(Ballgame,Agent1,Agent2)))).
- %   [Time].
+not near(Agent1, Pitchermound)at Time;not near(Agent2, Homeplate)at Time;not onOppositeTeams(Ballgame, Agent1, Agent2)if not happens(pitch(Ballgame, Agent1, Hardball, Agent2), Time);not equals(pitchermoundOf(Ballgame), Pitchermound);not equals(homeplateOf(Ballgame), Homeplate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',99).
- if((not(near(Agent1, Pitchermound));not(near(Agent2, Homeplate));not(onOppositeTeams(Ballgame, Agent1, Agent2))),
-       (not(pitch(Ballgame, Agent1, Hardball, Agent2));not(pitchermoundOf(Ballgame, Pitchermound));not(homeplateOf(Ballgame, Homeplate)))).
+
+ /*   if((at(not(near(Agent1, Pitchermound)), Time);at(not(near(Agent2, Homeplate)), Time);not(onOppositeTeams(Ballgame, Agent1, Agent2))),
+            (not(happens(pitch(Ballgame, Agent1, Hardball, Agent2), Time));not(equals(pitchermoundOf(Ballgame), Pitchermound));not(equals(homeplateOf(Ballgame), Homeplate)))).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent1,agent2,hardball,time]
@@ -418,9 +442,9 @@ if(not(onOppositeTeams(Ballgame, Agent1, Agent2)),  ((not(homeTeamPlayer(Ballgam
 %          pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, 
 %             Agent2), 
 %          Time))).
- %   [Time].
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',107).
-if((not(pitchInStrikeZone(Ballgame, Agent1, Hardball, Agent2)), not(pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, Agent2))), not(pitch(Ballgame, Agent1, Hardball, Agent2))).
+not happens(pitchInStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time), not happens(pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time)if not happens(pitch(Ballgame, Agent1, Hardball, Agent2), Time).
+ %  if((not(happens(pitchInStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time)), not(happens(pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time))), not(happens(pitch(Ballgame, Agent1, Hardball, Agent2), Time))).
+ %  "% =================================".
 
 
 % [ballgame,agent1,agent2,hardball,time]
@@ -438,15 +462,20 @@ if((not(pitchInStrikeZone(Ballgame, Agent1, Hardball, Agent2)), not(pitchOutOfSt
 %           pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, 
 %              Agent2), 
 %           Time))).
- %   [Time].
-if(pitchOutOfStrikeZone(Ballgame,
-			Agent1,
-			Hardball,
-			Agent2),
-   not(pitchInStrikeZone(Ballgame,
-			 Agent1,
-			 Hardball,
-			 Agent2))).
+happens(pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time)if not happens(pitchInStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time).
+
+ /*  if(happens(pitchOutOfStrikeZone(Ballgame,
+     				Agent1,
+     				Hardball,
+     				Agent2),
+     	   Time),
+        not(happens(pitchInStrikeZone(Ballgame,
+     				 Agent1,
+     				 Hardball,
+     				 Agent2),
+     	       Time))).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent1,agent2,hardball,time]
@@ -463,14 +492,22 @@ if(pitchOutOfStrikeZone(Ballgame,
 %    happens(
 %       swing(Ballgame,Agent2,Hardball), 
 %       Time+1)).
- %   [Time, Time+1].
-if(not(holds(swing(Ballgame,Agent2,Hardball),
-	     Time+1)),
-   not(holds(pitchInStrikeZone(Ballgame,
-			       Agent1,
-			       Hardball,
-			       Agent2),
-	     Time))).
+not happens(swing(Ballgame, Agent2, Hardball), Time+1)if not happens(pitchInStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time).
+
+ /*  l_int(holds(not(happens(swing(Ballgame,
+     			      Agent2,
+     			      Hardball),
+     			Time+1)),
+     	    Time_at),
+           [ holds(not(happens(pitchInStrikeZone(Ballgame,
+     					    Agent1,
+     					    Hardball,
+     					    Agent2),
+     			  Time)),
+     	      Time_at)
+           ]).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent,hardball,time]
@@ -491,9 +528,9 @@ if(not(holds(swing(Ballgame,Agent2,Hardball),
 %       happens(
 %          swingMiss(Ballgame,Agent,Hardball), 
 %          Time))).
- %   [Time].
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',120).
-if((not(swingHit(Ballgame, Agent, Hardball)), not(swingMiss(Ballgame, Agent, Hardball))), not(swing(Ballgame, Agent, Hardball))).
+not happens(swingHit(Ballgame, Agent, Hardball), Time), not happens(swingMiss(Ballgame, Agent, Hardball), Time)if not happens(swing(Ballgame, Agent, Hardball), Time).
+ %  if((not(happens(swingHit(Ballgame, Agent, Hardball), Time)), not(happens(swingMiss(Ballgame, Agent, Hardball), Time))), not(happens(swing(Ballgame, Agent, Hardball), Time))).
+ %  "% =================================".
 
 
 % [ballgame,agent,hardball,time]
@@ -509,9 +546,14 @@ if((not(swingHit(Ballgame, Agent, Hardball)), not(swingMiss(Ballgame, Agent, Har
 %    not(happens(
 %           swingMiss(Ballgame,Agent,Hardball), 
 %           Time))).
- %   [Time].
-if(swingMiss(Ballgame,Agent,Hardball),
-   not(swingHit(Ballgame,Agent,Hardball))).
+happens(swingMiss(Ballgame, Agent, Hardball), Time)if not happens(swingHit(Ballgame, Agent, Hardball), Time).
+
+ /*  if(happens(swingMiss(Ballgame,Agent,Hardball),
+     	   Time),
+        not(happens(swingHit(Ballgame,Agent,Hardball),
+     	       Time))).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent,hardball,time]
@@ -532,9 +574,9 @@ if(swingMiss(Ballgame,Agent,Hardball),
 %       happens(
 %          swingHitFoul(Ballgame,Agent,Hardball), 
 %          Time))).
- %   [Time].
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',129).
-if((not(swingHitFair(Ballgame, Agent, Hardball)), not(swingHitFoul(Ballgame, Agent, Hardball))), not(swingHit(Ballgame, Agent, Hardball))).
+not happens(swingHitFair(Ballgame, Agent, Hardball), Time), not happens(swingHitFoul(Ballgame, Agent, Hardball), Time)if not happens(swingHit(Ballgame, Agent, Hardball), Time).
+ %  if((not(happens(swingHitFair(Ballgame, Agent, Hardball), Time)), not(happens(swingHitFoul(Ballgame, Agent, Hardball), Time))), not(happens(swingHit(Ballgame, Agent, Hardball), Time))).
+ %  "% =================================".
 
 
 % [ballgame,agent,hardball,time]
@@ -550,9 +592,14 @@ if((not(swingHitFair(Ballgame, Agent, Hardball)), not(swingHitFoul(Ballgame, Age
 %    not(happens(
 %           swingHitFoul(Ballgame,Agent,Hardball), 
 %           Time))).
- %   [Time].
-if(swingHitFoul(Ballgame,Agent,Hardball),
-   not(swingHitFair(Ballgame,Agent,Hardball))).
+happens(swingHitFoul(Ballgame, Agent, Hardball), Time)if not happens(swingHitFair(Ballgame, Agent, Hardball), Time).
+
+ /*  if(happens(swingHitFoul(Ballgame,Agent,Hardball),
+     	   Time),
+        not(happens(swingHitFair(Ballgame,Agent,Hardball),
+     	       Time))).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent,hardball,time]
@@ -573,9 +620,9 @@ if(swingHitFoul(Ballgame,Agent,Hardball),
 %       happens(
 %          swingHitFairGround(Ballgame,Agent,Hardball), 
 %          Time))).
- %   [Time].
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',138).
-if((not(swingHitFairFly(Ballgame, Agent, Hardball)), not(swingHitFairGround(Ballgame, Agent, Hardball))), not(swingHitFair(Ballgame, Agent, Hardball))).
+not happens(swingHitFairFly(Ballgame, Agent, Hardball), Time), not happens(swingHitFairGround(Ballgame, Agent, Hardball), Time)if not happens(swingHitFair(Ballgame, Agent, Hardball), Time).
+ %  if((not(happens(swingHitFairFly(Ballgame, Agent, Hardball), Time)), not(happens(swingHitFairGround(Ballgame, Agent, Hardball), Time))), not(happens(swingHitFair(Ballgame, Agent, Hardball), Time))).
+ %  "% =================================".
 
 
 % [ballgame,agent,hardball,time]
@@ -591,9 +638,21 @@ if((not(swingHitFairFly(Ballgame, Agent, Hardball)), not(swingHitFairGround(Ball
 %    happens(
 %       swingHitFairGround(Ballgame,Agent,Hardball), 
 %       Time)).
- %   [Time].
-if(not(swingHitFairGround(Ballgame,Agent,Hardball)),
-   not(swingHitFairFly(Ballgame,Agent,Hardball))).
+not happens(swingHitFairGround(Ballgame, Agent, Hardball), Time)if not happens(swingHitFairFly(Ballgame, Agent, Hardball), Time).
+
+ /*  l_int(holds(not(happens(swingHitFairGround(Ballgame,
+     					   Agent,
+     					   Hardball),
+     			Time)),
+     	    Time_at),
+           [ holds(not(happens(swingHitFairFly(Ballgame,
+     					  Agent,
+     					  Hardball),
+     			  Time)),
+     	      Time_at)
+           ]).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent,hardball,homeplate,firstbase,time]
@@ -619,10 +678,18 @@ if(not(swingHitFairGround(Ballgame,Agent,Hardball)),
 %    happens(
 %       runFromTo(Agent,Homeplate,Firstbase), 
 %       Time)).
- %   [Time].
+not happens(runFromTo(Agent, Homeplate, Firstbase), Time)if not happens(swingHit(Ballgame, Agent, Hardball), Time);not equals(homeplateOf(Ballgame), Homeplate);not equals(firstBaseOf(Ballgame), Firstbase).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',147).
- if(not(runFromTo(Agent, Homeplate, Firstbase)),
-       (not(swingHit(Ballgame, Agent, Hardball));not(homeplateOf(Ballgame, Homeplate));not(firstBaseOf(Ballgame, Firstbase)))).
+
+ /*   l_int(holds(not(happens(runFromTo(Agent,
+                                          Homeplate,
+                                          Firstbase),
+                                Time)),
+                    Time_at),
+              [  (not(happens(swingHit(Ballgame, Agent, Hardball), Time));not(equals(homeplateOf(Ballgame), Homeplate));not(equals(firstBaseOf(Ballgame), Firstbase)))
+              ]).
+ */
+ %  "% =================================".
 
 
 % [ballgame,agent,hardball,homeplate,outfield,time]
@@ -649,10 +716,19 @@ if(not(swingHitFairGround(Ballgame,Agent,Hardball)),
 %       hitFromTo(Agent, Hardball, Homeplate, 
 %          Outfield), 
 %       Time)).
- %   [Time].
+not happens(hitFromTo(Agent, Hardball, Homeplate, Outfield), Time)if not equals(homeplateOf(Ballgame), Homeplate);not equals(outfieldOf(Ballgame), Outfield);not happens(swingHitFairFly(Ballgame, Agent, Hardball), Time).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',153).
- if(not(hitFromTo(Agent, Hardball, Homeplate, Outfield)),
-       (not(homeplateOf(Ballgame, Homeplate));not(outfieldOf(Ballgame, Outfield));not(swingHitFairFly(Ballgame, Agent, Hardball)))).
+
+ /*   l_int(holds(not(happens(hitFromTo(Agent,
+                                          Hardball,
+                                          Homeplate,
+                                          Outfield),
+                                Time)),
+                    Time_at),
+              [  (not(equals(homeplateOf(Ballgame), Homeplate));not(equals(outfieldOf(Ballgame), Outfield));not(happens(swingHitFairFly(Ballgame, Agent, Hardball), Time)))
+              ]).
+ */
+ %  "% =================================".
 
 
 %; End of file.

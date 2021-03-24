@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/GSpace.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/GSpace.lps.pl')).
-% Sun, 21 Mar 2021 23:28:09 GMT File: <stream>(0x555567b7ac00)%;
+% Tue, 23 Mar 2021 19:06:50 GMT File: <stream>(0x555567255300)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -37,7 +37,7 @@
 % From E: 
 % 
 % subsort(coord,integer).
-subsort(coord, integer).
+subsort(coord,integer).
 
 % sort grid
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/GSpace.e',22).
@@ -53,7 +53,7 @@ sort(grid).
 % 
 % fluent(gridAt(grid, object, coord, 
 %           coord)).
-mpred_prop(gridAt(grid, object, coord, coord), fluent).
+mpred_prop(gridAt(grid,object,coord,coord),fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/GSpace.e',25).
 fluents([gridAt/4]).
 
@@ -68,8 +68,8 @@ fluents([gridAt/4]).
 % 
 % event(gridWalk(grid, agent, coord, coord, coord, 
 %          coord)).
-mpred_prop(gridWalk(grid, agent, coord, coord, coord, coord), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/GSpace.e',30).
+mpred_prop(gridWalk(grid,agent,coord,coord,coord,coord),event).
 events([gridWalk/6]).
 
 
@@ -96,10 +96,8 @@ events([gridWalk/6]).
 %    ','(
 %       Coord1=Coord3, 
 %       Coord2=Coord4)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/GSpace.e',34).
- if((not(equals(Coord1, Coord3));not(equals(Coord2, Coord4))),
-       (not(gridAt(Grid, Object, Coord1, Coord2));not(gridAt(Grid, Object, Coord3, Coord4)))).
+if((equals(Coord1, Coord3), equals(Coord2, Coord4)),  (at(gridAt(Grid, Object, Coord1, Coord2), Time), at(gridAt(Grid, Object, Coord3, Coord4), Time))).
 
 
 %; An effect axiom states that
@@ -118,7 +116,6 @@ events([gridWalk/6]).
 %    gridAt(Grid, Agent, Coord3, 
 %       Coord4), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/GSpace.e',42).
 initiates(gridWalk(Grid,
 		   Agent,
@@ -145,7 +142,6 @@ initiates(gridWalk(Grid,
 %    gridAt(Grid, Agent, Coord1, 
 %       Coord2), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/GSpace.e',50).
 terminates(gridWalk(Grid,
 		    Agent,
@@ -201,9 +197,8 @@ terminates(gridWalk(Grid,
 %                ';'(
 %                   Coord2=Coord4+1, 
 %                   Coord2=Coord4-1)))))).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/GSpace.e',60).
-if((not(gridAt(Grid, Agent, Coord1, Coord2));thereExists(Object, gridAt(Grid, Object, Coord3, Coord4));not(equals(Coord1, Coord3)), not(equals(Coord1, Coord3+1)), not(equals(Coord1, Coord3-1));not(equals(Coord2, Coord4)), not(equals(Coord2, Coord4+1)), not(equals(Coord2, Coord4-1))), not(gridWalk(Grid, Agent, Coord1, Coord2, Coord3, Coord4))).
+if((at(gridAt(Grid, Agent, Coord1, Coord2), Time), not(thereExists(Object, at(gridAt(Grid, Object, Coord3, Coord4), Time))), (equals(Coord1, Coord3);equals(Coord1, Coord3+1);equals(Coord1, Coord3-1)), (equals(Coord2, Coord4);equals(Coord2, Coord4+1);equals(Coord2, Coord4-1))), happens(gridWalk(Grid, Agent, Coord1, Coord2, Coord3, Coord4), Time)).
 
 
 %; End of file.

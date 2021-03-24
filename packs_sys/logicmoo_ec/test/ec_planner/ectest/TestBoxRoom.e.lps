@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e.lps'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e.lps')).
-% Sun, 21 Mar 2021 23:29:08 GMT File: <stream>(0x555567338f00)%; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+% Tue, 23 Mar 2021 16:22:28 GMT File: <stream>(0x5555626d5e00)%; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %; FILE: examples/Mueller2006/Chapter10/MovingNewspaperAndBox.e
 %; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %;
@@ -33,8 +33,8 @@
 %; }
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',24).
 % include foundations/Root.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(include('foundations/Root.e'))).
@@ -47,8 +47,8 @@
 % ':-'(call_pel_directive(include('foundations/EC.e'))).
 :- call_pel_directive(include('foundations/EC.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',27).
 % sort object
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',27).
 % From E: 
 % 
 % sort(object).
@@ -59,85 +59,84 @@ sort(object).
 % From E: 
 % 
 % subsort(agent,object).
-subsort(agent, object).
+subsort(agent,object).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',29).
 % sort physobj: object
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',29).
 % From E: 
 % 
 % subsort(physobj,object).
-subsort(physobj, object).
+subsort(physobj,object).
 
 % sort room: object
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',29).
 % From E: 
 % 
 % subsort(room,object).
-subsort(room, object).
+subsort(room,object).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',32).
 % fluent directlyIn(object,object)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',32).
 % From E: 
 % 
 % fluent(directlyIn(object,object)).
-mpred_prop(directlyIn(object, object), fluent).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',32).
+mpred_prop(directlyIn(object,object),fluent).
 fluents([directlyIn/2]).
 
 % fluent inRoom(object,room)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',32).
 % From E: 
 % 
 % fluent(inRoom(object,room)).
-mpred_prop(inRoom(object, room), fluent).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',32).
+mpred_prop(inRoom(object,room),fluent).
 fluents([inRoom/2]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',34).
 % noninertial inRoom
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',34).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(inRoom))).
 :- call_pel_directive(noninertial(inRoom)).
 %;; executable(move(agent,object,object,object))
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',38).
 % agent Lisa
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',38).
 % From E: 
 % 
 % t(agent,lisa).
-agent(lisa).
+isa(lisa,agent).
 
 % physobj Box, Newspaper
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',38).
 % From E: 
 % 
 % t(physobj,box).
-physobj(box).
+isa(box,physobj).
 % From E: 
 % 
 % t(physobj,newspaper).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',38).
-physobj(newspaper).
+isa(newspaper,physobj).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',40).
 % room Kitchen, LivingRoom
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',40).
 % From E: 
 % 
 % t(room,kitchen).
-room(kitchen).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',40).
+isa(kitchen,room).
 % From E: 
 % 
 % t(room,livingRoom).
-room(livingRoom).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',40).
+isa(livingRoom,room).
 %; Sigma
 %; RS10
 % [agent,physobj1,physobj2,room,time]
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',46).
 % HoldsAt(directlyIn(agent,room),time) &
 % HoldsAt(directlyIn(physobj1,room),time) &
 % HoldsAt(inRoom(physobj2,room),time) ->
 % Initiates(move(agent,physobj1,room,physobj2),directlyIn(physobj1,physobj2),time).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',46).
 % From E: 
 % 
 % '->'(
@@ -157,11 +156,8 @@ room(livingRoom).
 %          Physobj2), 
 %       directlyIn(Physobj1,Physobj2), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',46).
- if(not(initiates(move(Agent, Physobj1, Room, Physobj2),
-                    at(directlyIn(Physobj1, Physobj2), Time))),
-       (not(holds(directlyIn(Agent, Room), Time));not(holds(directlyIn(Physobj1, Room), Time));not(holds(inRoom(Physobj2, Room), Time)))).
+if(initiates(move(Agent, Physobj1, Room, Physobj2), at(directlyIn(Physobj1, Physobj2), Time)),  (at(directlyIn(Agent, Room), Time), at(directlyIn(Physobj1, Room), Time), at(inRoom(Physobj2, Room), Time))).
 
 
 %; RS11
@@ -190,14 +186,8 @@ room(livingRoom).
 %          Physobj2), 
 %       directlyIn(Physobj1,Room), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',52).
- if(not(terminates(move(Agent,
-                          Physobj1,
-                          Room,
-                          Physobj2),
-                     at(directlyIn(Physobj1, Room), Time))),
-       (not(holds(directlyIn(Agent, Room), Time));not(holds(directlyIn(Physobj1, Room), Time));not(holds(inRoom(Physobj2, Room), Time)))).
+if(terminates(move(Agent, Physobj1, Room, Physobj2), at(directlyIn(Physobj1, Room), Time)),  (at(directlyIn(Agent, Room), Time), at(directlyIn(Physobj1, Room), Time), at(inRoom(Physobj2, Room), Time))).
 
 
 %; RS12
@@ -216,14 +206,10 @@ room(livingRoom).
 %          Room), 
 %       directlyIn(Physobj1,Room), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',59).
-if(not(initiates(move(Agent,
-		      Physobj1,
-		      Physobj2,
-		      Room),
-		 at(directlyIn(Physobj1,Room),Time))),
-   not(holds(directlyIn(Agent,Room),Time))).
+if(initiates(move(Agent,Physobj1,Physobj2,Room),
+	     at(directlyIn(Physobj1,Room),Time)),
+   at(directlyIn(Agent,Room),Time)).
 
 
 %; RS13
@@ -242,15 +228,13 @@ if(not(initiates(move(Agent,
 %          Room), 
 %       directlyIn(Physobj1,Physobj2), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',64).
-if(not(terminates(move(Agent,
-		       Physobj1,
-		       Physobj2,
-		       Room),
-		  at(directlyIn(Physobj1,Physobj2),
-		     Time))),
-   not(holds(directlyIn(Agent,Room),Time))).
+if(terminates(move(Agent,
+		   Physobj1,
+		   Physobj2,
+		   Room),
+	      at(directlyIn(Physobj1,Physobj2),Time)),
+   at(directlyIn(Agent,Room),Time)).
 
 
 %; RS14
@@ -269,11 +253,10 @@ if(not(terminates(move(Agent,
 %          Room2), 
 %       directlyIn(Agent,Room2), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',69).
-if(not(initiates(move(Agent,Agent,Room1,Room2),
-		 at(directlyIn(Agent,Room2),Time))),
-   not(holds(directlyIn(Agent,Room1),Time))).
+if(initiates(move(Agent,Agent,Room1,Room2),
+	     at(directlyIn(Agent,Room2),Time)),
+   at(directlyIn(Agent,Room1),Time)).
 
 
 %; RS15
@@ -292,11 +275,10 @@ if(not(initiates(move(Agent,Agent,Room1,Room2),
 %          Room2), 
 %       directlyIn(Agent,Room1), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',74).
-if(not(terminates(move(Agent,Agent,Room1,Room2),
-		  at(directlyIn(Agent,Room1),Time))),
-   not(holds(directlyIn(Agent,Room1),Time))).
+if(terminates(move(Agent,Agent,Room1,Room2),
+	      at(directlyIn(Agent,Room1),Time)),
+   at(directlyIn(Agent,Room1),Time)).
 
 
 %; RS16
@@ -320,11 +302,8 @@ if(not(terminates(move(Agent,Agent,Room1,Room2),
 %          Agent), 
 %       directlyIn(Physobj,Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',79).
- if(not(initiates(move(Agent, Physobj, Room, Agent),
-                    at(directlyIn(Physobj, Agent), Time))),
-       (not(holds(directlyIn(Agent, Room), Time));not(holds(directlyIn(Physobj, Room), Time)))).
+if(initiates(move(Agent, Physobj, Room, Agent), at(directlyIn(Physobj, Agent), Time)),  (at(directlyIn(Agent, Room), Time), at(directlyIn(Physobj, Room), Time))).
 
 
 %; RS17
@@ -348,11 +327,8 @@ if(not(terminates(move(Agent,Agent,Room1,Room2),
 %          Agent), 
 %       directlyIn(Physobj,Room), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',85).
- if(not(terminates(move(Agent, Physobj, Room, Agent),
-                     at(directlyIn(Physobj, Room), Time))),
-       (not(holds(directlyIn(Agent, Room), Time));not(holds(directlyIn(Physobj, Room), Time)))).
+if(terminates(move(Agent, Physobj, Room, Agent), at(directlyIn(Physobj, Room), Time)),  (at(directlyIn(Agent, Room), Time), at(directlyIn(Physobj, Room), Time))).
 
 
 %; RS18
@@ -376,11 +352,8 @@ if(not(terminates(move(Agent,Agent,Room1,Room2),
 %          Room), 
 %       directlyIn(Physobj,Room), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',91).
- if(not(initiates(move(Agent, Physobj, Agent, Room),
-                    at(directlyIn(Physobj, Room), Time))),
-       (not(holds(directlyIn(Physobj, Agent), Time));not(holds(directlyIn(Agent, Room), Time)))).
+if(initiates(move(Agent, Physobj, Agent, Room), at(directlyIn(Physobj, Room), Time)),  (at(directlyIn(Physobj, Agent), Time), at(directlyIn(Agent, Room), Time))).
 
 
 %; RS19
@@ -404,11 +377,8 @@ if(not(terminates(move(Agent,Agent,Room1,Room2),
 %          Room), 
 %       directlyIn(Physobj,Agent), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',97).
- if(not(terminates(move(Agent, Physobj, Agent, Room),
-                     at(directlyIn(Physobj, Agent), Time))),
-       (not(holds(directlyIn(Physobj, Agent), Time));not(holds(directlyIn(Agent, Room), Time)))).
+if(terminates(move(Agent, Physobj, Agent, Room), at(directlyIn(Physobj, Agent), Time)),  (at(directlyIn(Physobj, Agent), Time), at(directlyIn(Agent, Room), Time))).
 
 
 %; Delta
@@ -478,9 +448,8 @@ observe(at(move(lisa,lisa,kitchen,livingRoom),4)).
 % holds(
 %    not(directlyIn(Object,Object)), 
 %    Time).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',112).
-not(directlyIn(Object,Object)).
+at(not(directlyIn(Object,Object)),Time).
 
 
 %; RS2
@@ -497,10 +466,9 @@ not(directlyIn(Object,Object)).
 %    holds(
 %       not(directlyIn(Object2,Object1)), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',116).
-if(directlyIn(Object2,Object1),
-   not(directlyIn(Object1,Object2))).
+if(at(not(directlyIn(Object2,Object1)),Time),
+   at(directlyIn(Object1,Object2),Time)).
 
 
 %; RS3
@@ -522,10 +490,8 @@ if(directlyIn(Object2,Object1),
 %    holds(
 %       not(directlyIn(Object1,Object3)), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',121).
- if(directlyIn(Object1, Object3),
-       (not(directlyIn(Object1, Object2));not(directlyIn(Object2, Object3)))).
+if(at(not(directlyIn(Object1, Object3)), Time),  (at(directlyIn(Object1, Object2), Time), at(directlyIn(Object2, Object3), Time))).
 
 
 %; RS4
@@ -545,10 +511,8 @@ if(directlyIn(Object2,Object1),
 %          directlyIn(Object,Object2), 
 %          Time)), 
 %    Object1=Object2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',127).
- if(not(equals(Object1, Object2)),
-       (not(directlyIn(Object, Object1));not(directlyIn(Object, Object2)))).
+if(equals(Object1, Object2),  (at(directlyIn(Object, Object1), Time), at(directlyIn(Object, Object2), Time))).
 
 
 %; RS7
@@ -565,10 +529,9 @@ if(directlyIn(Object2,Object1),
 %    holds(
 %       inRoom(Object,Room), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',133).
-if(not(inRoom(Object,Room)),
-   not(directlyIn(Object,Room))).
+if(at(inRoom(Object,Room),Time),
+   at(directlyIn(Object,Room),Time)).
 
 
 %; RS8
@@ -590,10 +553,8 @@ if(not(inRoom(Object,Room)),
 %    holds(
 %       inRoom(Object1,Room), 
 %       Time)).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',138).
- if(not(inRoom(Object1, Room)),
-       (not(directlyIn(Object1, Object2));not(inRoom(Object2, Room)))).
+if(at(inRoom(Object1, Room), Time),  (at(directlyIn(Object1, Object2), Time), at(inRoom(Object2, Room), Time))).
 
 
 %; RS9
@@ -613,10 +574,8 @@ if(not(inRoom(Object,Room)),
 %          inRoom(Object,Room2), 
 %          Time)), 
 %    Room1=Room2).
- %   [Time].
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',144).
- if(not(equals(Room1, Room2)),
-       (not(inRoom(Object, Room1));not(inRoom(Object, Room2)))).
+if(equals(Room1, Room2),  (at(inRoom(Object, Room1), Time), at(inRoom(Object, Room2), Time))).
 
 
 %; Gamma
@@ -664,8 +623,7 @@ initially(directlyIn(box,livingRoom)).
 % 
 % holds(
 %    directlyIn(lisa,livingRoom), 5).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',159).
-holds(directlyIn(lisa,livingRoom),5).
+at(directlyIn(lisa,livingRoom),5).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',161).
@@ -675,7 +633,7 @@ holds(directlyIn(lisa,livingRoom),5).
 % holds(
 %    directlyIn(box,kitchen), 5).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',161).
-holds(directlyIn(box,kitchen),5).
+at(directlyIn(box,kitchen),5).
 
 
 % HoldsAt(inRoom(Newspaper,Kitchen),5).
@@ -684,7 +642,7 @@ holds(directlyIn(box,kitchen),5).
 % holds(
 %    inRoom(newspaper,kitchen), 5).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',161).
-holds(inRoom(newspaper,kitchen),5).
+at(inRoom(newspaper,kitchen),5).
 
 % completion Happens
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/ectest/TestBoxRoom.e',163).
