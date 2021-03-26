@@ -9,7 +9,10 @@
 % Dec 13, 2035
 %
 */
-%:-module(htncode,[]).
+:-module(hyhtn_new,[]).
+
+end_of_file.
+
 /* ***********************************/
 /* Douglas Miles 2005, 2010, 2014 */
 /* Denton, TX */
@@ -175,7 +178,8 @@ tell(user),
 hyhtn_new_solve(_Id) :- !.
 		
 
-hyhtn_new_solve(Id) :- 
+hyhtn_new_solve(Id) :-
+ 
 	htn_task(Id,Goal,Init),
 	once(planner_interface(Goal,Init,Sol,_)),
 %	solution_file(F),
@@ -195,7 +199,8 @@ display_sol([H|T]) :-
 	display_sol(T).
 
 
-clean_problem:-	retractall(op_num(_)),
+clean_problem:-
+	retractall(op_num(_)),
 	retractall(current_num(_,_)),
 	retractall(node(_,_,_,_,_)),
 	retractall(tn(_,_,_,_,_,_)),

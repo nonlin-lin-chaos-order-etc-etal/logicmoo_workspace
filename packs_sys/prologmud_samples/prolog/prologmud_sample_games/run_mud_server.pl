@@ -155,7 +155,7 @@ check_startup_flags:-
 :- initialization(check_startup_flags, restore_state).
 
 system:set_modules(M) :- '$set_typein_module'(M),'$set_source_module'(M),module(M).
-system:set_modules_baseKB :- set_modules(baseKB).
+system:set_modules_baseKB :-  nop(set_modules(baseKB)).
 
 :- initialization(set_modules_baseKB, restore_state).
 :- initialization(set_modules_baseKB, now).
@@ -371,7 +371,16 @@ lps_sanity(File):- Limit = 110580,
    (4)   /etc/xdg/swi-prolog/pack
 
 */
-load_before_compile:- 
+
+keep_user_module(Goal):- 
+   setup_call_cleanup('$current_typein_module'(WasTIM), 
+          setup_call_cleanup('$set_source_module'(Was,user), 
+          Goal, 
+          '$set_source_module'(_,Was)), 
+   '$set_typein_module'(WasTIM)).
+    
+load_before_compile:- keep_user_module(load_before_compile_now).
+load_before_compile_now:- 
    set_prolog_flag(ec_loader,false),
    skip_sandboxing,
    %set_prolog_flag(verbose_file_search,true), 
@@ -401,7 +410,8 @@ load_before_compile:-
 
 call_safely(G):- must_or_rtrace(G).
 
-start_network:-  
+start_network:- keep_user_module(start_network_now).
+start_network_now:-  
   maplist(call_safely,
    [
    load_before_compile,
@@ -411,7 +421,8 @@ start_network:-
    threads,statistics]),
    !.
 
-load_rest:- 
+  load_rest:- keep_user_module(load_rest_now).
+load_rest_now:- 
   maplist(call_safely,
   [
    nodebug,   
@@ -428,7 +439,9 @@ load_rest:-
 % for when dmiles is doing fast testing
 load_rest2:- gethostname('logicmoo.org'), !.
 load_rest2:- locally(set_prolog_flag(verbose_load,true),load_rest3).
-load_rest3:-
+
+load_rest3:- keep_user_module(load_rest3_now).
+load_rest3_now:-
    set_modules_baseKB,
    baseKB:ensure_loaded(library(logicmoo_nlu)),
    baseKB:ensure_loaded(library(logicmoo_clif)),
@@ -483,26 +496,28 @@ import_some:-
          (predicate_property(M:P,imported_from(RM))->true;RM=M)),
          (RM:export(RM:F/A),rtrace:import(RM:F/A))), !.
 
-start_rest:-    
+start_rest:-
+  keep_user_module((    
    load_rest,  
    % rtrace,
    %load_nomic_mu,% autoload_all([verbose(true)]), 
    import_some,
    expose_all,
-   start_rest2,
+   start_rest2)),
    !.
 
 start_rest2:- \+ gethostname('logicmoo.org'), !.
 start_rest2:- \+ current_predicate(baseKB:start_runtime_mud/0), !.
 start_rest2:- 
-   set_modules_baseKB,
+  keep_user_module((
+    set_modules_baseKB,
    baseKB:start_runtime_mud,
    run_setup_now,  
    baseKB:start_mud_telnet, 
    % adventure,
    % lar,
    baseKB:listing(mudAtLoc),
-   threads,
+   threads)),
    !.
 
 skip_sandboxing(F):- functor(P,F,1), 
@@ -526,11 +541,11 @@ skip_sandboxing:-
 :- skip_sandboxing.
 
 
-start_all :- start_network, start_rest.
+start_all :- keep_user_module((start_network, start_rest)).
 
 % :- use_module(library(pfc_lib)).
 
-:- load_before_compile.
+:- keep_user_module((load_before_compile)).
 
 
 %:- lps_sanity.
@@ -552,16 +567,15 @@ start_all :- start_network, start_rest.
 %:- abolish(user:prolog_load_file/2).
 %:- dynamic(user:prolog_load_file/2).
 
-
 :- load_rest.
 :- initialization(start_rest,restore).
 :- if( \+ compiling).
 :- initialization(start_rest,now).
 :- endif.
 % :- initialization(qsave_logicmoo, main).
-:- initialization(initialize,restore).
+:- initialization(keep_user_module(initialize),restore).
 :- if( \+ compiling).
-:- initialization(initialize,now).
+:- initialization(keep_user_module(initialize),now).
 :- endif.
 
 :- volatile(http_log:log_stream/1).
