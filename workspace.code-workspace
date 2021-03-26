@@ -146,7 +146,11 @@
 				"command": "./StartLogicmoo.sh",
 				"problemMatcher": [
 					"$platformio"
-				]
+				],
+				"group": {
+					"kind": "build",
+					"isDefault": true
+				}
 			},
 			{
 				"label": "Run tests",

@@ -37,7 +37,9 @@
    e_reader_testf/1,
    echo_format/2]).
 
-
+:- meta_predicate convert_e(1,+,+).
+:- meta_predicate trans_e(*,*,1,?,+,*).
+:- meta_predicate with_e_file_write2(1,?,+).
 
 
 :- use_module(library(logicmoo/portray_vars)).
@@ -534,7 +536,8 @@ fix_predname(F, New):- downcase_atom(F, DC), F\==DC, !, fix_predname(DC, New).
 
 system:call_pel_directive(B):- pprint_ecp_cmt(red,call_pel_directive(B)).
 
-
+
+
 my_unCamelcase(X, Y):- atom(X), fix_predname(X, Y), !.
 my_unCamelcase(X, Y):- atom(X), upcase_atom(X, X), !, downcase_atom(X, Y).
 my_unCamelcase(X, Y):- unCamelcase(X, Y), !.
@@ -630,7 +633,8 @@ vars_verbatum(Term):- \+ compound_gt(Term, 0), !.
 vars_verbatum(Term):- compound_name_arity(Term, F, A), (verbatum_functor(F);verbatum_functor(F/A)), !.
 
 add_ec_vars(Term0, Term, Vs):- vars_verbatum(Term0), !, Term0=Term, Vs=[].
-add_ec_vars(Term0, Term, Vs):-          
+add_ec_vars(Term0, Term, Vs):-   
+       
   get_vars(universal, UniVars),
   get_vars(existential,ExtVars),
   insert_vars(Term0, UniVars, Term1, VsA),!,  

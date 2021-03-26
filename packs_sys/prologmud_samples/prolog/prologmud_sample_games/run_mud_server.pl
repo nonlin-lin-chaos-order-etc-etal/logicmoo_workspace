@@ -685,9 +685,6 @@ start_all :- keep_user_module((start_network, start_rest)).
 :- meta_predicate ec_loader:only_lps(0).
 :- meta_predicate ec_nnf:if_dbg(0).
 :- meta_predicate ec_nnf:thmust(0).
-:- meta_predicate ec_reader:convert_e(1,+,+).
-:- meta_predicate ec_reader:trans_e(*,*,1,?,+,*).
-:- meta_predicate ec_reader:with_e_file_write2(1,?,+).
 :- meta_predicate get_ape_results:call_ape(0).
 :- meta_predicate grammar_words:try(0,*,*,*).
 :- meta_predicate grammar_words:word(*,0,*,*).

@@ -176,21 +176,28 @@ sandbox:safe_meta_predicate(system:notrace/1).
 :- use_module(library(pengines_sandbox)).
 :- endif.
 
+inoxf(Goal):- ignore(notrace(on_x_fail(Goal))).
+
 webui_load_swish_and_clio:-
+   ignore(notrace(on_x_fail(webui_load_swish_and_clio_now))).
+
+webui_load_swish_and_clio_now:-
+   maplist(inoxf,[
    lmconfig:logicmoo_webui_dir(Dir),
    % trace,
    absolute_file_name('../../swish/run_swish_and_clio',Run,[relative_to(Dir),file_type(prolog),file_errors(fail)]),
    user:ensure_loaded(Run),
    swish_app:load_config('./config-enabled-swish'),
-   nop(listing(swish_config:login_item/2)),!.
+   listing(swish_config:login_item/2)]),!.
 
 
 webui_start_swish_and_clio:- 
+   maplist(inoxf,[
    webui_load_swish_and_clio,
    broadcast:broadcast(http(pre_server_start)),
    cp_server:cp_server([]),
    broadcast:broadcast(http(post_server_start)),
-   swish:start_swish_stat_collector,!.
+   swish:start_swish_stat_collector]),!.
 
 
 
