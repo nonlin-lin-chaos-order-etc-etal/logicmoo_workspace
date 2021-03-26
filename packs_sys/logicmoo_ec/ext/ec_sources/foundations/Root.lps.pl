@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/Root.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/Root.lps.pl')).
-% Tue, 23 Mar 2021 19:07:02 GMT File: <stream>(0x5555684a6e00)%;
+% Fri, 26 Mar 2021 01:05:54 GMT File: <stream>(0x555566f08300)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -22,8 +22,8 @@
 %; IBM - Initial implementation
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/Root.e',11).
 % sort boolean
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/Root.e',11).
 % From E: 
 % 
 % sort(boolean).
@@ -36,8 +36,8 @@ sort(boolean).
 % sort(integer).
 sort(integer).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/Root.e',13).
 % reified sort predicate
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/Root.e',13).
 % From E: 
 % 
 % reified_sort(predicate).

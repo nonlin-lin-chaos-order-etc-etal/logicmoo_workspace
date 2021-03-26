@@ -377,8 +377,7 @@ load_before_compile:-
    %set_prolog_flag(verbose_file_search,true), 
    use_module(library(sandbox)),
 
-   use_module(library(logicmoo_lps)),
-   use_module(library(logicmoo_webui)),      
+   use_module(library(logicmoo_lps)),      
    %use_module(library(logicmoo_lps)),
    %set_prolog_flag(verbose_file_search,false),
    
@@ -391,11 +390,11 @@ load_before_compile:-
    ignore(catch(pack_install(phil),_,true)),
    ignore(catch(pack_install(cplint_r),_,true)),
    */
-   ignore((
-    \+ exists_directory('/tmp/tempDir/') -> catch(shell('./PreStartMUD.sh'),_,true))),
-   %ignore(( exists_directory('/tmp/tempDir') -> cd('/tmp/tempDir'))),
+   ignore(( \+ exists_directory('/tmp/tempDir/') -> catch(shell('./PreStartMUD.sh'),_,true))),
+   ignore(( exists_directory('/tmp/tempDir') -> cd('/tmp/tempDir'))),
+   use_module(library(logicmoo_webui)),   
    webui_load_swish_and_clio,   
-   add_hist(start_network).
+   add_hist(start_network). 
 
 %start_network:- 
 %   load_before_compile,!.

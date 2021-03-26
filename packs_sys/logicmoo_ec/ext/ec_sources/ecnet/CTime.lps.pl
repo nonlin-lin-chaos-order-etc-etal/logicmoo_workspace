@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/CTime.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/CTime.lps.pl')).
-% Tue, 23 Mar 2021 19:25:06 GMT File: <stream>(0x555567b87900)%;
+% Fri, 26 Mar 2021 01:05:56 GMT File: <stream>(0x55556759a200)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -132,19 +132,36 @@ xor([morning,afternoon,evening,night,lateNight]).
 %       ';'(
 %          afternoon(Time), 
 %          evening(Time)))).
-not morning(Time), not afternoon(Time), not evening(Time)if not daytime(Time).
- %  if((not(morning(Time)), not(afternoon(Time)), not(evening(Time))), not(daytime(Time))).
- %  "% =================================".
-not daytime(Time)if not morning(Time), not afternoon(Time), not evening(Time).
+(   (   morning(Time)
+    ;   afternoon(Time)
+    ;   evening(Time)
+    )
+;   not daytime(Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/CTime.e',35).
 
- /*  l_int(holds(not(daytime(Time)),Time_at),
-           [ holds(not(morning(Time)),Time_at),
-     	holds(not(afternoon(Time)),Time_at),
-     	holds(not(evening(Time)),Time_at)
-           ]).
+ /*   (   (   morning(Time)
+            ;   afternoon(Time)
+            ;   evening(Time)
+            )
+        ;   not(daytime(Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
+(   daytime(Time)
+;   not morning(Time),
+    not afternoon(Time),
+    not evening(Time)
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/CTime.e',35).
+
+ /*  (   daytime(Time)
+     ;   not(morning(Time)),
+         not(afternoon(Time)),
+         not(evening(Time))
+     ).
+ */
+ %  % =================================.
 
 
 % [time]
@@ -157,18 +174,32 @@ not daytime(Time)if not morning(Time), not afternoon(Time), not evening(Time).
 %    ';'(
 %       night(Time), 
 %       lateNight(Time))).
-not night(Time), not lateNight(Time)if not nighttime(Time).
- %  if((not(night(Time)), not(lateNight(Time))), not(nighttime(Time))).
- %  "% =================================".
-not nighttime(Time)if not night(Time), not lateNight(Time).
+(   (   night(Time)
+    ;   lateNight(Time)
+    )
+;   not nighttime(Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/CTime.e',35).
 
- /*  l_int(holds(not(nighttime(Time)),Time_at),
-           [ holds(not(night(Time)),Time_at),
-     	holds(not(lateNight(Time)),Time_at)
-           ]).
+ /*   (   (   night(Time)
+            ;   lateNight(Time)
+            )
+        ;   not(nighttime(Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
+(   nighttime(Time)
+;   not night(Time),
+    not lateNight(Time)
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/CTime.e',35).
+
+ /*  (   nighttime(Time)
+     ;   not(night(Time)),
+         not(lateNight(Time))
+     ).
+ */
+ %  % =================================.
 
 
 %; dreams

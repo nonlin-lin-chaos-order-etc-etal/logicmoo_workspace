@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.lps.pl')).
-% Tue, 23 Mar 2021 19:06:57 GMT File: <stream>(0x555567c04f00)%;
+% Fri, 26 Mar 2021 01:06:10 GMT File: <stream>(0x555567c82100)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -24,14 +24,14 @@
 %; SmallFire: matches, lighters, cigarettes, etc.
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',14).
 % event Light(agent,physobj)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',14).
 % From E: 
 % 
 % event(light(agent,physobj)).
 events([light/2]).
+mpred_prop(light(agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',14).
-mpred_prop(light(agent,physobj),action).
 actions([light/2]).
 
 % event LightWith(agent,physobj,physobj)
@@ -40,17 +40,17 @@ actions([light/2]).
 % event(lightWith(agent,physobj,physobj)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',14).
 events([lightWith/3]).
-mpred_prop(lightWith(agent,physobj,physobj),action).
+mpred_prop(lightWith(agent, physobj, physobj), action).
 actions([lightWith/3]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',16).
 % event PutOut(agent,physobj)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',16).
 % From E: 
 % 
 % event(putOut(agent,physobj)).
 events([putOut/2]).
+mpred_prop(putOut(agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',16).
-mpred_prop(putOut(agent,physobj),action).
 actions([putOut/2]).
 
 % event BlowOut(agent,physobj)
@@ -59,16 +59,15 @@ actions([putOut/2]).
 % event(blowOut(agent,physobj)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',16).
 events([blowOut/2]).
-mpred_prop(blowOut(agent,physobj),action).
+mpred_prop(blowOut(agent, physobj), action).
 actions([blowOut/2]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',18).
 % fluent IsBurning(physobj)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',18).
 % From E: 
 % 
 % fluent(isBurning(physobj)).
-mpred_prop(isBurning(physobj),fluent).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',18).
+mpred_prop(isBurning(physobj), fluent).
 fluents([isBurning/1]).
 
 
@@ -89,10 +88,18 @@ fluents([isBurning/1]).
 %       lightWith(Agent,Physobj1,Physobj2), 
 %       isBurning(Physobj1), 
 %       Time)).
+(   initiates(lightWith(Agent, Physobj1, Physobj2),
+              isBurning(Physobj1)at Time)
+;   not isBurning(Physobj2)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',20).
-if(initiates(lightWith(Agent,Physobj1,Physobj2),
-	     at(isBurning(Physobj1),Time)),
-   at(isBurning(Physobj2),Time)).
+
+ /*   (   initiates(lightWith(Agent, Physobj1, Physobj2),
+                      at(isBurning(Physobj1), Time))
+        ;   at(not(isBurning(Physobj2)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,time]
@@ -118,8 +125,22 @@ if(initiates(lightWith(Agent,Physobj1,Physobj2),
 %          holds(
 %             not(isBurning(Physobj1)), 
 %             Time)))).
+(   holding(Agent, Physobj1)at Time,
+    holding(Agent, Physobj2)at Time,
+    not isBurning(Physobj1)at Time
+;   not(happens(lightWith(Agent, Physobj1, Physobj2),
+                Time))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',27).
-if((at(holding(Agent, Physobj1), Time), at(holding(Agent, Physobj2), Time), at(not(isBurning(Physobj1)), Time)), happens(lightWith(Agent, Physobj1, Physobj2), Time)).
+
+ /*  (   at(holding(Agent, Physobj1), Time),
+         at(holding(Agent, Physobj2), Time),
+         at(not(isBurning(Physobj1)), Time)
+     ;   not(happens(lightWith(Agent, Physobj1, Physobj2),
+                     Time))
+     ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -133,8 +154,16 @@ if((at(holding(Agent, Physobj1), Time), at(holding(Agent, Physobj2), Time), at(n
 %    light(Agent,Physobj), 
 %    isBurning(Physobj), 
 %    Time).
+light(Agent, Physobj)initiates isBurning(Physobj).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',33).
-initiates(light(Agent,Physobj),isBurning(Physobj)).
+
+ /*  initiated(happens(light(Agent,Physobj),
+     		  Time_from,
+     		  Time_until),
+     	  isBurning(Physobj),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -155,8 +184,18 @@ initiates(light(Agent,Physobj),isBurning(Physobj)).
 %       holds(
 %          not(isBurning(Physobj)), 
 %          Time))).
+(   holding(Agent, Physobj)at Time,
+    not isBurning(Physobj)at Time
+;   not happens(light(Agent, Physobj), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',38).
-if((at(holding(Agent, Physobj), Time), at(not(isBurning(Physobj)), Time)), happens(light(Agent, Physobj), Time)).
+
+ /*  (   at(holding(Agent, Physobj), Time),
+         at(not(isBurning(Physobj)), Time)
+     ;   not(happens(light(Agent, Physobj), Time))
+     ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -170,8 +209,16 @@ if((at(holding(Agent, Physobj), Time), at(not(isBurning(Physobj)), Time)), happe
 %    putOut(Agent,Physobj), 
 %    isBurning(Physobj), 
 %    Time).
+putOut(Agent, Physobj)terminates isBurning(Physobj).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',43).
-terminates(putOut(Agent,Physobj),isBurning(Physobj)).
+
+ /*  terminated(happens(putOut(Agent,Physobj),
+     		   Time_from,
+     		   Time_until),
+     	   isBurning(Physobj),
+     	   []).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -192,8 +239,18 @@ terminates(putOut(Agent,Physobj),isBurning(Physobj)).
 %       holds(
 %          isBurning(Physobj), 
 %          Time))).
+(   holding(Agent, Physobj)at Time,
+    isBurning(Physobj)at Time
+;   not happens(putOut(Agent, Physobj), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',48).
-if((at(holding(Agent, Physobj), Time), at(isBurning(Physobj), Time)), happens(putOut(Agent, Physobj), Time)).
+
+ /*  (   at(holding(Agent, Physobj), Time),
+         at(isBurning(Physobj), Time)
+     ;   not(happens(putOut(Agent, Physobj), Time))
+     ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -207,8 +264,16 @@ if((at(holding(Agent, Physobj), Time), at(isBurning(Physobj), Time)), happens(pu
 %    blowOut(Agent,Physobj), 
 %    isBurning(Physobj), 
 %    Time).
+blowOut(Agent, Physobj)terminates isBurning(Physobj).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',53).
-terminates(blowOut(Agent,Physobj),isBurning(Physobj)).
+
+ /*  terminated(happens(blowOut(Agent,Physobj),
+     		   Time_from,
+     		   Time_until),
+     	   isBurning(Physobj),
+     	   []).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -229,8 +294,18 @@ terminates(blowOut(Agent,Physobj),isBurning(Physobj)).
 %       holds(
 %          isBurning(Physobj), 
 %          Time))).
+(   holding(Agent, Physobj)at Time,
+    isBurning(Physobj)at Time
+;   not happens(blowOut(Agent, Physobj), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SmallFire.e',58).
-if((at(holding(Agent, Physobj), Time), at(isBurning(Physobj), Time)), happens(blowOut(Agent, Physobj), Time)).
+
+ /*  (   at(holding(Agent, Physobj), Time),
+         at(isBurning(Physobj), Time)
+     ;   not(happens(blowOut(Agent, Physobj), Time))
+     ).
+ */
+ %  % =================================.
 
 
 %; End of file.

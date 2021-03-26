@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.lps.pl')).
-% Tue, 23 Mar 2021 19:06:54 GMT File: <stream>(0x5555681e1600)%;
+% Fri, 26 Mar 2021 01:06:05 GMT File: <stream>(0x555567a69e00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -113,32 +113,32 @@
 %;sort script
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',103).
 % fluent Holding(agent,physobj)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',103).
 % From E: 
 % 
 % fluent(holding(agent,physobj)).
-mpred_prop(holding(agent,physobj),fluent).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',103).
+mpred_prop(holding(agent, physobj), fluent).
 fluents([holding/2]).
 
 % event PickUp(agent,physobj)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',103).
 % From E: 
 % 
 % event(pickUp(agent,physobj)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',103).
 events([pickUp/2]).
-mpred_prop(pickUp(agent,physobj),action).
+mpred_prop(pickUp(agent, physobj), action).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',103).
 actions([pickUp/2]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',105).
 % event LetGoOf(agent,physobj)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',105).
 % From E: 
 % 
 % event(letGoOf(agent,physobj)).
 events([letGoOf/2]).
+mpred_prop(letGoOf(agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',105).
-mpred_prop(letGoOf(agent,physobj),action).
 actions([letGoOf/2]).
 
 
@@ -151,9 +151,16 @@ actions([letGoOf/2]).
 %    pickUp(Agent,Physobj), 
 %    holding(Agent,Physobj), 
 %    Time).
+pickUp(Agent, Physobj)initiates holding(Agent, Physobj).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',107).
-initiates(pickUp(Agent,Physobj),
-	  holding(Agent,Physobj)).
+
+ /*  initiated(happens(pickUp(Agent,Physobj),
+     		  Time_from,
+     		  Time_until),
+     	  holding(Agent,Physobj),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -176,8 +183,9 @@ initiates(pickUp(Agent,Physobj),
 %          holds(
 %             at_loc(Physobj,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',111).
-exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Physobj, Location), Time)), happens(pickUp(Agent, Physobj), Time))).
+exists(Location,  (at_loc(Agent, Location)at Time, at_loc(Physobj, Location)at Time;not happens(pickUp(Agent, Physobj), Time))).
+ %  exists(Location,  (at(at_loc(Agent, Location), Time), at(at_loc(Physobj, Location), Time);not(happens(pickUp(Agent, Physobj), Time)))).
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -189,9 +197,16 @@ exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Physobj, Locat
 %    letGoOf(Agent,Physobj), 
 %    holding(Agent,Physobj), 
 %    Time).
+letGoOf(Agent, Physobj)terminates holding(Agent, Physobj).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',117).
-terminates(letGoOf(Agent,Physobj),
-	   holding(Agent,Physobj)).
+
+ /*  terminated(happens(letGoOf(Agent,Physobj),
+     		   Time_from,
+     		   Time_until),
+     	   holding(Agent,Physobj),
+     	   []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',119).
@@ -207,9 +222,16 @@ terminates(letGoOf(Agent,Physobj),
 %    holds(
 %       holding(Agent,Physobj), 
 %       Time)).
+(   holding(Agent, Physobj)at Time
+;   not happens(letGoOf(Agent, Physobj), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',119).
-if(at(holding(Agent,Physobj),Time),
-   happens(letGoOf(Agent,Physobj),Time)).
+
+ /*   (   at(holding(Agent, Physobj), Time)
+        ;   not(happens(letGoOf(Agent, Physobj), Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,location,time]
@@ -221,9 +243,13 @@ if(at(holding(Agent,Physobj),Time),
 %    pickUp(Agent,Physobj), 
 %    at_loc(Physobj,Location), 
 %    Time).
+releases(pickUp(Agent, Physobj), at_loc(Physobj, Location)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',124).
-releases(pickUp(Agent,Physobj),
-	 at_loc(Physobj,Location)).
+
+ /*  releases(pickUp(Agent,Physobj),
+     	 at_loc(Physobj,Location)).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',126).
@@ -244,8 +270,18 @@ releases(pickUp(Agent,Physobj),
 %    holds(
 %       at_loc(Physobj,Location), 
 %       Time)).
+(   at_loc(Physobj, Location)at Time
+;   not holding(Agent, Physobj)at Time
+;   not at_loc(Agent, Location)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',126).
-if(at(at_loc(Physobj, Location), Time),  (at(holding(Agent, Physobj), Time), at(at_loc(Agent, Location), Time))).
+
+ /*   (   at(at_loc(Physobj, Location), Time)
+        ;   at(not(holding(Agent, Physobj)), Time)
+        ;   at(not(at_loc(Agent, Location)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %;[agent,physobj,location1,location2,time]
@@ -266,17 +302,25 @@ if(at(at_loc(Physobj, Location), Time),  (at(holding(Agent, Physobj), Time), at(
 %       letGoOf(Agent,Physobj), 
 %       at_loc(Physobj,Location), 
 %       Time)).
+(   initiates(letGoOf(Agent, Physobj),
+              at_loc(Physobj, Location)at Time)
+;   not at_loc(Agent, Location)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',136).
-if(initiates(letGoOf(Agent,Physobj),
-	     at(at_loc(Physobj,Location),Time)),
-   at(at_loc(Agent,Location),Time)).
+
+ /*   (   initiates(letGoOf(Agent, Physobj),
+                      at(at_loc(Physobj, Location), Time))
+        ;   at(not(at_loc(Agent, Location)), Time)
+        ).
+ */
+ %  % =================================.
 
 % fluent On(physobj,physobj)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',139).
 % From E: 
 % 
 % fluent(on(physobj,physobj)).
-mpred_prop(on(physobj,physobj),fluent).
+mpred_prop(on(physobj, physobj), fluent).
 fluents([on/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',142).
@@ -285,8 +329,8 @@ fluents([on/2]).
 % 
 % event(placeOn(agent,physobj,physobj)).
 events([placeOn/3]).
+mpred_prop(placeOn(agent, physobj, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',142).
-mpred_prop(placeOn(agent,physobj,physobj),action).
 actions([placeOn/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',144).
@@ -295,8 +339,8 @@ actions([placeOn/3]).
 % 
 % event(takeOffOf(agent,physobj,physobj)).
 events([takeOffOf/3]).
+mpred_prop(takeOffOf(agent, physobj, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',144).
-mpred_prop(takeOffOf(agent,physobj,physobj),action).
 actions([takeOffOf/3]).
 
 
@@ -311,9 +355,18 @@ actions([takeOffOf/3]).
 %       on(Physobj1,Physobj2), 
 %       Time), 
 %    Physobj1\=Physobj2).
+(   { dif(Physobj1, Physobj2)
+    }
+;   not on(Physobj1, Physobj2)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',146).
-if({dif(Physobj1,Physobj2)},
-   at(on(Physobj1,Physobj2),Time)).
+
+ /*   (   { dif(Physobj1, Physobj2)
+            }
+        ;   at(not(on(Physobj1, Physobj2)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [physobj1,physobj2,time]
@@ -329,8 +382,12 @@ if({dif(Physobj1,Physobj2)},
 %    holds(
 %       not(on(Physobj2,Physobj1)), 
 %       Time)).
-if(at(not(on(Physobj2,Physobj1)),Time),
-   at(on(Physobj1,Physobj2),Time)).
+on(Physobj2, Physobj1)at Time if not on(Physobj1, Physobj2)at Time.
+
+ /*  l_int(holds(on(Physobj2,Physobj1),Time),
+           [holds(not(on(Physobj1,Physobj2)),Time)]).
+ */
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,time]
@@ -343,8 +400,15 @@ if(at(not(on(Physobj2,Physobj1)),Time),
 %    placeOn(Agent,Physobj1,Physobj2), 
 %    on(Physobj1,Physobj2), 
 %    Time).
-initiates(placeOn(Agent,Physobj1,Physobj2),
-	  on(Physobj1,Physobj2)).
+placeOn(Agent, Physobj1, Physobj2)initiates on(Physobj1, Physobj2).
+
+ /*  initiated(happens(placeOn(Agent,Physobj1,Physobj2),
+     		  Time_from,
+     		  Time_until),
+     	  on(Physobj1,Physobj2),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,time]
@@ -357,8 +421,15 @@ initiates(placeOn(Agent,Physobj1,Physobj2),
 %    placeOn(Agent,Physobj1,Physobj2), 
 %    holding(Agent,Physobj1), 
 %    Time).
-terminates(placeOn(Agent,Physobj1,Physobj2),
-	   holding(Agent,Physobj1)).
+placeOn(Agent, Physobj1, Physobj2)terminates holding(Agent, Physobj1).
+
+ /*  terminated(happens(placeOn(Agent,Physobj1,Physobj2),
+     		   Time_from,
+     		   Time_until),
+     	   holding(Agent,Physobj1),
+     	   []).
+ */
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,time]
@@ -387,8 +458,9 @@ terminates(placeOn(Agent,Physobj1,Physobj2),
 %             holds(
 %                at_loc(Physobj2,Location), 
 %                Time))))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',165).
-exists(Location, if((at(holding(Agent, Physobj1), Time), at(at_loc(Agent, Location), Time), at(at_loc(Physobj2, Location), Time)), happens(placeOn(Agent, Physobj1, Physobj2), Time))).
+exists(Location,  (holding(Agent, Physobj1)at Time, at_loc(Agent, Location)at Time, at_loc(Physobj2, Location)at Time;not happens(placeOn(Agent, Physobj1, Physobj2), Time))).
+ %  exists(Location,  (at(holding(Agent, Physobj1), Time), at(at_loc(Agent, Location), Time), at(at_loc(Physobj2, Location), Time);not(happens(placeOn(Agent, Physobj1, Physobj2), Time)))).
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,time]
@@ -401,8 +473,15 @@ exists(Location, if((at(holding(Agent, Physobj1), Time), at(at_loc(Agent, Locati
 %    takeOffOf(Agent,Physobj1,Physobj2), 
 %    on(Physobj1,Physobj2), 
 %    Time).
-terminates(takeOffOf(Agent,Physobj1,Physobj2),
-	   on(Physobj1,Physobj2)).
+takeOffOf(Agent, Physobj1, Physobj2)terminates on(Physobj1, Physobj2).
+
+ /*  terminated(happens(takeOffOf(Agent,Physobj1,Physobj2),
+     		   Time_from,
+     		   Time_until),
+     	   on(Physobj1,Physobj2),
+     	   []).
+ */
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,time]
@@ -415,8 +494,15 @@ terminates(takeOffOf(Agent,Physobj1,Physobj2),
 %    takeOffOf(Agent,Physobj1,Physobj2), 
 %    holding(Agent,Physobj1), 
 %    Time).
-initiates(takeOffOf(Agent,Physobj1,Physobj2),
-	  holding(Agent,Physobj1)).
+takeOffOf(Agent, Physobj1, Physobj2)initiates holding(Agent, Physobj1).
+
+ /*  initiated(happens(takeOffOf(Agent,Physobj1,Physobj2),
+     		  Time_from,
+     		  Time_until),
+     	  holding(Agent,Physobj1),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,location,time]
@@ -430,9 +516,13 @@ initiates(takeOffOf(Agent,Physobj1,Physobj2),
 %    takeOffOf(Agent,Physobj1,Physobj2), 
 %    at_loc(Physobj1,Location), 
 %    Time).
+releases(takeOffOf(Agent, Physobj1, Physobj2), at_loc(Physobj1, Location)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',178).
-releases(takeOffOf(Agent,Physobj1,Physobj2),
-	 at_loc(Physobj1,Location)).
+
+ /*  releases(takeOffOf(Agent,Physobj1,Physobj2),
+     	 at_loc(Physobj1,Location)).
+ */
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,time]
@@ -466,8 +556,9 @@ releases(takeOffOf(Agent,Physobj1,Physobj2),
 %                holds(
 %                   at_loc(Physobj2,Location), 
 %                   Time)))))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',185).
-exists(Location, if((at(on(Physobj1, Physobj2), Time), at(at_loc(Agent, Location), Time), at(at_loc(Physobj1, Location), Time), at(at_loc(Physobj2, Location), Time)), happens(takeOffOf(Agent, Physobj1, Physobj2), Time))).
+exists(Location,  (on(Physobj1, Physobj2)at Time, at_loc(Agent, Location)at Time, at_loc(Physobj1, Location)at Time, at_loc(Physobj2, Location)at Time;not happens(takeOffOf(Agent, Physobj1, Physobj2), Time))).
+ %  exists(Location,  (at(on(Physobj1, Physobj2), Time), at(at_loc(Agent, Location), Time), at(at_loc(Physobj1, Location), Time), at(at_loc(Physobj2, Location), Time);not(happens(takeOffOf(Agent, Physobj1, Physobj2), Time)))).
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,location,time]
@@ -481,9 +572,13 @@ exists(Location, if((at(on(Physobj1, Physobj2), Time), at(at_loc(Agent, Location
 %    placeOn(Agent,Physobj1,Physobj2), 
 %    at_loc(Physobj1,Location), 
 %    Time).
+releases(placeOn(Agent, Physobj1, Physobj2), at_loc(Physobj1, Location)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',191).
-releases(placeOn(Agent,Physobj1,Physobj2),
-	 at_loc(Physobj1,Location)).
+
+ /*  releases(placeOn(Agent,Physobj1,Physobj2),
+     	 at_loc(Physobj1,Location)).
+ */
+ %  % =================================.
 
 
 % [physobj1,physobj2,location,time]
@@ -504,15 +599,25 @@ releases(placeOn(Agent,Physobj1,Physobj2),
 %    holds(
 %       at_loc(Physobj1,Location), 
 %       Time)).
+(   at_loc(Physobj1, Location)at Time
+;   not on(Physobj1, Physobj2)at Time
+;   not at_loc(Physobj2, Location)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',196).
-if(at(at_loc(Physobj1, Location), Time),  (at(on(Physobj1, Physobj2), Time), at(at_loc(Physobj2, Location), Time))).
+
+ /*   (   at(at_loc(Physobj1, Location), Time)
+        ;   at(not(on(Physobj1, Physobj2)), Time)
+        ;   at(not(at_loc(Physobj2, Location)), Time)
+        ).
+ */
+ %  % =================================.
 
 % fluent At(object,location)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',199).
 % From E: 
 % 
 % fluent(at_loc(object,location)).
-mpred_prop(at_loc(object,location),fluent).
+mpred_prop(at_loc(object, location), fluent).
 fluents([at_loc/2]).
 
 
@@ -525,9 +630,13 @@ fluents([at_loc/2]).
 %    holds(
 %       at_loc(Object,Location), 
 %       Time)).
+exists(Location, at_loc(Object, Location)at Time).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',202).
-exists(Location,
- at(at_loc(Object,Location),Time)).
+
+ /*  exists(Location,
+      at(at_loc(Object,Location),Time)).
+ */
+ %  % =================================.
 
 
 % [object,location1,location2,time]
@@ -546,8 +655,18 @@ exists(Location,
 %          at_loc(Object,Location2), 
 %          Time)), 
 %    Location1=Location2).
+(   equals(Location1, Location2)
+;   not at_loc(Object, Location1)at Time
+;   not at_loc(Object, Location2)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',206).
-if(equals(Location1, Location2),  (at(at_loc(Object, Location1), Time), at(at_loc(Object, Location2), Time))).
+
+ /*   (   equals(Location1, Location2)
+        ;   at(not(at_loc(Object, Location1)), Time)
+        ;   at(not(at_loc(Object, Location2)), Time)
+        ).
+ */
+ %  % =================================.
 
 % function Side1(portal): location
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',209).
@@ -574,7 +693,7 @@ function(side2(portal),location).
 % From E: 
 % 
 % fluent(nearPortal(object,portal)).
-mpred_prop(nearPortal(object,portal),fluent).
+mpred_prop(nearPortal(object, portal), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',213).
 fluents([nearPortal/2]).
 
@@ -582,7 +701,6 @@ fluents([nearPortal/2]).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(nearPortal))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',213).
 :- call_pel_directive(noninertial(nearPortal)).
 
 
@@ -612,8 +730,9 @@ fluents([nearPortal/2]).
 %          holds(
 %             at_loc(Object,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',218).
-exists(Location,  (at(nearPortal(Object, Portal), Time)<->(side1(Portal, Location);side2(Portal, Location)), at(at_loc(Object, Location), Time))).
+exists(Location,  (((equals(side1(Portal), Location);equals(side2(Portal), Location)), at_loc(Object, Location)at Time;not nearPortal(Object, Portal)at Time), (nearPortal(Object, Portal)at Time;not equals(side1(Portal), Location), not equals(side2(Portal), Location);not at_loc(Object, Location)at Time))).
+ %  exists(Location,  (((equals(side1(Portal), Location);equals(side2(Portal), Location)), at(at_loc(Object, Location), Time);at(not(nearPortal(Object, Portal)), Time)), (at(nearPortal(Object, Portal), Time);not(equals(side1(Portal), Location)), not(equals(side2(Portal), Location));at(not(at_loc(Object, Location)), Time)))).
+ %  % =================================.
 
 % event WalkThroughDoor12(agent,door)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',222).
@@ -621,7 +740,7 @@ exists(Location,  (at(nearPortal(Object, Portal), Time)<->(side1(Portal, Locatio
 % 
 % event(walkThroughDoor12(agent,door)).
 events([walkThroughDoor12/2]).
-mpred_prop(walkThroughDoor12(agent,door),action).
+mpred_prop(walkThroughDoor12(agent, door), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',222).
 actions([walkThroughDoor12/2]).
 
@@ -631,8 +750,8 @@ actions([walkThroughDoor12/2]).
 % 
 % event(walkThroughDoor21(agent,door)).
 events([walkThroughDoor21/2]).
+mpred_prop(walkThroughDoor21(agent, door), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',224).
-mpred_prop(walkThroughDoor21(agent,door),action).
 actions([walkThroughDoor21/2]).
 
 
@@ -655,8 +774,18 @@ actions([walkThroughDoor21/2]).
 %          at_loc(Agent, 
 %             side1(Door)), 
 %          Time))).
+(   standing(Agent)at Time,
+    at_loc(Agent, side1(Door))at Time
+;   not happens(walkThroughDoor12(Agent, Door), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',226).
-if((at(standing(Agent), Time), at(at_loc(Agent, side1(Door)), Time)), happens(walkThroughDoor12(Agent, Door), Time)).
+
+ /*  (   at(standing(Agent), Time),
+         at(at_loc(Agent, side1(Door)), Time)
+     ;   not(happens(walkThroughDoor12(Agent, Door), Time))
+     ).
+ */
+ %  % =================================.
 
 
 % [agent,door,time]
@@ -678,8 +807,18 @@ if((at(standing(Agent), Time), at(at_loc(Agent, side1(Door)), Time)), happens(wa
 %          at_loc(Agent, 
 %             side2(Door)), 
 %          Time))).
+(   standing(Agent)at Time,
+    at_loc(Agent, side2(Door))at Time
+;   not happens(walkThroughDoor21(Agent, Door), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',232).
-if((at(standing(Agent), Time), at(at_loc(Agent, side2(Door)), Time)), happens(walkThroughDoor21(Agent, Door), Time)).
+
+ /*  (   at(standing(Agent), Time),
+         at(at_loc(Agent, side2(Door)), Time)
+     ;   not(happens(walkThroughDoor21(Agent, Door), Time))
+     ).
+ */
+ %  % =================================.
 
 
 % [agent,door,location,time]
@@ -696,9 +835,17 @@ if((at(standing(Agent), Time), at(at_loc(Agent, side2(Door)), Time)), happens(wa
 %       walkThroughDoor12(Agent,Door), 
 %       at_loc(Agent,Location), 
 %       Time)).
-if(initiates(walkThroughDoor12(Agent,Door),
-	     at(at_loc(Agent,Location),Time)),
-   side2(Door,Location)).
+(   initiates(walkThroughDoor12(Agent, Door),
+              at_loc(Agent, Location)at Time)
+;   not equals(side2(Door), Location)
+).
+
+ /*   (   initiates(walkThroughDoor12(Agent, Door),
+                      at(at_loc(Agent, Location), Time))
+        ;   not(equals(side2(Door), Location))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,door,location,time]
@@ -715,9 +862,17 @@ if(initiates(walkThroughDoor12(Agent,Door),
 %       walkThroughDoor21(Agent,Door), 
 %       at_loc(Agent,Location), 
 %       Time)).
-if(initiates(walkThroughDoor21(Agent,Door),
-	     at(at_loc(Agent,Location),Time)),
-   side1(Door,Location)).
+(   initiates(walkThroughDoor21(Agent, Door),
+              at_loc(Agent, Location)at Time)
+;   not equals(side1(Door), Location)
+).
+
+ /*   (   initiates(walkThroughDoor21(Agent, Door),
+                      at(at_loc(Agent, Location), Time))
+        ;   not(equals(side1(Door), Location))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,door,location,time]
@@ -734,9 +889,17 @@ if(initiates(walkThroughDoor21(Agent,Door),
 %       walkThroughDoor12(Agent,Door), 
 %       at_loc(Agent,Location), 
 %       Time)).
-if(terminates(walkThroughDoor12(Agent,Door),
-	      at(at_loc(Agent,Location),Time)),
-   side1(Door,Location)).
+(   terminates(walkThroughDoor12(Agent, Door),
+               at_loc(Agent, Location)at Time)
+;   not equals(side1(Door), Location)
+).
+
+ /*   (   terminates(walkThroughDoor12(Agent, Door),
+                       at(at_loc(Agent, Location), Time))
+        ;   not(equals(side1(Door), Location))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,door,location,time]
@@ -753,16 +916,24 @@ if(terminates(walkThroughDoor12(Agent,Door),
 %       walkThroughDoor21(Agent,Door), 
 %       at_loc(Agent,Location), 
 %       Time)).
-if(terminates(walkThroughDoor21(Agent,Door),
-	      at(at_loc(Agent,Location),Time)),
-   side2(Door,Location)).
+(   terminates(walkThroughDoor21(Agent, Door),
+               at_loc(Agent, Location)at Time)
+;   not equals(side2(Door), Location)
+).
+
+ /*   (   terminates(walkThroughDoor21(Agent, Door),
+                       at(at_loc(Agent, Location), Time))
+        ;   not(equals(side2(Door), Location))
+        ).
+ */
+ %  % =================================.
 
 % fluent Hungry(agent)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',251).
 % From E: 
 % 
 % fluent(hungry(agent)).
-mpred_prop(hungry(agent),fluent).
+mpred_prop(hungry(agent), fluent).
 fluents([hungry/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',254).
@@ -770,7 +941,7 @@ fluents([hungry/1]).
 % From E: 
 % 
 % fluent(satiated(agent)).
-mpred_prop(satiated(agent),fluent).
+mpred_prop(satiated(agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',254).
 fluents([satiated/1]).
 
@@ -778,7 +949,6 @@ fluents([satiated/1]).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(satiated))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',254).
 :- call_pel_directive(noninertial(satiated)).
 
 
@@ -794,9 +964,23 @@ fluents([satiated/1]).
 %    holds(
 %       not(satiated(Agent)), 
 %       Time)).
+satiated(Agent)at Time if not hungry(Agent)at Time.
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',257).
-at(hungry(Agent), Time) <->
-    at(not(satiated(Agent)), Time).
+
+ /*  l_int(holds(satiated(Agent),Time),
+           [holds(not(hungry(Agent)),Time)]).
+ */
+ %  % =================================.
+(   hungry(Agent)at Time
+;   satiated(Agent)at Time
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',257).
+
+ /*   (   at(hungry(Agent), Time)
+        ;   at(satiated(Agent), Time)
+        ).
+ */
+ %  % =================================.
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',259).
 % event Eat(agent,food)
@@ -804,8 +988,8 @@ at(hungry(Agent), Time) <->
 % 
 % event(eat(agent,food)).
 events([eat/2]).
+mpred_prop(eat(agent, food), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',259).
-mpred_prop(eat(agent,food),action).
 actions([eat/2]).
 
 
@@ -830,8 +1014,9 @@ actions([eat/2]).
 %          holds(
 %             at_loc(Food,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',263).
-exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Food, Location), Time)), happens(eat(Agent, Food), Time))).
+exists(Location,  (at_loc(Agent, Location)at Time, at_loc(Food, Location)at Time;not happens(eat(Agent, Food), Time))).
+ %  exists(Location,  (at(at_loc(Agent, Location), Time), at(at_loc(Food, Location), Time);not(happens(eat(Agent, Food), Time)))).
+ %  % =================================.
 
 
 % [agent,food,time]
@@ -843,29 +1028,37 @@ exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Food, Location
 %    eat(Agent,Food), 
 %    hungry(Agent), 
 %    Time).
+eat(Agent, Food)terminates hungry(Agent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',268).
-terminates(eat(Agent,Food),hungry(Agent)).
+
+ /*  terminated(happens(eat(Agent,Food),
+     		   Time_from,
+     		   Time_until),
+     	   hungry(Agent),
+     	   []).
+ */
+ %  % =================================.
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',270).
 % sort restaurant: script
 % From E: 
 % 
 % subsort(restaurant,script).
-subsort(restaurant,script).
+subsort(restaurant, script).
 
 % sort waiter: agent
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',270).
 % From E: 
 % 
 % subsort(waiter,agent).
-subsort(waiter,agent).
+subsort(waiter, agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',272).
 % sort cook: agent
 % From E: 
 % 
 % subsort(cook,agent).
-subsort(cook,agent).
+subsort(cook, agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',274).
 % function BillOf(restaurant): bill
@@ -920,7 +1113,7 @@ function(kitchenDoorOf(restaurant),door).
 % From E: 
 % 
 % fluent(beWaiter0(waiter)).
-mpred_prop(beWaiter0(waiter),fluent).
+mpred_prop(beWaiter0(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',280).
 fluents([beWaiter0/1]).
 
@@ -929,7 +1122,7 @@ fluents([beWaiter0/1]).
 % From E: 
 % 
 % fluent(beWaiter1(waiter)).
-mpred_prop(beWaiter1(waiter),fluent).
+mpred_prop(beWaiter1(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',282).
 fluents([beWaiter1/1]).
 
@@ -938,7 +1131,7 @@ fluents([beWaiter1/1]).
 % From E: 
 % 
 % fluent(beWaiter2(waiter)).
-mpred_prop(beWaiter2(waiter),fluent).
+mpred_prop(beWaiter2(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',284).
 fluents([beWaiter2/1]).
 
@@ -947,7 +1140,7 @@ fluents([beWaiter2/1]).
 % From E: 
 % 
 % fluent(beWaiter3(waiter)).
-mpred_prop(beWaiter3(waiter),fluent).
+mpred_prop(beWaiter3(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',286).
 fluents([beWaiter3/1]).
 
@@ -956,7 +1149,7 @@ fluents([beWaiter3/1]).
 % From E: 
 % 
 % fluent(beWaiter4(waiter)).
-mpred_prop(beWaiter4(waiter),fluent).
+mpred_prop(beWaiter4(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',288).
 fluents([beWaiter4/1]).
 
@@ -965,7 +1158,7 @@ fluents([beWaiter4/1]).
 % From E: 
 % 
 % fluent(beWaiter5(waiter)).
-mpred_prop(beWaiter5(waiter),fluent).
+mpred_prop(beWaiter5(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',290).
 fluents([beWaiter5/1]).
 
@@ -974,7 +1167,7 @@ fluents([beWaiter5/1]).
 % From E: 
 % 
 % fluent(beWaiter6(waiter)).
-mpred_prop(beWaiter6(waiter),fluent).
+mpred_prop(beWaiter6(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',292).
 fluents([beWaiter6/1]).
 
@@ -983,7 +1176,7 @@ fluents([beWaiter6/1]).
 % From E: 
 % 
 % fluent(beWaiter7(waiter)).
-mpred_prop(beWaiter7(waiter),fluent).
+mpred_prop(beWaiter7(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',294).
 fluents([beWaiter7/1]).
 
@@ -992,7 +1185,7 @@ fluents([beWaiter7/1]).
 % From E: 
 % 
 % fluent(beWaiter8(waiter)).
-mpred_prop(beWaiter8(waiter),fluent).
+mpred_prop(beWaiter8(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',296).
 fluents([beWaiter8/1]).
 
@@ -1001,7 +1194,7 @@ fluents([beWaiter8/1]).
 % From E: 
 % 
 % fluent(beWaiter9(waiter)).
-mpred_prop(beWaiter9(waiter),fluent).
+mpred_prop(beWaiter9(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',298).
 fluents([beWaiter9/1]).
 
@@ -1040,10 +1233,18 @@ xor([ beWaiter0,
 %       greet(Waiter,Agent), 
 %       beWaiter0(Waiter), 
 %       Time)).
+(   terminates(greet(Waiter, Agent),
+               beWaiter0(Waiter)at Time)
+;   not beWaiter0(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',302).
-if(terminates(greet(Waiter,Agent),
-	      at(beWaiter0(Waiter),Time)),
-   at(beWaiter0(Waiter),Time)).
+
+ /*   (   terminates(greet(Waiter, Agent),
+                       at(beWaiter0(Waiter), Time))
+        ;   at(not(beWaiter0(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,agent,time]
@@ -1062,10 +1263,18 @@ if(terminates(greet(Waiter,Agent),
 %       greet(Waiter,Agent), 
 %       beWaiter1(Waiter), 
 %       Time)).
+(   initiates(greet(Waiter, Agent),
+              beWaiter1(Waiter)at Time)
+;   not beWaiter0(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',309).
-if(initiates(greet(Waiter,Agent),
-	     at(beWaiter1(Waiter),Time)),
-   at(beWaiter0(Waiter),Time)).
+
+ /*   (   initiates(greet(Waiter, Agent),
+                      at(beWaiter1(Waiter), Time))
+        ;   at(not(beWaiter0(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,agent,food,time]
@@ -1084,10 +1293,18 @@ if(initiates(greet(Waiter,Agent),
 %       order(Agent,Waiter,Food), 
 %       beWaiter1(Waiter), 
 %       Time)).
+(   terminates(order(Agent, Waiter, Food),
+               beWaiter1(Waiter)at Time)
+;   not beWaiter1(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',315).
-if(terminates(order(Agent,Waiter,Food),
-	      at(beWaiter1(Waiter),Time)),
-   at(beWaiter1(Waiter),Time)).
+
+ /*   (   terminates(order(Agent, Waiter, Food),
+                       at(beWaiter1(Waiter), Time))
+        ;   at(not(beWaiter1(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,agent,food,time]
@@ -1106,10 +1323,18 @@ if(terminates(order(Agent,Waiter,Food),
 %       order(Agent,Waiter,Food), 
 %       beWaiter2(Waiter), 
 %       Time)).
+(   initiates(order(Agent, Waiter, Food),
+              beWaiter2(Waiter)at Time)
+;   not beWaiter1(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',321).
-if(initiates(order(Agent,Waiter,Food),
-	     at(beWaiter2(Waiter),Time)),
-   at(beWaiter1(Waiter),Time)).
+
+ /*   (   initiates(order(Agent, Waiter, Food),
+                      at(beWaiter2(Waiter), Time))
+        ;   at(not(beWaiter1(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,time]
@@ -1131,8 +1356,20 @@ if(initiates(order(Agent,Waiter,Food),
 %       walkThroughDoor12(Waiter, 
 %          kitchenDoorOf(Restaurant)), 
 %       Time)).
+(   happens(walkThroughDoor12(Waiter, kitchenDoorOf(Restaurant)),
+            Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not beWaiter2(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',327).
-if(happens(walkThroughDoor12(Waiter, kitchenDoorOf(Restaurant)), Time),  (waiterOf(Restaurant, Waiter), at(beWaiter2(Waiter), Time))).
+
+ /*   (   happens(walkThroughDoor12(Waiter, kitchenDoorOf(Restaurant)),
+                    Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   at(not(beWaiter2(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,door,time]
@@ -1161,8 +1398,22 @@ if(happens(walkThroughDoor12(Waiter, kitchenDoorOf(Restaurant)), Time),  (waiter
 %       walkThroughDoor12(Waiter,Door), 
 %       beWaiter2(Waiter), 
 %       Time)).
+(   terminates(walkThroughDoor12(Waiter, Door),
+               beWaiter2(Waiter)at Time)
+;   not beWaiter2(Waiter)at Time
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(kitchenDoorOf(Restaurant), Door)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',332).
-if(terminates(walkThroughDoor12(Waiter, Door), at(beWaiter2(Waiter), Time)),  (at(beWaiter2(Waiter), Time), waiterOf(Restaurant, Waiter), kitchenDoorOf(Restaurant, Door))).
+
+ /*   (   terminates(walkThroughDoor12(Waiter, Door),
+                       at(beWaiter2(Waiter), Time))
+        ;   at(not(beWaiter2(Waiter)), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(kitchenDoorOf(Restaurant), Door))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,door,time]
@@ -1191,8 +1442,22 @@ if(terminates(walkThroughDoor12(Waiter, Door), at(beWaiter2(Waiter), Time)),  (a
 %       walkThroughDoor12(Waiter,Door), 
 %       beWaiter3(Waiter), 
 %       Time)).
+(   initiates(walkThroughDoor12(Waiter, Door),
+              beWaiter3(Waiter)at Time)
+;   not beWaiter2(Waiter)at Time
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(kitchenDoorOf(Restaurant), Door)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',340).
-if(initiates(walkThroughDoor12(Waiter, Door), at(beWaiter3(Waiter), Time)),  (at(beWaiter2(Waiter), Time), waiterOf(Restaurant, Waiter), kitchenDoorOf(Restaurant, Door))).
+
+ /*   (   initiates(walkThroughDoor12(Waiter, Door),
+                      at(beWaiter3(Waiter), Time))
+        ;   at(not(beWaiter2(Waiter)), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(kitchenDoorOf(Restaurant), Door))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,food,time]
@@ -1220,8 +1485,32 @@ if(initiates(walkThroughDoor12(Waiter, Door), at(beWaiter3(Waiter), Time)),  (at
 %          cookOf(Restaurant), 
 %          Food), 
 %       Time)).
+(   happens(order(waiterOf(Restaurant),
+                  cookOf(Restaurant),
+                  Food),
+            Time)
+;   not beWaiter3(waiterOf(Restaurant))at Time
+;   not(thereExists(Agent,
+                    at(knowOrder(waiterOf(Restaurant),
+                                 Agent,
+                                 Food),
+                       Time)))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',348).
-if(happens(order(waiterOf(Restaurant), cookOf(Restaurant), Food), Time),  (at(beWaiter3(waiterOf(Restaurant)), Time), thereExists(Agent, at(knowOrder(waiterOf(Restaurant), Agent, Food), Time)))).
+
+ /*   (   happens(order(waiterOf(Restaurant),
+                          cookOf(Restaurant),
+                          Food),
+                    Time)
+        ;   at(not(beWaiter3(waiterOf(Restaurant))), Time)
+        ;   not(thereExists(Agent,
+                            at(knowOrder(waiterOf(Restaurant),
+                                         Agent,
+                                         Food),
+                               Time)))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,cook,food,time]
@@ -1250,8 +1539,22 @@ if(happens(order(waiterOf(Restaurant), cookOf(Restaurant), Food), Time),  (at(be
 %       order(Waiter,Cook,Food), 
 %       beWaiter3(Waiter), 
 %       Time)).
+(   terminates(order(Waiter, Cook, Food),
+               beWaiter3(Waiter)at Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(cookOf(Restaurant), Cook)
+;   not beWaiter3(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',353).
-if(terminates(order(Waiter, Cook, Food), at(beWaiter3(Waiter), Time)),  (waiterOf(Restaurant, Waiter), cookOf(Restaurant, Cook), at(beWaiter3(Waiter), Time))).
+
+ /*   (   terminates(order(Waiter, Cook, Food),
+                       at(beWaiter3(Waiter), Time))
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(cookOf(Restaurant), Cook))
+        ;   at(not(beWaiter3(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,cook,food,time]
@@ -1280,8 +1583,22 @@ if(terminates(order(Waiter, Cook, Food), at(beWaiter3(Waiter), Time)),  (waiterO
 %       order(Waiter,Cook,Food), 
 %       beWaiter4(Waiter), 
 %       Time)).
+(   initiates(order(Waiter, Cook, Food),
+              beWaiter4(Waiter)at Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(cookOf(Restaurant), Cook)
+;   not beWaiter3(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',361).
-if(initiates(order(Waiter, Cook, Food), at(beWaiter4(Waiter), Time)),  (waiterOf(Restaurant, Waiter), cookOf(Restaurant, Cook), at(beWaiter3(Waiter), Time))).
+
+ /*   (   initiates(order(Waiter, Cook, Food),
+                      at(beWaiter4(Waiter), Time))
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(cookOf(Restaurant), Cook))
+        ;   at(not(beWaiter3(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,food,time]
@@ -1308,8 +1625,23 @@ if(initiates(order(Waiter, Cook, Food), at(beWaiter4(Waiter), Time)),  (waiterOf
 %    happens(
 %       pickUp(Waiter,Food), 
 %       Time)).
+(   happens(pickUp(Waiter, Food), Time)
+;   not beWaiter4(Waiter)at Time
+;   not(thereExists(Agent,
+                    knowOrder(Waiter, Agent, Food)at Time))
+;   not foodPrepared(Food)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',369).
-if(happens(pickUp(Waiter, Food), Time),  (at(beWaiter4(Waiter), Time), thereExists(Agent, at(knowOrder(Waiter, Agent, Food), Time)), at(foodPrepared(Food), Time))).
+
+ /*   (   happens(pickUp(Waiter, Food), Time)
+        ;   at(not(beWaiter4(Waiter)), Time)
+        ;   not(thereExists(Agent,
+                            at(knowOrder(Waiter, Agent, Food),
+                               Time)))
+        ;   at(not(foodPrepared(Food)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,food,time]
@@ -1334,8 +1666,23 @@ if(happens(pickUp(Waiter, Food), Time),  (at(beWaiter4(Waiter), Time), thereExis
 %       pickUp(Waiter,Food), 
 %       beWaiter4(Waiter), 
 %       Time)).
+(   terminates(pickUp(Waiter, Food),
+               beWaiter4(Waiter)at Time)
+;   not beWaiter4(Waiter)at Time
+;   not(thereExists(Agent,
+                    knowOrder(Waiter, Agent, Food)at Time))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',375).
-if(terminates(pickUp(Waiter, Food), at(beWaiter4(Waiter), Time)),  (at(beWaiter4(Waiter), Time), thereExists(Agent, at(knowOrder(Waiter, Agent, Food), Time)))).
+
+ /*   (   terminates(pickUp(Waiter, Food),
+                       at(beWaiter4(Waiter), Time))
+        ;   at(not(beWaiter4(Waiter)), Time)
+        ;   not(thereExists(Agent,
+                            at(knowOrder(Waiter, Agent, Food),
+                               Time)))
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,food,time]
@@ -1360,8 +1707,23 @@ if(terminates(pickUp(Waiter, Food), at(beWaiter4(Waiter), Time)),  (at(beWaiter4
 %       pickUp(Waiter,Food), 
 %       beWaiter5(Waiter), 
 %       Time)).
+(   initiates(pickUp(Waiter, Food),
+              beWaiter5(Waiter)at Time)
+;   not beWaiter4(Waiter)at Time
+;   not(thereExists(Agent,
+                    knowOrder(Waiter, Agent, Food)at Time))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',382).
-if(initiates(pickUp(Waiter, Food), at(beWaiter5(Waiter), Time)),  (at(beWaiter4(Waiter), Time), thereExists(Agent, at(knowOrder(Waiter, Agent, Food), Time)))).
+
+ /*   (   initiates(pickUp(Waiter, Food),
+                      at(beWaiter5(Waiter), Time))
+        ;   at(not(beWaiter4(Waiter)), Time)
+        ;   not(thereExists(Agent,
+                            at(knowOrder(Waiter, Agent, Food),
+                               Time)))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,time]
@@ -1383,8 +1745,20 @@ if(initiates(pickUp(Waiter, Food), at(beWaiter5(Waiter), Time)),  (at(beWaiter4(
 %       walkThroughDoor21(Waiter, 
 %          kitchenDoorOf(Restaurant)), 
 %       Time)).
+(   happens(walkThroughDoor21(Waiter, kitchenDoorOf(Restaurant)),
+            Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not beWaiter5(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',389).
-if(happens(walkThroughDoor21(Waiter, kitchenDoorOf(Restaurant)), Time),  (waiterOf(Restaurant, Waiter), at(beWaiter5(Waiter), Time))).
+
+ /*   (   happens(walkThroughDoor21(Waiter, kitchenDoorOf(Restaurant)),
+                    Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   at(not(beWaiter5(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,door,time]
@@ -1413,8 +1787,22 @@ if(happens(walkThroughDoor21(Waiter, kitchenDoorOf(Restaurant)), Time),  (waiter
 %       walkThroughDoor21(Waiter,Door), 
 %       beWaiter5(Waiter), 
 %       Time)).
+(   terminates(walkThroughDoor21(Waiter, Door),
+               beWaiter5(Waiter)at Time)
+;   not beWaiter5(Waiter)at Time
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(kitchenDoorOf(Restaurant), Door)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',394).
-if(terminates(walkThroughDoor21(Waiter, Door), at(beWaiter5(Waiter), Time)),  (at(beWaiter5(Waiter), Time), waiterOf(Restaurant, Waiter), kitchenDoorOf(Restaurant, Door))).
+
+ /*   (   terminates(walkThroughDoor21(Waiter, Door),
+                       at(beWaiter5(Waiter), Time))
+        ;   at(not(beWaiter5(Waiter)), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(kitchenDoorOf(Restaurant), Door))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,door,time]
@@ -1443,8 +1831,22 @@ if(terminates(walkThroughDoor21(Waiter, Door), at(beWaiter5(Waiter), Time)),  (a
 %       walkThroughDoor21(Waiter,Door), 
 %       beWaiter6(Waiter), 
 %       Time)).
+(   initiates(walkThroughDoor21(Waiter, Door),
+              beWaiter6(Waiter)at Time)
+;   not beWaiter5(Waiter)at Time
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(kitchenDoorOf(Restaurant), Door)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',402).
-if(initiates(walkThroughDoor21(Waiter, Door), at(beWaiter6(Waiter), Time)),  (at(beWaiter5(Waiter), Time), waiterOf(Restaurant, Waiter), kitchenDoorOf(Restaurant, Door))).
+
+ /*   (   initiates(walkThroughDoor21(Waiter, Door),
+                      at(beWaiter6(Waiter), Time))
+        ;   at(not(beWaiter5(Waiter)), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(kitchenDoorOf(Restaurant), Door))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,table,food,time]
@@ -1475,8 +1877,22 @@ if(initiates(walkThroughDoor21(Waiter, Door), at(beWaiter6(Waiter), Time)),  (at
 %    happens(
 %       placeOn(Waiter,Food,Table), 
 %       Time)).
+(   happens(placeOn(Waiter, Food, Table), Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(tableOf(Restaurant), Table)
+;   not beWaiter6(Waiter)at Time
+;   not holding(Waiter, Food)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',410).
-if(happens(placeOn(Waiter, Food, Table), Time),  (waiterOf(Restaurant, Waiter), tableOf(Restaurant, Table), at(beWaiter6(Waiter), Time), at(holding(Waiter, Food), Time))).
+
+ /*   (   happens(placeOn(Waiter, Food, Table), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(tableOf(Restaurant), Table))
+        ;   at(not(beWaiter6(Waiter)), Time)
+        ;   at(not(holding(Waiter, Food)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,food,table,time]
@@ -1495,10 +1911,18 @@ if(happens(placeOn(Waiter, Food, Table), Time),  (waiterOf(Restaurant, Waiter), 
 %       placeOn(Waiter,Food,Table), 
 %       beWaiter6(Waiter), 
 %       Time)).
+(   terminates(placeOn(Waiter, Food, Table),
+               beWaiter6(Waiter)at Time)
+;   not beWaiter6(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',417).
-if(terminates(placeOn(Waiter,Food,Table),
-	      at(beWaiter6(Waiter),Time)),
-   at(beWaiter6(Waiter),Time)).
+
+ /*   (   terminates(placeOn(Waiter, Food, Table),
+                       at(beWaiter6(Waiter), Time))
+        ;   at(not(beWaiter6(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,food,table,time]
@@ -1517,10 +1941,18 @@ if(terminates(placeOn(Waiter,Food,Table),
 %       placeOn(Waiter,Food,Table), 
 %       beWaiter7(Waiter), 
 %       Time)).
+(   initiates(placeOn(Waiter, Food, Table),
+              beWaiter7(Waiter)at Time)
+;   not beWaiter6(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',423).
-if(initiates(placeOn(Waiter,Food,Table),
-	     at(beWaiter7(Waiter),Time)),
-   at(beWaiter6(Waiter),Time)).
+
+ /*   (   initiates(placeOn(Waiter, Food, Table),
+                      at(beWaiter7(Waiter), Time))
+        ;   at(not(beWaiter6(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,agent,bill,time]
@@ -1539,10 +1971,18 @@ if(initiates(placeOn(Waiter,Food,Table),
 %       request(Agent,Waiter,Bill), 
 %       beWaiter7(Waiter), 
 %       Time)).
+(   terminates(request(Agent, Waiter, Bill),
+               beWaiter7(Waiter)at Time)
+;   not beWaiter7(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',429).
-if(terminates(request(Agent,Waiter,Bill),
-	      at(beWaiter7(Waiter),Time)),
-   at(beWaiter7(Waiter),Time)).
+
+ /*   (   terminates(request(Agent, Waiter, Bill),
+                       at(beWaiter7(Waiter), Time))
+        ;   at(not(beWaiter7(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,agent,bill,time]
@@ -1561,10 +2001,18 @@ if(terminates(request(Agent,Waiter,Bill),
 %       request(Agent,Waiter,Bill), 
 %       beWaiter8(Waiter), 
 %       Time)).
+(   initiates(request(Agent, Waiter, Bill),
+              beWaiter8(Waiter)at Time)
+;   not beWaiter7(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',435).
-if(initiates(request(Agent,Waiter,Bill),
-	     at(beWaiter8(Waiter),Time)),
-   at(beWaiter7(Waiter),Time)).
+
+ /*   (   initiates(request(Agent, Waiter, Bill),
+                      at(beWaiter8(Waiter), Time))
+        ;   at(not(beWaiter7(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,bill,time]
@@ -1590,8 +2038,20 @@ if(initiates(request(Agent,Waiter,Bill),
 %    happens(
 %       pickUp(Waiter,Bill), 
 %       Time)).
+(   happens(pickUp(Waiter, Bill), Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(billOf(Restaurant), Bill)
+;   not beWaiter8(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',441).
-if(happens(pickUp(Waiter, Bill), Time),  (waiterOf(Restaurant, Waiter), billOf(Restaurant, Bill), at(beWaiter8(Waiter), Time))).
+
+ /*   (   happens(pickUp(Waiter, Bill), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(billOf(Restaurant), Bill))
+        ;   at(not(beWaiter8(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,bill,time]
@@ -1610,10 +2070,18 @@ if(happens(pickUp(Waiter, Bill), Time),  (waiterOf(Restaurant, Waiter), billOf(R
 %       pickUp(Waiter,Bill), 
 %       beWaiter8(Waiter), 
 %       Time)).
+(   terminates(pickUp(Waiter, Bill),
+               beWaiter8(Waiter)at Time)
+;   not beWaiter8(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',447).
-if(terminates(pickUp(Waiter,Bill),
-	      at(beWaiter8(Waiter),Time)),
-   at(beWaiter8(Waiter),Time)).
+
+ /*   (   terminates(pickUp(Waiter, Bill),
+                       at(beWaiter8(Waiter), Time))
+        ;   at(not(beWaiter8(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,bill,time]
@@ -1632,10 +2100,18 @@ if(terminates(pickUp(Waiter,Bill),
 %       pickUp(Waiter,Bill), 
 %       beWaiter9(Waiter), 
 %       Time)).
+(   initiates(pickUp(Waiter, Bill),
+              beWaiter9(Waiter)at Time)
+;   not beWaiter8(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',453).
-if(initiates(pickUp(Waiter,Bill),
-	     at(beWaiter9(Waiter),Time)),
-   at(beWaiter8(Waiter),Time)).
+
+ /*   (   initiates(pickUp(Waiter, Bill),
+                      at(beWaiter9(Waiter), Time))
+        ;   at(not(beWaiter8(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,bill,table,time]
@@ -1666,8 +2142,22 @@ if(initiates(pickUp(Waiter,Bill),
 %    happens(
 %       placeOn(Waiter,Bill,Table), 
 %       Time)).
+(   happens(placeOn(Waiter, Bill, Table), Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(billOf(Restaurant), Bill)
+;   not equals(tableOf(Restaurant), Table)
+;   not beWaiter9(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',459).
-if(happens(placeOn(Waiter, Bill, Table), Time),  (waiterOf(Restaurant, Waiter), billOf(Restaurant, Bill), tableOf(Restaurant, Table), at(beWaiter9(Waiter), Time))).
+
+ /*   (   happens(placeOn(Waiter, Bill, Table), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(billOf(Restaurant), Bill))
+        ;   not(equals(tableOf(Restaurant), Table))
+        ;   at(not(beWaiter9(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,bill,table,time]
@@ -1686,10 +2176,18 @@ if(happens(placeOn(Waiter, Bill, Table), Time),  (waiterOf(Restaurant, Waiter), 
 %       placeOn(Waiter,Bill,Table), 
 %       beWaiter9(Waiter), 
 %       Time)).
+(   terminates(placeOn(Waiter, Bill, Table),
+               beWaiter9(Waiter)at Time)
+;   not beWaiter9(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',466).
-if(terminates(placeOn(Waiter,Bill,Table),
-	      at(beWaiter9(Waiter),Time)),
-   at(beWaiter9(Waiter),Time)).
+
+ /*   (   terminates(placeOn(Waiter, Bill, Table),
+                       at(beWaiter9(Waiter), Time))
+        ;   at(not(beWaiter9(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,bill,table,time]
@@ -1708,17 +2206,25 @@ if(terminates(placeOn(Waiter,Bill,Table),
 %       placeOn(Waiter,Bill,Table), 
 %       beWaiter0(Waiter), 
 %       Time)).
+(   initiates(placeOn(Waiter, Bill, Table),
+              beWaiter0(Waiter)at Time)
+;   not beWaiter9(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',472).
-if(initiates(placeOn(Waiter,Bill,Table),
-	     at(beWaiter0(Waiter),Time)),
-   at(beWaiter9(Waiter),Time)).
+
+ /*   (   initiates(placeOn(Waiter, Bill, Table),
+                      at(beWaiter0(Waiter), Time))
+        ;   at(not(beWaiter9(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 % fluent BeCook0(cook)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',476).
 % From E: 
 % 
 % fluent(beCook0(cook)).
-mpred_prop(beCook0(cook),fluent).
+mpred_prop(beCook0(cook), fluent).
 fluents([beCook0/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',479).
@@ -1726,7 +2232,7 @@ fluents([beCook0/1]).
 % From E: 
 % 
 % fluent(beCook1(cook)).
-mpred_prop(beCook1(cook),fluent).
+mpred_prop(beCook1(cook), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',479).
 fluents([beCook1/1]).
 
@@ -1755,10 +2261,18 @@ xor([beCook0,beCook1]).
 %       order(Agent,Cook,Food), 
 %       beCook0(Cook), 
 %       Time)).
+(   terminates(order(Agent, Cook, Food),
+               beCook0(Cook)at Time)
+;   not beCook0(Cook)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',483).
-if(terminates(order(Agent,Cook,Food),
-	      at(beCook0(Cook),Time)),
-   at(beCook0(Cook),Time)).
+
+ /*   (   terminates(order(Agent, Cook, Food),
+                       at(beCook0(Cook), Time))
+        ;   at(not(beCook0(Cook)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [cook,agent,food,time]
@@ -1777,10 +2291,18 @@ if(terminates(order(Agent,Cook,Food),
 %       order(Agent,Cook,Food), 
 %       beCook1(Cook), 
 %       Time)).
+(   initiates(order(Agent, Cook, Food),
+              beCook1(Cook)at Time)
+;   not beCook0(Cook)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',490).
-if(initiates(order(Agent,Cook,Food),
-	     at(beCook1(Cook),Time)),
-   at(beCook0(Cook),Time)).
+
+ /*   (   initiates(order(Agent, Cook, Food),
+                      at(beCook1(Cook), Time))
+        ;   at(not(beCook0(Cook)), Time)
+        ).
+ */
+ %  % =================================.
 
 % event FoodPrepare(agent,food)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',494).
@@ -1788,7 +2310,7 @@ if(initiates(order(Agent,Cook,Food),
 % 
 % event(foodPrepare(agent,food)).
 events([foodPrepare/2]).
-mpred_prop(foodPrepare(agent,food),action).
+mpred_prop(foodPrepare(agent, food), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',494).
 actions([foodPrepare/2]).
 
@@ -1797,7 +2319,7 @@ actions([foodPrepare/2]).
 % From E: 
 % 
 % fluent(foodPrepared(food)).
-mpred_prop(foodPrepared(food),fluent).
+mpred_prop(foodPrepared(food), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',497).
 fluents([foodPrepared/1]).
 
@@ -1813,8 +2335,16 @@ fluents([foodPrepared/1]).
 %    foodPrepare(Agent,Food), 
 %    foodPrepared(Food), 
 %    Time).
+foodPrepare(Agent, Food)initiates foodPrepared(Food).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',499).
-initiates(foodPrepare(Agent,Food),foodPrepared(Food)).
+
+ /*  initiated(happens(foodPrepare(Agent,Food),
+     		  Time_from,
+     		  Time_until),
+     	  foodPrepared(Food),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent,food,time]
@@ -1837,8 +2367,9 @@ initiates(foodPrepare(Agent,Food),foodPrepared(Food)).
 %          holds(
 %             at_loc(Food,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',505).
-exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Food, Location), Time)), happens(foodPrepare(Agent, Food), Time))).
+exists(Location,  (at_loc(Agent, Location)at Time, at_loc(Food, Location)at Time;not happens(foodPrepare(Agent, Food), Time))).
+ %  exists(Location,  (at(at_loc(Agent, Location), Time), at(at_loc(Food, Location), Time);not(happens(foodPrepare(Agent, Food), Time)))).
+ %  % =================================.
 
 
 % [cook,agent,food,time]
@@ -1859,8 +2390,18 @@ exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Food, Location
 %    happens(
 %       foodPrepare(Cook,Food), 
 %       Time)).
+(   happens(foodPrepare(Cook, Food), Time)
+;   not beCook1(Cook)at Time
+;   not knowOrder(Cook, Agent, Food)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',511).
-if(happens(foodPrepare(Cook, Food), Time),  (at(beCook1(Cook), Time), at(knowOrder(Cook, Agent, Food), Time))).
+
+ /*   (   happens(foodPrepare(Cook, Food), Time)
+        ;   at(not(beCook1(Cook)), Time)
+        ;   at(not(knowOrder(Cook, Agent, Food)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [cook,food,time]
@@ -1879,10 +2420,18 @@ if(happens(foodPrepare(Cook, Food), Time),  (at(beCook1(Cook), Time), at(knowOrd
 %       foodPrepare(Cook,Food), 
 %       beCook1(Cook), 
 %       Time)).
+(   terminates(foodPrepare(Cook, Food),
+               beCook1(Cook)at Time)
+;   not beCook1(Cook)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',516).
-if(terminates(foodPrepare(Cook,Food),
-	      at(beCook1(Cook),Time)),
-   at(beCook1(Cook),Time)).
+
+ /*   (   terminates(foodPrepare(Cook, Food),
+                       at(beCook1(Cook), Time))
+        ;   at(not(beCook1(Cook)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [cook,food,time]
@@ -1901,10 +2450,18 @@ if(terminates(foodPrepare(Cook,Food),
 %       foodPrepare(Cook,Food), 
 %       beCook0(Cook), 
 %       Time)).
+(   initiates(foodPrepare(Cook, Food),
+              beCook0(Cook)at Time)
+;   not beCook1(Cook)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',522).
-if(initiates(foodPrepare(Cook,Food),
-	     at(beCook0(Cook),Time)),
-   at(beCook1(Cook),Time)).
+
+ /*   (   initiates(foodPrepare(Cook, Food),
+                      at(beCook0(Cook), Time))
+        ;   at(not(beCook1(Cook)), Time)
+        ).
+ */
+ %  % =================================.
 
 % event Pay(agent,agent)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',526).
@@ -1912,7 +2469,7 @@ if(initiates(foodPrepare(Cook,Food),
 % 
 % event(pay(agent,agent)).
 events([pay/2]).
-mpred_prop(pay(agent,agent),action).
+mpred_prop(pay(agent, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',526).
 actions([pay/2]).
 
@@ -1922,8 +2479,8 @@ actions([pay/2]).
 % 
 % event(tip(agent,agent)).
 events([tip/2]).
+mpred_prop(tip(agent, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',529).
-mpred_prop(tip(agent,agent),action).
 actions([tip/2]).
 
 
@@ -1948,8 +2505,9 @@ actions([tip/2]).
 %          holds(
 %             at_loc(Physobj,Room), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',533).
-exists(Room, if((at(at_loc(Agent, Room), Time), at(at_loc(Physobj, Room), Time)), happens(lieOn(Agent, Physobj), Time))).
+exists(Room,  (at_loc(Agent, Room)at Time, at_loc(Physobj, Room)at Time;not happens(lieOn(Agent, Physobj), Time))).
+ %  exists(Room,  (at(at_loc(Agent, Room), Time), at(at_loc(Physobj, Room), Time);not(happens(lieOn(Agent, Physobj), Time)))).
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -1972,8 +2530,9 @@ exists(Room, if((at(at_loc(Agent, Room), Time), at(at_loc(Physobj, Room), Time))
 %          holds(
 %             at_loc(Physobj,Room), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',538).
-exists(Room, if((at(at_loc(Agent, Room), Time), at(at_loc(Physobj, Room), Time)), happens(sitOn(Agent, Physobj), Time))).
+exists(Room,  (at_loc(Agent, Room)at Time, at_loc(Physobj, Room)at Time;not happens(sitOn(Agent, Physobj), Time))).
+ %  exists(Room,  (at(at_loc(Agent, Room), Time), at(at_loc(Physobj, Room), Time);not(happens(sitOn(Agent, Physobj), Time)))).
+ %  % =================================.
 
 % event LieOn(agent,physobj)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',542).
@@ -1981,7 +2540,7 @@ exists(Room, if((at(at_loc(Agent, Room), Time), at(at_loc(Physobj, Room), Time))
 % 
 % event(lieOn(agent,physobj)).
 events([lieOn/2]).
-mpred_prop(lieOn(agent,physobj),action).
+mpred_prop(lieOn(agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',542).
 actions([lieOn/2]).
 
@@ -1991,8 +2550,8 @@ actions([lieOn/2]).
 % 
 % event(sitOn(agent,physobj)).
 events([sitOn/2]).
+mpred_prop(sitOn(agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',545).
-mpred_prop(sitOn(agent,physobj),action).
 actions([sitOn/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',547).
@@ -2001,8 +2560,8 @@ actions([sitOn/2]).
 % 
 % event(riseFrom(agent,physobj)).
 events([riseFrom/2]).
+mpred_prop(riseFrom(agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',547).
-mpred_prop(riseFrom(agent,physobj),action).
 actions([riseFrom/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',549).
@@ -2010,7 +2569,7 @@ actions([riseFrom/2]).
 % From E: 
 % 
 % fluent(lyingOn(agent,physobj)).
-mpred_prop(lyingOn(agent,physobj),fluent).
+mpred_prop(lyingOn(agent, physobj), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',549).
 fluents([lyingOn/2]).
 
@@ -2018,8 +2577,8 @@ fluents([lyingOn/2]).
 % From E: 
 % 
 % fluent(sittingOn(agent,physobj)).
+mpred_prop(sittingOn(agent, physobj), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',549).
-mpred_prop(sittingOn(agent,physobj),fluent).
 fluents([sittingOn/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',551).
@@ -2027,7 +2586,7 @@ fluents([sittingOn/2]).
 % From E: 
 % 
 % fluent(standing(agent)).
-mpred_prop(standing(agent),fluent).
+mpred_prop(standing(agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',551).
 fluents([standing/1]).
 
@@ -2036,7 +2595,7 @@ fluents([standing/1]).
 % From E: 
 % 
 % fluent(lying(agent)).
-mpred_prop(lying(agent),fluent).
+mpred_prop(lying(agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',553).
 fluents([lying/1]).
 
@@ -2044,8 +2603,8 @@ fluents([lying/1]).
 % From E: 
 % 
 % fluent(sitting(agent)).
+mpred_prop(sitting(agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',553).
-mpred_prop(sitting(agent),fluent).
 fluents([sitting/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',555).
@@ -2083,9 +2642,16 @@ xor([lying,sitting,standing]).
 %    holds(
 %       lying(Agent), 
 %       Time)).
+(   lying(Agent)at Time
+;   not lyingOn(Agent, Physobj)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',560).
-if(at(lying(Agent),Time),
-   at(lyingOn(Agent,Physobj),Time)).
+
+ /*   (   at(lying(Agent), Time)
+        ;   at(not(lyingOn(Agent, Physobj)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -2101,8 +2667,15 @@ if(at(lying(Agent),Time),
 %    holds(
 %       sitting(Agent), 
 %       Time)).
-if(at(sitting(Agent),Time),
-   at(sittingOn(Agent,Physobj),Time)).
+(   sitting(Agent)at Time
+;   not sittingOn(Agent, Physobj)at Time
+).
+
+ /*   (   at(sitting(Agent), Time)
+        ;   at(not(sittingOn(Agent, Physobj)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,time]
@@ -2121,8 +2694,18 @@ if(at(sitting(Agent),Time),
 %          lyingOn(Agent,Physobj2), 
 %          Time)), 
 %    Physobj1=Physobj2).
+(   equals(Physobj1, Physobj2)
+;   not lyingOn(Agent, Physobj1)at Time
+;   not lyingOn(Agent, Physobj2)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',569).
-if(equals(Physobj1, Physobj2),  (at(lyingOn(Agent, Physobj1), Time), at(lyingOn(Agent, Physobj2), Time))).
+
+ /*   (   equals(Physobj1, Physobj2)
+        ;   at(not(lyingOn(Agent, Physobj1)), Time)
+        ;   at(not(lyingOn(Agent, Physobj2)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj1,physobj2,time]
@@ -2141,8 +2724,18 @@ if(equals(Physobj1, Physobj2),  (at(lyingOn(Agent, Physobj1), Time), at(lyingOn(
 %          sittingOn(Agent,Physobj2), 
 %          Time)), 
 %    Physobj1=Physobj2).
+(   equals(Physobj1, Physobj2)
+;   not sittingOn(Agent, Physobj1)at Time
+;   not sittingOn(Agent, Physobj2)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',574).
-if(equals(Physobj1, Physobj2),  (at(sittingOn(Agent, Physobj1), Time), at(sittingOn(Agent, Physobj2), Time))).
+
+ /*   (   equals(Physobj1, Physobj2)
+        ;   at(not(sittingOn(Agent, Physobj1)), Time)
+        ;   at(not(sittingOn(Agent, Physobj2)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -2161,10 +2754,18 @@ if(equals(Physobj1, Physobj2),  (at(sittingOn(Agent, Physobj1), Time), at(sittin
 %       lieOn(Agent,Physobj), 
 %       lyingOn(Agent,Physobj), 
 %       Time)).
+(   initiates(lieOn(Agent, Physobj),
+              lyingOn(Agent, Physobj)at Time)
+;   not standing(Agent)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',579).
-if(initiates(lieOn(Agent,Physobj),
-	     at(lyingOn(Agent,Physobj),Time)),
-   at(standing(Agent),Time)).
+
+ /*   (   initiates(lieOn(Agent, Physobj),
+                      at(lyingOn(Agent, Physobj), Time))
+        ;   at(not(standing(Agent)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -2178,8 +2779,16 @@ if(initiates(lieOn(Agent,Physobj),
 %    lieOn(Agent,Physobj), 
 %    standing(Agent), 
 %    Time).
+lieOn(Agent, Physobj)terminates standing(Agent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',585).
-terminates(lieOn(Agent,Physobj),standing(Agent)).
+
+ /*  terminated(happens(lieOn(Agent,Physobj),
+     		   Time_from,
+     		   Time_until),
+     	   standing(Agent),
+     	   []).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -2198,10 +2807,18 @@ terminates(lieOn(Agent,Physobj),standing(Agent)).
 %       sitOn(Agent,Physobj), 
 %       sittingOn(Agent,Physobj), 
 %       Time)).
+(   initiates(sitOn(Agent, Physobj),
+              sittingOn(Agent, Physobj)at Time)
+;   not standing(Agent)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',590).
-if(initiates(sitOn(Agent,Physobj),
-	     at(sittingOn(Agent,Physobj),Time)),
-   at(standing(Agent),Time)).
+
+ /*   (   initiates(sitOn(Agent, Physobj),
+                      at(sittingOn(Agent, Physobj), Time))
+        ;   at(not(standing(Agent)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -2215,8 +2832,16 @@ if(initiates(sitOn(Agent,Physobj),
 %    sitOn(Agent,Physobj), 
 %    standing(Agent), 
 %    Time).
+sitOn(Agent, Physobj)terminates standing(Agent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',596).
-terminates(sitOn(Agent,Physobj),standing(Agent)).
+
+ /*  terminated(happens(sitOn(Agent,Physobj),
+     		   Time_from,
+     		   Time_until),
+     	   standing(Agent),
+     	   []).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -2240,10 +2865,20 @@ terminates(sitOn(Agent,Physobj),standing(Agent)).
 %       riseFrom(Agent,Physobj), 
 %       standing(Agent), 
 %       Time)).
+(   initiates(riseFrom(Agent, Physobj),
+              standing(Agent)at Time)
+;   not sittingOn(Agent, Physobj)at Time,
+    not lyingOn(Agent, Physobj)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',601).
- if(initiates(riseFrom(Agent, Physobj),
-                at(standing(Agent), Time)),
-       (at(sittingOn(Agent, Physobj), Time);at(lyingOn(Agent, Physobj), Time))).
+
+ /*  (   initiates(riseFrom(Agent, Physobj),
+                   at(standing(Agent), Time))
+     ;   at(not(sittingOn(Agent, Physobj)), Time),
+         at(not(lyingOn(Agent, Physobj)), Time)
+     ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -2262,10 +2897,18 @@ terminates(sitOn(Agent,Physobj),standing(Agent)).
 %       riseFrom(Agent,Physobj), 
 %       lyingOn(Agent,Physobj), 
 %       Time)).
+(   terminates(riseFrom(Agent, Physobj),
+               lyingOn(Agent, Physobj)at Time)
+;   not lyingOn(Agent, Physobj)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',608).
-if(terminates(riseFrom(Agent,Physobj),
-	      at(lyingOn(Agent,Physobj),Time)),
-   at(lyingOn(Agent,Physobj),Time)).
+
+ /*   (   terminates(riseFrom(Agent, Physobj),
+                       at(lyingOn(Agent, Physobj), Time))
+        ;   at(not(lyingOn(Agent, Physobj)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,physobj,time]
@@ -2284,10 +2927,18 @@ if(terminates(riseFrom(Agent,Physobj),
 %       riseFrom(Agent,Physobj), 
 %       sittingOn(Agent,Physobj), 
 %       Time)).
+(   terminates(riseFrom(Agent, Physobj),
+               sittingOn(Agent, Physobj)at Time)
+;   not sittingOn(Agent, Physobj)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',614).
-if(terminates(riseFrom(Agent,Physobj),
-	      at(sittingOn(Agent,Physobj),Time)),
-   at(sittingOn(Agent,Physobj),Time)).
+
+ /*   (   terminates(riseFrom(Agent, Physobj),
+                       at(sittingOn(Agent, Physobj), Time))
+        ;   at(not(sittingOn(Agent, Physobj)), Time)
+        ).
+ */
+ %  % =================================.
 
 % event Greet(agent,agent)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',618).
@@ -2295,7 +2946,7 @@ if(terminates(riseFrom(Agent,Physobj),
 % 
 % event(greet(agent,agent)).
 events([greet/2]).
-mpred_prop(greet(agent,agent),action).
+mpred_prop(greet(agent, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',618).
 actions([greet/2]).
 
@@ -2305,8 +2956,8 @@ actions([greet/2]).
 % 
 % event(sayGoodbye(agent,agent)).
 events([sayGoodbye/2]).
+mpred_prop(sayGoodbye(agent, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',621).
-mpred_prop(sayGoodbye(agent,agent),action).
 actions([sayGoodbye/2]).
 
 
@@ -2331,8 +2982,9 @@ actions([sayGoodbye/2]).
 %          holds(
 %             at_loc(Agent2,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',625).
-exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time)), happens(greet(Agent1, Agent2), Time))).
+exists(Location,  (at_loc(Agent1, Location)at Time, at_loc(Agent2, Location)at Time;not happens(greet(Agent1, Agent2), Time))).
+ %  exists(Location,  (at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time);not(happens(greet(Agent1, Agent2), Time)))).
+ %  % =================================.
 
 
 % [agent1,agent2,time]
@@ -2355,8 +3007,9 @@ exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Locat
 %          holds(
 %             at_loc(Agent2,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',630).
-exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time)), happens(sayGoodbye(Agent1, Agent2), Time))).
+exists(Location,  (at_loc(Agent1, Location)at Time, at_loc(Agent2, Location)at Time;not happens(sayGoodbye(Agent1, Agent2), Time))).
+ %  exists(Location,  (at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time);not(happens(sayGoodbye(Agent1, Agent2), Time)))).
+ %  % =================================.
 
 % event Order(agent,agent,physobj)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',634).
@@ -2364,7 +3017,7 @@ exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Locat
 % 
 % event(order(agent,agent,physobj)).
 events([order/3]).
-mpred_prop(order(agent,agent,physobj),action).
+mpred_prop(order(agent, agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',634).
 actions([order/3]).
 
@@ -2373,7 +3026,7 @@ actions([order/3]).
 % From E: 
 % 
 % fluent(knowOrder(agent,agent,physobj)).
-mpred_prop(knowOrder(agent,agent,physobj),fluent).
+mpred_prop(knowOrder(agent, agent, physobj), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',637).
 fluents([knowOrder/3]).
 
@@ -2389,9 +3042,16 @@ fluents([knowOrder/3]).
 %    order(Agent1,Agent2,Physobj), 
 %    knowOrder(Agent2,Agent1,Physobj), 
 %    Time).
+order(Agent1, Agent2, Physobj)initiates knowOrder(Agent2, Agent1, Physobj).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',639).
-initiates(order(Agent1,Agent2,Physobj),
-	  knowOrder(Agent2,Agent1,Physobj)).
+
+ /*  initiated(happens(order(Agent1,Agent2,Physobj),
+     		  Time_from,
+     		  Time_until),
+     	  knowOrder(Agent2,Agent1,Physobj),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent1,agent2,physobj,time]
@@ -2414,8 +3074,9 @@ initiates(order(Agent1,Agent2,Physobj),
 %          holds(
 %             at_loc(Agent2,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',645).
-exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time)), happens(order(Agent1, Agent2, Physobj), Time))).
+exists(Location,  (at_loc(Agent1, Location)at Time, at_loc(Agent2, Location)at Time;not happens(order(Agent1, Agent2, Physobj), Time))).
+ %  exists(Location,  (at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time);not(happens(order(Agent1, Agent2, Physobj), Time)))).
+ %  % =================================.
 
 % event Request(agent,agent,physobj)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',649).
@@ -2423,7 +3084,7 @@ exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Locat
 % 
 % event(request(agent,agent,physobj)).
 events([request/3]).
-mpred_prop(request(agent,agent,physobj),action).
+mpred_prop(request(agent, agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',649).
 actions([request/3]).
 
@@ -2432,7 +3093,7 @@ actions([request/3]).
 % From E: 
 % 
 % fluent(knowRequest(agent,agent,physobj)).
-mpred_prop(knowRequest(agent,agent,physobj),fluent).
+mpred_prop(knowRequest(agent, agent, physobj), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',652).
 fluents([knowRequest/3]).
 
@@ -2448,9 +3109,16 @@ fluents([knowRequest/3]).
 %    request(Agent1,Agent2,Physobj), 
 %    knowRequest(Agent2,Agent1,Physobj), 
 %    Time).
+request(Agent1, Agent2, Physobj)initiates knowRequest(Agent2, Agent1, Physobj).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',654).
-initiates(request(Agent1,Agent2,Physobj),
-	  knowRequest(Agent2,Agent1,Physobj)).
+
+ /*  initiated(happens(request(Agent1,Agent2,Physobj),
+     		  Time_from,
+     		  Time_until),
+     	  knowRequest(Agent2,Agent1,Physobj),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent1,agent2,physobj,time]
@@ -2473,8 +3141,9 @@ initiates(request(Agent1,Agent2,Physobj),
 %          holds(
 %             at_loc(Agent2,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/RepRest.e',660).
-exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time)), happens(request(Agent1, Agent2, Physobj), Time))).
+exists(Location,  (at_loc(Agent1, Location)at Time, at_loc(Agent2, Location)at Time;not happens(request(Agent1, Agent2, Physobj), Time))).
+ %  exists(Location,  (at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time);not(happens(request(Agent1, Agent2, Physobj), Time)))).
+ %  % =================================.
 
 
 %; End of file.

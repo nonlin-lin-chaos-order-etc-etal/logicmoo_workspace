@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.lps.pl')).
-% Tue, 23 Mar 2021 19:25:06 GMT File: <stream>(0x5555684b2000)%;
+% Fri, 26 Mar 2021 01:05:56 GMT File: <stream>(0x555567a68200)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -84,16 +84,16 @@ actions([dream/1]).
 %    holds(
 %       see(Agent,Text), 
 %       Time)).
-not see(Agent, Text)at Time if not happens(read(Agent, Text, Content), Time).
+(   see(Agent, Text)at Time
+;   not happens(read(Agent, Text, Content), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.e',17).
 
- /*  l_int(holds(not(see(Agent,Text)),Time),
-           [ holds(not(happens(read(Agent,Text,Content),
-     			  Time)),
-     	      Time)
-           ]).
+ /*   (   at(see(Agent, Text), Time)
+        ;   not(happens(read(Agent, Text, Content), Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Cognition.e',20).
 % From E: 
 % 

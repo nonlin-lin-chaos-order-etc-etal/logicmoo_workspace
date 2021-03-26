@@ -5,16 +5,13 @@
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.lps.pl')).
 :-include(library('ec_planner/ec_test_incl')).
 :-expects_dialect(lps).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Diving.e',201).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/Root.e',16).
 % From E: 
 % 
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.lps.pl')).
-% Tue, 23 Mar 2021 19:25:05 GMT File: <stream>(0x5555681e0700)
-
-
-%;
+% Fri, 26 Mar 2021 01:05:55 GMT File: <stream>(0x555567ca9700)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -38,31 +35,30 @@
 %; }
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',25).
 % ignore SkyOf, GroundOf, Near, Inside, WalkFromTo, RunFromTo
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(skyOf))).
 :- call_pel_directive(ignore(skyOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(groundOf))).
 :- call_pel_directive(ignore(groundOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(near))).
 :- call_pel_directive(ignore(near)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(inside))).
 :- call_pel_directive(ignore(inside)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
 :- call_pel_directive(ignore(walkFromTo)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
@@ -93,26 +89,26 @@
 % ':-'(call_pel_directive(ignore(putInside))).
 :- call_pel_directive(ignore(putInside)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',27).
 % ignore TakeOutOf, On, DoorUnlock, DoorLock, WalkThroughDoor12
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(takeOutOf))).
 :- call_pel_directive(ignore(takeOutOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(on))).
 :- call_pel_directive(ignore(on)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(doorUnlock))).
 :- call_pel_directive(ignore(doorUnlock)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(doorLock))).
 :- call_pel_directive(ignore(doorLock)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkThroughDoor12))).
@@ -134,15 +130,15 @@
 % ':-'(call_pel_directive(ignore(walkUpStaircase))).
 :- call_pel_directive(ignore(walkUpStaircase)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',30).
 % ignore ThreatenedBy
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',30).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(threatenedBy))).
 :- call_pel_directive(ignore(threatenedBy)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',32).
 % load foundations/Root.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',32).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('foundations/Root.e'))).
@@ -155,8 +151,8 @@
 % ':-'(call_pel_directive(load('foundations/EC.e'))).
 :- call_pel_directive(load('foundations/EC.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',34).
 % load answers/Mueller2003/Ontology.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',34).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('answers/Mueller2003/Ontology.e'))).
@@ -169,8 +165,8 @@
 % ':-'(call_pel_directive(load('answers/Mueller2004c/OTSpaceM.e'))).
 :- call_pel_directive(load('answers/Mueller2004c/OTSpaceM.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',36).
 % load answers/Mueller2004c/RTSpaceM.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',36).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('answers/Mueller2004c/RTSpaceM.e'))).
@@ -183,8 +179,8 @@
 % ':-'(call_pel_directive(load('answers/Mueller2004c/Fire.e'))).
 :- call_pel_directive(load('answers/Mueller2004c/Fire.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',38).
 % load answers/Mueller2004c/Condition.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',38).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('answers/Mueller2004c/Condition.e'))).
@@ -197,8 +193,8 @@
 % ':-'(call_pel_directive(load('answers/Mueller2003/Sleep.e'))).
 :- call_pel_directive(load('answers/Mueller2003/Sleep.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',41).
 % fire Fire1
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',41).
 % From E: 
 % 
 % t(fire,fire1).
@@ -213,7 +209,7 @@ isa(fire1, fire).
 %    at_loc(fire1,outside1), 0).
 initially at_loc(fire1, outside1).
  %  initial_state([at_loc(fire1,outside1)]).
- %  "% =================================".
+ %  % =================================.
 
 % agent Perp1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',43).
@@ -238,7 +234,7 @@ isa(physTarget1, physobj).
 %    intact(physTarget1), 0).
 initially intact(physTarget1).
  %  initial_state([intact(physTarget1)]).
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',48).
@@ -249,7 +245,7 @@ initially intact(physTarget1).
 %    at_loc(physTarget1,outside1), 0).
 initially at_loc(physTarget1, outside1).
  %  initial_state([at_loc(physTarget1,outside1)]).
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',50).
@@ -378,7 +374,7 @@ side2(street1,outside2).
 %    alive(perp1), 0).
 initially alive(perp1).
  %  initial_state([alive(perp1)]).
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',66).
@@ -389,7 +385,7 @@ initially alive(perp1).
 %    awake(perp1), 0).
 initially awake(perp1).
  %  initial_state([awake(perp1)]).
- %  "% =================================".
+ %  % =================================.
 
 
 % HoldsAt(Standing(Perp1),0).
@@ -400,7 +396,7 @@ initially awake(perp1).
 %    standing(perp1), 0).
 initially standing(perp1).
  %  initial_state([standing(perp1)]).
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',68).
@@ -411,7 +407,7 @@ initially standing(perp1).
 %    sleep2(perp1), 0).
 initially sleep2(perp1).
  %  initial_state([sleep2(perp1)]).
- %  "% =================================".
+ %  % =================================.
 
 
 % !HoldsAt(Injured(Perp1),0).
@@ -422,7 +418,7 @@ initially sleep2(perp1).
 %    not(injured(perp1)), 0).
 initially not injured(perp1).
  %  initial_state([not(injured(perp1))]).
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',70).
@@ -434,7 +430,7 @@ initially not injured(perp1).
 %    not(holding(perp1,Object)), 0).
 initially not holding(perp1, Object).
  %  initial_state([not(holding(perp1,Object))]).
- %  "% =================================".
+ %  % =================================.
 
 
 % HoldsAt(At(Perp1,Outside2),0).
@@ -445,7 +441,7 @@ initially not holding(perp1, Object).
 %    at_loc(perp1,outside2), 0).
 initially at_loc(perp1, outside2).
  %  initial_state([at_loc(perp1,outside2)]).
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',72).
@@ -456,7 +452,7 @@ initially at_loc(perp1, outside2).
 %    not(doorIsOpen(door1)), 0).
 initially not doorIsOpen(door1).
  %  initial_state([not(doorIsOpen(door1))]).
- %  "% =================================".
+ %  % =================================.
 
 
 % HoldsAt(DoorUnlocked(Door1),0).
@@ -467,7 +463,7 @@ initially not doorIsOpen(door1).
 %    doorUnlocked(door1), 0).
 initially doorUnlocked(door1).
  %  initial_state([doorUnlocked(door1)]).
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',74).
@@ -479,7 +475,7 @@ initially doorUnlocked(door1).
 %    not(burning(Physobj,Fire,Offset)), 0).
 initially not burning(Physobj, Fire, Offset).
  %  initial_state([not(burning(Physobj,Fire,Offset))]).
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',76).
@@ -493,7 +489,7 @@ initially not burning(Physobj, Fire, Offset).
 %    walkStreet21(perp1,street1), 0).
 observe walkStreet21(perp1, street1)at 0.
  %  observe([walkStreet21(perp1,street1)],0).
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',78).
@@ -504,7 +500,7 @@ observe walkStreet21(perp1, street1)at 0.
 %    setFireTo(perp1, physTarget1, fire1, 3), 1).
 observe setFireTo(perp1, physTarget1, fire1, 3)at 1.
  %  observe([setFireTo(perp1,physTarget1,fire1,3)],1).
- %  "% =================================".
+ %  % =================================.
 
 
 % Happens(WalkStreet12(Perp1,Street1),2).
@@ -515,7 +511,7 @@ observe setFireTo(perp1, physTarget1, fire1, 3)at 1.
 %    walkStreet12(perp1,street1), 2).
 observe walkStreet12(perp1, street1)at 2.
  %  observe([walkStreet12(perp1,street1)],2).
- %  "% =================================".
+ %  % =================================.
 
 % range time 0 6
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Arson.e',80).

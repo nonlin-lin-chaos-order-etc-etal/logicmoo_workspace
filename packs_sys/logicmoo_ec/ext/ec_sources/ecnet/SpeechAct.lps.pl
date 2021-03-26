@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.lps.pl')).
-% Tue, 23 Mar 2021 19:06:58 GMT File: <stream>(0x555567c04c00)%;
+% Fri, 26 Mar 2021 01:06:10 GMT File: <stream>(0x555567ca9a00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -47,7 +47,7 @@
 % 
 % event(inviteIn(agent,agent,room)).
 events([inviteIn/3]).
-mpred_prop(inviteIn(agent,agent,room),action).
+mpred_prop(inviteIn(agent, agent, room), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',31).
 actions([inviteIn/3]).
 
@@ -59,7 +59,7 @@ actions([inviteIn/3]).
 % From E: 
 % 
 % fluent(invitedIn(agent,room,agent)).
-mpred_prop(invitedIn(agent,room,agent),fluent).
+mpred_prop(invitedIn(agent, room, agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',34).
 fluents([invitedIn/3]).
 
@@ -95,8 +95,9 @@ fluents([invitedIn/3]).
 %                at_loc(Agent2,Outside), 
 %                Time), 
 %             adjacent(Room,Outside))))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',45).
-exists(Outside, if((at(at_loc(Agent1, Room), Time), at(at_loc(Agent2, Outside), Time), adjacent(Room, Outside)), happens(inviteIn(Agent1, Agent2, Room), Time))).
+exists(Outside,  (at_loc(Agent1, Room)at Time, at_loc(Agent2, Outside)at Time, adjacent(Room, Outside);not happens(inviteIn(Agent1, Agent2, Room), Time))).
+ %  exists(Outside,  (at(at_loc(Agent1, Room), Time), at(at_loc(Agent2, Outside), Time), adjacent(Room, Outside);not(happens(inviteIn(Agent1, Agent2, Room), Time)))).
+ %  % =================================.
 
 
 %; An effect axiom states that if
@@ -113,9 +114,16 @@ exists(Outside, if((at(at_loc(Agent1, Room), Time), at(at_loc(Agent2, Outside), 
 %    inviteIn(Agent1,Agent2,Room), 
 %    invitedIn(Agent2,Room,Agent1), 
 %    Time).
+inviteIn(Agent1, Agent2, Room)initiates invitedIn(Agent2, Room, Agent1).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',52).
-initiates(inviteIn(Agent1,Agent2,Room),
-	  invitedIn(Agent2,Room,Agent1)).
+
+ /*  initiated(happens(inviteIn(Agent1,Agent2,Room),
+     		  Time_from,
+     		  Time_until),
+     	  invitedIn(Agent2,Room,Agent1),
+     	  []).
+ */
+ %  % =================================.
 
 
 %; agent intends to walk into room.
@@ -126,8 +134,8 @@ initiates(inviteIn(Agent1,Agent2,Room),
 % 
 % event(intendToWalkIn(agent,room)).
 events([intendToWalkIn/2]).
+mpred_prop(intendToWalkIn(agent, room), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',58).
-mpred_prop(intendToWalkIn(agent,room),action).
 actions([intendToWalkIn/2]).
 
 
@@ -138,7 +146,7 @@ actions([intendToWalkIn/2]).
 % From E: 
 % 
 % fluent(intentionToWalkIn(agent,room)).
-mpred_prop(intentionToWalkIn(agent,room),fluent).
+mpred_prop(intentionToWalkIn(agent, room), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',60).
 fluents([intentionToWalkIn/2]).
 
@@ -150,7 +158,7 @@ fluents([intentionToWalkIn/2]).
 % From E: 
 % 
 % fluent(actOnIntentionToWalkIn(agent,room)).
-mpred_prop(actOnIntentionToWalkIn(agent,room),fluent).
+mpred_prop(actOnIntentionToWalkIn(agent, room), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',62).
 fluents([actOnIntentionToWalkIn/2]).
 
@@ -158,7 +166,6 @@ fluents([actOnIntentionToWalkIn/2]).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(actOnIntentionToWalkIn))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',62).
 :- call_pel_directive(noninertial(actOnIntentionToWalkIn)).
 %; A trigger axiom states that
 %; if an agent is invited into a room by another agent,
@@ -189,8 +196,20 @@ fluents([actOnIntentionToWalkIn/2]).
 %    happens(
 %       intendToWalkIn(Agent1,Room), 
 %       Time)).
+(   happens(intendToWalkIn(Agent1, Room), Time)
+;   not invitedIn(Agent1, Room, Agent2)at Time
+;   not like(Agent1, Agent2)at Time
+;   intentionToWalkIn(Agent1, Room)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',71).
-if(happens(intendToWalkIn(Agent1, Room), Time),  (at(invitedIn(Agent1, Room, Agent2), Time), at(like(Agent1, Agent2), Time), at(not(intentionToWalkIn(Agent1, Room)), Time))).
+
+ /*   (   happens(intendToWalkIn(Agent1, Room), Time)
+        ;   at(not(invitedIn(Agent1, Room, Agent2)), Time)
+        ;   at(not(like(Agent1, Agent2)), Time)
+        ;   at(intentionToWalkIn(Agent1, Room), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; An effect axiom states that
@@ -207,9 +226,16 @@ if(happens(intendToWalkIn(Agent1, Room), Time),  (at(invitedIn(Agent1, Room, Age
 %    intendToWalkIn(Agent,Room), 
 %    intentionToWalkIn(Agent,Room), 
 %    Time).
+intendToWalkIn(Agent, Room)initiates intentionToWalkIn(Agent, Room).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',80).
-initiates(intendToWalkIn(Agent,Room),
-	  intentionToWalkIn(Agent,Room)).
+
+ /*  initiated(happens(intendToWalkIn(Agent,Room),
+     		  Time_from,
+     		  Time_until),
+     	  intentionToWalkIn(Agent,Room),
+     	  []).
+ */
+ %  % =================================.
 
 
 %; Two trigger axioms state that
@@ -252,8 +278,24 @@ initiates(intendToWalkIn(Agent,Room),
 %    happens(
 %       walkThroughDoor21(Agent,Door), 
 %       Time)).
+(   happens(walkThroughDoor21(Agent, Door), Time)
+;   not intentionToWalkIn(Agent, Room)at Time
+;   not actOnIntentionToWalkIn(Agent, Room)at Time
+;   not at_loc(Agent, Location)at Time
+;   not equals(side1(Door), Room)
+;   not equals(side2(Door), Location)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',92).
-if(happens(walkThroughDoor21(Agent, Door), Time),  (at(intentionToWalkIn(Agent, Room), Time), at(actOnIntentionToWalkIn(Agent, Room), Time), at(at_loc(Agent, Location), Time), side1(Door, Room), side2(Door, Location))).
+
+ /*   (   happens(walkThroughDoor21(Agent, Door), Time)
+        ;   at(not(intentionToWalkIn(Agent, Room)), Time)
+        ;   at(not(actOnIntentionToWalkIn(Agent, Room)), Time)
+        ;   at(not(at_loc(Agent, Location)), Time)
+        ;   not(equals(side1(Door), Room))
+        ;   not(equals(side2(Door), Location))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,room,location,door,time]
@@ -289,8 +331,24 @@ if(happens(walkThroughDoor21(Agent, Door), Time),  (at(intentionToWalkIn(Agent, 
 %    happens(
 %       walkThroughDoor12(Agent,Door), 
 %       Time)).
+(   happens(walkThroughDoor12(Agent, Door), Time)
+;   not intentionToWalkIn(Agent, Room)at Time
+;   not actOnIntentionToWalkIn(Agent, Room)at Time
+;   not at_loc(Agent, Location)at Time
+;   not equals(side2(Door), Room)
+;   not equals(side1(Door), Location)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',101).
-if(happens(walkThroughDoor12(Agent, Door), Time),  (at(intentionToWalkIn(Agent, Room), Time), at(actOnIntentionToWalkIn(Agent, Room), Time), at(at_loc(Agent, Location), Time), side2(Door, Room), side1(Door, Location))).
+
+ /*   (   happens(walkThroughDoor12(Agent, Door), Time)
+        ;   at(not(intentionToWalkIn(Agent, Room)), Time)
+        ;   at(not(actOnIntentionToWalkIn(Agent, Room)), Time)
+        ;   at(not(at_loc(Agent, Location)), Time)
+        ;   not(equals(side2(Door), Room))
+        ;   not(equals(side1(Door), Location))
+        ).
+ */
+ %  % =================================.
 
 
 %; Two effect axioms state that
@@ -314,10 +372,18 @@ if(happens(walkThroughDoor12(Agent, Door), Time),  (at(intentionToWalkIn(Agent, 
 %       walkThroughDoor21(Agent,Door), 
 %       intentionToWalkIn(Agent,Room), 
 %       Time)).
+(   terminates(walkThroughDoor21(Agent, Door),
+               intentionToWalkIn(Agent, Room)at Time)
+;   not equals(side1(Door), Room)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',113).
-if(terminates(walkThroughDoor21(Agent,Door),
-	      at(intentionToWalkIn(Agent,Room),Time)),
-   side1(Door,Room)).
+
+ /*   (   terminates(walkThroughDoor21(Agent, Door),
+                       at(intentionToWalkIn(Agent, Room), Time))
+        ;   not(equals(side1(Door), Room))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,room,door,time]
@@ -336,10 +402,18 @@ if(terminates(walkThroughDoor21(Agent,Door),
 %       walkThroughDoor12(Agent,Door), 
 %       intentionToWalkIn(Agent,Room), 
 %       Time)).
+(   terminates(walkThroughDoor12(Agent, Door),
+               intentionToWalkIn(Agent, Room)at Time)
+;   not equals(side2(Door), Room)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',120).
-if(terminates(walkThroughDoor12(Agent,Door),
-	      at(intentionToWalkIn(Agent,Room),Time)),
-   side2(Door,Room)).
+
+ /*   (   terminates(walkThroughDoor12(Agent, Door),
+                       at(intentionToWalkIn(Agent, Room), Time))
+        ;   not(equals(side2(Door), Room))
+        ).
+ */
+ %  % =================================.
 
 
 %; agent greets object.
@@ -350,8 +424,8 @@ if(terminates(walkThroughDoor12(Agent,Door),
 % 
 % event(greet(agent,object)).
 events([greet/2]).
+mpred_prop(greet(agent, object), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',126).
-mpred_prop(greet(agent,object),action).
 actions([greet/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',128).
@@ -360,8 +434,8 @@ actions([greet/2]).
 % 
 % event(sayPleasedToMeet(agent,agent)).
 events([sayPleasedToMeet/2]).
+mpred_prop(sayPleasedToMeet(agent, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',128).
-mpred_prop(sayPleasedToMeet(agent,agent),action).
 actions([sayPleasedToMeet/2]).
 
 
@@ -374,7 +448,7 @@ actions([sayPleasedToMeet/2]).
 % event(sayGoodbye(agent,object)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',130).
 events([sayGoodbye/2]).
-mpred_prop(sayGoodbye(agent,object),action).
+mpred_prop(sayGoodbye(agent, object), action).
 actions([sayGoodbye/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',133).
@@ -383,8 +457,8 @@ actions([sayGoodbye/2]).
 % 
 % event(talkAbout(agent,content)).
 events([talkAbout/2]).
+mpred_prop(talkAbout(agent, content), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',133).
-mpred_prop(talkAbout(agent,content),action).
 actions([talkAbout/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',135).
@@ -393,8 +467,8 @@ actions([talkAbout/2]).
 % 
 % event(converse(agent,agent)).
 events([converse/2]).
+mpred_prop(converse(agent, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',135).
-mpred_prop(converse(agent,agent),action).
 actions([converse/2]).
 
 
@@ -419,8 +493,9 @@ actions([converse/2]).
 %          holds(
 %             at_loc(Agent2,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',139).
-exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time)), happens(converse(Agent1, Agent2), Time))).
+exists(Location,  (at_loc(Agent1, Location)at Time, at_loc(Agent2, Location)at Time;not happens(converse(Agent1, Agent2), Time))).
+ %  exists(Location,  (at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time);not(happens(converse(Agent1, Agent2), Time)))).
+ %  % =================================.
 
 
 %; A precondition axiom states that for
@@ -449,8 +524,9 @@ exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Locat
 %          holds(
 %             at_loc(Object,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',150).
-exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Object, Location), Time)), happens(greet(Agent, Object), Time))).
+exists(Location,  (at_loc(Agent, Location)at Time, at_loc(Object, Location)at Time;not happens(greet(Agent, Object), Time))).
+ %  exists(Location,  (at(at_loc(Agent, Location), Time), at(at_loc(Object, Location), Time);not(happens(greet(Agent, Object), Time)))).
+ %  % =================================.
 
 
 % [agent,object,time]
@@ -473,8 +549,9 @@ exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Object, Locati
 %          holds(
 %             at_loc(Object,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',155).
-exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Object, Location), Time)), happens(sayGoodbye(Agent, Object), Time))).
+exists(Location,  (at_loc(Agent, Location)at Time, at_loc(Object, Location)at Time;not happens(sayGoodbye(Agent, Object), Time))).
+ %  exists(Location,  (at(at_loc(Agent, Location), Time), at(at_loc(Object, Location), Time);not(happens(sayGoodbye(Agent, Object), Time)))).
+ %  % =================================.
 
 
 %; speech: expression of emotions
@@ -486,7 +563,7 @@ exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Object, Locati
 % 
 % event(cryForJoy(agent)).
 events([cryForJoy/1]).
-mpred_prop(cryForJoy(agent),action).
+mpred_prop(cryForJoy(agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',162).
 actions([cryForJoy/1]).
 
@@ -508,9 +585,16 @@ actions([cryForJoy/1]).
 %    holds(
 %       happy(Agent), 
 %       Time)).
+(   happy(Agent)at Time
+;   not happens(cryForJoy(Agent), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',168).
-if(at(happy(Agent),Time),
-   happens(cryForJoy(Agent),Time)).
+
+ /*   (   at(happy(Agent), Time)
+        ;   not(happens(cryForJoy(Agent), Time))
+        ).
+ */
+ %  % =================================.
 
 % event Threaten(agent,agent,weapon)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',171).
@@ -518,7 +602,7 @@ if(at(happy(Agent),Time),
 % 
 % event(threaten(agent,agent,weapon)).
 events([threaten/3]).
-mpred_prop(threaten(agent,agent,weapon),action).
+mpred_prop(threaten(agent, agent, weapon), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',171).
 actions([threaten/3]).
 
@@ -528,8 +612,8 @@ actions([threaten/3]).
 % 
 % event(releaseFromThreat(agent,agent)).
 events([releaseFromThreat/2]).
+mpred_prop(releaseFromThreat(agent, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',174).
-mpred_prop(releaseFromThreat(agent,agent),action).
 actions([releaseFromThreat/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',176).
@@ -537,7 +621,7 @@ actions([releaseFromThreat/2]).
 % From E: 
 % 
 % fluent(threatenedBy(agent,agent)).
-mpred_prop(threatenedBy(agent,agent),fluent).
+mpred_prop(threatenedBy(agent, agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',176).
 fluents([threatenedBy/2]).
 
@@ -568,8 +652,9 @@ fluents([threatenedBy/2]).
 %             holds(
 %                at_loc(Agent2,Location), 
 %                Time))))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',181).
-exists(Location, if((at(holding(Agent1, Weapon), Time), at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time)), happens(threaten(Agent1, Agent2, Weapon), Time))).
+exists(Location,  (holding(Agent1, Weapon)at Time, at_loc(Agent1, Location)at Time, at_loc(Agent2, Location)at Time;not happens(threaten(Agent1, Agent2, Weapon), Time))).
+ %  exists(Location,  (at(holding(Agent1, Weapon), Time), at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time);not(happens(threaten(Agent1, Agent2, Weapon), Time)))).
+ %  % =================================.
 
 
 % [agent1,agent2,weapon,time]
@@ -585,8 +670,16 @@ exists(Location, if((at(holding(Agent1, Weapon), Time), at(at_loc(Agent1, Locati
 %    happens(
 %       becomeAngryAt(Agent2,Agent1), 
 %       Time)).
-if(happens(becomeAngryAt(Agent2,Agent1),Time),
-   happens(threaten(Agent1,Agent2,Weapon),Time)).
+(   happens(becomeAngryAt(Agent2, Agent1), Time)
+;   not happens(threaten(Agent1, Agent2, Weapon), Time)
+).
+
+ /*   (   happens(becomeAngryAt(Agent2, Agent1), Time)
+        ;   not(happens(threaten(Agent1, Agent2, Weapon),
+                        Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent1,agent2,weapon,time]
@@ -600,9 +693,16 @@ if(happens(becomeAngryAt(Agent2,Agent1),Time),
 %    threaten(Agent1,Agent2,Weapon), 
 %    threatenedBy(Agent2,Agent1), 
 %    Time).
+threaten(Agent1, Agent2, Weapon)initiates threatenedBy(Agent2, Agent1).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',190).
-initiates(threaten(Agent1,Agent2,Weapon),
-	  threatenedBy(Agent2,Agent1)).
+
+ /*  initiated(happens(threaten(Agent1,Agent2,Weapon),
+     		  Time_from,
+     		  Time_until),
+     	  threatenedBy(Agent2,Agent1),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent1,agent2,time]
@@ -616,9 +716,16 @@ initiates(threaten(Agent1,Agent2,Weapon),
 %    releaseFromThreat(Agent1,Agent2), 
 %    threatenedBy(Agent2,Agent1), 
 %    Time).
+releaseFromThreat(Agent1, Agent2)terminates threatenedBy(Agent2, Agent1).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',195).
-terminates(releaseFromThreat(Agent1,Agent2),
-	   threatenedBy(Agent2,Agent1)).
+
+ /*  terminated(happens(releaseFromThreat(Agent1,Agent2),
+     		   Time_from,
+     		   Time_until),
+     	   threatenedBy(Agent2,Agent1),
+     	   []).
+ */
+ %  % =================================.
 
 % event Order(agent,agent,physobj)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',198).
@@ -626,7 +733,7 @@ terminates(releaseFromThreat(Agent1,Agent2),
 % 
 % event(order(agent,agent,physobj)).
 events([order/3]).
-mpred_prop(order(agent,agent,physobj),action).
+mpred_prop(order(agent, agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',198).
 actions([order/3]).
 
@@ -635,7 +742,7 @@ actions([order/3]).
 % From E: 
 % 
 % fluent(knowOrder(agent,agent,physobj)).
-mpred_prop(knowOrder(agent,agent,physobj),fluent).
+mpred_prop(knowOrder(agent, agent, physobj), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',201).
 fluents([knowOrder/3]).
 
@@ -651,9 +758,16 @@ fluents([knowOrder/3]).
 %    order(Agent1,Agent2,Physobj), 
 %    knowOrder(Agent2,Agent1,Physobj), 
 %    Time).
+order(Agent1, Agent2, Physobj)initiates knowOrder(Agent2, Agent1, Physobj).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',203).
-initiates(order(Agent1,Agent2,Physobj),
-	  knowOrder(Agent2,Agent1,Physobj)).
+
+ /*  initiated(happens(order(Agent1,Agent2,Physobj),
+     		  Time_from,
+     		  Time_until),
+     	  knowOrder(Agent2,Agent1,Physobj),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent1,agent2,physobj,time]
@@ -676,8 +790,9 @@ initiates(order(Agent1,Agent2,Physobj),
 %          holds(
 %             at_loc(Agent2,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',209).
-exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time)), happens(order(Agent1, Agent2, Physobj), Time))).
+exists(Location,  (at_loc(Agent1, Location)at Time, at_loc(Agent2, Location)at Time;not happens(order(Agent1, Agent2, Physobj), Time))).
+ %  exists(Location,  (at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time);not(happens(order(Agent1, Agent2, Physobj), Time)))).
+ %  % =================================.
 
 % event Request(agent,agent,physobj)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',213).
@@ -685,7 +800,7 @@ exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Locat
 % 
 % event(request(agent,agent,physobj)).
 events([request/3]).
-mpred_prop(request(agent,agent,physobj),action).
+mpred_prop(request(agent, agent, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',213).
 actions([request/3]).
 
@@ -694,7 +809,7 @@ actions([request/3]).
 % From E: 
 % 
 % fluent(knowRequest(agent,agent,physobj)).
-mpred_prop(knowRequest(agent,agent,physobj),fluent).
+mpred_prop(knowRequest(agent, agent, physobj), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',216).
 fluents([knowRequest/3]).
 
@@ -710,9 +825,16 @@ fluents([knowRequest/3]).
 %    request(Agent1,Agent2,Physobj), 
 %    knowRequest(Agent2,Agent1,Physobj), 
 %    Time).
+request(Agent1, Agent2, Physobj)initiates knowRequest(Agent2, Agent1, Physobj).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',218).
-initiates(request(Agent1,Agent2,Physobj),
-	  knowRequest(Agent2,Agent1,Physobj)).
+
+ /*  initiated(happens(request(Agent1,Agent2,Physobj),
+     		  Time_from,
+     		  Time_until),
+     	  knowRequest(Agent2,Agent1,Physobj),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent1,agent2,physobj,time]
@@ -735,8 +857,9 @@ initiates(request(Agent1,Agent2,Physobj),
 %          holds(
 %             at_loc(Agent2,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/SpeechAct.e',224).
-exists(Location, if((at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time)), happens(request(Agent1, Agent2, Physobj), Time))).
+exists(Location,  (at_loc(Agent1, Location)at Time, at_loc(Agent2, Location)at Time;not happens(request(Agent1, Agent2, Physobj), Time))).
+ %  exists(Location,  (at(at_loc(Agent1, Location), Time), at(at_loc(Agent2, Location), Time);not(happens(request(Agent1, Agent2, Physobj), Time)))).
+ %  % =================================.
 
 
 %; End of file.

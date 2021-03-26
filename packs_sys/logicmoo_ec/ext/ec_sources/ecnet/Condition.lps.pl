@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.lps.pl')).
-% Tue, 23 Mar 2021 19:25:06 GMT File: <stream>(0x555569f41600)
+% Fri, 26 Mar 2021 01:05:56 GMT File: <stream>(0x55556759a400)
 
 
 %;
@@ -105,14 +105,17 @@ dead(Agent)at Time if not alive(Agent)at Time.
  /*  l_int(holds(dead(Agent),Time),
            [holds(not(alive(Agent)),Time)]).
  */
- %  "% =================================".
-not alive(Agent)at Time if dead(Agent)at Time.
+ %  % =================================.
+(   alive(Agent)at Time
+;   dead(Agent)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.e',24).
 
- /*  l_int(holds(not(alive(Agent)),Time),
-           [holds(dead(Agent),Time)]).
+ /*   (   at(alive(Agent), Time)
+        ;   at(dead(Agent), Time)
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [agent,time]
@@ -127,13 +130,16 @@ not alive(Agent)at Time if dead(Agent)at Time.
 %    holds(
 %       alive(Agent), 
 %       Time)).
-not alive(Agent)at Time if not injured(Agent)at Time.
+(   alive(Agent)at Time
+;   not injured(Agent)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.e',24).
 
- /*  l_int(holds(not(alive(Agent)),Time),
-           [holds(not(injured(Agent)),Time)]).
+ /*   (   at(alive(Agent), Time)
+        ;   at(not(injured(Agent)), Time)
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [object,agent,time]
@@ -154,7 +160,7 @@ kill(Object, Agent)terminates alive(Agent).
      	   alive(Agent),
      	   []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.e',30).
@@ -175,7 +181,7 @@ injure(Object, Agent)initiates injured(Agent).
      	  injured(Agent),
      	  []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [agent,time]
@@ -196,7 +202,7 @@ healInjured(Agent)terminates injured(Agent).
      	   injured(Agent),
      	   []).
  */
- %  "% =================================".
+ %  % =================================.
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.e',36).
 % fluent Intact(physobj)
@@ -277,16 +283,16 @@ events([repair/2]).
 %    holds(
 %       intact(Physobj), 
 %       Time)).
-not intact(Physobj)at Time if not happens(damage(Object, Physobj), Time).
+(   intact(Physobj)at Time
+;   not happens(damage(Object, Physobj), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.e',51).
 
- /*  l_int(holds(not(intact(Physobj)),Time),
-           [ holds(not(happens(damage(Object,Physobj),
-     			  Time)),
-     	      Time)
-           ]).
+ /*   (   at(intact(Physobj), Time)
+        ;   not(happens(damage(Object, Physobj), Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [object,physobj,time]
@@ -307,7 +313,7 @@ damage(Object, Physobj)initiates damaged(Physobj).
      	  damaged(Physobj),
      	  []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.e',58).
@@ -328,7 +334,7 @@ damage(Object, Physobj)terminates intact(Physobj).
      	   intact(Physobj),
      	   []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [object,physobj,time]
@@ -349,9 +355,20 @@ damage(Object, Physobj)terminates intact(Physobj).
 %       holds(
 %          damaged(Physobj), 
 %          Time))).
-not intact(Physobj)at Time, not damaged(Physobj)at Time if not happens(destroy(Object, Physobj), Time).
- %  if((at(not(intact(Physobj)), Time), at(not(damaged(Physobj)), Time)), not(happens(destroy(Object, Physobj), Time))).
- %  "% =================================".
+(   (   intact(Physobj)at Time
+    ;   damaged(Physobj)at Time
+    )
+;   not happens(destroy(Object, Physobj), Time)
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.e',62).
+
+ /*   (   (   at(intact(Physobj), Time)
+            ;   at(damaged(Physobj), Time)
+            )
+        ;   not(happens(destroy(Object, Physobj), Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [object,physobj,time]
@@ -372,7 +389,7 @@ destroy(Object, Physobj)initiates destroyed(Physobj).
      	  destroyed(Physobj),
      	  []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.e',69).
@@ -393,7 +410,7 @@ destroy(Object, Physobj)terminates intact(Physobj).
      	   intact(Physobj),
      	   []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [object,physobj,time]
@@ -414,7 +431,7 @@ destroy(Object, Physobj)terminates damaged(Physobj).
      	   damaged(Physobj),
      	   []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Condition.e',75).
@@ -435,7 +452,7 @@ repair(Object, Physobj)initiates intact(Physobj).
      	  intact(Physobj),
      	  []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; end of file.

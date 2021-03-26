@@ -13,7 +13,7 @@
 
 
 :- use_module(library(ec_planner/ec_lps_convert)).
-:- use_module(library(lps_pddl/lps_pddl_convert)).
+:- use_module(library(ec_planner/lps_pddl_convert)).
 
 
 :- reexport(logicmoo_planner).
@@ -27,7 +27,7 @@
 user:prolog_file_type(pel, prolog).
 user:prolog_file_type(e, prolog).
 
-:- listing(test_lps_pddl_ereader/0).
+:- listing(test_lps_pddl_convert).
 
 :- listing(test_logicmoo_ec_lps_reader/0).
 

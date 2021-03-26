@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.lps.pl')).
-% Tue, 23 Mar 2021 19:25:05 GMT File: <stream>(0x5555684a6900)%;
+% Fri, 26 Mar 2021 01:05:55 GMT File: <stream>(0x555567dd7800)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -189,14 +189,18 @@ function(bombTimeDelay(bomb),offset).
 %          bombTimerValue(Bomb,Offset2), 
 %          Time)), 
 %    Offset1=Offset2).
-not equals(Offset1, Offset2)if not bombTimerValue(Bomb, Offset1)at Time;not bombTimerValue(Bomb, Offset2)at Time.
+(   equals(Offset1, Offset2)
+;   not bombTimerValue(Bomb, Offset1)at Time
+;   not bombTimerValue(Bomb, Offset2)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',52).
 
- /*   l_int(holds(not(equals(Offset1, Offset2)), Time_at),
-              [  (at(not(bombTimerValue(Bomb, Offset1)), Time);at(not(bombTimerValue(Bomb, Offset2)), Time))
-              ]).
+ /*   (   equals(Offset1, Offset2)
+        ;   at(not(bombTimerValue(Bomb, Offset1)), Time)
+        ;   at(not(bombTimerValue(Bomb, Offset2)), Time)
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An effect axiom states that if a bomb is intact and
@@ -218,15 +222,18 @@ not equals(Offset1, Offset2)if not bombTimerValue(Bomb, Offset1)at Time;not bomb
 %       bombActivate(Agent,Bomb), 
 %       bombActivated(Bomb), 
 %       Time)).
-not (bombActivate(Agent, Bomb)initiates bombActivated(Bomb)at Time)if not intact(Bomb)at Time.
+(   initiates(bombActivate(Agent, Bomb),
+              bombActivated(Bomb)at Time)
+;   not intact(Bomb)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',60).
 
- /*  l_int(holds(not(initiates(bombActivate(Agent,Bomb),
-     			  at(bombActivated(Bomb),Time))),
-     	    Time),
-           [holds(not(intact(Bomb)),Time)]).
+ /*   (   initiates(bombActivate(Agent, Bomb),
+                      at(bombActivated(Bomb), Time))
+        ;   at(not(intact(Bomb)), Time)
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; A precondition axiom states that
@@ -245,16 +252,16 @@ not (bombActivate(Agent, Bomb)initiates bombActivated(Bomb)at Time)if not intact
 %    holds(
 %       holding(Agent,Bomb), 
 %       Time)).
-not holding(Agent, Bomb)at Time if not happens(bombActivate(Agent, Bomb), Time).
+(   holding(Agent, Bomb)at Time
+;   not happens(bombActivate(Agent, Bomb), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',69).
 
- /*  l_int(holds(not(holding(Agent,Bomb)),Time),
-           [ holds(not(happens(bombActivate(Agent,Bomb),
-     			  Time)),
-     	      Time)
-           ]).
+ /*   (   at(holding(Agent, Bomb), Time)
+        ;   not(happens(bombActivate(Agent, Bomb), Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An effect axiom states that if a bomb is intact and
@@ -276,15 +283,18 @@ not holding(Agent, Bomb)at Time if not happens(bombActivate(Agent, Bomb), Time).
 %       bombDeactivate(Agent,Bomb), 
 %       bombActivated(Bomb), 
 %       Time)).
-not (bombDeactivate(Agent, Bomb)terminates bombActivated(Bomb)at Time)if not intact(Bomb)at Time.
+(   terminates(bombDeactivate(Agent, Bomb),
+               bombActivated(Bomb)at Time)
+;   not intact(Bomb)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',76).
 
- /*  l_int(holds(not(terminates(bombDeactivate(Agent,Bomb),
-     			   at(bombActivated(Bomb),Time))),
-     	    Time),
-           [holds(not(intact(Bomb)),Time)]).
+ /*   (   terminates(bombDeactivate(Agent, Bomb),
+                       at(bombActivated(Bomb), Time))
+        ;   at(not(intact(Bomb)), Time)
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An axiom states that if a bomb explodes, the
@@ -302,16 +312,16 @@ not (bombDeactivate(Agent, Bomb)terminates bombActivated(Bomb)at Time)if not int
 %    happens(
 %       destroy(Bomb,Bomb), 
 %       Time)).
-not happens(destroy(Bomb, Bomb), Time)if not happens(bombExplode(Bomb), Time).
+(   happens(destroy(Bomb, Bomb), Time)
+;   not happens(bombExplode(Bomb), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',84).
 
- /*  l_int(holds(not(happens(destroy(Bomb,Bomb),Time)),
-     	    Time_at),
-           [ holds(not(happens(bombExplode(Bomb),Time)),
-     	      Time_at)
-           ]).
+ /*   (   happens(destroy(Bomb, Bomb), Time)
+        ;   not(happens(bombExplode(Bomb), Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An effect axiom states that if a bomb explodes,
@@ -334,7 +344,7 @@ bombExplode(Bomb)terminates bombActivated(Bomb).
      	   bombActivated(Bomb),
      	   []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; A trigger axiom states that
@@ -363,15 +373,20 @@ bombExplode(Bomb)terminates bombActivated(Bomb).
 %    happens(
 %       bombDecrementTimer(Bomb), 
 %       Time)).
-not happens(bombDecrementTimer(Bomb), Time)if not bombActivated(Bomb)at Time;not bombTimerValue(Bomb, Offset)at Time;not comparison(Offset, 0, >).
+(   happens(bombDecrementTimer(Bomb), Time)
+;   not bombActivated(Bomb)at Time
+;   not bombTimerValue(Bomb, Offset)at Time
+;   not comparison(Offset, 0, >)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',98).
 
- /*   l_int(holds(not(happens(bombDecrementTimer(Bomb), Time)),
-                    Time_at),
-              [  (at(not(bombActivated(Bomb)), Time);at(not(bombTimerValue(Bomb, Offset)), Time);not(comparison(Offset, 0, >)))
-              ]).
+ /*   (   happens(bombDecrementTimer(Bomb), Time)
+        ;   at(not(bombActivated(Bomb)), Time)
+        ;   at(not(bombTimerValue(Bomb, Offset)), Time)
+        ;   not(comparison(Offset, 0, >))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An effect axiom states that
@@ -397,17 +412,20 @@ not happens(bombDecrementTimer(Bomb), Time)if not bombActivated(Bomb)at Time;not
 %       bombDecrementTimer(Bomb), 
 %       bombTimerValue(Bomb,Offset2), 
 %       Time)).
-not (bombDecrementTimer(Bomb)initiates bombTimerValue(Bomb, Offset2)at Time)if not bombTimerValue(Bomb, Offset1)at Time;not equals(Offset2, Offset1-1).
+(   initiates(bombDecrementTimer(Bomb),
+              bombTimerValue(Bomb, Offset2)at Time)
+;   not bombTimerValue(Bomb, Offset1)at Time
+;   not equals(Offset2, Offset1-1)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',108).
 
- /*   l_int(holds(not(initiates(bombDecrementTimer(Bomb),
-                                  at(bombTimerValue(Bomb, Offset2),
-                                     Time))),
-                    Time_at),
-              [  (at(not(bombTimerValue(Bomb, Offset1)), Time);not(equals(Offset2, Offset1-1)))
-              ]).
+ /*   (   initiates(bombDecrementTimer(Bomb),
+                      at(bombTimerValue(Bomb, Offset2), Time))
+        ;   at(not(bombTimerValue(Bomb, Offset1)), Time)
+        ;   not(equals(Offset2, Offset1-1))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An effect axiom states that
@@ -430,16 +448,18 @@ not (bombDecrementTimer(Bomb)initiates bombTimerValue(Bomb, Offset2)at Time)if n
 %       bombDecrementTimer(Bomb), 
 %       bombTimerValue(Bomb,Offset), 
 %       Time)).
-not (bombDecrementTimer(Bomb)terminates bombTimerValue(Bomb, Offset)at Time)if not bombTimerValue(Bomb, Offset)at Time.
+(   terminates(bombDecrementTimer(Bomb),
+               bombTimerValue(Bomb, Offset)at Time)
+;   not bombTimerValue(Bomb, Offset)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',119).
 
- /*  l_int(holds(not(terminates(bombDecrementTimer(Bomb),
-     			   at(bombTimerValue(Bomb,Offset),
-     			      Time))),
-     	    Time),
-           [holds(not(bombTimerValue(Bomb,Offset)),Time)]).
+ /*   (   terminates(bombDecrementTimer(Bomb),
+                       at(bombTimerValue(Bomb, Offset), Time))
+        ;   at(not(bombTimerValue(Bomb, Offset)), Time)
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An effect axiom states that if a bomb explodes,
@@ -462,7 +482,7 @@ bombExplode(Bomb)terminates bombActivated(Bomb).
      	   bombActivated(Bomb),
      	   []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; A trigger axiom states that if the timer value
@@ -480,14 +500,16 @@ bombExplode(Bomb)terminates bombActivated(Bomb).
 %    happens(
 %       bombExplode(Bomb), 
 %       Time)).
-not happens(bombExplode(Bomb), Time)if not bombTimerValue(Bomb, 0)at Time.
+(   happens(bombExplode(Bomb), Time)
+;   not bombTimerValue(Bomb, 0)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',132).
 
- /*  l_int(holds(not(happens(bombExplode(Bomb),Time)),
-     	    Time),
-           [holds(not(bombTimerValue(Bomb,0)),Time)]).
+ /*   (   happens(bombExplode(Bomb), Time)
+        ;   at(not(bombTimerValue(Bomb, 0)), Time)
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An axiom states that if an agent is at a location,
@@ -523,15 +545,22 @@ not happens(bombExplode(Bomb), Time)if not bombTimerValue(Bomb, 0)at Time.
 %    happens(
 %       injure(Bomb,Agent), 
 %       Time)).
-not happens(injure(Bomb, Agent), Time)if not at_loc(Agent, Location)at Time;not at_loc(Bomb, Location)at Time;not injuredDeterminingFluent(Agent)at Time;not happens(bombExplode(Bomb), Time).
+(   happens(injure(Bomb, Agent), Time)
+;   not at_loc(Agent, Location)at Time
+;   not at_loc(Bomb, Location)at Time
+;   not injuredDeterminingFluent(Agent)at Time
+;   not happens(bombExplode(Bomb), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',141).
 
- /*   l_int(holds(not(happens(injure(Bomb, Agent), Time)),
-                    Time_at),
-              [  (at(not(at_loc(Agent, Location)), Time);at(not(at_loc(Bomb, Location)), Time);at(not(injuredDeterminingFluent(Agent)), Time);not(happens(bombExplode(Bomb), Time)))
-              ]).
+ /*   (   happens(injure(Bomb, Agent), Time)
+        ;   at(not(at_loc(Agent, Location)), Time)
+        ;   at(not(at_loc(Bomb, Location)), Time)
+        ;   at(not(injuredDeterminingFluent(Agent)), Time)
+        ;   not(happens(bombExplode(Bomb), Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An axiom states that if an agent is at a location,
@@ -567,15 +596,22 @@ not happens(injure(Bomb, Agent), Time)if not at_loc(Agent, Location)at Time;not 
 %    happens(
 %       kill(Bomb,Agent), 
 %       Time)).
-not happens(kill(Bomb, Agent), Time)if not at_loc(Agent, Location)at Time;not at_loc(Bomb, Location)at Time;not killedDeterminingFluent(Agent)at Time;not happens(bombExplode(Bomb), Time).
+(   happens(kill(Bomb, Agent), Time)
+;   not at_loc(Agent, Location)at Time
+;   not at_loc(Bomb, Location)at Time
+;   not killedDeterminingFluent(Agent)at Time
+;   not happens(bombExplode(Bomb), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',153).
 
- /*   l_int(holds(not(happens(kill(Bomb, Agent), Time)),
-                    Time_at),
-              [  (at(not(at_loc(Agent, Location)), Time);at(not(at_loc(Bomb, Location)), Time);at(not(killedDeterminingFluent(Agent)), Time);not(happens(bombExplode(Bomb), Time)))
-              ]).
+ /*   (   happens(kill(Bomb, Agent), Time)
+        ;   at(not(at_loc(Agent, Location)), Time)
+        ;   at(not(at_loc(Bomb, Location)), Time)
+        ;   at(not(killedDeterminingFluent(Agent)), Time)
+        ;   not(happens(bombExplode(Bomb), Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An axiom states that if an physical object is at a location,
@@ -611,15 +647,22 @@ not happens(kill(Bomb, Agent), Time)if not at_loc(Agent, Location)at Time;not at
 %    happens(
 %       damage(Bomb,Physobj), 
 %       Time)).
-not happens(damage(Bomb, Physobj), Time)if not at_loc(Physobj, Location)at Time;not at_loc(Bomb, Location)at Time;not damagedDeterminingFluent(Physobj)at Time;not happens(bombExplode(Bomb), Time).
+(   happens(damage(Bomb, Physobj), Time)
+;   not at_loc(Physobj, Location)at Time
+;   not at_loc(Bomb, Location)at Time
+;   not damagedDeterminingFluent(Physobj)at Time
+;   not happens(bombExplode(Bomb), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',165).
 
- /*   l_int(holds(not(happens(damage(Bomb, Physobj), Time)),
-                    Time_at),
-              [  (at(not(at_loc(Physobj, Location)), Time);at(not(at_loc(Bomb, Location)), Time);at(not(damagedDeterminingFluent(Physobj)), Time);not(happens(bombExplode(Bomb), Time)))
-              ]).
+ /*   (   happens(damage(Bomb, Physobj), Time)
+        ;   at(not(at_loc(Physobj, Location)), Time)
+        ;   at(not(at_loc(Bomb, Location)), Time)
+        ;   at(not(damagedDeterminingFluent(Physobj)), Time)
+        ;   not(happens(bombExplode(Bomb), Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An axiom states that if an physical object is at a location,
@@ -655,15 +698,22 @@ not happens(damage(Bomb, Physobj), Time)if not at_loc(Physobj, Location)at Time;
 %    happens(
 %       destroy(Bomb,Physobj), 
 %       Time)).
-not happens(destroy(Bomb, Physobj), Time)if not at_loc(Physobj, Location)at Time;not at_loc(Bomb, Location)at Time;not destroyedDeterminingFluent(Physobj)at Time;not happens(bombExplode(Bomb), Time).
+(   happens(destroy(Bomb, Physobj), Time)
+;   not at_loc(Physobj, Location)at Time
+;   not at_loc(Bomb, Location)at Time
+;   not destroyedDeterminingFluent(Physobj)at Time
+;   not happens(bombExplode(Bomb), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Bomb.e',177).
 
- /*   l_int(holds(not(happens(destroy(Bomb, Physobj), Time)),
-                    Time_at),
-              [  (at(not(at_loc(Physobj, Location)), Time);at(not(at_loc(Bomb, Location)), Time);at(not(destroyedDeterminingFluent(Physobj)), Time);not(happens(bombExplode(Bomb), Time)))
-              ]).
+ /*   (   happens(destroy(Bomb, Physobj), Time)
+        ;   at(not(at_loc(Physobj, Location)), Time)
+        ;   at(not(at_loc(Bomb, Location)), Time)
+        ;   at(not(destroyedDeterminingFluent(Physobj)), Time)
+        ;   not(happens(bombExplode(Bomb), Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; End of file.

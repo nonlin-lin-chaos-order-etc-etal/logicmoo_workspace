@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.lps.pl')).
-% Tue, 23 Mar 2021 19:06:53 GMT File: <stream>(0x555568199b00)
+% Fri, 26 Mar 2021 01:06:04 GMT File: <stream>(0x555567c94000)
 
 
 %;
@@ -63,21 +63,20 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(floor))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',24).
 :- call_pel_directive(ignore(floor)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(buildingOf))).
 :- call_pel_directive(ignore(buildingOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(skyOf))).
 :- call_pel_directive(ignore(skyOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(groundOf))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',24).
 :- call_pel_directive(ignore(groundOf)).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',26).
@@ -96,13 +95,12 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFrom))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',26).
 :- call_pel_directive(ignore(walkFrom)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',26).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
 :- call_pel_directive(ignore(walkFromTo)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',26).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(runFromTo))).
@@ -183,21 +181,21 @@
 % From E: 
 % 
 % t(door,door1).
-isa(door1,door).
+isa(door1, door).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',43).
 % room Room0
 % From E: 
 % 
 % t(room,room0).
-isa(room0,room).
+isa(room0, room).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',45).
 % room Room1
 % From E: 
 % 
 % t(room,room1).
-isa(room1,room).
+isa(room1, room).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',47).
@@ -225,35 +223,35 @@ side2(door1,room1).
 % From E: 
 % 
 % t(agent,reader1).
-isa(reader1,agent).
+isa(reader1, agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',52).
 % book Book1
 % From E: 
 % 
 % t(book,book1).
-isa(book1,book).
+isa(book1, book).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',54).
 % chair Chair1
 % From E: 
 % 
 % t(chair,chair1).
-isa(chair1,chair).
+isa(chair1, chair).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',56).
 % physobj BookSupport1
 % From E: 
 % 
 % t(physobj,bookSupport1).
-isa(bookSupport1,physobj).
+isa(bookSupport1, physobj).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',58).
 % content Content1
 % From E: 
 % 
 % t(content,content1).
-isa(content1,content).
+isa(content1, content).
 %; initial state
 % [agent,object]
  % !HoldsAt(Holding(agent,object),0).
@@ -262,7 +260,9 @@ isa(content1,content).
 % 
 % holds(
 %    not(holding(Agent,Object)), 0).
-initially(not(holding(Agent,Object))).
+initially not holding(Agent, Object).
+ %  initial_state([not(holding(Agent,Object))]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',62).
@@ -272,8 +272,9 @@ initially(not(holding(Agent,Object))).
 % 
 % holds(
 %    not(sittingOn(Agent,Physobj)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',62).
-initially(not(sittingOn(Agent,Physobj))).
+initially not sittingOn(Agent, Physobj).
+ %  initial_state([not(sittingOn(Agent,Physobj))]).
+ %  % =================================.
 
 
 % [agent,physobj]
@@ -283,7 +284,9 @@ initially(not(sittingOn(Agent,Physobj))).
 % 
 % holds(
 %    not(lyingOn(Agent,Physobj)), 0).
-initially(not(lyingOn(Agent,Physobj))).
+initially not lyingOn(Agent, Physobj).
+ %  initial_state([not(lyingOn(Agent,Physobj))]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',64).
@@ -293,8 +296,15 @@ initially(not(lyingOn(Agent,Physobj))).
 % not(thereExists(Page, 
 %        holds(
 %           bookIsOpenTo(book1,Page), 0))).
+not thereExists(Page, bookIsOpenTo(book1, Page)at 0).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',64).
-not(thereExists(Page,at(bookIsOpenTo(book1,Page),0))).
+
+ /*  l_int(holds(not(thereExists(Page,
+     			    at(bookIsOpenTo(book1,Page),0))),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 % [physobj1,physobj2]
@@ -309,7 +319,14 @@ not(thereExists(Page,at(bookIsOpenTo(book1,Page),0))).
 %           Physobj2=bookSupport1)), 
 %    holds(
 %       not(on(Physobj1,Physobj2)), 0)).
-if(at(not(on(Physobj1, Physobj2)), 0), not((equals(Physobj1, book1), equals(Physobj2, bookSupport1)))).
+on(Physobj1, Physobj2)at 0 if equals(Physobj1, book1), equals(Physobj2, bookSupport1).
+
+ /*  l_int(holds(on(Physobj1,Physobj2),0),
+           [ equals(Physobj1,book1),
+     	equals(Physobj2,bookSupport1)
+           ]).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',68).
@@ -318,17 +335,20 @@ if(at(not(on(Physobj1, Physobj2)), 0), not((equals(Physobj1, book1), equals(Phys
 % 
 % holds(
 %    dressed(reader1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',68).
-initially(dressed(reader1)).
+initially dressed(reader1).
+ %  initial_state([dressed(reader1)]).
+ %  % =================================.
 
 
 % HoldsAt(Awake(Reader1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',68).
 % From E: 
 % 
 % holds(
 %    awake(reader1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',68).
-initially(awake(reader1)).
+initially awake(reader1).
+ %  initial_state([awake(reader1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',70).
@@ -337,17 +357,20 @@ initially(awake(reader1)).
 % 
 % holds(
 %    sleep3(reader1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',70).
-initially(sleep3(reader1)).
+initially sleep3(reader1).
+ %  initial_state([sleep3(reader1)]).
+ %  % =================================.
 
 
 % HoldsAt(Standing(Reader1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',70).
 % From E: 
 % 
 % holds(
 %    standing(reader1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',70).
-initially(standing(reader1)).
+initially standing(reader1).
+ %  initial_state([standing(reader1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',72).
@@ -356,17 +379,20 @@ initially(standing(reader1)).
 % 
 % holds(
 %    doorUnlocked(door1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',72).
-initially(doorUnlocked(door1)).
+initially doorUnlocked(door1).
+ %  initial_state([doorUnlocked(door1)]).
+ %  % =================================.
 
 
 % HoldsAt(DoorIsOpen(Door1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',72).
 % From E: 
 % 
 % holds(
 %    doorIsOpen(door1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',72).
-initially(doorIsOpen(door1)).
+initially doorIsOpen(door1).
+ %  initial_state([doorIsOpen(door1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',74).
@@ -375,17 +401,20 @@ initially(doorIsOpen(door1)).
 % 
 % holds(
 %    at_loc(reader1,room0), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',74).
-initially(at_loc(reader1,room0)).
+initially at_loc(reader1, room0).
+ %  initial_state([at_loc(reader1,room0)]).
+ %  % =================================.
 
 
 % HoldsAt(At(Chair1,Room1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',74).
 % From E: 
 % 
 % holds(
 %    at_loc(chair1,room1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',74).
-initially(at_loc(chair1,room1)).
+initially at_loc(chair1, room1).
+ %  initial_state([at_loc(chair1,room1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',76).
@@ -394,17 +423,20 @@ initially(at_loc(chair1,room1)).
 % 
 % holds(
 %    at_loc(book1,room1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',76).
-initially(at_loc(book1,room1)).
+initially at_loc(book1, room1).
+ %  initial_state([at_loc(book1,room1)]).
+ %  % =================================.
 
 
 % HoldsAt(On(Book1,BookSupport1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',76).
 % From E: 
 % 
 % holds(
 %    on(book1,bookSupport1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',76).
-initially(on(book1,bookSupport1)).
+initially on(book1, bookSupport1).
+ %  initial_state([on(book1,bookSupport1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',78).
@@ -414,8 +446,9 @@ initially(on(book1,bookSupport1)).
 % 
 % holds(
 %    not(see(reader1,Object)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',78).
-initially(not(see(reader1,Object))).
+initially not see(reader1, Object).
+ %  initial_state([not(see(reader1,Object))]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',80).
@@ -427,8 +460,9 @@ initially(not(see(reader1,Object))).
 % 
 % happens(
 %    walkThroughDoor12(reader1,door1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',80).
-observe(at(walkThroughDoor12(reader1,door1),0)).
+observe walkThroughDoor12(reader1, door1)at 0.
+ %  observe([walkThroughDoor12(reader1,door1)],0).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',82).
@@ -437,17 +471,20 @@ observe(at(walkThroughDoor12(reader1,door1),0)).
 % 
 % happens(
 %    takeOffOf(reader1,book1,bookSupport1), 1).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',82).
-observe(at(takeOffOf(reader1,book1,bookSupport1),1)).
+observe takeOffOf(reader1, book1, bookSupport1)at 1.
+ %  observe([takeOffOf(reader1,book1,bookSupport1)],1).
+ %  % =================================.
 
 
 % Happens(SitOn(Reader1,Chair1),2).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',82).
 % From E: 
 % 
 % happens(
 %    sitOn(reader1,chair1), 2).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',82).
-observe(at(sitOn(reader1,chair1),2)).
+observe sitOn(reader1, chair1)at 2.
+ %  observe([sitOn(reader1,chair1)],2).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',84).
@@ -456,17 +493,20 @@ observe(at(sitOn(reader1,chair1),2)).
 % 
 % happens(
 %    bookOpenTo(reader1,book1,1), 3).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',84).
-observe(at(bookOpenTo(reader1,book1,1),3)).
+observe bookOpenTo(reader1, book1, 1)at 3.
+ %  observe([bookOpenTo(reader1,book1,1)],3).
+ %  % =================================.
 
 
 % Happens(LookAt(Reader1,Book1),4).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',84).
 % From E: 
 % 
 % happens(
 %    lookAt(reader1,book1), 4).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',84).
-observe(at(lookAt(reader1,book1),4)).
+observe lookAt(reader1, book1)at 4.
+ %  observe([lookAt(reader1,book1)],4).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',86).
@@ -475,17 +515,20 @@ observe(at(lookAt(reader1,book1),4)).
 % 
 % happens(
 %    read(reader1,book1,content1), 5).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',86).
-observe(at(read(reader1,book1,content1),5)).
+observe read(reader1, book1, content1)at 5.
+ %  observe([read(reader1,book1,content1)],5).
+ %  % =================================.
 
 
 % Happens(ThinkAbout(Reader1,Content1),6).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',86).
 % From E: 
 % 
 % happens(
 %    thinkAbout(reader1,content1), 6).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',86).
-observe(at(thinkAbout(reader1,content1),6)).
+observe thinkAbout(reader1, content1)at 6.
+ %  observe([thinkAbout(reader1,content1)],6).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',88).
@@ -494,17 +537,20 @@ observe(at(thinkAbout(reader1,content1),6)).
 % 
 % happens(
 %    understand(reader1,content1), 7).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',88).
-observe(at(understand(reader1,content1),7)).
+observe understand(reader1, content1)at 7.
+ %  observe([understand(reader1,content1)],7).
+ %  % =================================.
 
 
 % Happens(BookTurnPageTo(Reader1,Book1,2),8).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',88).
 % From E: 
 % 
 % happens(
 %    bookTurnPageTo(reader1,book1,2), 8).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',88).
-observe(at(bookTurnPageTo(reader1,book1,2),8)).
+observe bookTurnPageTo(reader1, book1, 2)at 8.
+ %  observe([bookTurnPageTo(reader1,book1,2)],8).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',90).
@@ -513,17 +559,20 @@ observe(at(bookTurnPageTo(reader1,book1,2),8)).
 % 
 % happens(
 %    bookTurnPageTo(reader1,book1,3), 9).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',90).
-observe(at(bookTurnPageTo(reader1,book1,3),9)).
+observe bookTurnPageTo(reader1, book1, 3)at 9.
+ %  observe([bookTurnPageTo(reader1,book1,3)],9).
+ %  % =================================.
 
 
 % Happens(BookClose(Reader1,Book1),10).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',90).
 % From E: 
 % 
 % happens(
 %    bookClose(reader1,book1), 10).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',90).
-observe(at(bookClose(reader1,book1),10)).
+observe bookClose(reader1, book1)at 10.
+ %  observe([bookClose(reader1,book1)],10).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',92).
@@ -532,17 +581,20 @@ observe(at(bookClose(reader1,book1),10)).
 % 
 % happens(
 %    riseFrom(reader1,chair1), 11).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',92).
-observe(at(riseFrom(reader1,chair1),11)).
+observe riseFrom(reader1, chair1)at 11.
+ %  observe([riseFrom(reader1,chair1)],11).
+ %  % =================================.
 
 
 % Happens(PlaceOn(Reader1,Book1,BookSupport1),12).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',92).
 % From E: 
 % 
 % happens(
 %    placeOn(reader1,book1,bookSupport1), 12).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',92).
-observe(at(placeOn(reader1,book1,bookSupport1),12)).
+observe placeOn(reader1, book1, bookSupport1)at 12.
+ %  observe([placeOn(reader1,book1,bookSupport1)],12).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',94).
@@ -551,8 +603,9 @@ observe(at(placeOn(reader1,book1,bookSupport1),12)).
 % 
 % happens(
 %    walkThroughDoor21(reader1,door1), 13).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',94).
-observe(at(walkThroughDoor21(reader1,door1),13)).
+observe walkThroughDoor21(reader1, door1)at 13.
+ %  observe([walkThroughDoor21(reader1,door1)],13).
+ %  % =================================.
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReadingABook.e',96).
 % range time 0 14

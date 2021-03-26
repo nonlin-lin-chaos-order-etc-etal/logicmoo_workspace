@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.lps.pl')).
-% Tue, 23 Mar 2021 19:06:53 GMT File: <stream>(0x5555672e2600)% [physobj1,physobj2]
+% Fri, 26 Mar 2021 01:06:04 GMT File: <stream>(0x55556759a500)% [physobj1,physobj2]
 % !(physobj1=Pen1 & physobj2=Desk1) &
 % !(physobj1=Paper1 & physobj2=Desk1) ->
 % !HoldsAt(On(physobj1, physobj2),0).
@@ -28,8 +28,9 @@
 %              Physobj2=desk1))), 
 %    holds(
 %       not(on(Physobj1,Physobj2)), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.e',1).
-if(at(not(on(Physobj1, Physobj2)), 0),  (not((equals(Physobj1, pen1), equals(Physobj2, desk1))), not((equals(Physobj1, paper1), equals(Physobj2, desk1))))).
+on(Physobj1, Physobj2)at 0 if equals(Physobj1, pen1), equals(Physobj2, desk1);equals(Physobj1, paper1), equals(Physobj2, desk1).
+ %  l_int(holds(on(Physobj1, Physobj2), 0), [(equals(Physobj1, pen1), equals(Physobj2, desk1);equals(Physobj1, paper1), equals(Physobj2, desk1))]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.e',7).
@@ -59,8 +60,22 @@ if(at(not(on(Physobj1, Physobj2)), 0),  (not((equals(Physobj1, pen1), equals(Phy
 %          holds(
 %             holding(Agent,Book), 
 %             Time)))).
+(   awake(Agent)at Time,
+    thereExists(Page1,
+                 ({dif(Page1, Page)}, bookIsOpenTo(Book, Page1)at Time)),
+    holding(Agent, Book)at Time
+;   not happens(bookTurnPageTo(Agent, Book, Page), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.e',7).
-if((at(awake(Agent), Time), thereExists(Page1,  ({dif(Page1, Page)}, at(bookIsOpenTo(Book, Page1), Time))), at(holding(Agent, Book), Time)), happens(bookTurnPageTo(Agent, Book, Page), Time)).
+
+ /*  (   at(awake(Agent), Time),
+         thereExists(Page1,
+                      ({dif(Page1, Page)}, at(bookIsOpenTo(Book, Page1), Time))),
+         at(holding(Agent, Book), Time)
+     ;   not(happens(bookTurnPageTo(Agent, Book, Page), Time))
+     ).
+ */
+ %  % =================================.
 
 
 % [book,time]
@@ -77,9 +92,13 @@ if((at(awake(Agent), Time), thereExists(Page1,  ({dif(Page1, Page)}, at(bookIsOp
 %           holds(
 %              bookIsOpenTo1(Book,Page), 
 %              Time)))).
-if(not(thereExists(Page,
-		   at(bookIsOpenTo1(Book,Page),Time))),
-   at(bookClosed(Book),Time)).
+thereExists(Page, bookIsOpenTo1(Book, Page)at Time)if not bookClosed(Book)at Time.
+
+ /*  if(thereExists(Page,
+     	       at(bookIsOpenTo1(Book,Page),Time)),
+        at(not(bookClosed(Book)),Time)).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.e',18).
@@ -97,13 +116,18 @@ if(not(thereExists(Page,
 %       holds(
 %          not(bookIsOpenTo2(Book,Page)), 
 %          Time))).
+exists(Page,  (not bookIsOpenTo2(Book, Page)at Time;not bookClosed(Book)at Time)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.e',20).
-exists(Page,
- if(at(not(bookIsOpenTo2(Book,Page)),Time),
-   at(bookClosed(Book),Time))).
+
+ /*  exists(Page,
+       (   at(not(bookIsOpenTo2(Book, Page)), Time)
+        ;   at(not(bookClosed(Book)), Time)
+        )).
+ */
+ %  % =================================.
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.e',20).
 % From E: 
 % 
 % ':-'(call_pel_directive(translate(ending,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.lps.pl'))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.e',20).
 :- call_pel_directive(translate(ending,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/ReaderTest.lps.pl')).

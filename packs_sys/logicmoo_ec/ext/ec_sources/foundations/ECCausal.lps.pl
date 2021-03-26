@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.lps.pl')).
-% Tue, 23 Mar 2021 19:07:01 GMT File: <stream>(0x555567c0ff00)%;
+% Fri, 26 Mar 2021 01:05:54 GMT File: <stream>(0x555567a68b00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -34,21 +34,20 @@
 %; }
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',24).
 % predicate Started(fluent,time)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',24).
 % From E: 
 % 
 % predicate(started(fluent,time)).
-mpred_prop(started(fluent,time),predicate).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',24).
+mpred_prop(started(fluent, time), predicate).
 predicates([started/2]).
 
 % predicate Stopped(fluent,time)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',24).
 % From E: 
 % 
 % predicate(stopped(fluent,time)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',24).
-mpred_prop(stopped(fluent,time),predicate).
+mpred_prop(stopped(fluent, time), predicate).
 predicates([stopped/2]).
 
 
@@ -67,12 +66,36 @@ predicates([stopped/2]).
 %          ','(
 %             happens(Event,Time), 
 %             initiates_at(Event,Fluent,Time))))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',27).
-started(Fluent, Time) <->
-    (   at(Fluent, Time)
+(   (   Fluent at Time
     ;   thereExists(Event,
-                     (happens(Event, Time), initiates(Event, at(Fluent, Time))))
-    ).
+                     (happens(Event, Time), (Event initiates Fluent at Time)))
+    )
+;   not started(Fluent, Time)
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',27).
+
+ /*  (   (   at(Fluent, Time)
+         ;   thereExists(Event,
+                          (happens(Event, Time), initiates(Event, at(Fluent, Time))))
+         )
+     ;   not(started(Fluent, Time))
+     ).
+ */
+ %  % =================================.
+(   started(Fluent, Time)
+;   not Fluent at Time,
+    not(thereExists(Event,
+                     (happens(Event, Time), (Event initiates Fluent at Time))))
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',27).
+
+ /*  (   started(Fluent, Time)
+     ;   at(not(Fluent), Time),
+         not(thereExists(Event,
+                          (happens(Event, Time), initiates(Event, at(Fluent, Time)))))
+     ).
+ */
+ %  % =================================.
 
 
 % [fluent,time]
@@ -92,19 +115,43 @@ started(Fluent, Time) <->
 %          ','(
 %             happens(Event,Time), 
 %             terminates_at(Event,Fluent,Time))))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',33).
-stopped(Fluent, Time) <->
-    (   at(not(Fluent), Time)
+(   (   not Fluent at Time
     ;   thereExists(Event,
-                     (happens(Event, Time), terminates(Event, at(Fluent, Time))))
-    ).
+                     (happens(Event, Time), (Event terminates Fluent at Time)))
+    )
+;   not stopped(Fluent, Time)
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',33).
+
+ /*  (   (   at(not(Fluent), Time)
+         ;   thereExists(Event,
+                          (happens(Event, Time), terminates(Event, at(Fluent, Time))))
+         )
+     ;   not(stopped(Fluent, Time))
+     ).
+ */
+ %  % =================================.
+(   stopped(Fluent, Time)
+;   Fluent at Time,
+    not(thereExists(Event,
+                     (happens(Event, Time), (Event terminates Fluent at Time))))
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',33).
+
+ /*  (   stopped(Fluent, Time)
+     ;   at(Fluent, Time),
+         not(thereExists(Event,
+                          (happens(Event, Time), terminates(Event, at(Fluent, Time)))))
+     ).
+ */
+ %  % =================================.
 
 % predicate Initiated(fluent,time)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',36).
 % From E: 
 % 
 % predicate(initiated(fluent,time)).
-mpred_prop(initiated(fluent,time),predicate).
+mpred_prop(initiated(fluent, time), predicate).
 predicates([initiated/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',38).
@@ -112,7 +159,7 @@ predicates([initiated/2]).
 % From E: 
 % 
 % predicate(terminated(fluent,time)).
-mpred_prop(terminated(fluent,time),predicate).
+mpred_prop(terminated(fluent, time), predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',38).
 predicates([terminated/2]).
 
@@ -132,11 +179,34 @@ predicates([terminated/2]).
 %              ','(
 %                 happens(Event,Time), 
 %                 terminates_at(Event,Fluent,Time)))))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',40).
-initiated(Fluent, Time) <->
-    started(Fluent, Time),
+(   started(Fluent, Time),
     not(thereExists(Event,
-                     (happens(Event, Time), terminates(Event, at(Fluent, Time))))).
+                     (happens(Event, Time), (Event terminates Fluent at Time))))
+;   not initiated(Fluent, Time)
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',40).
+
+ /*  (   started(Fluent, Time),
+         not(thereExists(Event,
+                          (happens(Event, Time), terminates(Event, at(Fluent, Time)))))
+     ;   not(initiated(Fluent, Time))
+     ).
+ */
+ %  % =================================.
+(   initiated(Fluent, Time)
+;   not started(Fluent, Time)
+;   thereExists(Event,
+                 (happens(Event, Time), (Event terminates Fluent at Time)))
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',40).
+
+ /*  (   initiated(Fluent, Time)
+     ;   not(started(Fluent, Time))
+     ;   thereExists(Event,
+                      (happens(Event, Time), terminates(Event, at(Fluent, Time))))
+     ).
+ */
+ %  % =================================.
 
 
 % [fluent,time]
@@ -154,11 +224,34 @@ initiated(Fluent, Time) <->
 %              ','(
 %                 happens(Event,Time), 
 %                 initiates_at(Event,Fluent,Time)))))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',46).
-terminated(Fluent, Time) <->
-    stopped(Fluent, Time),
+(   stopped(Fluent, Time),
     not(thereExists(Event,
-                     (happens(Event, Time), initiates(Event, at(Fluent, Time))))).
+                     (happens(Event, Time), (Event initiates Fluent at Time))))
+;   not terminated(Fluent, Time)
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',46).
+
+ /*  (   stopped(Fluent, Time),
+         not(thereExists(Event,
+                          (happens(Event, Time), initiates(Event, at(Fluent, Time)))))
+     ;   not(terminated(Fluent, Time))
+     ).
+ */
+ %  % =================================.
+(   terminated(Fluent, Time)
+;   not stopped(Fluent, Time)
+;   thereExists(Event,
+                 (happens(Event, Time), (Event initiates Fluent at Time)))
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECCausal.e',46).
+
+ /*  (   terminated(Fluent, Time)
+     ;   not(stopped(Fluent, Time))
+     ;   thereExists(Event,
+                      (happens(Event, Time), initiates(Event, at(Fluent, Time))))
+     ).
+ */
+ %  % =================================.
 
 
 %; End of file.

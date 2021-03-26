@@ -15,7 +15,7 @@
 %
 */
 
-:- module(ec,[abdemo_special/3]).
+:- module(ec,[abdemo_special/3,match_test/2]).
 
 
 testing_msg(X):- wdmsg(X).
@@ -161,7 +161,7 @@ abdemo_top(Gs,R1,R3,N1,N3,D, _MaxDepth, _HighLevel) :-
   abdemo(Gs,R1,R2,N1,N2), !, 
   abdemo_cont(R2,R3,N2,N3).
 
-:- include('planner19a.pl').        
+:- include('ec_planner_current.pl').        
 :- set_prolog_flag(ec_loader,false).
 :- fixup_exports.
 
@@ -195,7 +195,7 @@ demo_test(Match):- mmake,
     (pprint_ecp_cmt(blue, do(demo_test(Name, Type))),  %Type \== slow, 
   abdemo(Goal))).
 
-match_test(X,Y):- (var(X);var(Y)),!.
+match_test(X,Y):- (var(X);var(Y);X==[];Y==[]),!.
 match_test(X,Y):- is_list(X),member(XX,X),match_test(XX,Y),!.
 match_test(X,Y):- is_list(Y),member(YY,Y),match_test(X,YY),!.
 match_test(X,Y):- term_to_atom(X,X1),term_to_atom(Y,Y1), (sub_atom(X1,_,_,_,Y1) ; sub_atom(Y1,_,_,_,X1)),!.

@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.lps.pl')).
-% Tue, 23 Mar 2021 19:06:49 GMT File: <stream>(0x555567253a00)%;
+% Fri, 26 Mar 2021 01:05:59 GMT File: <stream>(0x555567dd6e00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -35,7 +35,7 @@
 % From E: 
 % 
 % fluent(happy(agent)).
-mpred_prop(happy(agent),fluent).
+mpred_prop(happy(agent), fluent).
 fluents([happy/1]).
 
 
@@ -46,8 +46,8 @@ fluents([happy/1]).
 % From E: 
 % 
 % fluent(calm(agent)).
+mpred_prop(calm(agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',23).
-mpred_prop(calm(agent),fluent).
 fluents([calm/1]).
 
 
@@ -58,8 +58,8 @@ fluents([calm/1]).
 % From E: 
 % 
 % fluent(unhappy(agent)).
+mpred_prop(unhappy(agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',26).
-mpred_prop(unhappy(agent),fluent).
 fluents([unhappy/1]).
 
 
@@ -80,7 +80,7 @@ xor([happy,calm,unhappy]).
 % 
 % event(becomeHappy(agent)).
 events([becomeHappy/1]).
-mpred_prop(becomeHappy(agent),action).
+mpred_prop(becomeHappy(agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',32).
 actions([becomeHappy/1]).
 
@@ -94,7 +94,7 @@ actions([becomeHappy/1]).
 % event(becomeCalm(agent)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',35).
 events([becomeCalm/1]).
-mpred_prop(becomeCalm(agent),action).
+mpred_prop(becomeCalm(agent), action).
 actions([becomeCalm/1]).
 
 
@@ -107,7 +107,7 @@ actions([becomeCalm/1]).
 % event(becomeUnhappy(agent)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',38).
 events([becomeUnhappy/1]).
-mpred_prop(becomeUnhappy(agent),action).
+mpred_prop(becomeUnhappy(agent), action).
 actions([becomeUnhappy/1]).
 
 
@@ -123,8 +123,16 @@ actions([becomeUnhappy/1]).
 %    becomeHappy(Agent), 
 %    happy(Agent), 
 %    Time).
+becomeHappy(Agent)initiates happy(Agent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',43).
-initiates(becomeHappy(Agent),happy(Agent)).
+
+ /*  initiated(happens(becomeHappy(Agent),
+     		  Time_from,
+     		  Time_until),
+     	  happy(Agent),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent,time]
@@ -141,9 +149,15 @@ initiates(becomeHappy(Agent),happy(Agent)).
 %       becomeHappy(Agent), 
 %       calm(Agent), 
 %       Time)).
-if(terminates(becomeHappy(Agent),
-	      at(calm(Agent),Time)),
-   at(calm(Agent),Time)).
+(   becomeHappy(Agent)terminates calm(Agent)at Time
+;   not calm(Agent)at Time
+).
+
+ /*   (   terminates(becomeHappy(Agent), at(calm(Agent), Time))
+        ;   at(not(calm(Agent)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,time]
@@ -160,9 +174,16 @@ if(terminates(becomeHappy(Agent),
 %       becomeHappy(Agent), 
 %       unhappy(Agent), 
 %       Time)).
-if(terminates(becomeHappy(Agent),
-	      at(unhappy(Agent),Time)),
-   at(unhappy(Agent),Time)).
+(   becomeHappy(Agent)terminates unhappy(Agent)at Time
+;   not unhappy(Agent)at Time
+).
+
+ /*   (   terminates(becomeHappy(Agent),
+                       at(unhappy(Agent), Time))
+        ;   at(not(unhappy(Agent)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,time]
@@ -178,8 +199,14 @@ if(terminates(becomeHappy(Agent),
 %    holds(
 %       not(happy(Agent)), 
 %       Time)).
-if(at(not(happy(Agent)),Time),
-   happens(becomeHappy(Agent),Time)).
+happy(Agent)at Time if not happens(becomeHappy(Agent), Time).
+
+ /*  l_int(holds(happy(Agent),Time),
+           [ holds(not(happens(becomeHappy(Agent),Time)),
+     	      Time)
+           ]).
+ */
+ %  % =================================.
 
 
 % [agent,time]
@@ -191,8 +218,16 @@ if(at(not(happy(Agent)),Time),
 %    becomeCalm(Agent), 
 %    calm(Agent), 
 %    Time).
+becomeCalm(Agent)initiates calm(Agent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',59).
-initiates(becomeCalm(Agent),calm(Agent)).
+
+ /*  initiated(happens(becomeCalm(Agent),
+     		  Time_from,
+     		  Time_until),
+     	  calm(Agent),
+     	  []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',61).
@@ -209,10 +244,16 @@ initiates(becomeCalm(Agent),calm(Agent)).
 %       becomeCalm(Agent), 
 %       happy(Agent), 
 %       Time)).
+(   becomeCalm(Agent)terminates happy(Agent)at Time
+;   not happy(Agent)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',61).
-if(terminates(becomeCalm(Agent),
-	      at(happy(Agent),Time)),
-   at(happy(Agent),Time)).
+
+ /*   (   terminates(becomeCalm(Agent), at(happy(Agent), Time))
+        ;   at(not(happy(Agent)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,time]
@@ -229,9 +270,15 @@ if(terminates(becomeCalm(Agent),
 %       becomeCalm(Agent), 
 %       unhappy(Agent), 
 %       Time)).
-if(terminates(becomeCalm(Agent),
-	      at(unhappy(Agent),Time)),
-   at(unhappy(Agent),Time)).
+(   becomeCalm(Agent)terminates unhappy(Agent)at Time
+;   not unhappy(Agent)at Time
+).
+
+ /*   (   terminates(becomeCalm(Agent), at(unhappy(Agent), Time))
+        ;   at(not(unhappy(Agent)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,time]
@@ -246,9 +293,15 @@ if(terminates(becomeCalm(Agent),
 %    holds(
 %       not(calm(Agent)), 
 %       Time)).
+calm(Agent)at Time if not happens(becomeCalm(Agent), Time).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',70).
-if(at(not(calm(Agent)),Time),
-   happens(becomeCalm(Agent),Time)).
+
+ /*  l_int(holds(calm(Agent),Time),
+           [ holds(not(happens(becomeCalm(Agent),Time)),
+     	      Time)
+           ]).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',72).
@@ -260,8 +313,16 @@ if(at(not(calm(Agent)),Time),
 %    becomeUnhappy(Agent), 
 %    unhappy(Agent), 
 %    Time).
+becomeUnhappy(Agent)initiates unhappy(Agent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',72).
-initiates(becomeUnhappy(Agent),unhappy(Agent)).
+
+ /*  initiated(happens(becomeUnhappy(Agent),
+     		  Time_from,
+     		  Time_until),
+     	  unhappy(Agent),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent,time]
@@ -278,9 +339,16 @@ initiates(becomeUnhappy(Agent),unhappy(Agent)).
 %       becomeUnhappy(Agent), 
 %       happy(Agent), 
 %       Time)).
-if(terminates(becomeUnhappy(Agent),
-	      at(happy(Agent),Time)),
-   at(happy(Agent),Time)).
+(   becomeUnhappy(Agent)terminates happy(Agent)at Time
+;   not happy(Agent)at Time
+).
+
+ /*   (   terminates(becomeUnhappy(Agent),
+                       at(happy(Agent), Time))
+        ;   at(not(happy(Agent)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,time]
@@ -297,9 +365,15 @@ if(terminates(becomeUnhappy(Agent),
 %       becomeUnhappy(Agent), 
 %       calm(Agent), 
 %       Time)).
-if(terminates(becomeUnhappy(Agent),
-	      at(calm(Agent),Time)),
-   at(calm(Agent),Time)).
+(   becomeUnhappy(Agent)terminates calm(Agent)at Time
+;   not calm(Agent)at Time
+).
+
+ /*   (   terminates(becomeUnhappy(Agent), at(calm(Agent), Time))
+        ;   at(not(calm(Agent)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,time]
@@ -314,9 +388,15 @@ if(terminates(becomeUnhappy(Agent),
 %    holds(
 %       not(unhappy(Agent)), 
 %       Time)).
+unhappy(Agent)at Time if not happens(becomeUnhappy(Agent), Time).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',84).
-if(at(not(unhappy(Agent)),Time),
-   happens(becomeUnhappy(Agent),Time)).
+
+ /*  l_int(holds(unhappy(Agent),Time),
+           [ holds(not(happens(becomeUnhappy(Agent),Time)),
+     	      Time)
+           ]).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',86).
@@ -327,7 +407,7 @@ if(at(not(unhappy(Agent)),Time),
 % From E: 
 % 
 % fluent(angryAt(agent,agent)).
-mpred_prop(angryAt(agent,agent),fluent).
+mpred_prop(angryAt(agent, agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',88).
 fluents([angryAt/2]).
 
@@ -337,8 +417,8 @@ fluents([angryAt/2]).
 % 
 % event(becomeAngryAt(agent,agent)).
 events([becomeAngryAt/2]).
+mpred_prop(becomeAngryAt(agent, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',90).
-mpred_prop(becomeAngryAt(agent,agent),action).
 actions([becomeAngryAt/2]).
 
 
@@ -351,9 +431,16 @@ actions([becomeAngryAt/2]).
 %    becomeAngryAt(Agent1,Agent2), 
 %    angryAt(Agent1,Agent2), 
 %    Time).
+becomeAngryAt(Agent1, Agent2)initiates angryAt(Agent1, Agent2).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',92).
-initiates(becomeAngryAt(Agent1,Agent2),
-	  angryAt(Agent1,Agent2)).
+
+ /*  initiated(happens(becomeAngryAt(Agent1,Agent2),
+     		  Time_from,
+     		  Time_until),
+     	  angryAt(Agent1,Agent2),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent1,agent2,time]
@@ -365,9 +452,16 @@ initiates(becomeAngryAt(Agent1,Agent2),
 %    becomeHappy(Agent1), 
 %    angryAt(Agent1,Agent2), 
 %    Time).
+becomeHappy(Agent1)terminates angryAt(Agent1, Agent2).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',96).
-terminates(becomeHappy(Agent1),
-	   angryAt(Agent1,Agent2)).
+
+ /*  terminated(happens(becomeHappy(Agent1),
+     		   Time_from,
+     		   Time_until),
+     	   angryAt(Agent1,Agent2),
+     	   []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',98).
@@ -383,9 +477,16 @@ terminates(becomeHappy(Agent1),
 %    happens(
 %       becomeUnhappy(Agent1), 
 %       Time)).
+(   happens(becomeUnhappy(Agent1), Time)
+;   not happens(becomeAngryAt(Agent1, Agent2), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',98).
-if(happens(becomeUnhappy(Agent1),Time),
-   happens(becomeAngryAt(Agent1,Agent2),Time)).
+
+ /*   (   happens(becomeUnhappy(Agent1), Time)
+        ;   not(happens(becomeAngryAt(Agent1, Agent2), Time))
+        ).
+ */
+ %  % =================================.
 
 
 %; attitudes
@@ -396,7 +497,7 @@ if(happens(becomeUnhappy(Agent1),Time),
 % From E: 
 % 
 % fluent(like(agent,object)).
-mpred_prop(like(agent,object),fluent).
+mpred_prop(like(agent, object), fluent).
 fluents([like/2]).
 
 
@@ -408,7 +509,7 @@ fluents([like/2]).
 % From E: 
 % 
 % fluent(love(agent,object)).
-mpred_prop(love(agent,object),fluent).
+mpred_prop(love(agent, object), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',107).
 fluents([love/2]).
 
@@ -420,7 +521,7 @@ fluents([love/2]).
 % From E: 
 % 
 % fluent(dislike(agent,object)).
-mpred_prop(dislike(agent,object),fluent).
+mpred_prop(dislike(agent, object), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',109).
 fluents([dislike/2]).
 
@@ -432,8 +533,8 @@ fluents([dislike/2]).
 % From E: 
 % 
 % fluent(likeSnow(agent)).
+mpred_prop(likeSnow(agent), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',111).
-mpred_prop(likeSnow(agent),fluent).
 fluents([likeSnow/1]).
 
 
@@ -480,8 +581,26 @@ fluents([likeSnow/1]).
 %    happens(
 %       becomeHappy(Agent), 
 %       Time)).
+(   happens(becomeHappy(Agent), Time)
+;   happy(Agent)at Time
+;   not awake(Agent)at Time
+;   not likeSnow(Agent)at Time
+;   not at_loc(Agent, Room)at Time
+;   not equals(lookOutOnto(Room), Outside)
+;   not snowing(Outside)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',118).
-if(happens(becomeHappy(Agent), Time),  (at(not(happy(Agent)), Time), at(awake(Agent), Time), at(likeSnow(Agent), Time), at(at_loc(Agent, Room), Time), lookOutOnto(Room, Outside), at(snowing(Outside), Time))).
+
+ /*   (   happens(becomeHappy(Agent), Time)
+        ;   at(happy(Agent), Time)
+        ;   at(not(awake(Agent)), Time)
+        ;   at(not(likeSnow(Agent)), Time)
+        ;   at(not(at_loc(Agent, Room)), Time)
+        ;   not(equals(lookOutOnto(Room), Outside))
+        ;   at(not(snowing(Outside)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; We introduced LikeSnow above since Like
@@ -494,8 +613,8 @@ if(happens(becomeHappy(Agent), Time),  (at(not(happy(Agent)), Time), at(awake(Ag
 % 
 % event(smile(agent)).
 events([smile/1]).
+mpred_prop(smile(agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Feeling.e',131).
-mpred_prop(smile(agent),action).
 actions([smile/1]).
 
 

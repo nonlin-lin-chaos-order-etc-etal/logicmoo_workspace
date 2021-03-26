@@ -539,3 +539,10 @@ eggdrop -m
 git checkout .
 git checkout .
 eggdrop
+cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
+eggdrop
+git checkout PrologMUD-freenode.user
+cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
+eggdrop
+cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
+eggdrop

@@ -23,7 +23,7 @@
 :- lmconfig:logicmoo_webui_dir(_) -> true;
   prolog_load_context(directory,Dir),asserta(lmconfig:logicmoo_webui_dir(Dir)).
 
-:- listing(lmconfig:logicmoo_webui_dir/1).
+%:- listing(lmconfig:logicmoo_webui_dir/1).
 
 attach_packs_relative_web_dir(Rel):-
    once(((
@@ -182,7 +182,7 @@ webui_load_swish_and_clio:-
    absolute_file_name('../../swish/run_swish_and_clio',Run,[relative_to(Dir),file_type(prolog),file_errors(fail)]),
    user:ensure_loaded(Run),
    swish_app:load_config('./config-enabled-swish'),
-   listing(swish_config:login_item/2),!.
+   nop(listing(swish_config:login_item/2)),!.
 
 
 webui_start_swish_and_clio:- 

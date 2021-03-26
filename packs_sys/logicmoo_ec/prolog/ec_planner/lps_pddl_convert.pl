@@ -6,11 +6,8 @@
 :- module(lps_pddl_convert,[%load_e/1, needs_proccess/3,process_ec/2,fix_time_args/3,fix_goal/3, 
   %brk_on_bind/1,assert_axiom_2/2,
    assert_tl_pddl/1,
-   lps_pddl_convert/0,
-   test_logicmoo_lps_pddl_reader0/0,
-   test_logicmoo_lps_pddl_reader1/0,
-   test_logicmoo_lps_pddl_reader2/0,   
-   test_lps_pddl_ereader/0,   
+   test_lps_pddl_convert/1,   
+   test_lps_pddl_convert/0,   
    lps_pddl_convert/2,
    lps_pddl_convert/1]).
                      
@@ -41,7 +38,7 @@
 :- set_prolog_flag(lps_translation_only,false).
 
 
-assert_tl_pddl('$COMMENT'(Cmt,_,_)):- !, 
+assert_tl_pddl('$COMMENT'(Cmt,_,_)):- !,
   print_tree_cmt('PDDL COMMENT',blue,Cmt).
 assert_tl_pddl(Stuff):- 
  must_or_rtrace_l(lps_pddl_convert:(
@@ -174,11 +171,11 @@ test_lps_pddl_convert:-
  !.
 
 test_lps_pddl_convert(S):- nonvar(S), listify(S,List),
-  select(L,List,Rest),number(L),
-  findall(Test-Body, (clause(test_lps_pddl_convert(Decl),Body), match_test(Rest,Decl)), Candidates),
-  nth0(L,Candidates,Test-Body),
-  pprint_ecp_cmt(yellow,test_lps_pddl_convert([L|Decl])),
-  once(call(Body)).
+  ((select(L,List,Rest),(number(L);var(L)))->true;L=_),
+  findall(Test-Body, (clause(test_lps_pddl_convert(Decl),Body), ec:match_test(Rest,Decl)), Candidates),
+  forall((nth0(L,Candidates,Test-Body),
+  pprint_ecp_cmt(yellow,(test_lps_pddl_convert(Test):-Body))),
+  once(call(Body))).
   
  
 test_lps_pddl_convert([convert]):- 
@@ -204,7 +201,7 @@ test_lps_pddl_convert([convert]):-
 :- add_history((cls, lps_pddl_convert)).
 
 test_lps_pddl_convert([convert]):- 
-  lps_pddl_convert,
+  pre_pddl_tests,
   lps_pddl_convert(pddl('benchmarks/elevators-opt11-strips/domain.pddl')), 
   lps_pddl_convert(pddl('benchmarks/nomystery-opt11-strips/domain.pddl')),
   lps_pddl_convert(pddl('transplan/domain.pddl')),
@@ -217,14 +214,14 @@ test_lps_pddl_convert([convert]):-
 
 
 test_lps_pddl_convert([convert]):- 
-  test_logicmoo_lps_pddl_reader0,
+  test_lps_pddl_convert(0),
    lps_pddl_convert(pddl('../uw-yale-pddl/*/*/*.pddl')),
    lps_pddl_convert(pddl('*/*.pddl')),
    !.
 
 
 test_lps_pddl_convert([convert]):- 
- test_logicmoo_lps_pddl_reader1,
+ test_lps_pddl_convert(1),
  lps_pddl_convert(pddl('*/*/*/*.pddl')),
  lps_pddl_convert(pddl('*/*/*.pddl')),
  !.
@@ -628,6 +625,7 @@ make_enabler(Action,PreWithTypes,Enabler):-
 pprint_pddl([A,Ctx],PDDL):- pprint_sexp(green,[Ctx,[A|PDDL]]),!.
 pprint_pddl(_Ctx,PDDL):- pprint_sexp(green,PDDL).
 
+pprint_sexp(Color, S):- print_tree_cmt('Translating', Color, S),!.
 pprint_sexp(Color, S):- dvars_to_dqvars(S,SQ), with_output_to(string(Str),f_print(SQ,_)),
   pprint_ecp_cmt(Color, Str),!.
 
@@ -642,7 +640,7 @@ dvars_to_dqvars(Term,QTerm):-
 dvars_to_dqvars_p2(Term,CTerm):- 
   once(map_nonvars(p,lps_pddl_convert:dvar_to_qvar,Term,CTerm)),!.
 
-dvar_to_qvar(C,QName):- compound(C), C='$VAR'(V),into_qname(V,Q).
+dvar_to_qvar(C,QName):- compound(C), C='$VAR'(V),into_qname(V,QName).
 
 get_q_vname(CVar, QName):- 
  source_variables_l(NamedVars),
@@ -1108,10 +1106,10 @@ argtype_pred4lps_pddl(function,functions).
 argtype_pred4lps_pddl(Action,Actions):- arg_info(domain,Action,arginfo),atom_concat(Action,"s",Actions).
 
 
-%:- fixup_exports.
+:- fixup_exports.
 
 
-:- listing(test_lps_pddl_ereader).
+
 
 %:- break.
 /*

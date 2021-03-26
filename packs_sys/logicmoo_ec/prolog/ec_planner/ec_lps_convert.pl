@@ -80,11 +80,11 @@ assert_ep4lps(Mod,Form):-
   vars_to_dvars(Form,FormO),!,
   %kif_unnumbervars(Form,FormO),
   %display(FormO),
-  assert_ep(Mod,FormO).
+  assert_ep(Mod,FormO),!.
 
 assert_ep(Mod,Form):- is_list(Form), !, must_maplist(assert_ep(Mod),Form).
 assert_ep( _M,Form):- print_tree_cmt(white,Form),fail.
-assert_ep(Mod,Form):- already_lps(Form), !, assert_post(Mod,Form,Form).
+assert_ep(Mod,Form):- already_lps(Form), !, assert_post(Mod,Form,Form),!.
 assert_ep(Mod,Form):-
   format('~N',[]),
   must_or_rtrace(ep_to_lps(Form,Lps)),
@@ -103,8 +103,9 @@ must_or_rtrace_l(A):- must_or_rtrace(A),!.
 assert_post(Mod,Form,Lps):- is_list(Lps),!, maplist(assert_post(Mod,Form),Lps).
 %assert_post(Mod,t(Type,Inst),_):- atom(Type), M=..[Type,Inst],!,assert_post(Mod,M,M),!.
 assert_post(Mod,_Form,Lps):- already_lps(Lps),!,print_lps_syntax(yellow,Lps),must_or_rtrace(assert_pl(Mod,Lps)).
-assert_post(Mod,_Form,Lps):- 
+assert_post(Mod,_Form,Lps0):- 
  must_or_rtrace_l((
+  last_lps_pass(Lps0,Lps),
   lps_xform_ec(Mod,Lps,Prolog),
   must_or_rtrace_l((Lps\==Prolog->
    ((ignore(( /*(Form\==Prolog,Lps==Prolog)-> */
@@ -115,6 +116,7 @@ assert_post(Mod,_Form,Lps):-
   must_or_rtrace(assert_pl(Mod,Prolog)))),!.
 
 assert_post(Mod,_Form,Lps):- dumpST, must_or_rtrace(assert_pl(Mod,Lps)).
+
 
 print_lps_syntax(Color,Lps):- 
  \+ \+ notrace((with_lps_operators2(user,
@@ -179,6 +181,9 @@ test_logicmoo_ec_lps_reader:- skip_tests, !.
 test_logicmoo_ec_lps_reader:- 
  test_logicmoo_ec_lps_reader([ec('ecnet/Diving.e'), ec('foundations/*.e'), ec('ecnet/*.e')]).
 
+test_logicmoo_ec_reader_1:- 
+ test_logicmoo_ec_lps_reader([ec('ecnet/Diving.e')]).
+
 test_logicmoo_ec_reader_2:- 
  test_logicmoo_ec_lps_reader(library('../test/ec_planner/*/*/*/*.e')).
 
@@ -217,6 +222,11 @@ ep_to_lps(FormI,LpsO):-
   ep_to_lps_arg(1,[],Form,Lps), 
   ep_to_lps_arg(2,[],Lps,Lps2),
   ep_to_lps_arg(3,[],Lps2,LpsO),!.
+
+
+last_lps_pass(Form,Lps):- 
+  ep_to_lps_arg(3,[],Form,Lps), !.
+
 
 ep_to_lps_arg(_Pass,_Top,Form,Lps):- atomic_or_var(Form),!,Lps=Form.
 ep_to_lps_arg(_Pass,_Top,Form,Lps):- already_lps(Form),!,Lps=Form.
@@ -263,14 +273,20 @@ final_top_pass('->'(holds(F1,T1),terminates(E,F2,T2)),Becomes):- T1==T2,
 %           BeWaiter2(waiter),
 %           time).
 
+join_conj(Lps1,Lps2,Out):- ands_to_list(Lps1,List1),ands_to_list(Lps2,List2),append(List1,List2,List), list_to_conjuncts(List,Out).
+%over_pass(3,_,holds(X,T),at(X,T)).
+
 
 over_pass(Pass,Top,neg(X),Rest):- over_pass(Pass,Top,not(X),Rest).
 over_pass(_Pass,_Top, X, X):- atomic_or_var(X),!.
 over_pass(_Pass,_Top, X, X):- functor(X,_,1), arg(1,X,Var), is_ftVar(Var),!.
 over_pass(_Pass,_Top,metreqs(X),X).
 % over_pass(3,[], X, Y):- final_top_pass(X, Y),!.
+
 over_pass(2,[],not(initially(P)),initially(not(P))):- !.
 over_pass(2,[],holds(Fluent, Time),initially(Fluent)):- nonvar(Time), get_zero(Time), !.
+over_pass(2,[],not(holds(Fluent, Time)),initially(not(Fluent))):- nonvar(Time), get_zero(Time), !.
+over_pass(2,[],at(Fluent, Time),initially(Fluent)):- nonvar(Time), get_zero(Time), !.
 %over_pass(_Pass,_Top,holds(Fluent, Time),at(Fluent, Time)):- !.
 over_pass(2,[],  happens(Event,Time),(observe Event at Time)):- !.
 over_pass(2,[],  happens(Event,Time1,Time2),(observe Event from Time1 to Time2)):- !.
@@ -279,28 +295,36 @@ over_pass(2,[],  happens(Event,Time1,Time2),(observe Event from Time1 to Time2))
 
 over_pass(2,  [],initiates(Event,Fluent,Time), initiates(Event,Fluent)):- is_ftVar(Time), !.
 over_pass(2,  [],terminates(Event,Fluent,Time),terminates(Event,Fluent)):- is_ftVar(Time), !.
-over_pass(2,  [],releases(Event,Fluent,Time),releases(Event,Fluent)):- is_ftVar(Time), !.
-over_pass(2,_Top,initiates(Event,Fluent,Time), (Event initiates Fluent at Time)):- !.
-over_pass(2,_Top,terminates(Event,Fluent,Time),(Event terminates Fluent at Time)):- !.
-over_pass(2,_Top,releases(Event,Fluent,Time),(Event terminates Fluent at Time)):- !.
+over_pass(2,  [],releases(Event,Fluent,Time),  releases(Event,Fluent)):- is_ftVar(Time), !.
+%over_pass(2,_Top,initiates(Event,Fluent,Time), (Event initiates Fluent at Time)):- !.
+%over_pass(2,_Top,terminates(Event,Fluent,Time),(Event terminates Fluent at Time)):- !.
+%over_pass(2,_Top,releases(Event,Fluent,Time),(Event terminates Fluent at Time)):- !.
+
+over_pass(Pass,Top,Holds->initiates(Event,Fluent,Time), (Event initiates Fluent at Time if HoldsA)):-  over_pass(Pass,Top,Holds,HoldsA), !.
+over_pass(Pass,Top,Holds->terminates(Event,Fluent,Time),(Event terminates Fluent at Time if HoldsA)):-  over_pass(Pass,Top,Holds,HoldsA), !.
+over_pass(Pass,Top,Holds->releases(Event,Fluent,Time),(Event terminates Fluent at Time if HoldsA)):-  over_pass(Pass,Top,Holds,HoldsA), !.
 
 over_pass(_,_Top, not(exists(_,X)), not(X)):-!.
 over_pass(_Pass,_Top, not(initially(X)),(initially not X)):-!.
-%over_pass(_Pass,_Top, not(at(X,T)),holds(not(X),T)).
+over_pass(_Pass,_Top, at(not(X),T),holds(not(X),T)).
+over_pass(_Pass,_Top, not(at(X,T)),holds(not(X),T)).
 over_pass(_Pass,_Top, not(holds(X,T)),holds(not(X),T)).
 over_pass(_Pass,_Top, happens(not(X),T),not(happens(X,T))).
 over_pass(_Pass,_Top, happens(not(X),T1,T2),not(happens(X,T1,T2))).
+over_pass(_,_Top,':-'(X1,X2),(X2 -> X1)):-!.
 
 %over_pass(2,_Top, holds(Fluent, From, To),holds(Fluent, From, To)):- !.
 %over_pass(_Pass,_Top,happensAt(Event,Time),at(observe(Event),Time)):- !.
 
-over_pass(_Pass,_Top,Form,LpsO):- Form=..[EFP,X], needs_protify(EFP,_), protify(EFP,X,Lps),!,flatten([Lps],LpsO).
+over_pass(_Pass,_Top,Form,OO):- Form=..[EFP,X], needs_protify(EFP,_), protify(EFP,X,Lps),!,flatten([Lps],LpsO),unlistify(LpsO,OO).
 over_pass(_Pass,_Top,X=Y,Lps):- \+ atomic_or_var(X), append_term(X,Y,Lps).
 
-over_pass(3,[],(X1,X2), List):- over_pass(Pass,[],X1,Lps1),over_pass(Pass,[],X2,Lps2),
- listify(Lps1,List1),listify(Lps2,List2),append(List1,List2,List).
-over_pass(3,_,holds(X,T),at(X,T)).
-over_pass(Pass,_Top,','(X1,X2),(Lps1,Lps2)):- over_pass(Pass,n,X1,Lps1),over_pass(Pass,n,X2,Lps2).
+over_pass(Pass,Top,(X1,X2), Out):- over_pass(Pass,Top,X1,Lps1),over_pass(Pass,Top,X2,Lps2),
+  join_conj(Lps1,Lps2,Out).
+
+over_pass(Pass,Top,[X1|X2], Out):- over_pass(Pass,Top,X1,Lps1),over_pass(Pass,Top,X2,Lps2),
+  join_conj(Lps1,Lps2,Out).
+
 
 %over_pass(Pass,_Top,';'(not(X2);X1),if(X2,X1)):- !.
 over_pass(_Pass,[],(A;B),if(AA, BB)):- clausify_pnf_conv(B,BB),clausify_pnf_conv(not(A),AA),simply_atomic(BB).
@@ -318,19 +342,27 @@ over_pass(_Pass,_Top,X1,X1):- simply_atomic(X1),!.
 over_pass(_Pass,[],X1,Lps):- \+ (X1 = false(_)), into_false_conj(X1,Lps),Lps\=not(_),!.
 over_pass(_Pass,_Top,X,X):-!.
 
-clausify_pnf_conv(In,MidO):- 
+clausify_pnf_conv(In,OO):- is_list(In),!,maplist(clausify_pnf_conv,In,Mid),flatten([Mid],MidM),list_to_set(MidM,MidO),unlistify(MidO,OO).
+clausify_pnf_conv(cl(A,B),cl(A,B)):- !.
+clausify_pnf_conv(In,MidO):-   
   expandQuants(KB,In,In2),
   un_quant3(KB,In2,In3),
-  negations_inward(In3, NNF), 
-  pnf( NNF, Mid ),!,
-  negations_inward(Mid,MidO),!.
+  thereExists_to_exists(In3,In4),!,
+  clausify_pnf_v1(In4,MidM),!,
+  list_to_set(MidM,MidO),!.
+
+thereExists_to_exists(In3,In4):- map_nonvars(p,thereExists1_to_exists,In3,In4).
+thereExists1_to_exists(thereExists,exists).
+thereExists1_to_exists(forAll,all).
+thereExists1_to_exists(forall,all).
 
 negate_to_false(Lps,Out):- Lps=not(Neg), Out=Neg, !.
-negate_to_false(Lps,Out):- simply_atomic_or_conj(Lps), Out=false(Lps),!.
+negate_to_false(Lps,Out):- simply_atomic_or_conj(Lps), !, Out=false(Lps),!.
 % negate_to_false(A,A):-!.
 
 into_false_conj(X1,Out):- \+ (X1 = false(_)), into_pnf_conj(X1,Lps) -> negate_to_false(Lps,Out). %,simply_atomic_or_conj(Lps).
-into_false_conj((A;B),if(AA, BB)):- clausify_pnf_conv(B,BB),clausify_pnf_conv(not(A),AA).
+%into_false_conj((not(A);B),if(A, B)):- nonvar(A). % clausify_pnf_conv(B,BB),clausify_pnf_conv(not(A),AA).
+%into_false_conj((B;not(A)),if(A, B)):- nonvar(A). % clausify_pnf_conv(B,BB),clausify_pnf_conv(not(A),AA).
 into_pnf_conj(X0,Lps):- clausify_pnf_conv(X0,X1),pnf(X1,X2),nnf(X2,X3),conjuncts_to_list(X3,X3L),list_to_conjuncts(X3L,X4), Lps = X4.
 
 
@@ -375,7 +407,7 @@ assert_lps_try_harder(Prolog):- assert_lps_try_harder_now(Prolog,Again),
    pprint_ecp_cmt(cyan,PrologAgain),
    pprint_ecp_cmt(white,"% ================================="),
    !.
-assert_lps_try_harder(Prolog):- pprint_ecp(red,Prolog).
+assert_lps_try_harder(Prolog):- pprint_ecp(red,Prolog),!.
 
 needs_protify(event,events).
 needs_protify(fluent,fluents).

@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.lps.pl')).
-% Tue, 23 Mar 2021 19:06:53 GMT File: <stream>(0x555567851f00)%;
+% Fri, 26 Mar 2021 01:06:04 GMT File: <stream>(0x555566f09900)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -30,7 +30,7 @@
 % From E: 
 % 
 % event(startRaining(outside)).
-mpred_prop(startRaining(outside),event).
+mpred_prop(startRaining(outside), event).
 events([startRaining/1]).
 
 
@@ -41,8 +41,8 @@ events([startRaining/1]).
 % From E: 
 % 
 % event(stopRaining(outside)).
+mpred_prop(stopRaining(outside), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.e',17).
-mpred_prop(stopRaining(outside),event).
 events([stopRaining/1]).
 
 
@@ -53,8 +53,8 @@ events([stopRaining/1]).
 % From E: 
 % 
 % fluent(raining(outside)).
+mpred_prop(raining(outside), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.e',20).
-mpred_prop(raining(outside),fluent).
 fluents([raining/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.e',23).
@@ -62,7 +62,7 @@ fluents([raining/1]).
 % From E: 
 % 
 % event(getWet(object)).
-mpred_prop(getWet(object),event).
+mpred_prop(getWet(object), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.e',23).
 events([getWet/1]).
 
@@ -71,7 +71,7 @@ events([getWet/1]).
 % From E: 
 % 
 % event(dry(object)).
-mpred_prop(dry(object),event).
+mpred_prop(dry(object), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.e',25).
 events([dry/1]).
 
@@ -80,7 +80,7 @@ events([dry/1]).
 % From E: 
 % 
 % fluent(wet(object)).
-mpred_prop(wet(object),fluent).
+mpred_prop(wet(object), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.e',27).
 fluents([wet/1]).
 
@@ -115,8 +115,24 @@ fluents([wet/1]).
 %    happens(
 %       getWet(Agent), 
 %       Time)).
+(   happens(getWet(Agent), Time)
+;   not at_loc(Agent, Outside)at Time
+;   not raining(Outside)at Time
+;   wet(Agent)at Time
+;   thereExists(Umbrella,
+                holding(Agent, Umbrella)at Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.e',29).
-if(happens(getWet(Agent), Time),  (at(at_loc(Agent, Outside), Time), at(raining(Outside), Time), at(not(wet(Agent)), Time), not(thereExists(Umbrella, at(holding(Agent, Umbrella), Time))))).
+
+ /*   (   happens(getWet(Agent), Time)
+        ;   at(not(at_loc(Agent, Outside)), Time)
+        ;   at(not(raining(Outside)), Time)
+        ;   at(wet(Agent), Time)
+        ;   thereExists(Umbrella,
+                        at(holding(Agent, Umbrella), Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [object,time]
@@ -128,8 +144,16 @@ if(happens(getWet(Agent), Time),  (at(at_loc(Agent, Outside), Time), at(raining(
 %    getWet(Object), 
 %    wet(Object), 
 %    Time).
+getWet(Object)initiates wet(Object).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.e',37).
-initiates(getWet(Object),wet(Object)).
+
+ /*  initiated(happens(getWet(Object),
+     		  Time_from,
+     		  Time_until),
+     	  wet(Object),
+     	  []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.e',39).
@@ -141,8 +165,14 @@ initiates(getWet(Object),wet(Object)).
 %    dry(Object), 
 %    wet(Object), 
 %    Time).
+dry(Object)terminates wet(Object).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rain.e',39).
-terminates(dry(Object),wet(Object)).
+
+ /*  terminated(happens(dry(Object),Time_from,Time_until),
+     	   wet(Object),
+     	   []).
+ */
+ %  % =================================.
 
 
 %; End of file.

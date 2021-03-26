@@ -51,16 +51,55 @@
    ).
 */
 :- export(clausify_pnf/2).
-clausify_pnf(PNF, Cla):-
-  notrace(catch(clausify_pnf1(PNF, Cla),_,fail)),!.
-clausify_pnf(PNF, Cla):-
-  rtrace(clausify_pnf1(PNF, Cla)),!.
+clausify_pnf(PNF, Cla):-clausify_pnf2(PNF, Cla).
+% clausify_pnf(PNF, Cla):-clausify_pnf2(PNF, Cla).
 
-clausify_pnf1(PNFIn, Cla):-
- expandQuants(_KB,PNFIn,PNF),
+
+:- export(clausify_pnf/2).
+clausify_pnf1(PNF, Cla):-
+  notrace(catch(clausify_pnf_1(PNF, Cla),_,fail)),!.
+clausify_pnf1(PNF, Cla):-
+  rtrace(clausify_pnf_1(PNF, Cla)),!.
+
+:- export(clausify_pnf/2).
+clausify_pnf2(PNF, Cla):-
+  notrace(catch(clausify_pnf_2(PNF, Cla),_,fail)),!.
+clausify_pnf2(PNF, Cla):-
+  rtrace(clausify_pnf_2(PNF, Cla)),!.
+
+
+fix_Quants(In,Out):- 
+  expandQuants(KB,In,In2),
+  un_quant3(KB,In2,In3),
+  te_to_exists(In3,In4),
+  implies_to_arrows(In4,Out),!.
+
+
+te_to_exists(In3,In4):- map_nonvars(p,te1_to_exists,In3,In4).
+te1_to_exists(thereExists,exists).
+te1_to_exists(forAll,all).
+te1_to_exists(forall,all).
+
+implies_to_arrows(In3,In4):- map_nonvars(p,implies1_to_arrows,In3,In4).
+implies1_to_arrows('=>','->').
+implies1_to_arrows('<=>','<->').
+
+hide_output(G):- with_output_to(string(_),G).
+
+clausify_pnf_1(PNFIn, Cla):-
+ hide_output(
+ (fix_Quants(PNFIn,PNF),
+ tolerate_elaboration(PNF,PNF0),
+ clausify_pnf_v1(PNF0, Cla0),!,
+ modal_cleansup(Cla0,Cla))),
+  !.
+
+clausify_pnf_2(PNFIn, Cla):-
+ hide_output(
+ (fix_Quants(PNFIn,PNF),
  tolerate_elaboration(PNF,PNF0),
  clausify_pnf_v2(PNF0, Cla0),!,
- modal_cleansup(Cla0,Cla),
+ modal_cleansup(Cla0,Cla))),
   !.
 
 modal_cleansup(Cla0,Cla):- 
@@ -91,13 +130,13 @@ negations_inward(Formula, NNF):-
 :- use_module(library(logicmoo/portray_vars)).
 
 clausify_pnf_v1( Formula, CF ):-
-  negations_inward(Formula, NNF), 
-    pnf( NNF, PNF ), cf( PNF, CF ),!.
+  hide_output((negations_inward(Formula, NNF), 
+    pnf( NNF, PNF ), cf( PNF, CF ))),!.
 
 clausify_pnf_v2(PNF, ClaS):- 
-   declare_fact(PNF),
+ hide_output((  declare_fact(PNF),
    findall(saved_clauz(E,Vs),retract(saved_clauz(E,Vs)),Cla), E\==[], !,
-   maplist(cla_to_clas,Cla,ClaS).
+   maplist(cla_to_clas,Cla,ClaS))).
 
 cla_to_clas(saved_clauz(E,Vs),E):- maplist(to_wasvar,Vs).
 

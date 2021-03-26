@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.lps.pl')).
-% Tue, 23 Mar 2021 19:06:58 GMT File: <stream>(0x555567c0f900)%;
+% Fri, 26 Mar 2021 01:06:11 GMT File: <stream>(0x555567c94500)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -32,8 +32,8 @@
 %; }
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',22).
 % option modeldiff on
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',22).
 % From E: 
 % 
 % ':-'(call_pel_directive(option(modeldiff,on))).
@@ -46,13 +46,12 @@
 % ':-'(call_pel_directive(option(renaming,off))).
 :- call_pel_directive(option(renaming, off)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',25).
 % ignore Love, ThreatenedBy
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(love))).
 :- call_pel_directive(ignore(love)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(threatenedBy))).
@@ -67,38 +66,36 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(floor))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',25).
 :- call_pel_directive(ignore(floor)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(buildingOf))).
 :- call_pel_directive(ignore(buildingOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(skyOf))).
 :- call_pel_directive(ignore(skyOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',25).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(groundOf))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',25).
 :- call_pel_directive(ignore(groundOf)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',27).
 % ignore Inside, PutInside, On, PlaceOn
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(inside))).
 :- call_pel_directive(ignore(inside)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(putInside))).
 :- call_pel_directive(ignore(putInside)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(on))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',27).
 :- call_pel_directive(ignore(on)).
 % From E: 
 % 
@@ -114,28 +111,27 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(happy))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',27).
 :- call_pel_directive(ignore(happy)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',27).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(becomeAngryAt))).
 :- call_pel_directive(ignore(becomeAngryAt)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',29).
 % ignore Near, WalkFrom, WalkFromTo, RunFromTo
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',29).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(near))).
 :- call_pel_directive(ignore(near)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',29).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFrom))).
 :- call_pel_directive(ignore(walkFrom)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',29).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(walkFromTo))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',29).
 :- call_pel_directive(ignore(walkFromTo)).
 % From E: 
 % 
@@ -151,40 +147,38 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(intentionToWalkIn))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',29).
 :- call_pel_directive(ignore(intentionToWalkIn)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',29).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(invitedIn))).
 :- call_pel_directive(ignore(invitedIn)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',29).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(inviteIn))).
 :- call_pel_directive(ignore(inviteIn)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',31).
 % ignore TakeOffOf, TakeOutOf, LetGoOf
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',31).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(takeOffOf))).
 :- call_pel_directive(ignore(takeOffOf)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',31).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(takeOutOf))).
 :- call_pel_directive(ignore(takeOutOf)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',31).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(letGoOf))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',31).
 :- call_pel_directive(ignore(letGoOf)).
 
 % ignore Greet, SayGoodbye, Order, KnowOrder
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',31).
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(greet))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',31).
 :- call_pel_directive(ignore(greet)).
 % From E: 
 % 
@@ -198,11 +192,10 @@
 % From E: 
 % 
 % ':-'(call_pel_directive(ignore(knowOrder))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',31).
 :- call_pel_directive(ignore(knowOrder)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',34).
 % load foundations/Root.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',34).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('foundations/Root.e'))).
@@ -215,8 +208,8 @@
 % ':-'(call_pel_directive(load('foundations/EC.e'))).
 :- call_pel_directive(load('foundations/EC.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',36).
 % load answers/Mueller2003/Ontology.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',36).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('answers/Mueller2003/Ontology.e'))).
@@ -229,8 +222,8 @@
 % ':-'(call_pel_directive(load('answers/Mueller2004c/OTSpaceM.e'))).
 :- call_pel_directive(load('answers/Mueller2004c/OTSpaceM.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',38).
 % load answers/Mueller2004c/RTSpaceM.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',38).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('answers/Mueller2004c/RTSpaceM.e'))).
@@ -243,8 +236,8 @@
 % ':-'(call_pel_directive(load('answers/Mueller2004c/HandTo.e'))).
 :- call_pel_directive(load('answers/Mueller2004c/HandTo.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',40).
 % load answers/Mueller2004c/Money.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',40).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('answers/Mueller2004c/Money.e'))).
@@ -257,8 +250,8 @@
 % ':-'(call_pel_directive(load('answers/Mueller2003/Sleep.e'))).
 :- call_pel_directive(load('answers/Mueller2003/Sleep.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',42).
 % load answers/Mueller2003/SpeechAct.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',42).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('answers/Mueller2003/SpeechAct.e'))).
@@ -271,26 +264,26 @@
 % ':-'(call_pel_directive(load('answers/Mueller2004c/Vehicle.e'))).
 :- call_pel_directive(load('answers/Mueller2004c/Vehicle.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',45).
 % outside NearStation1
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',45).
 % From E: 
 % 
 % t(outside,nearStation1).
-isa(nearStation1,outside).
+isa(nearStation1, outside).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',47).
 % street Street1
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',47).
 % From E: 
 % 
 % t(street,street1).
-isa(street1,street).
+isa(street1, street).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',49).
 % outside Station1
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',49).
 % From E: 
 % 
 % t(outside,station1).
-isa(station1,outside).
+isa(station1, outside).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',51).
@@ -318,14 +311,14 @@ side2(street1,station1).
 % From E: 
 % 
 % t(room,waitingRoom1).
-isa(waitingRoom1,room).
+isa(waitingRoom1, room).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',56).
 % door Door1
 % From E: 
 % 
 % t(door,door1).
-isa(door1,door).
+isa(door1, door).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',58).
@@ -353,14 +346,14 @@ side2(door1,waitingRoom1).
 % From E: 
 % 
 % t(outside,beforeStation1).
-isa(beforeStation1,outside).
+isa(beforeStation1, outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',63).
 % track TrackToStation1
 % From E: 
 % 
 % t(track,trackToStation1).
-isa(trackToStation1,track).
+isa(trackToStation1, track).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',65).
@@ -388,14 +381,14 @@ side2(trackToStation1,station1).
 % From E: 
 % 
 % t(outside,betweenStation1And2).
-isa(betweenStation1And2,outside).
+isa(betweenStation1And2, outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',70).
 % track TrackToBetweenStation1And2
 % From E: 
 % 
 % t(track,trackToBetweenStation1And2).
-isa(trackToBetweenStation1And2,track).
+isa(trackToBetweenStation1And2, track).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',72).
@@ -423,14 +416,14 @@ side2(trackToBetweenStation1And2,betweenStation1And2).
 % From E: 
 % 
 % t(outside,station2).
-isa(station2,outside).
+isa(station2, outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',76).
 % track TrackToStation2
 % From E: 
 % 
 % t(track,trackToStation2).
-isa(trackToStation2,track).
+isa(trackToStation2, track).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',78).
@@ -458,14 +451,14 @@ side2(trackToStation2,station2).
 % From E: 
 % 
 % t(outside,nearStation2).
-isa(nearStation2,outside).
+isa(nearStation2, outside).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',83).
 % street Street2
 % From E: 
 % 
 % t(street,street2).
-isa(street2,street).
+isa(street2, street).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',85).
@@ -493,49 +486,49 @@ side2(street2,nearStation2).
 % From E: 
 % 
 % t(agent,passenger1).
-isa(passenger1,agent).
+isa(passenger1, agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',90).
 % agent Conductor1
 % From E: 
 % 
 % t(agent,conductor1).
-isa(conductor1,agent).
+isa(conductor1, agent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',92).
 % chair TrainSeat1
 % From E: 
 % 
 % t(chair,trainSeat1).
-isa(trainSeat1,chair).
+isa(trainSeat1, chair).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',94).
 % train Train1
 % From E: 
 % 
 % t(train,train1).
-isa(train1,train).
+isa(train1, train).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',96).
 % chair WaitingRoomSeat1
 % From E: 
 % 
 % t(chair,waitingRoomSeat1).
-isa(waitingRoomSeat1,chair).
+isa(waitingRoomSeat1, chair).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',98).
 % ticketagent TicketAgent1
 % From E: 
 % 
 % t(ticketagent,ticketAgent1).
-isa(ticketAgent1,ticketagent).
+isa(ticketAgent1, ticketagent).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',100).
 % ticket Ticket1
 % From E: 
 % 
 % t(ticket,ticket1).
-isa(ticket1,ticket).
+isa(ticket1, ticket).
 %; prune
 
 % sort requesta, requestb, requestc
@@ -547,8 +540,8 @@ sort(requesta).
 % From E: 
 % 
 % sort(requestb).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',102).
 sort(requestb).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',102).
 % From E: 
 % 
 % sort(requestc).
@@ -559,7 +552,7 @@ sort(requestc).
 % From E: 
 % 
 % event(request(requesta,requestb,requestc)).
-mpred_prop(request(requesta,requestb,requestc),event).
+mpred_prop(request(requesta, requestb, requestc), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',104).
 events([request/3]).
 
@@ -567,8 +560,8 @@ events([request/3]).
 % From E: 
 % 
 % fluent(knowRequest(requestb,requesta,requestc)).
+mpred_prop(knowRequest(requestb, requesta, requestc), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',104).
-mpred_prop(knowRequest(requestb,requesta,requestc),fluent).
 fluents([knowRequest/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',106).
@@ -576,21 +569,21 @@ fluents([knowRequest/3]).
 % From E: 
 % 
 % t(requesta,passenger1).
-isa(passenger1,requesta).
+isa(passenger1, requesta).
 
 % requestb! TicketAgent1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',106).
 % From E: 
 % 
 % t(requestb,ticketAgent1).
-isa(ticketAgent1,requestb).
+isa(ticketAgent1, requestb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',108).
 % requestc! Ticket1
 % From E: 
 % 
 % t(requestc,ticket1).
-isa(ticket1,requestc).
+isa(ticket1, requestc).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',110).
 % sort holda, holdb
@@ -609,7 +602,7 @@ sort(holdb).
 % From E: 
 % 
 % event(takeOffOf(holda,holdb,holdc)).
-mpred_prop(takeOffOf(holda,holdb,holdc),event).
+mpred_prop(takeOffOf(holda, holdb, holdc), event).
 events([takeOffOf/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',112).
@@ -617,7 +610,7 @@ events([takeOffOf/3]).
 % From E: 
 % 
 % event(pickUp(holda,holdb)).
-mpred_prop(pickUp(holda,holdb),event).
+mpred_prop(pickUp(holda, holdb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',112).
 events([pickUp/2]).
 
@@ -625,8 +618,8 @@ events([pickUp/2]).
 % From E: 
 % 
 % event(letGoOf(holda,holdb)).
+mpred_prop(letGoOf(holda, holdb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',112).
-mpred_prop(letGoOf(holda,holdb),event).
 events([letGoOf/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',114).
@@ -634,7 +627,7 @@ events([letGoOf/2]).
 % From E: 
 % 
 % event(hold(holda,holdb)).
-mpred_prop(hold(holda,holdb),event).
+mpred_prop(hold(holda, holdb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',114).
 events([hold/2]).
 
@@ -642,8 +635,8 @@ events([hold/2]).
 % From E: 
 % 
 % fluent(holding(holda,holdb)).
+mpred_prop(holding(holda, holdb), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',114).
-mpred_prop(holding(holda,holdb),fluent).
 fluents([holding/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',116).
@@ -651,7 +644,7 @@ fluents([holding/2]).
 % From E: 
 % 
 % event(handTo(holda,holda,holdb)).
-mpred_prop(handTo(holda,holda,holdb),event).
+mpred_prop(handTo(holda, holda, holdb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',116).
 events([handTo/3]).
 
@@ -659,24 +652,23 @@ events([handTo/3]).
 % From E: 
 % 
 % t(holda,ticketAgent1).
+isa(ticketAgent1, holda).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',116).
-isa(ticketAgent1,holda).
 % From E: 
 % 
 % t(holda,passenger1).
-isa(passenger1,holda).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',116).
+isa(passenger1, holda).
 % From E: 
 % 
 % t(holda,conductor1).
-isa(conductor1,holda).
+isa(conductor1, holda).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',118).
 % holdb! Ticket1
 % From E: 
 % 
 % t(holdb,ticket1).
-isa(ticket1,holdb).
+isa(ticket1, holdb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',120).
 % sort sita, sitb
@@ -695,7 +687,7 @@ sort(sitb).
 % From E: 
 % 
 % event(lieOn(sita,sitb)).
-mpred_prop(lieOn(sita,sitb),event).
+mpred_prop(lieOn(sita, sitb), event).
 events([lieOn/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',122).
@@ -703,7 +695,7 @@ events([lieOn/2]).
 % From E: 
 % 
 % event(sitOn(sita,sitb)).
-mpred_prop(sitOn(sita,sitb),event).
+mpred_prop(sitOn(sita, sitb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',122).
 events([sitOn/2]).
 
@@ -711,8 +703,8 @@ events([sitOn/2]).
 % From E: 
 % 
 % event(riseFrom(sita,sitb)).
+mpred_prop(riseFrom(sita, sitb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',122).
-mpred_prop(riseFrom(sita,sitb),event).
 events([riseFrom/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',124).
@@ -720,7 +712,7 @@ events([riseFrom/2]).
 % From E: 
 % 
 % fluent(lyingOn(sita,sitb)).
-mpred_prop(lyingOn(sita,sitb),fluent).
+mpred_prop(lyingOn(sita, sitb), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',124).
 fluents([lyingOn/2]).
 
@@ -728,8 +720,8 @@ fluents([lyingOn/2]).
 % From E: 
 % 
 % fluent(sittingOn(sita,sitb)).
+mpred_prop(sittingOn(sita, sitb), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',124).
-mpred_prop(sittingOn(sita,sitb),fluent).
 fluents([sittingOn/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',126).
@@ -737,19 +729,18 @@ fluents([sittingOn/2]).
 % From E: 
 % 
 % t(sita,passenger1).
-isa(passenger1,sita).
+isa(passenger1, sita).
 
 % sitb! WaitingRoomSeat1, TrainSeat1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',126).
 % From E: 
 % 
 % t(sitb,waitingRoomSeat1).
-isa(waitingRoomSeat1,sitb).
+isa(waitingRoomSeat1, sitb).
 % From E: 
 % 
 % t(sitb,trainSeat1).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',126).
-isa(trainSeat1,sitb).
+isa(trainSeat1, sitb).
 %; release
 
 % option manualrelease on
@@ -768,7 +759,14 @@ isa(trainSeat1,sitb).
 % 
 % not(released_at(
 %        diameter(Ball,Diameter), 0)).
-not(released_at(diameter(Ball,Diameter),0)).
+not released_at(diameter(Ball, Diameter), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',131).
+
+ /*  l_int(holds(not(released_at(diameter(Ball,Diameter),0)),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 % [agent, object]
@@ -778,7 +776,14 @@ not(released_at(diameter(Ball,Diameter),0)).
 % 
 % not(released_at(
 %        holding(Agent,Object), 0)).
-not(released_at(holding(Agent,Object),0)).
+not released_at(holding(Agent, Object), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',131).
+
+ /*  l_int(holds(not(released_at(holding(Agent,Object),0)),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',133).
@@ -788,8 +793,13 @@ not(released_at(holding(Agent,Object),0)).
 % 
 % not(released_at(
 %        doorUnlocked(Door), 0)).
+not released_at(doorUnlocked(Door), 0).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',133).
-not(released_at(doorUnlocked(Door),0)).
+
+ /*  l_int(holds(not(released_at(doorUnlocked(Door),0)),Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 % [door]
@@ -799,7 +809,13 @@ not(released_at(doorUnlocked(Door),0)).
 % 
 % not(released_at(
 %        doorIsOpen(Door), 0)).
-not(released_at(doorIsOpen(Door),0)).
+not released_at(doorIsOpen(Door), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',133).
+
+ /*  l_int(holds(not(released_at(doorIsOpen(Door),0)),Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',135).
@@ -809,8 +825,9 @@ not(released_at(doorIsOpen(Door),0)).
 % 
 % not(released_at(
 %        sleep0(Agent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',135).
-not(released_at(sleep0(Agent),0)).
+not released_at(sleep0(Agent), 0).
+ %  l_int(holds(not(released_at(sleep0(Agent),0)),Time_at),[]).
+ %  % =================================.
 
 
 % [agent]
@@ -820,7 +837,9 @@ not(released_at(sleep0(Agent),0)).
 % 
 % not(released_at(
 %        sleep1(Agent), 0)).
-not(released_at(sleep1(Agent),0)).
+not released_at(sleep1(Agent), 0).
+ %  l_int(holds(not(released_at(sleep1(Agent),0)),Time_at),[]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',137).
@@ -830,8 +849,9 @@ not(released_at(sleep1(Agent),0)).
 % 
 % not(released_at(
 %        sleep2(Agent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',137).
-not(released_at(sleep2(Agent),0)).
+not released_at(sleep2(Agent), 0).
+ %  l_int(holds(not(released_at(sleep2(Agent),0)),Time_at),[]).
+ %  % =================================.
 
 
 % [agent]
@@ -841,7 +861,9 @@ not(released_at(sleep2(Agent),0)).
 % 
 % not(released_at(
 %        sleep3(Agent), 0)).
-not(released_at(sleep3(Agent),0)).
+not released_at(sleep3(Agent), 0).
+ %  l_int(holds(not(released_at(sleep3(Agent),0)),Time_at),[]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',139).
@@ -851,8 +873,9 @@ not(released_at(sleep3(Agent),0)).
 % 
 % not(released_at(
 %        sleep4(Agent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',139).
-not(released_at(sleep4(Agent),0)).
+not released_at(sleep4(Agent), 0).
+ %  l_int(holds(not(released_at(sleep4(Agent),0)),Time_at),[]).
+ %  % =================================.
 
 
 % [agent]
@@ -862,7 +885,9 @@ not(released_at(sleep4(Agent),0)).
 % 
 % not(released_at(
 %        sleep5(Agent), 0)).
-not(released_at(sleep5(Agent),0)).
+not released_at(sleep5(Agent), 0).
+ %  l_int(holds(not(released_at(sleep5(Agent),0)),Time_at),[]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',141).
@@ -872,8 +897,9 @@ not(released_at(sleep5(Agent),0)).
 % 
 % not(released_at(
 %        sleep6(Agent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',141).
-not(released_at(sleep6(Agent),0)).
+not released_at(sleep6(Agent), 0).
+ %  l_int(holds(not(released_at(sleep6(Agent),0)),Time_at),[]).
+ %  % =================================.
 
 
 % [agent, physobj]
@@ -883,7 +909,14 @@ not(released_at(sleep6(Agent),0)).
 % 
 % not(released_at(
 %        lyingOn(Agent,Physobj), 0)).
-not(released_at(lyingOn(Agent,Physobj),0)).
+not released_at(lyingOn(Agent, Physobj), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',141).
+
+ /*  l_int(holds(not(released_at(lyingOn(Agent,Physobj),0)),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',143).
@@ -893,8 +926,14 @@ not(released_at(lyingOn(Agent,Physobj),0)).
 % 
 % not(released_at(
 %        sittingOn(Agent,Physobj), 0)).
+not released_at(sittingOn(Agent, Physobj), 0).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',143).
-not(released_at(sittingOn(Agent,Physobj),0)).
+
+ /*  l_int(holds(not(released_at(sittingOn(Agent,Physobj),0)),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 % [agent]
@@ -904,7 +943,13 @@ not(released_at(sittingOn(Agent,Physobj),0)).
 % 
 % not(released_at(
 %        standing(Agent), 0)).
-not(released_at(standing(Agent),0)).
+not released_at(standing(Agent), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',143).
+
+ /*  l_int(holds(not(released_at(standing(Agent),0)),Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',145).
@@ -914,8 +959,9 @@ not(released_at(standing(Agent),0)).
 % 
 % not(released_at(
 %        dressed(Agent), 0)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',145).
-not(released_at(dressed(Agent),0)).
+not released_at(dressed(Agent), 0).
+ %  l_int(holds(not(released_at(dressed(Agent),0)),Time_at),[]).
+ %  % =================================.
 
 
 % [agent1, agent2, physobj]
@@ -925,7 +971,17 @@ not(released_at(dressed(Agent),0)).
 % 
 % not(released_at(
 %        knowOrder(Agent1,Agent2,Physobj), 0)).
-not(released_at(knowOrder(Agent1,Agent2,Physobj),0)).
+not released_at(knowOrder(Agent1, Agent2, Physobj), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',145).
+
+ /*  l_int(holds(not(released_at(knowOrder(Agent1,
+     				      Agent2,
+     				      Physobj),
+     			    0)),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',147).
@@ -935,8 +991,17 @@ not(released_at(knowOrder(Agent1,Agent2,Physobj),0)).
 % 
 % not(released_at(
 %        knowRequest(Agent1,Agent2,Physobj), 0)).
+not released_at(knowRequest(Agent1, Agent2, Physobj), 0).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',147).
-not(released_at(knowRequest(Agent1,Agent2,Physobj),0)).
+
+ /*  l_int(holds(not(released_at(knowRequest(Agent1,
+     					Agent2,
+     					Physobj),
+     			    0)),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 % [object, vehicleon]
@@ -946,7 +1011,14 @@ not(released_at(knowRequest(Agent1,Agent2,Physobj),0)).
 % 
 % not(released_at(
 %        onVehicle(Object,Vehicleon), 0)).
-not(released_at(onVehicle(Object,Vehicleon),0)).
+not released_at(onVehicle(Object, Vehicleon), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',147).
+
+ /*  l_int(holds(not(released_at(onVehicle(Object,Vehicleon),0)),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',149).
@@ -956,8 +1028,14 @@ not(released_at(onVehicle(Object,Vehicleon),0)).
 % 
 % not(released_at(
 %        beTicketAgent0(Ticketagent), 0)).
+not released_at(beTicketAgent0(Ticketagent), 0).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',149).
-not(released_at(beTicketAgent0(Ticketagent),0)).
+
+ /*  l_int(holds(not(released_at(beTicketAgent0(Ticketagent),0)),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 % [ticketagent]
@@ -967,7 +1045,14 @@ not(released_at(beTicketAgent0(Ticketagent),0)).
 % 
 % not(released_at(
 %        beTicketAgent1(Ticketagent), 0)).
-not(released_at(beTicketAgent1(Ticketagent),0)).
+not released_at(beTicketAgent1(Ticketagent), 0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',149).
+
+ /*  l_int(holds(not(released_at(beTicketAgent1(Ticketagent),0)),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',151).
@@ -977,8 +1062,14 @@ not(released_at(beTicketAgent1(Ticketagent),0)).
 % 
 % not(released_at(
 %        beTicketAgent2(Ticketagent), 0)).
+not released_at(beTicketAgent2(Ticketagent), 0).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',151).
-not(released_at(beTicketAgent2(Ticketagent),0)).
+
+ /*  l_int(holds(not(released_at(beTicketAgent2(Ticketagent),0)),
+     	    Time_at),
+           []).
+ */
+ %  % =================================.
 
 
 %; special cases
@@ -989,7 +1080,9 @@ not(released_at(beTicketAgent2(Ticketagent),0)).
 % 
 % released_at(
 %    at_loc(trainSeat1,Location), 0).
-released_at(at_loc(trainSeat1,Location),0).
+released_at(at_loc(trainSeat1, Location), 0).
+ %  released_at(at_loc(trainSeat1,Location),0).
+ %  % =================================.
 
 
 % [location]
@@ -999,7 +1092,9 @@ released_at(at_loc(trainSeat1,Location),0).
 % 
 % released_at(
 %    at_loc(conductor1,Location), 0).
-released_at(at_loc(conductor1,Location),0).
+released_at(at_loc(conductor1, Location), 0).
+ %  released_at(at_loc(conductor1,Location),0).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',155).
@@ -1014,8 +1109,13 @@ released_at(at_loc(conductor1,Location),0).
 %       Object\=conductor1), 
 %    not(released_at(
 %           at_loc(Object,Location), 0))).
+released_at(at_loc(Object, Location), 0)if not {dif(Object, trainSeat1)};not {dif(Object, conductor1)}.
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',155).
-if(not(released_at(at_loc(Object, Location), 0)),  ({dif(Object, trainSeat1)}, {dif(Object, conductor1)})).
+
+ /*   if(released_at(at_loc(Object, Location), 0),
+            (not({dif(Object, trainSeat1)});not({dif(Object, conductor1)}))).
+ */
+ %  % =================================.
 
 
 %; initial state
@@ -1026,7 +1126,9 @@ if(not(released_at(at_loc(Object, Location), 0)),  ({dif(Object, trainSeat1)}, {
 % 
 % holds(
 %    not(holding(Agent,Object)), 0).
-initially(not(holding(Agent,Object))).
+initially not holding(Agent, Object).
+ %  initial_state([not(holding(Agent,Object))]).
+ %  % =================================.
 
 
 % [agent,physobj]
@@ -1036,7 +1138,9 @@ initially(not(holding(Agent,Object))).
 % 
 % holds(
 %    not(sittingOn(Agent,Physobj)), 0).
-initially(not(sittingOn(Agent,Physobj))).
+initially not sittingOn(Agent, Physobj).
+ %  initial_state([not(sittingOn(Agent,Physobj))]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',162).
@@ -1046,8 +1150,9 @@ initially(not(sittingOn(Agent,Physobj))).
 % 
 % holds(
 %    not(lyingOn(Agent,Physobj)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',162).
-initially(not(lyingOn(Agent,Physobj))).
+initially not lyingOn(Agent, Physobj).
+ %  initial_state([not(lyingOn(Agent,Physobj))]).
+ %  % =================================.
 
 
 % [physobj1,physobj2]
@@ -1057,7 +1162,9 @@ initially(not(lyingOn(Agent,Physobj))).
 % 
 % holds(
 %    not(on(Physobj1,Physobj2)), 0).
-initially(not(on(Physobj1,Physobj2))).
+initially not on(Physobj1, Physobj2).
+ %  initial_state([not(on(Physobj1,Physobj2))]).
+ %  % =================================.
 
 
 % [agent]
@@ -1067,7 +1174,9 @@ initially(not(on(Physobj1,Physobj2))).
 % 
 % holds(
 %    dressed(Agent), 0).
-initially(dressed(Agent)).
+initially dressed(Agent).
+ %  initial_state([dressed(Agent)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',166).
@@ -1077,8 +1186,9 @@ initially(dressed(Agent)).
 % 
 % holds(
 %    awake(Agent), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',166).
-initially(awake(Agent)).
+initially awake(Agent).
+ %  initial_state([awake(Agent)]).
+ %  % =================================.
 
 
 % [agent]
@@ -1088,7 +1198,9 @@ initially(awake(Agent)).
 % 
 % holds(
 %    sleep3(Agent), 0).
-initially(sleep3(Agent)).
+initially sleep3(Agent).
+ %  initial_state([sleep3(Agent)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',168).
@@ -1098,17 +1210,20 @@ initially(sleep3(Agent)).
 % 
 % holds(
 %    standing(Agent), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',168).
-initially(standing(Agent)).
+initially standing(Agent).
+ %  initial_state([standing(Agent)]).
+ %  % =================================.
 
 
 % HoldsAt(DoorUnlocked(Door1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',168).
 % From E: 
 % 
 % holds(
 %    doorUnlocked(door1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',168).
-initially(doorUnlocked(door1)).
+initially doorUnlocked(door1).
+ %  initial_state([doorUnlocked(door1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',170).
@@ -1117,17 +1232,20 @@ initially(doorUnlocked(door1)).
 % 
 % holds(
 %    doorIsOpen(door1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',170).
-initially(doorIsOpen(door1)).
+initially doorIsOpen(door1).
+ %  initial_state([doorIsOpen(door1)]).
+ %  % =================================.
 
 
 % HoldsAt(At(WaitingRoomSeat1,WaitingRoom1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',170).
 % From E: 
 % 
 % holds(
 %    at_loc(waitingRoomSeat1,waitingRoom1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',170).
-initially(at_loc(waitingRoomSeat1,waitingRoom1)).
+initially at_loc(waitingRoomSeat1, waitingRoom1).
+ %  initial_state([at_loc(waitingRoomSeat1,waitingRoom1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',172).
@@ -1136,17 +1254,20 @@ initially(at_loc(waitingRoomSeat1,waitingRoom1)).
 % 
 % holds(
 %    at_loc(passenger1,nearStation1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',172).
-initially(at_loc(passenger1,nearStation1)).
+initially at_loc(passenger1, nearStation1).
+ %  initial_state([at_loc(passenger1,nearStation1)]).
+ %  % =================================.
 
 
 % HoldsAt(At(Train1,BeforeStation1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',172).
 % From E: 
 % 
 % holds(
 %    at_loc(train1,beforeStation1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',172).
-initially(at_loc(train1,beforeStation1)).
+initially at_loc(train1, beforeStation1).
+ %  initial_state([at_loc(train1,beforeStation1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',174).
@@ -1155,17 +1276,20 @@ initially(at_loc(train1,beforeStation1)).
 % 
 % holds(
 %    onVehicle(trainSeat1,train1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',174).
-initially(onVehicle(trainSeat1,train1)).
+initially onVehicle(trainSeat1, train1).
+ %  initial_state([onVehicle(trainSeat1,train1)]).
+ %  % =================================.
 
 
 % HoldsAt(OnVehicle(Conductor1,Train1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',174).
 % From E: 
 % 
 % holds(
 %    onVehicle(conductor1,train1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',174).
-initially(onVehicle(conductor1,train1)).
+initially onVehicle(conductor1, train1).
+ %  initial_state([onVehicle(conductor1,train1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',176).
@@ -1180,8 +1304,14 @@ initially(onVehicle(conductor1,train1)).
 %       Object\=conductor1), 
 %    holds(
 %       not(onVehicle(Object,train1)), 0)).
+onVehicle(Object, train1)at 0 if not {dif(Object, trainSeat1)};not {dif(Object, conductor1)}.
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',176).
-if(at(not(onVehicle(Object, train1)), 0),  ({dif(Object, trainSeat1)}, {dif(Object, conductor1)})).
+
+ /*   l_int(holds(onVehicle(Object, train1), 0),
+              [  (not({dif(Object, trainSeat1)});not({dif(Object, conductor1)}))
+              ]).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',179).
@@ -1190,17 +1320,20 @@ if(at(not(onVehicle(Object, train1)), 0),  ({dif(Object, trainSeat1)}, {dif(Obje
 % 
 % holds(
 %    at_loc(ticket1,waitingRoom1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',179).
-initially(at_loc(ticket1,waitingRoom1)).
+initially at_loc(ticket1, waitingRoom1).
+ %  initial_state([at_loc(ticket1,waitingRoom1)]).
+ %  % =================================.
 
 
 % HoldsAt(At(TicketAgent1,WaitingRoom1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',179).
 % From E: 
 % 
 % holds(
 %    at_loc(ticketAgent1,waitingRoom1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',179).
-initially(at_loc(ticketAgent1,waitingRoom1)).
+initially at_loc(ticketAgent1, waitingRoom1).
+ %  initial_state([at_loc(ticketAgent1,waitingRoom1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',181).
@@ -1209,8 +1342,9 @@ initially(at_loc(ticketAgent1,waitingRoom1)).
 % 
 % holds(
 %    beTicketAgent0(ticketAgent1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',181).
-initially(beTicketAgent0(ticketAgent1)).
+initially beTicketAgent0(ticketAgent1).
+ %  initial_state([beTicketAgent0(ticketAgent1)]).
+ %  % =================================.
 
 
 % [agent1,agent2,physobj]
@@ -1220,7 +1354,9 @@ initially(beTicketAgent0(ticketAgent1)).
 % 
 % holds(
 %    not(knowOrder(Agent1,Agent2,Physobj)), 0).
-initially(not(knowOrder(Agent1,Agent2,Physobj))).
+initially not knowOrder(Agent1, Agent2, Physobj).
+ %  initial_state([not(knowOrder(Agent1,Agent2,Physobj))]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',183).
@@ -1230,8 +1366,15 @@ initially(not(knowOrder(Agent1,Agent2,Physobj))).
 % 
 % holds(
 %    not(knowRequest(Agent1,Agent2,Physobj)), 0).
+initially not knowRequest(Agent1, Agent2, Physobj).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',183).
-initially(not(knowRequest(Agent1,Agent2,Physobj))).
+
+ /*  initial_state([ not(knowRequest(Agent1,
+     				Agent2,
+     				Physobj))
+     	      ]).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',185).
@@ -1243,8 +1386,9 @@ initially(not(knowRequest(Agent1,Agent2,Physobj))).
 % 
 % happens(
 %    walkStreet12(passenger1,street1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',185).
-observe(at(walkStreet12(passenger1,street1),0)).
+observe walkStreet12(passenger1, street1)at 0.
+ %  observe([walkStreet12(passenger1,street1)],0).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',187).
@@ -1253,17 +1397,20 @@ observe(at(walkStreet12(passenger1,street1),0)).
 % 
 % happens(
 %    walkThroughDoor12(passenger1,door1), 1).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',187).
-observe(at(walkThroughDoor12(passenger1,door1),1)).
+observe walkThroughDoor12(passenger1, door1)at 1.
+ %  observe([walkThroughDoor12(passenger1,door1)],1).
+ %  % =================================.
 
 
 % Happens(Request(Passenger1,TicketAgent1,Ticket1),2).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',187).
 % From E: 
 % 
 % happens(
 %    request(passenger1,ticketAgent1,ticket1), 2).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',187).
-observe(at(request(passenger1,ticketAgent1,ticket1),2)).
+observe request(passenger1, ticketAgent1, ticket1)at 2.
+ %  observe([request(passenger1,ticketAgent1,ticket1)],2).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',189).
@@ -1272,8 +1419,9 @@ observe(at(request(passenger1,ticketAgent1,ticket1),2)).
 % 
 % happens(
 %    pay(passenger1,ticketAgent1), 3).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',189).
-observe(at(pay(passenger1,ticketAgent1),3)).
+observe pay(passenger1, ticketAgent1)at 3.
+ %  observe([pay(passenger1,ticketAgent1)],3).
+ %  % =================================.
 
 
 %;TRIGGERED Happens(PickUp(TicketAgent1,Ticket1),3).
@@ -1286,17 +1434,20 @@ observe(at(pay(passenger1,ticketAgent1),3)).
 % 
 % happens(
 %    sitOn(passenger1,waitingRoomSeat1), 5).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',192).
-observe(at(sitOn(passenger1,waitingRoomSeat1),5)).
+observe sitOn(passenger1, waitingRoomSeat1)at 5.
+ %  observe([sitOn(passenger1,waitingRoomSeat1)],5).
+ %  % =================================.
 
 
 % Happens(RideTrack12(Train1,TrackToStation1),6).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',192).
 % From E: 
 % 
 % happens(
 %    rideTrack12(train1,trackToStation1), 6).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',192).
-observe(at(rideTrack12(train1,trackToStation1),6)).
+observe rideTrack12(train1, trackToStation1)at 6.
+ %  observe([rideTrack12(train1,trackToStation1)],6).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',194).
@@ -1305,17 +1456,20 @@ observe(at(rideTrack12(train1,trackToStation1),6)).
 % 
 % happens(
 %    riseFrom(passenger1,waitingRoomSeat1), 7).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',194).
-observe(at(riseFrom(passenger1,waitingRoomSeat1),7)).
+observe riseFrom(passenger1, waitingRoomSeat1)at 7.
+ %  observe([riseFrom(passenger1,waitingRoomSeat1)],7).
+ %  % =================================.
 
 
 % Happens(WalkThroughDoor21(Passenger1,Door1),8).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',194).
 % From E: 
 % 
 % happens(
 %    walkThroughDoor21(passenger1,door1), 8).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',194).
-observe(at(walkThroughDoor21(passenger1,door1),8)).
+observe walkThroughDoor21(passenger1, door1)at 8.
+ %  observe([walkThroughDoor21(passenger1,door1)],8).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',196).
@@ -1324,17 +1478,20 @@ observe(at(walkThroughDoor21(passenger1,door1),8)).
 % 
 % happens(
 %    getOnVehicle(passenger1,train1), 9).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',196).
-observe(at(getOnVehicle(passenger1,train1),9)).
+observe getOnVehicle(passenger1, train1)at 9.
+ %  observe([getOnVehicle(passenger1,train1)],9).
+ %  % =================================.
 
 
 % Happens(SitOn(Passenger1,TrainSeat1),10).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',196).
 % From E: 
 % 
 % happens(
 %    sitOn(passenger1,trainSeat1), 10).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',196).
-observe(at(sitOn(passenger1,trainSeat1),10)).
+observe sitOn(passenger1, trainSeat1)at 10.
+ %  observe([sitOn(passenger1,trainSeat1)],10).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',198).
@@ -1343,17 +1500,20 @@ observe(at(sitOn(passenger1,trainSeat1),10)).
 % 
 % happens(
 %    rideTrack12(train1,trackToBetweenStation1And2), 11).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',198).
-observe(at(rideTrack12(train1,trackToBetweenStation1And2),11)).
+observe rideTrack12(train1, trackToBetweenStation1And2)at 11.
+ %  observe([rideTrack12(train1,trackToBetweenStation1And2)],11).
+ %  % =================================.
 
 
 % Happens(HandTo(Passenger1,Conductor1,Ticket1),12).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',198).
 % From E: 
 % 
 % happens(
 %    handTo(passenger1,conductor1,ticket1), 12).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',198).
-observe(at(handTo(passenger1,conductor1,ticket1),12)).
+observe handTo(passenger1, conductor1, ticket1)at 12.
+ %  observe([handTo(passenger1,conductor1,ticket1)],12).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',200).
@@ -1365,8 +1525,9 @@ observe(at(handTo(passenger1,conductor1,ticket1),12)).
 % 
 % happens(
 %    rideTrack12(train1,trackToStation2), 13).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',200).
-observe(at(rideTrack12(train1,trackToStation2),13)).
+observe rideTrack12(train1, trackToStation2)at 13.
+ %  observe([rideTrack12(train1,trackToStation2)],13).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',202).
@@ -1375,17 +1536,20 @@ observe(at(rideTrack12(train1,trackToStation2),13)).
 % 
 % happens(
 %    riseFrom(passenger1,trainSeat1), 14).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',202).
-observe(at(riseFrom(passenger1,trainSeat1),14)).
+observe riseFrom(passenger1, trainSeat1)at 14.
+ %  observe([riseFrom(passenger1,trainSeat1)],14).
+ %  % =================================.
 
 
 % Happens(GetOffVehicle(Passenger1,Train1),15).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',202).
 % From E: 
 % 
 % happens(
 %    getOffVehicle(passenger1,train1), 15).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',202).
-observe(at(getOffVehicle(passenger1,train1),15)).
+observe getOffVehicle(passenger1, train1)at 15.
+ %  observe([getOffVehicle(passenger1,train1)],15).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',204).
@@ -1394,8 +1558,9 @@ observe(at(getOffVehicle(passenger1,train1),15)).
 % 
 % happens(
 %    walkStreet12(passenger1,street2), 16).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',204).
-observe(at(walkStreet12(passenger1,street2),16)).
+observe walkStreet12(passenger1, street2)at 16.
+ %  observe([walkStreet12(passenger1,street2)],16).
+ %  % =================================.
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/TakingATrain.e',206).
 % range time 0 17

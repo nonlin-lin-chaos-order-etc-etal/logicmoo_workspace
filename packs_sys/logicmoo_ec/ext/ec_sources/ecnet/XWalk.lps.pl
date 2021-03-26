@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.lps.pl')).
-% Tue, 23 Mar 2021 19:07:01 GMT File: <stream>(0x5555684a7d00)%;
+% Fri, 26 Mar 2021 01:06:14 GMT File: <stream>(0x555567ca9700)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -32,31 +32,31 @@
 %; }
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',22).
 % option trajectory on
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',22).
 % From E: 
 % 
 % ':-'(call_pel_directive(option(trajectory,on))).
 :- call_pel_directive(option(trajectory, on)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',24).
 % sort xschema
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',24).
 % From E: 
 % 
 % sort(xschema).
 sort(xschema).
 %; parameters
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',28).
 % predicate XWalkAgent(xschema,agent)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',28).
 % From E: 
 % 
 % predicate(xWalkAgent(xschema,agent)).
-mpred_prop(xWalkAgent(xschema,agent),predicate).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',28).
+mpred_prop(xWalkAgent(xschema, agent), predicate).
 predicates([xWalkAgent/2]).
 
 % function XWalkRate(xschema): offset ; step duration
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',28).
 % From E: 
 % 
 % function(
@@ -65,8 +65,8 @@ predicates([xWalkAgent/2]).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',28).
 function(xWalkRate(xschema),[offset,;,step,duration]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',30).
 % function XWalkSize(xschema): offset ; step size
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',30).
 % From E: 
 % 
 % function(
@@ -76,55 +76,52 @@ function(xWalkRate(xschema),[offset,;,step,duration]).
 function(xWalkSize(xschema),[offset,;,step,size]).
 %; TTL input lines
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',34).
 % fluent XWalkEnabled(xschema)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',34).
 % From E: 
 % 
 % fluent(xWalkEnabled(xschema)).
-mpred_prop(xWalkEnabled(xschema),fluent).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',34).
+mpred_prop(xWalkEnabled(xschema), fluent).
 fluents([xWalkEnabled/1]).
 
 % fluent XWalkGroundStable(xschema)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',34).
 % From E: 
 % 
 % fluent(xWalkGroundStable(xschema)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',34).
-mpred_prop(xWalkGroundStable(xschema),fluent).
+mpred_prop(xWalkGroundStable(xschema), fluent).
 fluents([xWalkGroundStable/1]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',36).
 % fluent XWalkPosture(xschema)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',36).
 % From E: 
 % 
 % fluent(xWalkPosture(xschema)).
-mpred_prop(xWalkPosture(xschema),fluent).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',36).
+mpred_prop(xWalkPosture(xschema), fluent).
 fluents([xWalkPosture/1]).
 
 % fluent XWalkFootingOK(xschema)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',36).
 % From E: 
 % 
 % fluent(xWalkFootingOK(xschema)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',36).
-mpred_prop(xWalkFootingOK(xschema),fluent).
+mpred_prop(xWalkFootingOK(xschema), fluent).
 fluents([xWalkFootingOK/1]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',38).
 % noninertial XWalkEnabled, XWalkGroundStable, XWalkPosture, XWalkFootingOK
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',38).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(xWalkEnabled))).
 :- call_pel_directive(noninertial(xWalkEnabled)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',38).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(xWalkGroundStable))).
 :- call_pel_directive(noninertial(xWalkGroundStable)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',38).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(xWalkPosture))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',38).
 :- call_pel_directive(noninertial(xWalkPosture)).
 % From E: 
 % 
@@ -132,13 +129,12 @@ fluents([xWalkFootingOK/1]).
 :- call_pel_directive(noninertial(xWalkFootingOK)).
 %; fluents
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',42).
 % fluent XWalkDistance(xschema,distance)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',42).
 % From E: 
 % 
 % fluent(xWalkDistance(xschema,distance)).
-mpred_prop(xWalkDistance(xschema,distance),fluent).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',42).
+mpred_prop(xWalkDistance(xschema, distance), fluent).
 fluents([xWalkDistance/2]).
 
 
@@ -158,8 +154,18 @@ fluents([xWalkDistance/2]).
 %          xWalkDistance(Xschema,Distance2), 
 %          Time)), 
 %    Distance1=Distance2).
+(   equals(Distance1, Distance2)
+;   not xWalkDistance(Xschema, Distance1)at Time
+;   not xWalkDistance(Xschema, Distance2)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',44).
-if(equals(Distance1, Distance2),  (at(xWalkDistance(Xschema, Distance1), Time), at(xWalkDistance(Xschema, Distance2), Time))).
+
+ /*   (   equals(Distance1, Distance2)
+        ;   at(not(xWalkDistance(Xschema, Distance1)), Time)
+        ;   at(not(xWalkDistance(Xschema, Distance2)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; logic gate behavior
@@ -169,7 +175,7 @@ if(equals(Distance1, Distance2),  (at(xWalkDistance(Xschema, Distance1), Time), 
 % From E: 
 % 
 % fluent(xWalkVision(xschema)).
-mpred_prop(xWalkVision(xschema),fluent).
+mpred_prop(xWalkVision(xschema), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',51).
 fluents([xWalkVision/1]).
 
@@ -177,8 +183,8 @@ fluents([xWalkVision/1]).
 % From E: 
 % 
 % fluent(xWalkVisionOK(xschema)).
+mpred_prop(xWalkVisionOK(xschema), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',51).
-mpred_prop(xWalkVisionOK(xschema),fluent).
 fluents([xWalkVisionOK/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',53).
@@ -186,7 +192,7 @@ fluents([xWalkVisionOK/1]).
 % From E: 
 % 
 % fluent(xWalkAtDestination(xschema)).
-mpred_prop(xWalkAtDestination(xschema),fluent).
+mpred_prop(xWalkAtDestination(xschema), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',53).
 fluents([xWalkAtDestination/1]).
 
@@ -194,8 +200,8 @@ fluents([xWalkAtDestination/1]).
 % From E: 
 % 
 % fluent(xWalkDone(xschema)).
+mpred_prop(xWalkDone(xschema), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',53).
-mpred_prop(xWalkDone(xschema),fluent).
 fluents([xWalkDone/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',55).
@@ -212,8 +218,8 @@ fluents([xWalkDone/1]).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(xWalkAtDestination))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',55).
 :- call_pel_directive(noninertial(xWalkAtDestination)).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',55).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(xWalkDone))).
@@ -233,9 +239,26 @@ fluents([xWalkDone/1]).
 %    holds(
 %       xWalkVision(Xschema), 
 %       Time)).
+(   xWalkVision(Xschema)at Time
+;   not xWalkGroundStable(Xschema)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',57).
-at(xWalkGroundStable(Xschema), Time) <->
-    at(xWalkVision(Xschema), Time).
+
+ /*   (   at(xWalkVision(Xschema), Time)
+        ;   at(not(xWalkGroundStable(Xschema)), Time)
+        ).
+ */
+ %  % =================================.
+(   xWalkGroundStable(Xschema)at Time
+;   not xWalkVision(Xschema)at Time
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',57).
+
+ /*   (   at(xWalkGroundStable(Xschema), Time)
+        ;   at(not(xWalkVision(Xschema)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [xschema,time]
@@ -261,9 +284,34 @@ at(xWalkGroundStable(Xschema), Time) <->
 %    holds(
 %       xWalkVisionOK(Xschema), 
 %       Time)).
+(   xWalkVisionOK(Xschema)at Time
+;   not xWalkEnabled(Xschema)at Time
+;   not xWalkVision(Xschema)at Time
+;   not xWalkPosture(Xschema)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',62).
-at(xWalkEnabled(Xschema), Time), at(xWalkVision(Xschema), Time), at(xWalkPosture(Xschema), Time) <->
-    at(xWalkVisionOK(Xschema), Time).
+
+ /*   (   at(xWalkVisionOK(Xschema), Time)
+        ;   at(not(xWalkEnabled(Xschema)), Time)
+        ;   at(not(xWalkVision(Xschema)), Time)
+        ;   at(not(xWalkPosture(Xschema)), Time)
+        ).
+ */
+ %  % =================================.
+(   xWalkEnabled(Xschema)at Time,
+    xWalkVision(Xschema)at Time,
+    xWalkPosture(Xschema)at Time
+;   not xWalkVisionOK(Xschema)at Time
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',62).
+
+ /*  (   at(xWalkEnabled(Xschema), Time),
+         at(xWalkVision(Xschema), Time),
+         at(xWalkPosture(Xschema), Time)
+     ;   at(not(xWalkVisionOK(Xschema)), Time)
+     ).
+ */
+ %  % =================================.
 
 
 % [xschema,time]
@@ -279,8 +327,25 @@ at(xWalkEnabled(Xschema), Time), at(xWalkVision(Xschema), Time), at(xWalkPosture
 %    holds(
 %       xWalkAtDestination(Xschema), 
 %       Time)).
-at(xWalkDistance(Xschema, 0), Time) <->
-    at(xWalkAtDestination(Xschema), Time).
+(   xWalkAtDestination(Xschema)at Time
+;   not xWalkDistance(Xschema, 0)at Time
+).
+
+ /*   (   at(xWalkAtDestination(Xschema), Time)
+        ;   at(not(xWalkDistance(Xschema, 0)), Time)
+        ).
+ */
+ %  % =================================.
+(   xWalkDistance(Xschema, 0)at Time
+;   not xWalkAtDestination(Xschema)at Time
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',68).
+
+ /*   (   at(xWalkDistance(Xschema, 0), Time)
+        ;   at(not(xWalkAtDestination(Xschema)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [xschema,time]
@@ -296,8 +361,25 @@ at(xWalkDistance(Xschema, 0), Time) <->
 %    holds(
 %       xWalkDone(Xschema), 
 %       Time)).
-at(xWalkAtDestination(Xschema), Time) <->
-    at(xWalkDone(Xschema), Time).
+(   xWalkDone(Xschema)at Time
+;   not xWalkAtDestination(Xschema)at Time
+).
+
+ /*   (   at(xWalkDone(Xschema), Time)
+        ;   at(not(xWalkAtDestination(Xschema)), Time)
+        ).
+ */
+ %  % =================================.
+(   xWalkAtDestination(Xschema)at Time
+;   not xWalkDone(Xschema)at Time
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',72).
+
+ /*   (   at(xWalkAtDestination(Xschema), Time)
+        ;   at(not(xWalkDone(Xschema)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; durative events
@@ -308,7 +390,7 @@ at(xWalkAtDestination(Xschema), Time) <->
 % From E: 
 % 
 % fluent(xWalkStepping(xschema,distance)).
-mpred_prop(xWalkStepping(xschema,distance),fluent).
+mpred_prop(xWalkStepping(xschema, distance), fluent).
 fluents([xWalkStepping/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',79).
@@ -316,7 +398,7 @@ fluents([xWalkStepping/2]).
 % From E: 
 % 
 % event(xWalkSteppingOn(xschema)).
-mpred_prop(xWalkSteppingOn(xschema),event).
+mpred_prop(xWalkSteppingOn(xschema), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',79).
 events([xWalkSteppingOn/1]).
 
@@ -324,8 +406,8 @@ events([xWalkSteppingOn/1]).
 % From E: 
 % 
 % event(xWalkSteppingOff(xschema)).
+mpred_prop(xWalkSteppingOff(xschema), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',79).
-mpred_prop(xWalkSteppingOff(xschema),event).
 events([xWalkSteppingOff/1]).
 
 
@@ -346,8 +428,20 @@ events([xWalkSteppingOff/1]).
 %       xWalkSteppingOn(Xschema), 
 %       xWalkStepping(Xschema,Distance2), 
 %       Time)).
+(   initiates(xWalkSteppingOn(Xschema),
+              xWalkStepping(Xschema, Distance2)at Time)
+;   not xWalkDistance(Xschema, Distance1)at Time
+;   not equals(Distance2, Distance1-xWalkSize(Xschema))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',82).
-if(initiates(xWalkSteppingOn(Xschema), at(xWalkStepping(Xschema, Distance2), Time)),  (at(xWalkDistance(Xschema, Distance1), Time), equals(Distance2, Distance1-xWalkSize(Xschema)))).
+
+ /*   (   initiates(xWalkSteppingOn(Xschema),
+                      at(xWalkStepping(Xschema, Distance2), Time))
+        ;   at(not(xWalkDistance(Xschema, Distance1)), Time)
+        ;   not(equals(Distance2, Distance1-xWalkSize(Xschema)))
+        ).
+ */
+ %  % =================================.
 
 
 % [xschema,distance,time]
@@ -359,9 +453,16 @@ if(initiates(xWalkSteppingOn(Xschema), at(xWalkStepping(Xschema, Distance2), Tim
 %    xWalkSteppingOff(Xschema), 
 %    xWalkStepping(Xschema,Distance), 
 %    Time).
+xWalkSteppingOff(Xschema)terminates xWalkStepping(Xschema, Distance).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',88).
-terminates(xWalkSteppingOff(Xschema),
-	   xWalkStepping(Xschema,Distance)).
+
+ /*  terminated(happens(xWalkSteppingOff(Xschema),
+     		   Time_from,
+     		   Time_until),
+     	   xWalkStepping(Xschema,Distance),
+     	   []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',90).
@@ -373,9 +474,13 @@ terminates(xWalkSteppingOff(Xschema),
 %    xWalkSteppingOn(Xschema), 
 %    xWalkDistance(Xschema,Distance), 
 %    Time).
+releases(xWalkSteppingOn(Xschema), xWalkDistance(Xschema, Distance)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',90).
-releases(xWalkSteppingOn(Xschema),
-	 xWalkDistance(Xschema,Distance)).
+
+ /*  releases(xWalkSteppingOn(Xschema),
+     	 xWalkDistance(Xschema,Distance)).
+ */
+ %  % =================================.
 
 
 % [xschema,distance1,distance2,time]
@@ -395,8 +500,20 @@ releases(xWalkSteppingOn(Xschema),
 %       xWalkSteppingOff(Xschema), 
 %       xWalkDistance(Xschema,Distance2), 
 %       Time)).
+(   terminates(xWalkSteppingOff(Xschema),
+               xWalkDistance(Xschema, Distance2)at Time)
+;   not xWalkDistance(Xschema, Distance1)at Time
+;   not {dif(Distance1, Distance2)}
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',94).
-if(terminates(xWalkSteppingOff(Xschema), at(xWalkDistance(Xschema, Distance2), Time)),  (at(xWalkDistance(Xschema, Distance1), Time), {dif(Distance1, Distance2)})).
+
+ /*   (   terminates(xWalkSteppingOff(Xschema),
+                       at(xWalkDistance(Xschema, Distance2), Time))
+        ;   at(not(xWalkDistance(Xschema, Distance1)), Time)
+        ;   not({dif(Distance1, Distance2)})
+        ).
+ */
+ %  % =================================.
 
 
 % [xschema,distance,time]
@@ -413,9 +530,17 @@ if(terminates(xWalkSteppingOff(Xschema), at(xWalkDistance(Xschema, Distance2), T
 %       xWalkSteppingOff(Xschema), 
 %       xWalkDistance(Xschema,Distance), 
 %       Time)).
-if(initiates(xWalkSteppingOff(Xschema),
-	     at(xWalkDistance(Xschema,Distance),Time)),
-   at(xWalkDistance(Xschema,Distance),Time)).
+(   initiates(xWalkSteppingOff(Xschema),
+              xWalkDistance(Xschema, Distance)at Time)
+;   not xWalkDistance(Xschema, Distance)at Time
+).
+
+ /*   (   initiates(xWalkSteppingOff(Xschema),
+                      at(xWalkDistance(Xschema, Distance), Time))
+        ;   at(not(xWalkDistance(Xschema, Distance)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [xschema,distance01,distance02,distance03,offset,time]
@@ -439,8 +564,26 @@ if(initiates(xWalkSteppingOff(Xschema),
 %       Time, 
 %       xWalkDistance(Xschema,Distance03), 
 %       Offset)).
+(   trajectory(xWalkStepping(Xschema, Distance02),
+               Time,
+               xWalkDistance(Xschema, Distance03),
+               Offset)
+;   not xWalkDistance(Xschema, Distance01)at Time
+;   not(equals(Distance03,
+               Distance01-Offset*(xWalkSize(Xschema)/xWalkRate(Xschema))))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',103).
-if(trajectory(xWalkStepping(Xschema, Distance02), Time, xWalkDistance(Xschema, Distance03), Offset),  (at(xWalkDistance(Xschema, Distance01), Time), equals(Distance03, Distance01-Offset*(xWalkSize(Xschema)/xWalkRate(Xschema))))).
+
+ /*   (   trajectory(xWalkStepping(Xschema, Distance02),
+                       Time,
+                       xWalkDistance(Xschema, Distance03),
+                       Offset)
+        ;   at(not(xWalkDistance(Xschema, Distance01)), Time)
+        ;   not(equals(Distance03,
+                       Distance01-Offset*(xWalkSize(Xschema)/xWalkRate(Xschema))))
+        ).
+ */
+ %  % =================================.
 
 
 % [xschema,distance,time]
@@ -461,8 +604,18 @@ if(trajectory(xWalkStepping(Xschema, Distance02), Time, xWalkDistance(Xschema, D
 %    happens(
 %       xWalkSteppingOff(Xschema), 
 %       Time)).
+(   happens(xWalkSteppingOff(Xschema), Time)
+;   not xWalkStepping(Xschema, Distance)at Time
+;   not xWalkDistance(Xschema, Distance)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',111).
-if(happens(xWalkSteppingOff(Xschema), Time),  (at(xWalkStepping(Xschema, Distance), Time), at(xWalkDistance(Xschema, Distance), Time))).
+
+ /*   (   happens(xWalkSteppingOff(Xschema), Time)
+        ;   at(not(xWalkStepping(Xschema, Distance)), Time)
+        ;   at(not(xWalkDistance(Xschema, Distance)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; punctual events
@@ -472,7 +625,7 @@ if(happens(xWalkSteppingOff(Xschema), Time),  (at(xWalkStepping(Xschema, Distanc
 % From E: 
 % 
 % event(xWalkTestFooting(xschema)).
-mpred_prop(xWalkTestFooting(xschema),event).
+mpred_prop(xWalkTestFooting(xschema), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',117).
 events([xWalkTestFooting/1]).
 
@@ -480,8 +633,8 @@ events([xWalkTestFooting/1]).
 % From E: 
 % 
 % event(xWalkMoveFoot(xschema)).
+mpred_prop(xWalkMoveFoot(xschema), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',117).
-mpred_prop(xWalkMoveFoot(xschema),event).
 events([xWalkMoveFoot/1]).
 
 
@@ -503,8 +656,18 @@ events([xWalkMoveFoot/1]).
 %    happens(
 %       xWalkMoveFoot(Xschema), 
 %       Time+1)).
+(   happens(xWalkMoveFoot(Xschema), Time+1)
+;   not happens(xWalkTestFooting(Xschema), Time)
+;   xWalkFootingOK(Xschema)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',120).
-if(happens(xWalkMoveFoot(Xschema), Time+1),  (happens(xWalkTestFooting(Xschema), Time), at(not(xWalkFootingOK(Xschema)), Time))).
+
+ /*   (   happens(xWalkMoveFoot(Xschema), Time+1)
+        ;   not(happens(xWalkTestFooting(Xschema), Time))
+        ;   at(xWalkFootingOK(Xschema), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [xschema,time]
@@ -520,8 +683,15 @@ if(happens(xWalkMoveFoot(Xschema), Time+1),  (happens(xWalkTestFooting(Xschema),
 %    happens(
 %       xWalkReadyOn(Xschema), 
 %       Time+1)).
-if(happens(xWalkReadyOn(Xschema),Time+1),
-   happens(xWalkMoveFoot(Xschema),Time)).
+(   happens(xWalkReadyOn(Xschema), Time+1)
+;   not happens(xWalkMoveFoot(Xschema), Time)
+).
+
+ /*   (   happens(xWalkReadyOn(Xschema), Time+1)
+        ;   not(happens(xWalkMoveFoot(Xschema), Time))
+        ).
+ */
+ %  % =================================.
 
 
 %; Petri net behavior
@@ -531,7 +701,7 @@ if(happens(xWalkReadyOn(Xschema),Time+1),
 % From E: 
 % 
 % fluent(xWalkReady(xschema)).
-mpred_prop(xWalkReady(xschema),fluent).
+mpred_prop(xWalkReady(xschema), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',131).
 fluents([xWalkReady/1]).
 
@@ -539,8 +709,8 @@ fluents([xWalkReady/1]).
 % From E: 
 % 
 % event(xWalkReadyOn(xschema)).
+mpred_prop(xWalkReadyOn(xschema), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',131).
-mpred_prop(xWalkReadyOn(xschema),event).
 events([xWalkReadyOn/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',133).
@@ -548,7 +718,7 @@ events([xWalkReadyOn/1]).
 % From E: 
 % 
 % event(xWalkReadyOff(xschema)).
-mpred_prop(xWalkReadyOff(xschema),event).
+mpred_prop(xWalkReadyOff(xschema), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',133).
 events([xWalkReadyOff/1]).
 
@@ -588,8 +758,26 @@ events([xWalkReadyOff/1]).
 %    happens(
 %       xWalkReadyOn(Xschema), 
 %       Time)).
+(   happens(xWalkReadyOn(Xschema), Time)
+;   not xWalkEnabled(Xschema)at Time
+;   not xWalkVision(Xschema)at Time
+;   not xWalkPosture(Xschema)at Time
+;   thereExists(Distance,
+                xWalkStepping(Xschema, Distance)at Time)
+;   xWalkReady(Xschema)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',135).
-if(happens(xWalkReadyOn(Xschema), Time),  (at(xWalkEnabled(Xschema), Time), at(xWalkVision(Xschema), Time), at(xWalkPosture(Xschema), Time), not(thereExists(Distance, at(xWalkStepping(Xschema, Distance), Time))), at(not(xWalkReady(Xschema)), Time))).
+
+ /*   (   happens(xWalkReadyOn(Xschema), Time)
+        ;   at(not(xWalkEnabled(Xschema)), Time)
+        ;   at(not(xWalkVision(Xschema)), Time)
+        ;   at(not(xWalkPosture(Xschema)), Time)
+        ;   thereExists(Distance,
+                        at(xWalkStepping(Xschema, Distance), Time))
+        ;   at(xWalkReady(Xschema), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [xschema,time]
@@ -601,8 +789,16 @@ if(happens(xWalkReadyOn(Xschema), Time),  (at(xWalkEnabled(Xschema), Time), at(x
 %    xWalkReadyOn(Xschema), 
 %    xWalkReady(Xschema), 
 %    Time).
+xWalkReadyOn(Xschema)initiates xWalkReady(Xschema).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',144).
-initiates(xWalkReadyOn(Xschema),xWalkReady(Xschema)).
+
+ /*  initiated(happens(xWalkReadyOn(Xschema),
+     		  Time_from,
+     		  Time_until),
+     	  xWalkReady(Xschema),
+     	  []).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',146).
@@ -614,8 +810,16 @@ initiates(xWalkReadyOn(Xschema),xWalkReady(Xschema)).
 %    xWalkReadyOff(Xschema), 
 %    xWalkReady(Xschema), 
 %    Time).
+xWalkReadyOff(Xschema)terminates xWalkReady(Xschema).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',146).
-terminates(xWalkReadyOff(Xschema),xWalkReady(Xschema)).
+
+ /*  terminated(happens(xWalkReadyOff(Xschema),
+     		   Time_from,
+     		   Time_until),
+     	   xWalkReady(Xschema),
+     	   []).
+ */
+ %  % =================================.
 
 
 %; bypass_ok
@@ -648,8 +852,9 @@ terminates(xWalkReadyOff(Xschema),xWalkReady(Xschema)).
 %          happens(
 %             xWalkReadyOff(Xschema), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',150).
-exists(Distance, if((happens(xWalkSteppingOn(Xschema), Time), happens(xWalkReadyOff(Xschema), Time)),  (at(not(xWalkStepping(Xschema, Distance)), Time), at(xWalkVisionOK(Xschema), Time), at(xWalkReady(Xschema), Time)))).
+exists(Distance,  (happens(xWalkSteppingOn(Xschema), Time), happens(xWalkReadyOff(Xschema), Time);xWalkStepping(Xschema, Distance)at Time;not xWalkVisionOK(Xschema)at Time;not xWalkReady(Xschema)at Time)).
+ %  exists(Distance,  (happens(xWalkSteppingOn(Xschema), Time), happens(xWalkReadyOff(Xschema), Time);at(xWalkStepping(Xschema, Distance), Time);at(not(xWalkVisionOK(Xschema)), Time);at(not(xWalkReady(Xschema)), Time))).
+ %  % =================================.
 
 
 %; !bypass_ok
@@ -682,8 +887,9 @@ exists(Distance, if((happens(xWalkSteppingOn(Xschema), Time), happens(xWalkReady
 %          happens(
 %             xWalkReadyOff(Xschema), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',158).
-exists(Distance, if((happens(xWalkTestFooting(Xschema), Time), happens(xWalkReadyOff(Xschema), Time)),  (at(not(xWalkStepping(Xschema, Distance)), Time), at(not(xWalkVisionOK(Xschema)), Time), at(xWalkReady(Xschema), Time)))).
+exists(Distance,  (happens(xWalkTestFooting(Xschema), Time), happens(xWalkReadyOff(Xschema), Time);xWalkStepping(Xschema, Distance)at Time;xWalkVisionOK(Xschema)at Time;not xWalkReady(Xschema)at Time)).
+ %  exists(Distance,  (happens(xWalkTestFooting(Xschema), Time), happens(xWalkReadyOff(Xschema), Time);at(xWalkStepping(Xschema, Distance), Time);at(xWalkVisionOK(Xschema), Time);at(not(xWalkReady(Xschema)), Time))).
+ %  % =================================.
 
 
 % [xschema,distance,time]
@@ -707,8 +913,20 @@ exists(Distance, if((happens(xWalkTestFooting(Xschema), Time), happens(xWalkRead
 %    happens(
 %       xWalkReadyOn(Xschema), 
 %       Time)).
+(   happens(xWalkReadyOn(Xschema), Time)
+;   not xWalkStepping(Xschema, Distance)at Time
+;   not xWalkDistance(Xschema, Distance)at Time
+;   not comparison(Distance, 0, >)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/XWalk.e',166).
-if(happens(xWalkReadyOn(Xschema), Time),  (at(xWalkStepping(Xschema, Distance), Time), at(xWalkDistance(Xschema, Distance), Time), comparison(Distance, 0, >))).
+
+ /*   (   happens(xWalkReadyOn(Xschema), Time)
+        ;   at(not(xWalkStepping(Xschema, Distance)), Time)
+        ;   at(not(xWalkDistance(Xschema, Distance)), Time)
+        ;   not(comparison(Distance, 0, >))
+        ).
+ */
+ %  % =================================.
 
 
 %; End of file.

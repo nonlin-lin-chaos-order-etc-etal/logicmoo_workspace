@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.lps.pl')).
-% Tue, 23 Mar 2021 19:07:02 GMT File: <stream>(0x555567be8900)%;
+% Fri, 26 Mar 2021 01:05:54 GMT File: <stream>(0x555567c94000)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -35,31 +35,30 @@
 %; }
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',25).
 % predicate Clipped(time,fluent,time)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',25).
 % From E: 
 % 
 % predicate(clipped(time,fluent,time)).
-mpred_prop(clipped(time,fluent,time),predicate).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',25).
+mpred_prop(clipped(time, fluent, time), predicate).
 predicates([clipped/3]).
 
 % predicate Declipped(time,fluent,time)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',25).
 % From E: 
 % 
 % predicate(declipped(time,fluent,time)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',25).
-mpred_prop(declipped(time,fluent,time),predicate).
+mpred_prop(declipped(time, fluent, time), predicate).
 predicates([declipped/3]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',28).
 % predicate Trajectory(fluent,time,fluent,offset)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',28).
 % From E: 
 % 
 % predicate(trajectory(fluent, time, fluent, 
 %              offset)).
+mpred_prop(trajectory(fluent, time, fluent, offset), predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',28).
-mpred_prop(trajectory(fluent,time,fluent,offset),predicate).
 predicates([trajectory/4]).
 
 % predicate AntiTrajectory(fluent,time,fluent,offset)
@@ -67,8 +66,8 @@ predicates([trajectory/4]).
 % 
 % predicate(antiTrajectory(fluent, time, fluent, 
 %              offset)).
+mpred_prop(antiTrajectory(fluent, time, fluent, offset), predicate).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',28).
-mpred_prop(antiTrajectory(fluent,time,fluent,offset),predicate).
 predicates([antiTrajectory/4]).
 
 
@@ -95,8 +94,24 @@ predicates([antiTrajectory/4]).
 %                   Offset), 
 %                not(clipped(Time,Fluent,Time+Offset)))))), 
 %    holds(Fluent2,Time+Offset)).
+(   Fluent2 at Time+Offset
+;   not happens(Event, Time)
+;   not (Event initiates Fluent at Time)
+;   not comparison(0, Offset, <)
+;   not trajectory(Fluent, Time, Fluent2, Offset)
+;   clipped(Time, Fluent, Time+Offset)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',31).
-if(at(Fluent2, Time+Offset),  (happens(Event, Time), initiates(Event, at(Fluent, Time)), comparison(0, Offset, <), trajectory(Fluent, Time, Fluent2, Offset), not(clipped(Time, Fluent, Time+Offset)))).
+
+ /*   (   at(Fluent2, Time+Offset)
+        ;   not(happens(Event, Time))
+        ;   not(initiates(Event, at(Fluent, Time)))
+        ;   not(comparison(0, Offset, <))
+        ;   not(trajectory(Fluent, Time, Fluent2, Offset))
+        ;   clipped(Time, Fluent, Time+Offset)
+        ).
+ */
+ %  % =================================.
 
 
 % [event,fluent,fluent2,offset,time]
@@ -121,8 +136,24 @@ if(at(Fluent2, Time+Offset),  (happens(Event, Time), initiates(Event, at(Fluent,
 %                   Offset), 
 %                not(declipped(Time,Fluent,Time+Offset)))))), 
 %    holds(Fluent2,Time+Offset)).
+(   Fluent2 at Time+Offset
+;   not happens(Event, Time)
+;   not (Event terminates Fluent at Time)
+;   not comparison(0, Offset, <)
+;   not antiTrajectory(Fluent, Time, Fluent2, Offset)
+;   declipped(Time, Fluent, Time+Offset)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/foundations/ECTraj.e',40).
-if(at(Fluent2, Time+Offset),  (happens(Event, Time), terminates(Event, at(Fluent, Time)), comparison(0, Offset, <), antiTrajectory(Fluent, Time, Fluent2, Offset), not(declipped(Time, Fluent, Time+Offset)))).
+
+ /*   (   at(Fluent2, Time+Offset)
+        ;   not(happens(Event, Time))
+        ;   not(terminates(Event, at(Fluent, Time)))
+        ;   not(comparison(0, Offset, <))
+        ;   not(antiTrajectory(Fluent, Time, Fluent2, Offset))
+        ;   declipped(Time, Fluent, Time+Offset)
+        ).
+ */
+ %  % =================================.
 
 
 %; End of file.

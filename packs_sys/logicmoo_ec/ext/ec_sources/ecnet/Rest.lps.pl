@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.lps.pl')).
-% Tue, 23 Mar 2021 19:06:55 GMT File: <stream>(0x555567271400)%;
+% Fri, 26 Mar 2021 01:06:07 GMT File: <stream>(0x555567c95100)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -29,8 +29,8 @@
 %; }
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',19).
 % option renaming off
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',19).
 % From E: 
 % 
 % ':-'(call_pel_directive(option(renaming,off))).
@@ -43,8 +43,8 @@
 % ':-'(call_pel_directive(option(encoding,3))).
 :- call_pel_directive(option(encoding, 3)).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',22).
 % load foundations/Root.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',22).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('foundations/Root.e'))).
@@ -57,8 +57,8 @@
 % ':-'(call_pel_directive(load('foundations/EC.e'))).
 :- call_pel_directive(load('foundations/EC.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',24).
 % load answers/Mueller2003/Ontology.e
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',24).
 % From E: 
 % 
 % ':-'(call_pel_directive(load('answers/Mueller2003/Ontology.e'))).
@@ -71,12 +71,12 @@
 % ':-'(call_pel_directive(load('answers/MuellerInPress/RepRest.e'))).
 :- call_pel_directive(load('answers/MuellerInPress/RepRest.e')).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',27).
 % door MainEntrance1
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',27).
 % From E: 
 % 
 % t(door,mainEntrance1).
-isa(mainEntrance1,door).
+isa(mainEntrance1, door).
 %; room-scale topological space
 
 % outside Street1
@@ -84,28 +84,28 @@ isa(mainEntrance1,door).
 % From E: 
 % 
 % t(outside,street1).
-isa(street1,outside).
+isa(street1, outside).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',31).
 % room DiningRoom1
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',31).
 % From E: 
 % 
 % t(room,diningRoom1).
-isa(diningRoom1,room).
+isa(diningRoom1, room).
 
 % door KitchenDoor1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',31).
 % From E: 
 % 
 % t(door,kitchenDoor1).
-isa(kitchenDoor1,door).
+isa(kitchenDoor1, door).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',33).
 % room Kitchen1
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',33).
 % From E: 
 % 
 % t(room,kitchen1).
-isa(kitchen1,room).
+isa(kitchen1, room).
 
 
 % Side1(MainEntrance1)=Street1.
@@ -155,28 +155,28 @@ side2(kitchenDoor1,kitchen1).
 % From E: 
 % 
 % t(agent,customer1).
-isa(customer1,agent).
+isa(customer1, agent).
 
 % menu Menu1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',39).
 % From E: 
 % 
 % t(menu,menu1).
-isa(menu1,menu).
+isa(menu1, menu).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',41).
 % chair Chair1
 % From E: 
 % 
 % t(chair,chair1).
-isa(chair1,chair).
+isa(chair1, chair).
 
 % food Food1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',41).
 % From E: 
 % 
 % t(food,food1).
-isa(food1,food).
+isa(food1, food).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',43).
@@ -185,17 +185,20 @@ isa(food1,food).
 % 
 % holds(
 %    at_loc(customer1,street1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',43).
-initially(at_loc(customer1,street1)).
+initially at_loc(customer1, street1).
+ %  initial_state([at_loc(customer1,street1)]).
+ %  % =================================.
 
 
 % HoldsAt(Hungry(Customer1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',43).
 % From E: 
 % 
 % holds(
 %    hungry(customer1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',43).
-initially(hungry(customer1)).
+initially hungry(customer1).
+ %  initial_state([hungry(customer1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',45).
@@ -204,17 +207,20 @@ initially(hungry(customer1)).
 % 
 % holds(
 %    at_loc(chair1,diningRoom1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',45).
-initially(at_loc(chair1,diningRoom1)).
+initially at_loc(chair1, diningRoom1).
+ %  initial_state([at_loc(chair1,diningRoom1)]).
+ %  % =================================.
 
 
 % HoldsAt(At(Menu1,DiningRoom1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',45).
 % From E: 
 % 
 % holds(
 %    at_loc(menu1,diningRoom1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',45).
-initially(at_loc(menu1,diningRoom1)).
+initially at_loc(menu1, diningRoom1).
+ %  initial_state([at_loc(menu1,diningRoom1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',47).
@@ -223,31 +229,34 @@ initially(at_loc(menu1,diningRoom1)).
 % 
 % holds(
 %    on(menu1,table1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',47).
-initially(on(menu1,table1)).
+initially on(menu1, table1).
+ %  initial_state([on(menu1,table1)]).
+ %  % =================================.
 
 
 % HoldsAt(At(Food1,Kitchen1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',47).
 % From E: 
 % 
 % holds(
 %    at_loc(food1,kitchen1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',47).
-initially(at_loc(food1,kitchen1)).
+initially at_loc(food1, kitchen1).
+ %  initial_state([at_loc(food1,kitchen1)]).
+ %  % =================================.
 
 % waiter Waiter1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',49).
 % From E: 
 % 
 % t(waiter,waiter1).
-isa(waiter1,waiter).
+isa(waiter1, waiter).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',51).
 % cook Cook1
 % From E: 
 % 
 % t(cook,cook1).
-isa(cook1,cook).
+isa(cook1, cook).
 %; props
 
 % table Table1
@@ -255,14 +264,14 @@ isa(cook1,cook).
 % From E: 
 % 
 % t(table,table1).
-isa(table1,table).
+isa(table1, table).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',55).
 % bill Bill1
 % From E: 
 % 
 % t(bill,bill1).
-isa(bill1,bill).
+isa(bill1, bill).
 %; restaurant
 
 % restaurant Restaurant1
@@ -270,7 +279,7 @@ isa(bill1,bill).
 % From E: 
 % 
 % t(restaurant,restaurant1).
-isa(restaurant1,restaurant).
+isa(restaurant1, restaurant).
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',59).
@@ -333,8 +342,8 @@ billOf(restaurant1,bill1).
 % From E: 
 % 
 % sort(ona).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',65).
 sort(ona).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',65).
 % From E: 
 % 
 % sort(onb).
@@ -345,7 +354,7 @@ sort(onb).
 % From E: 
 % 
 % fluent(on(ona,onb)).
-mpred_prop(on(ona,onb),fluent).
+mpred_prop(on(ona, onb), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',67).
 fluents([on/2]).
 
@@ -355,7 +364,7 @@ fluents([on/2]).
 % event(placeOn(agent,ona,onb)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',67).
 events([placeOn/3]).
-mpred_prop(placeOn(agent,ona,onb),action).
+mpred_prop(placeOn(agent, ona, onb), action).
 actions([placeOn/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',69).
@@ -364,8 +373,8 @@ actions([placeOn/3]).
 % 
 % event(takeOffOf(agent,ona,onb)).
 events([takeOffOf/3]).
+mpred_prop(takeOffOf(agent, ona, onb), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',69).
-mpred_prop(takeOffOf(agent,ona,onb),action).
 actions([takeOffOf/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',71).
@@ -382,15 +391,14 @@ sort(orderb).
 % From E: 
 % 
 % sort(orderc).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',71).
 sort(orderc).
 
 % event! Order(ordera,orderb,orderc)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',71).
 % From E: 
 % 
 % event(order(ordera,orderb,orderc)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',71).
-mpred_prop(order(ordera,orderb,orderc),event).
+mpred_prop(order(ordera, orderb, orderc), event).
 events([order/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',73).
@@ -398,7 +406,7 @@ events([order/3]).
 % From E: 
 % 
 % fluent(knowOrder(orderb,ordera,orderc)).
-mpred_prop(knowOrder(orderb,ordera,orderc),fluent).
+mpred_prop(knowOrder(orderb, ordera, orderc), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',73).
 fluents([knowOrder/3]).
 
@@ -416,15 +424,14 @@ sort(requestb).
 % From E: 
 % 
 % sort(requestc).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',75).
 sort(requestc).
 
 % event! Request(requesta,requestb,requestc)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',75).
 % From E: 
 % 
 % event(request(requesta,requestb,requestc)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',75).
-mpred_prop(request(requesta,requestb,requestc),event).
+mpred_prop(request(requesta, requestb, requestc), event).
 events([request/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',77).
@@ -432,7 +439,7 @@ events([request/3]).
 % From E: 
 % 
 % fluent(knowRequest(requestb,requesta,requestc)).
-mpred_prop(knowRequest(requestb,requesta,requestc),fluent).
+mpred_prop(knowRequest(requestb, requesta, requestc), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',77).
 fluents([knowRequest/3]).
 
@@ -450,15 +457,14 @@ sort(holdb).
 % From E: 
 % 
 % sort(holdc).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',79).
 sort(holdc).
 
 % event! TakeOffOf(holda,holdb,holdc)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',79).
 % From E: 
 % 
 % event(takeOffOf(holda,holdb,holdc)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',79).
-mpred_prop(takeOffOf(holda,holdb,holdc),event).
+mpred_prop(takeOffOf(holda, holdb, holdc), event).
 events([takeOffOf/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',81).
@@ -466,7 +472,7 @@ events([takeOffOf/3]).
 % From E: 
 % 
 % event(pickUp(holda,holdb)).
-mpred_prop(pickUp(holda,holdb),event).
+mpred_prop(pickUp(holda, holdb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',81).
 events([pickUp/2]).
 
@@ -474,8 +480,8 @@ events([pickUp/2]).
 % From E: 
 % 
 % event(letGoOf(holda,holdb)).
+mpred_prop(letGoOf(holda, holdb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',81).
-mpred_prop(letGoOf(holda,holdb),event).
 events([letGoOf/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',83).
@@ -483,7 +489,7 @@ events([letGoOf/2]).
 % From E: 
 % 
 % event(hold(holda,holdb)).
-mpred_prop(hold(holda,holdb),event).
+mpred_prop(hold(holda, holdb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',83).
 events([hold/2]).
 
@@ -491,8 +497,8 @@ events([hold/2]).
 % From E: 
 % 
 % fluent(holding(holda,holdb)).
+mpred_prop(holding(holda, holdb), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',83).
-mpred_prop(holding(holda,holdb),fluent).
 fluents([holding/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',86).
@@ -512,7 +518,7 @@ sort(sitb).
 % From E: 
 % 
 % event(lieOn(sita,sitb)).
-mpred_prop(lieOn(sita,sitb),event).
+mpred_prop(lieOn(sita, sitb), event).
 events([lieOn/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',88).
@@ -520,7 +526,7 @@ events([lieOn/2]).
 % From E: 
 % 
 % event(sitOn(sita,sitb)).
-mpred_prop(sitOn(sita,sitb),event).
+mpred_prop(sitOn(sita, sitb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',88).
 events([sitOn/2]).
 
@@ -528,8 +534,8 @@ events([sitOn/2]).
 % From E: 
 % 
 % event(riseFrom(sita,sitb)).
+mpred_prop(riseFrom(sita, sitb), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',88).
-mpred_prop(riseFrom(sita,sitb),event).
 events([riseFrom/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',90).
@@ -537,7 +543,7 @@ events([riseFrom/2]).
 % From E: 
 % 
 % fluent(lyingOn(sita,sitb)).
-mpred_prop(lyingOn(sita,sitb),fluent).
+mpred_prop(lyingOn(sita, sitb), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',90).
 fluents([lyingOn/2]).
 
@@ -545,8 +551,8 @@ fluents([lyingOn/2]).
 % From E: 
 % 
 % fluent(sittingOn(sita,sitb)).
+mpred_prop(sittingOn(sita, sitb), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',90).
-mpred_prop(sittingOn(sita,sitb),fluent).
 fluents([sittingOn/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',93).
@@ -566,7 +572,7 @@ sort(greetb).
 % From E: 
 % 
 % event(greet(greeta,greetb)).
-mpred_prop(greet(greeta,greetb),event).
+mpred_prop(greet(greeta, greetb), event).
 events([greet/2]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',96).
@@ -574,149 +580,146 @@ events([greet/2]).
 % From E: 
 % 
 % t(ona,menu1).
-isa(menu1,ona).
+isa(menu1, ona).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',96).
 % From E: 
 % 
 % t(ona,food1).
-isa(food1,ona).
+isa(food1, ona).
 % From E: 
 % 
 % t(ona,bill1).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',96).
-isa(bill1,ona).
+isa(bill1, ona).
 
 % onb! Table1
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',96).
 % From E: 
 % 
 % t(onb,table1).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',96).
-isa(table1,onb).
+isa(table1, onb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',98).
 % ordera! Customer1, Waiter1
 % From E: 
 % 
 % t(ordera,customer1).
-isa(customer1,ordera).
+isa(customer1, ordera).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',98).
 % From E: 
 % 
 % t(ordera,waiter1).
-isa(waiter1,ordera).
+isa(waiter1, ordera).
 
 % orderb! Waiter1, Cook1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',98).
 % From E: 
 % 
 % t(orderb,waiter1).
-isa(waiter1,orderb).
+isa(waiter1, orderb).
 % From E: 
 % 
 % t(orderb,cook1).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',98).
-isa(cook1,orderb).
+isa(cook1, orderb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',100).
 % orderc! Food1
 % From E: 
 % 
 % t(orderc,food1).
-isa(food1,orderc).
+isa(food1, orderc).
 
 % requesta! Customer1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',100).
 % From E: 
 % 
 % t(requesta,customer1).
-isa(customer1,requesta).
+isa(customer1, requesta).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',102).
 % requestb! Waiter1
 % From E: 
 % 
 % t(requestb,waiter1).
-isa(waiter1,requestb).
+isa(waiter1, requestb).
 
 % requestc! Bill1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',102).
 % From E: 
 % 
 % t(requestc,bill1).
-isa(bill1,requestc).
+isa(bill1, requestc).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',104).
 % holda! Customer1, Waiter1
 % From E: 
 % 
 % t(holda,customer1).
-isa(customer1,holda).
+isa(customer1, holda).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',104).
 % From E: 
 % 
 % t(holda,waiter1).
-isa(waiter1,holda).
+isa(waiter1, holda).
 
 % holdb! Menu1, Food1, Bill1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',104).
 % From E: 
 % 
 % t(holdb,menu1).
-isa(menu1,holdb).
+isa(menu1, holdb).
 % From E: 
 % 
 % t(holdb,food1).
+isa(food1, holdb).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',104).
-isa(food1,holdb).
 % From E: 
 % 
 % t(holdb,bill1).
-isa(bill1,holdb).
+isa(bill1, holdb).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',106).
 % holdc! Table1
 % From E: 
 % 
 % t(holdc,table1).
-isa(table1,holdc).
+isa(table1, holdc).
 
 % sita! Customer1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',106).
 % From E: 
 % 
 % t(sita,customer1).
-isa(customer1,sita).
+isa(customer1, sita).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',108).
 % sitb! Chair1
 % From E: 
 % 
 % t(sitb,chair1).
-isa(chair1,sitb).
+isa(chair1, sitb).
 
 % greeta! Customer1, Waiter1
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',108).
 % From E: 
 % 
 % t(greeta,customer1).
-isa(customer1,greeta).
+isa(customer1, greeta).
 % From E: 
 % 
 % t(greeta,waiter1).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',108).
-isa(waiter1,greeta).
+isa(waiter1, greeta).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',110).
 % greetb! Customer1, Waiter1
 % From E: 
 % 
 % t(greetb,customer1).
-isa(customer1,greetb).
+isa(customer1, greetb).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',110).
 % From E: 
 % 
 % t(greetb,waiter1).
-isa(waiter1,greetb).
+isa(waiter1, greetb).
 %; initial situation
 
 
@@ -726,7 +729,9 @@ isa(waiter1,greetb).
 % 
 % holds(
 %    at_loc(waiter1,diningRoom1), 0).
-initially(at_loc(waiter1,diningRoom1)).
+initially at_loc(waiter1, diningRoom1).
+ %  initial_state([at_loc(waiter1,diningRoom1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',114).
@@ -735,17 +740,20 @@ initially(at_loc(waiter1,diningRoom1)).
 % 
 % holds(
 %    at_loc(cook1,kitchen1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',114).
-initially(at_loc(cook1,kitchen1)).
+initially at_loc(cook1, kitchen1).
+ %  initial_state([at_loc(cook1,kitchen1)]).
+ %  % =================================.
 
 
 % HoldsAt(At(Table1,DiningRoom1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',114).
 % From E: 
 % 
 % holds(
 %    at_loc(table1,diningRoom1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',114).
-initially(at_loc(table1,diningRoom1)).
+initially at_loc(table1, diningRoom1).
+ %  initial_state([at_loc(table1,diningRoom1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',116).
@@ -754,17 +762,20 @@ initially(at_loc(table1,diningRoom1)).
 % 
 % holds(
 %    not(on(bill1,table1)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',116).
-initially(not(on(bill1,table1))).
+initially not on(bill1, table1).
+ %  initial_state([not(on(bill1,table1))]).
+ %  % =================================.
 
 
 % HoldsAt(At(Bill1,DiningRoom1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',116).
 % From E: 
 % 
 % holds(
 %    at_loc(bill1,diningRoom1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',116).
-initially(at_loc(bill1,diningRoom1)).
+initially at_loc(bill1, diningRoom1).
+ %  initial_state([at_loc(bill1,diningRoom1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',118).
@@ -774,8 +785,9 @@ initially(at_loc(bill1,diningRoom1)).
 % 
 % holds(
 %    standing(Agent), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',118).
-initially(standing(Agent)).
+initially standing(Agent).
+ %  initial_state([standing(Agent)]).
+ %  % =================================.
 
 
 % [agent,object]
@@ -785,7 +797,9 @@ initially(standing(Agent)).
 % 
 % holds(
 %    not(holding(Agent,Object)), 0).
-initially(not(holding(Agent,Object))).
+initially not holding(Agent, Object).
+ %  initial_state([not(holding(Agent,Object))]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',120).
@@ -795,8 +809,9 @@ initially(not(holding(Agent,Object))).
 % 
 % holds(
 %    not(knowOrder(Agent1,Agent2,Physobj)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',120).
-initially(not(knowOrder(Agent1,Agent2,Physobj))).
+initially not knowOrder(Agent1, Agent2, Physobj).
+ %  initial_state([not(knowOrder(Agent1,Agent2,Physobj))]).
+ %  % =================================.
 
 
 % [agent1,agent2,physobj]
@@ -806,7 +821,15 @@ initially(not(knowOrder(Agent1,Agent2,Physobj))).
 % 
 % holds(
 %    not(knowRequest(Agent1,Agent2,Physobj)), 0).
-initially(not(knowRequest(Agent1,Agent2,Physobj))).
+initially not knowRequest(Agent1, Agent2, Physobj).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',120).
+
+ /*  initial_state([ not(knowRequest(Agent1,
+     				Agent2,
+     				Physobj))
+     	      ]).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',122).
@@ -815,17 +838,20 @@ initially(not(knowRequest(Agent1,Agent2,Physobj))).
 % 
 % holds(
 %    beWaiter0(waiter1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',122).
-initially(beWaiter0(waiter1)).
+initially beWaiter0(waiter1).
+ %  initial_state([beWaiter0(waiter1)]).
+ %  % =================================.
 
 
 % HoldsAt(BeCook0(Cook1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',122).
 % From E: 
 % 
 % holds(
 %    beCook0(cook1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',122).
-initially(beCook0(cook1)).
+initially beCook0(cook1).
+ %  initial_state([beCook0(cook1)]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',124).
@@ -835,17 +861,20 @@ initially(beCook0(cook1)).
 % 
 % holds(
 %    not(foodPrepared(Food)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',124).
-initially(not(foodPrepared(Food))).
+initially not foodPrepared(Food).
+ %  initial_state([not(foodPrepared(Food))]).
+ %  % =================================.
 
 
 % !HoldsAt(Hungry(Cook1),0).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',124).
 % From E: 
 % 
 % holds(
 %    not(hungry(cook1)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',124).
-initially(not(hungry(cook1))).
+initially not hungry(cook1).
+ %  initial_state([not(hungry(cook1))]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',126).
@@ -854,8 +883,9 @@ initially(not(hungry(cook1))).
 % 
 % holds(
 %    not(hungry(waiter1)), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',126).
-initially(not(hungry(waiter1))).
+initially not hungry(waiter1).
+ %  initial_state([not(hungry(waiter1))]).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',128).
@@ -864,17 +894,20 @@ initially(not(hungry(waiter1))).
 % 
 % happens(
 %    walkThroughDoor12(customer1,mainEntrance1), 0).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',128).
-observe(at(walkThroughDoor12(customer1,mainEntrance1),0)).
+observe walkThroughDoor12(customer1, mainEntrance1)at 0.
+ %  observe([walkThroughDoor12(customer1,mainEntrance1)],0).
+ %  % =================================.
 
 
 % Happens(Greet(Waiter1,Customer1),1).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',128).
 % From E: 
 % 
 % happens(
 %    greet(waiter1,customer1), 1).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',128).
-observe(at(greet(waiter1,customer1),1)).
+observe greet(waiter1, customer1)at 1.
+ %  observe([greet(waiter1,customer1)],1).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',130).
@@ -883,17 +916,20 @@ observe(at(greet(waiter1,customer1),1)).
 % 
 % happens(
 %    sitOn(customer1,chair1), 2).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',130).
-observe(at(sitOn(customer1,chair1),2)).
+observe sitOn(customer1, chair1)at 2.
+ %  observe([sitOn(customer1,chair1)],2).
+ %  % =================================.
 
 
 % Happens(TakeOffOf(Customer1,Menu1,Table1),3).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',130).
 % From E: 
 % 
 % happens(
 %    takeOffOf(customer1,menu1,table1), 3).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',130).
-observe(at(takeOffOf(customer1,menu1,table1),3)).
+observe takeOffOf(customer1, menu1, table1)at 3.
+ %  observe([takeOffOf(customer1,menu1,table1)],3).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',132).
@@ -902,17 +938,20 @@ observe(at(takeOffOf(customer1,menu1,table1),3)).
 % 
 % happens(
 %    order(customer1,waiter1,food1), 4).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',132).
-observe(at(order(customer1,waiter1,food1),4)).
+observe order(customer1, waiter1, food1)at 4.
+ %  observe([order(customer1,waiter1,food1)],4).
+ %  % =================================.
 
 
 % Happens(PlaceOn(Customer1,Menu1,Table1),5).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',132).
 % From E: 
 % 
 % happens(
 %    placeOn(customer1,menu1,table1), 5).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',132).
-observe(at(placeOn(customer1,menu1,table1),5)).
+observe placeOn(customer1, menu1, table1)at 5.
+ %  observe([placeOn(customer1,menu1,table1)],5).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',134).
@@ -921,17 +960,20 @@ observe(at(placeOn(customer1,menu1,table1),5)).
 % 
 % happens(
 %    eat(customer1,food1), 11).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',134).
-observe(at(eat(customer1,food1),11)).
+observe eat(customer1, food1)at 11.
+ %  observe([eat(customer1,food1)],11).
+ %  % =================================.
 
 
 % Happens(Request(Customer1,Waiter1,Bill1),12).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',134).
 % From E: 
 % 
 % happens(
 %    request(customer1,waiter1,bill1), 12).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',134).
-observe(at(request(customer1,waiter1,bill1),12)).
+observe request(customer1, waiter1, bill1)at 12.
+ %  observe([request(customer1,waiter1,bill1)],12).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',136).
@@ -940,17 +982,20 @@ observe(at(request(customer1,waiter1,bill1),12)).
 % 
 % happens(
 %    pay(customer1,waiter1), 15).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',136).
-observe(at(pay(customer1,waiter1),15)).
+observe pay(customer1, waiter1)at 15.
+ %  observe([pay(customer1,waiter1)],15).
+ %  % =================================.
 
 
 % Happens(Tip(Customer1,Waiter1),15).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',136).
 % From E: 
 % 
 % happens(
 %    tip(customer1,waiter1), 15).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',136).
-observe(at(tip(customer1,waiter1),15)).
+observe tip(customer1, waiter1)at 15.
+ %  observe([tip(customer1,waiter1)],15).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',138).
@@ -959,17 +1004,20 @@ observe(at(tip(customer1,waiter1),15)).
 % 
 % happens(
 %    riseFrom(customer1,chair1), 16).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',138).
-observe(at(riseFrom(customer1,chair1),16)).
+observe riseFrom(customer1, chair1)at 16.
+ %  observe([riseFrom(customer1,chair1)],16).
+ %  % =================================.
 
 
 % Happens(SayGoodbye(Customer1,Waiter1),17).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',138).
 % From E: 
 % 
 % happens(
 %    sayGoodbye(customer1,waiter1), 17).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',138).
-observe(at(sayGoodbye(customer1,waiter1),17)).
+observe sayGoodbye(customer1, waiter1)at 17.
+ %  observe([sayGoodbye(customer1,waiter1)],17).
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',140).
@@ -978,8 +1026,9 @@ observe(at(sayGoodbye(customer1,waiter1),17)).
 % 
 % happens(
 %    walkThroughDoor21(customer1,mainEntrance1), 18).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',140).
-observe(at(walkThroughDoor21(customer1,mainEntrance1),18)).
+observe walkThroughDoor21(customer1, mainEntrance1)at 18.
+ %  observe([walkThroughDoor21(customer1,mainEntrance1)],18).
+ %  % =================================.
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Rest.e',142).
 % range time 0 19

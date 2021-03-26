@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.lps.pl')).
-% Tue, 23 Mar 2021 19:25:05 GMT File: <stream>(0x5555684b2800)%;
+% Fri, 26 Mar 2021 01:05:55 GMT File: <stream>(0x555567a68b00)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -306,7 +306,7 @@ visitingTeamPlayer(Ballgame, Agent)if not homeTeamPlayer(Ballgame, Agent).
  /*  if(visitingTeamPlayer(Ballgame,Agent),
         not(homeTeamPlayer(Ballgame,Agent))).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [ballgame,agent]
@@ -317,15 +317,16 @@ visitingTeamPlayer(Ballgame, Agent)if not homeTeamPlayer(Ballgame, Agent).
 % '->'(
 %    homeTeamPlayer(Ballgame,Agent), 
 %    player(Ballgame,Agent)).
-not player(Ballgame, Agent)if not homeTeamPlayer(Ballgame, Agent).
+(   player(Ballgame, Agent)
+;   not homeTeamPlayer(Ballgame, Agent)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',86).
 
- /*  l_int(holds(not(player(Ballgame,Agent)),Time_at),
-           [ holds(not(homeTeamPlayer(Ballgame,Agent)),
-     	      Time_at)
-           ]).
+ /*   (   player(Ballgame, Agent)
+        ;   not(homeTeamPlayer(Ballgame, Agent))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [ballgame,agent]
@@ -336,15 +337,16 @@ not player(Ballgame, Agent)if not homeTeamPlayer(Ballgame, Agent).
 % '->'(
 %    visitingTeamPlayer(Ballgame,Agent), 
 %    player(Ballgame,Agent)).
-not player(Ballgame, Agent)if not visitingTeamPlayer(Ballgame, Agent).
+(   player(Ballgame, Agent)
+;   not visitingTeamPlayer(Ballgame, Agent)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',88).
 
- /*  l_int(holds(not(player(Ballgame,Agent)),Time_at),
-           [ holds(not(visitingTeamPlayer(Ballgame,Agent)),
-     	      Time_at)
-           ]).
+ /*   (   player(Ballgame, Agent)
+        ;   not(visitingTeamPlayer(Ballgame, Agent))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [ballgame,agent1,agent2]
@@ -365,19 +367,44 @@ not player(Ballgame, Agent)if not visitingTeamPlayer(Ballgame, Agent).
 %       ','(
 %          homeTeamPlayer(Ballgame,Agent2), 
 %          visitingTeamPlayer(Ballgame,Agent1)))).
-(not homeTeamPlayer(Ballgame, Agent1);not visitingTeamPlayer(Ballgame, Agent2)), (not homeTeamPlayer(Ballgame, Agent2);not visitingTeamPlayer(Ballgame, Agent1))if not onOppositeTeams(Ballgame, Agent1, Agent2).
- %  if(((not(homeTeamPlayer(Ballgame, Agent1));not(visitingTeamPlayer(Ballgame, Agent2))), (not(homeTeamPlayer(Ballgame, Agent2));not(visitingTeamPlayer(Ballgame, Agent1)))), not(onOppositeTeams(Ballgame, Agent1, Agent2))).
- %  "% =================================".
-not onOppositeTeams(Ballgame, Agent1, Agent2)if(not homeTeamPlayer(Ballgame, Agent1);not visitingTeamPlayer(Ballgame, Agent2)), (not homeTeamPlayer(Ballgame, Agent2);not visitingTeamPlayer(Ballgame, Agent1)).
+(   (   homeTeamPlayer(Ballgame, Agent1),
+        visitingTeamPlayer(Ballgame, Agent2)
+    ;   homeTeamPlayer(Ballgame, Agent2),
+        visitingTeamPlayer(Ballgame, Agent1)
+    )
+;   not onOppositeTeams(Ballgame, Agent1, Agent2)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',92).
 
- /*   l_int(holds(not(onOppositeTeams(Ballgame, Agent1, Agent2)),
-                    Time_at),
-              [  (not(homeTeamPlayer(Ballgame, Agent1));not(visitingTeamPlayer(Ballgame, Agent2))),
-                 (not(homeTeamPlayer(Ballgame, Agent2));not(visitingTeamPlayer(Ballgame, Agent1)))
-              ]).
+ /*  (   (   homeTeamPlayer(Ballgame, Agent1),
+             visitingTeamPlayer(Ballgame, Agent2)
+         ;   homeTeamPlayer(Ballgame, Agent2),
+             visitingTeamPlayer(Ballgame, Agent1)
+         )
+     ;   not(onOppositeTeams(Ballgame, Agent1, Agent2))
+     ).
  */
- %  "% =================================".
+ %  % =================================.
+(   onOppositeTeams(Ballgame, Agent1, Agent2)
+;   (   not homeTeamPlayer(Ballgame, Agent1)
+    ;   not visitingTeamPlayer(Ballgame, Agent2)
+    ),
+    (   not homeTeamPlayer(Ballgame, Agent2)
+    ;   not visitingTeamPlayer(Ballgame, Agent1)
+    )
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',92).
+
+ /*  (   onOppositeTeams(Ballgame, Agent1, Agent2)
+     ;   (   not(homeTeamPlayer(Ballgame, Agent1))
+         ;   not(visitingTeamPlayer(Ballgame, Agent2))
+         ),
+         (   not(homeTeamPlayer(Ballgame, Agent2))
+         ;   not(visitingTeamPlayer(Ballgame, Agent1))
+         )
+     ).
+ */
+ %  % =================================.
 
 
 % [ballgame,agent1,hardball,agent2,pitchermound,homeplate,time]
@@ -412,13 +439,26 @@ not onOppositeTeams(Ballgame, Agent1, Agent2)if(not homeTeamPlayer(Ballgame, Age
 %             near(Agent2,Homeplate), 
 %             Time), 
 %          onOppositeTeams(Ballgame,Agent1,Agent2)))).
-not near(Agent1, Pitchermound)at Time;not near(Agent2, Homeplate)at Time;not onOppositeTeams(Ballgame, Agent1, Agent2)if not happens(pitch(Ballgame, Agent1, Hardball, Agent2), Time);not equals(pitchermoundOf(Ballgame), Pitchermound);not equals(homeplateOf(Ballgame), Homeplate).
+(   near(Agent1, Pitchermound)at Time,
+    near(Agent2, Homeplate)at Time,
+    onOppositeTeams(Ballgame, Agent1, Agent2)
+;   not(happens(pitch(Ballgame, Agent1, Hardball, Agent2),
+                Time))
+;   not equals(pitchermoundOf(Ballgame), Pitchermound)
+;   not equals(homeplateOf(Ballgame), Homeplate)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',99).
 
- /*   if((at(not(near(Agent1, Pitchermound)), Time);at(not(near(Agent2, Homeplate)), Time);not(onOppositeTeams(Ballgame, Agent1, Agent2))),
-            (not(happens(pitch(Ballgame, Agent1, Hardball, Agent2), Time));not(equals(pitchermoundOf(Ballgame), Pitchermound));not(equals(homeplateOf(Ballgame), Homeplate)))).
+ /*  (   at(near(Agent1, Pitchermound), Time),
+         at(near(Agent2, Homeplate), Time),
+         onOppositeTeams(Ballgame, Agent1, Agent2)
+     ;   not(happens(pitch(Ballgame, Agent1, Hardball, Agent2),
+                     Time))
+     ;   not(equals(pitchermoundOf(Ballgame), Pitchermound))
+     ;   not(equals(homeplateOf(Ballgame), Homeplate))
+     ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [ballgame,agent1,agent2,hardball,time]
@@ -442,9 +482,41 @@ not near(Agent1, Pitchermound)at Time;not near(Agent2, Homeplate)at Time;not onO
 %          pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, 
 %             Agent2), 
 %          Time))).
-not happens(pitchInStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time), not happens(pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time)if not happens(pitch(Ballgame, Agent1, Hardball, Agent2), Time).
- %  if((not(happens(pitchInStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time)), not(happens(pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time))), not(happens(pitch(Ballgame, Agent1, Hardball, Agent2), Time))).
- %  "% =================================".
+(   (   happens(pitchInStrikeZone(Ballgame,
+                                  Agent1,
+                                  Hardball,
+                                  Agent2),
+                Time)
+    ;   happens(pitchOutOfStrikeZone(Ballgame,
+                                     Agent1,
+                                     Hardball,
+                                     Agent2),
+                Time)
+    )
+;   not(happens(pitch(Ballgame, Agent1, Hardball, Agent2),
+                Time))
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',107).
+
+ /*   (   (   happens(pitchInStrikeZone(Ballgame,
+                                          Agent1,
+                                          Hardball,
+                                          Agent2),
+                        Time)
+            ;   happens(pitchOutOfStrikeZone(Ballgame,
+                                             Agent1,
+                                             Hardball,
+                                             Agent2),
+                        Time)
+            )
+        ;   not(happens(pitch(Ballgame,
+                              Agent1,
+                              Hardball,
+                              Agent2),
+                        Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [ballgame,agent1,agent2,hardball,time]
@@ -475,7 +547,7 @@ happens(pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time)if not ha
      				 Agent2),
      	       Time))).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [ballgame,agent1,agent2,hardball,time]
@@ -492,22 +564,23 @@ happens(pitchOutOfStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time)if not ha
 %    happens(
 %       swing(Ballgame,Agent2,Hardball), 
 %       Time+1)).
-not happens(swing(Ballgame, Agent2, Hardball), Time+1)if not happens(pitchInStrikeZone(Ballgame, Agent1, Hardball, Agent2), Time).
+(   happens(swing(Ballgame, Agent2, Hardball), Time+1)
+;   not(happens(pitchInStrikeZone(Ballgame,
+                                  Agent1,
+                                  Hardball,
+                                  Agent2),
+                Time))
+).
 
- /*  l_int(holds(not(happens(swing(Ballgame,
-     			      Agent2,
-     			      Hardball),
-     			Time+1)),
-     	    Time_at),
-           [ holds(not(happens(pitchInStrikeZone(Ballgame,
-     					    Agent1,
-     					    Hardball,
-     					    Agent2),
-     			  Time)),
-     	      Time_at)
-           ]).
+ /*   (   happens(swing(Ballgame, Agent2, Hardball), Time+1)
+        ;   not(happens(pitchInStrikeZone(Ballgame,
+                                          Agent1,
+                                          Hardball,
+                                          Agent2),
+                        Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [ballgame,agent,hardball,time]
@@ -528,9 +601,25 @@ not happens(swing(Ballgame, Agent2, Hardball), Time+1)if not happens(pitchInStri
 %       happens(
 %          swingMiss(Ballgame,Agent,Hardball), 
 %          Time))).
-not happens(swingHit(Ballgame, Agent, Hardball), Time), not happens(swingMiss(Ballgame, Agent, Hardball), Time)if not happens(swing(Ballgame, Agent, Hardball), Time).
- %  if((not(happens(swingHit(Ballgame, Agent, Hardball), Time)), not(happens(swingMiss(Ballgame, Agent, Hardball), Time))), not(happens(swing(Ballgame, Agent, Hardball), Time))).
- %  "% =================================".
+(   (   happens(swingHit(Ballgame, Agent, Hardball),
+                Time)
+    ;   happens(swingMiss(Ballgame, Agent, Hardball),
+                Time)
+    )
+;   not happens(swing(Ballgame, Agent, Hardball), Time)
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',120).
+
+ /*   (   (   happens(swingHit(Ballgame, Agent, Hardball),
+                        Time)
+            ;   happens(swingMiss(Ballgame, Agent, Hardball),
+                        Time)
+            )
+        ;   not(happens(swing(Ballgame, Agent, Hardball),
+                        Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [ballgame,agent,hardball,time]
@@ -553,7 +642,7 @@ happens(swingMiss(Ballgame, Agent, Hardball), Time)if not happens(swingHit(Ballg
         not(happens(swingHit(Ballgame,Agent,Hardball),
      	       Time))).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [ballgame,agent,hardball,time]
@@ -574,9 +663,26 @@ happens(swingMiss(Ballgame, Agent, Hardball), Time)if not happens(swingHit(Ballg
 %       happens(
 %          swingHitFoul(Ballgame,Agent,Hardball), 
 %          Time))).
-not happens(swingHitFair(Ballgame, Agent, Hardball), Time), not happens(swingHitFoul(Ballgame, Agent, Hardball), Time)if not happens(swingHit(Ballgame, Agent, Hardball), Time).
- %  if((not(happens(swingHitFair(Ballgame, Agent, Hardball), Time)), not(happens(swingHitFoul(Ballgame, Agent, Hardball), Time))), not(happens(swingHit(Ballgame, Agent, Hardball), Time))).
- %  "% =================================".
+(   (   happens(swingHitFair(Ballgame, Agent, Hardball),
+                Time)
+    ;   happens(swingHitFoul(Ballgame, Agent, Hardball),
+                Time)
+    )
+;   not(happens(swingHit(Ballgame, Agent, Hardball),
+                Time))
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',129).
+
+ /*   (   (   happens(swingHitFair(Ballgame, Agent, Hardball),
+                        Time)
+            ;   happens(swingHitFoul(Ballgame, Agent, Hardball),
+                        Time)
+            )
+        ;   not(happens(swingHit(Ballgame, Agent, Hardball),
+                        Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [ballgame,agent,hardball,time]
@@ -599,7 +705,7 @@ happens(swingHitFoul(Ballgame, Agent, Hardball), Time)if not happens(swingHitFai
         not(happens(swingHitFair(Ballgame,Agent,Hardball),
      	       Time))).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [ballgame,agent,hardball,time]
@@ -620,9 +726,28 @@ happens(swingHitFoul(Ballgame, Agent, Hardball), Time)if not happens(swingHitFai
 %       happens(
 %          swingHitFairGround(Ballgame,Agent,Hardball), 
 %          Time))).
-not happens(swingHitFairFly(Ballgame, Agent, Hardball), Time), not happens(swingHitFairGround(Ballgame, Agent, Hardball), Time)if not happens(swingHitFair(Ballgame, Agent, Hardball), Time).
- %  if((not(happens(swingHitFairFly(Ballgame, Agent, Hardball), Time)), not(happens(swingHitFairGround(Ballgame, Agent, Hardball), Time))), not(happens(swingHitFair(Ballgame, Agent, Hardball), Time))).
- %  "% =================================".
+(   (   happens(swingHitFairFly(Ballgame, Agent, Hardball),
+                Time)
+    ;   happens(swingHitFairGround(Ballgame, Agent, Hardball),
+                Time)
+    )
+;   not(happens(swingHitFair(Ballgame, Agent, Hardball),
+                Time))
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',138).
+
+ /*   (   (   happens(swingHitFairFly(Ballgame, Agent, Hardball),
+                        Time)
+            ;   happens(swingHitFairGround(Ballgame,
+                                           Agent,
+                                           Hardball),
+                        Time)
+            )
+        ;   not(happens(swingHitFair(Ballgame, Agent, Hardball),
+                        Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [ballgame,agent,hardball,time]
@@ -638,21 +763,19 @@ not happens(swingHitFairFly(Ballgame, Agent, Hardball), Time), not happens(swing
 %    happens(
 %       swingHitFairGround(Ballgame,Agent,Hardball), 
 %       Time)).
-not happens(swingHitFairGround(Ballgame, Agent, Hardball), Time)if not happens(swingHitFairFly(Ballgame, Agent, Hardball), Time).
+(   happens(swingHitFairGround(Ballgame, Agent, Hardball),
+            Time)
+;   not(happens(swingHitFairFly(Ballgame, Agent, Hardball),
+                Time))
+).
 
- /*  l_int(holds(not(happens(swingHitFairGround(Ballgame,
-     					   Agent,
-     					   Hardball),
-     			Time)),
-     	    Time_at),
-           [ holds(not(happens(swingHitFairFly(Ballgame,
-     					  Agent,
-     					  Hardball),
-     			  Time)),
-     	      Time_at)
-           ]).
+ /*   (   happens(swingHitFairGround(Ballgame, Agent, Hardball),
+                    Time)
+        ;   not(happens(swingHitFairFly(Ballgame, Agent, Hardball),
+                        Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [ballgame,agent,hardball,homeplate,firstbase,time]
@@ -678,18 +801,23 @@ not happens(swingHitFairGround(Ballgame, Agent, Hardball), Time)if not happens(s
 %    happens(
 %       runFromTo(Agent,Homeplate,Firstbase), 
 %       Time)).
-not happens(runFromTo(Agent, Homeplate, Firstbase), Time)if not happens(swingHit(Ballgame, Agent, Hardball), Time);not equals(homeplateOf(Ballgame), Homeplate);not equals(firstBaseOf(Ballgame), Firstbase).
+(   happens(runFromTo(Agent, Homeplate, Firstbase), Time)
+;   not(happens(swingHit(Ballgame, Agent, Hardball),
+                Time))
+;   not equals(homeplateOf(Ballgame), Homeplate)
+;   not equals(firstBaseOf(Ballgame), Firstbase)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',147).
 
- /*   l_int(holds(not(happens(runFromTo(Agent,
-                                          Homeplate,
-                                          Firstbase),
-                                Time)),
-                    Time_at),
-              [  (not(happens(swingHit(Ballgame, Agent, Hardball), Time));not(equals(homeplateOf(Ballgame), Homeplate));not(equals(firstBaseOf(Ballgame), Firstbase)))
-              ]).
+ /*   (   happens(runFromTo(Agent, Homeplate, Firstbase),
+                    Time)
+        ;   not(happens(swingHit(Ballgame, Agent, Hardball),
+                        Time))
+        ;   not(equals(homeplateOf(Ballgame), Homeplate))
+        ;   not(equals(firstBaseOf(Ballgame), Firstbase))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [ballgame,agent,hardball,homeplate,outfield,time]
@@ -716,19 +844,30 @@ not happens(runFromTo(Agent, Homeplate, Firstbase), Time)if not happens(swingHit
 %       hitFromTo(Agent, Hardball, Homeplate, 
 %          Outfield), 
 %       Time)).
-not happens(hitFromTo(Agent, Hardball, Homeplate, Outfield), Time)if not equals(homeplateOf(Ballgame), Homeplate);not equals(outfieldOf(Ballgame), Outfield);not happens(swingHitFairFly(Ballgame, Agent, Hardball), Time).
+(   happens(hitFromTo(Agent,
+                      Hardball,
+                      Homeplate,
+                      Outfield),
+            Time)
+;   not equals(homeplateOf(Ballgame), Homeplate)
+;   not equals(outfieldOf(Ballgame), Outfield)
+;   not(happens(swingHitFairFly(Ballgame, Agent, Hardball),
+                Time))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Baseball.e',153).
 
- /*   l_int(holds(not(happens(hitFromTo(Agent,
-                                          Hardball,
-                                          Homeplate,
-                                          Outfield),
-                                Time)),
-                    Time_at),
-              [  (not(equals(homeplateOf(Ballgame), Homeplate));not(equals(outfieldOf(Ballgame), Outfield));not(happens(swingHitFairFly(Ballgame, Agent, Hardball), Time)))
-              ]).
+ /*   (   happens(hitFromTo(Agent,
+                              Hardball,
+                              Homeplate,
+                              Outfield),
+                    Time)
+        ;   not(equals(homeplateOf(Ballgame), Homeplate))
+        ;   not(equals(outfieldOf(Ballgame), Outfield))
+        ;   not(happens(swingHitFairFly(Ballgame, Agent, Hardball),
+                        Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; End of file.

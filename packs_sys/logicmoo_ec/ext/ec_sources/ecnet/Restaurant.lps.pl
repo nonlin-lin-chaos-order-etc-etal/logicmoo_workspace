@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.lps.pl')).
-% Tue, 23 Mar 2021 19:06:55 GMT File: <stream>(0x5555685ba100)%;
+% Fri, 26 Mar 2021 01:06:06 GMT File: <stream>(0x555567c94900)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -22,29 +22,29 @@
 %; IBM - Initial implementation
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',11).
 % sort restaurant: script
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',11).
 % From E: 
 % 
 % subsort(restaurant,script).
-subsort(restaurant,script).
+subsort(restaurant, script).
 
 % sort waiter: agent
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',11).
 % From E: 
 % 
 % subsort(waiter,agent).
-subsort(waiter,agent).
+subsort(waiter, agent).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',13).
 % sort cook: agent
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',13).
 % From E: 
 % 
 % subsort(cook,agent).
-subsort(cook,agent).
+subsort(cook, agent).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',15).
 % function BillOf(restaurant): bill
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',15).
 % From E: 
 % 
 % function(
@@ -62,8 +62,8 @@ function(billOf(restaurant),bill).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',15).
 function(cookOf(restaurant),cook).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',17).
 % function TableOf(restaurant): table
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',17).
 % From E: 
 % 
 % function(
@@ -81,8 +81,8 @@ function(tableOf(restaurant),table).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',17).
 function(waiterOf(restaurant),waiter).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',19).
 % function KitchenDoorOf(restaurant): door
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',19).
 % From E: 
 % 
 % function(
@@ -97,7 +97,7 @@ function(kitchenDoorOf(restaurant),door).
 % From E: 
 % 
 % fluent(beWaiter0(waiter)).
-mpred_prop(beWaiter0(waiter),fluent).
+mpred_prop(beWaiter0(waiter), fluent).
 fluents([beWaiter0/1]).
 
 
@@ -108,8 +108,8 @@ fluents([beWaiter0/1]).
 % From E: 
 % 
 % fluent(beWaiter1(waiter)).
+mpred_prop(beWaiter1(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',24).
-mpred_prop(beWaiter1(waiter),fluent).
 fluents([beWaiter1/1]).
 
 
@@ -120,8 +120,8 @@ fluents([beWaiter1/1]).
 % From E: 
 % 
 % fluent(beWaiter2(waiter)).
+mpred_prop(beWaiter2(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',27).
-mpred_prop(beWaiter2(waiter),fluent).
 fluents([beWaiter2/1]).
 
 
@@ -132,8 +132,8 @@ fluents([beWaiter2/1]).
 % From E: 
 % 
 % fluent(beWaiter3(waiter)).
+mpred_prop(beWaiter3(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',30).
-mpred_prop(beWaiter3(waiter),fluent).
 fluents([beWaiter3/1]).
 
 
@@ -144,8 +144,8 @@ fluents([beWaiter3/1]).
 % From E: 
 % 
 % fluent(beWaiter4(waiter)).
+mpred_prop(beWaiter4(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',33).
-mpred_prop(beWaiter4(waiter),fluent).
 fluents([beWaiter4/1]).
 
 
@@ -156,8 +156,8 @@ fluents([beWaiter4/1]).
 % From E: 
 % 
 % fluent(beWaiter5(waiter)).
+mpred_prop(beWaiter5(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',36).
-mpred_prop(beWaiter5(waiter),fluent).
 fluents([beWaiter5/1]).
 
 
@@ -168,8 +168,8 @@ fluents([beWaiter5/1]).
 % From E: 
 % 
 % fluent(beWaiter6(waiter)).
+mpred_prop(beWaiter6(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',39).
-mpred_prop(beWaiter6(waiter),fluent).
 fluents([beWaiter6/1]).
 
 
@@ -180,8 +180,8 @@ fluents([beWaiter6/1]).
 % From E: 
 % 
 % fluent(beWaiter7(waiter)).
+mpred_prop(beWaiter7(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',42).
-mpred_prop(beWaiter7(waiter),fluent).
 fluents([beWaiter7/1]).
 
 
@@ -192,8 +192,8 @@ fluents([beWaiter7/1]).
 % From E: 
 % 
 % fluent(beWaiter8(waiter)).
+mpred_prop(beWaiter8(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',45).
-mpred_prop(beWaiter8(waiter),fluent).
 fluents([beWaiter8/1]).
 
 
@@ -204,8 +204,8 @@ fluents([beWaiter8/1]).
 % From E: 
 % 
 % fluent(beWaiter9(waiter)).
+mpred_prop(beWaiter9(waiter), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',48).
-mpred_prop(beWaiter9(waiter),fluent).
 fluents([beWaiter9/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',51).
@@ -243,10 +243,18 @@ xor([ beWaiter0,
 %       greet(Waiter,Agent), 
 %       beWaiter0(Waiter), 
 %       Time)).
+(   terminates(greet(Waiter, Agent),
+               beWaiter0(Waiter)at Time)
+;   not beWaiter0(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',53).
-if(terminates(greet(Waiter,Agent),
-	      at(beWaiter0(Waiter),Time)),
-   at(beWaiter0(Waiter),Time)).
+
+ /*   (   terminates(greet(Waiter, Agent),
+                       at(beWaiter0(Waiter), Time))
+        ;   at(not(beWaiter0(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,agent,time]
@@ -265,10 +273,18 @@ if(terminates(greet(Waiter,Agent),
 %       greet(Waiter,Agent), 
 %       beWaiter1(Waiter), 
 %       Time)).
+(   initiates(greet(Waiter, Agent),
+              beWaiter1(Waiter)at Time)
+;   not beWaiter0(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',60).
-if(initiates(greet(Waiter,Agent),
-	     at(beWaiter1(Waiter),Time)),
-   at(beWaiter0(Waiter),Time)).
+
+ /*   (   initiates(greet(Waiter, Agent),
+                      at(beWaiter1(Waiter), Time))
+        ;   at(not(beWaiter0(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,agent,food,time]
@@ -287,10 +303,18 @@ if(initiates(greet(Waiter,Agent),
 %       order(Agent,Waiter,Food), 
 %       beWaiter1(Waiter), 
 %       Time)).
+(   terminates(order(Agent, Waiter, Food),
+               beWaiter1(Waiter)at Time)
+;   not beWaiter1(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',66).
-if(terminates(order(Agent,Waiter,Food),
-	      at(beWaiter1(Waiter),Time)),
-   at(beWaiter1(Waiter),Time)).
+
+ /*   (   terminates(order(Agent, Waiter, Food),
+                       at(beWaiter1(Waiter), Time))
+        ;   at(not(beWaiter1(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,agent,food,time]
@@ -309,10 +333,18 @@ if(terminates(order(Agent,Waiter,Food),
 %       order(Agent,Waiter,Food), 
 %       beWaiter2(Waiter), 
 %       Time)).
+(   initiates(order(Agent, Waiter, Food),
+              beWaiter2(Waiter)at Time)
+;   not beWaiter1(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',72).
-if(initiates(order(Agent,Waiter,Food),
-	     at(beWaiter2(Waiter),Time)),
-   at(beWaiter1(Waiter),Time)).
+
+ /*   (   initiates(order(Agent, Waiter, Food),
+                      at(beWaiter2(Waiter), Time))
+        ;   at(not(beWaiter1(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,time]
@@ -334,8 +366,20 @@ if(initiates(order(Agent,Waiter,Food),
 %       walkThroughDoor12(Waiter, 
 %          kitchenDoorOf(Restaurant)), 
 %       Time)).
+(   happens(walkThroughDoor12(Waiter, kitchenDoorOf(Restaurant)),
+            Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not beWaiter2(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',78).
-if(happens(walkThroughDoor12(Waiter, kitchenDoorOf(Restaurant)), Time),  (waiterOf(Restaurant, Waiter), at(beWaiter2(Waiter), Time))).
+
+ /*   (   happens(walkThroughDoor12(Waiter, kitchenDoorOf(Restaurant)),
+                    Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   at(not(beWaiter2(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,door,time]
@@ -364,8 +408,22 @@ if(happens(walkThroughDoor12(Waiter, kitchenDoorOf(Restaurant)), Time),  (waiter
 %       walkThroughDoor12(Waiter,Door), 
 %       beWaiter2(Waiter), 
 %       Time)).
+(   terminates(walkThroughDoor12(Waiter, Door),
+               beWaiter2(Waiter)at Time)
+;   not beWaiter2(Waiter)at Time
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(kitchenDoorOf(Restaurant), Door)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',83).
-if(terminates(walkThroughDoor12(Waiter, Door), at(beWaiter2(Waiter), Time)),  (at(beWaiter2(Waiter), Time), waiterOf(Restaurant, Waiter), kitchenDoorOf(Restaurant, Door))).
+
+ /*   (   terminates(walkThroughDoor12(Waiter, Door),
+                       at(beWaiter2(Waiter), Time))
+        ;   at(not(beWaiter2(Waiter)), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(kitchenDoorOf(Restaurant), Door))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,door,time]
@@ -394,8 +452,22 @@ if(terminates(walkThroughDoor12(Waiter, Door), at(beWaiter2(Waiter), Time)),  (a
 %       walkThroughDoor12(Waiter,Door), 
 %       beWaiter3(Waiter), 
 %       Time)).
+(   initiates(walkThroughDoor12(Waiter, Door),
+              beWaiter3(Waiter)at Time)
+;   not beWaiter2(Waiter)at Time
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(kitchenDoorOf(Restaurant), Door)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',91).
-if(initiates(walkThroughDoor12(Waiter, Door), at(beWaiter3(Waiter), Time)),  (at(beWaiter2(Waiter), Time), waiterOf(Restaurant, Waiter), kitchenDoorOf(Restaurant, Door))).
+
+ /*   (   initiates(walkThroughDoor12(Waiter, Door),
+                      at(beWaiter3(Waiter), Time))
+        ;   at(not(beWaiter2(Waiter)), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(kitchenDoorOf(Restaurant), Door))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,food,time]
@@ -423,8 +495,32 @@ if(initiates(walkThroughDoor12(Waiter, Door), at(beWaiter3(Waiter), Time)),  (at
 %          cookOf(Restaurant), 
 %          Food), 
 %       Time)).
+(   happens(order(waiterOf(Restaurant),
+                  cookOf(Restaurant),
+                  Food),
+            Time)
+;   not beWaiter3(waiterOf(Restaurant))at Time
+;   not(thereExists(Agent,
+                    at(knowOrder(waiterOf(Restaurant),
+                                 Agent,
+                                 Food),
+                       Time)))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',99).
-if(happens(order(waiterOf(Restaurant), cookOf(Restaurant), Food), Time),  (at(beWaiter3(waiterOf(Restaurant)), Time), thereExists(Agent, at(knowOrder(waiterOf(Restaurant), Agent, Food), Time)))).
+
+ /*   (   happens(order(waiterOf(Restaurant),
+                          cookOf(Restaurant),
+                          Food),
+                    Time)
+        ;   at(not(beWaiter3(waiterOf(Restaurant))), Time)
+        ;   not(thereExists(Agent,
+                            at(knowOrder(waiterOf(Restaurant),
+                                         Agent,
+                                         Food),
+                               Time)))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,cook,food,time]
@@ -453,8 +549,22 @@ if(happens(order(waiterOf(Restaurant), cookOf(Restaurant), Food), Time),  (at(be
 %       order(Waiter,Cook,Food), 
 %       beWaiter3(Waiter), 
 %       Time)).
+(   terminates(order(Waiter, Cook, Food),
+               beWaiter3(Waiter)at Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(cookOf(Restaurant), Cook)
+;   not beWaiter3(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',104).
-if(terminates(order(Waiter, Cook, Food), at(beWaiter3(Waiter), Time)),  (waiterOf(Restaurant, Waiter), cookOf(Restaurant, Cook), at(beWaiter3(Waiter), Time))).
+
+ /*   (   terminates(order(Waiter, Cook, Food),
+                       at(beWaiter3(Waiter), Time))
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(cookOf(Restaurant), Cook))
+        ;   at(not(beWaiter3(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,cook,food,time]
@@ -483,8 +593,22 @@ if(terminates(order(Waiter, Cook, Food), at(beWaiter3(Waiter), Time)),  (waiterO
 %       order(Waiter,Cook,Food), 
 %       beWaiter4(Waiter), 
 %       Time)).
+(   initiates(order(Waiter, Cook, Food),
+              beWaiter4(Waiter)at Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(cookOf(Restaurant), Cook)
+;   not beWaiter3(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',112).
-if(initiates(order(Waiter, Cook, Food), at(beWaiter4(Waiter), Time)),  (waiterOf(Restaurant, Waiter), cookOf(Restaurant, Cook), at(beWaiter3(Waiter), Time))).
+
+ /*   (   initiates(order(Waiter, Cook, Food),
+                      at(beWaiter4(Waiter), Time))
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(cookOf(Restaurant), Cook))
+        ;   at(not(beWaiter3(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,food,time]
@@ -511,8 +635,23 @@ if(initiates(order(Waiter, Cook, Food), at(beWaiter4(Waiter), Time)),  (waiterOf
 %    happens(
 %       pickUp(Waiter,Food), 
 %       Time)).
+(   happens(pickUp(Waiter, Food), Time)
+;   not beWaiter4(Waiter)at Time
+;   not(thereExists(Agent,
+                    knowOrder(Waiter, Agent, Food)at Time))
+;   not foodPrepared(Food)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',120).
-if(happens(pickUp(Waiter, Food), Time),  (at(beWaiter4(Waiter), Time), thereExists(Agent, at(knowOrder(Waiter, Agent, Food), Time)), at(foodPrepared(Food), Time))).
+
+ /*   (   happens(pickUp(Waiter, Food), Time)
+        ;   at(not(beWaiter4(Waiter)), Time)
+        ;   not(thereExists(Agent,
+                            at(knowOrder(Waiter, Agent, Food),
+                               Time)))
+        ;   at(not(foodPrepared(Food)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,food,time]
@@ -537,8 +676,23 @@ if(happens(pickUp(Waiter, Food), Time),  (at(beWaiter4(Waiter), Time), thereExis
 %       pickUp(Waiter,Food), 
 %       beWaiter4(Waiter), 
 %       Time)).
+(   terminates(pickUp(Waiter, Food),
+               beWaiter4(Waiter)at Time)
+;   not beWaiter4(Waiter)at Time
+;   not(thereExists(Agent,
+                    knowOrder(Waiter, Agent, Food)at Time))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',126).
-if(terminates(pickUp(Waiter, Food), at(beWaiter4(Waiter), Time)),  (at(beWaiter4(Waiter), Time), thereExists(Agent, at(knowOrder(Waiter, Agent, Food), Time)))).
+
+ /*   (   terminates(pickUp(Waiter, Food),
+                       at(beWaiter4(Waiter), Time))
+        ;   at(not(beWaiter4(Waiter)), Time)
+        ;   not(thereExists(Agent,
+                            at(knowOrder(Waiter, Agent, Food),
+                               Time)))
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,food,time]
@@ -563,8 +717,23 @@ if(terminates(pickUp(Waiter, Food), at(beWaiter4(Waiter), Time)),  (at(beWaiter4
 %       pickUp(Waiter,Food), 
 %       beWaiter5(Waiter), 
 %       Time)).
+(   initiates(pickUp(Waiter, Food),
+              beWaiter5(Waiter)at Time)
+;   not beWaiter4(Waiter)at Time
+;   not(thereExists(Agent,
+                    knowOrder(Waiter, Agent, Food)at Time))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',133).
-if(initiates(pickUp(Waiter, Food), at(beWaiter5(Waiter), Time)),  (at(beWaiter4(Waiter), Time), thereExists(Agent, at(knowOrder(Waiter, Agent, Food), Time)))).
+
+ /*   (   initiates(pickUp(Waiter, Food),
+                      at(beWaiter5(Waiter), Time))
+        ;   at(not(beWaiter4(Waiter)), Time)
+        ;   not(thereExists(Agent,
+                            at(knowOrder(Waiter, Agent, Food),
+                               Time)))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,time]
@@ -586,8 +755,20 @@ if(initiates(pickUp(Waiter, Food), at(beWaiter5(Waiter), Time)),  (at(beWaiter4(
 %       walkThroughDoor21(Waiter, 
 %          kitchenDoorOf(Restaurant)), 
 %       Time)).
+(   happens(walkThroughDoor21(Waiter, kitchenDoorOf(Restaurant)),
+            Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not beWaiter5(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',140).
-if(happens(walkThroughDoor21(Waiter, kitchenDoorOf(Restaurant)), Time),  (waiterOf(Restaurant, Waiter), at(beWaiter5(Waiter), Time))).
+
+ /*   (   happens(walkThroughDoor21(Waiter, kitchenDoorOf(Restaurant)),
+                    Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   at(not(beWaiter5(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,door,time]
@@ -616,8 +797,22 @@ if(happens(walkThroughDoor21(Waiter, kitchenDoorOf(Restaurant)), Time),  (waiter
 %       walkThroughDoor21(Waiter,Door), 
 %       beWaiter5(Waiter), 
 %       Time)).
+(   terminates(walkThroughDoor21(Waiter, Door),
+               beWaiter5(Waiter)at Time)
+;   not beWaiter5(Waiter)at Time
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(kitchenDoorOf(Restaurant), Door)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',145).
-if(terminates(walkThroughDoor21(Waiter, Door), at(beWaiter5(Waiter), Time)),  (at(beWaiter5(Waiter), Time), waiterOf(Restaurant, Waiter), kitchenDoorOf(Restaurant, Door))).
+
+ /*   (   terminates(walkThroughDoor21(Waiter, Door),
+                       at(beWaiter5(Waiter), Time))
+        ;   at(not(beWaiter5(Waiter)), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(kitchenDoorOf(Restaurant), Door))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,door,time]
@@ -646,8 +841,22 @@ if(terminates(walkThroughDoor21(Waiter, Door), at(beWaiter5(Waiter), Time)),  (a
 %       walkThroughDoor21(Waiter,Door), 
 %       beWaiter6(Waiter), 
 %       Time)).
+(   initiates(walkThroughDoor21(Waiter, Door),
+              beWaiter6(Waiter)at Time)
+;   not beWaiter5(Waiter)at Time
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(kitchenDoorOf(Restaurant), Door)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',153).
-if(initiates(walkThroughDoor21(Waiter, Door), at(beWaiter6(Waiter), Time)),  (at(beWaiter5(Waiter), Time), waiterOf(Restaurant, Waiter), kitchenDoorOf(Restaurant, Door))).
+
+ /*   (   initiates(walkThroughDoor21(Waiter, Door),
+                      at(beWaiter6(Waiter), Time))
+        ;   at(not(beWaiter5(Waiter)), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(kitchenDoorOf(Restaurant), Door))
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,table,food,time]
@@ -678,8 +887,22 @@ if(initiates(walkThroughDoor21(Waiter, Door), at(beWaiter6(Waiter), Time)),  (at
 %    happens(
 %       placeOn(Waiter,Food,Table), 
 %       Time)).
+(   happens(placeOn(Waiter, Food, Table), Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(tableOf(Restaurant), Table)
+;   not beWaiter6(Waiter)at Time
+;   not holding(Waiter, Food)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',161).
-if(happens(placeOn(Waiter, Food, Table), Time),  (waiterOf(Restaurant, Waiter), tableOf(Restaurant, Table), at(beWaiter6(Waiter), Time), at(holding(Waiter, Food), Time))).
+
+ /*   (   happens(placeOn(Waiter, Food, Table), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(tableOf(Restaurant), Table))
+        ;   at(not(beWaiter6(Waiter)), Time)
+        ;   at(not(holding(Waiter, Food)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,food,table,time]
@@ -698,10 +921,18 @@ if(happens(placeOn(Waiter, Food, Table), Time),  (waiterOf(Restaurant, Waiter), 
 %       placeOn(Waiter,Food,Table), 
 %       beWaiter6(Waiter), 
 %       Time)).
+(   terminates(placeOn(Waiter, Food, Table),
+               beWaiter6(Waiter)at Time)
+;   not beWaiter6(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',168).
-if(terminates(placeOn(Waiter,Food,Table),
-	      at(beWaiter6(Waiter),Time)),
-   at(beWaiter6(Waiter),Time)).
+
+ /*   (   terminates(placeOn(Waiter, Food, Table),
+                       at(beWaiter6(Waiter), Time))
+        ;   at(not(beWaiter6(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,food,table,time]
@@ -720,10 +951,18 @@ if(terminates(placeOn(Waiter,Food,Table),
 %       placeOn(Waiter,Food,Table), 
 %       beWaiter7(Waiter), 
 %       Time)).
+(   initiates(placeOn(Waiter, Food, Table),
+              beWaiter7(Waiter)at Time)
+;   not beWaiter6(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',174).
-if(initiates(placeOn(Waiter,Food,Table),
-	     at(beWaiter7(Waiter),Time)),
-   at(beWaiter6(Waiter),Time)).
+
+ /*   (   initiates(placeOn(Waiter, Food, Table),
+                      at(beWaiter7(Waiter), Time))
+        ;   at(not(beWaiter6(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,agent,bill,time]
@@ -742,10 +981,18 @@ if(initiates(placeOn(Waiter,Food,Table),
 %       request(Agent,Waiter,Bill), 
 %       beWaiter7(Waiter), 
 %       Time)).
+(   terminates(request(Agent, Waiter, Bill),
+               beWaiter7(Waiter)at Time)
+;   not beWaiter7(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',180).
-if(terminates(request(Agent,Waiter,Bill),
-	      at(beWaiter7(Waiter),Time)),
-   at(beWaiter7(Waiter),Time)).
+
+ /*   (   terminates(request(Agent, Waiter, Bill),
+                       at(beWaiter7(Waiter), Time))
+        ;   at(not(beWaiter7(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,agent,bill,time]
@@ -764,10 +1011,18 @@ if(terminates(request(Agent,Waiter,Bill),
 %       request(Agent,Waiter,Bill), 
 %       beWaiter8(Waiter), 
 %       Time)).
+(   initiates(request(Agent, Waiter, Bill),
+              beWaiter8(Waiter)at Time)
+;   not beWaiter7(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',186).
-if(initiates(request(Agent,Waiter,Bill),
-	     at(beWaiter8(Waiter),Time)),
-   at(beWaiter7(Waiter),Time)).
+
+ /*   (   initiates(request(Agent, Waiter, Bill),
+                      at(beWaiter8(Waiter), Time))
+        ;   at(not(beWaiter7(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,bill,time]
@@ -793,8 +1048,20 @@ if(initiates(request(Agent,Waiter,Bill),
 %    happens(
 %       pickUp(Waiter,Bill), 
 %       Time)).
+(   happens(pickUp(Waiter, Bill), Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(billOf(Restaurant), Bill)
+;   not beWaiter8(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',192).
-if(happens(pickUp(Waiter, Bill), Time),  (waiterOf(Restaurant, Waiter), billOf(Restaurant, Bill), at(beWaiter8(Waiter), Time))).
+
+ /*   (   happens(pickUp(Waiter, Bill), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(billOf(Restaurant), Bill))
+        ;   at(not(beWaiter8(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,bill,time]
@@ -813,10 +1080,18 @@ if(happens(pickUp(Waiter, Bill), Time),  (waiterOf(Restaurant, Waiter), billOf(R
 %       pickUp(Waiter,Bill), 
 %       beWaiter8(Waiter), 
 %       Time)).
+(   terminates(pickUp(Waiter, Bill),
+               beWaiter8(Waiter)at Time)
+;   not beWaiter8(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',198).
-if(terminates(pickUp(Waiter,Bill),
-	      at(beWaiter8(Waiter),Time)),
-   at(beWaiter8(Waiter),Time)).
+
+ /*   (   terminates(pickUp(Waiter, Bill),
+                       at(beWaiter8(Waiter), Time))
+        ;   at(not(beWaiter8(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,bill,time]
@@ -835,10 +1110,18 @@ if(terminates(pickUp(Waiter,Bill),
 %       pickUp(Waiter,Bill), 
 %       beWaiter9(Waiter), 
 %       Time)).
+(   initiates(pickUp(Waiter, Bill),
+              beWaiter9(Waiter)at Time)
+;   not beWaiter8(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',204).
-if(initiates(pickUp(Waiter,Bill),
-	     at(beWaiter9(Waiter),Time)),
-   at(beWaiter8(Waiter),Time)).
+
+ /*   (   initiates(pickUp(Waiter, Bill),
+                      at(beWaiter9(Waiter), Time))
+        ;   at(not(beWaiter8(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [restaurant,waiter,bill,table,time]
@@ -869,8 +1152,22 @@ if(initiates(pickUp(Waiter,Bill),
 %    happens(
 %       placeOn(Waiter,Bill,Table), 
 %       Time)).
+(   happens(placeOn(Waiter, Bill, Table), Time)
+;   not equals(waiterOf(Restaurant), Waiter)
+;   not equals(billOf(Restaurant), Bill)
+;   not equals(tableOf(Restaurant), Table)
+;   not beWaiter9(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',210).
-if(happens(placeOn(Waiter, Bill, Table), Time),  (waiterOf(Restaurant, Waiter), billOf(Restaurant, Bill), tableOf(Restaurant, Table), at(beWaiter9(Waiter), Time))).
+
+ /*   (   happens(placeOn(Waiter, Bill, Table), Time)
+        ;   not(equals(waiterOf(Restaurant), Waiter))
+        ;   not(equals(billOf(Restaurant), Bill))
+        ;   not(equals(tableOf(Restaurant), Table))
+        ;   at(not(beWaiter9(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,bill,table,time]
@@ -889,10 +1186,18 @@ if(happens(placeOn(Waiter, Bill, Table), Time),  (waiterOf(Restaurant, Waiter), 
 %       placeOn(Waiter,Bill,Table), 
 %       beWaiter9(Waiter), 
 %       Time)).
+(   terminates(placeOn(Waiter, Bill, Table),
+               beWaiter9(Waiter)at Time)
+;   not beWaiter9(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',217).
-if(terminates(placeOn(Waiter,Bill,Table),
-	      at(beWaiter9(Waiter),Time)),
-   at(beWaiter9(Waiter),Time)).
+
+ /*   (   terminates(placeOn(Waiter, Bill, Table),
+                       at(beWaiter9(Waiter), Time))
+        ;   at(not(beWaiter9(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [waiter,bill,table,time]
@@ -911,10 +1216,18 @@ if(terminates(placeOn(Waiter,Bill,Table),
 %       placeOn(Waiter,Bill,Table), 
 %       beWaiter0(Waiter), 
 %       Time)).
+(   initiates(placeOn(Waiter, Bill, Table),
+              beWaiter0(Waiter)at Time)
+;   not beWaiter9(Waiter)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',223).
-if(initiates(placeOn(Waiter,Bill,Table),
-	     at(beWaiter0(Waiter),Time)),
-   at(beWaiter9(Waiter),Time)).
+
+ /*   (   initiates(placeOn(Waiter, Bill, Table),
+                      at(beWaiter0(Waiter), Time))
+        ;   at(not(beWaiter9(Waiter)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; awaiting next waiter order
@@ -924,7 +1237,7 @@ if(initiates(placeOn(Waiter,Bill,Table),
 % From E: 
 % 
 % fluent(beCook0(cook)).
-mpred_prop(beCook0(cook),fluent).
+mpred_prop(beCook0(cook), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',229).
 fluents([beCook0/1]).
 
@@ -936,8 +1249,8 @@ fluents([beCook0/1]).
 % From E: 
 % 
 % fluent(beCook1(cook)).
+mpred_prop(beCook1(cook), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',231).
-mpred_prop(beCook1(cook),fluent).
 fluents([beCook1/1]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',234).
@@ -965,10 +1278,18 @@ xor([beCook0,beCook1]).
 %       order(Agent,Cook,Food), 
 %       beCook0(Cook), 
 %       Time)).
+(   terminates(order(Agent, Cook, Food),
+               beCook0(Cook)at Time)
+;   not beCook0(Cook)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',236).
-if(terminates(order(Agent,Cook,Food),
-	      at(beCook0(Cook),Time)),
-   at(beCook0(Cook),Time)).
+
+ /*   (   terminates(order(Agent, Cook, Food),
+                       at(beCook0(Cook), Time))
+        ;   at(not(beCook0(Cook)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [cook,agent,food,time]
@@ -987,10 +1308,18 @@ if(terminates(order(Agent,Cook,Food),
 %       order(Agent,Cook,Food), 
 %       beCook1(Cook), 
 %       Time)).
+(   initiates(order(Agent, Cook, Food),
+              beCook1(Cook)at Time)
+;   not beCook0(Cook)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',243).
-if(initiates(order(Agent,Cook,Food),
-	     at(beCook1(Cook),Time)),
-   at(beCook0(Cook),Time)).
+
+ /*   (   initiates(order(Agent, Cook, Food),
+                      at(beCook1(Cook), Time))
+        ;   at(not(beCook0(Cook)), Time)
+        ).
+ */
+ %  % =================================.
 
 % event FoodPrepare(agent,food)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',247).
@@ -998,7 +1327,7 @@ if(initiates(order(Agent,Cook,Food),
 % 
 % event(foodPrepare(agent,food)).
 events([foodPrepare/2]).
-mpred_prop(foodPrepare(agent,food),action).
+mpred_prop(foodPrepare(agent, food), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',247).
 actions([foodPrepare/2]).
 
@@ -1007,7 +1336,7 @@ actions([foodPrepare/2]).
 % From E: 
 % 
 % fluent(foodPrepared(food)).
-mpred_prop(foodPrepared(food),fluent).
+mpred_prop(foodPrepared(food), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',250).
 fluents([foodPrepared/1]).
 
@@ -1023,8 +1352,16 @@ fluents([foodPrepared/1]).
 %    foodPrepare(Agent,Food), 
 %    foodPrepared(Food), 
 %    Time).
+foodPrepare(Agent, Food)initiates foodPrepared(Food).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',252).
-initiates(foodPrepare(Agent,Food),foodPrepared(Food)).
+
+ /*  initiated(happens(foodPrepare(Agent,Food),
+     		  Time_from,
+     		  Time_until),
+     	  foodPrepared(Food),
+     	  []).
+ */
+ %  % =================================.
 
 
 % [agent,food,time]
@@ -1047,8 +1384,9 @@ initiates(foodPrepare(Agent,Food),foodPrepared(Food)).
 %          holds(
 %             at_loc(Food,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',258).
-exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Food, Location), Time)), happens(foodPrepare(Agent, Food), Time))).
+exists(Location,  (at_loc(Agent, Location)at Time, at_loc(Food, Location)at Time;not happens(foodPrepare(Agent, Food), Time))).
+ %  exists(Location,  (at(at_loc(Agent, Location), Time), at(at_loc(Food, Location), Time);not(happens(foodPrepare(Agent, Food), Time)))).
+ %  % =================================.
 
 
 % [cook,agent,food,time]
@@ -1069,8 +1407,18 @@ exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Food, Location
 %    happens(
 %       foodPrepare(Cook,Food), 
 %       Time)).
+(   happens(foodPrepare(Cook, Food), Time)
+;   not beCook1(Cook)at Time
+;   not knowOrder(Cook, Agent, Food)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',264).
-if(happens(foodPrepare(Cook, Food), Time),  (at(beCook1(Cook), Time), at(knowOrder(Cook, Agent, Food), Time))).
+
+ /*   (   happens(foodPrepare(Cook, Food), Time)
+        ;   at(not(beCook1(Cook)), Time)
+        ;   at(not(knowOrder(Cook, Agent, Food)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [cook,food,time]
@@ -1089,10 +1437,18 @@ if(happens(foodPrepare(Cook, Food), Time),  (at(beCook1(Cook), Time), at(knowOrd
 %       foodPrepare(Cook,Food), 
 %       beCook1(Cook), 
 %       Time)).
+(   terminates(foodPrepare(Cook, Food),
+               beCook1(Cook)at Time)
+;   not beCook1(Cook)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',269).
-if(terminates(foodPrepare(Cook,Food),
-	      at(beCook1(Cook),Time)),
-   at(beCook1(Cook),Time)).
+
+ /*   (   terminates(foodPrepare(Cook, Food),
+                       at(beCook1(Cook), Time))
+        ;   at(not(beCook1(Cook)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [cook,food,time]
@@ -1111,10 +1467,18 @@ if(terminates(foodPrepare(Cook,Food),
 %       foodPrepare(Cook,Food), 
 %       beCook0(Cook), 
 %       Time)).
+(   initiates(foodPrepare(Cook, Food),
+              beCook0(Cook)at Time)
+;   not beCook1(Cook)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Restaurant.e',275).
-if(initiates(foodPrepare(Cook,Food),
-	     at(beCook0(Cook),Time)),
-   at(beCook1(Cook),Time)).
+
+ /*   (   initiates(foodPrepare(Cook, Food),
+                      at(beCook0(Cook), Time))
+        ;   at(not(beCook1(Cook)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; End of file.

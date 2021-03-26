@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Book.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Book.lps.pl')).
-% Tue, 23 Mar 2021 19:25:06 GMT File: <stream>(0x555569f41e00)%;
+% Fri, 26 Mar 2021 01:05:56 GMT File: <stream>(0x555567dd7700)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -110,14 +110,18 @@ actions([bookTurnPageTo/3]).
 %          bookIsOpenTo(Book,Page2), 
 %          Time)), 
 %    Page1=Page2).
-not equals(Page1, Page2)if not bookIsOpenTo(Book, Page1)at Time;not bookIsOpenTo(Book, Page2)at Time.
+(   equals(Page1, Page2)
+;   not bookIsOpenTo(Book, Page1)at Time
+;   not bookIsOpenTo(Book, Page2)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Book.e',31).
 
- /*   l_int(holds(not(equals(Page1, Page2)), Time_at),
-              [  (at(not(bookIsOpenTo(Book, Page1)), Time);at(not(bookIsOpenTo(Book, Page2)), Time))
-              ]).
+ /*   (   equals(Page1, Page2)
+        ;   at(not(bookIsOpenTo(Book, Page1)), Time)
+        ;   at(not(bookIsOpenTo(Book, Page2)), Time)
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [book,time]
@@ -140,16 +144,18 @@ thereExists(Page, bookIsOpenTo(Book, Page)at Time)if not bookClosed(Book)at Time
      	       at(bookIsOpenTo(Book,Page),Time)),
         at(not(bookClosed(Book)),Time)).
  */
- %  "% =================================".
-not bookClosed(Book)at Time if thereExists(Page, bookIsOpenTo(Book, Page)at Time).
+ %  % =================================.
+(   bookClosed(Book)at Time
+;   thereExists(Page, bookIsOpenTo(Book, Page)at Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Book.e',37).
 
- /*  l_int(holds(not(bookClosed(Book)),Time),
-           [ thereExists(Page,
-     		    at(bookIsOpenTo(Book,Page),Time))
-           ]).
+ /*   (   at(bookClosed(Book), Time)
+        ;   thereExists(Page,
+                        at(bookIsOpenTo(Book, Page), Time))
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; A precondition axiom states that
@@ -180,13 +186,20 @@ not bookClosed(Book)at Time if thereExists(Page, bookIsOpenTo(Book, Page)at Time
 %          holds(
 %             holding(Agent,Book), 
 %             Time)))).
-not awake(Agent)at Time;not bookClosed(Book)at Time;not holding(Agent, Book)at Time if not happens(bookOpenTo(Agent, Book, Page), Time).
+(   awake(Agent)at Time,
+    bookClosed(Book)at Time,
+    holding(Agent, Book)at Time
+;   not happens(bookOpenTo(Agent, Book, Page), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Book.e',45).
 
- /*   if((at(not(awake(Agent)), Time);at(not(bookClosed(Book)), Time);at(not(holding(Agent, Book)), Time)),
-           not(happens(bookOpenTo(Agent, Book, Page), Time))).
+ /*  (   at(awake(Agent), Time),
+         at(bookClosed(Book), Time),
+         at(holding(Agent, Book), Time)
+     ;   not(happens(bookOpenTo(Agent, Book, Page), Time))
+     ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An effect axiom states that
@@ -210,7 +223,7 @@ bookOpenTo(Agent, Book, Page)initiates bookIsOpenTo(Book, Page).
      	  bookIsOpenTo(Book,Page),
      	  []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; A precondition axiom states that
@@ -241,13 +254,20 @@ bookOpenTo(Agent, Book, Page)initiates bookIsOpenTo(Book, Page).
 %          holds(
 %             holding(Agent,Book), 
 %             Time)))).
-not awake(Agent)at Time;bookClosed(Book)at Time;not holding(Agent, Book)at Time if not happens(bookClose(Agent, Book), Time).
+(   awake(Agent)at Time,
+    not bookClosed(Book)at Time,
+    holding(Agent, Book)at Time
+;   not happens(bookClose(Agent, Book), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Book.e',62).
 
- /*   if((at(not(awake(Agent)), Time);at(bookClosed(Book), Time);at(not(holding(Agent, Book)), Time)),
-           not(happens(bookClose(Agent, Book), Time))).
+ /*  (   at(awake(Agent), Time),
+         at(not(bookClosed(Book)), Time),
+         at(holding(Agent, Book), Time)
+     ;   not(happens(bookClose(Agent, Book), Time))
+     ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; An effect axiom states that
@@ -271,7 +291,7 @@ bookClose(Agent, Book)terminates bookIsOpenTo(Book, Page).
      	   bookIsOpenTo(Book,Page),
      	   []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 % [agent,book,page,time]
@@ -300,9 +320,22 @@ bookClose(Agent, Book)terminates bookIsOpenTo(Book, Page).
 %          holds(
 %             holding(Agent,Book), 
 %             Time)))).
-not awake(Agent)at Time;not thereExists(Page1,  ({dif(Page1, Page)}, bookIsOpenTo(Book, Page1)at Time));not holding(Agent, Book)at Time if not happens(bookTurnPageTo(Agent, Book, Page), Time).
- %  if((at(not(awake(Agent)), Time);not(thereExists(Page1,  ({dif(Page1, Page)}, at(bookIsOpenTo(Book, Page1), Time))));at(not(holding(Agent, Book)), Time)), not(happens(bookTurnPageTo(Agent, Book, Page), Time))).
- %  "% =================================".
+(   awake(Agent)at Time,
+    thereExists(Page1,
+                 ({dif(Page1, Page)}, bookIsOpenTo(Book, Page1)at Time)),
+    holding(Agent, Book)at Time
+;   not happens(bookTurnPageTo(Agent, Book, Page), Time)
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Book.e',75).
+
+ /*  (   at(awake(Agent), Time),
+         thereExists(Page1,
+                      ({dif(Page1, Page)}, at(bookIsOpenTo(Book, Page1), Time))),
+         at(holding(Agent, Book), Time)
+     ;   not(happens(bookTurnPageTo(Agent, Book, Page), Time))
+     ).
+ */
+ %  % =================================.
 
 
 % [agent,book,page,time]
@@ -323,7 +356,7 @@ bookTurnPageTo(Agent, Book, Page)initiates bookIsOpenTo(Book, Page).
      	  bookIsOpenTo(Book,Page),
      	  []).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Book.e',83).
@@ -343,19 +376,20 @@ bookTurnPageTo(Agent, Book, Page)initiates bookIsOpenTo(Book, Page).
 %       bookTurnPageTo(Agent,Book,Page2), 
 %       bookIsOpenTo(Book,Page1), 
 %       Time)).
-not (bookTurnPageTo(Agent, Book, Page2)terminates bookIsOpenTo(Book, Page1)at Time)if not bookIsOpenTo(Book, Page1)at Time;not {dif(Page1, Page2)}.
+(   terminates(bookTurnPageTo(Agent, Book, Page2),
+               bookIsOpenTo(Book, Page1)at Time)
+;   not bookIsOpenTo(Book, Page1)at Time
+;   not {dif(Page1, Page2)}
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Book.e',83).
 
- /*   l_int(holds(not(terminates(bookTurnPageTo(Agent,
-                                                  Book,
-                                                  Page2),
-                                   at(bookIsOpenTo(Book, Page1),
-                                      Time))),
-                    Time_at),
-              [  (at(not(bookIsOpenTo(Book, Page1)), Time);not({dif(Page1, Page2)}))
-              ]).
+ /*   (   terminates(bookTurnPageTo(Agent, Book, Page2),
+                       at(bookIsOpenTo(Book, Page1), Time))
+        ;   at(not(bookIsOpenTo(Book, Page1)), Time)
+        ;   not({dif(Page1, Page2)})
+        ).
  */
- %  "% =================================".
+ %  % =================================.
 
 
 %; End of file.

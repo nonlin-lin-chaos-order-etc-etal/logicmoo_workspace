@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.lps.pl')).
-% Tue, 23 Mar 2021 19:06:50 GMT File: <stream>(0x555569f41500)%;
+% Fri, 26 Mar 2021 01:05:59 GMT File: <stream>(0x555567dd7600)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -32,8 +32,8 @@
 % event(setFireTo(agent, physobj, fire, 
 %          offset)).
 events([setFireTo/4]).
+mpred_prop(setFireTo(agent, physobj, fire, offset), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',14).
-mpred_prop(setFireTo(agent,physobj,fire,offset),action).
 actions([setFireTo/4]).
 
 
@@ -53,9 +53,19 @@ actions([setFireTo/4]).
 %       Offset), 
 %    burning(Physobj,Fire,Offset), 
 %    Time).
+setFireTo(Agent, Physobj, Fire, Offset)initiates burning(Physobj, Fire, Offset).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',20).
-initiates(setFireTo(Agent,Physobj,Fire,Offset),
-	  burning(Physobj,Fire,Offset)).
+
+ /*  initiated(happens(setFireTo(Agent,
+     			    Physobj,
+     			    Fire,
+     			    Offset),
+     		  Time_from,
+     		  Time_until),
+     	  burning(Physobj,Fire,Offset),
+     	  []).
+ */
+ %  % =================================.
 
 
 %; agent puts out fire on physobj.
@@ -66,8 +76,8 @@ initiates(setFireTo(Agent,Physobj,Fire,Offset),
 % 
 % event(putOutFire(agent,physobj,fire)).
 events([putOutFire/3]).
+mpred_prop(putOutFire(agent, physobj, fire), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',26).
-mpred_prop(putOutFire(agent,physobj,fire),action).
 actions([putOutFire/3]).
 
 
@@ -86,9 +96,16 @@ actions([putOutFire/3]).
 %    putOutFire(Agent,Physobj,Fire), 
 %    burning(Physobj,Fire,Offset), 
 %    Time).
+putOutFire(Agent, Physobj, Fire)terminates burning(Physobj, Fire, Offset).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',31).
-terminates(putOutFire(Agent,Physobj,Fire),
-	   burning(Physobj,Fire,Offset)).
+
+ /*  terminated(happens(putOutFire(Agent,Physobj,Fire),
+     		   Time_from,
+     		   Time_until),
+     	   burning(Physobj,Fire,Offset),
+     	   []).
+ */
+ %  % =================================.
 
 
 %; A precondition axiom states that
@@ -117,8 +134,9 @@ terminates(putOutFire(Agent,Physobj,Fire),
 %          holds(
 %             at_loc(Physobj,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',43).
-exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Physobj, Location), Time)), happens(setFireTo(Agent, Physobj, Fire, Offset), Time))).
+exists(Location,  (at_loc(Agent, Location)at Time, at_loc(Physobj, Location)at Time;not happens(setFireTo(Agent, Physobj, Fire, Offset), Time))).
+ %  exists(Location,  (at(at_loc(Agent, Location), Time), at(at_loc(Physobj, Location), Time);not(happens(setFireTo(Agent, Physobj, Fire, Offset), Time)))).
+ %  % =================================.
 
 
 %; A precondition axiom states that
@@ -146,8 +164,9 @@ exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Physobj, Locat
 %          holds(
 %             at_loc(Physobj,Location), 
 %             Time)))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',53).
-exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Physobj, Location), Time)), happens(putOutFire(Agent, Physobj, Fire), Time))).
+exists(Location,  (at_loc(Agent, Location)at Time, at_loc(Physobj, Location)at Time;not happens(putOutFire(Agent, Physobj, Fire), Time))).
+ %  exists(Location,  (at(at_loc(Agent, Location), Time), at(at_loc(Physobj, Location), Time);not(happens(putOutFire(Agent, Physobj, Fire), Time)))).
+ %  % =================================.
 
 
 %; physobj is burning with fire and burn time offset.
@@ -157,7 +176,7 @@ exists(Location, if((at(at_loc(Agent, Location), Time), at(at_loc(Physobj, Locat
 % From E: 
 % 
 % fluent(burning(physobj,fire,offset)).
-mpred_prop(burning(physobj,fire,offset),fluent).
+mpred_prop(burning(physobj, fire, offset), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',57).
 fluents([burning/3]).
 
@@ -181,8 +200,18 @@ fluents([burning/3]).
 %          burning(Physobj,Fire,Offset2), 
 %          Time)), 
 %    Offset1=Offset2).
+(   equals(Offset1, Offset2)
+;   not burning(Physobj, Fire, Offset1)at Time
+;   not burning(Physobj, Fire, Offset2)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',61).
-if(equals(Offset1, Offset2),  (at(burning(Physobj, Fire, Offset1), Time), at(burning(Physobj, Fire, Offset2), Time))).
+
+ /*   (   equals(Offset1, Offset2)
+        ;   at(not(burning(Physobj, Fire, Offset1)), Time)
+        ;   at(not(burning(Physobj, Fire, Offset2)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; The burn time of physobj is decremented.
@@ -192,7 +221,7 @@ if(equals(Offset1, Offset2),  (at(burning(Physobj, Fire, Offset1), Time), at(bur
 % From E: 
 % 
 % event(decrementBurning(physobj)).
-mpred_prop(decrementBurning(physobj),event).
+mpred_prop(decrementBurning(physobj), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',67).
 events([decrementBurning/1]).
 
@@ -218,8 +247,18 @@ events([decrementBurning/1]).
 %    happens(
 %       decrementBurning(Physobj), 
 %       Time)).
+(   happens(decrementBurning(Physobj), Time)
+;   not burning(Physobj, Fire, Offset)at Time
+;   not comparison(Offset, 0, >)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',73).
-if(happens(decrementBurning(Physobj), Time),  (at(burning(Physobj, Fire, Offset), Time), comparison(Offset, 0, >))).
+
+ /*   (   happens(decrementBurning(Physobj), Time)
+        ;   at(not(burning(Physobj, Fire, Offset)), Time)
+        ;   not(comparison(Offset, 0, >))
+        ).
+ */
+ %  % =================================.
 
 
 %; An effect axiom states that if a physical object is
@@ -245,8 +284,21 @@ if(happens(decrementBurning(Physobj), Time),  (at(burning(Physobj, Fire, Offset)
 %       decrementBurning(Physobj), 
 %       burning(Physobj,Fire,Offset2), 
 %       Time)).
+(   initiates(decrementBurning(Physobj),
+              burning(Physobj, Fire, Offset2)at Time)
+;   not burning(Physobj, Fire, Offset1)at Time
+;   not equals(Offset2, Offset1-1)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',82).
-if(initiates(decrementBurning(Physobj), at(burning(Physobj, Fire, Offset2), Time)),  (at(burning(Physobj, Fire, Offset1), Time), equals(Offset2, Offset1-1))).
+
+ /*   (   initiates(decrementBurning(Physobj),
+                      at(burning(Physobj, Fire, Offset2),
+                         Time))
+        ;   at(not(burning(Physobj, Fire, Offset1)), Time)
+        ;   not(equals(Offset2, Offset1-1))
+        ).
+ */
+ %  % =================================.
 
 
 %; An effect axiom states that if a physical object is
@@ -269,11 +321,19 @@ if(initiates(decrementBurning(Physobj), at(burning(Physobj, Fire, Offset2), Time
 %       decrementBurning(Physobj), 
 %       burning(Physobj,Fire,Offset), 
 %       Time)).
+(   terminates(decrementBurning(Physobj),
+               burning(Physobj, Fire, Offset)at Time)
+;   not burning(Physobj, Fire, Offset)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',93).
-if(terminates(decrementBurning(Physobj),
-	      at(burning(Physobj,Fire,Offset),
-		 Time)),
-   at(burning(Physobj,Fire,Offset),Time)).
+
+ /*   (   terminates(decrementBurning(Physobj),
+                       at(burning(Physobj, Fire, Offset),
+                          Time))
+        ;   at(not(burning(Physobj, Fire, Offset)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; A trigger axiom states that
@@ -301,8 +361,20 @@ if(terminates(decrementBurning(Physobj),
 %    happens(
 %       damage(Fire,Physobj), 
 %       Time)).
+(   happens(damage(Fire, Physobj), Time)
+;   not {dif(Offset, 0)}
+;   not burning(Physobj, Fire, Offset)at Time
+;   not intact(Physobj)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',103).
-if(happens(damage(Fire, Physobj), Time),  ({dif(Offset, 0)}, at(burning(Physobj, Fire, Offset), Time), at(intact(Physobj), Time))).
+
+ /*   (   happens(damage(Fire, Physobj), Time)
+        ;   not({dif(Offset, 0)})
+        ;   at(not(burning(Physobj, Fire, Offset)), Time)
+        ;   at(not(intact(Physobj)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; A trigger axiom states that
@@ -327,8 +399,18 @@ if(happens(damage(Fire, Physobj), Time),  ({dif(Offset, 0)}, at(burning(Physobj,
 %    happens(
 %       destroy(Fire,Physobj), 
 %       Time)).
+(   happens(destroy(Fire, Physobj), Time)
+;   not burning(Physobj, Fire, 0)at Time
+;   destroyed(Physobj)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',113).
-if(happens(destroy(Fire, Physobj), Time),  (at(burning(Physobj, Fire, 0), Time), at(not(destroyed(Physobj)), Time))).
+
+ /*   (   happens(destroy(Fire, Physobj), Time)
+        ;   at(not(burning(Physobj, Fire, 0)), Time)
+        ;   at(destroyed(Physobj), Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; An effect axiom states that if a fire destroys a physical
@@ -344,9 +426,16 @@ if(happens(destroy(Fire, Physobj), Time),  (at(burning(Physobj, Fire, 0), Time),
 %    destroy(Fire,Physobj), 
 %    burning(Physobj,Fire,Offset), 
 %    Time).
+destroy(Fire, Physobj)terminates burning(Physobj, Fire, Offset).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Fire.e',120).
-terminates(destroy(Fire,Physobj),
-	   burning(Physobj,Fire,Offset)).
+
+ /*  terminated(happens(destroy(Fire,Physobj),
+     		   Time_from,
+     		   Time_until),
+     	   burning(Physobj,Fire,Offset),
+     	   []).
+ */
+ %  % =================================.
 
 
 %; End of file.

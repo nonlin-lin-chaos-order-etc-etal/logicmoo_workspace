@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.lps.pl')).
-% Tue, 23 Mar 2021 19:06:50 GMT File: <stream>(0x5555681cd200)%;
+% Fri, 26 Mar 2021 01:06:00 GMT File: <stream>(0x555567dd6300)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -22,20 +22,19 @@
 %; IBM - Initial implementation
 %;
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',12).
 % fluent Loaded(gun,bullet)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',12).
 % From E: 
 % 
 % fluent(loaded(gun,bullet)).
-mpred_prop(loaded(gun,bullet),fluent).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',12).
+mpred_prop(loaded(gun, bullet), fluent).
 fluents([loaded/2]).
 
 % noninertial Loaded
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',12).
 % From E: 
 % 
 % ':-'(call_pel_directive(noninertial(loaded))).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',12).
 :- call_pel_directive(noninertial(loaded)).
 
 
@@ -52,9 +51,26 @@ fluents([loaded/2]).
 %    holds(
 %       loaded(Gun,Bullet), 
 %       Time)).
+(   loaded(Gun, Bullet)at Time
+;   not inside(Bullet, Gun)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',15).
-at(inside(Bullet, Gun), Time) <->
-    at(loaded(Gun, Bullet), Time).
+
+ /*   (   at(loaded(Gun, Bullet), Time)
+        ;   at(not(inside(Bullet, Gun)), Time)
+        ).
+ */
+ %  % =================================.
+(   inside(Bullet, Gun)at Time
+;   not loaded(Gun, Bullet)at Time
+).
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',15).
+
+ /*   (   at(inside(Bullet, Gun), Time)
+        ;   at(not(loaded(Gun, Bullet)), Time)
+        ).
+ */
+ %  % =================================.
 
 % event Shoot(agent,gun,object)
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',18).
@@ -62,7 +78,7 @@ at(inside(Bullet, Gun), Time) <->
 % 
 % event(shoot(agent,gun,object)).
 events([shoot/3]).
-mpred_prop(shoot(agent,gun,object),action).
+mpred_prop(shoot(agent, gun, object), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',18).
 actions([shoot/3]).
 
@@ -72,8 +88,8 @@ actions([shoot/3]).
 % 
 % event(shootInjure(agent,gun,agent)).
 events([shootInjure/3]).
+mpred_prop(shootInjure(agent, gun, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',21).
-mpred_prop(shootInjure(agent,gun,agent),action).
 actions([shootInjure/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',23).
@@ -82,8 +98,8 @@ actions([shootInjure/3]).
 % 
 % event(shootKill(agent,gun,agent)).
 events([shootKill/3]).
+mpred_prop(shootKill(agent, gun, agent), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',23).
-mpred_prop(shootKill(agent,gun,agent),action).
 actions([shootKill/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',25).
@@ -92,8 +108,8 @@ actions([shootKill/3]).
 % 
 % event(shootDamage(agent,gun,physobj)).
 events([shootDamage/3]).
+mpred_prop(shootDamage(agent, gun, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',25).
-mpred_prop(shootDamage(agent,gun,physobj),action).
 actions([shootDamage/3]).
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',27).
@@ -102,8 +118,8 @@ actions([shootDamage/3]).
 % 
 % event(shootDestroy(agent,gun,physobj)).
 events([shootDestroy/3]).
+mpred_prop(shootDestroy(agent, gun, physobj), action).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',27).
-mpred_prop(shootDestroy(agent,gun,physobj),action).
 actions([shootDestroy/3]).
 
 
@@ -124,10 +140,18 @@ actions([shootDestroy/3]).
 %       shoot(Agent,Gun,Object), 
 %       inside(Bullet,Gun), 
 %       Time)).
+(   terminates(shoot(Agent, Gun, Object),
+               inside(Bullet, Gun)at Time)
+;   not inside(Bullet, Gun)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',29).
-if(terminates(shoot(Agent,Gun,Object),
-	      at(inside(Bullet,Gun),Time)),
-   at(inside(Bullet,Gun),Time)).
+
+ /*   (   terminates(shoot(Agent, Gun, Object),
+                       at(inside(Bullet, Gun), Time))
+        ;   at(not(inside(Bullet, Gun)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,gun,bullet,object,location1,location2,time]
@@ -152,8 +176,22 @@ if(terminates(shoot(Agent,Gun,Object),
 %       shoot(Agent,Gun,Object), 
 %       at_loc(Bullet,Location2), 
 %       Time)).
+(   terminates(shoot(Agent, Gun, Object),
+               at_loc(Bullet, Location2)at Time)
+;   not inside(Bullet, Gun)at Time
+;   not at_loc(Gun, Location1)at Time
+;   not {dif(Location1, Location2)}
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',36).
-if(terminates(shoot(Agent, Gun, Object), at(at_loc(Bullet, Location2), Time)),  (at(inside(Bullet, Gun), Time), at(at_loc(Gun, Location1), Time), {dif(Location1, Location2)})).
+
+ /*   (   terminates(shoot(Agent, Gun, Object),
+                       at(at_loc(Bullet, Location2), Time))
+        ;   at(not(inside(Bullet, Gun)), Time)
+        ;   at(not(at_loc(Gun, Location1)), Time)
+        ;   not({dif(Location1, Location2)})
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,gun,bullet,object,location,time]
@@ -175,8 +213,20 @@ if(terminates(shoot(Agent, Gun, Object), at(at_loc(Bullet, Location2), Time)),  
 %       shoot(Agent,Gun,Object), 
 %       at_loc(Bullet,Location), 
 %       Time)).
+(   initiates(shoot(Agent, Gun, Object),
+              at_loc(Bullet, Location)at Time)
+;   not at_loc(Object, Location)at Time
+;   not inside(Bullet, Gun)at Time
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',42).
-if(initiates(shoot(Agent, Gun, Object), at(at_loc(Bullet, Location), Time)),  (at(at_loc(Object, Location), Time), at(inside(Bullet, Gun), Time))).
+
+ /*   (   initiates(shoot(Agent, Gun, Object),
+                      at(at_loc(Bullet, Location), Time))
+        ;   at(not(at_loc(Object, Location)), Time)
+        ;   at(not(inside(Bullet, Gun)), Time)
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,gun,object,time]
@@ -209,8 +259,22 @@ if(initiates(shoot(Agent, Gun, Object), at(at_loc(Bullet, Location), Time)),  (a
 %                holds(
 %                   at_loc(Object,Location), 
 %                   Time)))))).
+(   holding(Agent, Gun)at Time,
+    thereExists(Bullet, loaded(Gun, Bullet)at Time),
+    thereExists(Location,
+                 (at_loc(Agent, Location)at Time, at_loc(Object, Location)at Time))
+;   not happens(shoot(Agent, Gun, Object), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',47).
-if((at(holding(Agent, Gun), Time), thereExists(Bullet, at(loaded(Gun, Bullet), Time)), thereExists(Location,  (at(at_loc(Agent, Location), Time), at(at_loc(Object, Location), Time)))), happens(shoot(Agent, Gun, Object), Time)).
+
+ /*  (   at(holding(Agent, Gun), Time),
+         thereExists(Bullet, at(loaded(Gun, Bullet), Time)),
+         thereExists(Location,
+                      (at(at_loc(Agent, Location), Time), at(at_loc(Object, Location), Time)))
+     ;   not(happens(shoot(Agent, Gun, Object), Time))
+     ).
+ */
+ %  % =================================.
 
 
 % [agent1,gun,agent2,time]
@@ -231,9 +295,21 @@ if((at(holding(Agent, Gun), Time), thereExists(Bullet, at(loaded(Gun, Bullet), T
 %       happens(
 %          shootKill(Agent1,Gun,Agent2), 
 %          Time))).
+(   (   happens(shootInjure(Agent1, Gun, Agent2), Time)
+    ;   happens(shootKill(Agent1, Gun, Agent2), Time)
+    )
+;   not happens(shoot(Agent1, Gun, Agent2), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',54).
- if((happens(shootInjure(Agent1, Gun, Agent2), Time);happens(shootKill(Agent1, Gun, Agent2), Time)),
-      happens(shoot(Agent1, Gun, Agent2), Time)).
+
+ /*   (   (   happens(shootInjure(Agent1, Gun, Agent2),
+                        Time)
+            ;   happens(shootKill(Agent1, Gun, Agent2), Time)
+            )
+        ;   not(happens(shoot(Agent1, Gun, Agent2), Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent1,gun,bullet,agent2,time]
@@ -254,8 +330,18 @@ if((at(holding(Agent, Gun), Time), thereExists(Bullet, at(loaded(Gun, Bullet), T
 %    happens(
 %       kill(Bullet,Agent2), 
 %       Time)).
+(   happens(kill(Bullet, Agent2), Time)
+;   not inside(Bullet, Gun)at Time
+;   not happens(shootKill(Agent1, Gun, Agent2), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',59).
-if(happens(kill(Bullet, Agent2), Time),  (at(inside(Bullet, Gun), Time), happens(shootKill(Agent1, Gun, Agent2), Time))).
+
+ /*   (   happens(kill(Bullet, Agent2), Time)
+        ;   at(not(inside(Bullet, Gun)), Time)
+        ;   not(happens(shootKill(Agent1, Gun, Agent2), Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent1,gun,bullet,agent2,time]
@@ -276,8 +362,19 @@ if(happens(kill(Bullet, Agent2), Time),  (at(inside(Bullet, Gun), Time), happens
 %    happens(
 %       injure(Bullet,Agent2), 
 %       Time)).
+(   happens(injure(Bullet, Agent2), Time)
+;   not inside(Bullet, Gun)at Time
+;   not happens(shootInjure(Agent1, Gun, Agent2), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',64).
-if(happens(injure(Bullet, Agent2), Time),  (at(inside(Bullet, Gun), Time), happens(shootInjure(Agent1, Gun, Agent2), Time))).
+
+ /*   (   happens(injure(Bullet, Agent2), Time)
+        ;   at(not(inside(Bullet, Gun)), Time)
+        ;   not(happens(shootInjure(Agent1, Gun, Agent2),
+                        Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,gun,physobj,time]
@@ -298,9 +395,22 @@ if(happens(injure(Bullet, Agent2), Time),  (at(inside(Bullet, Gun), Time), happe
 %       happens(
 %          shootDestroy(Agent,Gun,Physobj), 
 %          Time))).
+(   (   happens(shootDamage(Agent, Gun, Physobj), Time)
+    ;   happens(shootDestroy(Agent, Gun, Physobj), Time)
+    )
+;   not happens(shoot(Agent, Gun, Physobj), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',69).
- if((happens(shootDamage(Agent, Gun, Physobj), Time);happens(shootDestroy(Agent, Gun, Physobj), Time)),
-      happens(shoot(Agent, Gun, Physobj), Time)).
+
+ /*   (   (   happens(shootDamage(Agent, Gun, Physobj),
+                        Time)
+            ;   happens(shootDestroy(Agent, Gun, Physobj),
+                        Time)
+            )
+        ;   not(happens(shoot(Agent, Gun, Physobj), Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,gun,bullet,physobj,time]
@@ -321,8 +431,19 @@ if(happens(injure(Bullet, Agent2), Time),  (at(inside(Bullet, Gun), Time), happe
 %    happens(
 %       damage(Bullet,Physobj), 
 %       Time)).
+(   happens(damage(Bullet, Physobj), Time)
+;   not inside(Bullet, Gun)at Time
+;   not happens(shootDamage(Agent, Gun, Physobj), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',74).
-if(happens(damage(Bullet, Physobj), Time),  (at(inside(Bullet, Gun), Time), happens(shootDamage(Agent, Gun, Physobj), Time))).
+
+ /*   (   happens(damage(Bullet, Physobj), Time)
+        ;   at(not(inside(Bullet, Gun)), Time)
+        ;   not(happens(shootDamage(Agent, Gun, Physobj),
+                        Time))
+        ).
+ */
+ %  % =================================.
 
 
 % [agent,gun,bullet,physobj,time]
@@ -343,8 +464,19 @@ if(happens(damage(Bullet, Physobj), Time),  (at(inside(Bullet, Gun), Time), happ
 %    happens(
 %       destroy(Bullet,Physobj), 
 %       Time)).
+(   happens(destroy(Bullet, Physobj), Time)
+;   not inside(Bullet, Gun)at Time
+;   not happens(shootDestroy(Agent, Gun, Physobj), Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/Gun.e',79).
-if(happens(destroy(Bullet, Physobj), Time),  (at(inside(Bullet, Gun), Time), happens(shootDestroy(Agent, Gun, Physobj), Time))).
+
+ /*   (   happens(destroy(Bullet, Physobj), Time)
+        ;   at(not(inside(Bullet, Gun)), Time)
+        ;   not(happens(shootDestroy(Agent, Gun, Physobj),
+                        Time))
+        ).
+ */
+ %  % =================================.
 
 
 %; End of file.

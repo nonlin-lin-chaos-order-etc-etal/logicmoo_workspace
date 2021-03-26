@@ -11,7 +11,7 @@
 % ':-'(call_pel_directive(translate(begining,'/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.lps.pl'))).
 :- call_pel_directive(translate(begining,
                                 '/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.lps.pl')).
-% Tue, 23 Mar 2021 19:06:53 GMT File: <stream>(0x555566d34200)%;
+% Fri, 26 Mar 2021 01:06:03 GMT File: <stream>(0x555567c94300)%;
 %; Copyright (c) 2005 IBM Corporation and others.
 %; All rights reserved. This program and the accompanying materials
 %; are made available under the terms of the Common Public License v1.0
@@ -38,22 +38,22 @@
 % sort(object).
 sort(object).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',22).
 % sort xcoord: integer
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',22).
 % From E: 
 % 
 % subsort(xcoord,integer).
-subsort(xcoord,integer).
+subsort(xcoord, integer).
 
 % sort ycoord: integer
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',22).
 % From E: 
 % 
 % subsort(ycoord,integer).
-subsort(ycoord,integer).
+subsort(ycoord, integer).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',24).
 % sort grid
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',24).
 % From E: 
 % 
 % sort(grid).
@@ -66,8 +66,8 @@ sort(grid).
 % sort(shape).
 sort(shape).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',26).
 % sort color
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',26).
 % From E: 
 % 
 % sort(color).
@@ -79,24 +79,22 @@ sort(color).
 % From E: 
 % 
 % t(shape,round).
-isa(round,shape).
+isa(round, shape).
 % From E: 
 % 
 % t(shape,square).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',28).
-isa(square,shape).
+isa(square, shape).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',30).
 % color Red,Green
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',30).
 % From E: 
 % 
 % t(color,red).
-isa(red,color).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',30).
+isa(red, color).
 % From E: 
 % 
 % t(color,green).
-isa(green,color).
+isa(green, color).
 %; predicates, fluents, and events
 
 % predicate Equal(object,object)
@@ -104,34 +102,33 @@ isa(green,color).
 % From E: 
 % 
 % predicate(equal(object,object)).
-mpred_prop(equal(object,object),predicate).
+mpred_prop(equal(object, object), predicate).
 predicates([equal/2]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',34).
 % predicate Shape(object,shape)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',34).
 % From E: 
 % 
 % predicate(shape(object,shape)).
-mpred_prop(shape(object,shape),predicate).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',34).
+mpred_prop(shape(object, shape), predicate).
 predicates([shape/2]).
 
 % predicate Color(object,color)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',34).
 % From E: 
 % 
 % predicate(color(object,color)).
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',34).
-mpred_prop(color(object,color),predicate).
+mpred_prop(color(object, color), predicate).
 predicates([color/2]).
 
-:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',36).
 % fluent Location(grid,object,xcoord,ycoord)
+:-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',36).
 % From E: 
 % 
 % fluent(location(grid, object, xcoord, 
 %           ycoord)).
+mpred_prop(location(grid, object, xcoord, ycoord), fluent).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',36).
-mpred_prop(location(grid,object,xcoord,ycoord),fluent).
 fluents([location/4]).
 
 % event Move(grid,object,xcoord,ycoord,xcoord,ycoord)
@@ -139,8 +136,8 @@ fluents([location/4]).
 % 
 % event(move(grid, object, xcoord, ycoord, xcoord, 
 %          ycoord)).
+mpred_prop(move(grid, object, xcoord, ycoord, xcoord, ycoord), event).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',36).
-mpred_prop(move(grid,object,xcoord,ycoord,xcoord,ycoord),event).
 events([move/6]).
 
 
@@ -154,9 +151,16 @@ events([move/6]).
 % '->'(
 %    equal(Object1,Object2), 
 %    equal(Object2,Object1)).
+(   equal(Object2, Object1)
+;   not equal(Object1, Object2)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',41).
-if(equal(Object2,Object1),
-   equal(Object1,Object2)).
+
+ /*   (   equal(Object2, Object1)
+        ;   not(equal(Object1, Object2))
+        ).
+ */
+ %  % =================================.
 
 
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',43).
@@ -172,7 +176,17 @@ if(equal(Object2,Object1),
 %       shape(Object,Shape1), 
 %       shape(Object,Shape2)), 
 %    Shape1=Shape2).
-if(equals(Shape1, Shape2),  (shape(Object, Shape1), shape(Object, Shape2))).
+(   equals(Shape1, Shape2)
+;   not shape(Object, Shape1)
+;   not shape(Object, Shape2)
+).
+
+ /*   (   equals(Shape1, Shape2)
+        ;   not(shape(Object, Shape1))
+        ;   not(shape(Object, Shape2))
+        ).
+ */
+ %  % =================================.
 
 
 %; objects have unique color
@@ -187,8 +201,18 @@ if(equals(Shape1, Shape2),  (shape(Object, Shape1), shape(Object, Shape2))).
 %       color(Object,Color1), 
 %       color(Object,Color2)), 
 %    Color1=Color2).
+(   equals(Color1, Color2)
+;   not color(Object, Color1)
+;   not color(Object, Color2)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',49).
-if(equals(Color1, Color2),  (color(Object, Color1), color(Object, Color2))).
+
+ /*   (   equals(Color1, Color2)
+        ;   not(color(Object, Color1))
+        ;   not(color(Object, Color2))
+        ).
+ */
+ %  % =================================.
 
 
 %; if objects are the same, they have the same shape
@@ -204,8 +228,18 @@ if(equals(Color1, Color2),  (color(Object, Color1), color(Object, Color2))).
 %       ','(
 %          shape(Object1,Shape), 
 %          shape(Object2,Shape)))).
+(   thereExists(Shape,
+                 (shape(Object1, Shape), shape(Object2, Shape)))
+;   not equal(Object1, Object2)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',54).
-if(thereExists(Shape,  (shape(Object1, Shape), shape(Object2, Shape))), equal(Object1, Object2)).
+
+ /*  (   thereExists(Shape,
+                      (shape(Object1, Shape), shape(Object2, Shape)))
+     ;   not(equal(Object1, Object2))
+     ).
+ */
+ %  % =================================.
 
 
 %; if objects are the same, they have the same color
@@ -221,8 +255,18 @@ if(thereExists(Shape,  (shape(Object1, Shape), shape(Object2, Shape))), equal(Ob
 %       ','(
 %          color(Object1,Color), 
 %          color(Object2,Color)))).
+(   thereExists(Color,
+                 (color(Object1, Color), color(Object2, Color)))
+;   not equal(Object1, Object2)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',59).
-if(thereExists(Color,  (color(Object1, Color), color(Object2, Color))), equal(Object1, Object2)).
+
+ /*  (   thereExists(Color,
+                      (color(Object1, Color), color(Object2, Color)))
+     ;   not(equal(Object1, Object2))
+     ).
+ */
+ %  % =================================.
 
 
 %; if objects are the same, they have the same location
@@ -249,8 +293,28 @@ if(thereExists(Color,  (color(Object1, Color), color(Object2, Color))), equal(Ob
 %       ','(
 %          Xcoord1=Xcoord2, 
 %          Ycoord1=Ycoord2))).
+(   (   equals(Xcoord1, Xcoord2),
+        equals(Ycoord1, Ycoord2)
+    ;   at(not location(Grid, Object1, Xcoord1, Ycoord1),
+           Time)
+    ;   at(not location(Grid, Object2, Xcoord2, Ycoord2),
+           Time)
+    )
+;   not equal(Object1, Object2)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',64).
-if(if((equals(Xcoord1, Xcoord2), equals(Ycoord1, Ycoord2)),  (at(location(Grid, Object1, Xcoord1, Ycoord1), Time), at(location(Grid, Object2, Xcoord2, Ycoord2), Time))), equal(Object1, Object2)).
+
+ /*  (   (   equals(Xcoord1, Xcoord2),
+             equals(Ycoord1, Ycoord2)
+         ;   at(not(location(Grid, Object1, Xcoord1, Ycoord1)),
+                Time)
+         ;   at(not(location(Grid, Object2, Xcoord2, Ycoord2)),
+                Time)
+         )
+     ;   not(equal(Object1, Object2))
+     ).
+ */
+ %  % =================================.
 
 
 %; object in one location at a time
@@ -274,8 +338,24 @@ if(if((equals(Xcoord1, Xcoord2), equals(Ycoord1, Ycoord2)),  (at(location(Grid, 
 %    ','(
 %       Xcoord1=Xcoord2, 
 %       Ycoord1=Ycoord2)).
+(   equals(Xcoord1, Xcoord2),
+    equals(Ycoord1, Ycoord2)
+;   at(not location(Grid, Object, Xcoord1, Ycoord1),
+       Time)
+;   at(not location(Grid, Object, Xcoord2, Ycoord2),
+       Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',71).
-if((equals(Xcoord1, Xcoord2), equals(Ycoord1, Ycoord2)),  (at(location(Grid, Object, Xcoord1, Ycoord1), Time), at(location(Grid, Object, Xcoord2, Ycoord2), Time))).
+
+ /*  (   equals(Xcoord1, Xcoord2),
+         equals(Ycoord1, Ycoord2)
+     ;   at(not(location(Grid, Object, Xcoord1, Ycoord1)),
+            Time)
+     ;   at(not(location(Grid, Object, Xcoord2, Ycoord2)),
+            Time)
+     ).
+ */
+ %  % =================================.
 
 
 %; objects have locations
@@ -290,10 +370,15 @@ if((equals(Xcoord1, Xcoord2), equals(Ycoord1, Ycoord2)),  (at(location(Grid, Obj
 %       location(Grid, Object, Xcoord, 
 %          Ycoord), 
 %       Time)).
+exists(Xcoord, exists(Ycoord, location(Grid, Object, Xcoord, Ycoord)at Time)).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',77).
-exists([Xcoord,Ycoord],
- at(location(Grid,Object,Xcoord,Ycoord),
-   Time)).
+
+ /*  exists(Xcoord,
+      exists(Ycoord,
+      at(location(Grid,Object,Xcoord,Ycoord),
+        Time))).
+ */
+ %  % =================================.
 
 
 %; different objects are not at same location
@@ -315,8 +400,22 @@ exists([Xcoord,Ycoord],
 %             Ycoord1), 
 %          Time)), 
 %    equal(Object1,Object2)).
+(   equal(Object1, Object2)
+;   at(not location(Grid, Object1, Xcoord1, Ycoord1),
+       Time)
+;   at(not location(Grid, Object2, Xcoord1, Ycoord1),
+       Time)
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',81).
-if(equal(Object1, Object2),  (at(location(Grid, Object1, Xcoord1, Ycoord1), Time), at(location(Grid, Object2, Xcoord1, Ycoord1), Time))).
+
+ /*   (   equal(Object1, Object2)
+        ;   at(not(location(Grid, Object1, Xcoord1, Ycoord1)),
+               Time)
+        ;   at(not(location(Grid, Object2, Xcoord1, Ycoord1)),
+               Time)
+        ).
+ */
+ %  % =================================.
 
 
 %; moving to a location causes an object to be at that location
@@ -333,14 +432,21 @@ if(equal(Object1, Object2),  (at(location(Grid, Object1, Xcoord1, Ycoord1), Time
 %    location(Grid, Object, Xcoord2, 
 %       Ycoord2), 
 %    Time).
+move(Grid, Object, Xcoord1, Ycoord1, Xcoord2, Ycoord2)initiates location(Grid, Object, Xcoord2, Ycoord2).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',87).
-initiates(move(Grid,
-	       Object,
-	       Xcoord1,
-	       Ycoord1,
-	       Xcoord2,
-	       Ycoord2),
-	  location(Grid,Object,Xcoord2,Ycoord2)).
+
+ /*  initiated(happens(move(Grid,
+     		       Object,
+     		       Xcoord1,
+     		       Ycoord1,
+     		       Xcoord2,
+     		       Ycoord2),
+     		  Time_from,
+     		  Time_until),
+     	  location(Grid,Object,Xcoord2,Ycoord2),
+     	  []).
+ */
+ %  % =================================.
 
 
 %; moving to a location causes the object no longer to be at its previous
@@ -358,17 +464,24 @@ initiates(move(Grid,
 %    location(Grid, Object, Xcoord1, 
 %       Ycoord1), 
 %    Time).
+move(Grid, Object, Xcoord1, Ycoord1, Xcoord2, Ycoord2)terminates location(Grid, Object, Xcoord1, Ycoord1).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',94).
-terminates(move(Grid,
-		Object,
-		Xcoord1,
-		Ycoord1,
-		Xcoord2,
-		Ycoord2),
-	   location(Grid,
-		    Object,
-		    Xcoord1,
-		    Ycoord1)).
+
+ /*  terminated(happens(move(Grid,
+     			Object,
+     			Xcoord1,
+     			Ycoord1,
+     			Xcoord2,
+     			Ycoord2),
+     		   Time_from,
+     		   Time_until),
+     	   location(Grid,
+     		    Object,
+     		    Xcoord1,
+     		    Ycoord1),
+     	   []).
+ */
+ %  % =================================.
 
 
 %;; allow diagonal movements
@@ -411,8 +524,47 @@ terminates(move(Grid,
 %             ';'(
 %                Xcoord1=Xcoord2+1, 
 %                Xcoord1=Xcoord2-1))))).
+(   location(Grid, Object, Xcoord1, Ycoord1)at Time,
+    (   equals(Xcoord1, Xcoord2),
+        (   equals(Ycoord1, Ycoord2+1)
+        ;   equals(Ycoord1, Ycoord2-1)
+        )
+    ;   equals(Ycoord1, Ycoord2),
+        (   equals(Xcoord1, Xcoord2+1)
+        ;   equals(Xcoord1, Xcoord2-1)
+        )
+    )
+;   not(happens(move(Grid,
+                     Object,
+                     Xcoord1,
+                     Ycoord1,
+                     Xcoord2,
+                     Ycoord2),
+                Time))
+).
 :-was_s_l('/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/ext/ec_sources/ecnet/PolySpace.e',112).
-if((at(location(Grid, Object, Xcoord1, Ycoord1), Time), (equals(Xcoord1, Xcoord2), (equals(Ycoord1, Ycoord2+1);equals(Ycoord1, Ycoord2-1));equals(Ycoord1, Ycoord2), (equals(Xcoord1, Xcoord2+1);equals(Xcoord1, Xcoord2-1)))), happens(move(Grid, Object, Xcoord1, Ycoord1, Xcoord2, Ycoord2), Time)).
+
+ /*  (   at(location(Grid, Object, Xcoord1, Ycoord1),
+            Time),
+         (   equals(Xcoord1, Xcoord2),
+             (   equals(Ycoord1, Ycoord2+1)
+             ;   equals(Ycoord1, Ycoord2-1)
+             )
+         ;   equals(Ycoord1, Ycoord2),
+             (   equals(Xcoord1, Xcoord2+1)
+             ;   equals(Xcoord1, Xcoord2-1)
+             )
+         )
+     ;   not(happens(move(Grid,
+                          Object,
+                          Xcoord1,
+                          Ycoord1,
+                          Xcoord2,
+                          Ycoord2),
+                     Time))
+     ).
+ */
+ %  % =================================.
 
 
 %; End of file.
