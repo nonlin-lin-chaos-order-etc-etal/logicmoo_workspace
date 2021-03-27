@@ -549,7 +549,8 @@ dtrace:- wdmsg("DUMP_TRACE/0"), (thread_self_main->(dumpST,rtrace);(dumpST(30),a
 %:- redefine_system_predicate(system:dbreak()).
 
 :- thread_local(t_l:no_dbreak/0).
-dbreak:- throw(abort).
+%dbreak:- wdmsg("DUMP_BREAK/0"), !, break, throw(abort).
+dbreak:- wdmsg("DUMP_BREAK/0"), !, throw(abort).
 dbreak:- wdmsg("DUMP_BREAK/0"),((ignore(on_x_fail(dumpST)), break,wdmsg("DUMP_BREAK/0"))),!,
   (t_l:no_dbreak -> wdmsg("NO__________________DUMP_BREAK/0") ;
       (thread_self_main->(dumpST,dtrace(system:break),break);true)).
