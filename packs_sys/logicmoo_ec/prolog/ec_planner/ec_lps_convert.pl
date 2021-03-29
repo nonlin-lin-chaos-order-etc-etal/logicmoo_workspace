@@ -38,7 +38,7 @@ test_logicmoo_ec_sanity:- test_lps_ereader.
 :- set_prolog_flag(lps_translation_only,false).
 
 
-assert_lps(user:ec_current_domain_db(Stuff,_)):-!,  assert_lps(Stuff).
+assert_lps(user:ec_current_domain_db2(Stuff,_)):-!,  assert_lps(Stuff).
 assert_lps(axiom(Stuff,Nil)):- Nil==[],!,assert_lps(Stuff).
 assert_lps(axiom(Stuff,List)):- !,must_or_rtrace(list_to_conjuncts(List,Body)),!,assert_lps(->(Body,Stuff)).
 assert_lps(Stuff):- assert_ep4lps(db,Stuff).

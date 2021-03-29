@@ -44,8 +44,8 @@ is_e_toplevel :- prolog_load_context(source,File),prolog_load_context(file,File)
 
 :- use_module(library(pfc_lib)).
 %:- include(library(pfc)).
-:- baseKB:export(baseKB:spft/4).
-:- system:import(baseKB:spft/4).
+:- baseKB:export(baseKB:'$spft'/4).
+:- system:import(baseKB:'$spft'/4).
 
 %:- reexport(library('ec_planner/ec_planner_dmiles')).
 :- reexport(ec_reader).
@@ -338,7 +338,8 @@ fixed_already(event).
 fixed_already(axiom).
 fixed_already(ignore).
 fixed_already(load).
-fixed_already(ec_current_domain_db).
+fixed_already(ec_current_domain_db1).
+fixed_already(ec_current_domain_db2).
 fixed_already(include).
 fixed_already(set_ec_option).
 fixed_already(F):- arg_info(domain,F,_).
@@ -498,16 +499,16 @@ assert_ready_now(Type,Value):-
    into_current_domain_db(ValueO),!.
 
 into_current_domain_db('==>'(Value)):-!,into_current_domain_db((Value)).
-into_current_domain_db(ec_current_domain_db(Value)):- !, into_current_domain_db((Value)).
-into_current_domain_db(ec_current_domain_db(Value,T)):- is_ftVar(T),!,into_current_domain_db(Value).
-into_current_domain_db(ec_current_domain_db(Value,T)):- !, assertz_if_new_domain_db(Value,T).
+into_current_domain_db(ec_current_domain_db1(Value)):- !, into_current_domain_db((Value)).
+into_current_domain_db(ec_current_domain_db2(Value,T)):- is_ftVar(T),!,into_current_domain_db(Value).
+into_current_domain_db(ec_current_domain_db2(Value,T)):- !, assertz_if_new_domain_db(Value,T).
 into_current_domain_db(Value):- get_varname_list(Vs),=(Value-Vs,ValueO-VsO),
    locally(b_setval('$variables',VsO),assertz_if_new_domain_db(ValueO,_)).
 
 
-assertz_if_new_domain_db((H:-B),T):- !, assertz_if_new_msg((user:ec_current_domain_db(H,T):-B)).
+assertz_if_new_domain_db((H:-B),T):- !, assertz_if_new_msg((user:ec_current_domain_db2(H,T):-B)).
 assertz_if_new_domain_db(ValueO,_):- ValueO =@= axiom(/**/holds(/**/not(raining), _), []),!,barf.
-assertz_if_new_domain_db(ValueO,T):- assertz_if_new_msg(user:ec_current_domain_db(ValueO,T)).
+assertz_if_new_domain_db(ValueO,T):- assertz_if_new_msg(user:ec_current_domain_db2(ValueO,T)).
 
 assertz_if_new_msg(Stuff):- clause_asserted(Stuff),!, major_debug(wdmsg(already(Stuff))), !, only_lps(assert_to_lps(Stuff)),!.
 assertz_if_new_msg(Stuff):- assertz_if_new(Stuff), only_lps(assert_to_lps(Stuff)),!.
@@ -547,11 +548,11 @@ assert_ele(translate(Event, Outfile)):- !, mention_s_l, echo_format('% translate
 %assert_ele('==>'(S0)):- !, assert_ready( '==>'(S0)).
 assert_ele(:- S0):- !, assert_ready( (:-(S0))).
 
-assert_ele(axiom(H,B)):- !, assert_ready(ec_current_domain_db(axiom(H,B))).
+assert_ele(axiom(H,B)):- !, assert_ready(ec_current_domain_db1(axiom(H,B))).
 assert_ele(include(S0)):- !, assert_ready( :-(load_e_cond(S0,include))).
 assert_ele(load(S0)):- !, assert_ready( :-(load_e_cond(S0,changed))).
 assert_ele(load(Cond, S0)):- !, assert_ready( :-(load_e_cond(S0,Cond))).
-assert_ele(ec_current_domain_db(P)):- !, assert_ready( ec_current_domain_db(P)).
+assert_ele(ec_current_domain_db1(P)):- !, assert_ready( ec_current_domain_db1(P)).
 
 assert_ele(HB):- \+ compound_gt(HB, 0), !, assert_axiom(HB, []).
 
@@ -661,7 +662,7 @@ assert_ele('==>'(SS)):- echo_format('~N'), !,
 
 assert_ele(axiom(H)):- !, assert_ele(axiom(H,[])).
 
-assert_ele(P):-  functor(P,F,_),fixed_already(F),!,assert_ready( ec_current_domain_db(P)).
+assert_ele(P):-  functor(P,F,_),fixed_already(F),!,assert_ready( ec_current_domain_db1(P)).
 
 % assert_ele(SS):- fix_time_args(T, SS),
 assert_ele(SS):- echo_format('~N'), 
@@ -729,8 +730,8 @@ cvt0(T, /**/not(I),O):- !, cvt0(T, I,M), correct_holds(/**/not, not(M), O).
 cvt0(T, not(I),O):- !, cvt0(T, I,M), correct_holds(/**/not, not(M), O). 
 cvt0(T, happens_at(F, T1, T2), O):- T1==T2, cvt0(T, happens_at(F, T1), O).
 % cvt0(_T, happens_at(F, T1), happens_at(F, T1)):- !.
-cvt0(_, ec_current_domain_db(X), ec_current_domain_db(X)).
-cvt0(T, ec_current_domain_db(X,Y), ec_current_domain_db(X,Y)):- ignore(Y=T).
+cvt0(_, ec_current_domain_db1(X), ec_current_domain_db1(X)).
+cvt0(T, ec_current_domain_db2(X,Y), ec_current_domain_db2(X,Y)):- ignore(Y=T).
 
 cvt0(T, [G1|G2], [GG1|GG2]):- !, cvt0(T, G1, GG1),cvt0(T, G2, GG2). 
 cvt0(T, (G1,G2), (GG1,GG2)):- !, cvt0(T, G1, GG1),cvt0(T, G2, GG2). 
@@ -1153,7 +1154,7 @@ syntx_term_check(G):- var(G),!,fail.
 syntx_term_check(G):- is_ftVar(G),!,fail.
 syntx_term_check((G1;G2)):- !, syntx_term_check(G1); syntx_term_check(G2).
 syntx_term_check(G):- predicate_property(G,clause_count(_)), clause(G,_).
-syntx_term_check(G):- clause(ec_current_domain_db(G, _),_).
+syntx_term_check(G):- clause(user:ec_current_domain_db2(G, _),_).
 syntx_term_check(G):- into_lps, G=..[F,A], ec_lps_convert:argtype_pred(F,FS),GS=..[FS,[A]],syntx_term_check(GS).
 
 
@@ -1470,7 +1471,7 @@ convert_to_axiom1(_, EOF, []) :- EOF = end_of_file,!.
 convert_to_axiom1(T, P, O):- is_axiom_head(P),!, convert_to_axiom1(T, axiom(P), O).
 convert_to_axiom1(T, axiom(P), O):- convert_to_axiom1(T, axiom(P ,[]), O).
 convert_to_axiom1(_LSV, axiom(X,Y), [axiom(X,Y)]).
-convert_to_axiom1(LSV, Pred, [ec_current_domain_db(Pred,LSV)]).
+convert_to_axiom1(LSV, Pred, [ec_current_domain_db2(Pred,LSV)]).
 
 convert_exists( exists(Vars,B -> H), (B -> Conj)):- conjoin(H,some(Vars),Conj), !.
 convert_exists( exists(Vars, H), HBO):- conjoin(H,some(Vars),Conj), !,  Conj = HBO.

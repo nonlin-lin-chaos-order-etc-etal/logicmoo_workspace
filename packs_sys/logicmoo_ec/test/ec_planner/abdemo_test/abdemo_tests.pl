@@ -1,7 +1,7 @@
 
 :- style_check(-discontiguous).
 
-
+:- set_prolog_flag(ec_loader,true).
 
 
 /*
@@ -44,6 +44,7 @@ get_t_arg(b(B1, B2), B1, B2):-!.
 get_t_arg(beq(B1, B2), B1, B2):-!.
 get_t_arg(B, B1, B2):- functor(B, _, A), arg(A, B, B1), A2 is A -1, arg(A2, B, B2).
 */
+:- set_prolog_flag(ec_loader,true).
 
 
 :- if(false).
@@ -69,7 +70,6 @@ demo_test(shop_16, slow, [holds(have(A0,o(1)), T), holds(have(A0,o(2)), T), hold
 
 % 
 % :- cls.
-:- set_prolog_flag(ec_loader,true).
 
 event(act(_,_)).
 axiom(initiates(buy(A0,X), have(A0,X), T), [sells(Y, X), holds( at_loc(A0,Y), T)]).
@@ -152,7 +152,9 @@ axiom(sells(sm, banana), []).
 event(go(A0,X)):-current_prolog_flag(redundant_rules, true).
 event(buy(A0,X)):-current_prolog_flag(redundant_rules, true).
 
+:- endif.
 
+:- if(true).
 
 
 /*
@@ -171,22 +173,22 @@ demo_test(mail_2t, loops, [holds(in(p(1), r(3)), t)]).
 axiom(happens(shift_pack(P, R), T1, T4), [happens(retrieve_pack(P), T1, T2), b(T2, T3), happens(deliver_pack(P, R), T3, T4), not(clipped(T2, got(robot,P), T3))]).
 axiom(initiates(shift_pack(P, R), in(P, R), _T), []).
 
-axiom(happens(retrieve_pack(P), T1, T2), [holds(in(P, R), T1), happens(go_to_room(R), T1), happens(pick_up(P), T2), b(T1, T2), not(clipped(T1, in(robot, R), T2))]).
+axiom(happens(retrieve_pack(P), T1, T2), [holds(in(P, R), T1), happens(go_to_room(robot,R), T1), happens(put_up(robot,P), T2), b(T1, T2), not(clipped(T1, in(robot, R), T2))]).
 axiom(initiates(retrieve_pack(P), got(robot,P), _T), []).
 
-axiom(happens(deliver_pack(P, R), T1, T2), [happens(go_to_room(R), T1), happens(put_down(P), T2), b(T1, T2), not(clipped(T1, in(robot, R), T2))]).
+axiom(happens(deliver_pack(P, R), T1, T2), [happens(go_to_room(robot,R), T1), happens(put_down(robot,P), T2), b(T1, T2), not(clipped(T1, in(robot, R), T2))]).
 axiom(initiates(deliver_pack(P, R), in(P, R), T), [holds(got(robot,P), T)]).
 
 /* Primitive actions */
 
-axiom(initiates(pick_up(P), got(robot,P), T), [difstate(f,P, robot), holds(in(P, R), T), holds(in(robot, R), T)]).
-axiom(releases(pick_up(P), in(P, R), T), [difstate(f,P, robot), holds(in(P, R), T), holds(in(robot, R), T)]).
+axiom(initiates(put_up(robot,P), got(robot,P), T), [difstate(f,P, robot), holds(in(P, R), T), holds(in(robot, R), T)]).
+axiom(releases(put_up(robot,P), in(P, R), T), [difstate(f,P, robot), holds(in(P, R), T), holds(in(robot, R), T)]).
 
-axiom(initiates(put_down(P), in(P, R), T), [difstate(f,P, robot), holds(got(robot,P), T), holds(in(robot, R), T)]).
-axiom(terminates(put_down(P), got(robot,P), _T), []).
+axiom(initiates(put_down(robot,P), in(P, R), T), [difstate(f,P, robot), holds(got(robot,P), T), holds(in(robot, R), T)]).
+axiom(terminates(put_down(robot,P), got(robot,P), _T), []).
 
-axiom(initiates(go_to_room(R), in(robot, R), _T), []).
-axiom(terminates(go_to_room(R1), in(robot, R2), T), [difstate(f,R1, R2)]).
+axiom(initiates(go_to_room(robot,R), in(robot, R), _T), []).
+axiom(terminates(go_to_room(robot,R1), in(robot, R2), T), [difstate(f,R1, R2)]).
 
 /* Domain constraints */
 
@@ -201,13 +203,13 @@ axiom(initially(in(p(1), r(2))), []).
 axiom(initially(not(in(p(1), r(1)))), []).
 axiom(initially(not(in(p(1), r(3)))), []).
 
-event(pick_up(P)).
-event(put_down(P)).
-event(go_to_room(R)).
+event(put_up(robot,P)).
+event(put_down(robot,P)).
+event(go_to_room(robot,R)).
 
 
 /*
-% axiom(happens(deliver_pack(P, R), T1, T2), [happens(go_to_room(R), T1), happens(put_down(P), T2), b(T1, T2), not(clipped(T1, in(robot, R), T2))]).
+% axiom(happens(deliver_pack(P, R), T1, T2), [happens(go_to_room(robot,R), T1), happens(put_down(robot,P), T2), b(T1, T2), not(clipped(T1, in(robot, R), T2))]).
 event(made_true(_)).
 %axiom(initiates(made_true(G), G, T), []).
 
@@ -219,7 +221,7 @@ axiom_local(initiates(made_true(G), G, T), []):- nonvar(G).
 %demo_test(became_true_1a, advanced, [holds(in(p(1), r(3)), T)]).
 %demo_test(became_true_1a, advanced, [holds(made_true(in(p(1), r(3)), T))]).
 %demo_test(became_true_1b, advanced, [holds(became_true(in(p(1), r(3)), T))]).
-%demo_test(became_true_2b, advanced, [happens(pick_up(P),T)]).
+%demo_test(became_true_2b, advanced, [happens(put_up(robot,P),T)]).
 %demo_test(became_true_2a, advanced, [happens(made_true(foo),T)]).
 %demo_test(became_true_3a, advanced, [made_true(in(p(1), r(3)))]).
 %demo_test(became_true_3b, advanced, [holds(became_true(in(p(1), r(3))),T)]).
@@ -232,14 +234,13 @@ demo_test(became_true_3c, advanced, [holds(foo,T)]).
 /* Abduction policy */
 predicate(dummy).
 
-
 :- set_prolog_flag(ec_loader,false).
 
 :- nortrace.
 demo_test :- 
-   time((mmake, forall(demo_test(_), true), 
+   time((mmake, forall(ec:demo_test(_), true), 
   % time(with_output_to(string(_),forall(between(1,50,_),forall(demo_test(_), true)))),
-   forall(demo_test(_), true))).
+   forall(ec:demo_test(_), true))).
 
 :- system:show_ec_current_domain_db.
 

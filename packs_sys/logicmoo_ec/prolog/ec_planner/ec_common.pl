@@ -18,19 +18,19 @@ is_sicstus:- \+ current_prolog_flag(version_data,swi(_,_,_,_)).
 :- export(local_database/1).
 :- system:import(local_database/1).
 
-:- module_transparent(ec_current_domain_db/1).
-:- export(ec_current_domain_db/1).
-:- system:import(ec_current_domain_db/1).
+:- module_transparent(ec_current_domain_db1/1).
+:- export(ec_current_domain_db1/1).
+:- system:import(ec_current_domain_db1/1).
 
 :- module_transparent(ec_current_domain_db_name/1).
 :- dynamic(ec_current_domain_db_name/1).
 :- export(ec_current_domain_db_name/1).
 :- system:import(ec_current_domain_db_name/1).
 
-:- module_transparent(user:ec_current_domain_db/2).
-:- dynamic(user:ec_current_domain_db/2).
-:- export(user:ec_current_domain_db/2).
-:- system:import(user:ec_current_domain_db/2).
+:- module_transparent(user:ec_current_domain_db2/2).
+:- dynamic(user:ec_current_domain_db2/2).
+:- export(user:ec_current_domain_db2/2).
+:- system:import(user:ec_current_domain_db2/2).
 
 
 :- reexport((ec_loader)).
@@ -166,32 +166,40 @@ ec_predicate_template(action(_)).
 ec_predicate_template(function(_,_)).
 ec_predicate_template(Var):- local_database(predicate(Pred)), functor(Pred,F,A), functor(Var,F,A).
 
-local_database(Var):- notrace(var(Var)),!,ec_predicate_template(Var),ec_current_domain_db(Var).
-local_database(G):- ec_current_domain_db(G).
+local_database(Var):- notrace(var(Var)),!,ec_predicate_template(Var),ec_current_domain_db1(Var).
+local_database(G):- ec_current_domain_db1(G).
 
-%local_database(Var):- ec_current_domain_db(Var).
+%local_database(Var):- ec_current_domain_db1(Var).
 
 system:show_ec_current_domain_db:- 
    pprint_ecp_cmt(yellow,showing_ec_current_domain_db),
-   forall(ec_current_domain_db(G),pprint_ecp(yellow,G)),
+   forall(ec_current_domain_db1(G),pprint_ecp(yellow,G)),
    pprint_ecp_cmt(yellow,shown_ec_current_domain_db).
 
-   listing(user:ec_current_domain_db/2).
-
-ec_current_domain_db(axiom(call(G), [])):- nonvar(G),!, call(G).
-
-ec_current_domain_db(G):- user:ec_current_domain_db(G, _REF).
-ec_current_domain_db(G):- lps_current_domain_db(G).
-ec_current_domain_db(holds(G,Zero)):- get_zero(Zero), ec_current_domain_db(initially(G),Gs).
-ec_current_domain_db(G):- var(G), !, fail.
-ec_current_domain_db(event(G)):- lps_current_domain_db(action(G)).
-ec_current_domain_db(G):- G \= axiom(_,_), ec_current_domain_db(axiom(G,B)), B==[].
-%ec_current_domain_db(Var):- notrace(var(Var)),!, throw(ec_current_domain_var(Var)).
-%ec_current_domain_db(axiom(G,Gs)):- !, axiom(G,Gs).
-%ec_current_domain_db(event(G)):- var(G),!, ec_current_domain_db(predicate(Ax)), functor(Ax,F,A), functor(G,F,A).
+   listing(user:ec_current_domain_db2/2).
 
 
-:- lock_predicate(ec_current_domain_db/1).
+
+user_ec_current_domain_db(axiom(G,Gs)):- nonvar(G), !, ec_current_domain_axiom(G,Gs).
+user_ec_current_domain_db(G):- user:ec_current_domain_db2(G,_).
+
+ec_current_domain_axiom(call(G), []):- nonvar(G),!, call(G).
+ec_current_domain_axiom(G, Gs):- user:ec_current_domain_db2(axiom(G,Gs),_).
+ec_current_domain_axiom(holds(G,Zero), Gs):-  once(get_zero(Zero)), ec_current_domain_axiom(initially(G),Gs).
+%ec_current_domain_axiom(initially(G), Gs):-  once(get_zero(Zero)), ec_current_domain_axiom(holds(G,Zero),Gs).
+
+
+ec_current_domain_db1(G):- user_ec_current_domain_db(G).
+ec_current_domain_db1(G):- lps_current_domain_db(G).
+ec_current_domain_db1(G):- var(G), !, fail.
+ec_current_domain_db1(event(G)):- lps_current_domain_db(action(G)).
+ec_current_domain_db1(G):- G \= axiom(_,_),!, ec_current_domain_db1(axiom(G,B)), B==[].
+%ec_current_domain_db1(Var):- notrace(var(Var)),!, throw(ec_current_domain_var(Var)).
+%ec_current_domain_db1(axiom(G,Gs)):- !, axiom(G,Gs).
+%ec_current_domain_db1(event(G)):- var(G),!, ec_current_domain_db1(predicate(Ax)), functor(Ax,F,A), functor(G,F,A).
+
+
+:- lock_predicate(ec_current_domain_db1/1).
 
 
 :- use_module(library(lps_corner),[u_call_lps/1]).
@@ -199,13 +207,11 @@ ec_current_domain_db(G):- G \= axiom(_,_), ec_current_domain_db(axiom(G,B)), B==
 :- multifile(u_call_contrib/2).
 :- dynamic(u_call_contrib/2).
 :- module_transparent(u_call_contrib/2).
-u_call_contrib(M,G):- user:ec_current_domain_db(G,M).
+u_call_contrib(M,G):- user:ec_current_domain_db2(G,M).
 
 
 %lps_call(G):- current_predicate(_,G), !, call(G).
 lps_call(G):- interpreter:u_call_lps(G).
-
-lps_current_domain_db(initially(F)):- lps_call(initial_state(List)),member(F,List).
 lps_current_domain_db(event(F)):- lps_call(events(List)),member(F,List).
 lps_current_domain_db(action(F)):- lps_call(actions(List)),member(F,List). %lps_call(action(F)).
 lps_current_domain_db(action(F)):- lps_call(action(F)).
@@ -215,6 +221,10 @@ lps_current_domain_db(axiom(Head, Body)):- lps_axiom(Head,Body).
 lps_axiom(happens(Head,T),[/*holds(true,T)*/]):- lps_call(observe(Heads, T)), member(Head,Heads).
 lps_axiom( initiates(Action,Fluent, T), Pre):- lps_call(initiated(happens(Action, T, _T2), Fluent, Pre)).
 lps_axiom(terminates(Action,Fluent, T), Pre):-   lps_call(terminated(happens(Action, T, _T2), Fluent, Pre)).
+
+lps_axiom(holds(G,Zero), Gs):-  once(get_zero(Zero)), lps_axiom(initially(G),Gs).
+lps_axiom(initially(F), []):- lps_call(initial_state(List)),member(F,List).
+
 lps_axiom(Head,Body):- lps_call(reactive_rule(Body,Heads)), member(Head,Heads).
 lps_axiom(Head,Body):- lps_call(l_timeless(Head, Body)).
 lps_axiom(Head,Body):- lps_call(l_int(Head, Body)).
@@ -222,7 +232,7 @@ lps_axiom(Head,Body):- lps_call(l_events(Head, Body)). % Head=happens(_Event, _T
 lps_axiom(Head,Body):- lps_d_axiom(Head,Body).
 
 
-%ec_current_domain_db(axiom(Head, Body)):- fail, lps_call(d_pre(Cond)), select(Item,Conds,Body), opposite(Item,Head).
+%ec_current_domain_db1(axiom(Head, Body)):- fail, lps_call(d_pre(Cond)), select(Item,Conds,Body), opposite(Item,Head).
 % Possible Blockers
 lps_d_axiom(Head,[BlockerCond|Body]):- 
    lps_call(d_pre(Conds)), 
@@ -241,10 +251,10 @@ d_pre_w_vars(HeadVars,Blocker):- term_variables(Blocker,BlockerVars),
 
 
 
-% ec_current_domain_db(predicate(F)):- lps_call(ext_prolog_predicates(List)),member(F,List).
+% ec_current_domain_db1(predicate(F)):- lps_call(ext_prolog_predicates(List)),member(F,List).
 
 /*
-ec_current_domain_db(axiom(..)):-  lps_call(l_events(happens(eat_food(A), B, _), [holds(hunger(A, 20), B)]).
+ec_current_domain_db1(axiom(..)):-  lps_call(l_events(happens(eat_food(A), B, _), [holds(hunger(A, 20), B)]).
 
 fluents([left(A), right(A), searching(_)]).
 

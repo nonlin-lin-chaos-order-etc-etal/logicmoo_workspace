@@ -1161,15 +1161,15 @@ pfcConjoin(C1,C2,(C1,C2)).
 %% ainSupport(+Fact,+Support)
 
 ainSupport(P,(Fact,Trigger)) :-
-  db_assert(spft(P,Fact,Trigger)),
+  db_assert('$spft'(MZ,P,Fact,Trigger)),
   db_assert(support2(Fact,Trigger,P)),
   db_assert(support3(Trigger,P,Fact)).
 
 pfcGetSupport(P,(Fact,Trigger)) :-
-   nonvar(P)         -> spft(P,Fact,Trigger) 
+   nonvar(P)         -> '$spft'(MZ,P,Fact,Trigger) 
    ; nonvar(Fact)    -> support2(Fact,Trigger,P) 
    ; nonvar(Trigger) -> support3(Trigger,P,Fact) 
-   ; otherwise       -> spft(P,Fact,Trigger).
+   ; otherwise       -> '$spft'(MZ,P,Fact,Trigger).
 
 
 % There are three of these to try to efficiently handle the cases
@@ -1178,7 +1178,7 @@ pfcGetSupport(P,(Fact,Trigger)) :-
 pfcRemSupport(P,(Fact,Trigger)) :-
   nonvar(P),
   !,
-  pfcRetractOrWarn(spft(P,Fact,Trigger)),
+  pfcRetractOrWarn('$spft'(MZ,P,Fact,Trigger)),
   pfcRetractOrWarn(support2(Fact,Trigger,P)),
   pfcRetractOrWarn(support3(Trigger,P,Fact)).
 
@@ -1187,12 +1187,12 @@ pfcRemSupport(P,(Fact,Trigger)) :-
   nonvar(Fact),
   !,
   pfcRetractOrWarn(support2(Fact,Trigger,P)),
-  pfcRetractOrWarn(spft(P,Fact,Trigger)),
+  pfcRetractOrWarn('$spft'(MZ,P,Fact,Trigger)),
   pfcRetractOrWarn(support3(Trigger,P,Fact)).
 
 pfcRemSupport(P,(Fact,Trigger)) :-
   pfcRetractOrWarn(support3(Trigger,P,Fact)),
-  pfcRetractOrWarn(spft(P,Fact,Trigger)),
+  pfcRetractOrWarn('$spft'(MZ,P,Fact,Trigger)),
   pfcRetractOrWarn(support2(Fact,Trigger,P)).
 
 
@@ -1202,7 +1202,7 @@ mpred_collect_supports(Tripples) :-
 mpred_collect_supports([]).
 
 mpred_support_relation((P,F,T)) :-
-  spft(P,F,T).
+  '$spft'(MZ,P,F,T).
 
 mpred_make_supports((P,S1,S2)) :- 
   ainSupport(P,(S1,S2),_),
@@ -1246,7 +1246,7 @@ mpred_trigger_key(X,X).
 % pfcDatabaseTerm(P/A) is true iff P/A is something that pfc adds to
 % the database and should not be present in an empty pfc database
 
-pfcDatabaseTerm(spft/3).
+pfcDatabaseTerm('$spft'/4).
 pfcDatabaseTerm(support2/3).
 pfcDatabaseTerm(support3/3).
 pfcDatabaseTerm(trigPos/3).
@@ -1260,9 +1260,9 @@ pfcDatabaseTerm(mpred_queue/1).
 % removes all forward chaining rules and justifications from db.
 
 pfcReset :-
-  db_clause(spft(P,F,Trigger),true),
+  db_clause('$spft'(MZ,P,F,Trigger),true),
   pfcRetractOrWarn(P),
-  pfcRetractOrWarn(spft(P,F,Trigger)),
+  pfcRetractOrWarn('$spft'(MZ,P,F,Trigger)),
   pfcRetractOrWarn(support2(F,Trigger,P)),
   pfcRetractOrWarn(support3(Trigger,P,F)),
   fail.

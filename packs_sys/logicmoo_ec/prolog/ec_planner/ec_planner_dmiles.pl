@@ -189,11 +189,20 @@ init_gensym(_).
 :- endif.
 
 
+:- export(demo_test/1).
 demo_test(Goal):- compound(Goal), !, abdemo(Goal).
 demo_test(Match):- mmake, 
   forall((demo_test(Name, Type, Goal),once(match_test(Match,Name);match_test(Match,Type))),
-    (pprint_ecp_cmt(blue, do(demo_test(Name, Type))),  %Type \== slow, 
-  abdemo(Goal))).
+    demo_test(Name, Type, Goal)).
+
+:- multifile(demo_test/3).
+:- dynamic(demo_test/3).
+:- export(demo_test/3).
+:- system:import(demo_test/3).
+demo_test(Name, Type, Goal):- nonvar(Goal),
+ (pprint_ecp_cmt(blue, do(demo_test(Name, Type, Goal))),  %Type \== slow, 
+  abdemo(Goal)).
+
 
 match_test(X,Y):- (var(X);var(Y);X==[];Y==[]),!.
 match_test(X,Y):- is_list(X),member(XX,X),match_test(XX,Y),!.
