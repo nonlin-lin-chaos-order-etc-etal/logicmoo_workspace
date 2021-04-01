@@ -1,8 +1,8 @@
 %:- module(system_common,[]).
 %:- set_module(class(development)).
 :- '$set_source_module'(baseKB).
-:- use_module(library(pfc)).
-
+%:- use_module(library(pfc)).
+:- expects_dialect(pfc).
 
 /** <module> system_common
 % =============================================
@@ -740,6 +740,7 @@ arity(typeProps,2).
 % :- ain_expanded(==>(isa(isEach(prologMultiValued,prologOrdered,prologNegByFailure,meta_argtypes,prologPTTP,prologHybrid,predCanHaveSingletons,prologDynamic,prologBuiltin,functorIsMacro,prologListValued,prologSingleValued),functorDeclares))).
 % ==>(genls(isEach(prologMultiValued,prologOrdered,prologNegByFailure,prologHybrid,prologPTTP,prologDynamic,prologBuiltin,prologKIF,functorIsMacro,prologListValued,prologSingleValued),tPred)).
 :- assert_hasInstance(tCol,tCol).
+:- expects_dialect(pfc).
 :- file_begin(pfc).
 
  

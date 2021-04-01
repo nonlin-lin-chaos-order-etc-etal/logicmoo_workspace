@@ -362,7 +362,9 @@ lps_sanity(File):- Limit = 110580,
    ((integer(R),R<Limit)-> true; (dumpST,break,fail)).
 
 
-
+baseKB:':-'(ConsqIn):- throw(':-'(ConsqIn)).
+:- lock_predicate(baseKB:':-'/1).
+% t:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb7166/kb7166_pt7_constant_renames.pldata
 
 /*
  (1) * /usr/local/share/swi-prolog/pack

@@ -546,3 +546,9 @@ cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
 eggdrop
 cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
 eggdrop
+killall -9 eggdorp
+cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
+eggdrop
+cd -
+cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
+eggdrop

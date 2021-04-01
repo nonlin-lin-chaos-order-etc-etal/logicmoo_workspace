@@ -1,3 +1,6 @@
+:- module(mud_pipes,
+  [precepts_to_mud/2]).
+
 precepts_to_mud(Precepts,VirtWorld):- create_empty_mud(VirtWorld), mud_from_precepts(VirtWorld, Precepts).
 
 %LOGICMOO perceives events in the real world (well in PrologMUD!) which become event sequences (we will call narratives).

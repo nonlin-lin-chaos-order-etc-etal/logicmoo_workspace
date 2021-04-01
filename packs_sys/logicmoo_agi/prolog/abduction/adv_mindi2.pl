@@ -2612,13 +2612,18 @@ test(adp1) :-
     adp_fluent(obs(ann, read(ann)), O, O=read(ann)).
 test(adp2) :-
     adp_fluent(obs(ann, read(bob)), O, inroom(ann) & (O=read(bob))).
+
+%@TODO
 test(adp3) :-
     adp_fluent(pbu(ann), read(bob), inroom(bob)& ~inroom(ann)).
 
 test(holds1) :-
     holds(inroom(ann), s0).
+
+%@TODO
 test(holds2, fail) :-
     holds(~inroom(ann), s0).
+
 test(holds3) :-
     holds(~inroom(ann), do(leave(ann), s0)), !.
 test(holds4) :-
@@ -2627,6 +2632,7 @@ test(holds5) :-
     holds(ext([X], inroom(X)), do(leave(bob), s0)), !.
 test(holds6) :-
     holds(all([X], inroom(X)), s0).
+%@TODO
 test(holds7) :-
     \+ holds(all([X], inroom(X)), do(leave(bob), s0)).
 test(holds8) :-
@@ -2640,6 +2646,7 @@ test(knows3) :-
     holds(knows(bob, ~inroom(ann)), do(leave(ann), s0)), !.
 test(knows4) :-
     holds(~knows(bob, inroom(ann)), do(leave(ann), s0)), !.
+%@TODO
 test(knows6_p) :-
     \+ holds(knows(bob, party_at(cathys_house)), s0).
 

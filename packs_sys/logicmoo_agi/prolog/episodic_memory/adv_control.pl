@@ -3,9 +3,10 @@
 
 :- set_prolog_flag(ec_loader, false).
 
+%:- use_module(library(pfc)).
 :- use_module(library(nomic_mu)).
 
-:- use_module(library(pfc)).
+:- expects_dialect(pfc).
 :- set_fileAssertMt(mu).
 
 :- nodebug.
