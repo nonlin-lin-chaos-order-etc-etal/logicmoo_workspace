@@ -644,10 +644,7 @@ baseKB:feature_test(must_test_80):-
     (ignore(\+ \+ process_run_diff(report, U, R, O)),
      ignore(\+ \+ (run_pipeline([input=U], [results80=_], OL), show_kvs(OL))))).
 
-:- fixup_exports.
-
-:- if((current_prolog_flag(runtime_debug, D), D>2)).
-:- dmsg(call((
+baseKB:list_tests:- dmsg(call((
    listing(feature_test),
    listing(sanity_test),
    listing(regression_test),
@@ -655,8 +652,12 @@ baseKB:feature_test(must_test_80):-
    listing(chat80/1),
    listing(chat80/2),
    listing(test_e2c/1),
-   listing(test_e2c/2),
-   threads))).
+   listing(test_e2c/2)))).
+
+:- fixup_exports.
+
+:- if((current_prolog_flag(runtime_debug, D), D>2)).
+:- list_tests,threads.
 :- endif.
 
 %:- must_test_80.

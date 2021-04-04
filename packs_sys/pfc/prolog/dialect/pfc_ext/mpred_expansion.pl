@@ -1478,8 +1478,9 @@ db_expand_0(Op,upprop(A,F),ain(OO)):-!,expand_props(_Prefix,Op,props(A,F),OO),!.
 db_expand_0(Op,padd(A,F),ain(OO)):-!,expand_props(_Prefix,Op,props(A,F),OO),!.
 
 
-db_expand_0(Op,(call_u(CALL)),(call_u(CALLO))):-with_assert_op_override(Op,db_expand_0(Op,CALL,CALLO)).
-db_expand_0(_ ,include(CALL),(load_data_file_now(CALL))):- dtrace, !.
+db_expand_0(Op,(call_u(CALL)),(call_u(CALLO))):- with_assert_op_override(Op,db_expand_0(Op,CALL,CALLO)).
+%db_expand_0(_ ,include(CALL),(load_data_file_now(CALL))):- dtrace, !.
+db_expand_0(_ ,include(CALL),(include(CALL))):- !.
 
 db_expand_0(Op,=>(G),(GG)):-!,db_expand_0(Op,(G),(GG)).
 db_expand_0(Op,(G,B),(GGBB)):-!,db_expand_0(Op,G,GG),db_expand_0(Op,B,BB),conjoin_l(GG,BB,GGBB).

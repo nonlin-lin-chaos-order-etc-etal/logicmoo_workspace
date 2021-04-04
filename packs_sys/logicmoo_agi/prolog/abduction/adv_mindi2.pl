@@ -2146,7 +2146,7 @@ regression_s0(all(X, P), all(X, R)) :-
     regression_s0(P, R).
 regression_s0(ext(X, P), ext(X, R)) :-
     regression_s0(P, R).
-regression_s0(~P, ~R) :-
+regression_s0(~P, ~R) :- !,
     regression_s0(P, R).
 regression_s0((P & Q), (R & S)) :-
     regression_s0(P, R),
@@ -2632,9 +2632,11 @@ test(holds5) :-
     holds(ext([X], inroom(X)), do(leave(bob), s0)), !.
 test(holds6) :-
     holds(all([X], inroom(X)), s0).
-%@TODO
+
+    %@TODO
 test(holds7) :-
     \+ holds(all([X], inroom(X)), do(leave(bob), s0)).
+
 test(holds8) :-
     holds(party_at(cathys_house), s0).
 
@@ -2667,4 +2669,4 @@ test(example4) :-
 
 :- end_tests(domain_party).
 
-:- run_tests.
+% :- run_tests.

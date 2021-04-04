@@ -82,12 +82,12 @@ test_body(N,Body,Info,Vs):-
    nl,
    dbginfo(verbose, nl(2)).
 
-run_tests:- 
+do_tests:- 
   clause_w_names(do_test(N),Body,_Ref,File,Vs),
   once(test_body(N,Body,File,Vs)),
   fail.
-run_tests:- current_prolog_flag(debug,false) -> halt(7) ; true.
-:- export(run_tests/0).
+do_tests:- current_prolog_flag(debug,false) -> halt(7) ; true.
+:- export(do_tests/0).
 
 % =========================================
 % Debug Info
