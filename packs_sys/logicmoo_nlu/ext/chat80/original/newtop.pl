@@ -110,26 +110,26 @@ control80(U) :-
 
 :- share_mp(trace_chat80/1).
 trace_chat80(U):-
- locally(t_l:t_l:tracing80,
+ locally(t_l:tracing80,
            locally(t_l:chat80_interactive,
             locally_hide(t_l:useOnlyExternalDBs,
              locally_hide(thglobal:use_cyc_database,
               ignore(control80(U)))))).
-:- system:import(trace_chat80/1).
+:- user:import(trace_chat80/1).
 
 :- share_mp(test_chat80/1).
 test_chat80(U):-
- locally(t_l:tracing80_nop,
+  locally(t_l:tracing80_nop,
            locally(t_l:chat80_interactive_nop,
             locally_hide(t_l:useOnlyExternalDBs,
              locally_hide(thglobal:use_cyc_database,
-              ignore(control80(U)))))).
+              ignore(user:control80(U)))))).
    
-:- system:import(test_chat80/1).
+:- user:import(test_chat80/1).
 
 
 process801(U) :-
- must_det_l((
+ ((
    runtime(StartParse),
    sentence(E0,U,[],[],[]),
    unnumbervars(E0,E),
@@ -138,7 +138,7 @@ process801(U) :-
    DISP = sent_to_prelogic(E,S),
    report(DISP,'Parse',ParseTime,tree))),
    runtime(StartSem),
-   ignore(must_or_rtrace(sent_to_prelogic(E,S))), !,
+   sent_to_prelogic(E,S), !,
    runtime(StopSem),
    SemTime is StopSem - StartSem,
    report(S,'Semantics',SemTime,expr),
@@ -150,7 +150,7 @@ process801(U) :-
    report(Show1,'Planning',TimePlan,expr),
    runtime(StartAns),
    writeln('-----------'),
-   once((must_or_rtrace(answer(S1)),true)), !, nl,
+   once((ignore(answer80(S1)),true)), !, nl,
    runtime(StopAns),
    TimeAns is StopAns - StartAns,
    report(_,'Reply',TimeAns,none).
@@ -192,7 +192,7 @@ quote80(wh(_)).
 quote80(name(_)).
 quote80(prep(_)).
 quote80(det(_)).
-quote80(quant(_,_)).
+quote80(quantV(_,_)).
 quote80(int_det(_)).
 
 quote_amp('$VAR'(_)) :- !.
@@ -201,9 +201,9 @@ quote_amp(R) :-
 
 sent_to_prelogic(S0,S) :-
    unnumbervars(S0,S00),
-   i_sentence(S00,S1),
-   clausify(S1,S2),
-   simplify80(S2,S).
+   ((i_sentence(S00,S1),
+   clausify80(S1,S2),
+   simplify80(S2,S))).
 
 simplify80(C,C0):-var(C),dmsg(var_simplify(C,C0)),!,fail.
 simplify80(C,(P:-R)) :- !,
@@ -222,9 +222,9 @@ simplify80(true,R,R) :- !.
 simplify80(X^P0,R,R0) :- !,
    simplify80(P0,P,true),
    revand(R0,X^P,R).
-simplify80(numberof(X,P0,Y),R,R0) :- !,
+simplify80(numberof(Mz,X,P0,Y),R,R0) :- !,
    simplify80(P0,P,true),
-   revand(R0,numberof(X,P,Y),R).
+   revand(R0,numberof(Mz,X,P,Y),R).
 simplify80(\+P0,R,R0) :- !,
    simplify80(P0,P1,true),
    simplify_not(P1,P),
@@ -305,4 +305,4 @@ parser_chat80:t13:-!.
 parser_chat80:t12:-
    hi80('/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/chat80/original/demo').
 
-:- fixup_exports.
+%:- fixup_exports.

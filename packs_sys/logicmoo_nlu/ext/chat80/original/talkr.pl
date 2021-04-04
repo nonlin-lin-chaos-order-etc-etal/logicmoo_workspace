@@ -49,7 +49,7 @@ header([X|H]) :- write(X), tab(1), header(H).
 
 decomp(setof(X,P,S),[S,=,setof,X],P).  
 decomp(\+(P),[\+],P) :- complex(P).
-decomp(numberof(X,P,N),[N,=,numberof,X],P).
+decomp(numberof(_Mz,X,P,N),[N,=,numberof,X],P).
 decomp(X^P,[exists,X|XX],P1) :- othervars(P,XX,P1).
 
 othervars(X^P,[X|XX],P1) :- !, othervars(P,XX,P1).
@@ -58,7 +58,7 @@ othervars(P,[],P).
 complex(','(_,_)).
 complex({_}).
 complex(setof(_,_,_)).
-complex(numberof(_,_,_)).
+complex(numberof(_,_,_,_)).
 complex(_^_).
 complex(\+P) :- complex(P).
 
@@ -67,42 +67,46 @@ complex(\+P) :- complex(P).
 respond([]) :- write('Nothing satisfies your question.'), nl.
 respond([A|L]) :- reply(A), replies(L).
 
-answer((answer([]):-E)) :- !, holds(E,B), yesno(B).
-answer((answer([X]):-E)) :- !, seto(X,E,S), respond(S).
-answer((answer(X):-E)) :- seto(X,E,S), respond(S).
+answer80((assertion80(X):-E)) :- !, assertion80(+(X),E),!. 
+answer80((answer80([]):-E)) :- !, holds_truthvalue(?([]),E,B), yesno(B).
+answer80((answer80([X]):-E)) :- !, seto(?([X]),X,E,S), respond(S).
+answer80((answer80(X):-E)) :- seto(?(X),X,E,S), respond(S).
 
-seto(X,E,S):- get_ex_set(ExV),seto2(ExV,X,E,S).
-seto2(ExV,X,G^E,Set):- must(callable(E)), !,seto2(G^ExV,X,E,Set).
-seto2(ExV,X,E,Set):- findall(S,setof(X,ExV^satisfy(E),S),L),ll_to_set(L,Set),!.
-%seto(X,E,S) :- setof(X,satisfy(E),S), !.
-%seto(_X,_E,[]).
+%answer80((assertion80([]):-E)) :- negated_e(E,NE),Mz = (?),  holds_truthvalue(Mz,NE,B), !, wdmsg(holds_truthvalue(Mz,NE,B)), !, fail.
+
+negated_e(~(E),E):- nonvar(E),!.
+negated_e(E,~(E)).
+
+seto(Mz,X,E,S):- get_ex_set(ExV),seto2(Mz,ExV,X,E,S).
+seto2(Mz,ExV,X,G^E,Set):- must(callable(E)), !,seto2(Mz,G^ExV,X,E,Set).
+seto2(Mz,ExV,X,E,Set):- findall(S,setof(X,ExV^satisfy(Mz,E),S),L),ll_to_set(L,Set),!.
+%seto(Mz,X,E,S) :- setof(X,satisfy(Mz,E),S), !.
+%seto(Mz,_X,_E,[]).
 
 get_ex_set(ExV):- nb_current(ex_set,ExV)->true;ExV=[].
 
-bago(X,E,S):- get_ex_set(ExV),bago2(ExV,X,E,S).
-bago2(ExV,X,E,Set):- seto2(ExV,X,E,Set).
+bago(Mz,X,E,S):- get_ex_set(ExV),bago2(Mz,ExV,X,E,S).
+bago2(Mz,ExV,X,E,Set):- seto2(Mz,ExV,X,E,Set).
 
 
 
 /*
-seto2(ExV,X,E,S):- % nop(ExV\==[]),
+seto2(Mz,ExV,X,E,S):- % nop(ExV\==[]),
    !,
-  (setof(X,ExV^satisfy(E),S)*->true;S=[]).
+  (setof(X,ExV^satisfy(Mz,E),S)*->true;S=[]).
 
-seto2([],X,E,S):- 
+seto2(Mz,[],X,E,S):- 
   term_variables(E,EVars),
    term_singletons(X+X+EVars,EOnlyVars),
    term_singletons(E,ESingles),
    term_singletons(X+X+ESingles,ESinglesNoX),
    locally(b_setval(ex_set,ESinglesNoX),
-     (setof(X,EOnlyVars^satisfy(E),S)*->true;S=[])).
+     (setof(X,EOnlyVars^satisfy(Mz,E),S)*->true;S=[])).
 */
 
-holds(E,true) :- satisfy(E), !.
-holds(_E,false).
-
-holds_truthvalue(E,true) :- satisfy(E), !.
-holds_truthvalue(_E,false).
+holds_truthvalue(Mz,E,true) :- satisfy(Mz,E), !.
+holds_truthvalue(?,_E,false):- !.
+holds_truthvalue(_,_E,unknown).
 
 yesno(true) :- write('Yes.').
 yesno(false) :- write('No.').
@@ -114,88 +118,102 @@ replies([A|X]) :- write(', '), reply(A), replies(X).
 reply(N--U) :- !, write(N), write(' '), write(U).
 reply(X) :- write(X).
 
-and_reordered(S,T):- satisfy(','(S,T)).
+% and_reordered(S,T):- satisfy(Mz,','(S,T)).
 
 must_be_callable(P):- notrace(( assertion(callable(P)),assertion(\+ is_list(P)))).
 
 
-satisfy(','(P,Q)) :- !, satisfy(P), satisfy(Q).
-satisfy({P}) :- !, satisfy(P), !.
-satisfy(_X^P) :- !, satisfy(P).
-satisfy(\+P) :- satisfy(P), !, fail.
-satisfy(\+_P) :- !.
-satisfy(numberof(X,P,N)) :- !, setof(X,satisfy(P),S), length(S,N).
-satisfy(setof(X,P,S)) :- !, setof(X,satisfy(P),S).
-satisfy(+P) :- exceptionto(P), !, fail.
-satisfy(+_P) :- !.
-satisfy(X<Y) :- !, X<Y.
-satisfy(X=<Y) :- !, X=<Y.
-satisfy(X>=Y) :- !, X>=Y.
-satisfy(X>Y) :- !, X>Y.
-satisfy(P) :- P.
+is_mz_query(?(_)).
+is_mz_tell(+(_)).
+
+satisfy(Mz,call(P)) :- !, satisfy(Mz,P).
+satisfy(Mz,','(P,Q)) :- is_mz_query(Mz), !, satisfy(Mz,P), satisfy(Mz,Q).
+satisfy(Mz,(P;Q)) :- is_mz_query(Mz), !, satisfy(Mz,P) ; satisfy(Mz,Q).
+satisfy(Mz,(P*->Q;R)) :- is_mz_query(Mz), !, satisfy(Mz,P) *-> satisfy(Mz,Q) ; satisfy(Mz,R).
+satisfy(Mz,(P->Q;R)) :- is_mz_query(Mz), !, satisfy(Mz,P) -> satisfy(Mz,Q) ; satisfy(Mz,R).
+satisfy(Mz,(P->Q)) :- is_mz_query(Mz), !, satisfy(Mz,P) -> satisfy(Mz,Q).
+satisfy(Mz,{P}) :- is_mz_query(Mz), !, satisfy(Mz,P), !.
+satisfy(Mz,_X^P) :- is_mz_query(Mz), !, satisfy(Mz,P).
+satisfy(Mz,\+P) :- is_mz_query(Mz), satisfy(Mz,P), !, fail.
+satisfy(Mz,\+_P) :- is_mz_query(Mz), !.
+satisfy(Mz,numberof(Mz,X,P,N)) :-  is_mz_query(Mz), !, setof(X,satisfy(Mz,P),S), length(S,N).
+satisfy(Mz,setof(X,P,S)) :-  is_mz_query(Mz), !, setof(X,satisfy(Mz,P),S).
+satisfy(Mz,+P) :- is_mz_query(Mz), exceptionto(Mz,P), !, fail.
+satisfy(Mz,+_) :- is_mz_query(Mz), !.
+satisfy(Mz,setof(X,P,S)) :- !, setof80(Mz,X,P,S).
+% satisfy(Mz,setof(X,P,S)) :- !, seto(Mz,X,P,S), S\==[].
+satisfy(Mz,bagof(X,P,S)) :- !, bago(Mz,X,satisfy(Mz,P),S), S\==[].
+satisfy(Mz,findall(X,P,S)) :- !, bago(Mz,X,satisfy(Mz,P),S).
+satisfy(Mz,numberof(Mz,X,P,N)) :- !, numberof(Mz,X,P,N).
 /*
-:- meta_predicate(satisfy(?)).
+satisfy(_Mz,X<Y) :- !, X<Y.
+satisfy(_Mz,X=<Y) :- !, X=<Y.
+satisfy(_Mz,X>=Y) :- !, X>=Y.
+satisfy(_Mz,X>Y) :- !, X>Y.
+*/
+satisfy(Mz,assertion80(P)) :- !, assertion80(Mz,P).
+satisfy(Mz,P) :- is_mz_tell(Mz), !, assertion80(Mz,P).
+satisfy(Mz,P) :- is_mz_query(Mz), !, catch(call(P),E,(dmsg(call(P)-->E),break,fail)).
+
+assertion80(X,assertion80(P)):- !, assertion80(X,P).
+assertion80(+(X),E):- satisfy(?(X),{E}), wdmsg('Already True'=X^E),!.
+assertion80(Mz,','(P,Q)) :- satisfy(Mz,P),!, assertion80(Mz,Q).
+assertion80(Mz,','(P,Q)) :- !, ignore(show_failure((satisfy(Mz,Q), assertion80(Mz,P)))).
+assertion80(+(Mz),X^P):-!,assertion80(+([X|Mz]),P).
+assertion80(?(Mz),X^P):-!,assertion80(?([X|Mz]),P).
+assertion80(Mz,P):- predicate_property(P, number_of_rules(N)),N>0,!, clause(P,What),What\==true,assertion80(Mz,What).
+assertion80(_,P):- of_x_rtrace(assert(P)).
+/*
+:- meta_predicate(satisfy(Mz,?)).
 :- export(satisfy/1).
-satisfy(P):- must_be_callable(P), fail.
-satisfy(M:P):- !, M:satisfy(P).
-satisfy(','(P,Q)) :- !, satisfy(P), satisfy(Q).
-satisfy((P;Q)) :- !, satisfy(P) ; satisfy(Q).
+satisfy(Mz,P):- must_be_callable(P), fail.
+satisfy(Mz,M:P):- !, M:satisfy(Mz,P).
+satisfy(Mz,','(P,Q)) :- !, satisfy(Mz,P), satisfy(Mz,Q).
 
-satisfy((P*->Q;R)) :- !, satisfy(P) *-> satisfy(Q) ; satisfy(R).
-satisfy((P->Q;R)) :- !, satisfy(P) -> satisfy(Q) ; satisfy(R).
-satisfy((P->Q)) :- !, satisfy(P) -> satisfy(Q).
-
-satisfy(once(P)) :- !, once(satisfy(P)).
-satisfy({P}) :- !, satisfy(P), !.
-satisfy(X^P) :- !, ^(X,P).
-satisfy(\+P) :- !, \+ satisfy(P).
-satisfy(setof(X,P,S)) :- !, setof80(X,P,S).
-% satisfy(setof(X,P,S)) :- !, seto(X,P,S), S\==[].
-satisfy(bagof(X,P,S)) :- !, bago(X,satisfy(P),S), S\==[].
-satisfy(findall(X,P,S)) :- !, bago(X,satisfy(P),S).
-
-satisfy(numberof(X,P,N)) :- !, numberof(X,P,N).
-satisfy(X<Y) :- !, X<Y.
-satisfy(X=<Y) :- !, X=<Y.
-satisfy(X>=Y) :- !, X>=Y.
-satisfy(X>Y) :- !, X>Y.
-satisfy(satisfy(P)):- !, must_be_callable(P), !, satisfy(P).
-satisfy(P) :- catch(call(P),E,(dmsg(call(P)-->E),break,fail)).
-% satisfy(P) :- P.
+satisfy(Mz,once(P)) :- !, once(satisfy(Mz,P)).
+satisfy(Mz,{P}) :- !, satisfy(Mz,P), !.
+satisfy(Mz,X^P) :- !, ^(X,P).
+satisfy(Mz,\+P) :- !, \+ satisfy(Mz,P).
+satisfy(Mz,X<Y) :- !, X<Y.
+satisfy(Mz,X=<Y) :- !, X=<Y.
+satisfy(Mz,X>=Y) :- !, X>=Y.
+satisfy(Mz,X>Y) :- !, X>Y.
+satisfy(Mz,satisfy(Mz,P)):- !, must_be_callable(P), !, satisfy(Mz,P).
+% satisfy(Mz,P) :- P.
 */
 
 :- module_transparent((^)/2).
-^(X,P) :- get_ex_set(WazV), with_ex_v([X|WazV],satisfy(P)).
+^(X,P) :- get_ex_set(WazV), with_ex_v([X|WazV],satisfy(?([X]),P)).
 
-ex_satisfy(X,P) :- get_ex_set(WazV), with_ex_v([X|WazV],satisfy(P)).
+ex_satisfy(Mz,X,P) :- get_ex_set(WazV), with_ex_v([X|WazV],satisfy(Mz,P)).
 % :- system:import((^)/2).
 
 with_ex_v(WazV,G) :- locally(b_setval(ex_set,WazV),G).
 
 
-+P :- !, satisfy_0(+P).
+%+P :- !, satisfy_0(+P).
+%satisfy_0(+P) :- exceptionto(Mz,P), !, fail.
+%satisfy_0(+_P) :- !.
 
-satisfy_0(+P) :- exceptionto(P), !, fail.
-satisfy_0(+_P) :- !.
+% setof(C,(D^(continent(C),in_ploc(D,C)),E^(country(E),in_ploc(E,C),F^(numberof(Mz,G,(city(G),in_ploc(G,E)),F),F>3))),B)
+%WAS  numberof(Mz,X,P,N) :- !, seto(Mz,X,satisfy(Mz,P),S), length(S,N).
+numberof(Mz,X,Ex^P,N) :- !, ex_satisfy(Mz,(N,Ex),setof(X,P,S)), length(S,N).
+% numberof(Mz,X,Ex^P,N) :- !, locally(b_setval(ex_set,[Ex]),seto(Mz,X,P,S)), S\==[], length(S,N).
+numberof(Mz,X,P,N) :- setof(X,N^satisfy(Mz,P),S), S\==[], length(S,N).
 
-% setof(C,(D^(continent(C),in_ploc(D,C)),E^(country(E),in_ploc(E,C),F^(numberof(G,(city(G),in_ploc(G,E)),F),F>3))),B)
-%WAS  numberof(X,P,N) :- !, seto(X,satisfy(P),S), length(S,N).
-numberof(X,Ex^P,N) :- !, ex_satisfy((N,Ex),setof(X,P,S)), length(S,N).
-% numberof(X,Ex^P,N) :- !, locally(b_setval(ex_set,[Ex]),seto(X,P,S)), S\==[], length(S,N).
-numberof(X,P,N) :- setof(X,N^satisfy(P),S), S\==[], length(S,N).
-
-% setof80(X,P,S):- var(X),!,findall(E,seto(X,P,E),L),ll_to_set(L,S).
-setof80(X,P,S):- findall(E,seto(X,P,E),L),ll_to_set(L,S).
+% setof80(Mz,X,P,S):- var(X),!,findall(E,seto(Mz,X,P,E),L),ll_to_set(L,S).
+setof80(Mz,X,P,S):- findall(E,seto(Mz,X,P,E),L),ll_to_set(L,S).
 ll_to_set(S0,S):- append(S0,F),list_to_set(F,S).
 
 into_set(S0,S):-flatten([S0],F),list_to_set(F,S).
-exceptionto(P) :-
+exceptionto(Mz,P) :-
    functor(P,F,N), functor(P1,F,N),
    pickargs(N,P,P1),
-   exception(P1).
+   exception(Mz,P1).
 
-exception(P) :- P, !, fail.
-exception(_P).
+exception(Mz,P) :- is_mz_query(Mz), P, !, fail.
+exception(Mz,_P):- is_mz_query(Mz),!.
+exception(Mz,P):- throw(assert_exception(Mz,P)).
 
 pickargs(0,_,_) :- !.
 pickargs(N,P,P1) :- N1 is N-1,

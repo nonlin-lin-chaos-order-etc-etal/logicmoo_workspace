@@ -44,7 +44,7 @@ name(Name) --->
    [Name],
    {name(Name)}.
 
-int_art(X,plu,quant(same,wh(X))) ---> [how,many].
+int_art(X,plu,quantV(same,wh(X))) ---> [how,many].
 int_art(X,Agmt,DX) --->
    [Art],
    {int_art(Art,X,Agmt,DX)}.

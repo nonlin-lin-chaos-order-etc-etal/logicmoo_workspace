@@ -13,7 +13,7 @@ declarative(decl(S)) ---> s80(S,_).
 
 wh_question(whq(X,S)) --->
    variable_q(X,_,QCase,NPCase),
-   question(QCase,NPCase,S).
+   question80(QCase,NPCase,S).
 
 variable_q(X,Agmt,QCase,NPCase) ...
       np(NP,Agmt,NPCase,_,_,Set,Mask) --->
@@ -35,7 +35,7 @@ variable_q(X,Agmt,compl,VCase) ...
 variable_q(X,_,compl,VCase) ... 
       pred(adj,value(Adj,wh(X)),Mask) --->
    [how],
-   adj(quant,Adj),
+   adj(quantV,Adj),
    {mask_empty(Mask), mask_verb_case(VCase)}.
 
 whq(X,Agmt,NP,undef) --->
@@ -49,10 +49,10 @@ int_det(X,3+Agmt) ---> int_art(X,Agmt).
 
 whose(X,Agmt), np_head0(wh(X),Agmt,proper), gen_marker ---> [whose].
 
-question(QCase,NPCase,S) --->
+question80(QCase,NPCase,S) --->
    {subj_question(QCase), mask_role(subj,_,NPCase)},
    s80(S,_).
-question(QCase,NPCase,S) --->
+question80(QCase,NPCase,S) --->
    fronted_verb(QCase,NPCase),
    s80(S,_).
 
@@ -165,20 +165,20 @@ an_s ---> [].
 determiner(Det,Number,Def) ---> det(Det,Number,Def).
 determiner(Det,Number,Def) ---> quant_phrase(Det,Number,Def).
 
-quant_phrase(quant(Op,Quant),Number,Def) --->
-   quant(Op,Def),
+quant_phrase(quantV(Op,Quant),Number,Def) --->
+   quant80(Op,Def),
    number(Quant,Number).
 
-quant(Op,indef) --->
+quant80(Op,indef) --->
    neg_adv(Op0,Op),
    comp_adv(Op0),
    [than].
-quant(Op,indef) --->
+quant80(Op,indef) --->
    [at],
    sup_adv(Adv),
    {sup_op(Adv,Op)}.
-quant(the,def) ---> [the].
-quant(same,indef) ---> [].
+quant80(the,def) ---> [the].
+quant80(same,indef) ---> [].
 
 neg_adv(Adv,not+Adv) ---> [not].
 neg_adv(Adv,Adv) ---> [].
@@ -232,7 +232,7 @@ pre_adj(Adj) --->  sup_phrase(Adj).
 sup_phrase(sup(most,Adj)) ---> sup_adj(Adj).
 sup_phrase(sup(Op,Adj)) --->
    sup_adv(Adv),
-   adj(quant,Adj).
+   adj(quantV,Adj).
 
 comp_phrase(comp(Comp,Adj,Arg),Mask) --->
    comp(Comp,Adj),
@@ -241,14 +241,14 @@ comp_phrase(comp(Comp,Adj,Arg),Mask) --->
 
 comp(Comp,Adj) --->
    comp_adv(Comp),
-   adj(quant,Adj),
+   adj(quantV,Adj),
    [than].
 comp(more,Adj) --->
    rel_adj(Adj),
    [than].
 comp(same,Adj) --->
    [as],
-   adj(quant,Adj),
+   adj(quantV,Adj),
    [as].
 
 /* Prepositional Phrase */

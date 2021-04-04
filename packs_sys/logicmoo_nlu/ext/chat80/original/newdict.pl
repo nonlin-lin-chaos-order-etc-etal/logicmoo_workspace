@@ -190,13 +190,13 @@ adj(african,restr).
 adj(american,restr).
 adj(asian,restr).
 adj(european,restr).
-adj(great,quant).
-adj(big,quant).
-adj(small,quant).
-adj(large,quant).
-adj(old,quant).
-adj(new,quant).
-adj(great,quant).
+adj(great,quantV).
+adj(big,quantV).
+adj(small,quantV).
+adj(large,quantV).
+adj(old,quantV).
+adj(new,quantV).
+adj(great,quantV).
 
 rel_adj(greater,great).
 rel_adj(less,small).

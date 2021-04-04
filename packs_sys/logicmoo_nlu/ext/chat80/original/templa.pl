@@ -51,7 +51,7 @@ aggr_noun(average,_,_,average).
 aggr_noun(sum,_,_,total).
 aggr_noun(total,_,_,total).
 
-meta_noun(number,_,V,feature&_,X,P,numberof(X,P,V)).
+meta_noun(number,_,V,feature&_,X,P,numberof(_Mz,X,P,V)).
 
 /* Proper nouns */
 

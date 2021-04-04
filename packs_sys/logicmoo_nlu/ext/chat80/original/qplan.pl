@@ -26,7 +26,8 @@
 qplan((P:-Q),(P1:-Q1)) :- qplan(P,Q,P1,Q1), !.
 qplan(P,P).
 
-
+qplan(assertion80(X),QPlan,assertion80(X),assertion80(QPlan)):-!.
+qplan(P,Q,P1,Q1):- pprint_ecp_cmt(yellow,qplan(P,Q,P1,Q1)),fail.
 qplan(X0,P0,X,P) :-
    numbervars(X0,0,I), varialbes80(X0,0,Vg),
    numbervars(P0,I,N),
@@ -56,7 +57,7 @@ mark80(P,[m(V,C,P)],Q,Q) :-
    cost80(P,V,C).
 
 subquery(setof(X,P,S),setof(X,Q,S),X,P,S,Q).
-subquery(numberof(X,P,N),numberof(X,Q,N),X,P,N,Q).
+subquery(numberof(Mz,X,P,N),numberof(Mz,X,Q,N),X,P,N,Q).
 
 negate([],_,[]).
 negate([P|L],Vl,[m(Vg,C,\+P)|L1]) :-

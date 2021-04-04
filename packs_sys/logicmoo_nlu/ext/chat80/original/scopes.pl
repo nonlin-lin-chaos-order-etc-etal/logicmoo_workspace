@@ -19,13 +19,22 @@
 
 */
 
-clausify(question(V0,P),(answer(V):-B)) :-
+clausify80(I,O):- unnumbervars(I,M),clausify81(M,M2),!,simplify80(M2,O),!.
+clausify81(question80(V0,P),(answer80(V):-B)) :-
+  ((
    quantify80(P,Quants,[],R0),
-   split_quants(question(V0),Quants,HQuants,[],BQuants,[]),
+   split_quants(question80(V0),Quants,HQuants,[],BQuants,[]),
+   chain_apply(BQuants,R0,R1),
+   head_vars(HQuants,B,R1,V,V0)
+   )).
+
+clausify81(assertion80(V0,P),(assertion80(V):-B)) :- nonvar(P),
+   quantify80(P,Quants,[],R0),
+   split_quants(question80(V0),Quants,HQuants,[],BQuants,[]),
    chain_apply(BQuants,R0,R1),
    head_vars(HQuants,B,R1,V,V0).
 
-quantify80(quant(Det,X,Head,Pred,Args,Y),Above,Right,true) :-
+quantify80(quantV(Det,X,Head,Pred,Args,Y),Above,Right,true) :-
    close_tree(Pred,P2),
    quantify_args(Args,AQuants,P1),
    split_quants(Det,AQuants,Above,[Q|Right],Below,[]),
@@ -62,7 +71,7 @@ strip_types([],[]).
 strip_types([_-X|L0],[X|L]) :-
    strip_types(L0,L).
 
-extract_var(quant(_,_-X,P,_-X),P,X).
+extract_var(quantV(_,_-X,P,_-X),P,X).
 
 chain_apply(Q0,P0,P) :-
    sort_quants(Q0,Q,[]),
@@ -82,16 +91,16 @@ pre_apply('`'(Head),set(I),X,P1,P2,Y,Quants,Quant) :-
    indices(Quants,I,Indices,RestQ),
    chain_apply(RestQ,(Head,P1),P),
    setify(Indices,X,(P,P2),Y,Quant).
-pre_apply('`'(Head),Det,X,P1,P2,Y,Quants,quant(Det,X,(P,P2),Y)) :-
+pre_apply('`'(Head),Det,X,P1,P2,Y,Quants,quantV(Det,X,(P,P2),Y)) :-
  ( unit_det(Det);
    index_det(Det,_)),
    chain_apply(Quants,(Head,P1),P).
 pre_apply(apply80(F,P0),Det,X,P1,P2,Y,
-      Quants0,quant(Det,X,(P3,P2),Y)) :-
-   but_last(Quants0,quant(lambda,Z,P0,Z),Quants),
+      Quants0,quantV(Det,X,(P3,P2),Y)) :-
+   but_last(Quants0,quantV(lambda,Z,P0,Z),Quants),
    chain_apply(Quants,(F,P1),P3).
 pre_apply(aggr(F,Value,L,Head,Pred),Det,X,P1,P2,Y,Quants,
-      quant(Det,X,
+      quantV(Det,X,
             (S^(setof(Range:Domain,P,S),
                 aggregate80(F,S,Value)),P2),Y)) :-
    close_tree(Pred,R),
@@ -110,7 +119,7 @@ close_tree(T,P) :-
 
 meta_apply80('`'(G),R,Q,G,R,Q).
 meta_apply80(apply80(F,(R,P)),R,Q0,F,true,Q) :-
-   but_last(Q0,quant(lambda,Z,P,Z),Q).
+   but_last(Q0,quantV(lambda,Z,P,Z),Q).
 
 indices([],_,[],[]).
 indices([Q|Quants],I,[Q|Indices],Rest) :-
@@ -122,19 +131,19 @@ indices([Q|Quants],I,Indices,[Q|Rest]) :-
    unit_det(Det),
    indices(Quants,I,Indices,Rest).
 
-setify([],Type-X,P,Y,quant(set,Type-([]:X),true:P,Y)).
+setify([],Type-X,P,Y,quantV(set,Type-([]:X),true:P,Y)).
 setify([Index|Indices],X,P,Y,Quant) :-
    pipe(Index,Indices,X,P,Y,Quant).
 
-pipe(quant(int_det(_,Z),Z,P1,Z),
-      Indices,X,P0,Y,quant(det(a),X,P,Y)) :-
+pipe(quantV(int_det(_,Z),Z,P1,Z),
+      Indices,X,P0,Y,quantV(det(a),X,P,Y)) :-
    chain_apply(Indices,(P0,P1),P).
-pipe(quant(index(_),_-Z,P0,_-Z),Indices,Type-X,P,Y,
-      quant(set,Type-([Z|IndexV]:X),(P0,P1):P,Y)) :-
+pipe(quantV(index(_),_-Z,P0,_-Z),Indices,Type-X,P,Y,
+      quantV(set,Type-([Z|IndexV]:X),(P0,P1):P,Y)) :-
    index_vars(Indices,IndexV,P1).
 
 index_vars([],[],true).
-index_vars([quant(index(_),_-X,P0,_-X)|Indices],
+index_vars([quantV(index(_),_-X,P0,_-X)|Indices],
       [X|IndexV],(P0,P)) :-
    index_vars(Indices,IndexV,P).
 
@@ -144,10 +153,10 @@ complete_aggr([Att],Head,R0,Quants0,(P1,P2,R),Att,Obj) :-
    meta_apply80(Head,R0,Quants0,G,R,Quants),
    set_vars80(Quants,Obj,Rest,P2),
    chain_apply(Rest,G,P1).
-complete_aggr([],'`'(G),R,[quant(set,_-(Obj:Att),S:T,_)],
+complete_aggr([],'`'(G),R,[quantV(set,_-(Obj:Att),S:T,_)],
       (G,R,S,T),Att,Obj).
 
-set_vars80([quant(set,_-(I:X),P:Q,_-X)],[X|I],[],(P,Q)).
+set_vars80([quantV(set,_-(I:X),P:Q,_-X)],[X|I],[],(P,Q)).
 set_vars80([],[],[],true).
 set_vars80([Q|Qs],[I|Is],R,(P,Ps)) :-
    open_quant(Q,Det,X,P,Y),
@@ -171,14 +180,14 @@ split_quants(Det0,[Quant|Quants],Above,Above0,Below,Below0) :-
    compare_dets(Det0,Quant,Above,Above1,Below,Below1),
    split_quants(Det0,Quants,Above1,Above0,Below1,Below0).
 
-compare_dets(Det0,Q,[quant(Det,X,P,Y)|Above],Above,Below,Below) :-
+compare_dets(Det0,Q,[quantV(Det,X,P,Y)|Above],Above,Below,Below) :-
    open_quant(Q,Det1,X,P,Y),
    governs(Det1,Det0), !,
    bubble(Det0,Det1,Det).
 compare_dets(Det0,Q0,Above,Above,[Q|Below],Below) :-
    lower(Det0,Q0,Q).
 
-open_quant(quant(Det,X,P,Y),Det,X,P,Y).
+open_quant(quantV(Det,X,P,Y),Det,X,P,Y).
 
 % =================================================================
 % Determiner Properties
@@ -188,9 +197,9 @@ index_det(int_det(I,_),I).
 
 unit_det(set).
 unit_det(lambda).
-unit_det(quant(_,_)).
+unit_det(quantV(_,_)).
 unit_det(det(_)).
-unit_det(question(_)).
+unit_det(question80(_)).
 unit_det(id).
 unit_det(void).
 unit_det(not).
@@ -198,13 +207,13 @@ unit_det(generic).
 unit_det(int_det(_)).
 unit_det(proportion(_)).
 
-det_apply(quant(Det,Type-X,P,_-Y),Q0,Q) :-
+det_apply(quantV(Det,Type-X,P,_-Y),Q0,Q) :-
    apply80(Det,Type,X,P,Y,Q0,Q).
 
 apply80(generic,_,X,P,X,Q,X^(P,Q)).
 apply80(proportion(_Type-V),_,X,P,Y,Q,
       S^(setof(X,P,S),
-         N^(numberof(Y,(one_of(S,Y),Q),N),
+         N^(numberof(?([]),Y,(one_of(S,Y),Q),N),
             M^(cardinality80(S,M),ratio80(N,M,V))))).
 apply80(id,_,X,P,X,Q,(P,Q)).
 apply80(void,_,X,P,X,Q,X^(P,Q)).
@@ -212,16 +221,16 @@ apply80(set,_,Index:X,P0,S,Q,S^(P,Q)) :-
    apply_set(Index,X,P0,S,P).
 apply80(int_det(Type-X),Type,X,P,X,Q,(P,Q)).
 apply80(index(_),_,X,P,X,Q,X^(P,Q)).
-apply80(quant(Op,N),Type,X,P,X,Q,R) :-
+apply80(quantV(Op,N),Type,X,P,X,Q,R) :-
    value(N,Type,Y),
-   quant_op(Op,Z,Y,numberof(X,(P,Q),Z),R).
+   quant_op(Op,Z,Y,numberof(?([]),X,(P,Q),Z),R).
 apply80(det(Det),_,X,P,Y,Q,R) :-
    apply80_0(Det,X,P,Y,Q,R).
 
 apply80_0(Some,X,P,X,Q,X^(P,Q)) :-
-   some(Some).
+   considered_some(Some).
 apply80_0(All,X,P,X,Q,\+X^(P,\+Q)) :-
-   all(All).
+   considered_all(All).
 apply80_0(no,X,P,X,Q,\+X^(P,Q)).
 apply80_0(notall,X,P,X,Q,X^(P,\+Q)).
 
@@ -237,14 +246,14 @@ quant_op(more,X,Y,X>Y).
 value(wh(Type-X),Type,X).
 value(nb(X),_,X).
 
-all(all).
-all(every).
-all(each).
-all(any).
+considered_all(all).
+considered_all(every).
+considered_all(each).
+considered_all(any).
 
-some(a).
-some(the(sin)).
-some(some).
+considered_some(a).
+considered_some(the(sin)).
+considered_some(some).
 
 apply_set([],X,true:P,S,setof(X,P,S)).
 apply_set([I|Is],X,Range:P,S,
@@ -258,14 +267,14 @@ governs(Det0,Det) :-
    index_det(Det0,_),
  ( index_det(Det,_);
    Det=det(_);
-   Det=quant(_,_)).
+   Det=quantV(_,_)).
 governs(_,void).
 governs(_,lambda).
 governs(_,id).
-governs(det(each),question([_|_])).
+governs(det(each),question80([_|_])).
 governs(det(each),det(each)).
 governs(det(any),not).
-governs(quant(same,wh(_)),Det) :-
+governs(quantV(same,wh(_)),Det) :-
    weak(Det).
 governs(det(Strong),Det) :-
    strong0(Strong),
@@ -279,7 +288,7 @@ strong0(any).
 
 weak(det(Det)) :-
    weak0(Det).
-weak(quant(_,_)).
+weak(quantV(_,_)).
 weak(index(_)).
 weak(int_det(_,_)).
 weak(set(_)).
@@ -295,7 +304,7 @@ weak0(every).
 weak0(the(sin)).
 weak0(notall).
 
-lower(question(_),Q,quant(det(a),X,P,Y)) :-
+lower(question80(_),Q,quantV(det(a),X,P,Y)) :-
    open_quant(Q,det(any),X,P,Y), !.
 lower(_,Q,Q).
 

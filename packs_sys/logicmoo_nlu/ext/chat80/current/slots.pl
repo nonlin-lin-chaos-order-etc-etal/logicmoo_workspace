@@ -31,11 +31,11 @@
 no_repeats_must(Call):-one_must(gripe_time(0.5,no_repeats(Call)),(fail,(dmsg(warn(show_failure(Call))),!,fail))).
 
 i_sentence(q(S),question80([],P)) :- !,
-   i_s(S,P,[],0).
+   i_s80(S,P,[],0).
 i_sentence(whq(X,S),question80([X],P)) :- !,
-   show_failure(i_s(S,P,[],0)).
+   show_failure(i_s80(S,P,[],0)).
 i_sentence(decl(S),assertion([],P)) :- !,
-   i_s(S,P,[],0).
+   i_s80(S,P,[],0).
 
 i_sentence(imp(s80(_,Verb,VArgs,VMods)),imp(V,Args)) :- !,
    i_verb(Verb,V,_,active,pos(_TFScope),Slots0,[],transparent),
@@ -44,7 +44,7 @@ i_sentence(imp(s80(_,Verb,VArgs,VMods)),imp(V,Args)) :- !,
    i_verb_mods(Mods,_,[],Slots,Args0,Up,+0).
 
 i_sentence(S,assertion([],P)) :-
-   i_s(S,P,[],0).
+   i_s80(S,P,[],0).
 
 i_np(here,Y,quantV(void(_Meaning),_X,'`'(true),'`'(true),[],Y),[],_,_,XA,XA).
 i_np(there,Y,quantV(void(_Meaning),_X,'`'(true),'`'(true),[],Y),[],_,_,XA,XA).
@@ -112,9 +112,9 @@ i_voids([_|Slots],QMods,Id) :-
    i_voids(Slots,QMods,Id).
 
 i_rel(rel(X,S),X,P&Pred,Pred,QMods,QMods,Up,Id) :-
-   i_s(S,P,Up,Id).
+   i_s80(S,P,Up,Id).
 i_rel(reduced_rel(X,S),X,Pred,Pred,[A|QMods],QMods,Up,Id) :-
-   i_s(S,A,Up,Id).
+   i_s80(S,A,Up,Id).
 i_rel(conj(Conj,Left,Right),X,
       conj(Conj,LPred,LQMods,RPred,RQMods)&Pred,Pred,
       QMods,QMods,Up,Id) :-
@@ -173,7 +173,7 @@ i_adj(adj(Adj),TypeX-X,T,T,_,
    no_repeats_must(deduce_subj_obj_LF(attribute,Adj,TypeX,X,_,Y,P)),
    standard_adj_db(Adj,TypeX,Y,Q).
 
-i_s('s80'(Subj,Verb,VArgs,VMods),Pred,Up,Id) :- fail,
+i_s80('s80'(Subj,Verb,VArgs,VMods),Pred,Up,Id) :- fail,
    i_verb(Verb,P,Tense,Voice,Neg,Slots0,XA0,Meta),
    i_subj(Voice,Subj,Slots0,Slots1,QSubj,SUp,'-'('-'(Id))),
    conc80(SUp,VArgs,TArgs),
@@ -182,7 +182,7 @@ i_s('s80'(Subj,Verb,VArgs,VMods),Pred,Up,Id) :- fail,
    i_verb_mods(Mods,Tense,XA,Slots,Args,Up,+Id),
    reshape_pred(Meta,QSubj,Neg,P,Args0,Pred),!.
 
-i_s('s80'(Subj,Verb,VArgs,VMods),Pred,Up,Id) :-
+i_s80('s80'(Subj,Verb,VArgs,VMods),Pred,Up,Id) :-
    try_maybe_p(i_verb(Verb,P,Tense,Voice,Neg,Slots0,XA0,Meta)),
    try_maybe_p(i_subj(Voice,Subj,Slots0,Slots1,QSubj,SUp,'-'('-'(Id)))),
    try_maybe_p(conc80(SUp,VArgs,TArgs)),
