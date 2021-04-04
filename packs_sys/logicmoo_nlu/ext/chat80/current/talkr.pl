@@ -65,15 +65,6 @@ complex(\+P) :- complex(P).
 
 % Query execution.
 
-respond([]) :- reply('Nothing satisfies your question.'), nl.
-respond([A|L]) :- reply(A), replies(L).
-
-answer80(S1):- answer802(S1,S),respond(S).
-
-answer802((answer80([]):-E),[B]) :- !, holds_truthvalue(E,B).
-answer802((answer80([X]):-E),S) :- !, seto(X,E,S).
-answer802((answer80(X):-E),S) :- seto(X,E,S).
-
 get_ex_set(ExV):- nb_current(ex_set,ExV)->true;ExV=[].
 
 bago(X,E,S):- get_ex_set(ExV),bago2(ExV,X,E,S).
@@ -97,6 +88,17 @@ seto2([],X,E,S):-
    locally(b_setval(ex_set,ESinglesNoX),
      (setof(X,EOnlyVars^satisfy(E),S)*->true;S=[])).
 */
+
+respond([]) :- reply('Nothing satisfies your question.'), nl.
+respond([A|L]) :- reply(A), replies(L).
+
+answer80(S1):- answer802(S1,S),respond(S).
+
+answer802((answer80([]):-E),[B]) :- !, holds_truthvalue(E,B).
+answer802((answer80([X]):-E),S) :- !, seto(X,E,S).
+answer802((answer80(X):-E),S) :- seto(X,E,S).
+
+
 
 holds_truthvalue(E,true) :- satisfy(E), !.
 holds_truthvalue(_E,false).

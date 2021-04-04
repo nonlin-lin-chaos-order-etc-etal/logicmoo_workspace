@@ -1078,3 +1078,5 @@ borders(red_sea,yemen).
 borders(red_sea,egypt).
 borders(red_sea,ethiopia).
 borders(red_sea,sudan).
+
+:- fixup_exports.

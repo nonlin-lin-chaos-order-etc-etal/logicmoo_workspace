@@ -95,3 +95,4 @@ city(vienna,austria,1766).
 city(warsaw,poland,965).
 city(yokohama,japan,1143).
 
+:- fixup_exports.

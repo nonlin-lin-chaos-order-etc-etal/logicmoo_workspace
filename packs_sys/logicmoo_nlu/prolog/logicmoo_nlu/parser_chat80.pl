@@ -329,50 +329,13 @@ chat80 :- locally(tracing80,
 :- thread_local(t_l:into_form_code/0).
 :- asserta(t_l:into_form_code).
 
-:- ensure_loaded(logicmoo_nlu_ext(chat80/xgproc)).	% XG generator
 
 
+:- if( \+ current_predicate( chat80_impl_dir/1)).
+chat80_impl_dir(chat80/original).
+:- endif.
 
-
-:- context_module(CM), load_plus_xg_file(CM, logicmoo_nlu_ext(chat80/'clone.xg')).
-:- context_module(CM), load_plus_xg_file(CM, logicmoo_nlu_ext(chat80/'lex.xg')).
-
-:- compile_xg_clauses.
-% :- xg_listing('newg.pl').
-
-% :- decl_mpred_hybrid(person/1).
-
-% :- list('newg.pl').
-:- ensure_loaded(logicmoo_nlu_ext(chat80/xgrun)).	% XG runtimes
-% :- ensure_loaded(logicmoo_nlu_ext(chat80/newg)).		% clone + lex
-
-:- ensure_loaded(logicmoo_nlu_ext(chat80/clotab)).	% attachment tables
-:- include(logicmoo_nlu_ext(chat80/newdict)).	% syntactic dictionary
-% :- ensure_loaded(logicmoo_nlu_ext(chat80/newdict_regress)).	% syntactic dictionary
-:- ensure_loaded(logicmoo_nlu_ext(chat80/slots)).	% fits arguments into predicates
-:- ensure_loaded(logicmoo_nlu_ext(chat80/scopes)).	% quantification and scoping
-% :- ensure_loaded(logicmoo_nlu_ext(chat80/templa)).	% semantic dictionary
-:- ensure_loaded(logicmoo_nlu_ext(chat80/qplan)).	% query planning
-:- ensure_loaded(logicmoo_nlu_ext(chat80/talkr)).	% query evaluation
-% :- ensure_loaded(logicmoo_nlu_ext(chat80/ndtabl)).	% relation info.
-:- use_module(logicmoo_nlu_ext(chat80/readin)).	% sentence80 input
-:- ensure_loaded(logicmoo_nlu_ext(chat80/ptree)).	% print trees
-:- ensure_loaded(logicmoo_nlu_ext(chat80/aggreg)).	% aggregation operators
-
-
-:- ensure_loaded(logicmoo_nlu_ext(chat80/world0)).     	% data base
-% :- ensure_loaded(logicmoo_nlu_ext(chat80/world0)).     	% data base
-
-/*
-:- ensure_loaded(logicmoo_nlu_ext(chat80/rivers)).
-:- ensure_loaded(logicmoo_nlu_ext(chat80/cities)).
-:- ensure_loaded(logicmoo_nlu_ext(chat80/countries)).
-:- ensure_loaded(logicmoo_nlu_ext(chat80/contain)).
-:- ensure_loaded(logicmoo_nlu_ext(chat80/borders)).
-*/
-
-% testing
-:- ensure_loaded(logicmoo_nlu_ext(chat80/newtop)).	% top level
+:- chat80_impl_dir(Where), ensure_loaded(logicmoo_nlu_ext(Where/load)).	% XG generator
 
 
 :- retract(t_l:into_form_code).
@@ -391,7 +354,7 @@ baseKB:mud_test(chat80_regressions, test_chat80_regressions).
 % :- include(logicmoo('vworld/moo_footer.pl')).
 
 
-t80:- baseKB:hi80(logicmoo_nlu_ext(chat80/demo)).
+t80:- bchat80_impl_dir(Where), baseKB:hi80(logicmoo_nlu_ext(Where/demo)).
 
 :- use_module(parser_e2c).
 

@@ -26,6 +26,7 @@
 qplan((P:-Q),(P1:-Q1)) :- qplan(P,Q,P1,Q1), !.
 qplan(P,P).
 
+
 qplan(X0,P0,X,P) :-
    numbervars(X0,0,I), variables(X0,0,Vg),
    numbervars(P0,I,N),
@@ -37,7 +38,7 @@ qplan(X0,P0,X,P) :-
    variablise(P2,VA,P).
 
 mark(X^P,L,Q0,Q) :- !, variables(X,Q0,Q1), mark(P,L,Q1,Q).
-mark((P1,P2),L,Q0,Q) :- !,
+mark(','(P1,P2),L,Q0,Q) :- !,
    mark(P1,L1,Q0,Q1),
    mark(P2,L2,Q1,Q),
    recombine(L1,L2,L).
@@ -128,13 +129,13 @@ plan(P,V,C,Vg,(Q,R)) :- is_conjunction(P), !,
    schedule(L3,Vg,R).
 plan(P,_,_,_,P).
 
-is_conjunction((_,_)).
+is_conjunction(','(_,_)).
 
 marked(m(V,C,P),V,C,P).
 
 freevars(m(V,_,_),V).
 
-best_goal((P1,P2),V,C,P0,V0,m(V,C,Q)) :- !,
+best_goal(','(P1,P2),V,C,P0,V0,m(V,C,Q)) :- !,
    ( marked(P1,Va,C,Pa), Q=(Pb,P2) ; marked(P2,Va,C,Pa), Q=(P1,Pb) ), !,
    best_goal(Pa,Va,C,P0,V0,Pb).
 best_goal(P,V,_C,P,V,true).
@@ -143,7 +144,7 @@ instantiate(true,_,[]) :- !.
 instantiate(P,Vi,[P]) :- freevars(P,V), disjoint(V,Vi), !.
 instantiate(m(V,_,P),Vi,L) :- instantiate0(P,V,Vi,L).
 
-instantiate0((P1,P2),_,Vi,L) :-
+instantiate0(','(P1,P2),_,Vi,L) :-
    instantiate(P1,Vi,L1),
    instantiate(P2,Vi,L2),
    recombine(L1,L2,L).
@@ -213,18 +214,18 @@ cost(P,V,N) :- functor(P,F,I), cost(I,F,P,V,N).
 
 cost(1,F,P,V,N) :-
    arg(1,P,X1), instantiated(X1,V,I1),
-   nd(F,N0,N1),
+   nd_costs(F,N0,N1),
    N is N0-I1*N1.
 cost(2,F,P,V,N) :-
    arg(1,P,X1), instantiated(X1,V,I1),
    arg(2,P,X2), instantiated(X2,V,I2),
-   nd(F,N0,N1,N2),
+   nd_costs(F,N0,N1,N2),
    N is N0-I1*N1-I2*N2.
 cost(3,F,P,V,N) :-
    arg(1,P,X1), instantiated(X1,V,I1),
    arg(2,P,X2), instantiated(X2,V,I2),
    arg(3,P,X3), instantiated(X3,V,I3),
-   nd(F,N0,N1,N2,N3),
+   nd_costs(F,N0,N1,N2,N3),
    N is N0-I1*N1-I2*N2-I3*N3.
 
 instantiated([X|_],V,N) :- !, instantiated(X,V,N).
@@ -291,3 +292,4 @@ disjoint(_W-V1,V2) :- !, V1 /\ V2 =:= 0.
 disjoint(V1,_W-V2) :- !, V1 /\ V2 =:= 0.
 disjoint(V1,V2) :- V1 /\ V2 =:= 0.
 
+:- fixup_exports.

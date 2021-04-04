@@ -25,8 +25,8 @@
 
 :- ensure_loaded(xgproc).	% XG generator
 
-:- load_plus_xg_file(parser_chat80,'clone.xg').
-:- load_plus_xg_file(parser_chat80,'lex.xg').
+:- load_plus_xg_file('clone.xg').
+:- load_plus_xg_file('lex.xg').
 
 :- include(xgrun).	% XG runtimes
 :- list('newg.pl').

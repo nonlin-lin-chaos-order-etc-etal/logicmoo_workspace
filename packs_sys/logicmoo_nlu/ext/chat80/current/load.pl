@@ -20,46 +20,56 @@
 |_________________________________________________________________________|
 
 */
-%:- '$set_source_module'(baseKB).
-:- trace_or_throw('$set_typein_module'(baseKB)).
-
-:- ensure_loaded(tlxgproc).	% XG generator
 
 
-:- load_plus_xg_file(parser_chat80,'clone.xg').
-:- load_plus_xg_file(parser_chat80,'lex.xg').
+
+:-  ensure_loaded(xgproc).	% XG generator
+
+
+
+
+:-  context_module(CM), chat80_impl_dir(Where), load_plus_xg_file(CM, logicmoo_nlu_ext(Where/'clone.xg')).
+:-  context_module(CM), chat80_impl_dir(Where), load_plus_xg_file(CM, logicmoo_nlu_ext(Where/'lex.xg')).
+
 :- compile_xg_clauses.
+% :- xg_listing('newg.pl').
+
+% :- decl_mpred_hybrid(person/1).
+
 % :- list('newg.pl').
-:- include(xgrun).	% XG runtimes
-% :- include(newg).		% clone + lex
-:- include(clotab).	% attachment tables
+:-  ensure_loaded(xgrun).	% XG runtimes
+  % ensure_loaded((newg)).		% clone + lex
+
+:- ensure_loaded(clotab).	% attachment tables
+
+:- if(false).
 :- include(newdict).	% syntactic dictionary
-:- include(slots).	% fits arguments into predicates
-:- include(scopes).	% quantification and scoping
-:- include(templa).	% semantic dictionary
-:- include(qplan).	% query planning
-:- include(talkr).	% query evaluation
-:- include(ndtabl).	% relation info.
-:- include(readin).	% sentence80 input
-:- include(ptree).	% print trees
-:- include(aggreg).	% aggregation operators
-:- include(world0).     	% data base
-:- include(rivers).
-:- include(cities).
-:- include(countries).
-:- include(contain).
-:- include(borders).
-:- include(newtop).	% top level
+:- else.
+:-  ensure_loaded(newdict).	% syntactic dictionary
+:- endif.
 
 
+%  ensure_loaded(logicmoo_nlu_ext(/newdict_regress)).	e syntactic dictionary
 
+:-ensure_loaded(slots).	% fits arguments into predicates
+:-ensure_loaded(scopes).	% quantification and scoping
+%:-ensure_loaded((templa)).	% semantic dictionary
+:-ensure_loaded(qplan).	% query planning
+:-ensure_loaded(talkr).	% query evaluation
+%:-ensure_loaded((ndtabl)).	% relation info.
+:-use_module(readin).	% sentence80 input
+:-ensure_loaded(ptree).	% print trees
+:-ensure_loaded(aggreg).	% aggregation operators
+:-ensure_loaded(world0).     	% data base
+%:-ensure_loaded((world0)).     	% data base
+% testing
+:-ensure_loaded(newtop). 	% top level
 
-bad_chat80 :-
-  told,
-  told,
-   repeat,
-   prompt(_,'Question: '),
-   trace,readin80:read_sent(P),
-      control80(report,P),
-      end80(user).
+/*
+:- ensure_loaded((rivers)).
+:- ensure_loaded((cities)).
+:- ensure_loaded((countries)).
+:- ensure_loaded((contain)).
+:- ensure_loaded((borders)).
+*/
 

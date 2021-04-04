@@ -21,10 +21,10 @@
 */
 
 
-aggregate(Fn,Set,Val) :-
+aggregate80(Fn,Set,Val) :-
    dimensioned(Set), !,
    u_aggr(Fn,Set,Val).
-aggregate(Fn,Set,Val) :-
+aggregate80(Fn,Set,Val) :-
    i_aggr(Fn,Set,Val).
 
 i_aggr(average,Set,Val) :-
@@ -98,10 +98,10 @@ u_total([V:_|R],T) :-
 u_sum(X--U,Y--U,Z--U) :- !,
    Z is X+Y.
 u_sum(X--U,Y--U1,Z--U) :-
-   ratio(U,U1,M,M1), M>M1, !,
+   ratio80(U,U1,M,M1), M>M1, !,
    Z is X + (Y*M1)/M.
 u_sum(X--U1,Y--U,Z--U) :-
-   ratio(U,U1,M,M1), M>M1, !,
+   ratio80(U,U1,M,M1), M>M1, !,
    Z is (X*M1)/M + Y.
 
 u_maxs([V:X|Set],List) :-
@@ -139,6 +139,9 @@ one_of([X|_],X).
 one_of([_|R],X) :-
    one_of(R,X).
 
-ratio(N,M,R) :- R is (N*100)/M.
+ratio80(N,M,R) :- R is (N*100)/M.
 
-card(S,N) :- length(S,N).
+cardinality80(S,N) :- length(S,N).
+
+
+:- fixup_exports.

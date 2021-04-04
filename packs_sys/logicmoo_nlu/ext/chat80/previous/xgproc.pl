@@ -265,8 +265,8 @@ list_clauses.
 :-export(load_xg/0).
 
 load_xg:-
-  load_plus_xg_file(parser_chat80,'clone.xg'),
-  load_plus_xg_file(parser_chat80,'lex.xg'),
+  load_plus_xg_file('clone.xg'),
+  load_plus_xg_file('lex.xg'),
   compile_xg_clauses.
 
 go_xg :- load_xg, xg_listing('newg.pl').

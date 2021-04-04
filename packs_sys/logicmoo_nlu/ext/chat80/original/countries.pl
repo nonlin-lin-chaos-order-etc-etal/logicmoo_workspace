@@ -185,3 +185,5 @@ country(yugoslavia,southern_europe,44,-20,98766,21126000,belgrade,dinar).
 country(zaire,central_africa,-3,-23,905063,23560000,kinshasa,zaire).
 country(zambia,southern_africa,-15,-28,290724,4640000,lusaka,kwacha).
 country(zimbabwe,southern_africa,-20,-30,150333,5690000,salisbury,rhodesian_dollar).
+
+:- fixup_exports.

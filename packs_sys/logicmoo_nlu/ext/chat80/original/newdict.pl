@@ -19,6 +19,10 @@
 
 */
 
+:- style_check(-singleton).
+:- style_check(-discontiguous).
+
+
 % =================================================================
 % General Dictionary
 
@@ -88,6 +92,7 @@ prep(through).
 
 noun_form(Plu,Sin,plu) :- noun_plu(Plu,Sin).
 noun_form(Sin,Sin,sin) :- noun_sin(Sin).
+
 
 verb_form(V,V,inf,_) :- verb_root(V).
 verb_form(V,V,pres+fin,Agmt) :-
@@ -330,3 +335,4 @@ verb_type(flow,main+intrans).
 adverb(yesterday).
 adverb(tomorrow).
 
+:- fixup_exports.

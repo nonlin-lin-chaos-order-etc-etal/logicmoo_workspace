@@ -20,17 +20,17 @@
 */
 
 clausify(question(V0,P),(answer(V):-B)) :-
-   quantify(P,Quants,[],R0),
+   quantify80(P,Quants,[],R0),
    split_quants(question(V0),Quants,HQuants,[],BQuants,[]),
    chain_apply(BQuants,R0,R1),
    head_vars(HQuants,B,R1,V,V0).
 
-quantify(quant(Det,X,Head,Pred,Args,Y),Above,Right,true) :-
+quantify80(quant(Det,X,Head,Pred,Args,Y),Above,Right,true) :-
    close_tree(Pred,P2),
    quantify_args(Args,AQuants,P1),
    split_quants(Det,AQuants,Above,[Q|Right],Below,[]),
    pre_apply(Head,Det,X,P1,P2,Y,Below,Q).
-quantify(conj(Conj,LPred,LArgs,RPred,RArgs),Up,Up,P) :-
+quantify80(conj(Conj,LPred,LArgs,RPred,RArgs),Up,Up,P) :-
    close_tree(LPred,LP0),
    quantify_args(LArgs,LQs,LP1),
    chain_apply(LQs,(LP0,LP1),LP),
@@ -38,18 +38,20 @@ quantify(conj(Conj,LPred,LArgs,RPred,RArgs),Up,Up,P) :-
    quantify_args(RArgs,RQs,RP1),
    chain_apply(RQs,(RP0,RP1),RP),
    conj_apply(Conj,LP,RP,P).
-quantify(pred(Subj,Op,Head,Args),Above,Right,P) :-
-   quantify(Subj,SQuants,[],P0),
+quantify80(pred(Subj,Op,Head,Args),Above,Right,P) :-
+   quantify80(Subj,SQuants,[],P0),
    quantify_args(Args,AQuants,P1),
    split_quants(Op,AQuants,Up,Right,Here,[]),
-   conc(SQuants,Up,Above),
+   conc80(SQuants,Up,Above),
    chain_apply(Here,(P0,Head,P1),P2),
-   op_apply(Op,P2,P).
-quantify(`P,Q,Q,P).
-quantify(P&Q,Above,Right,(S,T)) :-
-   quantify(Q,Right0,Right,T),
-   quantify(P,Above,Right0,S).
-   
+   op_apply80(Op,P2,P).
+quantify80('`'(P),Q,Q,P).
+quantify80('&'(P,Q),Above,Right,','(S,T)) :-
+   quantify80(Q,Right0,Right,T),
+   quantify80(P,Above,Right0,S).
+
+
+  
 head_vars([],P,P,L,L0) :-
    strip_types(L0,L).
 head_vars([Quant|Quants],(P,R0),R,[X|V],V0) :-
@@ -74,24 +76,24 @@ chain_apply0([Q|Quants],P0,P) :-
 quantify_args([],[],true).
 quantify_args([Arg|Args],Quants,(P,Q)) :-
    quantify_args(Args,Quants0,Q),
-   quantify(Arg,Quants,Quants0,P).
+   quantify80(Arg,Quants,Quants0,P).
 
-pre_apply(`Head,set(I),X,P1,P2,Y,Quants,Quant) :-
+pre_apply('`'(Head),set(I),X,P1,P2,Y,Quants,Quant) :-
    indices(Quants,I,Indices,RestQ),
    chain_apply(RestQ,(Head,P1),P),
    setify(Indices,X,(P,P2),Y,Quant).
-pre_apply(`Head,Det,X,P1,P2,Y,Quants,quant(Det,X,(P,P2),Y)) :-
+pre_apply('`'(Head),Det,X,P1,P2,Y,Quants,quant(Det,X,(P,P2),Y)) :-
  ( unit_det(Det);
    index_det(Det,_)),
    chain_apply(Quants,(Head,P1),P).
-pre_apply(apply(F,P0),Det,X,P1,P2,Y,
+pre_apply(apply80(F,P0),Det,X,P1,P2,Y,
       Quants0,quant(Det,X,(P3,P2),Y)) :-
    but_last(Quants0,quant(lambda,Z,P0,Z),Quants),
    chain_apply(Quants,(F,P1),P3).
 pre_apply(aggr(F,Value,L,Head,Pred),Det,X,P1,P2,Y,Quants,
       quant(Det,X,
             (S^(setof(Range:Domain,P,S),
-                aggregate(F,S,Value)),P2),Y)) :-
+                aggregate80(F,S,Value)),P2),Y)) :-
    close_tree(Pred,R),
    complete_aggr(L,Head,(R,P1),Quants,P,Range,Domain).
 
@@ -103,11 +105,11 @@ but_last0([X|L0],Y,Z,[Y|L]) :-
    but_last0(L0,X,Z,L).
 
 close_tree(T,P) :-
-   quantify(T,Q,[],P0),
+   quantify80(T,Q,[],P0),
    chain_apply(Q,P0,P).
 
-meta_apply(`G,R,Q,G,R,Q).
-meta_apply(apply(F,(R,P)),R,Q0,F,true,Q) :-
+meta_apply80('`'(G),R,Q,G,R,Q).
+meta_apply80(apply80(F,(R,P)),R,Q0,F,true,Q) :-
    but_last(Q0,quant(lambda,Z,P,Z),Q).
 
 indices([],_,[],[]).
@@ -136,23 +138,23 @@ index_vars([quant(index(_),_-X,P0,_-X)|Indices],
       [X|IndexV],(P0,P)) :-
    index_vars(Indices,IndexV,P).
 
-complete_aggr([Att,Obj],`G,R,Quants,(P,R),Att,Obj) :-
+complete_aggr([Att,Obj],'`'(G),R,Quants,(P,R),Att,Obj) :-
    chain_apply(Quants,G,P).
 complete_aggr([Att],Head,R0,Quants0,(P1,P2,R),Att,Obj) :-
-   meta_apply(Head,R0,Quants0,G,R,Quants),
-   set_vars(Quants,Obj,Rest,P2),
+   meta_apply80(Head,R0,Quants0,G,R,Quants),
+   set_vars80(Quants,Obj,Rest,P2),
    chain_apply(Rest,G,P1).
-complete_aggr([],`G,R,[quant(set,_-(Obj:Att),S:T,_)],
+complete_aggr([],'`'(G),R,[quant(set,_-(Obj:Att),S:T,_)],
       (G,R,S,T),Att,Obj).
 
-set_vars([quant(set,_-(I:X),P:Q,_-X)],[X|I],[],(P,Q)).
-set_vars([],[],[],true).
-set_vars([Q|Qs],[I|Is],R,(P,Ps)) :-
+set_vars80([quant(set,_-(I:X),P:Q,_-X)],[X|I],[],(P,Q)).
+set_vars80([],[],[],true).
+set_vars80([Q|Qs],[I|Is],R,(P,Ps)) :-
    open_quant(Q,Det,X,P,Y),
    set_var(Det,X,Y,I), !,
-   set_vars(Qs,Is,R,Ps).
-set_vars([Q|Qs],I,[Q|R],P) :-
-   set_vars(Qs,I,R,P).
+   set_vars80(Qs,Is,R,Ps).
+set_vars80([Q|Qs],I,[Q|R],P) :-
+   set_vars80(Qs,I,R,P).
 
 set_var(Det,_-X,_-X,X) :-
    setifiable(Det).
@@ -197,31 +199,31 @@ unit_det(int_det(_)).
 unit_det(proportion(_)).
 
 det_apply(quant(Det,Type-X,P,_-Y),Q0,Q) :-
-   apply(Det,Type,X,P,Y,Q0,Q).
+   apply80(Det,Type,X,P,Y,Q0,Q).
 
-apply(generic,_,X,P,X,Q,X^(P,Q)).
-apply(proportion(_Type-V),_,X,P,Y,Q,
+apply80(generic,_,X,P,X,Q,X^(P,Q)).
+apply80(proportion(_Type-V),_,X,P,Y,Q,
       S^(setof(X,P,S),
          N^(numberof(Y,(one_of(S,Y),Q),N),
-            M^(card(S,M),ratio(N,M,V))))).
-apply(id,_,X,P,X,Q,(P,Q)).
-apply(void,_,X,P,X,Q,X^(P,Q)).
-apply(set,_,Index:X,P0,S,Q,S^(P,Q)) :-
+            M^(cardinality80(S,M),ratio80(N,M,V))))).
+apply80(id,_,X,P,X,Q,(P,Q)).
+apply80(void,_,X,P,X,Q,X^(P,Q)).
+apply80(set,_,Index:X,P0,S,Q,S^(P,Q)) :-
    apply_set(Index,X,P0,S,P).
-apply(int_det(Type-X),Type,X,P,X,Q,(P,Q)).
-apply(index(_),_,X,P,X,Q,X^(P,Q)).
-apply(quant(Op,N),Type,X,P,X,Q,R) :-
+apply80(int_det(Type-X),Type,X,P,X,Q,(P,Q)).
+apply80(index(_),_,X,P,X,Q,X^(P,Q)).
+apply80(quant(Op,N),Type,X,P,X,Q,R) :-
    value(N,Type,Y),
    quant_op(Op,Z,Y,numberof(X,(P,Q),Z),R).
-apply(det(Det),_,X,P,Y,Q,R) :-
-   apply0(Det,X,P,Y,Q,R).
+apply80(det(Det),_,X,P,Y,Q,R) :-
+   apply80_0(Det,X,P,Y,Q,R).
 
-apply0(Some,X,P,X,Q,X^(P,Q)) :-
+apply80_0(Some,X,P,X,Q,X^(P,Q)) :-
    some(Some).
-apply0(All,X,P,X,Q,\+X^(P,\+Q)) :-
+apply80_0(All,X,P,X,Q,\+X^(P,\+Q)) :-
    all(All).
-apply0(no,X,P,X,Q,\+X^(P,Q)).
-apply0(notall,X,P,X,Q,X^(P,\+Q)).
+apply80_0(no,X,P,X,Q,\+X^(P,Q)).
+apply80_0(notall,X,P,X,Q,X^(P,\+Q)).
 
 quant_op(same,X,X,P,P).
 quant_op(Op,X,Y,P,X^(P,F)) :-
@@ -304,11 +306,13 @@ setifiable(det(all)).
 % =================================================================
 % Operators (currently, identity, negation and 'and')
 
-op_apply(id,P,P).
-op_apply(not,P,\+P).
+op_apply80(id,P,P).
+op_apply80(not,P,\+P).
 
 bubble(not,det(any),det(every)) :- !.
 bubble(_,D,D).
 
 
 conj_apply(and,P,Q,(P,Q)).
+
+:- fixup_exports.

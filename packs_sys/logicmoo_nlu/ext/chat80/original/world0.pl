@@ -26,13 +26,18 @@
 
 :-op(600,xfy,--).
 
-exceeds(X--U,Y--U) :- !, X > Y.
-exceeds(X1--U1,X2--U2) :- ratio(U1,U2,M1,M2), X1*M1 > X2*M2.
+exceeds(X,Y):- term_variables(X-Y,Vars),freeze_until(Vars,exceeds0(X,Y)).
 
-ratio(thousand,million,1,1000).
-ratio(million,thousand,1000,1).
-ratio(ksqmiles,sqmiles,1000,1).
-ratio(sqmiles,ksqmiles,1,1000).
+freeze_until([],Goal):-!, Goal.
+freeze_until([V|Vars],Goal):- freeze(V,freeze_until(Vars,Goal)).
+
+exceeds0(X--U,Y--U) :- !, X > Y.
+exceeds0(X1--U1,X2--U2) :- ratio80(U1,U2,M1,M2), X1*M1 > X2*M2.
+
+ratio80(thousand,million,1,1000).
+ratio80(million,thousand,1000,1).
+ratio80(ksqmiles,sqmiles,1000,1).
+ratio80(sqmiles,ksqmiles,1,1000).
 
 area(_X--ksqmiles).
 capital(C) :- capital(_X,C).
@@ -144,3 +149,4 @@ last([_|L],X) :- last(L,X).
 links([X1,X2|_],X1,X2).
 links([_|L],X1,X2) :- links(L,X1,X2).
 
+:- fixup_exports.

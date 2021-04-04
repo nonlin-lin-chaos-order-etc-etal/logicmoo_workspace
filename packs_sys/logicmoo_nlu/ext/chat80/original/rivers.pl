@@ -66,3 +66,4 @@ river(yenisei,[arctic_ocean,soviet_union,mongolia]).
 river(yukon,[pacific,united_states,canada]).
 river(zambesi,[indian_ocean,mozambique,zambia,angola]).
 
+:- fixup_exports.

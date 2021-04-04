@@ -74,7 +74,7 @@ anot_xmask(_X,1,0).
 
 % Noun phrase position features
 
-is_to_role_case(subj80,_,#(1,0,0)).
+is_to_role_case(subj,_,#(1,0,0)).
 is_to_role_case(compl,_,#(0,_,_)).
 is_to_role_case(undef,main,#(_,0,_)).
 is_to_role_case(undef,aux,#(0,_,_)).
@@ -86,7 +86,15 @@ is_verb_case(#(0,1,0)).
 is_prep_case(#(0,0,1)).
 is_compl_case(#(0,_,_)).
 
-:- op(100,fx,?).
+
+portray_bit(Bit,Value,[?(Bit)|Bits],Bits) :- var(Value), !.
+portray_bit(Bit,1,[+Bit|Bits],Bits).
+portray_bit(Bit,0,[-Bit|Bits],Bits).
+portray_bit(Bit,What,[Bit=What|Bits],Bits).
+portray_bit(_,_,Bits,Bits).
+
+
+%:- op(100,fx,?).
 
 user:portray('#'(PP,Pred,Trace,Adv)) :-
    portray_bit(pp,PP,S0,S1),
@@ -94,9 +102,3 @@ user:portray('#'(PP,Pred,Trace,Adv)) :-
    portray_bit(trace,Trace,S2,S3),
    portray_bit(adv,Adv,S3,[]),
    write(S0).
-
-portray_bit(Bit,Value,[?Bit|Bits],Bits) :- var(Value), !.
-portray_bit(Bit,1,[+Bit|Bits],Bits).
-portray_bit(Bit,0,[-Bit|Bits],Bits).
-portray_bit(Bit,What,[Bit=What|Bits],Bits).
-portray_bit(_,_,Bits,Bits).

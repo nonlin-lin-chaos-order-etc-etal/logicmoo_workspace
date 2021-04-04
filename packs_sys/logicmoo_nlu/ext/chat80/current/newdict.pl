@@ -11,8 +11,8 @@
 
 :- shared_parser_data(in_continent/2).
 
-:- import(baseKB:cyckb_h/3).
-:- import(baseKB:cyckb_h/4).
+:-  M = baseKB, forall(current_predicate(M:cyckb_h/A), (export(M:cyckb_h/A),import(M:cyckb_h/A))).
+
 :- set_prolog_flag(expect_pfc_file, never).
 :- use_module(library(clpr), []).
 :- use_module(library(body_reordering/logicmoo_util_body_reorder)).
@@ -102,8 +102,8 @@ terminator_db(., _).
 terminator_db(?, ?).
 terminator_db(!, !).
 
-% plt:-! , fail.
 :- export(plt/0).
+plt:-! , fail.
 plt:- !.
 plt:- t_l:usePlTalk, !.
 plt2:- !.
@@ -618,6 +618,7 @@ adj_db(european, restr).
 
 :-dynamic(not_ccw_db/1).
 :-dynamic(is_ccw_db/1).
+not_ccw(_):- \+ plt.
 not_ccw(W):- loop_check(not_ccw00(W)), !.
 
 not_ccw00(ok(W)):-must(nonvar(W)),!,not_ccw(W),!.

@@ -1,5 +1,5 @@
 /* @(#)aggreg.pl	24.1 2/23/88 */
-
+/*
  _________________________________________________________________________
 |	Copyright (C) 1982						  |
 |									  |
@@ -17,7 +17,7 @@
 |	Use for commercial purposes without the previous written 	  |
 |	agreement of the authors is forbidden.				  |
 |_________________________________________________________________________|
-
+*/
 /* 
 	Copyright 1986, Fernando C.N. Pereira and David H.D. Warren,
 

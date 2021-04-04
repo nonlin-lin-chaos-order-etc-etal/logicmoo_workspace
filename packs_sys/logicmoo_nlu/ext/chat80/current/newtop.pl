@@ -8,12 +8,12 @@
 |		California 94025, USA;					  |
 |									  |
 |	Fernando Pereira,						  |
-|		Dept. of Archi80tecture, University of Edinburgh,		  |
+|		Dept. of Architecture, University of Edinburgh,		  |
 |		20 Chambers St., Edinburgh EH1 1JZ, Scotland		  |
 |									  |
-|	Thi80s program may be used, copied, altered or included in other	  |
+|	This program may be used, copied, altered or included in other	  |
 |	programs only for academic purposes and provided that the	  |
-|	authorshi80p of the initial program is aknowledged.		  |
+|	authorship of the initial program is aknowledged.		  |
 |	Use for commercial purposes without the previous written 	  |
 |	agreement of the authors is forbidden.				  |
 |_________________________________________________________________________|
@@ -349,7 +349,7 @@ report_item(tree,Item) :-
 runtime(TimeSecs) :- statistics(runtime,[MSec,_]), TimeSecs is MSec/1000,!.
 
 
-quote80(A&R) :-
+quote80('&'(A,R)) :-
    atom(A), !,
    quote_amp(R).
 quote80(_-_).

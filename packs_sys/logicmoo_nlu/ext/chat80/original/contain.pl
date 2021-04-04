@@ -446,3 +446,4 @@ contains0(zaire,congo_river).
 contains0(zambia,congo_river).
 contains0(zambia,zambesi).
 
+:- fixup_exports.
