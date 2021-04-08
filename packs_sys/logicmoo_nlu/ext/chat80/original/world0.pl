@@ -56,12 +56,12 @@ asian(X) :- loc_in(X,asia).
 european(X) :- loc_in(X,europe).
 
 loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
-loc_in(X,Y) :- in0(X,W), ( W=Y ; loc_in(W,Y) ).
+loc_in(X,Y) :- directly_in(X,W), ( W=Y ; loc_in(W,Y) ).
 
-in0(X,Y) :- in_continent(X,Y).
-in0(X,Y) :- city_country_popu(X,Y,_).
-in0(X,Y) :- c_r_l_l_s_cap_m(X,Y,_,_,_,_,_,_).
-in0(X,Y) :- flows_thru(X,Y).
+directly_in(X,Y) :- in_continent(X,Y).
+directly_in(X,Y) :- city_country_popu(X,Y,_).
+directly_in(X,Y) :- c_r_l_l_s_cap_m(X,Y,_,_,_,_,_,_).
+directly_in(X,Y) :- flows_thru(X,Y).
 
 rel_spatial(east_of,X1,X2) :- coordinate_spatial(longitude,X1,L1), coordinate_spatial(longitude,X2,L2), exceeds(L2,L1).
 rel_spatial(north_of,X1,X2) :- coordinate_spatial(latitude,X1,L1), coordinate_spatial(latitude,X2,L2), exceeds(L1,L2).
@@ -121,10 +121,10 @@ in_continent(northern_asia, asia).
 
 seamass(X):- ti(seamass,X).
 
-ti(T2,X) :- sub_ti(T2,T1), ti(T1,X).
+ti(T2,X) :- ti_sub(T2,T1), ti(T1,X).
 
-==> sub_ti(seamass,ocean).
-==> sub_ti(seamass,sea).
+==> ti_sub(seamass,ocean).
+==> ti_sub(seamass,sea).
 
 
 ti(ocean,arctic_ocean).
@@ -147,20 +147,21 @@ sea(X):- ti(sea,X).
 
 river(R) :- river_flows(R,_L).
 
-rises(R,C) :- river_flows(R,L), last(L,C).
+rises(R,C) :- river_flows(R,L), last_link(L,C).
 
-drains(R,S) :- river_flows(R,L), first(L,S).
+drains(R,S) :- river_flows(R,L), first_link(L,S).
 
 flows_thru(R,C) :- river_links(R,C,_).
 
 river_links(R,C1,C2) :- river_flows(R,L), link_pairs(L,C2,C1).
 
-first([X|_],X).
+first_link([X|_],X).
 
-last([X],X).
-last([_|L],X) :- last(L,X).
+last_link([X],X).
+last_link([_|L],X) :- last_link(L,X).
 
 link_pairs([X1,X2|_],X1,X2).
 link_pairs([_|L],X1,X2) :- link_pairs(L,X1,X2).
+:- listing(seamass/1).
 
 :- fixup_exports.

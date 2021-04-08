@@ -87,7 +87,7 @@ imperative_verb,
 
 /* Basic sentence (actually, declarative sentence) */
 
-s80(s80(Subj,Verb,Args,Mods),Mask) --->
+s80(s(Subj,Verb,Args,Mods),Mask) --->
    subj(Subj,Agmt,Type),
    verb(Verb,Agmt,Type,Voice),
    {mask_empty(Nil), mask_s_all(SAll)},

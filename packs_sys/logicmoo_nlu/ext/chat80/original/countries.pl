@@ -35,7 +35,7 @@ c_r_l_l_s_cap_m(algeria,north_africa,35,-11,919951,15770000,algiers,dinar).
 c_r_l_l_s_cap_m(andorra,southern_europe,42,-1,179,25000,andorra_la_villa,franc_peseta).
 c_r_l_l_s_cap_m(angola,southern_africa,-12,-18,481351,5810000,luanda,?).
 c_r_l_l_s_cap_m(argentina,south_america,-35,66,1072067,23920000,buenos_aires,peso).
-c_r_l_l_s_cap_m(australia,australasia,-23,-135,2967909,13268000,canberra,australian_dollar).
+c_r_l_l_s_cap_m(australia,oceania,-23,-135,2967909,13268000,canberra,australian_dollar).
 c_r_l_l_s_cap_m(austria,western_europe,47,-14,32374,7520000,vienna,schilling).
 c_r_l_l_s_cap_m(bahamas,caribbean,24,74,4404,190000,nassau,bahamian_dollar).
 c_r_l_l_s_cap_m(bahrain,middle_east,26,-50,231,230000,manama,dinar).
@@ -74,7 +74,7 @@ c_r_l_l_s_cap_m(eire,western_europe,53,8,26600,3030000,dublin,irish_pound).
 c_r_l_l_s_cap_m(el_salvador,central_america,14,89,8260,3860000,san_salvador,colon).
 c_r_l_l_s_cap_m(equatorial_guinea,west_africa,1,-10,10832,300000,santa_isabel,peveta).
 c_r_l_l_s_cap_m(ethiopia,east_africa,8,-40,457142,26080000,addis_ababa,ethiopean_dollar).
-c_r_l_l_s_cap_m(fiji,australasia,-17,-179,7055,550000,suva,fiji_dollar).
+c_r_l_l_s_cap_m(fiji,oceania,-17,-179,7055,550000,suva,fiji_dollar).
 c_r_l_l_s_cap_m(finland,scandinavia,65,-27,130119,4660000,helsinki,markka).
 c_r_l_l_s_cap_m(france,western_europe,47,-3,212973,52350000,paris,franc).
 c_r_l_l_s_cap_m(french_guiana,south_america,4,53,34740,27000,cayenne,?).
@@ -125,7 +125,7 @@ c_r_l_l_s_cap_m(morocco,north_africa,32,6,171953,16310000,rabat,dirham).
 c_r_l_l_s_cap_m(mozambique,southern_africa,-19,-35,303373,8820000,maputo,?).
 c_r_l_l_s_cap_m(nepal,indian_subcontinent,28,-84,54362,12020000,katmandu,nepalese_rupee).
 c_r_l_l_s_cap_m(netherlands,western_europe,52,-5,14192,13500000,amsterdam,guilder).
-c_r_l_l_s_cap_m(new_zealand,australasia,-40,-176,103736,2962000,wellington,new_zealand_dollar).
+c_r_l_l_s_cap_m(new_zealand,oceania,-40,-176,103736,2962000,wellington,new_zealand_dollar).
 c_r_l_l_s_cap_m(nicaragua,central_america,12,85,57143,2010000,managua,cordoba).
 c_r_l_l_s_cap_m(niger,west_africa,13,-10,489206,4300000,niamey,cfa_franc).
 c_r_l_l_s_cap_m(nigeria,west_africa,8,-8,356669,79759000,lagos,naira).
@@ -134,7 +134,7 @@ c_r_l_l_s_cap_m(norway,scandinavia,64,-11,125181,3960000,oslo,krone).
 c_r_l_l_s_cap_m(oman,middle_east,23,-58,82000,720000,muscat,riyal_omani).
 c_r_l_l_s_cap_m(pakistan,indian_subcontinent,30,-70,342750,66750000,islamad,rupee).
 c_r_l_l_s_cap_m(panama,central_america,9,80,28753,1570000,panama,balboa).
-c_r_l_l_s_cap_m(papua_new_guinea,australasia,-8,-145,183540,2580000,port_harcourt,australian_dollar).
+c_r_l_l_s_cap_m(papua_new_guinea,oceania,-8,-145,183540,2580000,port_harcourt,australian_dollar).
 c_r_l_l_s_cap_m(paraguay,south_america,-23,57,157047,2670000,asuncion,guarani).
 c_r_l_l_s_cap_m(peru,south_america,-8,75,496222,14910000,lima,sol).
 c_r_l_l_s_cap_m(philippines,southeast_east,12,-123,115707,40220000,quezon_city,piso).
@@ -166,7 +166,7 @@ c_r_l_l_s_cap_m(taiwan,far_east,23,-121,13592,15737000,taipei,taiwan_dollar).
 c_r_l_l_s_cap_m(tanzania,east_africa,-7,-34,363708,14000000,dar_es_salaam,tanzanian_shilling).
 c_r_l_l_s_cap_m(thailand,southeast_east,16,-102,198455,39950000,bangkok,baht).
 c_r_l_l_s_cap_m(togo,west_africa,8,-1,21853,2120000,lome,cfa_franc).
-c_r_l_l_s_cap_m(tonga,australasia,-20,173,269,90000,nukualofa,pa_anga).
+c_r_l_l_s_cap_m(tonga,oceania,-20,173,269,90000,nukualofa,pa_anga).
 c_r_l_l_s_cap_m(trinidad_and_tobago,caribbean,10,61,1979,5510000,port_of_spain,trinidad_and_tobago_dollar).
 c_r_l_l_s_cap_m(tunisia,north_africa,33,-9,63378,5510000,tunis,dinar).
 c_r_l_l_s_cap_m(turkey,middle_east,39,-36,301380,37930000,ankara,lira).
@@ -179,7 +179,7 @@ c_r_l_l_s_cap_m(uruguay,south_america,-32,55,68548,2990000,montevideo,peso).
 c_r_l_l_s_cap_m(venezuela,south_america,8,65,352143,11520000,caracas,bolivar).
 c_r_l_l_s_cap_m(vietnam,southeast_east,17,-107,126436,41850000,hanoi,dong).
 c_r_l_l_s_cap_m(west_germany,western_europe,52,-9,95815,61970000,bonn,deutsche_mark).
-c_r_l_l_s_cap_m(western_samoa,australasia,-14,172,1133,150000,apia,tala).
+c_r_l_l_s_cap_m(western_samoa,oceania,-14,172,1133,150000,apia,tala).
 c_r_l_l_s_cap_m(yemen,middle_east,15,-44,75289,1600000,sana,rial).
 c_r_l_l_s_cap_m(yugoslavia,southern_europe,44,-20,98766,21126000,belgrade,dinar).
 c_r_l_l_s_cap_m(zaire,central_africa,-3,-23,905063,23560000,kinshasa,zaire).

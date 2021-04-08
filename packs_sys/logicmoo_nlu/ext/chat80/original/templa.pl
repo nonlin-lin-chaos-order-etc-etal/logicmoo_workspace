@@ -65,8 +65,7 @@ name_template(X,feature&place&seamass) :- seamass(X).
 
 /* Verbs */
 
-trans_LF(border,
-      feature&place&_,X,feature&place&_,Y,borders(X,Y),[],_,_).
+trans_LF(border, feature&place&_,X, feature&place&_,Y, borders(X,Y),[],_,_).
 trans_LF(contain,feature&place&_,X,feature&_,Y,loc_in(Y,X),[],_,_).
 trans_LF(govern,feature&_,X,feature&place&country,Y,country_capital_city(Y,X),[],_,_).
 trans_LF(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).

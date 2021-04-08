@@ -33,7 +33,7 @@ i_sentence(q(S),question80([],P)) :- !,
 i_sentence(whq(X,S),question80([X],P)) :- !,
    show_failure(i_s80(S,P,[],0)).
    
-i_sentence(imp(s80(_,Verb,VArgs,VMods)),imp(V,Args)) :- !,
+i_sentence(imp(s(_,Verb,VArgs,VMods)),imp(V,Args)) :- !,
    i_verb(Verb,V,_,active,pos,Slots0,[],transparent),
    i_verb_args(VArgs,[],[],Slots0,Slots,Args,Args0,Up,-0),
    append(Up,VMods,Mods),
@@ -159,7 +159,7 @@ i_adj(adj(Adj),TypeX-X,T,T,_,
    attribute_LF(Adj,TypeX,X,_,Y,P),
    standard(Adj,TypeX,Y,Q).
 
-i_s80(s80(Subj,Verb,VArgs,VMods),Pred,Up,Id) :-
+i_s80(s(Subj,Verb,VArgs,VMods),Pred,Up,Id) :-
    i_verb(Verb,P,Tense,Voice,Neg,Slots0,XA0,Meta),
    i_subj(Voice,Subj,Slots0,Slots1,QSubj,SUp,-(-Id)),
    append(SUp,VArgs,TArgs),

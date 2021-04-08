@@ -104,6 +104,8 @@ control80([trace,'.']) :- !,
 control80([do,not,trace,'.']) :-
    retract(t_l:tracing80), !,
    write('No longer tracing.'), nl, fail.
+control80([Word,'.']) :- !, call(Word),!,
+   nl,fail.
 control80(U) :-
    process80(U),
    fail.
