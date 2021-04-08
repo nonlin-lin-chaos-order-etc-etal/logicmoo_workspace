@@ -118,6 +118,7 @@ simple_f(iza).
 simple_f(c).
 simple_f(p).
 simple_f(isa).
+simple_f(ti).
 simple_f(HasSpace):- atom_contains(HasSpace,' ').
 
 simple_arg(S):- (nvar(S) ; \+ compound(S)),!.

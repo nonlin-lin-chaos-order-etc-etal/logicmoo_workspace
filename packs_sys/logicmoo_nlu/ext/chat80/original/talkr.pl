@@ -162,7 +162,7 @@ assertion80(Mz,','(P,Q)) :- !, ignore(show_failure((satisfy(Mz,Q), assertion80(M
 assertion80(+(Mz),X^P):-!,assertion80(+([X|Mz]),P).
 assertion80(?(Mz),X^P):-!,assertion80(?([X|Mz]),P).
 assertion80(Mz,P):- predicate_property(P, number_of_rules(N)),N>0,!, clause(P,What),What\==true,assertion80(Mz,What).
-assertion80(_,P):- of_x_rtrace(assert(P)).
+assertion80(_,P):- on_x_rtrace(assert(P)).
 /*
 :- meta_predicate(satisfy(Mz,?)).
 :- export(satisfy/1).

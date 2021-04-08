@@ -33,8 +33,8 @@ nd_costs(one_of,99,200,-99).
 nd_costs(ratio80,99,51,51,3).
 nd_costs(cardinality80,99,100,3).
 nd_costs(borders,29,22,22).
-nd_costs(capital,22,22).
-nd_costs(capital,22,22,23).
+nd_costs(capital_city,22,22).
+nd_costs(country_capital_city,22,22,23).
 nd_costs(city,18,18).
 nd_costs(continent,8,8).
 nd_costs(country,22,22).

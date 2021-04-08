@@ -177,10 +177,10 @@ name(Name) :-
 % =================================================================
 % Specialised Dictionary
 
-loc_pred(east,prep(eastof)).
-loc_pred(west,prep(westof)).
-loc_pred(north,prep(northof)).
-loc_pred(south,prep(southof)).
+loc_pred(east,prep(east_of)).
+loc_pred(west,prep(west_of)).
+loc_pred(north,prep(north_of)).
+loc_pred(south,prep(south_of)).
 
 adj(minimum,restr).
 adj(maximum,restr).

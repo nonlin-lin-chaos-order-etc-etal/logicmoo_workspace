@@ -23,17 +23,17 @@
 
 property_LF(area,measure&area,X,feature&place&_,Y,area(Y,X),[],_,_).
 property_LF(capital,feature&city,X,feature&place&country,Y,
-         capital(Y,X),[],_,_).
+         country_capital_city(Y,X),[],_,_).
 property_LF(latitude,
-         measure&position,X,feature&_,Y,latitude(Y,X),[],_,_).
+         measure&position,X,feature&_,Y,coordinate_spatial(latitude,Y,X),[],_,_).
 property_LF(longitude,measure&position,X,feature&_,Y,
-         longitude(Y,X),[],_,_).
+         coordinate_spatial(longitude,Y,X),[],_,_).
 property_LF(population,
          measure&heads,X,feature&_,Y,population(Y,X),[],_,_).
 
 thing_LF(place,feature&place&_,X,place(X),[],_).
 thing_LF(area,measure&area,X,area(X),[],_).
-thing_LF(capital,feature&city,X,capital(X),[],_).
+thing_LF(capital,feature&city,X,capital_city(X),[],_).
 thing_LF(city,feature&city,X,city(X),[],_).
 thing_LF(continent,feature&place&continent,X,continent(X),[],_).
 thing_LF(country,feature&place&country,X,country(X),[],_).
@@ -55,7 +55,7 @@ meta_noun(number,_,V,feature&_,X,P,numberof(_Mz,X,P,V)).
 
 /* Proper nouns */
 
-name_template(X,feature&circle) :- circle_of_latitude(X).
+name_template(X,feature&circle) :- ti(circle_of_latitude,X).
 name_template(X,feature&city) :- city(X).
 name_template(X,feature&place&continent) :- continent(X).
 name_template(X,feature&place&country) :- country(X).
@@ -68,14 +68,14 @@ name_template(X,feature&place&seamass) :- seamass(X).
 trans_LF(border,
       feature&place&_,X,feature&place&_,Y,borders(X,Y),[],_,_).
 trans_LF(contain,feature&place&_,X,feature&_,Y,loc_in(Y,X),[],_,_).
-trans_LF(govern,feature&_,X,feature&place&country,Y,capital(Y,X),[],_,_).
+trans_LF(govern,feature&_,X,feature&place&country,Y,country_capital_city(Y,X),[],_,_).
 trans_LF(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).
 
 intrans_LF(drain,feature&river,X,drains(X,Y),
    [slot(prep(into),feature&place&_,Y,_,free)],_).
-intrans_LF(flow,feature&river,X,flows(X,Y),
+intrans_LF(flow,feature&river,X,flows_thru(X,Y),
    [slot(prep(through),feature&place&_,Y,_,free)],_).
-intrans_LF(flow,feature&river,X,flows(X,Y,Z),
+intrans_LF(flow,feature&river,X,river_links(X,Y,Z),
    [slot(prep(into),feature&place&_,Z,_,free),
     slot(prep(from),feature&place&_,Y,_,free)],_).
 intrans_LF(rise,feature&river,X,rises(X,Y),
@@ -100,10 +100,10 @@ aggr_adj(maximum,_,_,maximum).
 /* Prepositions */
 
 adjunction_LF(in,feature&_-X,feature&place&_-Y,loc_in(X,Y)).
-adjunction_LF(eastof,feature&_-X,feature&_-Y,eastof(X,Y)).
-adjunction_LF(westof,feature&_-X,feature&_-Y,westof(X,Y)).
-adjunction_LF(northof,feature&_-X,feature&_-Y,northof(X,Y)).
-adjunction_LF(southof,feature&_-X,feature&_-Y,southof(X,Y)).
+adjunction_LF(east_of,feature&_-X,feature&_-Y,rel_spatial(east_of,X,Y)).
+adjunction_LF(west_of,feature&_-X,feature&_-Y,rel_spatial(west_of,X,Y)).
+adjunction_LF(north_of,feature&_-X,feature&_-Y,rel_spatial(north_of,X,Y)).
+adjunction_LF(south_of,feature&_-X,feature&_-Y,rel_spatial(south_of,X,Y)).
 
 /* Measure */
 

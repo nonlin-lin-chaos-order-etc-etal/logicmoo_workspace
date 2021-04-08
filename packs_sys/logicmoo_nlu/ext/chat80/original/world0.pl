@@ -40,9 +40,9 @@ ratio80(ksqmiles,sqmiles,1000,1).
 ratio80(sqmiles,ksqmiles,1,1000).
 
 area(_X--ksqmiles).
-capital(C) :- capital(_X,C).
-city(C) :- city(C,_,_).
-country(C) :- country(C,_,_,_,_,_,_,_).
+capital_city(C) :- country_capital_city(_X,C).
+city(C) :- city_country_popu(C,_,_).
+country(C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
 latitude(_X--degrees).
 longitude(_X--degrees).
 place(X) :- continent(X); region(X); seamass(X); country(X).
@@ -59,42 +59,46 @@ loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
 loc_in(X,Y) :- in0(X,W), ( W=Y ; loc_in(W,Y) ).
 
 in0(X,Y) :- in_continent(X,Y).
-in0(X,Y) :- city(X,Y,_).
-in0(X,Y) :- country(X,Y,_,_,_,_,_,_).
-in0(X,Y) :- flows(X,Y).
+in0(X,Y) :- city_country_popu(X,Y,_).
+in0(X,Y) :- c_r_l_l_s_cap_m(X,Y,_,_,_,_,_,_).
+in0(X,Y) :- flows_thru(X,Y).
 
-eastof(X1,X2) :- longitude(X1,L1), longitude(X2,L2), exceeds(L2,L1).
-northof(X1,X2) :- latitude(X1,L1), latitude(X2,L2), exceeds(L1,L2).
-southof(X1,X2) :- latitude(X1,L1), latitude(X2,L2), exceeds(L2,L1).
-westof(X1,X2) :- longitude(X1,L1), longitude(X2,L2), exceeds(L1,L2).
+rel_spatial(east_of,X1,X2) :- coordinate_spatial(longitude,X1,L1), coordinate_spatial(longitude,X2,L2), exceeds(L2,L1).
+rel_spatial(north_of,X1,X2) :- coordinate_spatial(latitude,X1,L1), coordinate_spatial(latitude,X2,L2), exceeds(L1,L2).
+rel_spatial(south_of,X1,X2) :- coordinate_spatial(latitude,X1,L1), coordinate_spatial(latitude,X2,L2), exceeds(L2,L1).
+rel_spatial(west_of,X1,X2) :- coordinate_spatial(longitude,X1,L1), coordinate_spatial(longitude,X2,L2), exceeds(L1,L2).
 
-circle_of_latitude(equator).
-circle_of_latitude(tropic_of_cancer).
-circle_of_latitude(tropic_of_capricorn).
-circle_of_latitude(arctic_circle).
-circle_of_latitude(antarctic_circle).
 
-latitude(equator,0--degrees).
-latitude(tropic_of_cancer,23--degrees).
-latitude(tropic_of_capricorn,-23--degrees).
-latitude(arctic_circle,67--degrees).
-latitude(antarctic_circle,-67--degrees).
+ti(circle_of_latitude,equator).
+ti(circle_of_latitude,tropic_of_cancer).
+ti(circle_of_latitude,tropic_of_capricorn).
+ti(circle_of_latitude,arctic_circle).
+ti(circle_of_latitude,antarctic_circle).
 
-latitude(C,L--degrees) :- country(C,_,L,_,_,_,_,_).
-longitude(C,L--degrees) :- country(C,_,_,L,_,_,_,_).
+coordinate_spatial(latitude,equator,0--degrees).
+coordinate_spatial(latitude,tropic_of_cancer,23--degrees).
+coordinate_spatial(latitude,tropic_of_capricorn,(-23)--degrees).
+coordinate_spatial(latitude,arctic_circle,67--degrees).
+coordinate_spatial(latitude,antarctic_circle,(-67)--degrees).
+
+coordinate_spatial(latitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,L,_,_,_,_,_).
+coordinate_spatial(longitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,_,L,_,_,_,_).
 area(C,A--ksqmiles) :-
-   country(C,_,_,_,A0,_,_,_), A is integer(A0/1000).
-population(C,P--thousand) :- city(C,_,P).
+   c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is integer(A0/1000).
+population(C,P--thousand) :- city_country_popu(C,_,P).
 population(C,P--million) :-
-   country(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
-capital(C,Cap) :- country(C,_,_,_,_,_,Cap,_).
+   c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
+country_capital_city(C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
 
-continent(africa).
-continent(america).
-continent(antarctica).
-continent(asia).
-continent(australasia).
-continent(europe).
+ti(continent,africa).
+ti(continent,america).
+ti(continent,antarctica).
+ti(continent,asia).
+ti(continent,australasia).
+ti(continent,europe).
+
+continent(X):- ti(continent,X).
+
 
 in_continent(scandinavia, europe).
 in_continent(western_europe, europe).
@@ -115,38 +119,48 @@ in_continent(southeast_east, asia).
 in_continent(far_east, asia).
 in_continent(northern_asia, asia).
 
-seamass(X) :- ocean(X).
-seamass(X) :- sea(X).
+seamass(X):- ti(seamass,X).
 
-ocean(arctic_ocean).
-ocean(atlantic).
-ocean(indian_ocean).
-ocean(pacific).
-ocean(southern_ocean).
+ti(T2,X) :- sub_ti(T2,T1), ti(T1,X).
 
-sea(baltic).
-sea(black_sea).
-sea(caspian).
-sea(mediterranean).
-sea(persian_gulf).
-sea(red_sea).
+==> sub_ti(seamass,ocean).
+==> sub_ti(seamass,sea).
 
-river(R) :- river(R,_L).
 
-rises(R,C) :- river(R,L), last(L,C).
+ti(ocean,arctic_ocean).
+ti(ocean,atlantic).
+ti(ocean,indian_ocean).
+ti(ocean,pacific).
+ti(ocean,southern_ocean).
 
-drains(R,S) :- river(R,L), first(L,S).
+ocean(X):- ti(ocean,X).
 
-flows(R,C) :- flows(R,C,_).
 
-flows(R,C1,C2) :- river(R,L), links(L,C2,C1).
+ti(sea,baltic).
+ti(sea,black_sea).
+ti(sea,caspian).
+ti(sea,mediterranean).
+ti(sea,persian_gulf).
+ti(sea,red_sea).
+
+sea(X):- ti(sea,X).
+
+river(R) :- river_flows(R,_L).
+
+rises(R,C) :- river_flows(R,L), last(L,C).
+
+drains(R,S) :- river_flows(R,L), first(L,S).
+
+flows_thru(R,C) :- river_links(R,C,_).
+
+river_links(R,C1,C2) :- river_flows(R,L), link_pairs(L,C2,C1).
 
 first([X|_],X).
 
 last([X],X).
 last([_|L],X) :- last(L,X).
 
-links([X1,X2|_],X1,X2).
-links([_|L],X1,X2) :- links(L,X1,X2).
+link_pairs([X1,X2|_],X1,X2).
+link_pairs([_|L],X1,X2) :- link_pairs(L,X1,X2).
 
 :- fixup_exports.
