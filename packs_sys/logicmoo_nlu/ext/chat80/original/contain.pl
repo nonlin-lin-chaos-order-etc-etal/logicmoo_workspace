@@ -54,26 +54,26 @@ continent_contains_region(Continent,Region) ==> (ti(region,Region),ti(continent,
 region_contains_country(Region,Country) ==> (ti(region,Region),ti(country,Country)).
 % Arg2 might be a river or city
 country_contains_thing(Country,_) ==> ti(country,Country).
+:- else.
+region(R) :- continent_contains_region(_,R).
 :- endif.
 
-contains(X,Y) :- directly_contains(X,Y).
-contains(X,Y) :- directly_contains(X,W), contains(W,Y).
+contains(X,Y) :- trans_rel(directly_contains,X,Y).
+
 
 % directly_contains(Country,CityOrRiver):- country_contains_thing(Country,CityOrRiver), ( \+ route_spatial(_,river,_,CityOrRiver,_) -> Place=city ; Place=river).
 directly_contains(Continent,Region):- continent_contains_region(Continent,Region).
 directly_contains(Region,Country):- region_contains_country(Region,Country).
 directly_contains(Country,CityOrRiver):- country_contains_thing(Country,CityOrRiver).
 
-directly_in(X,Y) :- continent_contains_region(Y,X).
-directly_in(X,Y) :- city_country_popu(X,Y,_).
-directly_in(X,Y) :- c_r_l_l_s_cap_m(X,Y,_,_,_,_,_,_).
-directly_in(X,Y) :- flows_thru(X,Y).
+directly_contains(Country,River):- flows_thru(River,Country).
 
-region(R) :- continent_contains_region(_,R).
+country_contains_thing(Country,City) :- city_country_popu(City,Country,_).
+region_contains_country(R,C) :- c_r_l_l_s_cap_m(C,R,_,_,_,_,_,_).
 
 
-loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
-loc_in(X,Y) :- directly_in(X,W), ( W=Y ; loc_in(W,Y) ).
+loc_in(X,Y) :- contains(Y,X).
+
 
 
 
