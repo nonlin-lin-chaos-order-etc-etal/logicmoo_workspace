@@ -29,6 +29,44 @@
 %         Capital,Currency)
 
 
+
+:- if(use_pfc80).
+
+:- expects_dialect(pfc).
+:- listing(baseKB:in_dialect_pfc).
+:- must_or_rtrace(in_dialect_pfc).
+
+:-op(600,xfy,--).
+
+
+country_capital_city(Country,Capital)==> (ti(country,Country), t(capital_city,Capital)).
+==> sub_ti(capital_city,city).
+
+
+c_r_l_l_s_cap_m(Country,Region,Latitude,Longitude,
+         Area, % (sqmiles),
+         Population,
+         Capital,Currency) ==>
+
+(region_contains_country(Region,Country),
+ coordinate_spatial(latitude,Country,Latitude),
+ coordinate_spatial(longitude,Country,Longitude),
+ {AreaKM is integer(Area/1000)},
+ ammount_spatial(area,Country,AreaKM),
+ {P_Mil is integer(Population/1.0E6)},
+ ammount_spatial(population,Country,P_Mil -- million),
+ country_capital_city(Country,Capital),
+ uses_currency(Country,Currency)).
+
+%coordinate_spatial(latitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,L,_,_,_,_,_).
+%coordinate_spatial(longitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,_,L,_,_,_,_).
+%area(C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is integer(A0/1000).
+%ammount_spatial(population,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
+%country_capital_city(C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
+
+:- endif.
+
+
 c_r_l_l_s_cap_m(afghanistan,indian_subcontinent,33,-65,254861,18290000,kabul,afghani).
 c_r_l_l_s_cap_m(albania,southern_europe,41,-20,11100,2350000,tirana,lek).
 c_r_l_l_s_cap_m(algeria,north_africa,35,-11,919951,15770000,algiers,dinar).

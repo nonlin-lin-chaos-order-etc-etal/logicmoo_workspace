@@ -23,6 +23,10 @@
 % Data for the World Database.
 % ---------------------------
 
+:- if(use_pfc80).
+:- expects_dialect(pfc).
+:- endif.
+
 
 :-op(600,xfy,--).
 
@@ -46,6 +50,11 @@ country(C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
 latitude(_X--degrees).
 longitude(_X--degrees).
 place(X) :- continent(X); region(X); seamass(X); country(X).
+==> sub_ti(seamass,place).
+==> sub_ti(continent,place).
+==> sub_ti(region,place).
+==> sub_ti(country,place).
+
 population(_X--million).
 population(_X--thousand).
 region(R) :- in_continent(R,_).
@@ -55,13 +64,6 @@ american(X) :- loc_in(X,america).
 asian(X) :- loc_in(X,asia).
 european(X) :- loc_in(X,europe).
 
-loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
-loc_in(X,Y) :- directly_in(X,W), ( W=Y ; loc_in(W,Y) ).
-
-directly_in(X,Y) :- in_continent(X,Y).
-directly_in(X,Y) :- city_country_popu(X,Y,_).
-directly_in(X,Y) :- c_r_l_l_s_cap_m(X,Y,_,_,_,_,_,_).
-directly_in(X,Y) :- flows_thru(X,Y).
 
 rel_spatial(east_of,X1,X2) :- coordinate_spatial(longitude,X1,L1), coordinate_spatial(longitude,X2,L2), exceeds(L2,L1).
 rel_spatial(north_of,X1,X2) :- coordinate_spatial(latitude,X1,L1), coordinate_spatial(latitude,X2,L2), exceeds(L1,L2).
@@ -99,7 +101,8 @@ ti(continent,europe).
 
 continent(X):- ti(continent,X).
 
-
+in_continent(R,C):- continent_contains_region(C,R).
+/*
 in_continent(scandinavia, europe).
 in_continent(western_europe, europe).
 in_continent(eastern_europe, europe).
@@ -118,14 +121,14 @@ in_continent(indian_subcontinent, asia).
 in_continent(southeast_east, asia).
 in_continent(far_east, asia).
 in_continent(northern_asia, asia).
+*/
 
 seamass(X):- ti(seamass,X).
 
-ti(T2,X) :- ti_sub(T2,T1), ti(T1,X).
+ti(T2,X) :- sub_ti(T1,T2), ti(T1,X).
 
-==> ti_sub(seamass,ocean).
-==> ti_sub(seamass,sea).
-
+==> sub_ti(ocean,seamass).
+==> sub_ti(sea,seamass).
 
 ti(ocean,arctic_ocean).
 ti(ocean,atlantic).
@@ -162,6 +165,12 @@ last_link([_|L],X) :- last_link(L,X).
 
 link_pairs([X1,X2|_],X1,X2).
 link_pairs([_|L],X1,X2) :- link_pairs(L,X1,X2).
+
+:- if(use_pfc80).
+==> (( (sub_ti(Child,Parent), ti(Child,X)) ==> ti(Parent,X) )).
+:- endif.
+
+
 :- listing(seamass/1).
 
 :- fixup_exports.

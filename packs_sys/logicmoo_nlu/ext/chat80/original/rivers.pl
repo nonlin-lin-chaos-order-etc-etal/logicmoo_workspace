@@ -23,6 +23,11 @@
 % Facts about rivers.
 % ------------------
 
+
+:- if(use_pfc80).
+river_flows(R,_) ==> ti(river,R).
+:- endif.
+
 river_flows(amazon,[atlantic,brazil,peru]).
 river_flows(amu_darya,[aral_sea,soviet_union,afghanistan]).
 river_flows(amur,[pacific,soviet_union,china,mongolia]).

@@ -22,6 +22,30 @@
 
 % Inversion of the 'in' relation.
 % ------------------------------
+:- dynamic(trans_rel_cache/1).
+:- dynamic(trans_rel_cache/2).
+:- dynamic(trans_rel_cache/3).
+trans_rel(P,X,Y) :- trans_rel_cache(P),!, trans_rel_cache(P,X,Y).
+trans_rel(P,X,Y):- trans_rel_nc(P,X,Y).
+
+trans_rel_nc(P,X,Y) :- var(X),!, no_repeats(X, trans_rel_rl(P,X,Y)).
+trans_rel_nc(P,X,Y) :- nonvar(Y), !, trans_rel_lr(P,X,Y), !.
+trans_rel_nc(P,X,Y) :- no_repeats(Y, trans_rel_lr(P,X,Y)).
+
+trans_rel_lr(P,X,Y) :- call(P,X,W), ( W=Y ; trans_rel_lr(P,W,Y) ).
+trans_rel_rl(P,X,Y) :- call(P,W,Y), ( W=X ; trans_rel_rl(P,X,W) ).
+
+trans_rel_cache(P):-
+  must_be(ground,P),
+  forall(call(P,XX,YY),
+     (assert_if_new(trans_rel_cache(P,XX)),
+      assert_if_new(trans_rel_cache(P,YY)))),
+  forall(trans_rel_cache(P,E),
+        (forall(trans_rel_nc(P,E,Y),assert_if_new(trans_rel_cache(P,E,Y))),
+         forall(trans_rel_nc(P,Y,E),assert_if_new(trans_rel_cache(P,Y,E))))),
+  asserta((trans_rel_cache(P):-!)),!,
+  listing(trans_rel_cache(P,_)),
+  listing(trans_rel_cache(P,_,_)).
 
 /*
 :- expects_dialect(pfc).
@@ -39,6 +63,14 @@ contains(X,Y) :- directly_contains(X,W), contains(W,Y).
 directly_contains(Continent,Region):- continent_contains_region(Continent,Region).
 directly_contains(Region,Country):- region_contains_country(Region,Country).
 directly_contains(Country,CityOrRiver):- country_contains_thing(Country,CityOrRiver).
+
+loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
+loc_in(X,Y) :- directly_in(X,W), ( W=Y ; loc_in(W,Y) ).
+
+directly_in(X,Y) :- in_continent(X,Y).
+directly_in(X,Y) :- city_country_popu(X,Y,_).
+directly_in(X,Y) :- c_r_l_l_s_cap_m(X,Y,_,_,_,_,_,_).
+directly_in(X,Y) :- flows_thru(X,Y).
 
 
 
