@@ -135,19 +135,19 @@ process801(U) :-
    unnumbervars(E0,E),
    runtime(StopParse),
    ParseTime is StopParse - StartParse,
-   DISP = sent_to_prelogic(E,S),
-   report(DISP,'Parse',ParseTime,tree))),
+   DISP = sent_to_prelogic(E),
+   \+ \+ report(DISP,'Parse',ParseTime,tree))),
    runtime(StartSem),
    sent_to_prelogic(E,S), !,
    runtime(StopSem),
    SemTime is StopSem - StartSem,
-   report(S,'Semantics',SemTime,expr),
+   % report(S,'Semantics',SemTime,expr),
    runtime(StartPlan),
    qplan(S,S1), !,
    runtime(StopPlan),
    TimePlan is StopPlan - StartPlan,
    (S1==S -> Show1= planned_same; Show1=S1),
-   report(Show1,'Planning',TimePlan,expr),
+   %report(Show1,'Planning',TimePlan,expr),
    runtime(StartAns),
    writeln('-----------'),
    once((ignore(answer80(S1)),true)), !, nl,
@@ -200,10 +200,24 @@ quote_amp(R) :-
    quote80(R).
 
 sent_to_prelogic(S0,S) :-
-   unnumbervars(S0,S00),
-   ((i_sentence(S00,S1),
+ must_or_rtrace((
+   unnumbervars(S0,S00))),
+ copy_term(S00,S000,_Gs),
+ ((i_sentence(S000,S1),
    clausify80(S1,S2),
-   simplify80(S2,S))).
+   simplify80(S2,SOut))),
+ S000=S00,
+ SOut=S,!.
+
+sent_to_prelogic(S0,S) :-
+ must_or_rtrace((
+   unnumbervars(S0,S00))),
+ copy_term(S00,S000,_Gs),
+ trace,((i_sentence(S000,S1),
+   clausify80(S1,S2),
+   simplify80(S2,SOut))),!,
+ S000=S00,
+ SOut=S.
 
 simplify80(C,C0):-var(C),dmsg(var_simplify(C,C0)),!,fail.
 simplify80(C,(P:-R)) :- !,

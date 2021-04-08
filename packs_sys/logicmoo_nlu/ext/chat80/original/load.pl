@@ -22,49 +22,64 @@
 */
 
 
-:- use_module(library(logicmoo_common)).
-
-:- if( \+ current_predicate( (share_mp)/1)).
-share_mp(MFA):- MFA=M:_FA,!, % FA = F/A,   
-   (M:multifile(MFA)), 
-   (M:module_transparent(MFA)),
-   (M:dynamic(MFA)),
-   (M:export(MFA)),
-   (M:public(MFA)), !. 
-share_mp(FA):- strip_module(FA,M,_),!,share_mp(M:FA).
-
-:- endif.
-
 :- ensure_loaded(xgrun).	% XG runtimes
 
 :- ensure_loaded(xgproc).
+
+:- multifile( rel_spatial/3 ).
+:- discontiguous( rel_spatial/3 ).
+:- dynamic( rel_spatial/3 ).
+
+
+:- multifile( value_units/2 ).
+:- multifile( ti/2 ).
+:- discontiguous( value_units/2 ).
+:- discontiguous( ti/2 ).
+:- dynamic( value_units/2 ).
+:- dynamic( ti/2 ).
+
+
+
+:- discontiguous( trans_spatial/5 ).
+:- discontiguous( direct_spatial/5 ).
+:- discontiguous( done_by_rel/5 ).
+:- multifile( trans_spatial/5 ).
+:- multifile( direct_spatial/5 ).
+:- multifile( done_by_rel/5 ).
+:- dynamic( trans_spatial/5 ).
+:- dynamic( direct_spatial/5 ).
+:- dynamic( done_by_rel/5 ).
 
 %:- ensure_loaded(newg).		% clone + lex
 :-  load_plus_xg_file('/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/chat80/original/clone.xg').
 :-  load_plus_xg_file('/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/chat80/original/lex.xg').
 
-:- ensure_loaded(clotab).	% attachment tables
-:- ensure_loaded(newdict).	% syntactic dictionary
-:- ensure_loaded(slots).	% fits arguments into predicates
-:- ensure_loaded(scopes).	% quantification and scoping
 
-:- ensure_loaded(templa).	% semantic dictionary
+:- expects_dialect(pfc).
+:-op(600,xfy,--).
 
-:- ensure_loaded(qplan).	% query planning
-:- ensure_loaded(talkr).	% query evaluation
-:- ensure_loaded(ndtabl).	% relation info.
-:- ensure_loaded(readin).	% sentence input
-:- ensure_loaded(ptree).	% print trees
-:- ensure_loaded(aggreg).	% aggregation operators
+:- include(countries).
+:- include(world0).     	% data base
+:- include(rivers).
+:- include(cities).
+:- include(contain).
+:- include(borders).
 
-:- ensure_loaded(world0).     	% data base
-:- ensure_loaded(rivers).
-:- ensure_loaded(cities).
-:- ensure_loaded(countries).
-:- ensure_loaded(contain).
-:- ensure_loaded(borders).
+:- include(clotab).	% attachment tables
+:- include(newdict).	% syntactic dictionary
+:- include(slots).	% fits arguments into predicates
+:- include(scopes).	% quantification and scoping
 
-:- ensure_loaded(newtop).	% top level
+:- include(templa).	% semantic dictionary
+
+:- include(qplan).	% query planning
+:- include(talkr).	% query evaluation
+:- include(ndtabl).	% relation info.
+:- include(readin).	% sentence input
+:- include(ptree).	% print trees
+:- include(aggreg).	% aggregation operators
+
+:- include(newtop).	% top level
 
 
 :- fixup_exports.

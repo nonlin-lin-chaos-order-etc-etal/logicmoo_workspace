@@ -21,6 +21,10 @@
 
 */
 
+:- module(baseKB,[]).
+
+:- use_module(library(statistics)).
+
 :- autoload_all.
 :- use_module(library(logicmoo_common)).
 :- xlisting(lock_predicate/1).
@@ -40,7 +44,8 @@ share_mp(FA):- strip_module(FA,M,_),!,share_mp(M:FA).
 
 :- endif.
 
-:- baseKB:ensure_loaded(load).
+:- 
+ include(load).
 
 
 :- fixup_exports.
