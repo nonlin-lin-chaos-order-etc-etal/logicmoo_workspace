@@ -67,7 +67,7 @@ name_template(X,feature&place&seamass) :- seamass(X).
 
 trans_LF(border,
       feature&place&_,X,feature&place&_,Y,borders(X,Y),[],_,_).
-trans_LF(contain,feature&place&_,X,feature&_,Y,in(Y,X),[],_,_).
+trans_LF(contain,feature&place&_,X,feature&_,Y,loc_in(Y,X),[],_,_).
 trans_LF(govern,feature&_,X,feature&place&country,Y,capital(Y,X),[],_,_).
 trans_LF(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).
 
@@ -99,7 +99,7 @@ aggr_adj(maximum,_,_,maximum).
 
 /* Prepositions */
 
-adjunction_LF(in,feature&_-X,feature&place&_-Y,in(X,Y)).
+adjunction_LF(in,feature&_-X,feature&place&_-Y,loc_in(X,Y)).
 adjunction_LF(eastof,feature&_-X,feature&_-Y,eastof(X,Y)).
 adjunction_LF(westof,feature&_-X,feature&_-Y,westof(X,Y)).
 adjunction_LF(northof,feature&_-X,feature&_-Y,northof(X,Y)).
@@ -113,8 +113,8 @@ measure_LF(degree,measure&position,[],degrees).
 measure_LF(thousand,measure&heads,[],thousand).
 measure_LF(million,measure&heads,[],million).
 
-units(large,measure&_).
-units(small,measure&_).
+units_LF(large,measure&_).
+units_LF(small,measure&_).
 
 sign80(large,+).
 sign80(small,-).

@@ -50,13 +50,13 @@ population(_X--million).
 population(_X--thousand).
 region(R) :- in_continent(R,_).
 
-african(X) :- in(X,africa).
-american(X) :- in(X,america).
-asian(X) :- in(X,asia).
-european(X) :- in(X,europe).
+african(X) :- loc_in(X,africa).
+american(X) :- loc_in(X,america).
+asian(X) :- loc_in(X,asia).
+european(X) :- loc_in(X,europe).
 
-in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
-in(X,Y) :- in0(X,W), ( W=Y ; in(W,Y) ).
+loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
+loc_in(X,Y) :- in0(X,W), ( W=Y ; loc_in(W,Y) ).
 
 in0(X,Y) :- in_continent(X,Y).
 in0(X,Y) :- city(X,Y,_).

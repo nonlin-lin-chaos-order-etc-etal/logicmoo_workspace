@@ -3,7 +3,7 @@ CurrentProject=packs_sys\logicmoo_nlu\ext\chat80_lm\chat80.vpj
 [ProjectDates]
 packs_sys\logicmoo_nlu\ext\chat80_lm\chat80.vpj=20210403203557287
 logicmoo_workspace.vpj=20210308055830863
-other_files.vpj=20210401171516409
+other_files.vpj=20210408020125100
 [ActiveConfig]
 logicmoo_workspace.vpj=Release
 packs_usr\wam_common_lisp\wamcl.vpj=,Release

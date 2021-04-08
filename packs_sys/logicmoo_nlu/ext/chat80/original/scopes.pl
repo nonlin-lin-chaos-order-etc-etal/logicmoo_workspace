@@ -25,14 +25,14 @@ clausify81(question80(V0,P),(answer80(V):-B)) :-
    quantify80(P,Quants,[],R0),
    split_quants(question80(V0),Quants,HQuants,[],BQuants,[]),
    chain_apply(BQuants,R0,R1),
-   head_vars(HQuants,B,R1,V,V0)
+   scope_head_vars(HQuants,B,R1,V,V0)
    )).
 
 clausify81(assertion80(V0,P),(assertion80(V):-B)) :- nonvar(P),
    quantify80(P,Quants,[],R0),
    split_quants(question80(V0),Quants,HQuants,[],BQuants,[]),
    chain_apply(BQuants,R0,R1),
-   head_vars(HQuants,B,R1,V,V0).
+   scope_head_vars(HQuants,B,R1,V,V0).
 
 quantify80(quantV(Det,X,Head,Pred,Args,Y),Above,Right,true) :-
    close_tree(Pred,P2),
@@ -51,7 +51,7 @@ quantify80(pred(Subj,Op,Head,Args),Above,Right,P) :-
    quantify80(Subj,SQuants,[],P0),
    quantify_args(Args,AQuants,P1),
    split_quants(Op,AQuants,Up,Right,Here,[]),
-   conc80(SQuants,Up,Above),
+   append(SQuants,Up,Above),
    chain_apply(Here,(P0,Head,P1),P2),
    op_apply80(Op,P2,P).
 quantify80('`'(P),Q,Q,P).
@@ -61,17 +61,17 @@ quantify80('&'(P,Q),Above,Right,','(S,T)) :-
 
 
   
-head_vars([],P,P,L,L0) :-
+scope_head_vars([],P,P,L,L0) :-
    strip_types(L0,L).
-head_vars([Quant|Quants],(P,R0),R,[X|V],V0) :-
-   extract_var(Quant,P,X),
-   head_vars(Quants,R0,R,V,V0).
+scope_head_vars([Quant|Quants],(P,R0),R,[X|V],V0) :-
+   scope_extract_var(Quant,P,X),
+   scope_head_vars(Quants,R0,R,V,V0).
 
 strip_types([],[]).
 strip_types([_-X|L0],[X|L]) :-
    strip_types(L0,L).
 
-extract_var(quantV(_,_-X,P,_-X),P,X).
+scope_extract_var(quantV(_,_-X,P,_-X),P,X).
 
 chain_apply(Q0,P0,P) :-
    sort_quants(Q0,Q,[]),
@@ -182,7 +182,7 @@ split_quants(Det0,[Quant|Quants],Above,Above0,Below,Below0) :-
 
 compare_dets(Det0,Q,[quantV(Det,X,P,Y)|Above],Above,Below,Below) :-
    open_quant(Q,Det1,X,P,Y),
-   governs(Det1,Det0), !,
+   scope_governs(Det1,Det0), !,
    bubble(Det0,Det1,Det).
 compare_dets(Det0,Q0,Above,Above,[Q|Below],Below) :-
    lower(Det0,Q0,Q).
@@ -260,23 +260,23 @@ apply_set([I|Is],X,Range:P,S,
       setof([I|Is]:V,(Range,setof(X,P,V)),S)).
 
 
-governs(Det,set(J)) :-
+scope_governs(Det,set(J)) :-
    index_det(Det,I),
    I \== J.
-governs(Det0,Det) :-
+scope_governs(Det0,Det) :-
    index_det(Det0,_),
  ( index_det(Det,_);
    Det=det(_);
    Det=quantV(_,_)).
-governs(_,void).
-governs(_,lambda).
-governs(_,id).
-governs(det(each),question80([_|_])).
-governs(det(each),det(each)).
-governs(det(any),not).
-governs(quantV(same,wh(_)),Det) :-
+scope_governs(_,void).
+scope_governs(_,lambda).
+scope_governs(_,id).
+scope_governs(det(each),question80([_|_])).
+scope_governs(det(each),det(each)).
+scope_governs(det(any),not).
+scope_governs(quantV(same,wh(_)),Det) :-
    weak(Det).
-governs(det(Strong),Det) :-
+scope_governs(det(Strong),Det) :-
    strong0(Strong),
    weak(Det).
 

@@ -36,7 +36,7 @@ i_sentence(whq(X,S),question80([X],P)) :- !,
 i_sentence(imp(s80(_,Verb,VArgs,VMods)),imp(V,Args)) :- !,
    i_verb(Verb,V,_,active,pos,Slots0,[],transparent),
    i_verb_args(VArgs,[],[],Slots0,Slots,Args,Args0,Up,-0),
-   conc80(Up,VMods,Mods),
+   append(Up,VMods,Mods),
    i_verb_mods(Mods,_,[],Slots,Args0,Up,+0).
 
 i_sentence(S,assertion80([],P)) :-
@@ -56,7 +56,7 @@ i_np_head(np(_,Kernel,_),Y,
    Type-_=Y, Type-_=T.
 
 i_np_rest(np(_,_,Mods),Det,Det0,X,Pred,QMods,Slots,Up,Id,Index) :-
-   index_args(Det0,Index,Id,Det,IndexA),
+   i_index_args(Det0,Index,Id,Det,IndexA),
    i_np_mods(Mods,X,Slots,Pred,QMods,Up,Id,IndexA).
 
 held_arg(held_arg(Case,-Id,X),[],S0,S,Id,+Id) :-
@@ -85,7 +85,7 @@ i_np_mods(Mods,_,[],'`'(true),[],Mods,_,_).
 i_np_mods([Mod|Mods],X,Slots0,Pred0,QMods0,Up,Id,Index) :-
    i_np_mod(Mod,X,Slots0,Slots,
             Pred0,Pred,QMods0,QMods,Up0,-Id,Index),
-   conc80(Up0,Mods,Mods0),
+   append(Up0,Mods,Mods0),
    i_np_mods(Mods0,X,Slots,Pred,QMods,Up,+Id,Index).
 i_np_mods(Mods,_,[Slot|Slots],'`'(true),QMods,Mods,Id,_) :-
    i_voids([Slot|Slots],QMods,Id).
@@ -111,7 +111,7 @@ i_np_mod(prep_phrase(Prep,NP),
       X,Slots0,Slots,Pred,Pred,[QMod|QMods],QMods,Up,Id0,Index0) :-
    i_np_head(NP,Y,Q,LDet,LDet0,LX,LPred,LQMods,LSlots0,Id0),
    i_bind(Prep,Slots0,Slots1,X,Y,Id0,Function,P,PSlots,XArg),
-   conc80(PSlots,Slots1,Slots),
+   append(PSlots,Slots1,Slots),
    i_np_modify(Function,P,Q,QMod,Index0,Index),
    held_arg(XArg,[],LSlots0,LSlots,Id0,Id),
    i_np_rest(NP,LDet,LDet0,LX,LPred,LQMods,LSlots,Up,Id,Index).
@@ -129,7 +129,7 @@ i_bind(prep(Prep),Slots,Slots,X,Y,_,adjoin,'`'(P),PSlots,XArg) :-
 
 i_np_modify(adjoin,P,N,N&P,_,unit).
 i_np_modify(arg,F,N,N,Index0,Index) :-
-   index_slot(F,Index0,Index).
+   i_slot(F,Index0,Index).
 
 in_slot([Slot|Slots],Case,X,Id,Slots,F) :-
    slot_match(Slot,Case,X,Id,F).
@@ -151,7 +151,7 @@ i_adj(adj(Adj),TypeX-X,TypeV-V,_,
 i_adj(sup(Op0,adj(Adj)),Type-X,Type-V,_,
       aggr(F,V,[Y,X],Head,'`'(P)&Pred),Head,'`'(true),Pred) :-
    sign80(Adj,Sign),
-   inverse80(Op0,Sign,Op),
+   inverse_LF(Op0,Sign,Op),
    i_sup_op(Op,F),
    attribute_LF(Adj,Type,X,_,Y,P).
 i_adj(adj(Adj),TypeX-X,T,T,_,
@@ -162,9 +162,9 @@ i_adj(adj(Adj),TypeX-X,T,T,_,
 i_s80(s80(Subj,Verb,VArgs,VMods),Pred,Up,Id) :-
    i_verb(Verb,P,Tense,Voice,Neg,Slots0,XA0,Meta),
    i_subj(Voice,Subj,Slots0,Slots1,QSubj,SUp,-(-Id)),
-   conc80(SUp,VArgs,TArgs),
+   append(SUp,VArgs,TArgs),
    i_verb_args(TArgs,XA0,XA,Slots1,Slots,Args0,Args,Up0,+(-Id)),
-   conc80(Up0,VMods,Mods),
+   append(Up0,VMods,Mods),
    i_verb_mods(Mods,Tense,XA,Slots,Args,Up,+Id),
    reshape_pred(Meta,QSubj,Neg,P,Args0,Pred).
 
@@ -202,7 +202,7 @@ mask_subj_case(passive,s_subj).
 fill_verb([],XA,XA,Slots,Slots,Args,Args,[],_).
 fill_verb([Node|Nodes0],XA0,XA,Slots0,Slots,Args0,Args,Up,Id) :-
    verb_slot(Node,XA0,XA1,Slots0,Slots1,Args0,Args1,Up0,-Id),
-   conc80(Up0,Nodes0,Nodes),
+   append(Up0,Nodes0,Nodes),
    fill_verb(Nodes,XA1,XA,Slots1,Slots,Args1,Args,Up,+Id).
 
 verb_slot(prep_phrase(Prep,NP),
@@ -219,7 +219,7 @@ verb_slot(prep_phrase(prep(Prep),NP),
    i_np_head(NP,Y,Q,LDet,LDet0,LX,LPred,LQMods,LSlots0,Id0),
    held_arg(XArg,[],LSlots0,LSlots,Id0,Id),
    i_np_rest(NP,LDet,LDet0,LX,LPred,LQMods,LSlots,Up,Id,free),
-   conc80(PSlots,Slots1,Slots).
+   append(PSlots,Slots1,Slots).
 verb_slot(arg(SCase,NP),
       XArg0,XArg,Slots0,Slots,[Q|Args],Args,Up,Id) :-
    i_np(NP,X,Q,Up,Id,unit,XArg0,XArg),
@@ -246,7 +246,7 @@ i_pred(comp(Op0,adj(Adj),NP),X,[P1 & P2 & '`'(P3),Q|As],As,Up,Id) :-
    sign80(Adj,Sign),
    i_measure(X,Adj,Type,U,P1),
    i_measure(Y,Adj,Type,V,P2),
-   inverse80(Op0,Sign,Op),
+   inverse_LF(Op0,Sign,Op),
    measure_op_LF(Op,U,V,P3).
 i_pred(prep_phrase(prep(Prep),NP),X,['`'(H),Q|As],As,Up,Id) :-
    i_np(NP,Y,Q,Up,Id,unit,[],[]),
@@ -259,7 +259,7 @@ i_adjoin(Prep,X,Y,[],[],P) :-
    adjunction_LF(Prep,X,Y,P).
 
 i_measure(Type-X,Adj,Type,X,'`'(true)) :-
-   units(Adj,Type).
+   units_LF(Adj,Type).
 i_measure(TypeX-X,Adj,TypeY,Y,quantV(void,TypeY-Y,'`'(P),'`'(true),[],_)) :-
    attribute_LF(Adj,TypeX,X,TypeY,Y,P).
 
@@ -282,12 +282,12 @@ measure_op_LF(not+less,X,Y,\+exceeds(Y,X)).
 measure_op_LF(more,X,Y,exceeds(X,Y)).
 measure_op_LF(not+more,X,Y,\+exceeds(X,Y)).
 
-inverse80(most,-,least).
-inverse80(least,-,most).
-inverse80(same,-,same).
-inverse80(less,-,more).
-inverse80(more,-,less).
-inverse80(X,+,X).
+inverse_LF(most,-,least).
+inverse_LF(least,-,most).
+inverse_LF(same,-,same).
+inverse_LF(less,-,more).
+inverse_LF(more,-,less).
+inverse_LF(X,+,X).
 
 
 :- dynamic(adv_template/4).
@@ -343,32 +343,27 @@ deepen_case(X,X).
 % ================================================================
 % Determiner Indexing Table
 
-index_slot(index,I,I).
-index_slot(free,_,unit).
-index_slot(apply80,_,apply80).
-index_slot(comparator,_,comparator).
+i_slot(index,I,I).
+i_slot(free,_,unit).
+i_slot(apply80,_,apply80).
+i_slot(comparator,_,comparator).
 
-index_args(det(the(plu)),unit,I,set(I),index(I)) :- !.
-index_args(int_det(X),index(I),_,int_det(I,X),unit) :- !.
-index_args(generic,apply80,_,lambda,unit) :-!.
-index_args(D,comparator,_,id,unit) :-
- ( indexable(D); D=generic), !.
-index_args(D,unit,_,D,unit) :- !.
-index_args(det(D),I,_,I,I) :-
-   indexable(D),
-   index(I), !.
-index_args(D,I,_,D,I).
+i_index_args(det(the(plu)),unit,I,set(I),index(I)) :- !.
+i_index_args(int_det(X),index(I),_,int_det(I,X),unit) :- !.
+i_index_args(generic,apply80,_,lambda,unit) :-!.
+i_index_args(D,comparator,_,id,unit) :-
+ ( i_able(D); D=generic), !.
+i_index_args(D,unit,_,D,unit) :- !.
+i_index_args(det(D),I,_,I,I) :-
+   i_able(D),
+   i_index(I), !.
+i_index_args(D,I,_,D,I).
 
-indexable(the(plu)).
-indexable(all).
+i_able(the(plu)).
+i_able(all).
 
-index(index(_I)).
+i_index(index(_I)).
 
-% ================================================================
-% Utilities
 
-conc80([],L,L).
-conc80([X|L1],L2,[X|L3]) :-
-   conc80(L1,L2,L3).
 
 :- fixup_exports.

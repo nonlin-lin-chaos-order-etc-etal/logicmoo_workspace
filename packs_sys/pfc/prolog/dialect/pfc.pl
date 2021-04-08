@@ -34,6 +34,8 @@ expects_dialect/1:
    pfc_debug/1, pfc_expects_dialect/4,dialect_input_stream_pfc/1]).
 % :- asserta(swish:is_a_module).
 
+:- autoload(library(operators)).
+
 
 		 /*******************************
 		 *	     EXPANSION		*

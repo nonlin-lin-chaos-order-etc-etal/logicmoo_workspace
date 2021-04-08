@@ -1923,8 +1923,8 @@ nd(one_of,99,200,-99).
 nd(ratio,99,51,51,3).
 nd(card,99,100,3).
 nd(borders,29,22,22).
-nd(capital,22,22).
-nd(capital,22,22,23).
+nd(capital_city,22,22).
+nd(capital_city,22,22,23).
 nd(city,18,18).
 nd(continent,8,8).
 nd(country,22,22).

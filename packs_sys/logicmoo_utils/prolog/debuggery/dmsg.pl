@@ -155,9 +155,12 @@ dmsg000/1,
         with_show_dmsg(?, 0).
 
 :- autoload(library(apply),[maplist/2]).
-:- autoload(library(lists),[member/2,append/3,nth1/3]).
 :- autoload(library(occurs),[sub_term/2]).
 :- autoload(library(memfile),[memory_file_to_atom/2]).
+:- autoload(library(debug),[debug/3]).
+:- autoload(library(error),[must_be/2]).
+:- autoload(library(lists),[member/2,append/3,nth1/3]).
+:- autoload(library(listing),[portray_clause/3]).
 
 wldmsg_0(_CM,ops):- !.
 wldmsg_0(_CM,ops):-
@@ -989,8 +992,8 @@ mesg_color(T,C):-var(T),!,C=[blink(slow),fg(red),hbg(black)],!.
 mesg_color(T,C):- if_defined(is_sgr_on_code(T)),!,C=T.
 mesg_color(T,C):-cyclic_term(T),!,C=[reset,blink(slow),bold].
 mesg_color("",C):- !,C=[blink(slow),fg(red),hbg(black)],!.
-mesg_color(T,C):- string(T),!,must(f_word(T,F)),!,functor_color(F,C).
 mesg_color([_,_,_,T|_],C):-atom(T),mesg_color(T,C).
+mesg_color(T,C):- string(T),!,(f_word(T,F)),!,functor_color(F,C).
 mesg_color(List,C):-is_list(List),member(T,List),atom(T),mesg_color(T,C),!.
 mesg_color([T|_],C):-nonvar(T),!,mesg_color(T,C),!.
 mesg_color(T,C):-(atomic(T);is_list(T)), dmsg_text_to_string_safe(T,S),!,mesg_color(S,C).
@@ -1540,8 +1543,8 @@ tlbugger:term_color0(mpred_op,hfg(blue)).
 % Functor Word.
 %
 f_word("",""):-!.
-f_word(T,A):-concat_atom(List,' ',T),member(A,List),atom(A),atom_length(A,L),L>0,!.
-f_word(T,A):-concat_atom(List,'_',T),member(A,List),atom(A),atom_length(A,L),L>0,!.
+f_word(T,A):-concat_atom(List,' ',T),lists:member(A,List),atom(A),atom_length(A,L),L>0,!.
+f_word(T,A):-concat_atom(List,'_',T),lists:member(A,List),atom(A),atom_length(A,L),L>0,!.
 f_word(T,A):- string_to_atom(T,P),sub_atom(P,0,10,_,A),A\==P,!.
 f_word(T,A):- string_to_atom(T,A),!.
 

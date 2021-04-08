@@ -319,6 +319,7 @@ pfc_rescan_autoload_pack_packages_part_2 :- pack_autoload_packages(true).
 input_from_file:- prolog_load_context(stream,Stream),current_input(Stream).
 
 
+:- autoload(library(system),[lock_predicate/1]).
 :- module_transparent(expose_api/1).
 :- meta_predicate(expose_api(:)).
 :- module_transparent(expose_api/2).
@@ -329,8 +330,8 @@ expose_api(To,From:F/A):-!,
   
   %  From:compile_predicates([F/A])
   (From==baseKB-> true ;
-  ((predicate_property(From:F/A,dynamic)->true;system:lock_predicate(From:F/A)),
-  (mpred_database_term(F,A,_) -> system:lock_predicate(From:F/A);
+  ((predicate_property(From:F/A,dynamic)->true;lock_predicate(From:F/A)),
+  (mpred_database_term(F,A,_) -> lock_predicate(From:F/A);
   (From:export(From:F/A),To:import(From:F/A),To:export(From:F/A))))),
  % pfc:import(From:F/A),pfc:export(From:F/A),
  % user:import(From:F/A),user:export(From:F/A),
@@ -520,7 +521,9 @@ maybe_should_rename(O,O).
 
 :- discontiguous(baseKB:'$pldoc'/4).
 
+% in_dialect_pfc:- prolog_load_context(dialect,pfc),!.
 in_dialect_pfc:- is_pfc_file. % \+ current_prolog_flag(dialect_pfc,cwc),!.
+in_dialect_pfc:- prolog_load_context(dialect,pfc),!. % , break.
 
 %is_pfc_module(SM):- clause_b(using_pfc(SM,_, SM, pfc_toplevel)),!.
 %is_pfc_module(SM):- clause_b(using_pfc(SM,_, SM, pfc_mod)),!,baseKB:is_mtCanAssert(SM).

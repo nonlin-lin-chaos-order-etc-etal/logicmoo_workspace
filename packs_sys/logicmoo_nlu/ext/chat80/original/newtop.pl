@@ -159,7 +159,7 @@ process80(U):- process801(U), !.
 process80(_) :-
    failure.
 
-failure :-
+failure :- dumpST,
    write('I don''t understand!'), nl.
 
 report(Item,Label,Time,Mode) :-

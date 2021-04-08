@@ -323,7 +323,7 @@ when_var_locked(What):- t_l:varname_lock(What),!.
 % Hook To [dom:attr_unify_hook/2] For Module Logicmoo_varnames.
 % Attr Unify Hook.
 %
-vn:attr_unify_hook(X,Y):- quietly(must(vn_auh_0(X,Y))).
+vn:attr_unify_hook(X,Y):- ignore(quietly(must(vn_auh_0(X,Y)))).
 
 vn_auh_0(_, Var):- cyclic_term(Var),!,fail.
 vn_auh_0(Var,_):- cyclic_term(Var),!,fail.
