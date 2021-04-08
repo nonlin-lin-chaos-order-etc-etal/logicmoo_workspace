@@ -47,14 +47,14 @@ trans_rel_cache(P):-
   listing(trans_rel_cache(P,_)),
   listing(trans_rel_cache(P,_,_)).
 
-/*
+:- if(use_pfc80).
 :- expects_dialect(pfc).
 
 continent_contains_region(Continent,Region) ==> (ti(region,Region),ti(continent,Continent)).
 region_contains_country(Region,Country) ==> (ti(region,Region),ti(country,Country)).
 % Arg2 might be a river or city
 country_contains_thing(Country,_) ==> ti(country,Country).
-*/
+:- endif.
 
 contains(X,Y) :- directly_contains(X,Y).
 contains(X,Y) :- directly_contains(X,W), contains(W,Y).
@@ -64,13 +64,17 @@ directly_contains(Continent,Region):- continent_contains_region(Continent,Region
 directly_contains(Region,Country):- region_contains_country(Region,Country).
 directly_contains(Country,CityOrRiver):- country_contains_thing(Country,CityOrRiver).
 
-loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
-loc_in(X,Y) :- directly_in(X,W), ( W=Y ; loc_in(W,Y) ).
-
-directly_in(X,Y) :- in_continent(X,Y).
+directly_in(X,Y) :- continent_contains_region(Y,X).
 directly_in(X,Y) :- city_country_popu(X,Y,_).
 directly_in(X,Y) :- c_r_l_l_s_cap_m(X,Y,_,_,_,_,_,_).
 directly_in(X,Y) :- flows_thru(X,Y).
+
+region(R) :- continent_contains_region(_,R).
+
+
+loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
+loc_in(X,Y) :- directly_in(X,W), ( W=Y ; loc_in(W,Y) ).
+
 
 
 

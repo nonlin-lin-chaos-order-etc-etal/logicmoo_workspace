@@ -49,7 +49,13 @@ city(C) :- city_country_popu(C,_,_).
 country(C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
 latitude(_X--degrees).
 longitude(_X--degrees).
-place(X) :- continent(X); region(X); seamass(X); country(X).
+%place(X) :- continent(X); region(X); seamass(X); country(X).
+:- if(use_pfc80).
+ti(place,X) ==> place(X).
+:- else.
+place(X) :- ti(place,X).
+:- endif.
+
 ==> sub_ti(seamass,place).
 ==> sub_ti(continent,place).
 ==> sub_ti(region,place).
@@ -57,7 +63,6 @@ place(X) :- continent(X); region(X); seamass(X); country(X).
 
 population(_X--million).
 population(_X--thousand).
-region(R) :- in_continent(R,_).
 
 african(X) :- loc_in(X,africa).
 american(X) :- loc_in(X,america).
@@ -101,7 +106,7 @@ ti(continent,europe).
 
 continent(X):- ti(continent,X).
 
-in_continent(R,C):- continent_contains_region(C,R).
+%in_continent(R,C):- continent_contains_region(C,R).
 /*
 in_continent(scandinavia, europe).
 in_continent(western_europe, europe).
@@ -124,8 +129,6 @@ in_continent(northern_asia, asia).
 */
 
 seamass(X):- ti(seamass,X).
-
-ti(T2,X) :- sub_ti(T1,T2), ti(T1,X).
 
 ==> sub_ti(ocean,seamass).
 ==> sub_ti(sea,seamass).
@@ -168,6 +171,8 @@ link_pairs([_|L],X1,X2) :- link_pairs(L,X1,X2).
 
 :- if(use_pfc80).
 ==> (( (sub_ti(Child,Parent), ti(Child,X)) ==> ti(Parent,X) )).
+:- else.
+ti(T2,X) :- sub_ti(T1,T2), ti(T1,X).
 :- endif.
 
 
