@@ -69,7 +69,9 @@ directly_contains(Country,CityOrRiver):- country_contains_thing(Country,CityOrRi
 
 directly_contains(Country,River):- flows_thru(River,Country).
 
-country_contains_thing(Country,City) :- city_country_popu(City,Country,_).
+country_contains_thing(Country,City) :- clause(city_country_popu(City,Country,_),true).
+country_contains_thing(Country,City) :- country_capital_city(Country,City).
+
 region_contains_country(R,C) :- c_r_l_l_s_cap_m(C,R,_,_,_,_,_,_).
 
 

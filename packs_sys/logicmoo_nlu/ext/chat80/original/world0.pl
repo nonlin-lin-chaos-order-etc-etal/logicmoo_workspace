@@ -32,7 +32,7 @@
 
 exceeds(X,Y):- term_variables(X-Y,Vars),freeze_until(Vars,exceeds0(X,Y)).
 
-freeze_until([],Goal):-!, Goal.
+freeze_until([],Goal):-!, term_variables(Goal, Vars),(Vars==[] -> Goal ; freeze_until(Vars,Goal)).
 freeze_until([V|Vars],Goal):- freeze(V,freeze_until(Vars,Goal)).
 
 exceeds0(X--U,Y--U) :- !, X > Y.
@@ -46,9 +46,26 @@ ratio80(sqmiles,ksqmiles,1,1000).
 area(_X--ksqmiles).
 country_capital_city(_X,C)==>ti(capital_city,C).
 capital_city(C) :- ti(capital_city, C).
-%capital_city(C) :- country_capital_city(_X,C).
-city(C) :- city_country_popu(C,_,_).
-%country(C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
+:- if(false).
+% @TODO PERF BUG
+city_country_popu(C,_,_)==>ti(city,C).
+city(C):- ti(city,C).
+:- else.
+% city(C):- city_country_popu(C,_,_).
+city(C):- ti(city,C).
+%city(C):- ti(city,C), \+ city_country_popu(C,_,_).
+madeup_city_country_popu(C,Nat,PopOut):- 
+  ti(city,C), \+ clause(city_country_popu(C,_,_), true),
+  once((directly_contains(Nat,C), 
+  c_r_l_l_s_cap_m(Nat,_,_,_,_,Pop,_,_))),  
+  % estimate at least a quarter of country population
+  A is integer(Pop/4000000), 
+  % add a magic number
+  PopOut is (A*1000) + 666.
+city_country_popu(C,Nat,Pop):- madeup_city_country_popu(C,Nat,Pop).
+% city(C):- ti(city,C), \+ city_country_popu(C,_,_).
+:- endif.
+%ti(country,C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
 country(C):- ti(country,C).
 latitude(_X--degrees).
 longitude(_X--degrees).
@@ -98,7 +115,7 @@ area(C,A--ksqmiles) :-
 population(C,P--thousand) :- city_country_popu(C,_,P).
 population(C,P--million) :-
    c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
-country_capital_city(C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
+%country_capital_city(C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
 
 ti(continent,africa).
 ti(continent,america).

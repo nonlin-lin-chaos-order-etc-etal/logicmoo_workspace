@@ -104,7 +104,7 @@ c_r_l_l_s_cap_m(cyprus,southern_europe,35,-33,3572,660000,nicosia,pound).
 c_r_l_l_s_cap_m(czechoslovakia,eastern_europe,49,-17,49371,14580000,prague,koruna).
 c_r_l_l_s_cap_m(dahomey,west_africa,8,-2,43483,2910000,porto_novo,cfa_franc).
 c_r_l_l_s_cap_m(denmark,scandinavia,55,-9,16615,5130000,copenhagen,krone).
-c_r_l_l_s_cap_m(djibouti,east_africa,12,-42,9071,45000,djibouti,?).
+c_r_l_l_s_cap_m(djibouti,east_africa,12,-42,9071,45000,djibouti_city,?).
 c_r_l_l_s_cap_m(dominican_republic,caribbean,19,70,18704,4430000,santa_domingo,peso).
 c_r_l_l_s_cap_m(east_germany,eastern_europe,52,-12,40646,16980000,east_berlin,ddr_mark).
 c_r_l_l_s_cap_m(ecuador,south_america,-2,78,105685,6730000,quito,sucre).
@@ -148,7 +148,7 @@ c_r_l_l_s_cap_m(lesotho,southern_africa,-30,-28,11716,1200000,masero,rand).
 c_r_l_l_s_cap_m(liberia,west_africa,6,9,43000,1660000,monrovia,us_dollar).
 c_r_l_l_s_cap_m(libya,north_africa,28,-17,679536,2257000,tripoli,libyan_dinar).
 c_r_l_l_s_cap_m(liechtenstein,western_europe,47,-9,62,23000,vaduz,swiss_franc).
-c_r_l_l_s_cap_m(luxembourg,western_europe,50,-6,999,350000,luxembourg,luxembourg_franc).
+c_r_l_l_s_cap_m(luxembourg,western_europe,50,-6,999,350000,luxembourg_city,luxembourg_franc).
 c_r_l_l_s_cap_m(malagasy,southern_africa,-20,-47,203035,7655000,tananarive,ariary).
 c_r_l_l_s_cap_m(malawi,southern_africa,-13,-34,45747,4790000,zomba,kwacha).
 c_r_l_l_s_cap_m(malaysia,southeast_east,5,-110,128328,10920000,kuala_lumpa,malaysian_dollar).
@@ -158,7 +158,7 @@ c_r_l_l_s_cap_m(malta,southern_europe,36,-14,122,319000,valetta,pound).
 c_r_l_l_s_cap_m(mauritania,west_africa,21,10,419229,1260000,nouakchott,ouguiya).
 c_r_l_l_s_cap_m(mauritius,southern_africa,-20,-57,787,870000,port_louis,rupee).
 c_r_l_l_s_cap_m(mexico,central_america,20,100,761601,54300000,mexico_city,peso).
-c_r_l_l_s_cap_m(monaco,southern_europe,44,-7,1,30000,monaco,french_franc).
+c_r_l_l_s_cap_m(monaco,southern_europe,44,-7,1,30000,monaco_city,french_franc).
 c_r_l_l_s_cap_m(mongolia,northern_asia,47,-103,604247,1360000,ulan_bator,tighrik).
 c_r_l_l_s_cap_m(morocco,north_africa,32,6,171953,16310000,rabat,dirham).
 c_r_l_l_s_cap_m(mozambique,southern_africa,-19,-35,303373,8820000,maputo,?).
@@ -172,7 +172,7 @@ c_r_l_l_s_cap_m(north_korea,far_east,40,-127,46768,15090000,pvongvang,won).
 c_r_l_l_s_cap_m(norway,scandinavia,64,-11,125181,3960000,oslo,krone).
 c_r_l_l_s_cap_m(oman,middle_east,23,-58,82000,720000,muscat,riyal_omani).
 c_r_l_l_s_cap_m(pakistan,indian_subcontinent,30,-70,342750,66750000,islamad,rupee).
-c_r_l_l_s_cap_m(panama,central_america,9,80,28753,1570000,panama,balboa).
+c_r_l_l_s_cap_m(panama,central_america,9,80,28753,1570000,panama_city,balboa).
 c_r_l_l_s_cap_m(papua_new_guinea,oceania,-8,-145,183540,2580000,port_harcourt,australian_dollar).
 c_r_l_l_s_cap_m(paraguay,south_america,-23,57,157047,2670000,asuncion,guarani).
 c_r_l_l_s_cap_m(peru,south_america,-8,75,496222,14910000,lima,sol).
@@ -182,12 +182,12 @@ c_r_l_l_s_cap_m(portugal,southern_europe,40,7,35340,8560000,lisbon,escudo).
 c_r_l_l_s_cap_m(qatar,middle_east,25,-51,4000,115000,doha,riyal).
 c_r_l_l_s_cap_m(romania,eastern_europe,46,-25,91699,5690000,bucharest,leu).
 c_r_l_l_s_cap_m(rwanda,central_africa,-2,-30,10169,3980000,kigali,rwanda_franc).
-c_r_l_l_s_cap_m(san_marino,southern_europe,44,-12,24,20000,san_marino,italian_lira).
+c_r_l_l_s_cap_m(san_marino,southern_europe,44,-12,24,20000,san_marino_city,italian_lira).
 c_r_l_l_s_cap_m(saudi_arabia,middle_east,26,-44,873000,8100000,riyadh,riyal).
 c_r_l_l_s_cap_m(senegal,west_africa,14,14,76124,4230000,dakar,cfa_franc).
 c_r_l_l_s_cap_m(seychelles,east_africa,-4,-55,40,156000,victoria,rupee).
 c_r_l_l_s_cap_m(sierra_leone,west_africa,9,12,27925,2860000,freetown,leone).
-c_r_l_l_s_cap_m(singapore,southeast_east,1,-104,226,2190000,singapore,singapore_dollar).
+c_r_l_l_s_cap_m(singapore,southeast_east,1,-104,226,2190000,singapore_city,singapore_dollar).
 c_r_l_l_s_cap_m(somalia,east_africa,7,-47,246155,3100000,mogadishu,somali_shilling).
 c_r_l_l_s_cap_m(south_africa,southern_africa,-30,-25,471819,23720000,pretoria,rand).
 c_r_l_l_s_cap_m(south_korea,far_east,36,-128,38031,33333000,seoul,won).

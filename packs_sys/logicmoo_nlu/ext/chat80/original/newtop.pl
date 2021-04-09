@@ -143,16 +143,19 @@ process801(U) :-
    sent_to_prelogic(E,S), !,
    runtime(StopSem),
    SemTime is StopSem - StartSem,
-   % report(S,'Semantics',SemTime,expr),
+   % \+ \+ report(S,'Semantics',SemTime,expr),
    runtime(StartPlan),
    qplan(S,S1), !,
    runtime(StopPlan),
    TimePlan is StopPlan - StartPlan,
-   (S1==S -> Show1= planned_same; Show1=S1),
-   %report(Show1,'Planning',TimePlan,expr),
+   (S1==S -> Show1= planned_same(S1); Show1=plan_evolved(S->S1)),
+   report(Show1,'Planning',TimePlan,expr),
    runtime(StartAns),
    writeln('-----------'),
-   once((ignore(answer80(S1)),true)), !, nl,
+   write('HEARD: '),writeln(U),
+   writeln('-----------'),
+   write('REPLY: '),
+   forall((catch((answer80(S1)*->fail;writeln(failed(answer80(S1)))),Err,(writeln(S1),writeln(error(Err))))),true), !, nl,
    runtime(StopAns),
    TimeAns is StopAns - StartAns,
    report(_,'Reply',TimeAns,none).
@@ -167,16 +170,19 @@ failure :- dumpST,
 report(Item,Label,Time,Mode) :-
    t_l:tracing80, !,
    nl, write(Label), write(': '), write(Time), write('sec.'), nl,
-   \+ \+ report_item(Mode,Item),!.
+   report_item(Mode,Item),!.
 report(_,_,_,_).
 
 report_item(none,_).
 report_item(T,Var):-var(Var),!,write('FAILED: '+T),nl.
-report_item(portray,Item) :-
+report_item(Mode,Item):-
+  copy_term(Item,ItemCopy),
+  ignore( \+ report_item0(Mode,ItemCopy)).
+report_item0(portray,Item) :-
    portray_clause((Item:-Item)), nl.
-report_item(expr,Item) :-
+report_item0(expr,Item) :-
    write_tree(Item), nl.
-report_item(tree,Item) :-
+report_item0(tree,Item) :-
    print_tree80(Item), nl.
 
 runtime(Time) :-

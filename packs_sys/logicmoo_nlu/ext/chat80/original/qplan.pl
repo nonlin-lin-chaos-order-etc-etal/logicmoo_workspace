@@ -27,9 +27,31 @@ qplan((P:-Q),(P1:-Q1)) :- qplan(P,Q,P1,Q1), !.
 qplan(P,P).
 
 qplan(assertion80(X),QPlan,assertion80(X),assertion80(QPlan)):-!.
-qplan(P,Q,P1,Q1):- pprint_ecp_cmt(yellow,qplan(P,Q,P1,Q1)),fail.
-qplan(X0,P0,X,P) :-
-   numbervars(X0,0,I), varialbes80(X0,0,Vg),
+%qplan(X0,P0,X,P):- !, X=X0, P=P0,!.
+qplan(X0,P0,X,P):- 
+  Find = (X:-P),
+  findall(Find,qplan_each(X0,P0,X,P),Each),!,
+ % \+ \+ pprint_ecp_cmt(yellow,(qplan:-[X0:-P0|Each])),
+  sort:predsort(least_complex80,Each,Sorted),!,
+  reverse(Sorted,[Find|_]),!.
+
+least_complex80(R,Term1,Term2):- once((term_variables(Term1,Vs1),Vs1\==Term1,term_variables(Term2,Vs2),Vs2\==Term2,
+  (Vs1\=Vs2),least_complex80(R,Vs1,Vs2))), R\==(=),!.
+least_complex80(R,Term1,Term2):- 
+  term_complxity(Term1,Cplx1),
+  term_complxity(Term2,Cplx2),
+  compare(RC,Cplx1,Cplx2),
+  (RC \= (=) -> R=RC ; compare(R,Term1,Term2)).
+
+term_complxity(Term ,Cplx ):- is_ftVar(Term ),!,Cplx  =  10.
+term_complxity(Term ,Cplx ):- \+ compound(Term ), !, Cplx  = 1 .
+term_complxity([A|B],Cplx ):- !, term_complxity(A,CplxA),term_complxity(B,CplxA), Cplx is CplxA+CplxB.
+term_complxity(Term ,Cplx ):- compound_name_arguements(Term ,Name,Args),
+  length(Args, CplxA),term_complxity(Args, CplxB ), Cplx is CplxA+CplxB.
+
+qplan_each(X0,P0,X,P) :-
+   numbervars(X0,0,I), 
+   varialbes80(X0,0,Vg),
    numbervars(P0,I,N),
    mark80(P0,L,0,Vl),
    schedule(L,Vg,P1),
@@ -107,7 +129,7 @@ schedule1(m(V,C,P),Vg,Q) :-
    maybe_cut(V,Vg,Q0,Q),
    plan80(P,V,C,Vg,Q0).
 
-maybe_cut(V,Vg,P,{P}) :- disjoint(V,Vg), !.
+maybe_cut(V,Vg,P,{P}) :- disjoint80(V,Vg), !.
 maybe_cut(_V,_Vg,P,P).
 
 plan80(\+P,Vg,_,_,\+Q) :- !, Vg = 0,
@@ -142,7 +164,7 @@ best_goal( ','(P1,P2),V,C,P0,V0,m(V,C,Q)) :- !,
 best_goal(P,V,_C,P,V,true).
 
 instantiate(true,_,[]) :- !.
-instantiate(P,Vi,[P]) :- freevars(P,V), disjoint(V,Vi), !.
+instantiate(P,Vi,[P]) :- freevars(P,V), disjoint80(V,Vi), !.
 instantiate(m(V,_,P),Vi,L) :- instantiate0(P,V,Vi,L).
 
 instantiate0( ','(P1,P2),_,Vi,L) :-
@@ -175,7 +197,7 @@ recombine80([P|L1],L2,[P|L]) :- recombine80(L1,L2,L).
 
 incorporate(P0,V0,C0,P1,L1,L) :-
    marked80(P1,V1,C1,_),
-   intersect(V0,V1), !,
+   intersect80(V0,V1), !,
    setplus(V0,V1,V),
    minimum(C0,C1,C),
    incorporate0(m(V,C, ','(P0,P1)),V,C,L1,L).
@@ -283,14 +305,14 @@ setcontains(_W-V,N) :- N < 18, !, V /\ 1<<N =\= 0.
 setcontains(W-_V,N) :- !, N1 is N-18, setcontains(W,N1).
 setcontains(V,N) :- N < 18, V /\ 1<<N =\= 0.
 
-intersect(W1-V1,W2-V2) :- !, ( V1 /\ V2 =\= 0 ; intersect(W1,W2) ), !.
-intersect(_W-V1,V2) :- !, V1 /\ V2 =\= 0.
-intersect(V1,_W-V2) :- !, V1 /\ V2 =\= 0.
-intersect(V1,V2) :- V1 /\ V2 =\= 0.
+intersect80(W1-V1,W2-V2) :- !, ( V1 /\ V2 =\= 0 ; intersect80(W1,W2) ), !.
+intersect80(_W-V1,V2) :- !, V1 /\ V2 =\= 0.
+intersect80(V1,_W-V2) :- !, V1 /\ V2 =\= 0.
+intersect80(V1,V2) :- V1 /\ V2 =\= 0.
 
-disjoint(W1-V1,W2-V2) :- !, V1 /\ V2 =:= 0, disjoint(W1,W2).
-disjoint(_W-V1,V2) :- !, V1 /\ V2 =:= 0.
-disjoint(V1,_W-V2) :- !, V1 /\ V2 =:= 0.
-disjoint(V1,V2) :- V1 /\ V2 =:= 0.
+disjoint80(W1-V1,W2-V2) :- !, V1 /\ V2 =:= 0, disjoint80(W1,W2).
+disjoint80(_W-V1,V2) :- !, V1 /\ V2 =:= 0.
+disjoint80(V1,_W-V2) :- !, V1 /\ V2 =:= 0.
+disjoint80(V1,V2) :- V1 /\ V2 =:= 0.
 
 :- fixup_exports.
