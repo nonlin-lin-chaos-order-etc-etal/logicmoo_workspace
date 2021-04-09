@@ -44,17 +44,20 @@ ratio80(ksqmiles,sqmiles,1000,1).
 ratio80(sqmiles,ksqmiles,1,1000).
 
 area(_X--ksqmiles).
-capital_city(C) :- country_capital_city(_X,C).
+country_capital_city(_X,C)==>ti(capital_city,C).
+capital_city(C) :- ti(capital_city, C).
+%capital_city(C) :- country_capital_city(_X,C).
 city(C) :- city_country_popu(C,_,_).
-country(C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
+%country(C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
+country(C):- ti(country,C).
 latitude(_X--degrees).
 longitude(_X--degrees).
 %place(X) :- continent(X); region(X); seamass(X); country(X).
 :- if(use_pfc80).
-ti(place,X) ==> place(X).
+%ti(place,X) ==> place(X).
 :- else.
-place(X) :- ti(place,X).
 :- endif.
+place(X) :- ti(place,X).
 
 ==> sub_ti(seamass,place).
 ==> sub_ti(continent,place).

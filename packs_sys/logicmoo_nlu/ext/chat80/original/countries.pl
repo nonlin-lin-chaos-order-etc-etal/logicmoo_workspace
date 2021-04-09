@@ -39,7 +39,7 @@
 :-op(600,xfy,--).
 
 
-country_capital_city(Country,Capital)==> (ti(country,Country), t(capital_city,Capital)).
+country_capital_city(Country,Capital)==> (ti(country,Country), ti(capital_city,Capital)).
 ==> sub_ti(capital_city,city).
 
 
@@ -63,7 +63,8 @@ c_r_l_l_s_cap_m(Country,Region,Latitude,Longitude,
 %area(C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is integer(A0/1000).
 %ammount_spatial(population,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
 %country_capital_city(C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
-
+:- else.
+% ti(capital_city,C) :- country_capital_city(_X,C).
 :- endif.
 
 
