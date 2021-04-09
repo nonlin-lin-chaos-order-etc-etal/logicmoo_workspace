@@ -54,6 +54,7 @@ continent_contains_region(Continent,Region) ==> (ti(region,Region),ti(continent,
 region_contains_country(Region,Country) ==> (ti(region,Region),ti(country,Country)).
 % Arg2 might be a river or city
 country_contains_thing(Country,_) ==> ti(country,Country).
+region(R) :- ti(region, R).
 :- else.
 region(R) :- continent_contains_region(_,R).
 :- endif.

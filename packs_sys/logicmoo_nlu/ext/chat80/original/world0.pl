@@ -106,28 +106,6 @@ ti(continent,europe).
 
 continent(X):- ti(continent,X).
 
-%in_continent(R,C):- continent_contains_region(C,R).
-/*
-in_continent(scandinavia, europe).
-in_continent(western_europe, europe).
-in_continent(eastern_europe, europe).
-in_continent(southern_europe, europe).
-in_continent(north_america, america).
-in_continent(central_america, america).
-in_continent(caribbean, america).
-in_continent(south_america, america).
-in_continent(north_africa, africa).
-in_continent(west_africa, africa).
-in_continent(central_africa, africa).
-in_continent(east_africa, africa).
-in_continent(southern_africa, africa).
-in_continent(middle_east,  asia).
-in_continent(indian_subcontinent, asia).
-in_continent(southeast_east, asia).
-in_continent(far_east, asia).
-in_continent(northern_asia, asia).
-*/
-
 seamass(X):- ti(seamass,X).
 
 ==> sub_ti(ocean,seamass).
@@ -151,7 +129,8 @@ ti(sea,red_sea).
 
 sea(X):- ti(sea,X).
 
-river(R) :- river_flows(R,_L).
+river(X):- ti(river,X).
+ti(river,R) :- river_flows(R,_L).
 
 rises(R,C) :- river_flows(R,L), last_link(L,C).
 
@@ -172,7 +151,7 @@ link_pairs([_|L],X1,X2) :- link_pairs(L,X1,X2).
 :- if(use_pfc80).
 ==> (( (sub_ti(Child,Parent), ti(Child,X)) ==> ti(Parent,X) )).
 :- else.
-ti(T2,X) :- sub_ti(T1,T2), ti(T1,X).
+ti(Parent,X) :- sub_ti(Child,Parent), ti(Child,X).
 :- endif.
 
 
