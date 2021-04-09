@@ -2,6 +2,7 @@
 
 # Installs with 
 #   source <(curl -sS https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace/-/raw/master/web_install.sh)
+#   source <(curl -sS https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh)
 
 if [[ $EUID -ne 0 ]]; then
    echo ""
@@ -25,7 +26,7 @@ fi
 mkdir -p /opt
 cd /opt
 if [ ! -d "logicmoo_workspace" ]; then
-  git clone --recursive https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
+  git clone --recursive https://github.com/logicmoo/logicmoo_workspace.git
 fi
 
 cd logicmoo_workspace
