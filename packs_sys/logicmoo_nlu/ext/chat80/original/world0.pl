@@ -130,7 +130,7 @@ ti(sea,red_sea).
 sea(X):- ti(sea,X).
 
 river(X):- ti(river,X).
-ti(river,R) :- river_flows(R,_L).
+%ti(river,R) :- river_flows(R,_L).
 
 rises(R,C) :- river_flows(R,L), last_link(L,C).
 
