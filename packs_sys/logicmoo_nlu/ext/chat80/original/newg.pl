@@ -111,8 +111,8 @@ variable_q(B,C,compl,D,E,F,G,x(gap,nonterminal,pred(adj,value(H,wh(B)),I),J)) :-
 adv_phrase(B,C,D,E,E,F,G) :-
    virtual(adv_phrase(B,C,D),F,G).
 adv_phrase(prep_phrase(B,C),D,E,F,G,H,I) :-
-   loc_pred(B,F,J,H,K),
-   prep_phrase(prep_phrase(prep(of),C),compl,D,E,J,G,K,I).
+   loc_pred(Of,B,F,J,H,K),
+   prep_phrase(prep_phrase(prep(Of),C),compl,D,E,J,G,K,I).
 
 
 pred(B,C,D,E,E,F,G) :-
@@ -366,7 +366,7 @@ sup_phrase(sup(B,C),D,E,F,G) :-
 
 comp_phrase(comp(B,C,D),E,F,G,H,I) :-
    comp(B,C,F,J,H,K),
-%  np_no_do_trace(L),		% JW: Not defined
+   np_no_trace(L),
    prep_case(M),
    np(D,N,M,O,compl,L,E,J,G,K,I).
 
@@ -721,9 +721,9 @@ conj(B,list,end,C,D,E,F) :-
    conj(B).
 
 
-loc_pred(B,C,D,E,F) :-
+loc_pred(Of,B,C,D,E,F) :-
    terminal(G,C,D,E,F),
-   loc_pred(G,B).
+   loc_pred(Of,G,B).
 
 
 '`'(B,C,D,E,F) :-

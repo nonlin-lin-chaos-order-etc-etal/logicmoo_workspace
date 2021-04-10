@@ -73,7 +73,7 @@ ed(  1, [ what, rivers, are, there, ? ],
 		hwang_ho, indus, irrawaddy, lena, limpopo, mackenzie,
 		mekong, mississippi, murray, niger_river, nile, ob, oder,
 		orange, orinoco, parana, rhine, rhone, rio_grande, salween,
-		senegal_river, tagus, vistula, volga, volta, yangtze,
+		seine, senegal_river, tagus, vistula, volga, volta, yangtze,
 		yenisei, yukon, zambesi]  ).
 
 ed(  2, [ does, afghanistan, border, china, ? ],
@@ -172,11 +172,11 @@ ed( 20, [ which, countries, have, a, population, exceeding, nb(10),
 		[afghanistan, algeria, argentina, australia, bangladesh,
 		brazil, burma, canada, china, colombia, czechoslovakia,
 		east_germany, egypt, ethiopia, france, india, indonesia,
-		iran, italy, japan, kenya, mexico, morocco, nepal,
+		iran, italy, japan, kenya, malaysia, mexico, morocco, nepal,
 		netherlands, nigeria, north_korea, pakistan, peru,
 		philippines, poland, south_africa, south_korea,
 		soviet_union, spain, sri_lanka, sudan, taiwan, tanzania,
-		thailand, turkey, united_kingdom, united_states, venezuela,
+		thailand, turkey, uganda, united_kingdom, united_states, venezuela,
 		vietnam, west_germany, yugoslavia, zaire]  ).
 
 ed( 21, [ which, countries, with, a, population, exceeding, nb(10), million,
@@ -314,7 +314,7 @@ answer((answer(X):-E),S) :- seto(X,E,S).
 
 check_answer(A,B,true) :- close_answer(A,B),!.
 check_answer(A,B,'wrong answer'):-
-  pprint_ecp_cmt(red,check_answer(A,B,'wrong answer')).
+  pprint_ecp_cmt(red,check_answer(A,B,'wrong answer')),dumpST.
   
 close_answer(A,A).
 close_answer(A,B):- number(A),number(B),X is integer(A),Y is integer(A),X=Y.

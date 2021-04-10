@@ -216,8 +216,8 @@ verb_mod(Adv,Set,Nil) --->
 verb_mod(PP,Set,Mask) ---> prep_phrase(PP,compl,Set,Mask).
 
 adv_phrase(prep_phrase(Prep,NP),Set,Mask) --->
-   loc_pred(Prep),
-   prep_phrase(prep_phrase(prep(of),NP),compl,Set,Mask).
+   loc_pred(Of,Prep),
+   prep_phrase(prep_phrase(prep(Of),NP),compl,Set,Mask).
 
 /* Adjectival Constructions */
 

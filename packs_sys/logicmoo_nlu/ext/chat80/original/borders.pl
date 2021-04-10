@@ -1,23 +1,24 @@
-/*
+/*  Copyright 1986-2020 David H. D. Warren, Fernando C. N. Pereira and
+    Jan Wielemaker.
 
- _________________________________________________________________________
-|	Copyright (C) 1982						  |
-|									  |
-|	David Warren,							  |
-|		SRI International, 333 Ravenswood Ave., Menlo Park,	  |
-|		California 94025, USA;					  |
-|									  |
-|	Fernando Pereira,						  |
-|		Dept. of Architecture, University of Edinburgh,		  |
-|		20 Chambers St., Edinburgh EH1 1JZ, Scotland		  |
-|									  |
-|	This program may be used, copied, altered or included in other	  |
-|	programs only for academic purposes and provided that the	  |
-|	authorship of the initial program is aknowledged.		  |
-|	Use for commercial purposes without the previous written 	  |
-|	agreement of the authors is forbidden.				  |
-|_________________________________________________________________________|
+    Permission is hereby granted, free of charge, to any person obtaining a
+    copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
 
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 % Facts about Europe.

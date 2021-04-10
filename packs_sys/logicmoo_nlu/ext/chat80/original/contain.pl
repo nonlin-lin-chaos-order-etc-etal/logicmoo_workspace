@@ -23,9 +23,36 @@ _________________________________________________________________________
 
 % Inversion of the 'in' relation.
 % ------------------------------
+:- dynamic(trans_rel_cache_create/2).
+:- dynamic(trans_rel_cache_insts/3).
+:- dynamic(trans_rel_cache/4).
+trans_rel(P1,P2,X,Y) :- trans_rel_cache_create(P1,P2),!, trans_rel_cache(P1,P2,X,Y).
+trans_rel(P1,P2,X,Y):- trans_rel_nc(P1,P2,X,Y).
 
-contains(X,Y) :- directly_contains(X,Y).
-contains(X,Y) :- directly_contains(X,W), contains(W,Y).
+trans_rel_nc(P1,P2,X,Y) :- var(X),!, no_repeats(X, trans_rel_rl(P1,P2,X,Y)).
+trans_rel_nc(P1,P2,X,Y) :- nonvar(Y), !, trans_rel_lr(P1,P2,X,Y), !.
+trans_rel_nc(P1,P2,X,Y) :- no_repeats(Y, trans_rel_lr(P1,P2,X,Y)).
+
+trans_rel_lr(P1,P2,X,Y) :- call(P2,X,W), ( call(P1,W,Y) ; trans_rel_lr(P1,P2,W,Y) ).
+trans_rel_rl(P1,P2,X,Y) :- call(P2,W,Y), ( call(P1,W,X) ; trans_rel_rl(P1,P2,X,W) ).
+
+trans_rel_cache_create(P1,P2):-
+  must_be(ground,(P1,P2)),
+  forall(call(P2,XX,YY),
+     (assert_if_new(trans_rel_cache_insts(P1,P2,XX)),
+      assert_if_new(trans_rel_cache_insts(P1,P2,YY)))),
+  forall(trans_rel_cache_insts(P1,P2,E),
+        (forall(trans_rel_nc(P1,P2,E,Y),assert_if_new(trans_rel_cache(P1,P2,E,Y))),
+         forall(trans_rel_nc(P1,P2,Y,E),assert_if_new(trans_rel_cache(P1,P2,Y,E))))),
+  asserta((trans_rel_cache_create(P1,P2):-!)),!,
+  listing(trans_rel_cache_insts(P1,P2,_Instances)),
+  listing(trans_rel_cache(P1,P2,_,_)).
+  
+
+%contains(X,Y) :- directly_contains(X,Y).
+%contains(X,Y) :- directly_contains(X,W), contains(W,Y).
+
+contains(X,Y) :- trans_rel(=,directly_contains,X,Y).
 
 directly_contains(Continent,Region):- continent_contains_region(Continent,Region).
 directly_contains(Region,Country):- region_contains_country(Region,Country).

@@ -44,7 +44,7 @@ word(Word) :- number(Word,_,_).
 word(Word) :- det(Word,_,_,_).
 word(Word) :- int_art(Word,_,_,_).
 word(Word) :- int_pron(Word,_).
-word(Word) :- loc_pred(Word,_).
+word(Word) :- loc_pred(_,Word,_).
 
 '`' how.
 '`' whose.
@@ -279,10 +279,10 @@ adj(total,restr).
 adverb(tomorrow).
 adverb(yesterday).
 
-loc_pred(east,prep(eastof)).
-loc_pred(north,prep(northof)).
-loc_pred(south,prep(southof)).
-loc_pred(west,prep(westof)).
+loc_pred(of,east,prep(cp(east,of))).
+loc_pred(of,north,prep(cp(north,of))).
+loc_pred(of,south,prep(cp(south,of))).
+loc_pred(of,west,prep(cp(west,of))).
 
 noun_plu(areas,area).
 noun_plu(averages,average).

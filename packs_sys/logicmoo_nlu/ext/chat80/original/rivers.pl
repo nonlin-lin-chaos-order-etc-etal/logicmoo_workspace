@@ -23,6 +23,8 @@
 % Facts about rivers.
 % ------------------
 
+flow_link(river,R,L):-river_flows(R,L).
+
 river_flows(amazon,[atlantic,brazil,peru]).
 river_flows(amu_darya,[aral_sea,soviet_union,afghanistan]).
 river_flows(amur,[pacific,soviet_union,china,mongolia]).
@@ -57,7 +59,7 @@ river_flows(rhone,[mediterranean,france,switzerland]).
 river_flows(rio_grande,[atlantic,mexico,united_states]).
 river_flows(salween,[indian_ocean,burma,china]).
 river_flows(senegal_river,[atlantic,senegal,mali,guinea]).
-% river_flows(seine,[atlantic,france]).
+river_flows(seine,[atlantic,france]).
 river_flows(tagus,[atlantic,portugal,spain]).
 river_flows(vistula,[baltic,poland]).
 river_flows(volga,[black_sea,soviet_union]).

@@ -67,7 +67,7 @@ i_np_head0(np_head(int_det(V),Adjs,Noun),
    comparator(Noun,Type,V,Adjs,Det).
 i_np_head0(np_head(quant(Op0,N),Adjs,Noun),
       Type-X,Type-X,void,'`' P,Pred,Pred,[]) :-
-   measure(Noun,Type,Adjs,Units),
+   measure_LF(Noun,Type,Adjs,Units),
    conversion(N,Op0,Type,V,Op),
    measure_op(Op,X,V--Units,P).
 i_np_head0(name(Name),
@@ -139,7 +139,7 @@ i_adjs([Adj|Adjs],X,T,T0,Head0,Head,Pred0,Pred) :-
    i_adjs(Adjs,X,T1,T0,Head1,Head,Pred1,Pred).
 
 i_adj(adj(Adj),Type-X,T,T,Head,Head,'`' P&Pred,Pred) :-
-   restriction(Adj,Type,X,P).
+   restriction_LF(Adj,Type,X,P).
 i_adj(adj(Adj),TypeX-X,TypeV-V,_,
    aggr(F,V,[X],Head,Pred),Head,'`' true,Pred) :-
    aggr_adj(Adj,TypeV,TypeX,F).
@@ -148,10 +148,10 @@ i_adj(sup(Op0,adj(Adj)),Type-X,Type-V,_,
    chat_sign(Adj,Sign),
    inverse(Op0,Sign,Op),
    i_sup_op(Op,F),
-   attribute(Adj,Type,X,_,Y,P).
+   attribute_LF(Adj,Type,X,_,Y,P).
 i_adj(adj(Adj),TypeX-X,T,T,_,
       Head,Head,quant(void,TypeX-Y,'`' P,'`' Q&Pred,[],_),Pred) :-
-   attribute(Adj,TypeX,X,_,Y,P),
+   attribute_LF(Adj,TypeX,X,_,Y,P),
    standard(Adj,TypeX,Y,Q).
 
 i_s(s(Subj,Verb,VArgs,VMods),Pred,Up,Id) :-
@@ -235,7 +235,7 @@ i_pred(conj(Conj,Left,Right),X,
 i_pred(AP,T,['`' Head&Pred|As],As,[],_) :-
    i_adj(AP,T,_,_,Head,true,Pred,'`' true).
 i_pred(value(adj(Adj),wh(TypeY-Y)),Type-X,['`' H|As],As,[],_) :-
-   attribute(Adj,Type,X,TypeY,Y,H).
+   attribute_LF(Adj,Type,X,TypeY,Y,H).
 i_pred(comp(Op0,adj(Adj),NP),X,[P1 & P2 & '`' P3,Q|As],As,Up,Id) :-
    i_np(NP,Y,Q,Up,Id,unit,[],[]),
    chat_sign(Adj,Sign),
@@ -245,18 +245,18 @@ i_pred(comp(Op0,adj(Adj),NP),X,[P1 & P2 & '`' P3,Q|As],As,Up,Id) :-
    measure_op(Op,U,V,P3).
 i_pred(prep_phrase(prep(Prep),NP),X,['`' H,Q|As],As,Up,Id) :-
    i_np(NP,Y,Q,Up,Id,unit,[],[]),
-   adjunction(Prep,X,Y,H).
+   adjunction_LF(Prep,X,Y,H).
 
 i_adjoin(with,TS-S,TV-Y,[slot(prep(of),TV,Z,_,free)],
         held_arg(poss,-_Id,TS-S),
         Y=Z).
 i_adjoin(Prep,X,Y,[],[],P) :-
-   adjunction(Prep,X,Y,P).
+   adjunction_LF(Prep,X,Y,P).
 
 i_measure(Type-X,Adj,Type,X,'`' true) :-
    units(Adj,Type).
 i_measure(TypeX-X,Adj,TypeY,Y,quant(void,TypeY-Y,'`' P,'`' true,[],_)) :-
-   attribute(Adj,TypeX,X,TypeY,Y,P).
+   attribute_LF(Adj,TypeX,X,TypeY,Y,P).
 
 i_verb_mods(Mods,_,XA,Slots0,Args0,Up,Id) :-
    fill_verb(Mods,XA,[],Slots0,Slots,Args0,Args,Up,-Id),
@@ -293,15 +293,15 @@ inverse(X,+,X).
 
 noun_template(Noun,TypeV,V,'`' P,
       [slot(poss,TypeO,O,Os,index)|Slots]) :-
-   property(Noun,TypeV,V,TypeO,O,P,Slots,Os,_).
+   property_LF(Noun,TypeV,V,TypeO,O,P,Slots,Os,_).
 noun_template(Noun,TypeV,V,aggr(F,V,[],'`' true,'`' true),
    [slot(prep(of),TypeS,_,_,free)]) :-
    aggr_noun(Noun,TypeV,TypeS,F).
 noun_template(Noun,Type,X,'`' P,Slots) :-
-   thing(Noun,Type,X,P,Slots,_).
+   thing_LF(Noun,Type,X,P,Slots,_).
 noun_template(Noun,TypeV,V,apply(F,P),
-      [slot(prep(of),TypeX,X,_,apply)]) :-
-   meta_noun(Noun,TypeV,V,TypeX,X,P,F).
+      [slot(prep(Of),TypeX,X,_,apply)]) :-
+   meta_noun_LF(Noun,Of,TypeV,V,TypeX,X,P,F).
 
 verb_template(have,Y=Z,
                 [slot(subj,TypeS,S,-Id,free),
@@ -358,6 +358,8 @@ index_args(D,I,_,D,I).
 
 indexable(the(plu)).
 indexable(all).
+indexable(de(plu)).
+indexable(alle).
 
 my_index(index(_I)).
 

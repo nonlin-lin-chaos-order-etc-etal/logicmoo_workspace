@@ -88,6 +88,6 @@ conj(Conj,list,end) --->
    [Conj],
    {conj(Conj)}.
 
-loc_pred(P) --->
+loc_pred(Of,P) --->
    [W],
-   {loc_pred(W,P)}.
+   {loc_pred(Of,W,P)}.
