@@ -1,5 +1,10 @@
 #!/bin/bash
 
+DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+cd $DIR0
+export LOGICMOO_WS=$DIR0
+
 ./logicmoo_env.sh .
 
 DIR="$LOGICMOO_WS/lib/swipl"
@@ -20,8 +25,28 @@ echo "#* "
 echo "#* Install deps..."
 echo "#* "
 
+apt-add-repository -y ppa:swi-prolog/devel
+apt-get -y install cmake ninja-build $(apt-cache depends swi-prolog | grep Depends | sed "s/.*ends:\ //" | tr '\n' ' ')
+#apt-get build-dep swi-prolog
+apt-get install -y \
+        build-essential cmake ninja-build pkg-config \
+        ncurses-dev libreadline-dev libedit-dev \
+        libgoogle-perftools-dev \
+        libunwind-dev \
+        libgmp-dev \
+        libssl-dev \
+        unixodbc-dev \
+        zlib1g-dev libarchive-dev \
+        libossp-uuid-dev \
+        libxext-dev libice-dev libjpeg-dev libxinerama-dev libxft-dev \
+        libxpm-dev libxt-dev \
+        libdb-dev \
+        libpcre3-dev \
+        libyaml-dev \
+        default-jdk junit4
+
 ( cd $LOGICMOO_WS
-  ./INSTALL-DEPS.md )
+  ( source $DIR0/INSTALL-DEPS.md )
 
 (
 cd $LOGICMOO_WS
@@ -59,4 +84,5 @@ git status)
 echo "#* MAYBE cat .swiplrc >> ~/.config/swi-prolog/init.pl"
 stty sane
 
+)
 

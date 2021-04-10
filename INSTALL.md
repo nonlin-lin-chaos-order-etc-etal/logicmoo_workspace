@@ -8,6 +8,12 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+(
+cd $DIR0
+
+export LOGICMOO_WS=$DIR0
+
 ./logicmoo_env.sh
 
 #d $LOGICMOO_WS
@@ -21,5 +27,5 @@ git fetch --recurse-submodules
 (source ./INSTALL-DEPS.md )
 (source ./INSTALL-SWI.md )
 
-
+)
 

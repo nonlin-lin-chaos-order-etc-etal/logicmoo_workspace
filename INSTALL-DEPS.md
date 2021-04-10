@@ -7,8 +7,16 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+echo DIR0=$DIR0
+cd $DIR0
+
+export LOGICMOO_WS=$DIR0
+
 ./logicmoo_env.sh
 
+echo LOGICMOO_WS=$LOGICMOO_WS
 DIR="$LOGICMOO_WS/lib/deps_installed"
 
 if [ -d "$DIR" ]; then
