@@ -40,9 +40,11 @@ fi
  # libcurl4-openssl-dev
  add-apt-repository ppa:c2d4u.team/c2d4u4.0+ -y
 
- # apt-get update
+ apt-get update
+  apt-get install -y libnet-nslookup-perl 
+  apt-get install -y sudo lsof nano vim build-essential cmake ninja-build 
  # second line is BiocManager requirements
- apt-get install -y build-essential cmake ninja-build pkg-config \
+ apt-get install -y -config \
     libxml2-dev libudunits2-dev libgeos++-dev libtiff-dev libopenmpi-dev \
     git curl wget \
     r-base r-base-dev r-cran-rserve r-cran-devtools libffi-dev gdebi-core r-cran-bit64 \
@@ -68,7 +70,10 @@ fi
   apt install -y libjpeg62-dev > /dev/null 2>&1
   apt install -y libjpeg62-turbo-dev > /dev/null 2>&1
   apt install -y python3-pip python-pip
-
+  (cd /tmp
+  wget http://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libncurses6_6.2-0ubuntu2_amd64.deb http://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libtinfo6_6.2-0ubuntu2_amd64.deb
+  dpkg -i /tmp/libtinfo6_6.2-0ubuntu2_amd64.deb /tmp/libncurses6_6.2-0ubuntu2_amd64.deb 
+  )
   pip3 install tornado asyncio butterfly
   echo "#* Maybe: apt install openjdk-11-jdk openjdk-11-jdk-headless"
 
