@@ -71,9 +71,10 @@ fi
   apt install -y libjpeg62-turbo-dev > /dev/null 2>&1
   apt install -y python3-pip python-pip
   (cd /tmp
-  wget http://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libncurses6_6.2-0ubuntu2_amd64.deb http://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libtinfo6_6.2-0ubuntu2_amd64.deb
-  dpkg -i /tmp/libtinfo6_6.2-0ubuntu2_amd64.deb /tmp/libncurses6_6.2-0ubuntu2_amd64.deb 
+ # wget http://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libncurses6_6.2-0ubuntu2_amd64.deb http://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libtinfo6_6.2-0ubuntu2_amd64.deb
+ # dpkg -i /tmp/libtinfo6_6.2-0ubuntu2_amd64.deb /tmp/libncurses6_6.2-0ubuntu2_amd64.deb 
   )
+  pip3 install --upgrade pip
   pip3 install tornado asyncio butterfly
   echo "#* Maybe: apt install openjdk-11-jdk openjdk-11-jdk-headless"
 
