@@ -24,7 +24,7 @@
 /* Nouns */
 
 
-property_LF(capital,feature&city,X,feature&place&country,Y, capital(Y,X),[],_,_).
+property_LF(capital,feature&city,X,feature&place&country,Y, country_capital_city(Y,X),[],_,_).
 property_LF(area,measure&area,X,feature&place&_,Y,measure_value(area,Y,X),[],_,_).
 property_LF(latitude,  measure&position,X,feature&_,Y,position_value(latitude,Y,X),[],_,_).
 property_LF(longitude,measure&position,X,feature&_,Y, position_value(longitude,Y,X),[],_,_).

@@ -22,6 +22,16 @@
 
 % Facts about cities.
 % ------------------
+madeup_city_country_popu(C,Nat,PopOut):- 
+  ti(city,C), \+ clause(city_country_popu(C,_,_), true),
+  once((directly_contains(Nat,C), 
+  c_r_l_l_s_cap_m(Nat,_,_,_,_,Pop,_,_))),  
+  % estimate at least a quarter of country population
+  A is integer(Pop/4000000), 
+  % add a magic number
+  PopOut is (A*1000) + 666.
+city_country_popu(C,Nat,Pop):- madeup_city_country_popu(C,Nat,Pop).
+
 city_country_popu(belle_mead,united_states,8).
 city_country_popu(amsterdam,netherlands,800).
 city_country_popu(amersfoort,netherlands,120).

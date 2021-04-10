@@ -35,7 +35,7 @@ database80(ratio(X,Y,Z)) :- ratio(X,Y,Z).
 database80(card(X,Y)) :- card(X,Y).
 database80(borders(X,Y)) :- borders(X,Y).
 database80(capital(X)) :- capital(X).
-database80(capital(X,Y)) :- capital(X,Y).
+database80(country_capital_city(X,Y)) :- country_capital_city(X,Y).
 database80(circle_of_latitude(X)) :- circle_of_latitude(X).
 database80(city(X)) :- city(X).
 database80(continent(X)) :- continent(X).
@@ -87,7 +87,7 @@ ratio(ksqmiles,sqmiles,1000,1).
 ratio(sqmiles,ksqmiles,1,1000).
 
 unit_format(area,_X--ksqmiles).
-capital(C) :- capital(_X,C).
+capital(C) :- country_capital_city(_X,C).
 city(C) :- city_country_popu(C,_,_).
 country(C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
 unit_format(latitude,_X--degrees).
@@ -102,6 +102,7 @@ american(X) :- loc_in(X,america).
 asian(X) :- loc_in(X,asia).
 european(X) :- loc_in(X,europe).
 
+/*
 loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
 loc_in(X,Y) :- in0(X,W), ( W=Y ; loc_in(W,Y) ).
 
@@ -109,6 +110,7 @@ in0(X,Y) :- in_continent(X,Y).
 in0(X,Y) :- city_country_popu(X,Y,_).
 in0(X,Y) :- c_r_l_l_s_cap_m(X,Y,_,_,_,_,_,_).
 in0(X,Y) :- flow_thru(_,X,Y).
+*/
 
 rel_spatial(cp(east,of),X1,X2) :- position_value(longitude,X1,L1), position_value(longitude,X2,L2), exceeds(L2,L1).
 rel_spatial(cp(north,of),X1,X2) :- position_value(latitude,X1,L1), position_value(latitude,X2,L2), exceeds(L1,L2).
@@ -136,7 +138,7 @@ measure_value(area,C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is A0/
 count_value(population,C,P--thousand) :- city_country_popu(C,_,P).
 count_value(population,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
 
-capital(C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
+country_capital_city(C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
 
 continent(africa).
 continent(america).

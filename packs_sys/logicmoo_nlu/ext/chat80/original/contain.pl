@@ -57,6 +57,10 @@ contains(X,Y) :- trans_rel(=,directly_contains,X,Y).
 directly_contains(Continent,Region):- continent_contains_region(Continent,Region).
 directly_contains(Region,Country):- region_contains_country(Region,Country).
 directly_contains(Country,CityOrRiver):- country_contains_thing(Country,CityOrRiver).
+directly_contains(Country,River):- flow_thru(river,River,Country).
+
+
+loc_in(X,Y) :- contains(Y,X).
 
 continent_contains_region(africa,central_africa).
 continent_contains_region(africa,east_africa).
@@ -82,6 +86,7 @@ continent_contains_region(europe,scandinavia).
 continent_contains_region(europe,southern_europe).
 continent_contains_region(europe,western_europe).
 
+% region_contains_country(R,C) :- c_r_l_l_s_cap_m(C,R,_,_,_,_,_,_).
 region_contains_country(oceania,australia).
 region_contains_country(oceania,fiji).
 region_contains_country(oceania,new_zealand).
@@ -482,5 +487,8 @@ country_contains_thing(zaire,congo_river).
 
 country_contains_thing(zambia,congo_river).
 country_contains_thing(zambia,zambesi).
+
+country_contains_thing(Country,City) :- clause(city_country_popu(City,Country,_),true).
+country_contains_thing(Country,City) :- country_capital_city(Country,City).
 
 :- fixup_exports.
