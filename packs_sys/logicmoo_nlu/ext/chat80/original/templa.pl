@@ -25,26 +25,26 @@
 
 
 property_LF(capital,feature&city,X,feature&place&country,Y, country_capital_city(Y,X),[],_,_).
-property_LF(area,measure&area,X,feature&place&_,Y,measure_value(area,Y,X),[],_,_).
-property_LF(latitude,  measure&position,X,feature&_,Y,position_value(latitude,Y,X),[],_,_).
+property_LF(area,measure&area,X,feature&place&_,Y,(measure_value(float,area,Y,X)),[],_,_).
+property_LF(latitude, measure&position,X,feature&_,Y, position_value(latitude,Y,X),[],_,_).
 property_LF(longitude,measure&position,X,feature&_,Y, position_value(longitude,Y,X),[],_,_).
-property_LF(population, measure&heads,X,feature&_,Y,count_value(population,Y,X),[],_,_).
+property_LF(population, measure&heads,X,feature&_,Y,measure_value(count,population,Y,X),[],_,_).
 
-thing_LF(place,feature&place&_,X,place(X),[],_).
+thing_LF(place,feature&place&_,X,ti(place,X),[],_).
 thing_LF(area,measure&area,X,unit_format(area,X),[],_).
-thing_LF(capital,feature&city,X,capital(X),[],_).
-thing_LF(city,feature&city,X,city(X),[],_).
-thing_LF(continent,feature&place&continent,X,continent(X),[],_).
-thing_LF(country,feature&place&country,X,country(X),[],_).
+thing_LF(capital,feature&city,X,ti(capital_city,X),[],_).
+thing_LF(city,feature&city,X,ti(city,X),[],_).
+thing_LF(continent,feature&place&continent,X,ti(continent,X),[],_).
+thing_LF(country,feature&place&country,X,ti(country,X),[],_).
 thing_LF(latitude,measure&position,X,unit_format(latitude,X),[],_).
 thing_LF(longitude,measure&position,X,unit_format(longitude,X),[],_).
-thing_LF(ocean,feature&place&seamass,X,ocean(X),[],_).
-thing_LF(person,_,X,person(X),[],_).
+thing_LF(ocean,feature&place&seamass,X,ti(ocean,X),[],_).
+thing_LF(person,_,X,ti(person,X),[],_).
 thing_LF(population,measure&heads,X,unit_format(population,X),[],_).
-thing_LF(region,feature&place&_,X,region(X),[],_).
-thing_LF(river,feature&river,X,river(X),[],_).
-thing_LF(sea,feature&place&seamass,X,sea(X),[],_).
-thing_LF(seamass,feature&place&seamass,X,seamass(X),[],_).
+thing_LF(region,feature&place&_,X,ti(region,X),[],_).
+thing_LF(river,feature&river,X,ti(river,X),[],_).
+thing_LF(sea,feature&place&seamass,X,ti(sea,X),[],_).
+thing_LF(seamass,feature&place&seamass,X,ti(seamass,X),[],_).
 
 aggr_noun(average,_,_,average).
 aggr_noun(sum,_,_,total).
@@ -55,18 +55,18 @@ meta_noun_LF(number,of,_,V,feature&_,X,P,numberof(X,P,V)).
 /* Proper nouns */
 
 name_template(X,feature&circle) :- circle_of_latitude(X).
-name_template(X,feature&city) :- city(X).
-name_template(X,feature&place&continent) :- continent(X).
-name_template(X,feature&place&country) :- country(X).
-name_template(X,feature&place&_) :- region(X).
-name_template(X,feature&river) :- river(X).
-name_template(X,feature&place&seamass) :- seamass(X).
+name_template(X,feature&city) :- ti(city,X).
+name_template(X,feature&place&continent) :- ti(continent,X).
+name_template(X,feature&place&country) :- ti(country,X).
+name_template(X,feature&place&_) :- ti(region,X).
+name_template(X,feature&river) :- ti(river,X).
+name_template(X,feature&place&seamass) :- ti(seamass,X).
 
 /* Verbs */
 
 trans(border,feature&place&_,X,feature&place&_,Y,borders(X,Y),[],_,_).
 trans(contain,feature&place&_,X,feature&_,Y,loc_in(Y,X),[],_,_).
-trans(govern,feature&_,X,feature&place&country,Y,capital(Y,X),[],_,_).
+trans(govern,feature&_,X,feature&place&country,Y,country_capital_city(Y,X),[],_,_).
 trans(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).
 
 intrans(drain,feature&river,X,flow_ends(river,X,Y), 
@@ -81,15 +81,15 @@ intrans(rise,feature&river,X,flow_begins(river,X,Y),
 
 /* Adjectives */
 
-restriction_LF(african,feature&_,X,african(X)).
-restriction_LF(american,feature&_,X,american(X)).
-restriction_LF(asian,feature&_,X,asian(X)).
-restriction_LF(european,feature&_,X,european(X)).
+restriction_LF(african,feature&_,X,ti(african,X)).
+restriction_LF(american,feature&_,X,ti(american,X)).
+restriction_LF(asian,feature&_,X,ti(asian,X)).
+restriction_LF(european,feature&_,X,ti(european,X)).
 
-attribute_LF(large,feature&place&_,X,measure&area,Y,measure_value(area,X,Y)).
-attribute_LF(small,feature&place&_,X,measure&area,Y,measure_value(area,X,Y)).
+attribute_LF(large,feature&place&_,X,measure&area,Y,measure_value(float,area,X,Y)).
+attribute_LF(small,feature&place&_,X,measure&area,Y,measure_value(float,area,X,Y)).
 attribute_LF(great,measure&Type,X,measure&Type,Y,exceeds(X,Y)).
-attribute_LF(populous,feature&_,X,measure&heads,Y,count_value(population,Y,X)).
+attribute_LF(populous,feature&_,X,measure&heads,Y,measure_value(count,population,Y,X)).
 
 aggr_adj(average,_,_,average).
 aggr_adj(total,_,_,total).

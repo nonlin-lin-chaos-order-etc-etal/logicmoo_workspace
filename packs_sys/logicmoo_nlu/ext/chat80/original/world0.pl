@@ -34,19 +34,19 @@ database80(one_of(X,Y)) :- one_of(X,Y).
 database80(ratio(X,Y,Z)) :- ratio(X,Y,Z).
 database80(card(X,Y)) :- card(X,Y).
 database80(borders(X,Y)) :- borders(X,Y).
-database80(capital(X)) :- capital(X).
+%database80(capital(X)) :- capital(X).
 database80(country_capital_city(X,Y)) :- country_capital_city(X,Y).
 database80(circle_of_latitude(X)) :- circle_of_latitude(X).
-database80(city(X)) :- city(X).
+%database80(city(X)) :- city(X).
 database80(continent(X)) :- continent(X).
 database80(country(X)) :- country(X).
 database80(exceeds(X,Y)) :- exceeds(X,Y).
 database80(loc_in(X,Y)) :- loc_in(X,Y).
 database80(ocean(X)) :- ocean(X).
-database80(place(X)) :- place(X).
+database80(ti(Place,X)) :- ti(Place,X).
 %database80(person(X)) :- person(X).	% JW: person is not defined
-database80(count_value(population,X)) :- count_value(population,X).
-database80(region(X)) :- region(X).
+database80(measure_value(count,population,X)) :- measure_value(count,population,X).
+%database80(region(X)) :- region(X).
 
 database80(river(X)) :- river(X).
 database80(sea(X)) :- sea(X).
@@ -54,8 +54,8 @@ database80(seamass(X)) :- seamass(X).
 database80(rel_spatial(Of,X,Y)) :- rel_spatial(Of,X,Y).
 database80(unit_format(U,X)) :- unit_format(U,X).
 database80(position_value(U,X,Y)) :- position_value(U,X,Y).
-database80(measure_value(U,X,Y)) :- measure_value(U,X,Y).
-database80(count_value(population,X,Y)) :- count_value(population,X,Y).
+database80(measure_value(float,U,X,Y)) :- measure_value(float,U,X,Y).
+database80(measure_value(count,population,X,Y)) :- measure_value(count,population,X,Y).
 database80(asian(X)) :- asian(X).
 database80(european(X)) :- european(X).
 database80(african(X)) :- african(X).
@@ -87,20 +87,23 @@ ratio(ksqmiles,sqmiles,1000,1).
 ratio(sqmiles,ksqmiles,1,1000).
 
 unit_format(area,_X--ksqmiles).
-capital(C) :- country_capital_city(_X,C).
-city(C) :- city_country_popu(C,_,_).
-country(C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
+ti(capital_city,C) :- country_capital_city(_X,C).
+%ti(city,C) :- ti(capital_city,C).
+%ti(city,C) :- clause(city_country_popu(C,_,_), true).
+ti(city,C) :- country_contains_thing(_,C), \+ ti(river,C).
+ti(country,C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
 unit_format(latitude,_X--degrees).
 unit_format(longitude,_X--degrees).
-place(X) :- continent(X); region(X); seamass(X); country(X).
+ti(place,X) :- ti(continent,X); ti(region,X); ti(seamass,X); ti(country,X).
 unit_format(population,_X--million).
 unit_format(population,_X--thousand).
-region(R) :- in_continent(R,_).
+ti(region,R) :- continent_contains_region(_,R).
 
-african(X) :- loc_in(X,africa).
-american(X) :- loc_in(X,america).
-asian(X) :- loc_in(X,asia).
-european(X) :- loc_in(X,europe).
+% if X is located in africa then X is african.
+ti(african,X) :- loc_in(X,africa).
+ti(american,X) :- loc_in(X,america).
+ti(asian,X) :- loc_in(X,asia).
+ti(european,X) :- loc_in(X,europe).
 
 /*
 loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
@@ -133,13 +136,14 @@ position_value(latitude,antarctic_circle,(-67)--degrees).
 position_value(latitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,L,_,_,_,_,_).
 position_value(longitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,_,L,_,_,_,_).
 
-measure_value(area,C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is A0/1000.
+measure_value(float,area,C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is A0/1000.
 
-count_value(population,C,P--thousand) :- city_country_popu(C,_,P).
-count_value(population,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
+measure_value(count,population,C,P--thousand) :- city_country_popu(C,_,P).
+measure_value(count,population,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
 
 country_capital_city(C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
 
+ti(continent,X):- continent(X).
 continent(africa).
 continent(america).
 continent(antarctica).
@@ -170,6 +174,7 @@ in_continent(oceania,australasia).
 */
 in_continent(R,C):- continent_contains_region(C,R).
 
+ti(seamass,X):- seamass(X).
 seamass(X) :- ocean(X).
 seamass(X) :- sea(X).
 
@@ -180,7 +185,6 @@ ti(ocean,pacific).
 ti(ocean,southern_ocean).
 
 ocean(X):- ti(ocean,X).
-
 
 ti(sea,baltic).
 ti(sea,black_sea).

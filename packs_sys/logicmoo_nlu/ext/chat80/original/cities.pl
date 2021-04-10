@@ -22,7 +22,7 @@
 
 % Facts about cities.
 % ------------------
-madeup_city_country_popu(C,Nat,PopOut):- 
+madeup_city_country_popu(C,Nat,PopOut):- fail,
   ti(city,C), \+ clause(city_country_popu(C,_,_), true),
   once((directly_contains(Nat,C), 
   c_r_l_l_s_cap_m(Nat,_,_,_,_,Pop,_,_))),  

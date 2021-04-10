@@ -221,15 +221,20 @@ inform1([H|T]) :- write(H), put(32), inform1(T).
 	Top level processing for verification and performance analysis
    ---------------------------------------------------------------------- */
 
-test_chat :- test_chat(_).
+test_chat :- test_chat(_,off).
 
-test_chat(N) :-
+test_chat(N):- test_chat(N, on).
+
+test_chat(N, OnOff) :-
 	show_title,
 	ed(N,Sentence,CorrectAnswer),
 	  process(Sentence,CorrectAnswer,Status,Times),
 	  show_results(N,Status,Times),
+    OnOff \= off,
+    tracing ~= OnOff,
+    process(Sentence),
 	fail.
-test_chat(_).
+test_chat(_,_).
 
 test :-
 	time(rtest_chats(20)).
@@ -273,7 +278,7 @@ show_format( '~t~w~10+ |~t~w~12+~t~w~10+~t~w~10+~t~w~10+~t~w~10+' ).
 process(Sentence,CorrectAnswer,Status,Times) :-
 	process(Sentence,Answer,Times),
 	!,
-	check_answer(Answer,CorrectAnswer,Status).
+	check_answer(Sentence,Answer,CorrectAnswer,Status).
 process(_,_,failed,[0,0,0,0,0]).
 
 
@@ -312,13 +317,16 @@ answer((answer([]):-E),[B]) :- !, holds(E,B).
 answer((answer([X]):-E),S) :- !, seto(X,E,S).
 answer((answer(X):-E),S) :- seto(X,E,S).
 
-check_answer(A,B,true) :- close_answer(A,B),!.
-check_answer(A,B,'wrong answer'):-
-  pprint_ecp_cmt(red,check_answer(A,B,'wrong answer')),dumpST.
+check_answer(_Sentence,A,B,true) :- close_answer(A,B),!.
+check_answer(Sentence,A,B,'wrong answer'):-
+  pprint_ecp_cmt(red,check_answer(Sentence,A,B,'wrong answer')),
+  tracing ~= on,
+  once(process(Sentence)).
   
 close_answer(A,A).
 close_answer(A,B):- number(A),number(B),X is integer(A),Y is integer(A),X=Y.
-%close_answer(A,B):- is_list(A),is_list(B),!,fail.
+%close_answer(A,B):- is_list(A), sort(A,AA), A\==AA, !, close_answer(AA,B).
+%close_answer(B,A):- is_list(A), sort(A,AA), A\==AA, !, close_answer(B,AA).
 close_answer(A,B):- 
   compound(A),compound(B),
   compound_name_arguments(A,AA,AAA),
@@ -465,19 +473,20 @@ process(U) :-
    runtime(StartParse),
    sentence(E,U,[],[],[]),
    runtime(StopParse),
-   % ParseTime is StopParse - StartParse,
-   % report(E,'Parse',ParseTime,tree),
-   % !, %%%%%%%%%%%%%%%% added by JPO
+   ParseTime is StopParse - StartParse,
+   report(E,'Parse',ParseTime,tree),
+   % !, %%%%%%%%%%%%%%%% added by JPO but breaks "london"
    runtime(StartSem),
-   logic(E,S),
+   parsed_to_logic(E,S),
    runtime(StopSem),
    SemTime is StopSem - StartSem,
    report(S,'Semantics',SemTime,expr),
    runtime(StartPlan),
-   qplan(S,S1), !,
+   qplan(S,S1),
    runtime(StopPlan),
    TimePlan is StopPlan - StartPlan,
-   report(S1,'Planning',TimePlan,expr),
+   (S=@=S1->S1R=S1;S1R=same),
+   report(S1R,'Planning',TimePlan,expr),
    runtime(StartAns),
    answer(S1), !, nl,
    runtime(StopAns),
@@ -497,6 +506,7 @@ report(Item,Label,Time,Mode) :-
 report(_,_,_,_).
 
 report_item(none,_).
+report_item(_,Item):- pprint_ecp_cmt(yellow,Item),!.
 report_item(expr,Item) :-
    write_tree(Item), nl.
 report_item(_Tree,Item) :-
@@ -523,7 +533,7 @@ quote_amp('$VAR'(_)) :- !.
 quote_amp(R) :-
    quote(R).
 
-logic(S0,S) :-
+parsed_to_logic(S0,S) :-
    i_sentence(S0,S1),
    clausify(S1,S2),
    simplify(S2,S).
@@ -630,10 +640,10 @@ check_words([Word|Words],[RevWord|RevWords]) :-
 
 check_word(Word,Word) :- word(Word), !.
 check_word(Word,NewWord) :-
-   write('? '), write(Word), write(' -> (!. to abort) '), ttyflush,
-   read(NewWord0),
-   NewWord0 \== !,
-   check_word(NewWord0,NewWord).
+   % write('? '), write(Word), write(' -> (!. to abort) '), ttyflush, read(NewWord0), NewWord0 \== !,
+   % check_word(NewWord0,NewWord)
+   ignore(NewWord=Word),
+   !.
 
 %:- mode ~=(+,+), =+(+,-), =:(+,?).
 

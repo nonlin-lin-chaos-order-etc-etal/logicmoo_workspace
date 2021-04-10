@@ -45,8 +45,9 @@ trans_rel_cache_create(P1,P2):-
         (forall(trans_rel_nc(P1,P2,E,Y),assert_if_new(trans_rel_cache(P1,P2,E,Y))),
          forall(trans_rel_nc(P1,P2,Y,E),assert_if_new(trans_rel_cache(P1,P2,Y,E))))),
   asserta((trans_rel_cache_create(P1,P2):-!)),!,
-  listing(trans_rel_cache_insts(P1,P2,_Instances)),
-  listing(trans_rel_cache(P1,P2,_,_)).
+  %listing(trans_rel_cache_insts(P1,P2,_Instances)),
+  %listing(trans_rel_cache(P1,P2,_,_)),
+  !.
   
 
 %contains(X,Y) :- directly_contains(X,Y).
@@ -86,8 +87,8 @@ continent_contains_region(europe,scandinavia).
 continent_contains_region(europe,southern_europe).
 continent_contains_region(europe,western_europe).
 
-% region_contains_country(R,C) :- c_r_l_l_s_cap_m(C,R,_,_,_,_,_,_).
-region_contains_country(oceania,australia).
+region_contains_country(R,C) :- c_r_l_l_s_cap_m(C,R,_,_,_,_,_,_).
+/*region_contains_country(oceania,australia).
 region_contains_country(oceania,fiji).
 region_contains_country(oceania,new_zealand).
 region_contains_country(oceania,papua_new_guinea).
@@ -261,7 +262,7 @@ region_contains_country(far_east,taiwan).
 
 region_contains_country(northern_asia,mongolia).
 region_contains_country(northern_asia,soviet_union).
-
+*/
 country_contains_thing(afghanistan,amu_darya).
 
 country_contains_thing(angola,cubango).

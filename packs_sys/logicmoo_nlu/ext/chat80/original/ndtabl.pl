@@ -32,10 +32,10 @@ nd_costs(>=,99,51,51).
 nd_costs(african,19,26).
 nd_costs(aggregate,103,3,100,51).
 nd_costs(american,19,26).
-nd_costs(measure_value,7,22,22,51).
+nd_costs(measure_value,7,7,22,22,51).
 nd_costs(measure_unit,8,51,51).
 nd_costs(asian,21,26).
-nd_costs(borders,29,22,22).
+nd_costs(borders,29,2,2).
 nd_costs(capital,22,22).
 nd_costs(capital,22,22,23).
 nd_costs(card,99,100,3).
