@@ -263,7 +263,7 @@ show_results(N,Status,Times) :-
 	format(F, [N|Times]),
 	( Status = true ->
 		nl
-	; otherwise ->
+	; true ->
 		tab(2), write(Status), nl
 	).
 
@@ -312,9 +312,18 @@ answer((answer([]):-E),[B]) :- !, holds(E,B).
 answer((answer([X]):-E),S) :- !, seto(X,E,S).
 answer((answer(X):-E),S) :- seto(X,E,S).
 
-check_answer(A,A,true) :- !.
-check_answer(_,_,'wrong answer').
-
+check_answer(A,B,true) :- close_answer(A,B),!.
+check_answer(A,B,'wrong answer'):-
+  pprint_ecp_cmt(red,check_answer(A,B,'wrong answer')).
+  
+close_answer(A,A).
+close_answer(A,B):- number(A),number(B),X is integer(A),Y is integer(A),X=Y.
+%close_answer(A,B):- is_list(A),is_list(B),!,fail.
+close_answer(A,B):- 
+  compound(A),compound(B),
+  compound_name_arguments(A,AA,AAA),
+  compound_name_arguments(B,AA,BBB),!,
+  maplist(close_answer,AAA,BBB).
 
 /* ----------------------------------------------------------------------
 	Top level for runtime version, and interactive demonstrations
@@ -366,6 +375,7 @@ ask(File,P) :-
    see(File),
    read_in(P),
    nl,
+   pprint_ecp_cmt(yellow,read_in(P)),
    doing(P,0),
    nl,
    see(Old).

@@ -42,7 +42,8 @@ fi
 
  apt-get update
   apt-get install -y libnet-nslookup-perl 
-  apt-get install -y sudo lsof nano vim build-essential cmake ninja-build 
+  apt-get install -y sudo lsof nano vim build-essential cmake ninja-build gdb
+ 
  # second line is BiocManager requirements
  apt-get install -y -config \
     libxml2-dev libudunits2-dev libgeos++-dev libtiff-dev libopenmpi-dev \

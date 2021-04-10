@@ -22,6 +22,7 @@
 % QPLAN - supplies the control information (ie. sequencing and cuts) needed
 %         for efficient execution of a query.
 
+:- module(qplan,[qplan/2]).
 
 qplan((P:-Q),(P1:-Q1)) :- qplan(P,Q,P1,Q1), !.
 qplan(P,P).
@@ -34,8 +35,8 @@ qplan(X0,P0,X,P) :-
    schedule(L,Vg,P1),
    quantificate(Vl,0,P1,P2),
    functor(VA,$,N),
-   variablise(X0,VA,X),
-   variablise(P2,VA,P).
+   variablise80(X0,VA,X),
+   variablise80(P2,VA,P).
 
 mark(X^P,L,Q0,Q) :- !, variables(X,Q0,Q1), mark(P,L,Q1,Q).
 mark((P1,P2),L,Q0,Q) :- !,
@@ -53,7 +54,7 @@ mark(SQ,[m(V,C,SQ1)],Q0,Q0) :- subquery(SQ,SQ1,X,P,N,Q), !,
    variables(N,V0,V).
 mark(P,[m(V,C,P)],Q,Q) :-
    variables(P,0,V),
-   cost(P,V,C).
+   cost80(P,V,C).
 
 subquery(setof(X,P,S),setof(X,Q,S),X,P,S,Q).
 subquery(numberof(X,P,N),numberof(X,Q,N),X,P,N,Q).
@@ -166,7 +167,7 @@ instantiate0(SQ,Vg,Vi,[m(V,C,SQ1)]) :- subquery(SQ,SQ1,X,P,_,Q), !,
    setofcost(V0,C0,C).
 instantiate0(P,V,Vi,[m(V1,C,P)]) :-
    setminus(V,Vi,V1),
-   cost(P,V1,C).
+   cost80(P,V1,C).
 
 recombine(L,[],L) :- !.
 recombine([],L,L).
@@ -198,54 +199,54 @@ strip_keys([X|L],[P|L1]) :- strip_key(X,P), strip_keys(L,L1).
 
 strip_key(_C-P,P).
 
-variablise('$VAR'(N),VV,V) :-
+variablise80('$VAR'(N),VV,V) :-
    !,
    N1 is N+1,
    arg(N1,VV,V).
-variablise(T,_,T) :-
+variablise80(T,_,T) :-
    atomic(T),
    !.
-variablise(T,VV,T1) :-
+variablise80(T,VV,T1) :-
    functor(T,F,N),
    functor(T1,F,N),
-   variablise(N,T,VV,T1).
+   variablise80(N,T,VV,T1).
 
-variablise(0,_,_,_) :- !.
-variablise(N,T,VV,T1) :- N1 is N-1,
+variablise80(0,_,_,_) :- !.
+variablise80(N,T,VV,T1) :- N1 is N-1,
    arg(N,T,X),
    arg(N,T1,X1),
-   variablise(X,VV,X1),
-   variablise(N1,T,VV,T1).
+   variablise80(X,VV,X1),
+   variablise80(N1,T,VV,T1).
 
-cost(+P,0,N) :-
+cost80(+P,0,N) :-
    !,
-   cost(P,0,N).
-cost(+_P,_V,1000) :-
+   cost80(P,0,N).
+cost80(+_P,_V,1000) :-
    !.
-cost(P,V,N) :-
+cost80(P,V,N) :-
    functor(P,F,I),
-   cost(I,F,P,V,N).
+   cost80(I,F,P,V,N).
 
-cost(1,F,P,V,N) :-
+cost80(1,F,P,V,N) :-
    arg(1,P,X1),
    instantiated(X1,V,I1),
-   nd(F,N0,N1),
+   nd_costs(F,N0,N1),
    N is N0-I1*N1.
-cost(2,F,P,V,N) :-
+cost80(2,F,P,V,N) :-
    arg(1,P,X1),
    instantiated(X1,V,I1),
    arg(2,P,X2),
    instantiated(X2,V,I2),
-   nd(F,N0,N1,N2),
+   nd_costs(F,N0,N1,N2),
    N is N0-I1*N1-I2*N2.
-cost(3,F,P,V,N) :-
+cost80(3,F,P,V,N) :-
    arg(1,P,X1),
    instantiated(X1,V,I1),
    arg(2,P,X2),
    instantiated(X2,V,I2),
    arg(3,P,X3),
    instantiated(X3,V,I3),
-   nd(F,N0,N1,N2,N3),
+   nd_costs(F,N0,N1,N2,N3),
    N is N0-I1*N1-I2*N2-I3*N3.
 
 instantiated([X|_],V,N) :-

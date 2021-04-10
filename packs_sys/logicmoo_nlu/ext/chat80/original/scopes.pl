@@ -20,7 +20,7 @@
 */
 
 :- op(400, xfy, &).
-:- op(300, fx, ~ ).
+:- op(300, fx, '`'  ).
 
 
 clausify(question(V0, P),(answer(V):-B)) :-
@@ -49,11 +49,11 @@ quantify(pred(Subj, Op, Head, Args), Above, Right, P) :-
    quantify(Subj, SQuants, [], P0),
    quantify_args(Args, AQuants, P1),
    split_quants(Op, AQuants, Up, Right, Here, []),
-   conc(SQuants, Up, Above),
+   append(SQuants, Up, Above),
    chain_apply(Here,(P0, Head, P1), P2),
    op_apply(Op, P2, P).
 
-quantify(~ P, Q, Q, P).
+quantify('`'  P, Q, Q, P).
 
 quantify(P&Q, Above, Right,(S, T)) :-
    quantify(Q, Right0, Right, T),
@@ -96,12 +96,12 @@ quantify_args([Arg|Args], Quants,(P, Q)) :-
    quantify(Arg, Quants, Quants0, P).
 
 
-pre_apply(~ Head, set(I), X, P1, P2, Y, Quants, Quant) :-
+pre_apply('`'  Head, set(I), X, P1, P2, Y, Quants, Quant) :-
    indices(Quants, I, Indices, RestQ),
    chain_apply(RestQ,(Head, P1), P),
    setify(Indices, X,(P, P2), Y, Quant).
 
-pre_apply(~ Head, Det, X, P1, P2, Y, Quants, quant(Det, X,(P, P2), Y)) :-
+pre_apply('`'  Head, Det, X, P1, P2, Y, Quants, quant(Det, X,(P, P2), Y)) :-
  ( unit_det(Det);
    index_det(Det, _)),
    chain_apply(Quants,(Head, P1), P).
@@ -134,7 +134,7 @@ close_tree(T, P) :-
    chain_apply(Q, P0, P).
 
 
-meta_apply(~ G, R, Q, G, R, Q).
+meta_apply('`'  G, R, Q, G, R, Q).
 
 meta_apply(apply(F,(R, P)), R, Q0, F, true, Q) :-
    but_last(Q0, quant(lambda, Z, P, Z), Q).
@@ -175,7 +175,7 @@ index_vars([quant(index(_), _-X, P0, _-X)|Indices],
    index_vars(Indices, IndexV, P).
 
 
-complete_aggr([Att, Obj], ~ G, R, Quants,(P, R), Att, Obj) :-
+complete_aggr([Att, Obj], '`'  G, R, Quants,(P, R), Att, Obj) :-
    chain_apply(Quants, G, P).
 
 complete_aggr([Att], Head, R0, Quants0,(P1, P2, R), Att, Obj) :-
@@ -183,7 +183,7 @@ complete_aggr([Att], Head, R0, Quants0,(P1, P2, R), Att, Obj) :-
    set_vars(Quants, Obj, Rest, P2),
    chain_apply(Rest, G, P1).
 
-complete_aggr([], ~ G, R, [quant(set, _-(Obj:Att), S:T, _)],
+complete_aggr([], '`'  G, R, [quant(set, _-(Obj:Att), S:T, _)],
   (G, R, S, T), Att, Obj).
 
 

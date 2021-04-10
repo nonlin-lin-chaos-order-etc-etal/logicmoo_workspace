@@ -72,7 +72,7 @@ answer((answer(X):-E)) :- seto(X,E,S), respond(S).
 
 seto(X,E,S) :-
 %	portray_clause(({X} :- E)),
-	phrase(satisfy(E,G),Vars),
+	phrase(satisfy80(E,G),Vars),
 %	portray_clause(({X} :- G)),
 	(   setof(X,Vars^G,S)
 	->  true
@@ -80,7 +80,7 @@ seto(X,E,S) :-
 	).
 
 holds(E,True) :-
-	phrase(satisfy(E, G), _),
+	phrase(satisfy80(E, G), _),
 	(   G
 	->  True = true
 	;   True = false
@@ -96,84 +96,38 @@ replies([A|X]) :- write(', '), reply(A), replies(X).
 reply(N--U) :- !, write(N), write(' '), write(U).
 reply(X) :- write(X).
 
-%%	satisfy(+Term, -Goal)//
+%%	satisfy80(+Term, -Goal)//
 %
 %	Originally, Term was meta-interpreted. If we   do not want every
 %	^/2-term to act as an existential quantification, this no longer
 %	works. Hence, we now compile the term   into  a goal and compute
 %	the existentially quantified variables.
 
-satisfy((P0,Q0), (P,Q)) --> !, satisfy(P0, P), satisfy(Q0, Q).
-satisfy({P0}, (P->true)) --> !, satisfy(P0, P).
-satisfy(X^P0, P) --> !, satisfy(P0, P), [X].
-satisfy(\+P0, \+P) --> !, satisfy(P0, P).
-satisfy(numberof(X,P0,N), (setof(X,Vars^P,S),length(S,N))) --> !,
-	{ phrase(satisfy(P0,P),Vars) },
+satisfy80((P0,Q0), (P,Q)) --> !, satisfy80(P0, P), satisfy80(Q0, Q).
+satisfy80({P0}, (P->true)) --> !, satisfy80(P0, P).
+satisfy80(X^P0, P) --> !, satisfy80(P0, P), [X].
+satisfy80(\+P0, \+P) --> !, satisfy80(P0, P).
+satisfy80(numberof(X,P0,N), (setof(X,Vars^P,S),length(S,N))) --> !,
+	{ phrase(satisfy80(P0,P),Vars) },
 	[S], Vars.			% S is an internal variable!
-satisfy(setof(X,P0,S), setof(X,Vars^P,S)) --> !,
-	{ phrase(satisfy(P0,P),Vars) },
+satisfy80(setof(X,P0,S), setof(X,Vars^P,S)) --> !,
+	{ phrase(satisfy80(P0,P),Vars) },
 	Vars.
-satisfy(+P0, \+ exceptionto(P)) --> !,
-	satisfy(P0, P).
-satisfy(X<Y, X<Y) --> !.
-satisfy(X=<Y, X=<Y) --> !.
-satisfy(X>=Y, X>=Y) --> !.
-satisfy(X>Y, X>Y) --> !.
-satisfy(P, database(P)) --> [].
+satisfy80(+P0, \+ exceptionto(P)) --> !,
+	satisfy80(P0, P).
+satisfy80(X<Y, X<Y) --> !.
+satisfy80(X=<Y, X=<Y) --> !.
+satisfy80(X>=Y, X>=Y) --> !.
+satisfy80(X>Y, X>Y) --> !.
+satisfy80(P, database80(P)) --> [].
 
 exceptionto(P) :-
    functor(P,F,N), functor(P1,F,N),
    pickargs(N,P,P1),
-   exception(P1).
+   exception80(P1).
 
-exception(P) :- database(P), !, fail.
-/*
-seto(X,E,S) :- setof(X,satisfy(E),S), !.
-seto(_X,_E,[]).
-
-holds(E,true) :- satisfy(E), !.
-holds(_E,false).
-
-yesno(true) :- write('Yes.').
-yesno(false) :- write('No.').
-
-replies([]) :- write(.).
-replies([A]) :- write(' and '), reply(A), write('.').
-replies([A|X]) :- write(', '), reply(A), replies(X).
-
-pretty_print(X, X).
-
-reply(N--U) :- !, write(N), write(' '), write(U).
-reply(X) :- pretty_print(X, Y), !, write(Y).
-reply(X) :- write(X).
-
-satisfy((P,Q)) :- !, satisfy(P), satisfy(Q).
-satisfy({P}) :- !, satisfy(P), !.
-satisfy(_X^P) :- !, satisfy(P).
-satisfy(\+P) :- satisfy(P), !, fail.
-satisfy(\+_P) :- !.
-satisfy(numberof(X,P,N)) :- !, setof(X,satisfy(P),S), length(S,N).
-satisfy(setof(X,P,S)) :- !, setof(X,satisfy(P),S).
-satisfy(+P) :- exceptionto(P), !, fail.
-satisfy(+_P) :- !.
-satisfy(X<Y) :- !, X<Y.
-satisfy(X=<Y) :- !, X=<Y.
-satisfy(X>=Y) :- !, X>=Y.
-satisfy(X>Y) :- !, X>Y.
-satisfy(P) :-
-  call(P).
-%%% satisfy(P) :- P.
-
-exceptionto(P) :-
-   functor(P,F,N), functor(P1,F,N),
-   pickargs(N,P,P1),
-   exception(P1).
-
-exception(P) :- call(P), !, fail.
-%%% JPO: was:
-%%% exception(P) :- P, !, fail.
-*/
-exception(_P).
+exception80(P) :- database80(P), !, fail.
+exception80(_P).
 
 pickargs(0,_,_) :- !.
 pickargs(N,P,P1) :- N1 is N-1,

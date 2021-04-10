@@ -30,46 +30,46 @@
 % Interface.
 % ---------
 
-database(aggregate(X,Y,Z)) :- aggregate(X,Y,Z).
-database(one_of(X,Y)) :- one_of(X,Y).
-database(ratio(X,Y,Z)) :- ratio(X,Y,Z).
-database(card(X,Y)) :- card(X,Y).
-database(african(X)) :- african(X).
-database(american(X)) :- american(X).
-database(area(X)) :- area(X).
-database(area(X,Y)) :- area(X,Y).
-database(asian(X)) :- asian(X).
-database(borders(X,Y)) :- borders(X,Y).
-database(capital(X)) :- capital(X).
-database(capital(X,Y)) :- capital(X,Y).
-database(circle_of_latitude(X)) :- circle_of_latitude(X).
-database(city(X)) :- city(X).
-database(continent(X)) :- continent(X).
-database(country(X)) :- country(X).
-database(drains(X,Y)) :- drains(X,Y).
-database(eastof(X,Y)) :- eastof(X,Y).
-database(european(X)) :- european(X).
-database(exceeds(X,Y)) :- exceeds(X,Y).
-database(flows(X,Y)) :- flows(X,Y).
-database(flows(X,Y,Z)) :- flows(X,Y,Z).
-database(loc_in(X,Y)) :- loc_in(X,Y).
-database(latitude(X)) :- latitude(X).
-database(latitude(X,Y)) :- latitude(X,Y).
-database(longitude(X)) :- longitude(X).
-database(longitude(X,Y)) :- longitude(X,Y).
-database(northof(X,Y)) :- northof(X,Y).
-database(ocean(X)) :- ocean(X).
-database(place(X)) :- place(X).
-%database(person(X)) :- person(X).	% JW: person is not defined
-database(population(X)) :- population(X).
-database(population(X,Y)) :- population(X,Y).
-database(region(X)) :- region(X).
-database(rises(X,Y)) :- rises(X,Y).
-database(river(X)) :- river(X).
-database(sea(X)) :- sea(X).
-database(seamass(X)) :- seamass(X).
-database(southof(X,Y)) :- southof(X,Y).
-database(westof(X,Y)) :- westof(X,Y).
+database80(aggregate(X,Y,Z)) :- aggregate(X,Y,Z).
+database80(one_of(X,Y)) :- one_of(X,Y).
+database80(ratio(X,Y,Z)) :- ratio(X,Y,Z).
+database80(card(X,Y)) :- card(X,Y).
+database80(african(X)) :- african(X).
+database80(american(X)) :- american(X).
+database80(area(X)) :- area(X).
+database80(area(X,Y)) :- area(X,Y).
+database80(asian(X)) :- asian(X).
+database80(borders(X,Y)) :- borders(X,Y).
+database80(capital(X)) :- capital(X).
+database80(capital(X,Y)) :- capital(X,Y).
+database80(circle_of_latitude(X)) :- circle_of_latitude(X).
+database80(city(X)) :- city(X).
+database80(continent(X)) :- continent(X).
+database80(country(X)) :- country(X).
+database80(drains(X,Y)) :- drains(X,Y).
+database80(eastof(X,Y)) :- eastof(X,Y).
+database80(european(X)) :- european(X).
+database80(exceeds(X,Y)) :- exceeds(X,Y).
+database80(flows(X,Y)) :- flows(X,Y).
+database80(flows(X,Y,Z)) :- flows(X,Y,Z).
+database80(loc_in(X,Y)) :- loc_in(X,Y).
+database80(latitude(X)) :- latitude(X).
+database80(latitude(X,Y)) :- latitude(X,Y).
+database80(longitude(X)) :- longitude(X).
+database80(longitude(X,Y)) :- longitude(X,Y).
+database80(northof(X,Y)) :- northof(X,Y).
+database80(ocean(X)) :- ocean(X).
+database80(place(X)) :- place(X).
+%database80(person(X)) :- person(X).	% JW: person is not defined
+database80(population(X)) :- population(X).
+database80(population(X,Y)) :- population(X,Y).
+database80(region(X)) :- region(X).
+database80(rises(X,Y)) :- rises(X,Y).
+database80(river(X)) :- river(X).
+database80(sea(X)) :- sea(X).
+database80(seamass(X)) :- seamass(X).
+database80(southof(X,Y)) :- southof(X,Y).
+database80(westof(X,Y)) :- westof(X,Y).
 
 :-op(500,xfy,--).
 
@@ -83,8 +83,8 @@ ratio(sqmiles,ksqmiles,1,1000).
 
 area(_X--ksqmiles).
 capital(C) :- capital(_X,C).
-city(C) :- city(C,_,_).
-country(C) :- country(C,_,_,_,_,_,_,_).
+city(C) :- city_country_popu(C,_,_).
+country(C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
 latitude(_X--degrees).
 longitude(_X--degrees).
 place(X) :- continent(X); region(X); seamass(X); country(X).
@@ -101,8 +101,8 @@ loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
 loc_in(X,Y) :- in0(X,W), ( W=Y ; loc_in(W,Y) ).
 
 in0(X,Y) :- in_continent(X,Y).
-in0(X,Y) :- city(X,Y,_).
-in0(X,Y) :- country(X,Y,_,_,_,_,_,_).
+in0(X,Y) :- city_country_popu(X,Y,_).
+in0(X,Y) :- c_r_l_l_s_cap_m(X,Y,_,_,_,_,_,_).
 in0(X,Y) :- flows(X,Y).
 
 eastof(X1,X2) :- longitude(X1,L1), longitude(X2,L2), exceeds(L2,L1).
@@ -122,12 +122,12 @@ latitude(tropic_of_capricorn,-23--degrees).
 latitude(arctic_circle,67--degrees).
 latitude(antarctic_circle,-67--degrees).
 
-latitude(C,L--degrees) :- country(C,_,L,_,_,_,_,_).
-longitude(C,L--degrees) :- country(C,_,_,L,_,_,_,_).
-area(C,A--ksqmiles) :- country(C,_,_,_,A0,_,_,_), A is A0/1000.
-population(C,P--thousand) :- city(C,_,P).
-population(C,P--million) :-  country(C,_,_,_,_,P0,_,_), P is floor(P0/1000000).
-capital(C,Cap) :- country(C,_,_,_,_,_,Cap,_).
+latitude(C,L--degrees) :- c_r_l_l_s_cap_m(C,_,L,_,_,_,_,_).
+longitude(C,L--degrees) :- c_r_l_l_s_cap_m(C,_,_,L,_,_,_,_).
+area(C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is A0/1000.
+population(C,P--thousand) :- city_country_popu(C,_,P).
+population(C,P--million) :-  c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is floor(P0/1000000).
+capital(C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
 
 continent(africa).
 continent(america).
@@ -136,6 +136,7 @@ continent(asia).
 continent(australasia).
 continent(europe).
 
+/*
 in_continent(scandinavia, europe).
 in_continent(western_europe, europe).
 in_continent(eastern_europe, europe).
@@ -154,6 +155,9 @@ in_continent(indian_subcontinent, asia).
 in_continent(southeast_east, asia).
 in_continent(far_east, asia).
 in_continent(northern_asia, asia).
+in_continent(oceania,australasia).
+*/
+in_continent(R,C):- continent_contains_region(C,R).
 
 seamass(X) :- ocean(X).
 seamass(X) :- sea(X).
@@ -171,15 +175,15 @@ sea(mediterranean).
 sea(persian_gulf).
 sea(red_sea).
 
-river(R) :- river(R,_L).
+river(R) :- river_flows(R,_L).
 
-rises(R,C) :- river(R,L), last(L,C).
+rises(R,C) :- river_flows(R,L), last(L,C).
 
-drains(R,S) :- river(R,L), first(L,S).
+drains(R,S) :- river_flows(R,L), first(L,S).
 
 flows(R,C) :- flows(R,C,_).
 
-flows(R,C1,C2) :- river(R,L), links(L,C2,C1).
+flows(R,C1,C2) :- river_flows(R,L), links(L,C2,C1).
 
 first([X|_],X).
 

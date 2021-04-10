@@ -60,6 +60,7 @@ locate_library(Pack):-  prolog_load_context(directory,Dir),  atomic_list_concat(
 :- set_prolog_flag(retry_undefined, none).
 :- use_module(library(logicmoo_utils)).
 :- use_module(library(logicmoo/predicate_inheritance)).
+:- use_module(library(dialect/pfc)).
 :- use_module(library(pfc_iri_resource)).
 :- if( \+ current_predicate(each_call_cleanup/3)).
 :- use_module(library(each_call_cleanup)).
@@ -523,8 +524,9 @@ maybe_should_rename(O,O).
 
 % in_dialect_pfc:- prolog_load_context(dialect,pfc),!.
 in_dialect_pfc:- is_pfc_file. % \+ current_prolog_flag(dialect_pfc,cwc),!.
-in_dialect_pfc:- prolog_load_context(dialect,pfc),!. % , break.
+% in_dialect_pfc:- expecting_pfc_dialect.
 
+% in_dialect_pfc:- prolog_load_context(dialect,pfc),!,dialect_input_stream_pfc(Source),!, pfctmp:module_dialect_pfc(pfc,Source,_Was,_M,_Undo).
 %is_pfc_module(SM):- clause_b(using_pfc(SM,_, SM, pfc_toplevel)),!.
 %is_pfc_module(SM):- clause_b(using_pfc(SM,_, SM, pfc_mod)),!,baseKB:is_mtCanAssert(SM).
 is_pfc_module(SM):- clause_b(mtHybrid(SM)).
@@ -535,7 +537,6 @@ can_extreme_debug :- fail, notrace(( \+ in_pengines)).
 is_pfc_file:- can_extreme_debug, current_prolog_flag(expect_pfc_file,always),!,(is_pfc_file_notrace  ; (nop((dumpST,sleep(1),break,rtrace(is_pfc_file_notrace),break)),fail)),!.
 is_pfc_file:- can_extreme_debug, current_prolog_flag(expect_pfc_file,never),!,(\+is_pfc_file_notrace->fail;nop((dumpST,sleep(1),break,rtrace(\+is_pfc_file_notrace),break))),!.
 is_pfc_file:- quietly(is_pfc_file_notrace),!.
-
 :- system:import(pfc_lib:is_pfc_file/0).
 %:- header_sane:import(is_pfc_file/0).
 
@@ -545,7 +546,7 @@ is_pfc_file_notrace:- notrace(( prolog_load_context(source, SFile),
               is_pfc_filename(File,SFile),!.
 
 is_pfc_file_notrace:- current_source_file(FileL),(FileL=File:_),!,is_pfc_file(File),!.
-is_pfc_file_notrace:- prolog_load_context(dialect,pfc).
+%is_pfc_file_notrace:- expecting_pfc_dialect.
 
 %is_pfc_file_notrace:- \+ , prolog_load_context(module, M),M\==baseKB,is_pfc_module(M),!,clause_b(mtHybrid(M)).
 :- system:import(pfc_lib:is_pfc_file_notrace/0).
@@ -712,6 +713,7 @@ base_clause_expansion(I,O):- strip_mz(I,MZ,_), !, base_clause_expansion(MZ,I,O),
 base_clause_expansion(_MZ,Var,Var):-var(Var),!.
 base_clause_expansion(_MZ, :- module(W,List), [:- writetln(module(W,List)), :- set_fileAssertMt(W)]):- in_dialect_pfc,!.
 base_clause_expansion(_MZ,'?=>'(I), ':-'('?=>'(I))):- !.
+base_clause_expansion(_MZ,':-'(I),':-'(I)):- \+ in_dialect_pfc, !.
 base_clause_expansion(_MZ,':-'(In),':-'(Out)):- in_dialect_pfc,fully_expand(In,Out),!.
 base_clause_expansion(_MZ,':-'(I),':-'(I)):- !.
 
