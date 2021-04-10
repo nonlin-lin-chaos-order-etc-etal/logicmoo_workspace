@@ -25,7 +25,7 @@ fi
 
 mkdir -p /opt
 cd /opt
-export SSLWAS=$git config --global http.sslVerify
+export SSLWAS=$(git config --global http.sslVerify)
 git config --global http.sslVerify false
 if [ ! -d "logicmoo_workspace" ]; then
   git clone --recursive https://github.com/logicmoo/logicmoo_workspace.git
