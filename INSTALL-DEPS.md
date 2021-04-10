@@ -25,11 +25,12 @@ fi
 (
  chmod +x *.md
  chmod +x *.sh
- # apt-get -y install python-software-properties
- # apt-get -y install software-properties-common
+ apt-get -y install python-software-properties
+ apt-get -y install software-properties-common 
  # apt-get build-dep swi-prolog
  # libcurl4-gnutls-dev
  # libcurl4-openssl-dev
+ add-apt-repository ppa:c2d4u.team/c2d4u4.0+ -y
 
  # apt-get update
  # second line is BiocManager requirements
@@ -59,6 +60,7 @@ fi
   apt install -y libjpeg62-dev > /dev/null 2>&1
   apt install -y libjpeg62-turbo-dev > /dev/null 2>&1
   apt install -y python3-pip python-pip
+
   pip3 install tornado asyncio butterfly
   echo "#* Maybe: apt install openjdk-11-jdk openjdk-11-jdk-headless"
 

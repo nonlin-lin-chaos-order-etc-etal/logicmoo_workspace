@@ -1,20 +1,20 @@
 /*
  _________________________________________________________________________
-|	Copyright (C) 1982						  |
-|									  |
-|	David Warren,							  |
-|		SRI International, 333 Ravenswood Ave., Menlo Park,	  |
-|		California 94025, USA;					  |
-|									  |
-|	Fernando Pereira,						  |
-|		Dept. of Architecture, University of Edinburgh,		  |
-|		20 Chambers St., Edinburgh EH1 1JZ, Scotland		  |
-|									  |
-|	This program may be used, copied, altered or included in other	  |
-|	programs only for academic purposes and provided that the	  |
-|	authorship of the initial program is aknowledged.		  |
-|	Use for commercial purposes without the previous written 	  |
-|	agreement of the authors is forbidden.				  |
+|       Copyright (C) 1982                                                |
+|                                                                         |
+|       David Warren,                                                     |
+|               SRI International, 333 Ravenswood Ave., Menlo Park,       |
+|               California 94025, USA;                                    |
+|                                                                         |
+|       Fernando Pereira,                                                 |
+|               Dept. of Architecture, University of Edinburgh,           |
+|               20 Chambers St., Edinburgh EH1 1JZ, Scotland              |
+|                                                                         |
+|       This program may be used, copied, altered or included in other    |
+|       programs only for academic purposes and provided that the         |
+|       authorship of the initial program is aknowledged.                 |
+|       Use for commercial purposes without the previous written          |
+|       agreement of the authors is forbidden.                            |
 |_________________________________________________________________________|
 
 */
@@ -26,60 +26,37 @@
 qplan((P:-Q),(P1:-Q1)) :- qplan(P,Q,P1,Q1), !.
 qplan(P,P).
 
-qplan(assertion80(X),QPlan,assertion80(X),assertion80(QPlan)):-!.
-%qplan(X0,P0,X,P):- !, X=X0, P=P0,!.
-qplan(X0,P0,X,P):- 
-  Find = (X:-P),
-  findall(Find,qplan_each(X0,P0,X,P),Each),!,
- % \+ \+ pprint_ecp_cmt(yellow,(qplan:-[X0:-P0|Each])),
-  sort:predsort(least_complex80,Each,Sorted),!,
-  reverse(Sorted,[Find|_]),!.
-
-least_complex80(R,Term1,Term2):- once((term_variables(Term1,Vs1),Vs1\==Term1,term_variables(Term2,Vs2),Vs2\==Term2,
-  (Vs1\=Vs2),least_complex80(R,Vs1,Vs2))), R\==(=),!.
-least_complex80(R,Term1,Term2):- 
-  term_complxity(Term1,Cplx1),
-  term_complxity(Term2,Cplx2),
-  compare(RC,Cplx1,Cplx2),
-  (RC \= (=) -> R=RC ; compare(R,Term1,Term2)).
-
-term_complxity(Term ,Cplx ):- is_ftVar(Term ),!,Cplx  =  10.
-term_complxity(Term ,Cplx ):- \+ compound(Term ), !, Cplx  = 1 .
-term_complxity([A|B],Cplx ):- !, term_complxity(A,CplxA),term_complxity(B,CplxA), Cplx is CplxA+CplxB.
-term_complxity(Term ,Cplx ):- compound_name_arguements(Term ,Name,Args),
-  length(Args, CplxA),term_complxity(Args, CplxB ), Cplx is CplxA+CplxB.
-
-qplan_each(X0,P0,X,P) :-
-   numbervars(X0,0,I), 
-   varialbes80(X0,0,Vg),
+qplan(X0,P0,X,P) :-
+   numbervars(X0,0,I),
+   variables(X0,0,Vg),
    numbervars(P0,I,N),
-   mark80(P0,L,0,Vl),
+   mark(P0,L,0,Vl),
    schedule(L,Vg,P1),
    quantificate(Vl,0,P1,P2),
    functor(VA,$,N),
    variablise(X0,VA,X),
    variablise(P2,VA,P).
 
-mark80(X^P,L,Q0,Q) :- !, varialbes80(X,Q0,Q1), mark80(P,L,Q1,Q).
-mark80( ','(P1,P2),L,Q0,Q) :- !,
-   mark80(P1,L1,Q0,Q1),
-   mark80(P2,L2,Q1,Q),
-   recombine80(L1,L2,L).
-mark80(\+P,L,Q,Q) :- !, mark80(P,L0,0,Vl), negate(L0,Vl,L).
-mark80(SQ,[m(V,C,SQ1)],Q0,Q0) :- subquery(SQ,SQ1,X,P,N,Q), !,
-   mark80(P,L,0,Vl),
+mark(X^P,L,Q0,Q) :- !, variables(X,Q0,Q1), mark(P,L,Q1,Q).
+mark((P1,P2),L,Q0,Q) :- !,
+   mark(P1,L1,Q0,Q1),
+   mark(P2,L2,Q1,Q),
+   recombine(L1,L2,L).
+mark(\+P,L,Q,Q) :- !, mark(P,L0,0,Vl), negate(L0,Vl,L).
+mark(SQ,[m(V,C,SQ1)],Q0,Q0) :- subquery(SQ,SQ1,X,P,N,Q), !,
+   mark(P,L,0,Vl),
    L=[Q],   % Too bad about the general case!
-   marked80(Q,Vq,C0,_),
-   varialbes80(X,Vl,Vlx),
+   marked(Q,Vq,C0,_),
+   variables(X,Vl,Vlx),
    setminus(Vq,Vlx,V0),
    setofcost(V0,C0,C),
-   varialbes80(N,V0,V).
-mark80(P,[m(V,C,P)],Q,Q) :-
-   varialbes80(P,0,V),
-   cost80(P,V,C).
+   variables(N,V0,V).
+mark(P,[m(V,C,P)],Q,Q) :-
+   variables(P,0,V),
+   cost(P,V,C).
 
 subquery(setof(X,P,S),setof(X,Q,S),X,P,S,Q).
-subquery(numberof(Mz,X,P,N),numberof(Mz,X,Q,N),X,P,N,Q).
+subquery(numberof(X,P,N),numberof(X,Q,N),X,P,N,Q).
 
 negate([],_,[]).
 negate([P|L],Vl,[m(Vg,C,\+P)|L1]) :-
@@ -94,22 +71,24 @@ negationcost(_V,1000).
 setofcost(0,_,0) :- !.
 setofcost(_,C,C).
 
-varialbes80('$VAR'(N),V0,V) :- !, setplusitem(V0,N,V).
-varialbes80(T,V,V) :- atomic(T), !.
-varialbes80(T,V0,V) :- functor(T,_,N), varialbes80(N,T,V0,V).
+variables('$VAR'(N),V0,V) :- !, setplusitem(V0,N,V).
+variables(T,V,V) :- atomic(T), !.
+variables(T,V0,V) :- functor(T,_,N), variables(N,T,V0,V).
 
-varialbes80(0,_,V,V) :- !.
-varialbes80(N,T,V0,V) :- N1 is N-1,
+variables(0,_,V,V) :- !.
+variables(N,T,V0,V) :- N1 is N-1,
    arg(N,T,X),
-   varialbes80(X,V0,V1),
-   varialbes80(N1,T,V1,V).
+   variables(X,V0,V1),
+   variables(N1,T,V1,V).
 
 quantificate(W-V,N,P0,P) :- !, N1 is N+18,
    quantificate(V,N,P1,P),
    quantificate(W,N1,P0,P1).
 quantificate(0,_,P,P) :- !.
 quantificate(V,N,P0,'$VAR'(Nr)^P) :-
-   Vr is V /\ -(V),     % rightmost bit
+%%% JPO: was:
+%%% Vr is V /\ -(V),     % rightmost bit
+   Vr is V /\ (-V),     % rightmost bit
    log2(Vr,I),
    Nr is N+I,
    N1 is Nr+1,
@@ -123,26 +102,26 @@ log2(8,3) :- !.
 log2(N,I) :- N1 is N>>4, N1=\=0, log2(N1,I1), I is I1+4.
 
 schedule([P],Vg,Q) :- !, schedule1(P,Vg,Q).
-schedule([P1|P2],Vg, ','(Q1,Q2)) :- !, schedule1(P1,Vg,Q1), schedule(P2,Vg,Q2).
+schedule([P1|P2],Vg,(Q1,Q2)) :- !, schedule1(P1,Vg,Q1), schedule(P2,Vg,Q2).
 
 schedule1(m(V,C,P),Vg,Q) :-
    maybe_cut(V,Vg,Q0,Q),
    plan80(P,V,C,Vg,Q0).
 
-maybe_cut(V,Vg,P,{P}) :- disjoint80(V,Vg), !.
+maybe_cut(V,Vg,P,{P}) :- disjoint(V,Vg), !.
 maybe_cut(_V,_Vg,P,P).
 
 plan80(\+P,Vg,_,_,\+Q) :- !, Vg = 0,
-   marked80(P,V,C,P1),
+   marked(P,V,C,P1),
    plan80(P1,V,C,Vg,Q1),
    quantificate(V,0,Q1,Q).
 plan80(SQ,Vg,_,_,SQ1) :- subquery(SQ,SQ1,X,P,_,Q), !,
-   marked80(P,V,C,P1),
-   varialbes80(X,Vg,Vgx),
+   marked(P,V,C,P1),
+   variables(X,Vg,Vgx),
    setminus(V,Vgx,Vl),
    quantificate(Vl,0,Q1,Q),
    plan80(P1,V,C,Vgx,Q1).
-plan80(P,V,C,Vg, ','(Q,R)) :- is_conjunction(P), !,
+plan80(P,V,C,Vg,(Q,R)) :- is_conjunction(P), !,
    best_goal(P,V,C,P0,V0,PP),
    plan80(P0,V0,C,Vg,Q),
    instantiate(PP,V0,L),
@@ -152,25 +131,27 @@ plan80(P,V,C,Vg, ','(Q,R)) :- is_conjunction(P), !,
    schedule(L3,Vg,R).
 plan80(P,_,_,_,P).
 
-is_conjunction( ','(_,_)).
+is_conjunction((_,_)).
 
-marked80(m(V,C,P),V,C,P).
+marked(m(V,C,P),V,C,P).
 
 freevars(m(V,_,_),V).
 
-best_goal( ','(P1,P2),V,C,P0,V0,m(V,C,Q)) :- !,
-   ( marked80(P1,Va,C,Pa), Q=(Pb,P2) ; marked80(P2,Va,C,Pa), Q=(P1,Pb) ), !,
-   best_goal(Pa,Va,C,P0,V0,Pb).
+best_goal((P1,P2),V,C,P0,V0,m(V,C,Q)) :- !,
+   ( marked(P1,Va,C,Pa), Q=(Pb,P2)
+   ; marked(P2,Va,C,Pa), Q=(P1,Pb) ), !,
+     best_goal(Pa,Va,C,P0,V0,Pb
+   ).
 best_goal(P,V,_C,P,V,true).
 
 instantiate(true,_,[]) :- !.
-instantiate(P,Vi,[P]) :- freevars(P,V), disjoint80(V,Vi), !.
+instantiate(P,Vi,[P]) :- freevars(P,V), disjoint(V,Vi), !.
 instantiate(m(V,_,P),Vi,L) :- instantiate0(P,V,Vi,L).
 
-instantiate0( ','(P1,P2),_,Vi,L) :-
+instantiate0((P1,P2),_,Vi,L) :-
    instantiate(P1,Vi,L1),
    instantiate(P2,Vi,L2),
-   recombine80(L1,L2,L).
+   recombine(L1,L2,L).
 instantiate0(\+P,V,Vi,L) :- !,
    instantiate(P,Vi,L0),
    freevars(P,Vf), setminus(Vf,V,Vl),
@@ -178,29 +159,29 @@ instantiate0(\+P,V,Vi,L) :- !,
 instantiate0(SQ,Vg,Vi,[m(V,C,SQ1)]) :- subquery(SQ,SQ1,X,P,_,Q), !,
    instantiate(P,Vi,L),
    L=[Q],   % Too bad about the general case!
-   marked80(Q,Vg,C0,_),
+   marked(Q,Vg,C0,_),
    setminus(Vg,Vi,V),
-   varialbes80(X,0,Vx),
+   variables(X,0,Vx),
    setminus(V,Vx,V0),
    setofcost(V0,C0,C).
 instantiate0(P,V,Vi,[m(V1,C,P)]) :-
    setminus(V,Vi,V1),
-   cost80(P,V1,C).
+   cost(P,V1,C).
 
-recombine80(L,[],L) :- !.
-recombine80([],L,L).
-recombine80([P1|L1],[P2|L2],L) :-
-   marked80(P1,V1,C1,_), nonempty(V1),
+recombine(L,[],L) :- !.
+recombine([],L,L).
+recombine([P1|L1],[P2|L2],L) :-
+   marked(P1,V1,C1,_), nonempty(V1),
    incorporate(P1,V1,C1,P2,L2,L3), !,
-   recombine80(L1,L3,L).
-recombine80([P|L1],L2,[P|L]) :- recombine80(L1,L2,L).
+   recombine(L1,L3,L).
+recombine([P|L1],L2,[P|L]) :- recombine(L1,L2,L).
 
 incorporate(P0,V0,C0,P1,L1,L) :-
-   marked80(P1,V1,C1,_),
-   intersect80(V0,V1), !,
+   marked(P1,V1,C1,_),
+   intersect(V0,V1), !,
    setplus(V0,V1,V),
    minimum(C0,C1,C),
-   incorporate0(m(V,C, ','(P0,P1)),V,C,L1,L).
+   incorporate0(m(V,C,(P0,P1)),V,C,L1,L).
 incorporate(P0,V0,C0,P1,[P2|L1],[P1|L]) :- incorporate(P0,V0,C0,P2,L1,L).
 
 incorporate0(P0,V0,C0,[P1|L1],L) :- incorporate(P0,V0,C0,P1,L1,L), !.
@@ -210,15 +191,20 @@ minimum(N1,N2,N1) :- N1 =< N2, !.
 minimum(_N1,N2,N2).
 
 add_keys([],[]).
-add_keys([P|L],[C-P|L1]) :- marked80(P,_,C,_), add_keys(L,L1).
+add_keys([P|L],[C-P|L1]) :- marked(P,_,C,_), add_keys(L,L1).
 
 strip_keys([],[]).
 strip_keys([X|L],[P|L1]) :- strip_key(X,P), strip_keys(L,L1).
 
 strip_key(_C-P,P).
 
-variablise('$VAR'(N),VV,V) :- !, N1 is N+1, arg(N1,VV,V).
-variablise(T,_,T) :- atomic(T), !.
+variablise('$VAR'(N),VV,V) :-
+   !,
+   N1 is N+1,
+   arg(N1,VV,V).
+variablise(T,_,T) :-
+   atomic(T),
+   !.
 variablise(T,VV,T1) :-
    functor(T,F,N),
    functor(T1,F,N),
@@ -231,28 +217,43 @@ variablise(N,T,VV,T1) :- N1 is N-1,
    variablise(X,VV,X1),
    variablise(N1,T,VV,T1).
 
-cost80(+P,0,N) :- !, cost80(P,0,N).
-cost80(+_P,_V,1000) :- !.
-cost80(P,V,N) :- functor(P,F,I), cost80(I,F,P,V,N).
+cost(+P,0,N) :-
+   !,
+   cost(P,0,N).
+cost(+_P,_V,1000) :-
+   !.
+cost(P,V,N) :-
+   functor(P,F,I),
+   cost(I,F,P,V,N).
 
-cost80(1,F,P,V,N) :-
-   arg(1,P,X1), instantiated(X1,V,I1),
-   nd_costs(F,N0,N1),
+cost(1,F,P,V,N) :-
+   arg(1,P,X1),
+   instantiated(X1,V,I1),
+   nd(F,N0,N1),
    N is N0-I1*N1.
-cost80(2,F,P,V,N) :-
-   arg(1,P,X1), instantiated(X1,V,I1),
-   arg(2,P,X2), instantiated(X2,V,I2),
-   nd_costs(F,N0,N1,N2),
+cost(2,F,P,V,N) :-
+   arg(1,P,X1),
+   instantiated(X1,V,I1),
+   arg(2,P,X2),
+   instantiated(X2,V,I2),
+   nd(F,N0,N1,N2),
    N is N0-I1*N1-I2*N2.
-cost80(3,F,P,V,N) :-
-   arg(1,P,X1), instantiated(X1,V,I1),
-   arg(2,P,X2), instantiated(X2,V,I2),
-   arg(3,P,X3), instantiated(X3,V,I3),
-   nd_costs(F,N0,N1,N2,N3),
+cost(3,F,P,V,N) :-
+   arg(1,P,X1),
+   instantiated(X1,V,I1),
+   arg(2,P,X2),
+   instantiated(X2,V,I2),
+   arg(3,P,X3),
+   instantiated(X3,V,I3),
+   nd(F,N0,N1,N2,N3),
    N is N0-I1*N1-I2*N2-I3*N3.
 
-instantiated([X|_],V,N) :- !, instantiated(X,V,N).
-instantiated('$VAR'(N),V,0) :- setcontains(V,N), !.
+instantiated([X|_],V,N) :-
+   !,
+   instantiated(X,V,N).
+instantiated('$VAR'(N),V,0) :-
+   setcontains(V,N),
+   !.
 instantiated(_,_,1).
 
 /*-------------------------Put in reserve--------------------
@@ -305,14 +306,13 @@ setcontains(_W-V,N) :- N < 18, !, V /\ 1<<N =\= 0.
 setcontains(W-_V,N) :- !, N1 is N-18, setcontains(W,N1).
 setcontains(V,N) :- N < 18, V /\ 1<<N =\= 0.
 
-intersect80(W1-V1,W2-V2) :- !, ( V1 /\ V2 =\= 0 ; intersect80(W1,W2) ), !.
-intersect80(_W-V1,V2) :- !, V1 /\ V2 =\= 0.
-intersect80(V1,_W-V2) :- !, V1 /\ V2 =\= 0.
-intersect80(V1,V2) :- V1 /\ V2 =\= 0.
+intersect(W1-V1,W2-V2) :- !, ( V1 /\ V2 =\= 0 ; intersect(W1,W2) ), !.
+intersect(_W-V1,V2) :- !, V1 /\ V2 =\= 0.
+intersect(V1,_W-V2) :- !, V1 /\ V2 =\= 0.
+intersect(V1,V2) :- V1 /\ V2 =\= 0.
 
-disjoint80(W1-V1,W2-V2) :- !, V1 /\ V2 =:= 0, disjoint80(W1,W2).
-disjoint80(_W-V1,V2) :- !, V1 /\ V2 =:= 0.
-disjoint80(V1,_W-V2) :- !, V1 /\ V2 =:= 0.
-disjoint80(V1,V2) :- V1 /\ V2 =:= 0.
+disjoint(W1-V1,W2-V2) :- !, V1 /\ V2 =:= 0, disjoint(W1,W2).
+disjoint(_W-V1,V2) :- !, V1 /\ V2 =:= 0.
+disjoint(V1,_W-V2) :- !, V1 /\ V2 =:= 0.
+disjoint(V1,V2) :- V1 /\ V2 =:= 0.
 
-:- fixup_exports.

@@ -43,7 +43,7 @@ git clean -f -x
 git checkout origin/master . -f
 git submodule update --init
 git pull --recurse-submodules
-patch -p1 --merge < ../dmiles-attvar.patch
+patch -p1 --merge < /opt/logicmoo_workspace/dmiles-attvar.patch
 git status)
 
 (cd swipl-devel

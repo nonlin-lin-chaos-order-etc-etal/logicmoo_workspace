@@ -1,5 +1,4 @@
 /*
-
  _________________________________________________________________________
 |       Copyright (C) 1982                                                |
 |                                                                         |
@@ -20,16 +19,34 @@
 
 */
 
-terminal(T,S,S,x(_,terminal,T,X),X).
-%   writef("           terminal -- SUCCEEDED1 for T= {0} S= {1}", [T,S])
-%.
-terminal(T,[T|S],S,X,X) :-
-%   writef("           terminal -- SUCCEEDED2 for T= {0} S= {1}", [T,S]),
-   gap(X).
-%terminal(A,B,C,D,E) :-
-%   writef("           terminal -- FAILED for T= {0} S= {1}", [A,B]), !, fail.
+measure_op(id,X,X,true).
+measure_op(same,X,Y,X=Y).
+measure_op(less,X,Y,exceeds(Y,X)).
+measure_op(not+less,X,Y,\+exceeds(Y,X)).
+measure_op(more,X,Y,exceeds(X,Y)).
+measure_op(not+more,X,Y,\+exceeds(X,Y)).
 
-gap(x(gap,_,_,_)).
-gap([]).
+i_sup_op(least,min).
+i_sup_op(most,max).
 
-virtual(NT,x(_,nonterminal,NT,X),X).
+inverse(most,-,least).
+inverse(least,-,most).
+inverse(same,-,same).
+inverse(less,-,more).
+inverse(more,-,less).
+inverse(X,+,X).
+
+deepen_case(prep(at),time).
+deepen_case(s_subj,dir).
+deepen_case(s_subj,ind).
+deepen_case(prep(by),subj).
+deepen_case(prep(to),ind).
+deepen_case(prep(of),poss).
+deepen_case(X,X).
+
+indexable(the(plu)).
+indexable(all).
+
+indexable(de(plu)).
+indexable(alle).
+

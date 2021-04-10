@@ -1,30 +1,32 @@
 /*
 
  _________________________________________________________________________
-|	Copyright (C) 1982						  |
-|									  |
-|	David Warren,							  |
-|		SRI International, 333 Ravenswood Ave., Menlo Park,	  |
-|		California 94025, USA;					  |
-|									  |
-|	Fernando Pereira,						  |
-|		Dept. of Architecture, University of Edinburgh,		  |
-|		20 Chambers St., Edinburgh EH1 1JZ, Scotland		  |
-|									  |
-|	This program may be used, copied, altered or included in other	  |
-|	programs only for academic purposes and provided that the	  |
-|	authorship of the initial program is aknowledged.		  |
-|	Use for commercial purposes without the previous written 	  |
-|	agreement of the authors is forbidden.				  |
+|       Copyright (C) 1982                                                |
+|                                                                         |
+|       David Warren,                                                     |
+|               SRI International, 333 Ravenswood Ave., Menlo Park,       |
+|               California 94025, USA;                                    |
+|                                                                         |
+|       Fernando Pereira,                                                 |
+|               Dept. of Architecture, University of Edinburgh,           |
+|               20 Chambers St., Edinburgh EH1 1JZ, Scotland              |
+|                                                                         |
+|       This program may be used, copied, altered or included in other    |
+|       programs only for academic purposes and provided that the         |
+|       authorship of the initial program is aknowledged.                 |
+|       Use for commercial purposes without the previous written          |
+|       agreement of the authors is forbidden.                            |
 |_________________________________________________________________________|
 
 */
 
+:- public aggregate/3, one_of/2, ratio/3, card/2.
 
-aggregate80(Fn,Set,Val) :-
+
+aggregate(Fn,Set,Val) :-
    dimensioned(Set), !,
    u_aggr(Fn,Set,Val).
-aggregate80(Fn,Set,Val) :-
+aggregate(Fn,Set,Val) :-
    i_aggr(Fn,Set,Val).
 
 i_aggr(average,Set,Val) :-
@@ -98,10 +100,10 @@ u_total([V:_|R],T) :-
 u_sum(X--U,Y--U,Z--U) :- !,
    Z is X+Y.
 u_sum(X--U,Y--U1,Z--U) :-
-   ratio80(U,U1,M,M1), M>M1, !,
+   ratio(U,U1,M,M1), M>M1, !,
    Z is X + (Y*M1)/M.
 u_sum(X--U1,Y--U,Z--U) :-
-   ratio80(U,U1,M,M1), M>M1, !,
+   ratio(U,U1,M,M1), M>M1, !,
    Z is (X*M1)/M + Y.
 
 u_maxs([V:X|Set],List) :-
@@ -129,7 +131,9 @@ u_mins0([_|R],V,L0,L,W) :-
    u_mins0(R,V,L0,L,W).
 
 u_lt(A,X--U) :-
-   Y is -X,
+   Y is (-X),
+%%% JPO: was:
+%%% Y is -X,
    u_sum(A,Y--U,Z--_),
    Z<0.
 
@@ -139,9 +143,8 @@ one_of([X|_],X).
 one_of([_|R],X) :-
    one_of(R,X).
 
-ratio80(N,M,R) :- R is (N*100)/M.
+ratio(N,M,R) :- R is (N*100)/M.
 
-cardinality80(S,N) :- length(S,N).
+card(S,N) :- length(S,N).
 
 
-:- fixup_exports.

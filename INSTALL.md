@@ -16,7 +16,7 @@ fi
 #git submodule update
 #git submodule sync --recursive
 git fetch --recurse-submodules
-git status -v --show-stash
+#git status -v --show-stash
 
 (source ./INSTALL-DEPS.md )
 (source ./INSTALL-SWI.md )

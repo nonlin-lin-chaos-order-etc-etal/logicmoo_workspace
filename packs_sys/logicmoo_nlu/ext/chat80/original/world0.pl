@@ -1,21 +1,21 @@
 /*
 
  _________________________________________________________________________
-|	Copyright (C) 1982						  |
-|									  |
-|	David Warren,							  |
-|		SRI International, 333 Ravenswood Ave., Menlo Park,	  |
-|		California 94025, USA;					  |
-|									  |
-|	Fernando Pereira,						  |
-|		Dept. of Architecture, University of Edinburgh,		  |
-|		20 Chambers St., Edinburgh EH1 1JZ, Scotland		  |
-|									  |
-|	This program may be used, copied, altered or included in other	  |
-|	programs only for academic purposes and provided that the	  |
-|	authorship of the initial program is aknowledged.		  |
-|	Use for commercial purposes without the previous written 	  |
-|	agreement of the authors is forbidden.				  |
+|       Copyright (C) 1982                                                |
+|                                                                         |
+|       David Warren,                                                     |
+|               SRI International, 333 Ravenswood Ave., Menlo Park,       |
+|               California 94025, USA;                                    |
+|                                                                         |
+|       Fernando Pereira,                                                 |
+|               Dept. of Architecture, University of Edinburgh,           |
+|               20 Chambers St., Edinburgh EH1 1JZ, Scotland              |
+|                                                                         |
+|       This program may be used, copied, altered or included in other    |
+|       programs only for academic purposes and provided that the         |
+|       authorship of the initial program is aknowledged.                 |
+|       Use for commercial purposes without the previous written          |
+|       agreement of the authors is forbidden.                            |
 |_________________________________________________________________________|
 
 */
@@ -23,158 +23,169 @@
 % Data for the World Database.
 % ---------------------------
 
-:- if(use_pfc80).
-:- expects_dialect(pfc).
-:- endif.
 
+% Interface.
+% ---------
 
-:-op(600,xfy,--).
+% Interface.
+% ---------
 
-exceeds(X,Y):- term_variables(X-Y,Vars),freeze_until(Vars,exceeds0(X,Y)).
+database(aggregate(X,Y,Z)) :- aggregate(X,Y,Z).
+database(one_of(X,Y)) :- one_of(X,Y).
+database(ratio(X,Y,Z)) :- ratio(X,Y,Z).
+database(card(X,Y)) :- card(X,Y).
+database(african(X)) :- african(X).
+database(american(X)) :- american(X).
+database(area(X)) :- area(X).
+database(area(X,Y)) :- area(X,Y).
+database(asian(X)) :- asian(X).
+database(borders(X,Y)) :- borders(X,Y).
+database(capital(X)) :- capital(X).
+database(capital(X,Y)) :- capital(X,Y).
+database(circle_of_latitude(X)) :- circle_of_latitude(X).
+database(city(X)) :- city(X).
+database(continent(X)) :- continent(X).
+database(country(X)) :- country(X).
+database(drains(X,Y)) :- drains(X,Y).
+database(eastof(X,Y)) :- eastof(X,Y).
+database(european(X)) :- european(X).
+database(exceeds(X,Y)) :- exceeds(X,Y).
+database(flows(X,Y)) :- flows(X,Y).
+database(flows(X,Y,Z)) :- flows(X,Y,Z).
+database(loc_in(X,Y)) :- loc_in(X,Y).
+database(latitude(X)) :- latitude(X).
+database(latitude(X,Y)) :- latitude(X,Y).
+database(longitude(X)) :- longitude(X).
+database(longitude(X,Y)) :- longitude(X,Y).
+database(northof(X,Y)) :- northof(X,Y).
+database(ocean(X)) :- ocean(X).
+database(place(X)) :- place(X).
+%database(person(X)) :- person(X).	% JW: person is not defined
+database(population(X)) :- population(X).
+database(population(X,Y)) :- population(X,Y).
+database(region(X)) :- region(X).
+database(rises(X,Y)) :- rises(X,Y).
+database(river(X)) :- river(X).
+database(sea(X)) :- sea(X).
+database(seamass(X)) :- seamass(X).
+database(southof(X,Y)) :- southof(X,Y).
+database(westof(X,Y)) :- westof(X,Y).
 
-freeze_until([],Goal):-!, term_variables(Goal, Vars),(Vars==[] -> Goal ; freeze_until(Vars,Goal)).
-freeze_until([V|Vars],Goal):- freeze(V,freeze_until(Vars,Goal)).
+:-op(500,xfy,--).
 
-exceeds0(X--U,Y--U) :- !, X > Y.
-exceeds0(X1--U1,X2--U2) :- ratio80(U1,U2,M1,M2), X1*M1 > X2*M2.
+exceeds(X--U,Y--U) :- !, X > Y.
+exceeds(X1--U1,X2--U2) :- ratio(U1,U2,M1,M2), X1*M1 > X2*M2.
 
-ratio80(thousand,million,1,1000).
-ratio80(million,thousand,1000,1).
-ratio80(ksqmiles,sqmiles,1000,1).
-ratio80(sqmiles,ksqmiles,1,1000).
+ratio(thousand,million,1,1000).
+ratio(million,thousand,1000,1).
+ratio(ksqmiles,sqmiles,1000,1).
+ratio(sqmiles,ksqmiles,1,1000).
 
 area(_X--ksqmiles).
-country_capital_city(_X,C)==>ti(capital_city,C).
-capital_city(C) :- ti(capital_city, C).
-:- if(false).
-% @TODO PERF BUG
-city_country_popu(C,_,_)==>ti(city,C).
-city(C):- ti(city,C).
-:- else.
-% city(C):- city_country_popu(C,_,_).
-city(C):- ti(city,C).
-%city(C):- ti(city,C), \+ city_country_popu(C,_,_).
-madeup_city_country_popu(C,Nat,PopOut):- 
-  ti(city,C), \+ clause(city_country_popu(C,_,_), true),
-  once((directly_contains(Nat,C), 
-  c_r_l_l_s_cap_m(Nat,_,_,_,_,Pop,_,_))),  
-  % estimate at least a quarter of country population
-  A is integer(Pop/4000000), 
-  % add a magic number
-  PopOut is (A*1000) + 666.
-city_country_popu(C,Nat,Pop):- madeup_city_country_popu(C,Nat,Pop).
-% city(C):- ti(city,C), \+ city_country_popu(C,_,_).
-:- endif.
-%ti(country,C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
-country(C):- ti(country,C).
+capital(C) :- capital(_X,C).
+city(C) :- city(C,_,_).
+country(C) :- country(C,_,_,_,_,_,_,_).
 latitude(_X--degrees).
 longitude(_X--degrees).
-%place(X) :- continent(X); region(X); seamass(X); country(X).
-:- if(use_pfc80).
-%ti(place,X) ==> place(X).
-:- else.
-:- endif.
-place(X) :- ti(place,X).
-
-==> sub_ti(seamass,place).
-==> sub_ti(continent,place).
-==> sub_ti(region,place).
-==> sub_ti(country,place).
-
+place(X) :- continent(X); region(X); seamass(X); country(X).
 population(_X--million).
 population(_X--thousand).
+region(R) :- in_continent(R,_).
 
 african(X) :- loc_in(X,africa).
 american(X) :- loc_in(X,america).
 asian(X) :- loc_in(X,asia).
 european(X) :- loc_in(X,europe).
 
+loc_in(X,Y) :- var(X), nonvar(Y), !, contains(Y,X).
+loc_in(X,Y) :- in0(X,W), ( W=Y ; loc_in(W,Y) ).
 
-rel_spatial(east_of,X1,X2) :- coordinate_spatial(longitude,X1,L1), coordinate_spatial(longitude,X2,L2), exceeds(L2,L1).
-rel_spatial(north_of,X1,X2) :- coordinate_spatial(latitude,X1,L1), coordinate_spatial(latitude,X2,L2), exceeds(L1,L2).
-rel_spatial(south_of,X1,X2) :- coordinate_spatial(latitude,X1,L1), coordinate_spatial(latitude,X2,L2), exceeds(L2,L1).
-rel_spatial(west_of,X1,X2) :- coordinate_spatial(longitude,X1,L1), coordinate_spatial(longitude,X2,L2), exceeds(L1,L2).
+in0(X,Y) :- in_continent(X,Y).
+in0(X,Y) :- city(X,Y,_).
+in0(X,Y) :- country(X,Y,_,_,_,_,_,_).
+in0(X,Y) :- flows(X,Y).
 
+eastof(X1,X2) :- longitude(X1,L1), longitude(X2,L2), exceeds(L2,L1).
+northof(X1,X2) :- latitude(X1,L1), latitude(X2,L2), exceeds(L1,L2).
+southof(X1,X2) :- latitude(X1,L1), latitude(X2,L2), exceeds(L2,L1).
+westof(X1,X2) :- longitude(X1,L1), longitude(X2,L2), exceeds(L1,L2).
 
-ti(circle_of_latitude,equator).
-ti(circle_of_latitude,tropic_of_cancer).
-ti(circle_of_latitude,tropic_of_capricorn).
-ti(circle_of_latitude,arctic_circle).
-ti(circle_of_latitude,antarctic_circle).
+circle_of_latitude(equator).
+circle_of_latitude(tropic_of_cancer).
+circle_of_latitude(tropic_of_capricorn).
+circle_of_latitude(arctic_circle).
+circle_of_latitude(antarctic_circle).
 
-coordinate_spatial(latitude,equator,0--degrees).
-coordinate_spatial(latitude,tropic_of_cancer,23--degrees).
-coordinate_spatial(latitude,tropic_of_capricorn,(-23)--degrees).
-coordinate_spatial(latitude,arctic_circle,67--degrees).
-coordinate_spatial(latitude,antarctic_circle,(-67)--degrees).
+latitude(equator,0--degrees).
+latitude(tropic_of_cancer,23--degrees).
+latitude(tropic_of_capricorn,-23--degrees).
+latitude(arctic_circle,67--degrees).
+latitude(antarctic_circle,-67--degrees).
 
-coordinate_spatial(latitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,L,_,_,_,_,_).
-coordinate_spatial(longitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,_,L,_,_,_,_).
-area(C,A--ksqmiles) :-
-   c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is integer(A0/1000).
-population(C,P--thousand) :- city_country_popu(C,_,P).
-population(C,P--million) :-
-   c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
-%country_capital_city(C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
+latitude(C,L--degrees) :- country(C,_,L,_,_,_,_,_).
+longitude(C,L--degrees) :- country(C,_,_,L,_,_,_,_).
+area(C,A--ksqmiles) :- country(C,_,_,_,A0,_,_,_), A is A0/1000.
+population(C,P--thousand) :- city(C,_,P).
+population(C,P--million) :-  country(C,_,_,_,_,P0,_,_), P is floor(P0/1000000).
+capital(C,Cap) :- country(C,_,_,_,_,_,Cap,_).
 
-ti(continent,africa).
-ti(continent,america).
-ti(continent,antarctica).
-ti(continent,asia).
-ti(continent,australasia).
-ti(continent,europe).
+continent(africa).
+continent(america).
+continent(antarctica).
+continent(asia).
+continent(australasia).
+continent(europe).
 
-continent(X):- ti(continent,X).
+in_continent(scandinavia, europe).
+in_continent(western_europe, europe).
+in_continent(eastern_europe, europe).
+in_continent(southern_europe, europe).
+in_continent(north_america, america).
+in_continent(central_america, america).
+in_continent(caribbean, america).
+in_continent(south_america, america).
+in_continent(north_africa, africa).
+in_continent(west_africa, africa).
+in_continent(central_africa, africa).
+in_continent(east_africa, africa).
+in_continent(southern_africa, africa).
+in_continent(middle_east,  asia).
+in_continent(indian_subcontinent, asia).
+in_continent(southeast_east, asia).
+in_continent(far_east, asia).
+in_continent(northern_asia, asia).
 
-seamass(X):- ti(seamass,X).
+seamass(X) :- ocean(X).
+seamass(X) :- sea(X).
 
-==> sub_ti(ocean,seamass).
-==> sub_ti(sea,seamass).
+ocean(arctic_ocean).
+ocean(atlantic).
+ocean(indian_ocean).
+ocean(pacific).
+ocean(southern_ocean).
 
-ti(ocean,arctic_ocean).
-ti(ocean,atlantic).
-ti(ocean,indian_ocean).
-ti(ocean,pacific).
-ti(ocean,southern_ocean).
+sea(baltic).
+sea(black_sea).
+sea(caspian).
+sea(mediterranean).
+sea(persian_gulf).
+sea(red_sea).
 
-ocean(X):- ti(ocean,X).
+river(R) :- river(R,_L).
 
+rises(R,C) :- river(R,L), last(L,C).
 
-ti(sea,baltic).
-ti(sea,black_sea).
-ti(sea,caspian).
-ti(sea,mediterranean).
-ti(sea,persian_gulf).
-ti(sea,red_sea).
+drains(R,S) :- river(R,L), first(L,S).
 
-sea(X):- ti(sea,X).
+flows(R,C) :- flows(R,C,_).
 
-river(X):- ti(river,X).
-%ti(river,R) :- river_flows(R,_L).
+flows(R,C1,C2) :- river(R,L), links(L,C2,C1).
 
-rises(R,C) :- river_flows(R,L), last_link(L,C).
+first([X|_],X).
 
-drains(R,S) :- river_flows(R,L), first_link(L,S).
+last([X],X).
+last([_|L],X) :- last(L,X).
 
-flows_thru(R,C) :- river_links(R,C,_).
+links([X1,X2|_],X1,X2).
+links([_|L],X1,X2) :- links(L,X1,X2).
 
-river_links(R,C1,C2) :- river_flows(R,L), link_pairs(L,C2,C1).
-
-first_link([X|_],X).
-
-last_link([X],X).
-last_link([_|L],X) :- last_link(L,X).
-
-link_pairs([X1,X2|_],X1,X2).
-link_pairs([_|L],X1,X2) :- link_pairs(L,X1,X2).
-
-:- if(use_pfc80).
-==> (( (sub_ti(Child,Parent), ti(Child,X)) ==> ti(Parent,X) )).
-:- else.
-ti(Parent,X) :- sub_ti(Child,Parent), ti(Child,X).
-:- endif.
-
-
-:- listing(seamass/1).
-
-:- fixup_exports.

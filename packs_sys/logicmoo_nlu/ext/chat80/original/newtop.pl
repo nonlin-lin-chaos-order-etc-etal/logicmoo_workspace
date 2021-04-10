@@ -1,257 +1,545 @@
 /*
 
  _________________________________________________________________________
-|	Copyright (C) 1982						  |
-|									  |
-|	David Warren,							  |
-|		SRI International, 333 Ravenswood Ave., Menlo Park,	  |
-|		California 94025, USA;					  |
-|									  |
-|	Fernando Pereira,						  |
-|		Dept. of Architecture, University of Edinburgh,		  |
-|		20 Chambers St., Edinburgh EH1 1JZ, Scotland		  |
-|									  |
-|	This program may be used, copied, altered or included in other	  |
-|	programs only for academic purposes and provided that the	  |
-|	authorship of the initial program is aknowledged.		  |
-|	Use for commercial purposes without the previous written 	  |
-|	agreement of the authors is forbidden.				  |
+|       Copyright (C) 1982                                                |
+|                                                                         |
+|       David Warren,                                                     |
+|               SRI International, 333 Ravenswood Ave., Menlo Park,       |
+|               California 94025, USA;                                    |
+|                                                                         |
+|       Fernando Pereira,                                                 |
+|               Dept. of Architecture, University of Edinburgh,           |
+|               20 Chambers St., Edinburgh EH1 1JZ, Scotland              |
+|                                                                         |
+|       This program may be used, copied, altered or included in other    |
+|       programs only for academic purposes and provided that the         |
+|       authorship of the initial program is aknowledged.                 |
+|       Use for commercial purposes without the previous written          |
+|       agreement of the authors is forbidden.                            |
 |_________________________________________________________________________|
+
 
 */
 
+%:- ensure_loaded(readin).
+
 % Chat-80 : A small subset of English for database querying.
+
+:-public hi/0, hi/1, quote/1.
+
+:- op(400,xfy,&).
+:- op(200,xfx,--).
+:- [chatops].
+
 
 /* Control loop */
 
-hi80 :-
-   hi80(user).
+q1([what,are,the,continents,no,country,in,which,contains,more,than,
+    two,cities,whose,population,exceeds,nb(1),million,? ]).
 
-hi80(File) :-
+q2([which,country,that,borders,the,mediterranean,borders,a,country,
+    that,is,bordered,by,a,country,whose,population,exceeds,
+    the,population,of,india,? ]).
+/* ----------------------------------------------------------------------
+	Simple questions
+	These question do not require setof/3 and are useful for early
+	testing of a system.
+   ---------------------------------------------------------------------- */
+
+eg( [ does, america, contain, new_york, ? ] ).
+eg( [ does, mexico, border, the, united_states, ? ] ).
+eg( [ is, the, population, of, china, greater, than, nb(200), million, ? ] ).
+eg( [ does, the, population, of, china, exceed, nb(1000), million, ? ] ).
+eg( [ is, the, population, of, china, nb(840), million, ? ] ).
+eg( [ does, the, population, of, china, exceed, the, population, of,
+      india, ? ] ).
+eg( [ is, spain, bordered, by, the, pacific, ? ] ).
+eg( [ does, the, atlantic, border, spain, ? ] ).
+eg( [ is, the, rhine, in, switzerland, ? ] ).
+eg( [ is, the, united_kingdom, in, europe, ? ] ).
+
+
+/* ----------------------------------------------------------------------
+	Standard question set
+	This is the standard chat question set, originally put together
+	by David and Fernando and use in their papers. Quintus uses this
+	set as a standard for performance comparisons.
+   ---------------------------------------------------------------------- */
+
+ed(  1, [ what, rivers, are, there, ? ],
+
+		[amazon, amu_darya, amur, brahmaputra, colorado,
+		congo_river, cubango, danube, don, elbe, euphrates, ganges,
+		hwang_ho, indus, irrawaddy, lena, limpopo, mackenzie,
+		mekong, mississippi, murray, niger_river, nile, ob, oder,
+		orange, orinoco, parana, rhine, rhone, rio_grande, salween,
+		senegal_river, tagus, vistula, volga, volta, yangtze,
+		yenisei, yukon, zambesi]  ).
+
+ed(  2, [ does, afghanistan, border, china, ? ],
+
+		[true]  ).
+
+ed(  3, [ what, is, the, capital, of, upper_volta, ? ],
+
+		[ouagadougou]  ).
+
+ed(  4, [ where, is, the, largest, country, ? ],
+
+		[asia, northern_asia]  ).
+
+ed(  5, [ which, countries, are, european, ? ],
+
+		[albania, andorra, austria, belgium, bulgaria, cyprus,
+		czechoslovakia, denmark, east_germany, eire, finland,
+		france, greece, hungary, iceland, italy, liechtenstein,
+		luxembourg, malta, monaco, netherlands, norway, poland,
+		portugal, romania, san_marino, spain, sweden, switzerland,
+		united_kingdom, west_germany, yugoslavia]  ).
+
+ed(  6, [ which, country, '''', s, capital, is, london, ? ],
+
+		[united_kingdom]  ).
+
+ed(  7, [ which, is, the, largest, african, country, ? ],
+
+		[sudan]  ).
+
+ed(  8, [ how, large, is, the, smallest, american, country, ? ],
+
+		[0--ksqmiles]  ).
+
+ed(  9, [ what, is, the, ocean, that, borders, african, countries,
+	  and, that, borders, asian, countries, ? ],
+
+		[indian_ocean]  ).
+
+ed( 10, [ what, are, the, capitals, of, the, countries, bordering, the,
+	  baltic, ? ],
+
+		[[[denmark]:[copenhagen], [east_germany]:[east_berlin],
+		[finland]:[helsinki], [poland]:[warsaw],
+		[soviet_union]:[moscow], [sweden]:[stockholm],
+		[west_germany]:[bonn]]]  ).
+
+ed( 11, [ which, countries, are, bordered, by, two, seas, ? ],
+
+		[egypt, iran, israel, saudi_arabia, turkey]  ).
+
+ed( 12, [ how, many, countries, does, the, danube, flow, through, ? ],
+
+		[6]  ).
+
+ed( 13, [ what, is, the, total, area, of, countries, south, of, the, equator,
+	  and, not, in, australasia, ? ],
+
+		[10228--ksqmiles]  ).
+
+ed( 14, [ what, is, the, average, area, of, the, countries, in, each,
+	  continent, ? ],
+
+		[[africa,233--ksqmiles], [america,496--ksqmiles],
+		[asia,485--ksqmiles], [australasia,543--ksqmiles],
+		[europe,58--ksqmiles]]  ).
+
+ed( 15, [ is, there, more, than, one, country, in, each, continent, ? ],
+
+		[false]  ).
+
+ed( 16, [ is, there, some, ocean, that, does, not, border, any, country, ? ],
+
+		[true]  ).
+
+ed( 17, [ what, are, the, countries, from, which, a, river, flows, into,
+	  the, black_sea, ? ],
+
+		[[romania,soviet_union]]  ).
+
+ed( 18, [ what, are, the, continents, no, country, in, which, contains, more,
+	  than, two, cities, whose, population, exceeds, nb(1), million, ? ],
+
+		[[africa,antarctica,australasia]]  ).
+
+ed( 19, [ which, country, bordering, the, mediterranean, borders, a, country,
+	  that, is, bordered, by, a, country, whose, population, exceeds,
+	  the, population, of, india, ? ],
+
+		[turkey]  ).
+
+ed( 20, [ which, countries, have, a, population, exceeding, nb(10),
+	  million, ? ],
+
+		[afghanistan, algeria, argentina, australia, bangladesh,
+		brazil, burma, canada, china, colombia, czechoslovakia,
+		east_germany, egypt, ethiopia, france, india, indonesia,
+		iran, italy, japan, kenya, mexico, morocco, nepal,
+		netherlands, nigeria, north_korea, pakistan, peru,
+		philippines, poland, south_africa, south_korea,
+		soviet_union, spain, sri_lanka, sudan, taiwan, tanzania,
+		thailand, turkey, united_kingdom, united_states, venezuela,
+		vietnam, west_germany, yugoslavia, zaire]  ).
+
+ed( 21, [ which, countries, with, a, population, exceeding, nb(10), million,
+	  border, the, atlantic, ? ],
+
+		[argentina, brazil, canada, colombia, france, mexico,
+		morocco, netherlands, nigeria, south_africa, spain,
+		united_kingdom, united_states, venezuela, west_germany,
+		zaire]  ).
+
+ed( 22, [ what, percentage, of, countries, border, each, ocean, ? ],
+
+		[[arctic_ocean,2], [atlantic,35], [indian_ocean,14],
+		[pacific,20]]  ).
+
+ed( 23, [ what, countries, are, there, in, europe, ? ],
+
+		[albania, andorra, austria, belgium, bulgaria, cyprus,
+		czechoslovakia, denmark, east_germany, eire, finland,
+		france, greece, hungary, iceland, italy, liechtenstein,
+		luxembourg, malta, monaco, netherlands, norway, poland,
+		portugal, romania, san_marino, spain, sweden, switzerland,
+		united_kingdom, west_germany, yugoslavia]  ).
+
+
+/* ----------------------------------------------------------------------
+	Simple Access to demonstrations
+   ---------------------------------------------------------------------- */
+
+demo(Type) :- demo(Type,L), inform(L), check_words(L,S), process(S).
+
+demo(mini,List) :- eg(List).
+demo(main,List) :- ed(_,List,_).
+
+inform(L) :- nl, write('Question: '), inform1(L), nl, !.
+
+inform1([]).
+inform1([H|T]) :- write(H), put(32), inform1(T).
+
+
+/* ----------------------------------------------------------------------
+	Top level processing for verification and performance analysis
+   ---------------------------------------------------------------------- */
+
+test_chat :- test_chat(_).
+
+test_chat(N) :-
+	show_title,
+	ed(N,Sentence,CorrectAnswer),
+	  process(Sentence,CorrectAnswer,Status,Times),
+	  show_results(N,Status,Times),
+	fail.
+test_chat(_).
+
+test :-
+	time(rtest_chats(20)).
+
+					% added JW
+rtest_chats(0) :- !.
+rtest_chats(N) :-
+	rtest_chat(1),
+	NN is N - 1,
+	rtest_chats(NN).
+
+rtest_chat(N) :-
+	ed(N,Sentence,CorrectAnswer), !,
+	  process(Sentence,CorrectAnswer,Status,_Times),
+	  (   Status == true
+	  ->  true
+	  ;   format(user_error, 'Test ~w failed!~n', [N])
+	  ),
+	NN is N + 1,
+	rtest_chat(NN).
+rtest_chat(_).
+
+show_title :-
+	format('Chat Natural Language Question Anwering Test~n~n',[]),
+	show_format(F),
+	format(F, ['Test','Parse','Semantics','Planning','Reply','TOTAL']),
+	nl.
+
+show_results(N,Status,Times) :-
+	show_format(F),
+	format(F, [N|Times]),
+	( Status = true ->
+		nl
+	; otherwise ->
+		tab(2), write(Status), nl
+	).
+
+show_format( '~t~w~10+ |~t~w~12+~t~w~10+~t~w~10+~t~w~10+~t~w~10+' ).
+
+
+process(Sentence,CorrectAnswer,Status,Times) :-
+	process(Sentence,Answer,Times),
+	!,
+	check_answer(Answer,CorrectAnswer,Status).
+process(_,_,failed,[0,0,0,0,0]).
+
+
+process(Sentence,Answer,[Time1,Time2,Time3,Time4,TotalTime]) :-
+	statistics(runtime, [T0, _]),
+
+	  sentence(E,Sentence,[],[],[]),
+
+	statistics(runtime, [T1, _]),
+	Time1 is T1 - T0,
+	statistics(runtime, [T2, _]),
+
+	  i_sentence(E,QT),
+	  clausify(QT,UE),
+	  simplify(UE,S),
+
+	statistics(runtime, [T3, _]),
+	Time2 is T3 - T2,
+	statistics(runtime, [T4, _]),
+
+	  qplan(S,S1), !,
+
+	statistics(runtime, [T5, _]),
+	Time3 is T5 - T4,
+	statistics(runtime, [T6, _]),
+
+	  answer(S1,Answer), !,
+
+	statistics(runtime, [T7, _]),
+	Time4 is T7 - T6,
+	TotalTime is Time1 + Time2 + Time3 + Time4.
+
+
+	% Version of answer/1 from TALKR which returns answer
+answer((answer([]):-E),[B]) :- !, holds(E,B).
+answer((answer([X]):-E),S) :- !, seto(X,E,S).
+answer((answer(X):-E),S) :- seto(X,E,S).
+
+check_answer(A,A,true) :- !.
+check_answer(_,_,'wrong answer').
+
+
+/* ----------------------------------------------------------------------
+	Top level for runtime version, and interactive demonstrations
+   ---------------------------------------------------------------------- */
+
+runtime_entry(start) :-
+   version,
+   format(user,'~nChat Demonstration Program~n~n',[]),
+   hi.
+
+hi :-
+%   assert(tracing),
+%   tell('hi_out.txt'),
+   hi(user)
+%   ,told
+   .
+
+hi1 :-
+   assert(tracing),
+%   tell('hi_out.txt'),
+   q1(P),
+   control(P)
+%   ,fail
+%   ,told.
+  .
+
+hi2 :-
+   assert(tracing),
+%   tell('hi_out.txt'),
+   q2(P),
+   control(P)
+%   ,fail
+%   ,told.
+  .
+
+hi(File) :-
    repeat,
-  writeln('------------------------------------------------------'),
-      ask80(File,P),
-      control80(P), !,
-      end80(File).
+      ask(File,P),
+      control(P), !,
+      end(File).
 
-ask80(user,P) :- !,
-   prompt(_,'Question: '),
+ask(user,P) :- !,
+   write('Question: '),
+   ttyflush,
    read_in(P).
-ask80(File,P) :-
+   %originally: read_in(P).
+ask(File,P) :-
    seeing(Old),
    see(File),
    read_in(P),
    nl,
-   doing80(P,0),
+   doing(P,0),
    nl,
    see(Old).
 
-doing80([],_) :- !.
-doing80([X|L],N0) :-
-   out80(X),
-   advance80(X,N0,N),
-   doing80(L,N).
+   /*
+% added by John Pool
+read_in2( L) :-
+  readatoms( A),
+  atoms_to_lower( A, L).
 
+atoms_to_lower( [A|As], [L|Ls]) :-
+  !,
+  atom_string( A, S),
+  Low is lowcase( S),
+  atom_string( L0, Low),
+  getnum( L0, L),
+  atoms_to_lower( As, Ls).
+atoms_to_lower( [], []).
 
-out80(nb(X)) :- !,
+getnum( A, nb(A)) :-
+  integer( A),
+  !.
+getnum( A, A).
+%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+doing([],_) :- !.
+doing([X|L],N0) :-
+   out1(X),
+   advance(X,N0,N),
+   doing(L,N).
+
+out1(nb(X)) :- !,
    write(X).
-out80(A) :-
+out1(A) :-
    write(A).
 
-advance80(X,N0,N) :-
-   uses80(X,K),
+advance(X,N0,N) :-
+   uses(X,K),
    M is N0+K,
  ( M>72, !,
-      nl,
+     nl,
       N is 0;
-   N is M+1,
+     N is M+1,
       put(" ")).
 
-uses80(nb(X),N) :- !,
-   chars80(X,N).
-uses80(X,N) :-
-   chars80(X,N).
+uses(nb(X),N) :- !,
+   chars(X,N).
+uses(X,N) :-
+   chars(X,N).
 
-chars80(X,N) :- atomic(X), !,
+chars(X,N) :- atomic(X), !,
    name(X,L),
    length(L,N).
-chars80(_,2).
+chars(_,2).
 
-end80(user) :- !.
-end80(_F) :-
-   seen.
+end(user) :- !.
+end(F) :- seeing(F) -> seen ; true. % close(F).
 
-:- dynamic(t_l:tracing80/0).
-
-atom_or_nb(nb(A)):-!,number(A).
-atom_or_nb(A):-atom(A).
-string_nb_to_atom(nb(N),N):- number(N),!.
-string_nb_to_atom(N,nb(N)):- number(N),!.
-string_nb_to_atom(S,A):- string_to_atom(S,A),!.
-control80(NotList):-  
- ( \+ is_list(NotList); \+ maplist(atom_or_nb,NotList) ) ->
-   to_word_list(NotList,List),
-   maplist(string_nb_to_atom,List,ListIn),
-   dmsg(NotList \=@= ListIn),!,   
-   control80(ListIn).
-
-control80([bye,'.']) :- !,
+control([bye,'.']) :- !,
+   nl, nl,
    write('Cheerio.'),
    nl.
-control80([trace,'.']) :- !,
-   assert(t_l:tracing80),
+control([x,'.']) :- !,
+   halt.
+control([trace,'.']) :- !,
+   tracing ~= on,
    write('Tracing from now on!'), nl, fail.
-control80([do,not,trace,'.']) :-
-   retract(t_l:tracing80), !,
+control([do,not,trace,'.']) :- !,
+   tracing ~= off,
    write('No longer tracing.'), nl, fail.
-control80([Word,'.']) :- !, call(Word),!,
-   nl,fail.
-control80(U) :-
-   process80(U),
+control([do,mini,demo,'.']) :- !,
+   write('Executing mini demo...'), nl,
+   demo(mini), fail.
+control([#|Text]) :- write(Text), nl, !, fail.
+control([do,main,demo,'.']) :- !,
+   write('Executing main demo...'), nl,
+   demo(main), fail.
+control([test,chat,'.']) :- !,
+   test_chat, fail.
+control(U0) :-
+   check_words(U0,U),
+   process(U),
    fail.
 
-:- share_mp(trace_chat80/1).
-trace_chat80(U):-
- locally(t_l:tracing80,
-           locally(t_l:chat80_interactive,
-            locally_hide(t_l:useOnlyExternalDBs,
-             locally_hide(thglobal:use_cyc_database,
-              ignore(control80(U)))))).
-:- user:import(trace_chat80/1).
-
-:- share_mp(test_chat80/1).
-test_chat80(U):-
-  locally(t_l:tracing80_nop,
-           locally(t_l:chat80_interactive_nop,
-            locally_hide(t_l:useOnlyExternalDBs,
-             locally_hide(thglobal:use_cyc_database,
-              ignore(user:control80(U)))))).
-   
-:- user:import(test_chat80/1).
-
-
-process801(U) :-
- ((
+process(U) :-
    runtime(StartParse),
-   sentence(E0,U,[],[],[]),
-   unnumbervars(E0,E),
+   sentence(E,U,[],[],[]),
    runtime(StopParse),
-   ParseTime is StopParse - StartParse,
-   DISP = sent_to_prelogic(E),
-   \+ \+ report(DISP,'Parse',ParseTime,tree))),
+   % ParseTime is StopParse - StartParse,
+   % report(E,'Parse',ParseTime,tree),
+   % !, %%%%%%%%%%%%%%%% added by JPO
    runtime(StartSem),
-   sent_to_prelogic(E,S), !,
+   logic(E,S),
    runtime(StopSem),
    SemTime is StopSem - StartSem,
-   % \+ \+ report(S,'Semantics',SemTime,expr),
+   report(S,'Semantics',SemTime,expr),
    runtime(StartPlan),
    qplan(S,S1), !,
    runtime(StopPlan),
    TimePlan is StopPlan - StartPlan,
-   (S1==S -> Show1= planned_same(S1); Show1=plan_evolved(S->S1)),
-   report(Show1,'Planning',TimePlan,expr),
+   report(S1,'Planning',TimePlan,expr),
    runtime(StartAns),
-   writeln('-----------'),
-   write('HEARD: '),writeln(U),
-   writeln('-----------'),
-   write('REPLY: '),
-   forall((catch((answer80(S1)*->fail;writeln(failed(answer80(S1)))),Err,(writeln(S1),writeln(error(Err))))),true), !, nl,
+   answer(S1), !, nl,
    runtime(StopAns),
    TimeAns is StopAns - StartAns,
    report(_,'Reply',TimeAns,none).
-
-process80(U):- process801(U), !.
-process80(_) :-
+process(_) :-
    failure.
 
-failure :- dumpST,
+failure :-
+   nl, nl,
    write('I don''t understand!'), nl.
 
 report(Item,Label,Time,Mode) :-
-   t_l:tracing80, !,
-   nl, write(Label), write(': '), write(Time), write('sec.'), nl,
-   report_item(Mode,Item),!.
+   tracing =: on, !,
+   nl, write(Label), write(': '), write(Time), write('msec.'), nl,
+   \+ \+ report_item(Mode,Item),!.
 report(_,_,_,_).
 
 report_item(none,_).
-report_item(T,Var):-var(Var),!,write('FAILED: '+T),nl.
-report_item(Mode,Item):-
-  copy_term(Item,ItemCopy),
-  ignore( \+ report_item0(Mode,ItemCopy)).
-report_item0(portray,Item) :-
-   portray_clause((Item:-Item)), nl.
-report_item0(expr,Item) :-
+report_item(expr,Item) :-
    write_tree(Item), nl.
-report_item0(tree,Item) :-
-   print_tree80(Item), nl.
+report_item(_Tree,Item) :-
+   print_tree(Item).
 
-runtime(Time) :-
-   statistics(runtime,[MSec,_]),
-   Time is MSec/1000.
+runtime(MSec) :-
+   statistics(runtime,[MSec,_]).
 
-quote80('&'(A,R)) :-
+quote(A&R) :-
    atom(A), !,
    quote_amp(R).
-quote80(_-_).
-quote80(_--_).
-quote80(_+_).
-quote80(verb(_,_,_,_,_)).
-quote80(wh(_)).
-quote80(name(_)).
-quote80(prep(_)).
-quote80(det(_)).
-quote80(quantV(_,_)).
-quote80(int_det(_)).
+quote(_-_).
+quote(_--_).
+quote(_+_).
+quote(verb(_,_,_,_,_)).
+quote(wh(_)).
+quote(name(_)).
+quote(prep(_)).
+quote(det(_)).
+quote(quant(_,_)).
+quote(int_det(_)).
 
 quote_amp('$VAR'(_)) :- !.
 quote_amp(R) :-
-   quote80(R).
+   quote(R).
 
-sent_to_prelogic(S0,S) :-
- must_or_rtrace((
-   unnumbervars(S0,S00))),
- copy_term(S00,S000,_Gs),
- ((i_sentence(S000,S1),
-   clausify80(S1,S2),
-   simplify80(S2,SOut))),
- S000=S00,
- SOut=S,!.
+logic(S0,S) :-
+   i_sentence(S0,S1),
+   clausify(S1,S2),
+   simplify(S2,S).
 
-sent_to_prelogic(S0,S) :-
- must_or_rtrace((
-   unnumbervars(S0,S00))),
- copy_term(S00,S000,_Gs),
- trace,((i_sentence(S000,S1),
-   clausify80(S1,S2),
-   simplify80(S2,SOut))),!,
- S000=S00,
- SOut=S.
-
-simplify80(C,C0):-var(C),dmsg(var_simplify(C,C0)),!,fail.
-simplify80(C,(P:-R)) :- !,
+simplify(C,(P:-R)) :- !,
    unequalise(C,(P:-Q)),
-   simplify80(Q,R,true).
+   simplify(Q,R,true).
 
-simplify80(C,C0,C1):-var(C),dmsg(var_simplify(C,C0,C1)),fail.
-simplify80(C,C,R):-var(C),!,R=C.
-simplify80(setof(X,P0,S),R,R0) :- !,
-   simplify80(P0,P,true),
+simplify(setof(X,P0,S),R,R0) :- !,
+   simplify(P0,P,true),
    revand(R0,setof(X,P,S),R).
-simplify80(','(P,Q),R,R0) :-
-   simplify80(Q,R1,R0),
-   simplify80(P,R,R1).
-simplify80(true,R,R) :- !.
-simplify80(X^P0,R,R0) :- !,
-   simplify80(P0,P,true),
+simplify((P,Q),R,R0) :-
+   simplify(Q,R1,R0),
+   simplify(P,R,R1).
+simplify(true,R,R) :- !.
+simplify(X^P0,R,R0) :- !,
+   simplify(P0,P,true),
    revand(R0,X^P,R).
-simplify80(numberof(Mz,X,P0,Y),R,R0) :- !,
-   simplify80(P0,P,true),
-   revand(R0,numberof(Mz,X,P,Y),R).
-simplify80(\+P0,R,R0) :- !,
-   simplify80(P0,P1,true),
+simplify(numberof(X,P0,Y),R,R0) :- !,
+   simplify(P0,P,true),
+   revand(R0,numberof(X,P,Y),R).
+simplify(\+P0,R,R0) :- !,
+   simplify(P0,P1,true),
    simplify_not(P1,P),
    revand(R0,P,R).
-simplify80(P,R,R0) :-
+simplify(P,R,R0) :-
    revand(R0,P,R).
 
 simplify_not(\+P,P) :- !.
@@ -290,41 +578,65 @@ inv_map_list(K0,T,V,M,R) :-
 
 drop_eq('$VAR'(I),'$VAR'(J),V,M,true) :- !,
  ( I=\=J, !,
-      irev(I,J,K,L), 
-      arg(K,M,L),
-      arg(K,V,X),
-      arg(L,V,X);
+   irev(I,J,K,L),
+   arg(K,M,L),
+   arg(K,V,X),
+   arg(L,V,X)
+   ;
    true).
 drop_eq('$VAR'(I),T,V,M,true) :- !,
-   arg(I,V,T),
-   arg(I,M,0).
+   deref(I,M,J),
+   arg(J,V,T),
+   arg(J,M,0).
 drop_eq(T,'$VAR'(I),V,M,true) :- !,
-   arg(I,V,T),
-   arg(I,M,0).
+   deref(I,M,J),
+   arg(J,V,T),
+   arg(J,M,0).
 drop_eq(X,Y,_,_,X=Y).
+
+deref(I,M,J) :-
+   arg(I,M,X),
+  (var(X), !, I=J;
+   deref(X,M,J)).
 
 exquant('$VAR'(I),V,M,P0,P) :-
    arg(I,M,U),
  ( var(U), !,
-      arg(I,V,X),
-       P=(X^P0);
-   P=P0).
+   arg(I,V,X),
+   P=(X^P0);
+   P=P0 ).
 
 irev(I,J,I,J) :- I>J, !.
 irev(I,J,J,I).
 
-parser_chat80:t11:- 
-   test_chat80("how many postures are there?"),
-   test_chat80("what are the postures?"),
-   test_chat80("what are the types?"),
-   %test_chat80("how many oceans are seas?"),
-   %test_chat80("how many oceans are seamasses?"),
-   test_chat80("how many types are there?"),
-   test_chat80("how many formattypes are there?"),
-   test_chat80("what formattypes are there?"),
-   !.
-parser_chat80:t13:-!.
-parser_chat80:t12:-
-   hi80('/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/chat80/original/demo').
+%:- mode check_words(+,-).
 
-%:- fixup_exports.
+check_words([],[]).
+check_words([Word|Words],[RevWord|RevWords]) :-
+   check_word(Word,RevWord),
+   check_words(Words,RevWords).
+
+%:- mode check_word(+,-).
+
+check_word(Word,Word) :- word(Word), !.
+check_word(Word,NewWord) :-
+   write('? '), write(Word), write(' -> (!. to abort) '), ttyflush,
+   read(NewWord0),
+   NewWord0 \== !,
+   check_word(NewWord0,NewWord).
+
+%:- mode ~=(+,+), =+(+,-), =:(+,?).
+
+Var ~= Val :-
+ ( recorded(Var,val(_),P), erase(P)
+ ; true), !,
+ recordz(Var,val(Val),_).
+
+Var =+ Val :-
+ ( recorded(Var,val(Val0),P), erase(P)
+ ; Val0 is 0), !,
+   Val is Val0+1,
+   recordz(Var,val(Val),_).
+
+Var =: Val :-
+   recorded(Var,val(Val),_).
