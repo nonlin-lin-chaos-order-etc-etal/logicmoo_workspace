@@ -21,6 +21,7 @@ export LOGICMOO_WS=$DIR0
 #git submodule init
 #git submodule update
 #git submodule sync --recursive
+git config --global http.sslVerify false
 git fetch --recurse-submodules
 #git status -v --show-stash
 
