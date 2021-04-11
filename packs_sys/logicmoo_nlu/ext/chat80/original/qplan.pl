@@ -25,7 +25,8 @@
 :- module(qplan,[qplan/2]).
 
 qplan((P:-Q),(P1:-Q1)) :- qplan(P,Q,P1,Q1), !.
-qplan(P,P).
+qplan(P,Q):- simplify(P,Q),!.
+
 
 qplan(X0,P0,X,P) :-
    numbervars(X0,0,I),

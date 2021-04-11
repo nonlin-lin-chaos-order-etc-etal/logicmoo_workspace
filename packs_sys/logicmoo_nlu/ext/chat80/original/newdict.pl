@@ -22,7 +22,7 @@
 % =================================================================
 % General Dictionary
 
-ag_number(1,sin).
+ag_number(1,sg).
 ag_number(N,plu) :- N>1.
 
 word(Word) :- '`' (Word).
@@ -69,12 +69,12 @@ word(Word) :- loc_pred(_,Word,_).
 conj(and).
 conj(or).
 
-det(a,sin,a,indef).
+det(a,sg,a,indef).
 det(all,plu,all,indef).
-det(an,sin,a,indef).
+det(an,sg,a,indef).
 det(any,_,any,indef).
-det(each,sin,each,indef).
-det(every,sin,every,indef).
+det(each,sg,each,indef).
+det(every,sg,every,indef).
 det(no,_,no,indef).
 det(some,_,some,indef).
 det(the,No,the(No),def).
@@ -89,7 +89,7 @@ int_pron(whom,compl).
 name(Name) :- name_template(Name,_), !.
 
 noun_form(Plu,Sin,plu) :- noun_plu(Plu,Sin).
-noun_form(Sin,Sin,sin) :- noun_sin(Sin).
+noun_form(Sin,Sin,sg) :- noun_sin(Sin).
 
 noun_form(proportion,proportion,_).
 noun_form(percentage,percentage,_).
@@ -98,23 +98,23 @@ number(W,I,Nb) :-
         tr_number(W,I),
         ag_number(I,Nb).
 
-pers_pron(he,masc,3,sin,subj).
-pers_pron(her,fem,3,sin,compl(_)).
-pers_pron(him,masc,3,sin,compl(_)).
-pers_pron(i,_,1,sin,subj).
-pers_pron(it,neut,3,sin,_).
-pers_pron(me,_,1,sin,compl(_)).
-pers_pron(she,fem,3,sin,subj).
+pers_pron(he,masc,3,sg,subj).
+pers_pron(her,fem,3,sg,compl(_)).
+pers_pron(him,masc,3,sg,compl(_)).
+pers_pron(i,_,1,sg,subj).
+pers_pron(it,neut,3,sg,_).
+pers_pron(me,_,1,sg,compl(_)).
+pers_pron(she,fem,3,sg,subj).
 pers_pron(them,_,3,plu,compl(_)).
 pers_pron(them,_,3,plu,subj).
 pers_pron(us,_,1,plu,compl(_)).
 pers_pron(we,_,1,plu,subj).
 pers_pron(you,_,2,_,_).
 
-poss_pron(her,fem,3,sin).
-poss_pron(his,masc,3,sin).
-poss_pron(its,neut,3,sin).
-poss_pron(my,_,1,sin).
+poss_pron(her,fem,3,sg).
+poss_pron(his,masc,3,sg).
+poss_pron(its,neut,3,sg).
+poss_pron(my,_,1,sg).
 poss_pron(our,_,1,plu).
 poss_pron(their,_,3,plu).
 poss_pron(your,_,2,_).
@@ -168,7 +168,7 @@ rel_pron(whom,compl).
 
 % wordt niet gebruikt:
 root_form(1+plu).
-root_form(1+sin).
+root_form(1+sg).
 root_form(2+_).
 root_form(3+plu).
 
@@ -188,37 +188,37 @@ tr_number(ten,10).
 tr_number(three,3).
 tr_number(two,2).
 
-verb_form(am,be,pres+fin,1+sin).
-verb_form(are,be,pres+fin,2+sin).
+verb_form(am,be,pres+fin,1+sg).
+verb_form(are,be,pres+fin,2+sg).
 verb_form(are,be,pres+fin,_+plu).
 verb_form(been,be,past+part,_).
 verb_form(being,be,pres+part,_).
 verb_form(did,do,past+fin,_).
-verb_form(does,do,pres+fin,3+sin).
+verb_form(does,do,pres+fin,3+sg).
 verb_form(doing,do,pres+part,_).
 verb_form(done,do,past+part,_).
-verb_form(has,have,pres+fin,3+sin).
+verb_form(has,have,pres+fin,3+sg).
 verb_form(having,have,pres+part,_).
-verb_form(is,be,pres+fin,3+sin).
-verb_form(was,be,past+fin,1+sin).
-verb_form(was,be,past+fin,3+sin).
-verb_form(were,be,past+fin,2+sin).
+verb_form(is,be,pres+fin,3+sg).
+verb_form(was,be,past+fin,1+sg).
+verb_form(was,be,past+fin,3+sg).
+verb_form(were,be,past+fin,2+sg).
 verb_form(were,be,past+fin,_+plu).
 
 verb_form(bordering,border,pres+part,_).
-verb_form(borders,border,pres+fin,3+sin).
+verb_form(borders,border,pres+fin,3+sg).
 verb_form(containing,contain,pres+part,_).
-verb_form(contains,contain,pres+fin,3+sin).
+verb_form(contains,contain,pres+fin,3+sg).
 verb_form(draining,drain,pres+part,_).
-verb_form(drains,drain,pres+fin,3+sin).
+verb_form(drains,drain,pres+fin,3+sg).
 verb_form(exceeding,exceed,pres+part,_).
-verb_form(exceeds,exceed,pres+fin,3+sin).
+verb_form(exceeds,exceed,pres+fin,3+sg).
 verb_form(flowing,flow,pres+part,_).
-verb_form(flows,flow,pres+fin,3+sin).
+verb_form(flows,flow,pres+fin,3+sg).
 verb_form(governing,govern,pres+part,_).
-verb_form(governs,govern,pres+fin,3+sin).
+verb_form(governs,govern,pres+fin,3+sg).
 verb_form(risen,rise,past+part,_).
-verb_form(rises,rise,pres+fin,3+sin).
+verb_form(rises,rise,pres+fin,3+sg).
 verb_form(rose,rise,past+fin,_).
 
 verb_form(Verb,Verb,pres+fin,_+plu) :- Verb = V, verb_root(V).
@@ -261,12 +261,13 @@ verb_type(rise,main+intrans).
 % =================================================================
 % Specialised Dictionary
 
-adj(african,restr).
-adj(american,restr).
-adj(asian,restr).
+adj(African,restr):- agentitive_trans(_,_,African).
+adj(Baltic,restr):- agentitive_symmetric(_,Baltic).
+%adj(american,restr).
+%adj(asian,restr).
+%adj(european,restr).
 adj(average,restr).
 adj(big,quant).
-adj(european,restr).
 adj(great,quant).
 adj(great,quant).
 adj(large,quant).
@@ -290,6 +291,8 @@ noun_plu(capitals,capital).
 noun_plu(cities,city).
 noun_plu(continents,continent).
 noun_plu(countries,country).
+noun_plu(nations,nation).
+noun_plu(states,state).
 noun_plu(degrees,degree).
 noun_plu(ksqmiles,ksqmile).
 noun_plu(latitudes,latitude).

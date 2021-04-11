@@ -24,7 +24,7 @@
 % ------------------
 madeup_city_country_popu(C,Nat,PopOut):- fail,
   ti(city,C), \+ clause(city_country_popu(C,_,_), true),
-  once((directly_contains(Nat,C), 
+  once((trans_direct(contains,Nat,C), 
   c_r_l_l_s_cap_m(Nat,_,_,_,_,Pop,_,_))),  
   % estimate at least a quarter of country population
   A is integer(Pop/4000000), 

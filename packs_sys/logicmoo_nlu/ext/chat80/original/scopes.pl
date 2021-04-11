@@ -175,16 +175,16 @@ index_vars([quant(index(_), _-X, P0, _-X)|Indices],
    index_vars(Indices, IndexV, P).
 
 
-complete_aggr([Att, Obj], '`'  G, R, Quants,(P, R), Att, Obj) :-
+complete_aggr([Att, X], '`'  G, R, Quants,(P, R), Att, X) :-
    chain_apply(Quants, G, P).
 
-complete_aggr([Att], Head, R0, Quants0,(P1, P2, R), Att, Obj) :-
+complete_aggr([Att], Head, R0, Quants0,(P1, P2, R), Att, X) :-
    meta_apply(Head, R0, Quants0, G, R, Quants),
-   set_vars(Quants, Obj, Rest, P2),
+   set_vars(Quants, X, Rest, P2),
    chain_apply(Rest, G, P1).
 
-complete_aggr([], '`'  G, R, [quant(set, _-(Obj:Att), S:T, _)],
-  (G, R, S, T), Att, Obj).
+complete_aggr([], '`'  G, R, [quant(set, _-(X:Att), S:T, _)],
+  (G, R, S, T), Att, X).
 
 
 set_vars([quant(set, _-(I:X), P:Q, _-X)], [X|I], [],(P, Q)).
@@ -222,7 +222,7 @@ split_quants(Det0, [Quant|Quants], Above, Above0, Below, Below0) :-
 
 compare_dets(Det0, Q, [quant(Det, X, P, Y)|Above], Above, Below, Below) :-
    open_quant(Q, Det1, X, P, Y),
-   governs(Det1, Det0), !,
+   governs_lex(Det1, Det0), !,
    bubble(Det0, Det1, Det).
 
 compare_dets(Det0, Q0, Above, Above, [Q|Below], Below) :-
@@ -281,10 +281,10 @@ apply(det(Det), _, X, P, Y, Q, R) :-
 
 
 apply0(Some, X, P, X, Q, X^(P, Q)) :-
-   some(Some).
+   some_word(Some).
 
 apply0(All, X, P, X, Q, \+X^(P, \+Q)) :-
-   all(All).
+   all_word(All).
 
 apply0(no, X, P, X, Q, \+X^(P, Q)).
 apply0(notall, X, P, X, Q, X^(P, \+Q)).
@@ -301,14 +301,14 @@ quant_op(more, X, Y, X>Y).
 value(wh(Type-X), Type, X).
 value(nb(X), _, X).
 
-all(all).
-all(every).
-all(each).
-all(any).
+all_word(all).
+all_word(every).
+all_word(each).
+all_word(any).
 
-some(a).
-some(the(sin)).
-some(some).
+some_word(a).
+some_word(the(sg)).
+some_word(some).
 
 
 apply_set([], X, true:P, S, setof(X, P, S)).
@@ -317,27 +317,27 @@ apply_set([I|Is], X, Range:P, S,
    setof([I|Is]:V,(Range, setof(X, P, V)), S)).
 
 
-governs(Det, set(J)) :-
+governs_lex(Det, set(J)) :-
    index_det(Det, I),
    I \== J.
 
-governs(Det0, Det) :-
+governs_lex(Det0, Det) :-
    index_det(Det0, _),
  ( index_det(Det, _);
    Det=det(_);
    Det=quant(_, _)).
 
-governs(_, void).
-governs(_, lambda).
-governs(_, id).
-governs(det(each), question([_|_])).
-governs(det(each), det(each)).
-governs(det(any), not).
+governs_lex(_, void).
+governs_lex(_, lambda).
+governs_lex(_, id).
+governs_lex(det(each), question([_|_])).
+governs_lex(det(each), det(each)).
+governs_lex(det(any), not).
 
-governs(quant(same, wh(_)), Det) :-
+governs_lex(quant(same, wh(_)), Det) :-
    weak(Det).
 
-governs(det(Strong), Det) :-
+governs_lex(det(Strong), Det) :-
    strong0(Strong),
    weak(Det).
 
@@ -365,7 +365,7 @@ weak0(a).
 weak0(all).
 weak0(some).
 weak0(every).
-weak0(the(sin)).
+weak0(the(sg)).
 weak0(notall).
 
 

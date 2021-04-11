@@ -23,7 +23,7 @@
 % Facts about rivers.
 % ------------------
 
-flow_link(river,R,L):-river_flows(R,L).
+path_linkages(river,R,L):-river_flows(R,L).
 
 river_flows(amazon,[atlantic,brazil,peru]).
 river_flows(amu_darya,[aral_sea,soviet_union,afghanistan]).

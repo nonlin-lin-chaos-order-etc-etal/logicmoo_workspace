@@ -44,7 +44,7 @@ pl([A|As],I) :- !,
    pt(A,I),
    pl(As,I).
 
-as_is(A) :- atomic(A), !.
+as_is(A) :- \+ compound(A), !.
 as_is('$VAR'(_)) :- !.
 as_is('_'(_)) :- !.
 as_is(X) :-

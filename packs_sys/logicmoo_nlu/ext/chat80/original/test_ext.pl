@@ -25,10 +25,10 @@
 
 :- use_module(library(statistics)).
 
-:- autoload_all.
+%:- autoload_all.
 :- use_module(library(logicmoo_common)).
-:- xlisting(lock_predicate/1).
-:- autoload_all.
+%:- xlisting(lock_predicate/1).
+%:- autoload_all.
 
 :- module(baseKB).
 

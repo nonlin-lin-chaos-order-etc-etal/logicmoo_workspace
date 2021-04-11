@@ -50,18 +50,19 @@ trans_rel_cache_create(P1,P2):-
   !.
   
 
-%contains(X,Y) :- directly_contains(X,Y).
-%contains(X,Y) :- directly_contains(X,W), contains(W,Y).
+%contains(X,Y) :- trans_direct(contains,X,Y).
+%contains(X,Y) :- trans_direct(contains,X,W), contains(W,Y).
 
-contains(X,Y) :- trans_rel(=,directly_contains,X,Y).
+trans_pred(spatial,contains,X,Y) :- trans_rel(=,trans_direct(contains),X,Y).
+%contains(X,X).
 
-directly_contains(Continent,Region):- continent_contains_region(Continent,Region).
-directly_contains(Region,Country):- region_contains_country(Region,Country).
-directly_contains(Country,CityOrRiver):- country_contains_thing(Country,CityOrRiver).
-directly_contains(Country,River):- flow_thru(river,River,Country).
+trans_direct(contains,Continent,Region):- continent_contains_region(Continent,Region).
+trans_direct(contains,Region,Country):- region_contains_country(Region,Country).
+trans_direct(contains,Country,CityOrRiver):- country_contains_thing(Country,CityOrRiver).
+trans_direct(contains,Country,River):- path_pred(thru,river,River,Country).
 
 
-loc_in(X,Y) :- contains(Y,X).
+
 
 continent_contains_region(africa,central_africa).
 continent_contains_region(africa,east_africa).
@@ -490,6 +491,6 @@ country_contains_thing(zambia,congo_river).
 country_contains_thing(zambia,zambesi).
 
 country_contains_thing(Country,City) :- clause(city_country_popu(City,Country,_),true).
-country_contains_thing(Country,City) :- country_capital_city(Country,City).
+country_contains_thing(Country,City) :- specific_pred(spatial,capital_city,Country,City).
 
 :- fixup_exports.

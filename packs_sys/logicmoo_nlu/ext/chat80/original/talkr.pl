@@ -30,6 +30,7 @@ write_tree(T):-
    fail.
 write_tree(_).
 
+wt(T,_L) :- as_is(T),write(T),!.
 wt((P:-Q),L) :- !, L1 is L+3,
    write(P), tab(1), write((:-)), nl,
    tab(L1), wt(Q,L1).
@@ -73,7 +74,7 @@ answer((answer(X):-E)) :- seto(X,E,S), respond(S).
 seto(X,E,S) :-
 %	portray_clause(({X} :- E)),
 	phrase(satisfy80(E,G),Vars),
-%	portray_clause(({X} :- G)),
+	pprint_ecp_cmt(yellow,((X+Vars):-G)),
 	(   setof(X,Vars^G,S)
 	->  true
 	;   S = []
@@ -81,7 +82,8 @@ seto(X,E,S) :-
 
 holds(E,True) :-
 	phrase(satisfy80(E, G), _),
-	(   G
+	(   pprint_ecp_cmt(yellow,G),
+      call(G)
 	->  True = true
 	;   True = false
 	).
@@ -102,14 +104,20 @@ reply(X) :- write(X).
 %	^/2-term to act as an existential quantification, this no longer
 %	works. Hence, we now compile the term   into  a goal and compute
 %	the existentially quantified variables.
+numberof(X,Vars^P,N):- setof(X,Vars^P,S),length(S,N).
 
 satisfy80((P0,Q0), (P,Q)) --> !, satisfy80(P0, P), satisfy80(Q0, Q).
 satisfy80({P0}, (P->true)) --> !, satisfy80(P0, P).
 satisfy80(X^P0, P) --> !, satisfy80(P0, P), [X].
 satisfy80(\+P0, \+P) --> !, satisfy80(P0, P).
-satisfy80(numberof(X,P0,N), (setof(X,Vars^P,S),length(S,N))) --> !,
+satisfy80(numberof(X,P0,N), Out) --> !,
 	{ phrase(satisfy80(P0,P),Vars) },
-	[S], Vars.			% S is an internal variable!
+	 Vars,			% S is an internal variable!
+  {Out = (numberof(X,Vars^P,N))}.
+satisfy80(numberof(X,P0,N), Out) --> !,
+	{ phrase(satisfy80(P0,P),Vars) },
+	[S], Vars,			% S is an internal variable!
+  {Out = (setof(X,Vars^P,S),length(S,N))}.
 satisfy80(setof(X,P0,S), setof(X,Vars^P,S)) --> !,
 	{ phrase(satisfy80(P0,P),Vars) },
 	Vars.

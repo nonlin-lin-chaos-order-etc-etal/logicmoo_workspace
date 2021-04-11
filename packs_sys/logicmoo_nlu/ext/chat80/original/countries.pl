@@ -173,7 +173,7 @@ c_r_l_l_s_cap_m(turkey,middle_east,39,-36,301380,37930000,ankara,lira).
 c_r_l_l_s_cap_m(uganda,east_africa,2,-32,91134,10810000,kampala,uganda_shilling).
 c_r_l_l_s_cap_m(united_arab_emirates,middle_east,24,-54,32278,210000,abu_dhabi,dirham).
 c_r_l_l_s_cap_m(united_kingdom,western_europe,54,2,94209,55930000,london,pound).
-c_r_l_l_s_cap_m(united_states,north_america,37,96,3615122,211210000,washington,dollar).
+c_r_l_l_s_cap_m(united_states,north_america,37,96,3615122,211210000,washington_dc,dollar).
 c_r_l_l_s_cap_m(upper_volta,west_africa,12,2,105869,5740000,ouagadougou,cfa_franc).
 c_r_l_l_s_cap_m(uruguay,south_america,-32,55,68548,2990000,montevideo,peso).
 c_r_l_l_s_cap_m(venezuela,south_america,8,65,352143,11520000,caracas,bolivar).

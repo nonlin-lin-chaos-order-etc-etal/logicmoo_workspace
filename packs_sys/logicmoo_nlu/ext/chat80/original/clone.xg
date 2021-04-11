@@ -1,9 +1,15 @@
 /* Sentences */
 
 sentence(S) ---> declarative(S), terminator(.) .
-sentence(S) ---> wh_question(S), terminator(?) .
-sentence(S) ---> yn_question(S), terminator(?) .
+sentence(S) ---> question(S), terminator(?) .
+sentence(q(S)) ---> s(S,_), terminator(?) .
 sentence(S) ---> imperative(S), terminator(!) .
+sentence(S) ---> declarative(S).
+sentence(S) ---> question(S).
+sentence(S) ---> imperative(S).
+
+question(S)-->wh_question(S).
+question(S)-->yn_question(S).
 
 /* Declarative sentence */
 
@@ -82,7 +88,7 @@ imperative(imp(S)) --->
 
 imperative_verb,
    [you],
-   verb_form(Root,imp+fin,2+sin,main) --->
+   verb_form(Root,imp+fin,2+sg,main) --->
    verb_form(Root,inf,_,_).
 
 /* Basic sentence (actually, declarative sentence) */
@@ -131,14 +137,14 @@ np_compls(common,Agmt,Case,Mods,Set0,Mask) --->
 
 /* Nuclear noun phrase */
 
-np_head0(name(Name),3+sin,def+proper) ---> name(Name).
+np_head0(name(Name),3+sg,def+proper) ---> name(Name).
 np_head0(np_head(Det,Adjs,Head),3+Number,Def+common) --->
    determiner(Det,Number,Def),
    adjs(Adjs),
    noun(Head,Number).
 np_head0(Pronoun,Agmt,def+proper), gen_marker --->
    poss_pron(Pronoun,Agmt).
-np_head0(np_head(Det,[],Noun),3+sin,indef+common) --->
+np_head0(np_head(Det,[],Noun),3+sg,indef+common) --->
    quantifier_pron(Det,Noun).
 
 /* Possessive construction */
@@ -405,9 +411,9 @@ verb_args(_+Type,Voice,AdvArgs,Mask0,Mask) --->
 
 verb_args(trans,active,[arg(dir,Dir)],_,Mask) --->
    verb_arg(np,Dir,Mask).
-verb_args(ditrans,_,[arg(Case,NP)|Obj],_,Mask) --->
+verb_args(ditrans,_,[arg(Case,NP)|X],_,Mask) --->
    verb_arg(np,NP,Mask0),
-   object(Case,Obj,Mask0,Mask).
+   object(Case,X,Mask0,Mask).
 verb_args(be,_,[void],Mask,Mask) ---> [there].
 verb_args(be,_,[arg(pred,P)],_,Mask) --->
    pred_conj(_,P,Mask).
@@ -417,8 +423,8 @@ verb_args(Type,_,[],Mask,Mask) ---> {no_args(Type)}.
 
 object(Case,AdvArg,Mask0,Mask) --->
    {adv(Adv), minus(Adv,Mask0,Mask1)},
-   advs(AdvArg,Obj,Mask1),
-   obj(Case,Obj,Mask0,Mask).
+   advs(AdvArg,X,Mask1),
+   obj(Case,X,Mask0,Mask).
 
 obj(ind,[arg(dir,NP)],_,Mask) ---> verb_arg(np,NP,Mask).
 obj(dir,[],Mask,Mask) ---> [].
