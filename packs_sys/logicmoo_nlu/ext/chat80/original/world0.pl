@@ -117,6 +117,9 @@ position_pred(spatial,latitude,antarctic_circle,(-67)--degrees).
 position_pred(spatial,latitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,L,_,_,_,_,_).
 position_pred(spatial,longitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,_,L,_,_,_,_).
 
+
+measure_pred(Spatial,Heads,C,Total):- is_list(C),maplist(measure_pred(Spatial,Heads),C,Setof), u_total(Setof, Total).
+
 measure_pred(spatial,area,C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is A0/1000.
 
 measure_pred(Spatial,Area,Where,Total) :- \+ c_r_l_l_s_cap_m(Where,_,_,_,_,_,_,_), 
@@ -129,8 +132,9 @@ measure_pred(Spatial,Area,Where,Total) :- \+ c_r_l_l_s_cap_m(Where,_,_,_,_,_,_,_
          database80(aggregate(total, Setof, Total)).
 
 
-count_pred(spatial,population,C,P--thousand) :- city_country_popu(C,_,P).
-count_pred(spatial,population,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
+count_pred(Spatial,Heads,C,Total):- is_list(C),maplist(count_pred(Spatial,Heads),C,Setof), u_total(Setof, Total).
+count_pred(spatial,heads,C,P--thousand) :- city_country_popu(C,_,P).
+count_pred(spatial,heads,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
 
 specific_pred(spatial,capital_city,C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
 

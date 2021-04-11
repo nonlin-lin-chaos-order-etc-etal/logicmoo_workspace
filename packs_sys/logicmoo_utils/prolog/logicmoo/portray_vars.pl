@@ -62,10 +62,12 @@ debug_var(X,Y):-  mort(debug_var0(X,Y)).
 debug_var(Sufix,X,Y):- quietly((flatten([X,Sufix],XS),debug_var(XS,Y))).
 maybe_debug_var(X,Y):- mort(may_debug_var(X,Y)).
 
+%p_n_atom(L,V):- atom(L),atom_concat_w_blobs(LL,'_pred',L),!, p_n_atom(LL,V).
+p_n_atom(L,V):- atom(L),atom_concat_w_blobs(LL,'pred',L),!, p_n_atom(LL,V).
 p_n_atom(Cmpd,UPO):- p_n_atom1(Cmpd,UP),toProperCamelAtom(UP,UPO),!.
 
 p_n_atom1(Cmpd,UP):- compound(Cmpd), sub_term(Atom,Cmpd),atomic(Atom), \+ number(Atom), Atom\==[], catch(p_n_atom0(Atom,UP),_,fail), !.
-p_n_atom1(Cmpd,UP):- compound(Cmpd), functor(Cmpd,Atom,_), catch(p_n_atom0(Atom,UP),_,fail), !.
+p_n_atom1(Cmpd,UP):- compound(Cmpd), compound_name_arity_red(Cmpd,Atom,_), catch(p_n_atom0(Atom,UP),_,fail), !.
 % p_n_atom1(Cmpd,UP):- compound(Cmpd), sub_term(Atom,Cmpd),nonvar(Atom),\+ number(Atom), Atom\==[], catch(p_n_atom0(Atom,UP),_,fail),!.
 p_n_atom1(Cmpd,UP):- Cmpd=='', UP='',!.
 p_n_atom1(Cmpd,UP):- number(Cmpd),!,format(atom(UP),"_Num~w_",[Cmpd]).
@@ -122,6 +124,7 @@ reduce_atomLR(L,R):- name(L,[LC1,UC,LC2|Rest]),char_type(UC,upper),char_type(LC1
   name(LL,[UC,LC2|Rest]), reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('v',LL,L),name(LL,[UC,LC|_]),char_type(UC,upper),char_type(LC,lower),reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('Cl_',LL,L),reduce_atomLR(LL,R).
+%reduce_atomLR(L,R):- atom_concat_some_left(LL,'_pred',L), LL\=='',!,reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('U_',LL,L),reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('F_',LL,L),reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('Pf_',LL,L),reduce_atomLR(LL,R).
@@ -317,7 +320,7 @@ guess_varnames2(_Each,G,G):- pretty_enough(G),!.
 guess_varnames2(Each, subrelation(V,N), subrelation(V,N)):- var(V), \+ variable_name(V,_), atomic(N),call(Each,N,V),!.
 guess_varnames2(Each, isNamed(V,N), isNamed(V,N)):- var(V), \+ variable_name(V,_), atomic(N),call(Each,N,V),!.
 guess_varnames2(Each, isNamed(V,H), isNamed(V,H)):- var(V), \+ variable_name(V,_),
-   compound(H),functor(H,F,_),
+   compound(H),compound_name_arity_red(H,F,_),
    flag(skolem_count,SKN,SKN+1),
    toCamelcase(F,UF),atom_concat_w_blobs(UF,SKN,UF1),
    call(Each,UF1,V),!.
@@ -361,6 +364,7 @@ is_good_name(_IsGood).
 may_debug_var(_,_,V):- nonvar(V),!.
 may_debug_var(L,_,_):- is_letterless(L),!.
 may_debug_var(L,R,V):- atom(L),atom_concat_w_blobs('f_',LL,L), may_debug_var(LL,R,V).
+may_debug_var(L,R,V):- atom(L),atom_concat_w_blobs(LL,'_pred',L), may_debug_var(LL,R,V),!.
 may_debug_var(L,R,V):- atom(L),atomic_list_concat([_A1,A2,A3|AS],'_',L),atomic_list_concat([A2,A3|AS],'_',LL),may_debug_var(LL,R,V).
 may_debug_var(L,R,V):- debug_var([L,R],V).
 
@@ -379,7 +383,7 @@ pretty_enough(H):- var(H),!. % prolog_load_context(variable_names, Vs), member(N
 pretty_enough(H):- \+ compound(H),!. % may_debug_var(F,'_Call',H).
 pretty_enough(H):- ground(H), !.
 pretty_enough('$VAR'(_)):- !.
-pretty_enough(H):- compound_name_arity(H,_,0), !.
+pretty_enough(H):- compound_name_arity_red(H,_,0), !.
 
 name_one(R,V):- is_dict(V), dict_pairs(V,VV,_), !, name_one(R,VV).
 name_one(V,R):- is_dict(V), dict_pairs(V,VV,_), !, name_one(VV,R).
@@ -406,7 +410,7 @@ pretty1(Env=RIGHT):- compound(RIGHT),RIGHT=[List|_],compound(List),var(Env),List
   maplist(pretty1,List).
 pretty1(Env=List):- compound(List),var(Env),List=[H|_],compound(H),H=bv(_,_), may_debug_var('Env',Env),
   maplist_not_tail(pretty1,List).
-%pretty1(P):- compound_name_arguments(P,_,[_|List]),append(_,[Name, Val|_],List),atom(Name),var(Val),may_debug_var(Name,Val).
+%pretty1(P):- compound_name_args_red(P,_,[_|List]),append(_,[Name, Val|_],List),atom(Name),var(Val),may_debug_var(Name,Val).
 pretty1(debug_var(R,V)):- may_debug_var(R,V).
 pretty1(bv(R,V)):- name_one(V,R).
 pretty1(isa(V,R)):- name_one(V,R).
@@ -420,14 +424,14 @@ pretty1(pred(V,See,_,_)):- debug_var(See,V).
 pretty1(rel(V,_,On,_)):- debug_var([On,'_'],V).
 pretty1(card(V,Num,R)):- ground(Num:R),atomic_list_concat(['_',R,'_',Num],Eq_2),debug_var(Eq_2,V),!.
 pretty1(Cmpd):-  Cmpd=..[OP, R, V], is_comparison(OP), name_one(V,R), !.
-pretty1(H):-compound_name_arguments(H,_,ARGS),ignore(must_maplist_det(pretty1,ARGS)).
+pretty1(H):-compound_name_args_red(H,_,ARGS),ignore(must_maplist_det(pretty1,ARGS)).
 
 is_comparison(OP):- atom_concat(_,'=',OP).
 is_comparison(OP):- atom_concat('cg_',_,OP).
 
 pretty_two(H):- pretty_enough(H),!.
 pretty_two(H):- is_list(H), !, maplist(pretty_two,H).
-pretty_two(H):- compound_name_arity(H,F,A),compound_name_arguments(H,F,ARGS),
+pretty_two(H):- compound_name_arity_red(H,F,A),compound_name_args_red(H,F,ARGS),
    pretty_two(1,F,A,ARGS), !.
 
 pretty_two(_,_,_,[]).
@@ -435,6 +439,18 @@ pretty_two(N,F,A,[E|ARGS]):-
   Np1 is N + 1,
   ignore(maybe_nameable_arg(F,A,N,E)),
   pretty_two(Np1,F,A,ARGS).
+
+compound_name_arity_red(H,N,A):- compound_name_arity(H,M,A),reduce_fname(M,N).
+compound_name_args_red(H,N,A):- compound_name_arguments(H,M,A),reduce_fname(M,N).
+reduce_fname(ti,'').
+reduce_fname(card,size).
+reduce_fname(M,N):-atom_concat(N0,'pred',M),reduce_fname(N0,N).
+reduce_fname(M,N):-atom_concat(N0,'_',M),reduce_fname(N0,N).
+reduce_fname(M,N):-atom_concat('_',N0,M),reduce_fname(N0,N).
+reduce_fname(M,N):-atom_concat('trans',N0,M),reduce_fname(N0,N).
+reduce_fname(M,N):-atom_concat('symmetric',N0,M),reduce_fname(N0,N).
+
+reduce_fname(N,N):-!.
 
 maybe_nameable_arg(F,A,N,E):- compound(E)-> pretty_two(E) ; 
  ((var(E),arg_type_decl_name(F,A,N,T),\+ is_letterless(T))-> afix_varname(T,E) ; true).
@@ -474,24 +490,25 @@ pretty_three(H):- pretty_enough(H),!.
 pretty_three(ti(R,V)):- name_one(V,R).
 %pretty_three([H|T]):-!,maplist_not_tail(pretty_three,[H|T]).
 pretty_three(H):-  
- ignore(((compound_name_arity(H,F,_), fail,
+ ignore(((compound_name_arity_red(H,F,_), fail,
   nop((wl:init_args(N,F),integer(N),
    A is N + 1,   
    arg(A,H,R),may_debug_var_weak('KeysNRest',R)))),
-   compound_name_arguments(H,F,[P1|ARGS]),  
+   compound_name_args_red(H,F,[P1|ARGS]),  
    must_maplist_det(pretty_three,[P1|ARGS]))),!. 
 
 pretty_final(H):- pretty_enough(H),!.
 pretty_final([H | B]):- pretty_final(H),pretty_final(B),may_debug_var_weak('CAR',H),may_debug_var_weak('CDR',B).
-pretty_final(H):- compound_name_arity(H,F,A),compound_name_arguments(H,F,[P1|ARGS]), pretty_final(H,F,A,P1,ARGS).
+pretty_final(H):- compound_name_arity_red(H,F,A),compound_name_args_red(H,F,[P1|ARGS]), pretty_final(H,F,A,P1,ARGS).
 
 pretty_final(H,F,A,P1,ARGS):- atom_codes_w_blobs(F,[_,49|Rest]),atom_codes_w_blobs(F0,Rest),!,pretty_final(H,F0,A,P1,ARGS).
 pretty_final(H,F,A,P1,ARGS):- atom_codes_w_blobs(F,[T|Rest]),\+ char_type(T, alpha), !,atom_codes_w_blobs(F0,Rest),!,pretty_final(H,F0,A,P1,ARGS).
 pretty_final(_H,'',_A,P1,ARGS):- must_maplist_det(guess_varnames,[P1|ARGS]),!.
 pretty_final(H,F,A,P1,ARGS):- 
+   ignore((A>1, arg(A,H,R), var(R), Am1 is A-1, arg(Am1,H,Atomic),atomic(Atomic),debug_var(['_',Atomic],R))),
+   ignore((arg(A,H,R),may_debug_var_weak([F,'_'],R))),
+   ignore((A>2, may_debug_var_weak([F,'_P_',A,'_v'],P1))),
    must_maplist_det(guess_varnames,[P1|ARGS]),
-   arg(A,H,R),may_debug_var_weak([F,'_'],R),
-   ignore((A>2, may_debug_var_weak([F,'_P_',A,'_v'],P1))),   
    !. 
 
 atom_concat_or_rtrace_priv(X,Y,Z):- tracing->atom_concat_w_blobs(X,Y,Z);catch(atom_concat_w_blobs(X,Y,Z),_,(writeq(atom_concat_or_rtrace_priv(X,Y,Z)),break)).
@@ -588,7 +605,7 @@ split_name_type(Suggest,InstName,Type):-
 
 split_name_type_0(S,P,C):- string(S),!,atom_string(A,S),split_name_type_0(A,P,C),!.
 %split_name_type_0(FT,FT,ttExpressionType):-a(ttExpressionType,FT),!,dmsg(trace_or_throw(ttExpressionType(FT))),fail.
-split_name_type_0(T,T,C):- compound(T),compound_name_arity(T,C,_),!.
+split_name_type_0(T,T,C):- compound(T),compound_name_arity_red(T,C,_),!.
 split_name_type_0(T,T,C):- quietly((once(atomic_list_concat_safe([CO,'-'|_],T)),atom_string(C,CO))).
 split_name_type_0(T,T,C):- quietly((atom(T),atom_codes_w_blobs(T,AC),last(AC,LC),is_digit(LC),append(Type,Digits,AC),
   catch(number_codes(_,Digits),_,fail),atom_codes_w_blobs(CC,Type),!,i_name(t,CC,C))).
@@ -611,7 +628,7 @@ toProperCamelAtom([A|List],O):-!,toProperCamelAtom(A,AO),toProperCamelAtom(List,
 toProperCamelAtom(String,UP):- string(String),!,string_to_atom(String,Atom),!,p_n_atom0(Atom,UP).
 toProperCamelAtom(-E,NAME):- toProperCamelAtom(E,N1),toProperCamelAtom([N1,'Out'],NAME).
 toProperCamelAtom(+E,NAME):- toProperCamelAtom(E,N1),toProperCamelAtom([N1,'In'],NAME).
-toProperCamelAtom(E,NAME):- compound(E),compound_name_arguments(E,N,Args),toProperCamelAtom([N|Args], NAME).
+toProperCamelAtom(E,NAME):- compound(E),compound_name_args_red(E,N,Args),toProperCamelAtom([N|Args], NAME).
 toProperCamelAtom(Term,UP):- term_to_atom(Term,Atom),!,toProperCamelAtom(Atom,UP).
 
 

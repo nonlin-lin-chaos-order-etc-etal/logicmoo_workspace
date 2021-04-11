@@ -94,7 +94,10 @@ i_mins0([_|R],V,L0,L,W) :-
    i_mins0(R,V,L0,L,W).
 
 u_total([],0--_U).
-u_total([V:_|R],T) :-
+u_total([V:_|R],T) :- !,
+   u_total(R,T0),
+   u_sum(T0,V,T).
+u_total([V|R],T) :-
    u_total(R,T0),
    u_sum(T0,V,T).
 
