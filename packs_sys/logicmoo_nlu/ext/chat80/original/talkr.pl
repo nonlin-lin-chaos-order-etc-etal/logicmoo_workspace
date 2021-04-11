@@ -106,6 +106,8 @@ reply(X) :- write(X).
 %	the existentially quantified variables.
 numberof(X,Vars^P,N):- setof(X,Vars^P,S),length(S,N).
 
+%satisfy(X,Y):- satisfy80(X,Y).
+
 satisfy80((P0,Q0), (P,Q)) --> !, satisfy80(P0, P), satisfy80(Q0, Q).
 satisfy80({P0}, (P->true)) --> !, satisfy80(P0, P).
 satisfy80(X^P0, P) --> !, satisfy80(P0, P), [X].

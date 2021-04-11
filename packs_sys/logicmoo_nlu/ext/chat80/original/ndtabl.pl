@@ -24,6 +24,8 @@
 :- discontiguous nd_costs/3.
 :- discontiguous nd_costs/4.
 :- discontiguous nd_costs/5.
+:- discontiguous nd_costs/6.
+:- discontiguous nd_costs/7.
 
 nd_costs(<,99,51,51).
 nd_costs(=<,99,51,51).

@@ -23,6 +23,8 @@
 % Data for the World Database.
 % ---------------------------
 
+:- style_check(-discontiguous).
+
 :- discontiguous unit_format/2. 
 
 

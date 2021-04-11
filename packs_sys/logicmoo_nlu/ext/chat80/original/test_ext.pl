@@ -44,7 +44,6 @@ share_mp(FA):- strip_module(FA,M,_),!,share_mp(M:FA).
 
 :- endif.
 
-use_pfc80:- !.
 
 :- 
  include(load).

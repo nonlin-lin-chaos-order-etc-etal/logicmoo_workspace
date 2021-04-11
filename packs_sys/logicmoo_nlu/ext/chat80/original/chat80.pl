@@ -46,6 +46,7 @@
 :- system:import(prolog_statistics:time/1).
 user:test_chat80:- trace,chat80:test.
 
+
 /** <module> CHAT80 driver for SWI-Prolog
 */
 

@@ -48,17 +48,17 @@ q2([which,country,that,borders,the,mediterranean,borders,a,country,
 	testing of a system.
    ---------------------------------------------------------------------- */
 
-chat80( [ does, america, contain, new_york, ? ] ,mini).
-chat80( [ does, mexico, border, the, united_states, ? ] ,mini).
-chat80( [ is, the, population, of, china, greater, than, nb(200), million, ? ] ,mini).
-chat80( [ does, the, population, of, china, exceed, nb(1000), million, ? ] ,mini).
-chat80( [ is, the, population, of, china, nb(840), million, ? ] ,mini).
-chat80( [ does, the, population, of, china, exceed, the, population, of,
+chat80_janw( [ does, america, contain, new_york, ? ] ,mini).
+chat80_janw( [ does, mexico, border, the, united_states, ? ] ,mini).
+chat80_janw( [ is, the, population, of, china, greater, than, nb(200), million, ? ] ,mini).
+chat80_janw( [ does, the, population, of, china, exceed, nb(1000), million, ? ] ,mini).
+chat80_janw( [ is, the, population, of, china, nb(840), million, ? ] ,mini).
+chat80_janw( [ does, the, population, of, china, exceed, the, population, of,
       india, ? ] ,mini).
-chat80( [ is, spain, bordered, by, the, pacific, ? ] ,mini).
-chat80( [ does, the, atlantic, border, spain, ? ] ,mini).
-chat80( [ is, the, rhine, in, switzerland, ? ] ,mini).
-chat80( [ is, the, united_kingdom, in, europe, ? ] ,mini).
+chat80_janw( [ is, spain, bordered, by, the, pacific, ? ] ,mini).
+chat80_janw( [ does, the, atlantic, border, spain, ? ] ,mini).
+chat80_janw( [ is, the, rhine, in, switzerland, ? ] ,mini).
+chat80_janw( [ is, the, united_kingdom, in, europe, ? ] ,mini).
 
 
 /* ----------------------------------------------------------------------
@@ -68,7 +68,7 @@ chat80( [ is, the, united_kingdom, in, europe, ? ] ,mini).
 	set as a standard for performance comparisons.
    ---------------------------------------------------------------------- */
 
-chat80(  1, [ what, rivers, are, there, ? ],
+chat80_janw(  1, [ what, rivers, are, there, ? ],
 
 		[amazon, amu_darya, amur, brahmaputra, colorado,
 		congo_river, cubango, danube, don, elbe, euphrates, ganges,
@@ -78,19 +78,19 @@ chat80(  1, [ what, rivers, are, there, ? ],
 		seine, senegal_river, tagus, vistula, volga, volta, yangtze,
 		yenisei, yukon, zambesi]  ).
 
-chat80(  2, [ does, afghanistan, border, china, ? ],
+chat80_janw(  2, [ does, afghanistan, border, china, ? ],
 
 		[true]  ).
 
-chat80(  3, [ what, is, the, capital, of, upper_volta, ? ],
+chat80_janw(  3, [ what, is, the, capital, of, upper_volta, ? ],
 
 		[ouagadougou]  ).
 
-chat80(  4, [ where, is, the, largest, country, ? ],
+chat80_janw(  4, [ where, is, the, largest, country, ? ],
 
 		[asia, northern_asia]  ).
 
-chat80(  5, [ which, countries, are, european, ? ],
+chat80_janw(  5, [ which, countries, are, european, ? ],
 
 		[albania, andorra, austria, belgium, bulgaria, cyprus,
 		czechoslovakia, denmark, east_germany, eire, finland,
@@ -99,24 +99,24 @@ chat80(  5, [ which, countries, are, european, ? ],
 		portugal, romania, san_marino, spain, sweden, switzerland,
 		united_kingdom, west_germany, yugoslavia]  ).
 
-chat80(  6, [ which, country, '''', s, capital, is, london, ? ],
+chat80_janw(  6, [ which, country, '''', s, capital, is, london, ? ],
 
 		[united_kingdom]  ).
 
-chat80(  7, [ which, is, the, largest, african, country, ? ],
+chat80_janw(  7, [ which, is, the, largest, african, country, ? ],
 
 		[sudan]  ).
 
-chat80(  8, [ how, large, is, the, smallest, american, country, ? ],
+chat80_janw(  8, [ how, large, is, the, smallest, american, country, ? ],
 
 		[0--ksqmiles]  ).
 
-chat80(  9, [ what, is, the, ocean, that, borders, african, countries,
+chat80_janw(  9, [ what, is, the, ocean, that, borders, african, countries,
 	  and, that, borders, asian, countries, ? ],
 
 		[indian_ocean]  ).
 
-chat80( 10, [ what, are, the, capitals, of, the, countries, bordering, the,
+chat80_janw( 10, [ what, are, the, capitals, of, the, countries, bordering, the,
 	  baltic, ? ],
 
 		[[[denmark]:[copenhagen], [east_germany]:[east_berlin],
@@ -124,51 +124,51 @@ chat80( 10, [ what, are, the, capitals, of, the, countries, bordering, the,
 		[soviet_union]:[moscow], [sweden]:[stockholm],
 		[west_germany]:[bonn]]]  ).
 
-chat80( 11, [ which, countries, are, bordered, by, two, seas, ? ],
+chat80_janw( 11, [ which, countries, are, bordered, by, two, seas, ? ],
 
 		[egypt, iran, israel, saudi_arabia, turkey]  ).
 
-chat80( 12, [ how, many, countries, does, the, danube, flow, through, ? ],
+chat80_janw( 12, [ how, many, countries, does, the, danube, flow, through, ? ],
 
 		[6]  ).
 
-chat80( 13, [ what, is, the, total, area, of, countries, south, of, the, equator,
+chat80_janw( 13, [ what, is, the, total, area, of, countries, south, of, the, equator,
 	  and, not, in, australasia, ? ],
 
 		[10228--ksqmiles]  ).
 
-chat80( 14, [ what, is, the, average, area, of, the, countries, in, each,
+chat80_janw( 14, [ what, is, the, average, area, of, the, countries, in, each,
 	  continent, ? ],
 
 		[[africa,233--ksqmiles], [america,496--ksqmiles],
 		[asia,485--ksqmiles], [australasia,543--ksqmiles],
 		[europe,58--ksqmiles]]  ).
 
-chat80( 15, [ is, there, more, than, one, country, in, each, continent, ? ],
+chat80_janw( 15, [ is, there, more, than, one, country, in, each, continent, ? ],
 
 		[false]  ).
 
-chat80( 16, [ is, there, some, ocean, that, does, not, border, any, country, ? ],
+chat80_janw( 16, [ is, there, some, ocean, that, does, not, border, any, country, ? ],
 
 		[true]  ).
 
-chat80( 17, [ what, are, the, countries, from, which, a, river, flows, into,
+chat80_janw( 17, [ what, are, the, countries, from, which, a, river, flows, into,
 	  the, black_sea, ? ],
 
 		[[romania,soviet_union]]  ).
 
-chat80( 18, [ what, are, the, continents, no, country, in, which, contains, more,
+chat80_janw( 18, [ what, are, the, continents, no, country, in, which, contains, more,
 	  than, two, cities, whose, population, exceeds, nb(1), million, ? ],
 
 		[[africa,antarctica,australasia]]  ).
 
-chat80( 19, [ which, country, bordering, the, mediterranean, borders, a, country,
+chat80_janw( 19, [ which, country, bordering, the, mediterranean, borders, a, country,
 	  that, is, bordered, by, a, country, whose, population, exceeds,
 	  the, population, of, india, ? ],
 
 		[turkey]  ).
 
-chat80( 20, [ which, countries, have, a, population, exceeding, nb(10),
+chat80_janw( 20, [ which, countries, have, a, population, exceeding, nb(10),
 	  million, ? ],
 
 		[afghanistan, algeria, argentina, australia, bangladesh,
@@ -181,7 +181,7 @@ chat80( 20, [ which, countries, have, a, population, exceeding, nb(10),
 		thailand, turkey, uganda, united_kingdom, united_states, venezuela,
 		vietnam, west_germany, yugoslavia, zaire]  ).
 
-chat80( 21, [ which, countries, with, a, population, exceeding, nb(10), million,
+chat80_janw( 21, [ which, countries, with, a, population, exceeding, nb(10), million,
 	  border, the, atlantic, ? ],
 
 		[argentina, brazil, canada, colombia, france, mexico,
@@ -189,12 +189,12 @@ chat80( 21, [ which, countries, with, a, population, exceeding, nb(10), million,
 		united_kingdom, united_states, venezuela, west_germany,
 		zaire]  ).
 
-chat80( 22, [ what, percentage, of, countries, border, each, ocean, ? ],
+chat80_janw( 22, [ what, percentage, of, countries, border, each, ocean, ? ],
 
 		[[arctic_ocean,2], [atlantic,35], [indian_ocean,14],
 		[pacific,20]]  ).
 
-chat80( 23, [ what, countries, are, there, in, europe, ? ],
+chat80_janw( 23, [ what, countries, are, there, in, europe, ? ],
 
 		[albania, andorra, austria, belgium, bulgaria, cyprus,
 		czechoslovakia, denmark, east_germany, eire, finland,
@@ -202,8 +202,8 @@ chat80( 23, [ what, countries, are, there, in, europe, ? ],
 		luxembourg, malta, monaco, netherlands, norway, poland,
 		portugal, romania, san_marino, spain, sweden, switzerland,
 		united_kingdom, west_germany, yugoslavia]  ).
-chat80( N, W, _):- 
-  clause(chat80( W, mini), true, Ref),
+chat80_janw( N, W, _):- 
+  clause(chat80_janw( W, mini), true, Ref),
   nth_clause(_,N0,Ref),N is N0+23.
 
 /* ----------------------------------------------------------------------
@@ -212,8 +212,8 @@ chat80( N, W, _):-
 
 demo(Type) :- demo(Type,L), ignore(control80(L)).
 
-demo(Type,List) :- chat80( List, Type).
-demo(main,List) :- chat80(_,List,_).
+demo(Type,List) :- chat80_janw( List, Type).
+demo(main,List) :- chat80_janw(_,List,_).
 
 inform(L) :- nl, write('Question/Statement: '), inform1(L), nl, !.
 
@@ -231,7 +231,7 @@ test_chat(N):- test_chat(N, on).
 
 test_chat(N, OnOff) :-
 	show_title,
-	chat80(N,Sentence,CorrectAnswer),
+	chat80_janw(N,Sentence,CorrectAnswer),
     report_item0(print_test,Sentence),
 	  process5(test,Sentence,CorrectAnswer,Status,Times),
 	  show_results(N,Status,Times),
@@ -252,7 +252,7 @@ rtest_chats(N) :-
 	rtest_chats(NN).
 
 rtest_chat(N) :-
-	chat80(N,Sentence,CorrectAnswer), !,
+	chat80_janw(N,Sentence,CorrectAnswer), !,
 	  process5(test,Sentence,CorrectAnswer,Status,_Times),
 	  (   Status == true
 	  ->  true
@@ -414,7 +414,8 @@ chars(_,2).
 end(user) :- !.
 end(F) :- seeing(F) -> seen ; true. % close(F).
 
-chat80(L):- ignore(control80(L)).
+chat80_test(L):- ignore(control80(L)).
+test_chat80(L):- ignore(control80(L)).
 
 control80(L):- check_words(L,S)-> L\==S, !, control80(S).
 control80([bye,'.']) :- !,
@@ -504,10 +505,10 @@ report_item(Tree,Item):- once(report_item0(Tree,Item)),fail.
 report_item(_,_).
 
 %report_item(_,Item):- pprint_ecp_cmt(yellow,Item),!.
-report_item0(print_test,Item) :- !,
-   write('?- chat80("'),print_test(Item),write('").'), nl.
 report_item0(respond,Item) :- !,
    respond(Item), nl.
+report_item0(print_test,Item) :- !,
+   write('?- chat80_test("'),print_test(Item),write('").'), nl.
 report_item0(expr,Item) :- !,
    write_tree(Item), nl.
 report_item0(_Tree,Item) :-
