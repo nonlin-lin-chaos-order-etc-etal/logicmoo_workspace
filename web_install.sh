@@ -28,14 +28,12 @@ cd /opt
 if [ ! -d "logicmoo_workspace" ]; then
   export SSLWAS=$(git config --global http.sslVerify)
   git config --global http.sslVerify false
-  git clone --recursive https://github.com/logicmoo/logicmoo_workspace.git
+  git clone https://github.com/logicmoo/logicmoo_workspace.git
   git config --global http.sslVerify $SSLWAS
 fi
 
 cd logicmoo_workspace
-git add remote github https://github.com/logicmoo/logicmoo_workspace.git
-git add remote gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
-git submodule update --init
+git pull
 git status
 
 (source ./INSTALL.md)
