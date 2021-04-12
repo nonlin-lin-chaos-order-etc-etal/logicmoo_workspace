@@ -27,7 +27,7 @@ git fetch --recurse-submodules
 
 (source ./INSTALL-DEPS.md )
 (source ./INSTALL-SWI.md )
-(
+
 stty sane
 
 export LOGICMOO_GAMES=$LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
