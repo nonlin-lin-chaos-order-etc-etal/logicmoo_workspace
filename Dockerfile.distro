@@ -29,7 +29,7 @@ RUN apt-get install -y --allow-unauthenticated apt-utils software-properties-com
 RUN apt-get install -y --no-install-recommends --allow-unauthenticated nano vim build-essential cmake ninja-build gdb ncdu supervisor pwgen net-tools tightvncserver xfonts-base lwm xterm xdotool xvnc4viewer openssh-server
 RUN apt-get install -y eggdrop screen libserd-dev libssh-dev libnet-nslookup-perl 
 RUN curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh
-#RUN /bin/bash -c "source /tmp/web_install.sh"
+RUN /bin/bash -c "source /tmp/web_install.sh"
 
 #for internal testing of the build env
 #RUN sleep 10000000

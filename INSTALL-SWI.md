@@ -7,7 +7,7 @@ export LOGICMOO_WS=$DIR0
 
 ./logicmoo_env.sh .
 
-DIR="$LOGICMOO_WS/lib/swipl"
+DIR="$LOGICMOO_WS/swipl-devel"
 
 if [ -d "$DIR" ]; then
 
@@ -44,10 +44,7 @@ apt-get install -y \
         libpcre3-dev \
         libyaml-dev 
         # default-jdk junit4
-
-( cd $LOGICMOO_WS
-  ( source $DIR0/INSTALL-DEPS.md )
-
+  
 (
 cd $LOGICMOO_WS
 
@@ -84,5 +81,4 @@ git status)
 echo "#* MAYBE cat .swiplrc >> ~/.config/swi-prolog/init.pl"
 stty sane
 
-)
 
