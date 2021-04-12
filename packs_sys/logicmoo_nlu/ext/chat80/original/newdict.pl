@@ -23,7 +23,7 @@
 % General Dictionary
 
 ag_number(1,sg).
-ag_number(N,plu) :- N>1.
+ag_number(N,pl) :- N>1.
 
 word(Word) :- '`' (Word).
 word(Word) :- conj(Word).
@@ -70,7 +70,7 @@ conj(and).
 conj(or).
 
 det(a,sg,a,indef).
-det(all,plu,all,indef).
+det(all,pl,all,indef).
 det(an,sg,a,indef).
 det(any,_,any,indef).
 det(each,sg,each,indef).
@@ -88,7 +88,7 @@ int_pron(whom,compl).
 
 name_LF(Name) :- name_template_LF(Name,_), !.
 
-noun_form(Plu,Sin,plu) :- noun_plu(Plu,Sin).
+noun_form(Plu,Sin,pl) :- noun_plu(Plu,Sin).
 noun_form(Sin,Sin,sg) :- noun_sin(Sin).
 
 noun_form(proportion,proportion,_).
@@ -105,18 +105,18 @@ pers_pron(i,_,1,sg,subj).
 pers_pron(it,neut,3,sg,_).
 pers_pron(me,_,1,sg,compl(_)).
 pers_pron(she,fem,3,sg,subj).
-pers_pron(them,_,3,plu,compl(_)).
-pers_pron(them,_,3,plu,subj).
-pers_pron(us,_,1,plu,compl(_)).
-pers_pron(we,_,1,plu,subj).
+pers_pron(them,_,3,pl,compl(_)).
+pers_pron(them,_,3,pl,subj).
+pers_pron(us,_,1,pl,compl(_)).
+pers_pron(we,_,1,pl,subj).
 pers_pron(you,_,2,_,_).
 
 poss_pron(her,fem,3,sg).
 poss_pron(his,masc,3,sg).
 poss_pron(its,neut,3,sg).
 poss_pron(my,_,1,sg).
-poss_pron(our,_,1,plu).
-poss_pron(their,_,3,plu).
+poss_pron(our,_,1,pl).
+poss_pron(their,_,3,pl).
 poss_pron(your,_,2,_).
 
 prep(as).
@@ -167,10 +167,10 @@ rel_pron(who,subj).
 rel_pron(whom,compl).
 
 % wordt niet gebruikt:
-root_form(1+plu).
+root_form(1+pl).
 root_form(1+sg).
 root_form(2+_).
-root_form(3+plu).
+root_form(3+pl).
 
 terminator(!,!).
 terminator(.,_).
@@ -190,7 +190,7 @@ tr_number(two,2).
 
 verb_form(am,be,pres+fin,1+sg).
 verb_form(are,be,pres+fin,2+sg).
-verb_form(are,be,pres+fin,_+plu).
+verb_form(are,be,pres+fin,_+pl).
 verb_form(been,be,past+part,_).
 verb_form(being,be,pres+part,_).
 verb_form(did,do,past+fin,_).
@@ -203,7 +203,7 @@ verb_form(is,be,pres+fin,3+sg).
 verb_form(was,be,past+fin,1+sg).
 verb_form(was,be,past+fin,3+sg).
 verb_form(were,be,past+fin,2+sg).
-verb_form(were,be,past+fin,_+plu).
+verb_form(were,be,past+fin,_+pl).
 
 verb_form(bordering,border,pres+part,_).
 verb_form(borders,border,pres+fin,3+sg).
@@ -221,7 +221,7 @@ verb_form(risen,rise,past+part,_).
 verb_form(rises,rise,pres+fin,3+sg).
 verb_form(rose,rise,past+fin,_).
 
-verb_form(Verb,Verb,pres+fin,_+plu) :- Verb = V, verb_root(V).
+verb_form(Verb,Verb,pres+fin,_+pl) :- Verb = V, verb_root(V).
 % ... because [which,countries,border,france,?] was not properly parsed (the singular form was)
 verb_form(Verb,Verb,inf,_) :-  Verb = V,  verb_root(V).
 % ... because [does,france,border,belgium,?] was not properly parsed

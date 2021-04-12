@@ -36,12 +36,12 @@ bfeature_path(Spatial,CR,CVT):-  feature_path1(Spatial,CR,TYPE), btype_conversio
 property_LF(capital,  SpatialCity,    X,Spatial&geo&country,Y,  
  specific_pred(Spatial,nation_capital,Y,X),[],_,_):- feature_path1(Spatial,city,SpatialCity).
 
-property_LF(area,     measure&area,    X,Spatial&geo&_,Y,  measure_pred(Spatial,area,Y,X),[],_,_).
+property_LF(area,     measure&area,    X,Spatial&_,Y,  measure_pred(Spatial,area,Y,X),[],_,_).
 property_LF(latitude, measure&position,X,Spatial&_,Y,       position_pred(Spatial,latitude,Y,X),[],_,_).
 property_LF(longitude,measure&position,X,Spatial&_,Y,       position_pred(Spatial,longitude,Y,X),[],_,_).
 property_LF(population, measure&heads, X,Spatial&_,Y,          count_pred(Spatial,heads,Y,X),[],_,_).
 
-% thing_LF(geo,Spatial&geo&_,X,ti(geo,X),[],_):- spatial(Spatial).
+% thing_LF(geo,Spatial&_,X,ti(geo,X),[],_):- spatial(Spatial).
 
 
 
@@ -61,8 +61,8 @@ btype_conversion(_,_).
 type_conversion(Type1,Type2):- !, Type1=Type2.
 
 
-thing_LF(Place,Spatial&geo&_,X,ti(Place,X),[],_):- spatial(Spatial), place_lex(Place).
-thing_LF(region,Spatial&geo&_,X,ti(region,X),[],_):- spatial(Spatial).
+thing_LF(Place,Spatial&_,X,ti(Place,X),[],_):- spatial(Spatial), place_lex(Place).
+thing_LF(region,Spatial&_,X,ti(region,X),[],_):- spatial(Spatial).
 thing_LF(country,Spatial&geo&country,X,ti(country,X),[],_):- spatial(Spatial).
 thing_LF(ocean,Spatial&geo&seamass,X,ti(ocean,X),[],_):- spatial(Spatial).
 thing_LF(sea,Spatial&geo&seamass,X,ti(sea,X),[],_):- spatial(Spatial).
@@ -89,7 +89,7 @@ name_template(X,Spatial&circle) :-  circle_of_latitude(X), spatial(Spatial).
 name_template(X,SpatialCity) :- ti(city,X), spatial(Spatial), bfeature_path(Spatial,city,SpatialCity).
 name_template(X,Spatial&geo&continent) :- spatial(Spatial), ti(continent,X).
 name_template(X,Spatial&geo&country) :- spatial(Spatial), ti(country,X).
-name_template(X,Spatial&geo&_) :- spatial(Spatial), ti(region,X).
+name_template(X,Spatial&_) :- spatial(Spatial), ti(region,X).
 name_template(X,SpatialRiver) :- ti(river,X), spatial(Spatial), bfeature_path(Spatial,river,SpatialRiver).
 name_template(X,Spatial&geo&seamass) :- spatial(Spatial), ti(seamass,X).
 
@@ -98,8 +98,8 @@ name_template(X,Spatial&geo&seamass) :- spatial(Spatial), ti(seamass,X).
 trans_LF(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,FOO):-
   trans(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,FOO).
   
-trans(border,Spatial&geo&_,X,Spatial&geo&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
-trans(contain,Spatial&geo&_,X,Spatial&_,Y, trans_pred(Spatial,contains,X,Y),[],_,_).
+trans(border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
+trans(contain,Spatial&_,X,Spatial&_,Y, trans_pred(Spatial,contains,X,Y),[],_,_).
 
 trans(govern,SpatialCity,X,Spatial&geo&country,Y,specific_pred(Spatial,nation_capital,Y,X),[],_,_):-
   spatial(Spatial),
@@ -108,14 +108,14 @@ trans(govern,SpatialCity,X,Spatial&geo&country,Y,specific_pred(Spatial,nation_ca
 trans(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).
 
 intrans(drain,SpatialRiver,X,path_pred(ends,river,X,Y), 
-   [slot(prep(into),Spatial&geo&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
+   [slot(prep(into),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
 intrans(flow,SpatialRiver,X,path_pred(thru,river,X,Y),
-   [slot(prep(through),Spatial&geo&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
+   [slot(prep(through),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
 intrans(flow,SpatialRiver,X,path_pred_s2(links,river,X,Y,Z),
-   [slot(prep(into),Spatial&geo&_,Z,_,free),
-    slot(prep(from),Spatial&geo&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
+   [slot(prep(into),Spatial&_,Z,_,free),
+    slot(prep(from),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
 intrans(rise,SpatialRiver,X,path_pred(begins,river,X,Y),
-   [slot(prep(in),Spatial&geo&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
+   [slot(prep(in),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
 
 /* Adjectives */
 
@@ -124,8 +124,8 @@ restriction_LF(African,Spatial&_,X,ti(African,X)):- adj(African,restr), spatial(
 %restriction_LF(asian,Spatial&_,X,ti(asian,X)).
 %restriction_LF(european,Spatial&_,X,ti(european,X)).
 
-attribute_LF(large,Spatial&geo&_,X,measure&area,Y,measure_pred(Spatial,area,X,Y)).
-attribute_LF(small,Spatial&geo&_,X,measure&area,Y,measure_pred(Spatial,area,X,Y)).
+attribute_LF(large,Spatial&_,X,measure&area,Y,measure_pred(Spatial,area,X,Y)).
+attribute_LF(small,Spatial&_,X,measure&area,Y,measure_pred(Spatial,area,X,Y)).
 attribute_LF(great,measure&Type,X,measure&Type,Y,exceeds(X,Y)).
 attribute_LF(populous,Spatial&_,X,measure&heads,Y,count_pred(Spatial,heads,Y,X)).
 
@@ -136,7 +136,7 @@ aggr_adj(maximum,_,_,maximum).
 
 /* Prepositions */
 
-adjunction_LF(in,Spatial&_-X,Spatial&geo&_-Y,trans_pred(Spatial,contains,Y,X)).
+adjunction_LF(in,Spatial&_-X,Spatial&_-Y,trans_pred(Spatial,contains,Y,X)).
 adjunction_LF(cp(east,of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(east,of),X,Y)).
 adjunction_LF(cp(west,of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(west,of),X,Y)).
 adjunction_LF(cp(north,of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(north,of),X,Y)).

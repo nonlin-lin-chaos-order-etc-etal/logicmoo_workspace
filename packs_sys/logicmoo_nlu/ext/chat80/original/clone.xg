@@ -122,7 +122,7 @@ np(part(Det,NP),3+Number,_,indef,Role,Set,Mask) --->
    determiner(Det,Number,indef),
    [of],
    {s_all(SAll), prep_case(Case)},
-   np(NP,3+plu,Case,def,Role,SAll,Mask).
+   np(NP,3+pl,Case,def,Role,SAll,Mask).
 
 np_head(Kernel,Agmt,Type,PostMods,Mods) --->
    np_head0(Kernel0,Agmt0,Type0),

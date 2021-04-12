@@ -345,7 +345,7 @@ index_slot(free,_,unit).
 index_slot(apply,_,apply).
 index_slot(comparator,_,comparator).
 
-index_args(det(the(plu)),unit,I,set(I),index(I)) :- !.
+index_args(det(the(pl)),unit,I,set(I),index(I)) :- !.
 index_args(int_det(X),index(I),_,int_det(I,X),unit) :- !.
 index_args(generic,apply,_,lambda,unit) :-!.
 index_args(D,comparator,_,id,unit) :-
@@ -356,9 +356,9 @@ index_args(det(D),I,_,I,I) :-
    my_index(I), !.
 index_args(D,I,_,D,I).
 
-indexable(the(plu)).
+indexable(the(pl)).
 indexable(all).
-indexable(de(plu)).
+indexable(de(pl)).
 indexable(alle).
 
 my_index(index(_I)).

@@ -44,7 +44,7 @@ name_lex(Name) --->
    [Name],
    {name_LF(Name)}.
 
-int_art(X,plu,quant(same,wh(X))) ---> [how,many].
+int_art(X,pl,quant(same,wh(X))) ---> [how,many].
 int_art(X,Agmt,DX) --->
    [Art],
    {int_art(Art,X,Agmt,DX)}.
