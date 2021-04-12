@@ -35,20 +35,22 @@ database80(aggregate(X,Y,Z)) :- aggregate(X,Y,Z).
 database80(one_of(X,Y)) :- one_of(X,Y).
 database80(ratio(X,Y,Z)) :- ratio(X,Y,Z).
 database80(card(X,Y)) :- card(X,Y).
-database80(symmetric_pred(spatial,borders,X,Y)) :- symmetric_pred(spatial,borders,X,Y).
-database80(specific_pred(spatial,nation_capital,X,Y)) :- specific_pred(spatial,nation_capital,X,Y).
 database80(circle_of_latitude(X)) :- circle_of_latitude(X).
 %database80(continent(X)) :- continent(X).
 database80(exceeds(X,Y)) :- exceeds(X,Y).
-database80(trans_pred(spatial,P,X,Y)) :- trans_pred(spatial,P,X,Y).
 database80(ti(Place,X)) :- ti(Place,X).
 database80(X=Y) :- X=Y.
 %database80(person(X)) :- person(X).	% JW: person is not defined
-database80(ordering_pred(spatial,Of,X,Y)) :- ordering_pred(spatial,Of,X,Y).
-database80(unit_format(U,X)) :- unit_format(U,X).
-database80(position_pred(Type,U,X,Y)) :- position_pred(Type,U,X,Y).
-database80(measure_pred(Type,U,X,Y)) :- measure_pred(Type,U,X,Y).
-database80(count_pred(Type,U,X,Y)) :- count_pred(Type,U,X,Y).
+
+
+database80(unit_format(P,X)) :- unit_format(P,X).  % square miles
+database80(measure_pred(Type,P,X,Y)) :- measure_pred(Type,P,X,Y). % area of
+database80(count_pred(Type,P,X,Y)) :- count_pred(Type,P,X,Y). % population of 
+database80(position_pred(Type,P,X,Y)) :- position_pred(Type,P,X,Y). % latitude of
+database80(ordering_pred(Type,P,X,Y)) :- ordering_pred(Type,P,X,Y). % south of
+database80(symmetric_pred(Type,P,X,Y)) :- symmetric_pred(Type,P,X,Y). % borders
+database80(specific_pred(Type,P,X,Y)) :- specific_pred(Type,P,X,Y). % capital 
+database80(trans_pred(Type,P,X,Y)) :- trans_pred(Type,P,X,Y). % contains 
 
 
 %database80(path_pred(begins,river,X,Y)) :- path_pred(begins,river,X,Y).

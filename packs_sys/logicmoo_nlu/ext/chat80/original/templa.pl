@@ -43,17 +43,18 @@ thing_LF_access(Noun,Type2,X,P,Slots,_):-
 
 type_conversion(Type1,Type2):- Type1=Type2.
 
-thing_LF(area,measure&area,X,unit_format(area,X),[],_).
 
+thing_LF(nation,Path,X,LF,Slots,Other):- thing_LF(country,Path,X,LF,Slots,Other).
+
+thing_LF(area,measure&area,X,unit_format(area,X),[],_).
 thing_LF(latitude,measure&position,X,unit_format(latitude,X),[],_).
 thing_LF(longitude,measure&position,X,unit_format(longitude,X),[],_).
 thing_LF(population,measure&heads,X,unit_format(population,X),[],_).
 
 thing_LF(place,Spatial&place&_,X,ti(place,X),[],_):- spatial(Spatial).
-thing_LF(region,Spatial&place&_,X,ti(region,X),[],_):- spatial(Spatial).
 thing_LF(continent,Spatial&place&continent,X,ti(continent,X),[],_):- spatial(Spatial).
+thing_LF(region,Spatial&place&_,X,ti(region,X),[],_):- spatial(Spatial).
 thing_LF(country,Spatial&place&country,X,ti(country,X),[],_):- spatial(Spatial).
-thing_LF(nation,Spatial&place&country,X,ti(country,X),[],_):- spatial(Spatial).
 thing_LF(ocean,Spatial&place&seamass,X,ti(ocean,X),[],_):- spatial(Spatial).
 thing_LF(sea,Spatial&place&seamass,X,ti(sea,X),[],_):- spatial(Spatial).
 thing_LF(seamass,Spatial&place&seamass,X,ti(seamass,X),[],_):- spatial(Spatial).
