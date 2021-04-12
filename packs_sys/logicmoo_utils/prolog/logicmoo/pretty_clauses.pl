@@ -30,8 +30,8 @@ prolog_pprint_tree(Term):-  prolog_pprint(Term), !.
 :- export(prolog_pprint/2).
 prolog_pprint(Term):- prolog_pprint(Term, []).
 prolog_pprint(Term, Options):-
-   \+ \+ (must_or_rtrace(portray_vars:pretty_numbervars(Term, Term2)),
-     prolog_pprint_0(Term2, Options)), !.
+   \+ \+ (mort((portray_vars:pretty_numbervars(Term, Term2)),
+     prolog_pprint_0(Term2, Options))), !.
 
 
 % prolog_pprint_0(Term, Options):- Options ==[], pprint_ecp_cmt(blue, Term), !.
@@ -123,26 +123,7 @@ print_e_to_string_b(H, HS):- print_e_to_string(H, HS),!.
 
 % print_e_to_string(T, _Ops, S):- with_output_to(string(S),print_tree_with_final(T,'')),!.
 
-trim_lf(S0,S):- string_concat(S1,' ',S0),!,trim_lf(S1,S).
-trim_lf(S0,S):- string_concat(S1,'\n',S0),!,trim_lf(S1,S).
-trim_lf(S0,S):- str_repl('\n\n','\n',S0,S).
-may_compose.
-
 print_e_to_string(T,_Ops, S):- string(T),!,S=T.
-print_e_to_string(T,_Ops, S):- var(T),!, sformat(S,'~p',[T]).
-%print_e_to_string(T, _Ops, S):- T =(:-(H,B)), !, sformat(S,'~@\n ~@',[prolog_pprint(H),prolog_pprint(:-(B))]).
-print_e_to_string((H,B), _Ops, S):- may_compose, !, sformat(S0,'~@,\n ~@',[prolog_pprint(H),prolog_pprint(B)]),trim_lf(S0,S).
-print_e_to_string(':-'(H,B), _Ops, S):- may_compose, !, sformat(S,'~@  :-\n ~@',[prolog_pprint(H),print_tree_with_final(B,'')]).
-print_e_to_string(T, _Ops, S):- may_compose, as_is(T), without_ec_portray_hook(sformat(S,'~@',[prolog_pprint(T)])),!.
-print_e_to_string('^'(H,B), _Ops, S):- may_compose, !, sformat(S,'~@^\n~@',[prolog_pprint(H),prolog_pprint(:-(B))]).
-print_e_to_string(setof(T,B,L), _Ops, S):- 
-  fail, 
-  may_compose, 
-  print_e_to_string(B,BS), atom_contains(BS,'\n'),
-  output_line_position(Pos),Pos3 is Pos+3, sformat(Spaces,'~@\n',[tab(Pos3)]),
-  mid_pipe(BS,[str_repl('\n',Spaces)],BS1),
-  sformat(S,'setof( ~@ ,\n(~s ),\n ~@)',[prolog_pprint(T),BS1,prolog_pprint(L)]).
-
 print_e_to_string(T, Ops, S):- member(Infix,['<-']), member(Infix, Ops), !, 
    subst(T,Infix,(':-'),T0), 
    clause_to_string(T0,S0), !,
@@ -232,11 +213,13 @@ is_output_lang(_).
 %:- export(pprint_ec/2).
 %pprint_ec(C, P):- pprint_ec_and_f(C, P, '~n').
 
-:- export(pprint_ecp_cmt/2).
+:- export(duplicate_nat/2).
+duplicate_nat(P0,P1):- copy_term_nat(P0,P),duplicate_term(P,P1).
 
+:- export(pprint_ecp_cmt/2).
 pprint_ecp_cmt(C, P0):- 
- quietly((echo_format('~N'),  
-  copy_term_nat(P0,P),
+ mort((echo_format('~N'),  
+  duplicate_nat(P0,P),
   print_e_to_string(P, S0),
   into_space_cmt(S0,S),
   to_ansi(C, C0),
@@ -244,16 +227,16 @@ pprint_ecp_cmt(C, P0):-
 
 :- export(pprint_ecp/2).
 pprint_ecp(C, P):- \+ is_output_lang(C), !, pprint_ecp_cmt(C, P).
-pprint_ecp(C, P0):-
+pprint_ecp(C, P):-
   maybe_mention_s_l(1),
-  quietly((echo_format('~N'),
-  copy_term_nat(P0,P),
-  pprint_ec_and_f(C, P, '.~n'))).
+  echo_format('~N'),  
+  pprint_ec_and_f(C, P, '.~n').
 
 pprint_ec_and_f(C, P, AndF):-
+ mort((
   maybe_mention_s_l(2),
   pprint_ec_no_newline(C, P), 
-  echo_format(AndF), !,
+  echo_format(AndF))), !,
   ttyflush.
 
 user:portray(Term):- \+ current_prolog_flag(debug,true), \+ tracing, ec_portray_hook(Term).
@@ -275,12 +258,11 @@ ec_portray_hook(Term):-
   flag('$ec_portray',_, N)).
 
 ec_portray(_,Var):- var(Var),!,fail. % format('~p',[Var]),!.
-
 ec_portray(_,'$VAR'(Atomic)):-  atom(Atomic), name(Atomic,[C|_]), !,
    (code_type(C,prolog_var_start)->write(Atomic);writeq('$VAR'(Atomic))).
 ec_portray(_,Term):- notrace(is_list(Term)),!,Term\==[], fail, notrace(catch(text_to_string(Term,Str),_,fail)),!,format('"~s"',[Str]).
 ec_portray(_,Term):- compound(Term),compound_name_arity(Term, F, 0), !,ansi_format([bold,hfg(red)],'~q()',[F]),!.
-ec_portray(N,Term):- N < 15, 
+ec_portray(N,Term):- N < 3, 
   % ttyflush,
   ttyflush,
   catch(pprint_ec_no_newline(white, Term),_,fail),!.
@@ -292,10 +274,12 @@ pprint_ec_no_newline(C, P):-
   real_ansi_format(C0, '~s', [S]).
   
 
-print_e_to_string(P, S):- 
+print_e_to_string(P0, S):- 
+   mort((
+   duplicate_nat(P0,P),
    get_operators(P, Ops),
-   notrace(pretty_numbervars(P, T)),
-   print_e_to_string(T, Ops, S).
+   pretty_numbervars(P, T),
+   print_e_to_string(T, Ops, S))).
 /*
 print_e_to_string(P, S):- 
    get_operators(P, Ops),
@@ -547,7 +531,8 @@ print_tree_final_options(Term, Final, Options) :-
 :- thread_local(pretty_tl:write_opts_local/1).
 
 % print_tree0(Final,Term) :- as_is(Term),line_position(current_output,0),prefix_spaces(1),format('~N~p',[Term]),!.
-print_final_tree_options_tab(Final,Term, Options,Tab):- 
+print_final_tree_options_tab(Final,Term0, Options,Tab):- 
+  duplicate_nat(Term0,Term),
   setup_call_cleanup(asserta(pretty_tl:write_opts_local(Options),Ref),
     print_final_term_tab(Final,Term,Tab),erase(Ref)).
 
@@ -707,7 +692,6 @@ pt1_list(FS,Final,[T|Ts],Tab) :- !,
    pt_args([lf|FS],NLC,Ts,I2),!.
 
 
-is_colon_mark('^').
 is_colon_mark(':').
 is_colon_mark('::').
 is_colon_mark('::::').

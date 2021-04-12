@@ -21,6 +21,8 @@
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+:- throw(module(chat80)).
+
 :- module(chat80,
 	  [ chat_process/2,                     % +Question, -Answer
 
@@ -44,7 +46,7 @@
 :- system:abolish(system:time/1).
 :- system:use_module(library(statistics)).
 :- system:import(prolog_statistics:time/1).
-user:test_chat80:- trace,chat80:test.
+%user:test_chat80:- trace,chat80:test.
 
 
 /** <module> CHAT80 driver for SWI-Prolog
@@ -110,7 +112,7 @@ chat_answer(Query, Answer) :-
 %   Print an NLP parse tree
 
 chat_print_tree(Tree) :-
-    print_tree(Tree).
+    print_tree_old(Tree).
 
 %!  chat_example(?Nr, ?Sentence, ?Correct)
 %

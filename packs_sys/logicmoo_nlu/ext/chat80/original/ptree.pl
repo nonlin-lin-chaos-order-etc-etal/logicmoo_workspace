@@ -26,10 +26,11 @@
  print_tree(T):- print_tree_old(T).
 :- endif.
 
-:- listing(print_tree).
+%:- listing(print_tree/1).
 
+print_tree_old(T) :- pprint_ecp_cmt(grey,T),!.
 print_tree_old(T) :-
-   numbervars(T,1,_),
+   numbervars(T,3,_),
    pt_old(T,0), nl, fail.
 print_tree_old(_).
 

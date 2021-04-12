@@ -227,7 +227,7 @@ chat80(X, Ans):- var(X), must_test_80(Tokens, Props, _Time), once(( member(answe
 chat80(X):- var(X), must_test_80(Tokens, _, _Time), once((into_acetext(Tokens, Ace), any_to_string(Ace, X))).
 chat80(X):- var(X), clause(chat80([L|IST]), true), once((into_acetext([L|IST], Ace), any_to_string(Ace, X))).
 chat80(X):- var(X), clause(chat80(X, _, _), true).
-chat80(X):- var(X), clause(chat80_janw(_, X, _), true).
+chat80(X):- var(X), clause(ed(_, X, _), true).
 chat80(X):- var(X), clause(chat80(X, _), true).
 chat80(X):- var(X), clause(chat80_janw(X, _), true).
 %chat80(X, Ans, traits):- var(X), chat80(X, Ans, _Traits).

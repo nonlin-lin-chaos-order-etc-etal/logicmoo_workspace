@@ -1,5 +1,5 @@
 
-:- module(lps_corner,[golps/1,golps/3,u_call_lps/1]).
+:- module(lps_corner,[golps/1,golps/3]).
 
 %:- system:use_module(library('../engine/db.P')).
 :- module_transparent(golps/1).

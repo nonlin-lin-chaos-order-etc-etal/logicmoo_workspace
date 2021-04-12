@@ -202,7 +202,7 @@ ec_current_domain_db1(G):- G \= axiom(_,_),!, ec_current_domain_db1(axiom(G,B)),
 :- lock_predicate(ec_current_domain_db1/1).
 
 
-:- use_module(library(lps_corner),[u_call_lps/1]).
+% :- use_module(library(lps_corner)). % ,[u_call_lps/1]).
 
 :- multifile(u_call_contrib/2).
 :- dynamic(u_call_contrib/2).
@@ -211,7 +211,7 @@ u_call_contrib(M,G):- user:ec_current_domain_db2(G,M).
 
 
 %lps_call(G):- current_predicate(_,G), !, call(G).
-lps_call(G):- interpreter:u_call_lps(G).
+lps_call(G):- catch(interpreter:u_call_lps(G),_,fail).
 lps_current_domain_db(event(F)):- lps_call(events(List)),member(F,List).
 lps_current_domain_db(action(F)):- lps_call(actions(List)),member(F,List). %lps_call(action(F)).
 lps_current_domain_db(action(F)):- lps_call(action(F)).
