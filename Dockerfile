@@ -9,7 +9,8 @@ RUN mkdir /opt -p
 
 RUN echo "127.0.0.1 eggdrop"  >> /etc/hosts
 #for internal testing of the build env
-RUN echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
+#RUN echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
+
 
 EXPOSE 22
 EXPOSE 80
@@ -32,7 +33,7 @@ RUN curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logic
 #RUN /bin/bash -c "source /tmp/web_install.sh"
 
 #for internal testing of the build env
-RUN sleep 10000000
+#RUN sleep 10000000
 
 CMD /opt/logicmoo_workspace/StartLogicmoo.sh
 
