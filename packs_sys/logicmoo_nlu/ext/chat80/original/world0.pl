@@ -71,6 +71,7 @@ freeze_until([V|Vars],Goal):- freeze(V,freeze_until(Vars,Goal)),!.
 exceeds0(X--U,Y--U) :- !, X > Y.
 exceeds0(X1--U1,X2--U2) :- once((ratio(U1,U2,M1,M2), X1*M1 > X2*M2)).
 
+place_lex(place).
 
 
 ratio(thousand,million,1,1000).
