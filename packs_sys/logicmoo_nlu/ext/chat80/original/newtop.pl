@@ -202,9 +202,65 @@ chat80_janw( 23, [ what, countries, are, there, in, europe, ? ],
 		luxembourg, malta, monaco, netherlands, norway, poland,
 		portugal, romania, san_marino, spain, sweden, switzerland,
 		united_kingdom, west_germany, yugoslavia]  ).
+
+
+chat80_janw( 24, [ what, are, the, areas, of, the, countries, bordering, the,
+	  baltic, ? ],
+
+		[[ [denmark]:[--(16.615,ksqmiles)],
+                 [east_germany]:[--(40.646,ksqmiles)],
+                 [finland]:[--(130.119,ksqmiles)],
+                 [poland]:[--(120.359,ksqmiles)],
+                 [soviet_union]:[--(8347.25,ksqmiles)],
+                 [sweden]:[--(173.665,ksqmiles)],
+                 [west_germany]:[--(95.815,ksqmiles)]
+               ]]  ).
+
+chat80_janw( N, [ what, are, the, rivers, that, flow, through, the, countries, bordering, the,
+	  baltic, ? ],
+
+		[[[denmark]:[copenhagen], [east_germany]:[east_berlin],
+		[finland]:[helsinki], [poland]:[warsaw],
+		[soviet_union]:[moscow], [sweden]:[stockholm],
+		[west_germany]:[bonn]]]  ):- N==25.
+
+
+chat80_janw( N, [ what, are, the, rivers, that, flow, through, each, country, bordering, the,
+	  baltic, ? ],
+
+		[[[denmark]:[copenhagen], [east_germany]:[east_berlin],
+		[finland]:[helsinki], [poland]:[warsaw],
+		[soviet_union]:[moscow], [sweden]:[stockholm],
+		[west_germany]:[bonn]]]  ):- N==26.
+
+
+chat80_janw( N, [ what, are, the, capitals, of, the, countries, bordering, the,
+	  baltic, ? ],
+
+		[[[denmark]:[copenhagen], [east_germany]:[east_berlin],
+		[finland]:[helsinki], [poland]:[warsaw],
+		[soviet_union]:[moscow], [sweden]:[stockholm],
+		[west_germany]:[bonn]]]  ):- N==27.
+
+chat80_janw( N, [ what, are, the, cities, in, countries, bordering, the,
+	  baltic, ? ],
+
+		[[[denmark]:[copenhagen], [east_germany]:[east_berlin],
+		[finland]:[helsinki], [poland]:[warsaw],
+		[soviet_union]:[moscow], [sweden]:[stockholm],
+		[west_germany]:[bonn]]]  ):- N==28.
+
+chat80_janw( N, [ what, cities, do, the, countries, bordering, the,
+	  baltic, contain, ? ],
+
+		[[[denmark]:[copenhagen], [east_germany]:[east_berlin],
+		[finland]:[helsinki], [poland]:[warsaw],
+		[soviet_union]:[moscow], [sweden]:[stockholm],
+		[west_germany]:[bonn]]]  ):- N==29.
+
 chat80_janw( N, W, _):- 
   clause(chat80_janw( W, mini), true, Ref),
-  nth_clause(_,N0,Ref),N is N0+23.
+  nth_clause(_,N0,Ref),N is N0+29.
 
 /* ----------------------------------------------------------------------
 	Simple Access to demonstrations
@@ -468,8 +524,10 @@ process4(How,Sentence,Answer,Times) :-
     report(How,E,'Parse',ParseTime,tree),
     % !, %%%%%%%%%%%%%%%% added by JPO but breaks "london"
     runtime(StartSem))),
-   i_sentence(E,E1),
+   must_or_rtrace(i_sentence(E,E1)),
+   report(How,E1,'i_sentence',ParseTime,cmt),
    clausify(E1,E2),
+   report(How,E2,'clausify',ParseTime,cmt),
    simplify(E2,E3),
    simplify(E3,S))),
    runtime(StopSem),
@@ -478,8 +536,7 @@ process4(How,Sentence,Answer,Times) :-
    runtime(StartPlan),
   ((
    qplan(S,S1),
-   copy_term(S,CT),
-   pprint_ecp(yellow,CT),
+   pprint_ecp_cmt(green,S),
    runtime(StopPlan),
    TimePlan is StopPlan - StartPlan,
    (S\=@=S1->(S1R=S1,report(How,S1R,'Planning',TimePlan,expr));(_S1R=same)),
@@ -501,7 +558,7 @@ report(How,Item,Label,Time,Mode) :-
 report(_,_,_,_,_).
 
 report_item(none,_).
-report_item(Tree,Item):- once(report_item0(Tree,Item)),fail.
+report_item(Tree,Item):- copy_term(Item,Nat), once(report_item0(Tree,Nat)),fail.
 report_item(_,_).
 
 %report_item(_,Item):- pprint_ecp_cmt(yellow,Item),!.
@@ -510,9 +567,19 @@ report_item0(respond,Item) :- !,
 report_item0(print_test,Item) :- !,
    write('?- chat80_test("'),print_test(Item),write('").'), nl.
 report_item0(expr,Item) :- !,
-   write_tree(Item), nl.
-report_item0(_Tree,Item) :-
-   print_tree(Item).
+   \+ \+ write_tree(Item), nl.
+
+%report_item0(_,Item) :- !, \+ \+ write_tree(Item), nl.
+
+report_item0(tree,Item) :- \+ \+ print_tree_old(Item),!, nl.
+
+report_item0(cmt,Item) :-
+    pprint_ecp_cmt(yellow,Item),!.
+report_item0(tree,Item) :-
+   print_tree(Item),!.
+report_item0(P,Item) :-
+   must_or_rtrace(call(P,Item)),!.
+
 
 runtime(MSec) :-
    statistics(runtime,[MSec,_]).
