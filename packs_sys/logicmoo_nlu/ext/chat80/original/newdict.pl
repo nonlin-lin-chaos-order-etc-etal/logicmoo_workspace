@@ -262,7 +262,7 @@ verb_type(rise,main+intrans).
 % Specialised Dictionary
 
 adj(African,restr):- agentitive_trans(_,_,African).
-adj(Baltic,restr):- agentitive_symmetric(_,Baltic).
+adj(Baltic,restr):- agentitive_symmetric_type(_,Baltic).
 %adj(american,restr).
 %adj(asian,restr).
 %adj(european,restr).

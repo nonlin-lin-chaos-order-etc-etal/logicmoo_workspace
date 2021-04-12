@@ -492,6 +492,6 @@ country_contains_thing(zambia,congo_river).
 country_contains_thing(zambia,zambesi).
 
 country_contains_thing(Country,City) :- clause(city_country_popu(City,Country,_),true).
-country_contains_thing(Country,City) :- specific_pred(spatial,capital_city,Country,City).
+country_contains_thing(Country,City) :- specific_pred(spatial,nation_capital,Country,City).
 
 :- fixup_exports.

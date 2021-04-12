@@ -36,7 +36,7 @@ database80(one_of(X,Y)) :- one_of(X,Y).
 database80(ratio(X,Y,Z)) :- ratio(X,Y,Z).
 database80(card(X,Y)) :- card(X,Y).
 database80(symmetric_pred(spatial,borders,X,Y)) :- symmetric_pred(spatial,borders,X,Y).
-database80(specific_pred(spatial,capital_city,X,Y)) :- specific_pred(spatial,capital_city,X,Y).
+database80(specific_pred(spatial,nation_capital,X,Y)) :- specific_pred(spatial,nation_capital,X,Y).
 database80(circle_of_latitude(X)) :- circle_of_latitude(X).
 %database80(continent(X)) :- continent(X).
 database80(exceeds(X,Y)) :- exceeds(X,Y).
@@ -44,7 +44,7 @@ database80(trans_pred(spatial,P,X,Y)) :- trans_pred(spatial,P,X,Y).
 database80(ti(Place,X)) :- ti(Place,X).
 database80(X=Y) :- X=Y.
 %database80(person(X)) :- person(X).	% JW: person is not defined
-database80(rel_pred(spatial,Of,X,Y)) :- rel_pred(spatial,Of,X,Y).
+database80(ordering_pred(spatial,Of,X,Y)) :- ordering_pred(spatial,Of,X,Y).
 database80(unit_format(U,X)) :- unit_format(U,X).
 database80(position_pred(Type,U,X,Y)) :- position_pred(Type,U,X,Y).
 database80(measure_pred(Type,U,X,Y)) :- measure_pred(Type,U,X,Y).
@@ -77,14 +77,21 @@ ratio(ksqmiles,sqmiles,1000,1).
 ratio(sqmiles,ksqmiles,1,1000).
 
 unit_format(area,_X--ksqmiles).
-ti(capital_city,C) :- specific_pred(spatial,capital_city,_X,C).
+ti(capital_city,Cap) :- c_r_l_l_s_cap_m(_,_,_,_,_,_,Cap,_). % specific_pred(spatial,nation_capital,_X,C).
 %ti(city,C) :- ti(capital_city,C).
 %ti(city,C) :- clause(city_country_popu(C,_,_), true).
 ti(city,C) :- country_contains_thing(_,C), \+ ti(river,C).
 ti(country,C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
 unit_format(latitude,_X--degrees).
 unit_format(longitude,_X--degrees).
-ti(place,X) :- ti(continent,X); ti(region,X); ti(seamass,X); ti(country,X).
+
+ti(SC,X) :- ti_subclass(C,SC),ti(C,X).
+
+ti_subclass(continent,place).
+ti_subclass(region,place).
+ti_subclass(seamass,place).
+ti_subclass(country,place).
+
 unit_format(population,_X--million).
 unit_format(population,_X--thousand).
 ti(region,R) :- continent_contains_region(_,R).
@@ -98,10 +105,10 @@ agentitive_trans(contains,europe,european).
 
 
 
-rel_pred(spatial,cp(east,of),X1,X2) :- position_pred(spatial,longitude,X1,L1), position_pred(spatial,longitude,X2,L2), exceeds(L2,L1).
-rel_pred(spatial,cp(north,of),X1,X2) :- position_pred(spatial,latitude,X1,L1), position_pred(spatial,latitude,X2,L2), exceeds(L1,L2).
-rel_pred(spatial,cp(south,of),X1,X2) :- position_pred(spatial,latitude,X1,L1), position_pred(spatial,latitude,X2,L2), exceeds(L2,L1).
-rel_pred(spatial,cp(west,of),X1,X2) :- position_pred(spatial,longitude,X1,L1), position_pred(spatial,longitude,X2,L2), exceeds(L1,L2).
+ordering_pred(spatial,cp(east,of),X1,X2) :- position_pred(spatial,longitude,X1,L1), position_pred(spatial,longitude,X2,L2), exceeds(L2,L1).
+ordering_pred(spatial,cp(north,of),X1,X2) :- position_pred(spatial,latitude,X1,L1), position_pred(spatial,latitude,X2,L2), exceeds(L1,L2).
+ordering_pred(spatial,cp(south,of),X1,X2) :- position_pred(spatial,latitude,X1,L1), position_pred(spatial,latitude,X2,L2), exceeds(L2,L1).
+ordering_pred(spatial,cp(west,of),X1,X2) :- position_pred(spatial,longitude,X1,L1), position_pred(spatial,longitude,X2,L2), exceeds(L1,L2).
 
 
 circle_of_latitude(equator).
@@ -138,7 +145,7 @@ count_pred(Spatial,Heads,C,Total):- is_list(C),maplist(count_pred(Spatial,Heads)
 count_pred(spatial,heads,C,P--thousand) :- city_country_popu(C,_,P).
 count_pred(spatial,heads,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
 
-specific_pred(spatial,capital_city,C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
+specific_pred(spatial,nation_capital,C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
 
 ti(continent,X):- continent(X).
 continent(africa).
@@ -158,8 +165,8 @@ ti(ocean,pacific).
 ti(ocean,southern_ocean).
 
 
-ti(Sea,X) :- Sea\==seamass,Sea\==ocean,Sea\==sea, agentitive_symmetric(Borders,Sea), (symmetric_pred(spatial,Borders,Sea,X)).
-agentitive_symmetric(borders,Baltic):- ti(seamass,Baltic).
+ti(Sea,X) :- Sea\==seamass,Sea\==ocean,Sea\==sea, agentitive_symmetric_type(Borders,Sea), (symmetric_pred(spatial,Borders,Sea,X)).
+agentitive_symmetric_type(borders,Baltic):- ti(seamass,Baltic).
 
 ti(sea,baltic).
 ti(sea,black_sea).
