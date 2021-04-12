@@ -25,8 +25,8 @@ echo "#* "
 echo "#* Install deps..."
 echo "#* "
 
-apt-add-repository -y ppa:swi-prolog/devel
-apt-get -y install cmake ninja-build $(apt-cache depends swi-prolog | grep Depends | sed "s/.*ends:\ //" | tr '\n' ' ')
+#apt-add-repository -y ppa:swi-prolog/devel
+#apt-get -y install cmake ninja-build $(apt-cache depends swi-prolog | grep Depends | sed "s/.*ends:\ //" | tr '\n' ' ')
 #apt-get build-dep swi-prolog
 apt-get install -y \
         build-essential cmake ninja-build pkg-config \

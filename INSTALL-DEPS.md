@@ -32,16 +32,13 @@ echo LOGICMOO_WS=$LOGICMOO_WS
  apt-get update
  apt-get install -y libnet-nslookup-perl 
  apt-get install -y sudo lsof nano vim build-essential cmake ninja-build gdb
- apt-install -y eggdrop
+ apt-get install -y eggdrop
  apt-get install -y --no-install-recommends --allow-unauthenticated \
-        supervisor \
-        openssh-server pwgen sudo vim-tiny \
-        net-tools \
+        supervisor openssh-server pwgen sudo vim-tiny net-tools \
         lxde x11vnc xvfb \
-        gtk2-engines-murrine ttf-ubuntu-font-family \
-        libreoffice firefox \
+        gtk2-engines-murrine libreoffice \
         python3-pip python3-dev mesa-utils libgl1-mesa-dri \
-        gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine pinta arc-theme \
+        gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
         dbus-x11 x11-utils 
 
  # second line is BiocManager requirements
