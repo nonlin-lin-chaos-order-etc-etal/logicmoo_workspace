@@ -27,6 +27,7 @@ git fetch --recurse-submodules
 
 (source ./INSTALL-DEPS.md )
 (source ./INSTALL-SWI.md )
+)
 
 stty sane
 
@@ -63,7 +64,6 @@ chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pld
 
 mkdir -p /tmp/tempDir/
 chown -R prologmud_server /tmp/tempDir/
-
 
 )
 
