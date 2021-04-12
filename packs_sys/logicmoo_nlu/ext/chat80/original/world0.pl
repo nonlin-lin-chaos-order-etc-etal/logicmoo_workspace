@@ -167,15 +167,27 @@ ti(ocean,pacific).
 ti(ocean,southern_ocean).
 
 
-ti(Sea,X) :- Sea\==seamass,Sea\==ocean,Sea\==sea, agentitive_symmetric_type(Borders,Sea), (symmetric_pred(spatial,Borders,Sea,X)).
-agentitive_symmetric_type(borders,Baltic):- ti(seamass,Baltic).
-
 ti(sea,baltic).
 ti(sea,black_sea).
 ti(sea,caspian_sea).
 ti(sea,mediterranean).
 ti(sea,persian_gulf).
 ti(sea,red_sea).
+% @TODO ti(sea,caribian).
+
+%ti(Sea,X) :- Sea\==seamass,Sea\==ocean,Sea\==sea, agentitive_symmetric_type(Borders,Sea), (symmetric_pred(spatial,Borders,Sea,X)).
+%agentitive_symmetric_type(borders,Baltic):- ti(seamass,Baltic).
+% allows "baltic country" "pacific countries"   
+agentitive_symmetric_type(borders,seamass).
+ti(NewType,X) :- agentitive_symmetric_type(Pred,SuperType), fail,
+  % dont loop
+  NewType\==SuperType, NewType\==SuperType, 
+  % get the type names
+  ti(SuperType,NewType), 
+  % find the instances 
+  symmetric_pred(spatial,Pred,NewType,X),
+  % dont find instances already of the super type
+  \+ ti(SuperType,X).
 
 ti(Type,R) :- path_linkages(Type,R,_L).
 

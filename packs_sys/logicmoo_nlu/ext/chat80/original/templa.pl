@@ -95,7 +95,11 @@ trans_LF(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,FOO):-
   
 trans(border,Spatial&place&_,X,Spatial&place&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
 trans(contain,Spatial&place&_,X,Spatial&_,Y, trans_pred(Spatial,contains,X,Y),[],_,_).
-trans(govern,Spatial&_,X,Spatial&place&country,Y,specific_pred(Spatial,capital_city,Y,X),[],_,_).
+
+trans(govern,SpatialCity,X,Spatial&place&country,Y,specific_pred(Spatial,nation_capital,Y,X),[],_,_):-
+  spatial(Spatial),
+  feature_path(Spatial,city,SpatialCity).
+
 trans(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).
 
 intrans(drain,SpatialRiver,X,path_pred(ends,river,X,Y), 
