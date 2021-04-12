@@ -5,18 +5,23 @@
 |1,4
 
 # Value of 'encoding' when this file was written
-*encoding=utf-8
+*encoding=latin1
 
 
 # hlsearch on (H) or off (h):
 ~h
+# Last Search Pattern:
+~MSle0~/alt
+
 # Command Line History (newest to oldest):
 :wq!
-|2,0,1608552429,,"wq!"
+|2,0,1618240859,,"wq!"
 :q!
 |2,0,1606012187,,"q!"
 
 # Search String History (newest to oldest):
+?/alt
+|2,1,1618240828,47,"alt"
 
 # Expression History (newest to oldest):
 
@@ -27,22 +32,42 @@
 # Registers:
 
 # File marks:
-'0  35  0  ~/StartMUD.sh
-|4,48,35,0,1608552429,"~/StartMUD.sh"
-'1  1  0  ~/Jenkinsfile
-|4,49,1,0,1606012204,"~/Jenkinsfile"
-'2  15  0  ~/pipeline
-|4,50,15,0,1606012187,"~/pipeline"
+'0  796  22  /opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf
+|4,48,796,22,1618240859,"/opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf"
+'1  35  0  ~/StartMUD.sh
+|4,49,35,0,1608552429,"~/StartMUD.sh"
+'2  1  0  ~/Jenkinsfile
+|4,50,1,0,1606012204,"~/Jenkinsfile"
+'3  15  0  ~/pipeline
+|4,51,15,0,1606012187,"~/pipeline"
 
 # Jumplist (newest first):
+-'  796  22  /opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf
+|4,39,796,22,1618240859,"/opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf"
+-'  290  7  /opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf
+|4,39,290,7,1618240831,"/opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf"
+-'  236  46  /opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf
+|4,39,236,46,1618240829,"/opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf"
+-'  65  65  /opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf
+|4,39,65,65,1618240828,"/opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf"
+-'  1  0  /opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf
+|4,39,1,0,1618240820,"/opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf"
 -'  35  0  ~/StartMUD.sh
 |4,39,35,0,1608552429,"~/StartMUD.sh"
+-'  35  0  ~/StartMUD.sh
+|4,39,35,0,1608552429,"~/StartMUD.sh"
+-'  1  0  ~/StartMUD.sh
+|4,39,1,0,1608552422,"~/StartMUD.sh"
 -'  1  0  ~/StartMUD.sh
 |4,39,1,0,1608552422,"~/StartMUD.sh"
 -'  1  0  ~/Jenkinsfile
 |4,39,1,0,1606012204,"~/Jenkinsfile"
 -'  1  0  ~/Jenkinsfile
 |4,39,1,0,1606012204,"~/Jenkinsfile"
+-'  1  0  ~/Jenkinsfile
+|4,39,1,0,1606012204,"~/Jenkinsfile"
+-'  1  0  ~/Jenkinsfile
+|4,39,1,0,1606012204,"~/Jenkinsfile"
 -'  15  0  ~/pipeline
 |4,39,15,0,1606012187,"~/pipeline"
 -'  15  0  ~/pipeline
@@ -51,6 +76,22 @@
 |4,39,15,0,1606012187,"~/pipeline"
 -'  15  0  ~/pipeline
 |4,39,15,0,1606012187,"~/pipeline"
+-'  15  0  ~/pipeline
+|4,39,15,0,1606012187,"~/pipeline"
+-'  15  0  ~/pipeline
+|4,39,15,0,1606012187,"~/pipeline"
+-'  15  0  ~/pipeline
+|4,39,15,0,1606012187,"~/pipeline"
+-'  15  0  ~/pipeline
+|4,39,15,0,1606012187,"~/pipeline"
+-'  1  0  ~/pipeline
+|4,39,1,0,1606012185,"~/pipeline"
+-'  1  0  ~/pipeline
+|4,39,1,0,1606012185,"~/pipeline"
+-'  1  0  ~/pipeline
+|4,39,1,0,1606012185,"~/pipeline"
+-'  1  0  ~/pipeline
+|4,39,1,0,1606012185,"~/pipeline"
 -'  1  0  ~/pipeline
 |4,39,1,0,1606012185,"~/pipeline"
 -'  1  0  ~/pipeline
@@ -61,6 +102,13 @@
 |4,39,1,0,1606012185,"~/pipeline"
 
 # History of marks within files (newest to oldest):
+
+> /opt/logicmoo_workspace/packs_sys/eggdrop/conf/eggdrop.conf
+	*	1618240858	0
+	"	796	22
+	^	796	23
+	.	796	22
+	+	796	22
 
 > ~/StartMUD.sh
 	*	1608552427	0

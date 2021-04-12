@@ -3,9 +3,10 @@
     Author:        Jan Wielemaker
     E-mail:        J.Wielemaker@vu.nl
     WWW:           http://www.swi-prolog.org
-    Copyright (c)  1985-2020, University of Amsterdam
+    Copyright (c)  1985-2021, University of Amsterdam
                               VU University Amsterdam
                               CWI, Amsterdam
+                              SWI-Prolog Solutions b.v.
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -122,6 +123,7 @@ thread_local(Spec)       :- '$set_pattr'(Spec, pred, thread_local(true)).
 noprofile(Spec)          :- '$set_pattr'(Spec, pred, noprofile(true)).
 public(Spec)             :- '$set_pattr'(Spec, pred, public(true)).
 non_terminal(Spec)       :- '$set_pattr'(Spec, pred, non_terminal(true)).
+det(Spec)                :- '$set_pattr'(Spec, pred, det(true)).
 '$iso'(Spec)             :- '$set_pattr'(Spec, pred, iso(true)).
 '$clausable'(Spec)       :- '$set_pattr'(Spec, pred, clausable(true)).
 '$hide'(Spec)            :- '$set_pattr'(Spec, pred, trace(false)).
@@ -272,6 +274,8 @@ non_terminal(Spec)       :- '$set_pattr'(Spec, pred, non_terminal(true)).
     '$set_pattr'(Spec, M, directive, noprofile(true)).
 '$pattr_directive'(public(Spec), M) :-
     '$set_pattr'(Spec, M, directive, public(true)).
+'$pattr_directive'(det(Spec), M) :-
+    '$set_pattr'(Spec, M, directive, det(true)).
 
 %!  '$pi_head'(?PI, ?Head)
 
@@ -349,6 +353,7 @@ non_terminal(Spec)       :- '$set_pattr'(Spec, pred, non_terminal(true)).
     call(7,?,?,?,?,?,?,?),
     not(0),
     \+(0),
+    $(0),
     '->'(0,0),
     '*->'(0,0),
     once(0),
@@ -437,6 +442,10 @@ non_terminal(Spec)       :- '$set_pattr'(Spec, pred, non_terminal(true)).
     !,
     prolog_current_choice(Ch),
     \+ '$meta_call'(G, M, Ch).
+'$meta_call'($(G), M, _) :-
+    !,
+    prolog_current_choice(Ch),
+    $('$meta_call'(G, M, Ch)).
 '$meta_call'(call(G), M, _) :-
     !,
     prolog_current_choice(Ch),
@@ -544,6 +553,18 @@ catch(_Goal, _Catcher, _Recover) :-
 prolog_cut_to(_Choice) :-
     '$cut'.                         % Maps to I_CUTCHP
 
+%!  $ is det.
+%
+%   Declare that from now on this predicate succeeds deterministically.
+
+'$' :- '$'.
+
+%!  $(:Goal) is det.
+%
+%   Declare that Goal must succeed deterministically.
+
+$(Goal) :- $(Goal).
+
 %!  reset(:Goal, ?Ball, -Continue)
 %
 %   Delimited continuation support.
@@ -551,12 +572,18 @@ prolog_cut_to(_Choice) :-
 reset(_Goal, _Ball, _Cont) :-
     '$reset'.
 
-%!  shift(+Ball)
+%!  shift(+Ball).
+%!  shift_for_copy(+Ball).
 %
-%   Shift control back to the enclosing reset/3
+%   Shift control back to the  enclosing   reset/3.  The  second version
+%   assumes the continuation will be saved to   be reused in a different
+%   context.
 
 shift(Ball) :-
     '$shift'(Ball).
+
+shift_for_copy(Ball) :-
+    '$shift_for_copy'(Ball).
 
 %!  call_continuation(+Continuation:list)
 %
@@ -871,6 +898,7 @@ default_module(Me, Super) :-
 
 :- dynamic   user:exception/3.
 :- multifile user:exception/3.
+:- '$hide'(user:exception/3).
 
 %!  '$undefined_procedure'(+Module, +Name, +Arity, -Action) is det.
 %
@@ -1508,20 +1536,36 @@ user:prolog_file_type(dylib,    executable) :-
 %!  '$list_to_set'(+List, -Set) is det.
 %
 %   Turn list into a set, keeping   the  left-most copy of duplicate
-%   elements.  Note  that  library(lists)  provides  an  O(N*log(N))
-%   version, but sets of file name extensions should be short enough
-%   for this not to matter.
+%   elements.  Copied from library(lists).
 
 '$list_to_set'(List, Set) :-
-    '$list_to_set'(List, [], Set).
+    '$number_list'(List, 1, Numbered),
+    sort(1, @=<, Numbered, ONum),
+    '$remove_dup_keys'(ONum, NumSet),
+    sort(2, @=<, NumSet, ONumSet),
+    '$pairs_keys'(ONumSet, Set).
 
-'$list_to_set'([], _, []).
-'$list_to_set'([H|T], Seen, R) :-
-    memberchk(H, Seen),
+'$number_list'([], _, []).
+'$number_list'([H|T0], N, [H-N|T]) :-
+    N1 is N+1,
+    '$number_list'(T0, N1, T).
+
+'$remove_dup_keys'([], []).
+'$remove_dup_keys'([H|T0], [H|T]) :-
+    H = V-_,
+    '$remove_same_key'(T0, V, T1),
+    '$remove_dup_keys'(T1, T).
+
+'$remove_same_key'([V1-_|T0], V, T) :-
+    V1 == V,
     !,
-    '$list_to_set'(T, R).
-'$list_to_set'([H|T], Seen, [H|R]) :-
-    '$list_to_set'(T, [H|Seen], R).
+    '$remove_same_key'(T0, V, T).
+'$remove_same_key'(L, _, L).
+
+'$pairs_keys'([], []).
+'$pairs_keys'([K-_|T0], [K|T]) :-
+    '$pairs_keys'(T0, T).
+
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Canonicalise the extension list. Old SWI-Prolog   require  `.pl', etc, which
@@ -3645,7 +3689,10 @@ load_files(Module:Files, Options) :-
     nonvar(Pre),
     Pre = (Head,Cond),
     !,
-    '$store_clause'(?=>(Head,(Cond,!,Body)), _Layout, File, SrcLoc).
+    (   '$is_true'(Cond), current_prolog_flag(optimise, true)
+    ->  '$store_clause'((Head=>Body), _Layout, File, SrcLoc)
+    ;   '$store_clause'(?=>(Head,(Cond,!,Body)), _Layout, File, SrcLoc)
+    ).
 '$store_clause'(Clause, _Layout, File, SrcLoc) :-
     '$valid_clause'(Clause),
     !,
@@ -3654,6 +3701,10 @@ load_files(Module:Files, Options) :-
     ;   '$record_clause'(Clause, File, SrcLoc, Ref),
         '$qlf_assert_clause'(Ref, development)
     ).
+
+'$is_true'(true)  => true.
+'$is_true'((A,B)) => '$is_true'(A), '$is_true'(B).
+'$is_true'(_)     => fail.
 
 '$valid_clause'(_) :-
     current_prolog_flag(sandboxed_load, false),

@@ -3,9 +3,10 @@
     Author:        Jan Wielemaker
     E-mail:        J.Wielemaker@vu.nl
     WWW:           http://www.swi-prolog.org
-    Copyright (c)  1997-2020, University of Amsterdam
+    Copyright (c)  1997-2021, University of Amsterdam
                               VU University Amsterdam
                               CWI, Amsterdam
+                              SWI-Prolog Solutions b.v.
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -47,6 +48,14 @@
     prolog:deprecated//1,	    % Deprecated features
     prolog:message_location//1,     % (File) location of error messages
     prolog:message_line_element/2.  % Extend printing
+:- '$hide'((
+    prolog:message//1,
+    prolog:error_message//1,
+    prolog:message_context//1,
+    prolog:deprecated//1,
+    prolog:message_location//1,
+    prolog:message_line_element/2)).
+
 :- discontiguous
     prolog_message/3.
 
@@ -219,6 +228,10 @@ unknown_proc_msg((^)/2) -->
     !,
     [nl, '  ^/2 can only appear as the 2nd argument of setof/3 and bagof/3'].
 unknown_proc_msg((:-)/2) -->
+    !,
+    [nl, '  Rules must be loaded from a file'],
+    faq('ToplevelMode').
+unknown_proc_msg((=>)/2) -->
     !,
     [nl, '  Rules must be loaded from a file'],
     faq('ToplevelMode').
@@ -440,8 +453,30 @@ swi_message(initialization_error(failed, Goal, File:Line)) -->
 swi_message(initialization_error(Error, Goal, File:Line)) -->
     [ '~w:~w: ~p '-[File, Line, Goal] ],
     translate_message(Error).
+swi_message(determinism_error(PI, det, Found, property)) -->
+    (   { '$pi_head'(user:PI, Head),
+          predicate_property(Head, det)
+        }
+    ->  [ 'Deterministic procedure ~p'-[PI] ]
+    ;   [ 'Procedure ~p called from a deterministic procedure'-[PI] ]
+    ),
+    det_error(Found).
+swi_message(determinism_error(PI, det, fail, guard)) -->
+    [ 'Procedure ~p failed after $-guard'-[PI] ].
+swi_message(determinism_error(PI, det, fail, guard_in_caller)) -->
+    [ 'Procedure ~p failed after $-guard in caller'-[PI] ].
+swi_message(determinism_error(Goal, det, fail, goal)) -->
+    [ 'Goal ~p failed'-[Goal] ].
+swi_message(determinism_error(Goal, det, nondet, goal)) -->
+    [ 'Goal ~p succeeded with a choice point'-[Goal] ].
 swi_message(qlf_format_error(File, Message)) -->
     [ '~w: Invalid QLF file: ~w'-[File, Message] ].
+
+det_error(nondet) -->
+    [ ' succeeded with a choicepoint'- [] ].
+det_error(fail) -->
+    [ ' failed'- [] ].
+
 
 cond_location(File:Line) -->
     { file_base_name(File, Base) },
@@ -1469,6 +1504,7 @@ prolog_message(frame(Frame, choice, PC)) -->
 prolog_message(frame(_, cut_call, _)) --> !, [].
 prolog_message(frame(Goal, trace(Port))) -->
     !,
+    thread_context,
     [ ' T ' ],
     port(Port),
     goal(Goal).
@@ -1679,6 +1715,7 @@ default_theme(message(Level),         Attrs) :-
     prolog:message_prefix_hook/2.
 :- thread_local
     user:thread_message_hook/3.
+:- '$hide'((push_msg/1,pop_msg/0)).
 
 %!  print_message(+Kind, +Term)
 %
@@ -1711,7 +1748,8 @@ pop_msg :-
     (   nb_current('$inprint_message', [_|Messages]),
         Messages \== []
     ->  b_setval('$inprint_message', Messages)
-    ;   nb_delete('$inprint_message')
+    ;   nb_delete('$inprint_message'),              % delete history
+        b_setval('$inprint_message', [])
     ).
 
 print_message_guarded(Level, Term) :-
@@ -1776,7 +1814,7 @@ print_system_message(_, Kind, Lines) :-
     user:message_property/2.
 
 msg_property(Kind, Property) :-
-    user:message_property(Kind, Property),
+    notrace(user:message_property(Kind, Property)),
     !.
 msg_property(Kind, prefix(Prefix)) :-
     msg_prefix(Kind, Prefix),

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>SWI-Prolog 8.3.19 Reference Manual: Section 2.16</title><link rel="home" href="index.html">
+<title>SWI-Prolog 8.3.22 Reference Manual: Section 2.16</title><link rel="home" href="index.html">
 <link rel="contents" href="Contents.html">
 <link rel="index" href="DocIndex.html">
 <link rel="summary" href="summary.html">
@@ -261,7 +261,7 @@ Character Set</span></a></h4>
 
 <a id="sec:processorcharset"></a>
 
-<p><a id="idx:ISOLatin1:242"></a><a id="idx:characterset:243"></a>The 
+<p><a id="idx:ISOLatin1:243"></a><a id="idx:characterset:244"></a>The 
 processor character set specifies the class of each character used for 
 parsing Prolog source text. Character classification is fixed to
 <a class="url" href="http://www.unicode.org/">Unicode</a>. See also <a class="sec" href="widechars.html#sec:2.19">section 
@@ -443,15 +443,15 @@ Back quote.
 
 <p>Character escaping is only available if
 <code>current_prolog_flag(character_escapes, true)</code> is active 
-(default). See <a id="idx:currentprologflag2:244"></a><a class="pred" href="flags.html#current_prolog_flag/2">current_prolog_flag/2</a>. 
-Character escapes conflict with <a id="idx:writef2:245"></a><a class="pred" href="format.html#writef/2">writef/2</a> 
-in two ways: <code>\40</code> is interpreted as decimal 40 by <a id="idx:writef2:246"></a><a class="pred" href="format.html#writef/2">writef/2</a>, 
-but as octal 40 (decimal 32) by <code>read</code>. Also, the <a id="idx:writef2:247"></a><a class="pred" href="format.html#writef/2">writef/2</a> 
+(default). See <a id="idx:currentprologflag2:245"></a><a class="pred" href="flags.html#current_prolog_flag/2">current_prolog_flag/2</a>. 
+Character escapes conflict with <a id="idx:writef2:246"></a><a class="pred" href="format.html#writef/2">writef/2</a> 
+in two ways: <code>\40</code> is interpreted as decimal 40 by <a id="idx:writef2:247"></a><a class="pred" href="format.html#writef/2">writef/2</a>, 
+but as octal 40 (decimal 32) by <code>read</code>. Also, the <a id="idx:writef2:248"></a><a class="pred" href="format.html#writef/2">writef/2</a> 
 sequence
 <code>\l</code> is illegal. It is advised to use the more widely 
 supported
-<a id="idx:format23:248"></a><a class="pred" href="format.html#format/2">format/[2,3]</a> 
-predicate instead. If you insist upon using <a id="idx:writef2:249"></a><a class="pred" href="format.html#writef/2">writef/2</a>, 
+<a id="idx:format23:249"></a><a class="pred" href="format.html#format/2">format/[2,3]</a> 
+predicate instead. If you insist upon using <a id="idx:writef2:250"></a><a class="pred" href="format.html#writef/2">writef/2</a>, 
 either switch <a class="flag" href="flags.html#flag:character_escapes">character_escapes</a> 
 to <code>false</code>, or use double <code>\\</code>, as in <code>writef('\\l')</code>.
 
@@ -485,7 +485,7 @@ following all express the integer 1&nbsp;million:
 1_000_/*more*/000
 </pre>
 
-<p>Integers can be printed using this notation with <a id="idx:format2:250"></a><a class="pred" href="format.html#format/2">format/2</a>, 
+<p>Integers can be printed using this notation with <a id="idx:format2:251"></a><a class="pred" href="format.html#format/2">format/2</a>, 
 using the
 <code>~I</code> format specifier. For example:
 
@@ -519,7 +519,7 @@ rational numbers to be e.g., <code>1r3</code>. In addition, ECLiPSe
 accepts
 <code>1_3</code> and SWI-Prolog can be asked to accept <code>1/3</code> 
 using the module sensitive Prolog flag <a class="flag" href="flags.html#flag:rational_syntax">rational_syntax</a>, 
-which has the values below. Note that <a id="idx:writecanonical1:251"></a><a class="pred" href="termrw.html#write_canonical/1">write_canonical/1</a> 
+which has the values below. Note that <a id="idx:writecanonical1:252"></a><a class="pred" href="termrw.html#write_canonical/1">write_canonical/1</a> 
 always uses the compatible
 <code>1r3</code> syntax.
 
@@ -545,7 +545,7 @@ numbers are:
 <p>We expect very few programs to have text parsed into a rational 
 number while a term was expected. Note that for rationals appearing in 
 an arithmetic expression the only difference is that evaluation moves 
-from runtime to compiletime. The utility <a id="idx:listrationals0:252"></a><a class="pred" href="check.html#list_rationals/0">list_rationals/0</a> 
+from runtime to compiletime. The utility <a id="idx:listrationals0:253"></a><a class="pred" href="check.html#list_rationals/0">list_rationals/0</a> 
 may be used on a loaded program to check whether the program contains 
 rational numbers inside clauses and thus may be subject to compatibility 
 issues. If a term is intended this can be written as <code>/(1,2)</code>, <code>(1)/2</code>,
@@ -648,7 +648,7 @@ writing international source files is described in <a class="sec" href="projectf
 3.1.3</a>.
 
 <p>The SWI-Prolog Unicode character classification is based on version 
-6.0.0 of the Unicode standard. Please note that <a id="idx:chartype2:253"></a><a class="pred" href="chartype.html#char_type/2">char_type/2</a> 
+6.0.0 of the Unicode standard. Please note that <a id="idx:chartype2:254"></a><a class="pred" href="chartype.html#char_type/2">char_type/2</a> 
 and friends, intended to be used with all text except Prolog source 
 code, is based on the C library locale-based classification routines.
 
@@ -699,12 +699,12 @@ variable checking</span></a></h4>
 
 <a id="sec:singleton"></a>
 
-<p><a id="idx:singletonvariable:254"></a><a id="idx:anonymousvariable:255"></a>A <em>singleton 
+<p><a id="idx:singletonvariable:255"></a><a id="idx:anonymousvariable:256"></a>A <em>singleton 
 variable</em> is a variable that appears only one time in a clause. It 
 can always be replaced by <code>_</code>, the
 <em>anonymous</em> variable. In some cases, however, people prefer to 
 give the variable a name. As mistyping a variable is a common mistake, 
-Prolog systems generally give a warning (controlled by <a id="idx:stylecheck1:256"></a><a class="pred" href="debugger.html#style_check/1">style_check/1</a>) 
+Prolog systems generally give a warning (controlled by <a id="idx:stylecheck1:257"></a><a class="pred" href="debugger.html#style_check/1">style_check/1</a>) 
 if a variable is used only once. The system can be informed that a 
 variable is meant to appear once by <em>starting</em> it with an 
 underscore, e.g.,
@@ -736,7 +736,7 @@ dialects write variables this way.</span></sup>
 <p>Any normal variable appearing exactly once in the clause <em>and</em> 
 any named singleton variables appearing more than once are reported. 
 Below are some examples with warnings in the right column. Singleton 
-messages can be suppressed using the <a id="idx:stylecheck1:257"></a><a class="pred" href="debugger.html#style_check/1">style_check/1</a> 
+messages can be suppressed using the <a id="idx:stylecheck1:258"></a><a class="pred" href="debugger.html#style_check/1">style_check/1</a> 
 directive.
 
 <p><table class="latex frame-box center">
@@ -759,8 +759,8 @@ than once: [_A] </td></tr>
 
 <p>Starting with version 6.5.1, SWI-Prolog has <em>syntactic singletons</em> 
 and <em>semantic singletons</em>. The first are checked by
-<a id="idx:readclause3:258"></a><a class="pred" href="termrw.html#read_clause/3">read_clause/3</a> 
-(and <a id="idx:readterm3:259"></a><a class="pred" href="termrw.html#read_term/3">read_term/3</a> 
+<a id="idx:readclause3:259"></a><a class="pred" href="termrw.html#read_clause/3">read_clause/3</a> 
+(and <a id="idx:readterm3:260"></a><a class="pred" href="termrw.html#read_term/3">read_term/3</a> 
 using the option
 <code>singletons(warning)</code>). The latter are generated by the 
 compiler for variables that appear alone in a <em>branch</em>. For 

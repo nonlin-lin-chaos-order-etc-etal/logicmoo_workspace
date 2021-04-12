@@ -259,6 +259,10 @@ body with multiple tests using assertions</span></a></div>
 separate test files</span></a></div>
 <div class="toc-h2"><a class="sec" href="#sec:4"><span class="sec-nr">4</span> <span class="sec-title">Running 
 the test-suite</span></a></div>
+<div class="toc-h3"><a class="sec" href="#sec:4.1"><span class="sec-nr">4.1</span> <span class="sec-title">Running 
+the test suite from Prolog</span></a></div>
+<div class="toc-h3"><a class="sec" href="#sec:4.2"><span class="sec-nr">4.2</span> <span class="sec-title">Running 
+the test suite from the command line</span></a></div>
 <div class="toc-h2"><a class="sec" href="#sec:5"><span class="sec-nr">5</span> <span class="sec-title">Tests 
 and production systems</span></a></div>
 <div class="toc-h2"><a class="sec" href="#sec:6"><span class="sec-nr">6</span> <span class="sec-title">Controlling 
@@ -721,9 +725,14 @@ the test-suite</span></a></h2>
 
 <a id="sec:pldoc-running"></a>
 
-<p>At any time, the tests can be executed by loading the program and 
-running <a id="idx:runtests0:17"></a><a class="pred" href="#run_tests/0">run_tests/0</a> 
-or run_tests(+Unit).
+<p><h3 id="sec:pldoc-running-repl"><a id="sec:4.1"><span class="sec-nr">4.1</span> <span class="sec-title">Running 
+the test suite from Prolog</span></a></h3>
+
+<a id="sec:pldoc-running-repl"></a>
+
+<p>To run tests from the Prolog prompt, first load the program and then 
+run <a id="idx:runtests0:17"></a><a class="pred" href="#run_tests/0">run_tests/0</a> 
+or <code>run_tests(+Unit)</code>.
 
 <dl class="latex">
 <dt class="pubdef"><a id="run_tests/0"><strong>run_tests</strong></a></dt>
@@ -749,6 +758,25 @@ traced. The called user-code can be traced normally though.</span></sup>
 
 <p>To identify nonterminating tests, interrupt the looping process with
 <em>Control-C</em>. The test name and location will be displayed.
+
+<p><h3 id="sec:pldoc-running-cli"><a id="sec:4.2"><span class="sec-nr">4.2</span> <span class="sec-title">Running 
+the test suite from the command line</span></a></h3>
+
+<a id="sec:pldoc-running-cli"></a>
+
+<p>To run a file's tests from the command line, run the following 
+command, replacing <code>your/file.pl</code> with the path to your file.
+
+<pre class="code">
+swipl -g run_tests -t halt your/file.pl
+</pre>
+
+<p>Prolog will (1) load the file you specify, as well as any modules it 
+depends on; (2) run all tests in those files, and (3) exit with status 0 
+or 1 depending on whether the test suite succeeds or fails.
+
+<p>If you want to test multiple files, you can pass multiple <code>..pl</code> 
+files.
 
 <p><h2 id="sec:state"><a id="sec:5"><span class="sec-nr">5</span> <span class="sec-title">Tests 
 and production systems</span></a></h2>
@@ -1071,7 +1099,7 @@ marked as non-called in environments that perform cross-referencing.
 <a class="idx" href="#idx:member2:10">2.2.1</a></dd>
 <dt><a class="idx" href="#run_tests/0">run_tests/0</a></dt>
 <dd>
-<a class="idx" href="#idx:runtests0:17">4</a> <a class="idx" href="#idx:runtests0:20">6</a></dd>
+<a class="idx" href="#idx:runtests0:17">4.1</a> <a class="idx" href="#idx:runtests0:20">6</a></dd>
 <dt><a class="idx" href="#run_tests/1">run_tests/1</a></dt>
 <dd>
 <a class="idx" href="#idx:runtests1:21">6</a></dd>

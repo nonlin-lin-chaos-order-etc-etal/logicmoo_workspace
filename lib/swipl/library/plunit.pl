@@ -3,9 +3,10 @@
     Author:        Jan Wielemaker
     E-mail:        J.Wielemaker@vu.nl
     WWW:           http://www.swi-prolog.org
-    Copyright (c)  2006-2020, University of Amsterdam
+    Copyright (c)  2006-2021, University of Amsterdam
                               VU University Amsterdam
                               CWI, Amsterdam
+                              SWI-Prolog Solutions b.v.
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -1165,9 +1166,9 @@ success(Unit, Name, Line, Det, _Time, Options) :-
     (   (   Det == true
         ;   memberchk(nondet, Options)
         )
-    ->  put_char(user_error, +),
+    ->  progress(Unit, Name, nondet),
         Ok = passed
-    ;   put_char(user_error, !),
+    ;   progress(Unit, Name, fixme),
         Ok = nondet
     ),
     flush_output(user_error),
@@ -1181,17 +1182,15 @@ success(Unit, Name, Line, Det, Time, Options) :-
     (   (   Det == true
         ;   memberchk(nondet, Options)
         )
-    ->  put_char(user_error, .)
+    ->  progress(Unit, Name, passed)
     ;   unit_file(Unit, File),
         print_message(warning, plunit(nondet(File, Line, Name)))
-    ),
-    flush_output(user_error).
+    ).
 
 failure(Unit, Name, Line, _, Options) :-
     memberchk(fixme(Reason), Options),
     !,
-    put_char(user_error, -),
-    flush_output(user_error),
+    progress(Unit, Name, failed),
     assert(fixme(Unit, Name, Line, Reason, failed)).
 failure(Unit, Name, Line, E, Options) :-
     report_failure(Unit, Name, Line, E, Options),
@@ -1296,6 +1295,12 @@ report :-
     number_of_clauses(failed_assertion/7, FailedAssertion),
     number_of_clauses(blocked/4, Blocked),
     number_of_clauses(sto/4, STO),
+    print_message(silent,
+                  plunit(summary(plunit{passed:Passed,
+                                        failed:Failed,
+                                        failed_assertions:FailedAssertion,
+                                        blocked:Blocked,
+                                        sto:STO}))),
     (   Passed+Failed+FailedAssertion+Blocked+STO =:= 0
     ->  info(plunit(no_tests))
     ;   Failed+FailedAssertion+Blocked+STO =:= 0
@@ -1358,9 +1363,9 @@ fixme(How, Tuples, Count) :-
     length(Tuples, Count).
 
 
-report_failure(_, _, _, assertion, _) :-
+report_failure(Unit, Name, _, assertion, _) :-
     !,
-    put_char(user_error, 'A').
+    progress(Unit, Name, assertion).
 report_failure(Unit, Name, Line, Error, _Options) :-
     print_message(error, plunit(failed(Unit, Name, Line, Error))).
 
@@ -1442,6 +1447,9 @@ info(Term) :-
     message_level(Level),
     print_message(Level, Term).
 
+progress(Unit, Name, Result) :-
+    print_message(information, plunit(progress(Unit, Name, Result))).
+
 message_level(Level) :-
     current_test_flag(test_options, Options),
     option(silent(Silent), Options, false),
@@ -1465,6 +1473,7 @@ locationprefix(FileLine) -->
 
 :- discontiguous
     message//1.
+:- '$hide'(message//1).
 
 message(error(context_error(plunit_close(Name, -)), _)) -->
     [ 'PL-Unit: cannot close unit ~w: no open unit'-[Name] ].
@@ -1478,6 +1487,8 @@ message(error(plunit(incompatible_options, Tests), _)) -->
 
                                         % Unit start/end
 :- if(swi).
+message(plunit(progress(_Unit, _Name, Result))) -->
+    [ at_same_line ], result(Result), [flush].
 message(plunit(begin(Unit))) -->
     [ 'PL-Unit: ~w '-[Unit], flush ].
 message(plunit(end(_Unit))) -->
@@ -1611,6 +1622,12 @@ unqualify(M:Goal, _, Goal) :-
     predicate_property(M:Goal, imported_from(system)),
     !.
 unqualify(Goal, _, Goal).
+
+result(passed)    --> ['.'-[]].
+result(nondet)    --> ['+'-[]].
+result(fixme)     --> ['!'-[]].
+result(failed)    --> ['-'-[]].
+result(assertion) --> ['A'-[]].
 
 :- endif.
                                         % Setup/condition errors

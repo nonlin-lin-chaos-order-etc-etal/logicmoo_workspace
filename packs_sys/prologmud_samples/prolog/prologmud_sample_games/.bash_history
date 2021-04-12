@@ -552,3 +552,33 @@ eggdrop
 cd -
 cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
 eggdrop
+ls
+./StartMUD.sh 
+ls
+cat StartMUD.sh 
+sudo
+sudo su -
+exit
+exit
+cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf/
+ls
+eggrop
+eggdrop
+eggdrop -m
+ls
+git pull .
+exit
+cd /opt/logicmoo_workspace/packs_sys/eggdrop/conf
+ls
+eggdrop
+exit
+cd /opt/logicmoo_workspace/packs_sys/eggdrop/
+ls
+ps axf
+killall -9 eggdrop
+killall -9 eggdrop
+cd conf/
+ls
+vi eggdrop.conf 
+git status
+exit

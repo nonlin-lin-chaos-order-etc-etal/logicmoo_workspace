@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>SWI-Prolog 8.3.19 Reference Manual: Section 5.6</title><link rel="home" href="index.html">
+<title>SWI-Prolog 8.3.22 Reference Manual: Section 5.6</title><link rel="home" href="index.html">
 <link rel="contents" href="Contents.html">
 <link rel="index" href="DocIndex.html">
 <link rel="summary" href="summary.html">
@@ -238,7 +238,7 @@ Sided Unification rules</span></a></h2>
 
 <a id="sec:ssu"></a>
 
-<p><a id="idx:singlesidedunification:1844"></a><a id="idx:SSU:1845"></a><a id="idx:termsubsumption:1846"></a>For 
+<p><a id="idx:singlesidedunification:1854"></a><a id="idx:SSU:1855"></a><a id="idx:termsubsumption:1856"></a>For 
 the execution of a normal Prolog clause, the goal term is unified with 
 the head of the clause. This allows us to write facts such as below and 
 use this relation in all four possible <em>modes</em>. This is the basis 
@@ -270,9 +270,9 @@ X = 1 ;
 ERROR: Arguments are not sufficiently instantiated
 </pre>
 
-<p>The definition of <a id="idx:sumlist2:1847"></a><a class="pred" href="lists.html#sum_list/2">sum_list/2</a> 
+<p>The definition of <a id="idx:sumlist2:1857"></a><a class="pred" href="lists.html#sum_list/2">sum_list/2</a> 
 is it appears in library(lists) is below. This implementation can be 
-considered elegant. Note that <a id="idx:sumlist2:1848"></a><a class="pred" href="lists.html#sum_list/2">sum_list/2</a> 
+considered elegant. Note that <a id="idx:sumlist2:1858"></a><a class="pred" href="lists.html#sum_list/2">sum_list/2</a> 
 has only one meaningful mode: (+,-). A general (logical) implementation 
 would allow for a partial list or a list holding one or more variables, 
 With a proper list that holds a single variable we can still make a 
@@ -374,8 +374,8 @@ The last clause often does not need a cut.
 see this may lead to undesirable results such as sum_list(L,S) binding
 <var>L</var> to&lsquo;[]` and <var>S</var> to&lsquo;0` as well as loss 
 of <em>steadfastness</em>, causing max(5,2,2) to succeed. The first 
-requires additional <a id="idx:var1:1849"></a><a class="pred" href="typetest.html#var/1">var/1</a> 
-or <a id="idx:nonvar1:1850"></a><a class="pred" href="typetest.html#nonvar/1">nonvar/1</a> 
+requires additional <a id="idx:var1:1859"></a><a class="pred" href="typetest.html#var/1">var/1</a> 
+or <a id="idx:nonvar1:1860"></a><a class="pred" href="typetest.html#nonvar/1">nonvar/1</a> 
 tests. The second requires delaying unification until after the cut.
 </ul>
 
@@ -388,7 +388,7 @@ Head, Guard =&gt; Body.
 </pre>
 
 <p>This is semantically equivalent to the Prolog clause below. The
-<a id="idx:subsumesterm2:1851"></a><a class="pred" href="compare.html#subsumes_term/2">subsumes_term/2</a> 
+<a id="idx:subsumesterm2:1861"></a><a class="pred" href="compare.html#subsumes_term/2">subsumes_term/2</a> 
 guarantees the clause head is more <em>generic</em> than the goal term 
 and thus unifying the two does not affect any of the arguments of the 
 goal. This implies all output unification _must_ be done after the head 
@@ -418,7 +418,7 @@ error for a clause that does not use the same
 <li>Unlike Picat, it is an error if no clause matches.
 </ul>
 
-<p>Given <b>=&gt;/2</b> rules, we can rewrite <a id="idx:sumlist2:1852"></a><a class="pred" href="lists.html#sum_list/2">sum_list/2</a> 
+<p>Given <b>=&gt;/2</b> rules, we can rewrite <a id="idx:sumlist2:1862"></a><a class="pred" href="lists.html#sum_list/2">sum_list/2</a> 
 as below. The first clause can be written using <b>:-/2</b> or <b>=&gt;/2</b>. 
 As the head is the most general head and there is only one clause these 
 are fully equivalent. The sum_list/3 helper needs a small modification: 
@@ -446,14 +446,56 @@ existence_error(matching_rule, Head)
 
 <p>Should silent failure be desired if no rule matches, this is easily 
 encoding by adding a rule at the end using the most general head and
-<a id="idx:fail0:1853"></a><a class="pred" href="control.html#fail/0">fail/0</a> 
+<a id="idx:fail0:1863"></a><a class="pred" href="control.html#fail/0">fail/0</a> 
 as body:
 
 <pre class="code">
 sum_list(_,_,_) =&gt; fail.
 </pre>
 
-<p><h3 id="sec:ssu-consequences"><a id="sec:5.6.1"><span class="sec-nr">5.6.1</span> <span class="sec-title">Consequenses 
+<p><h3 id="sec:ssu-guard"><a id="sec:5.6.1"><span class="sec-nr">5.6.1</span> <span class="sec-title">Single 
+Sided Unification Guards</span></a></h3>
+
+<a id="sec:ssu-guard"></a>
+
+<p>Using the construction <code>Head, Guard =&gt; Body</code>, the <var>Guard</var> 
+is executed <em>after</em> the single sided head unification. If the
+<var>Guard</var> succeeds the clause executes a cut (<a class="pred" href="control.html#!/0">!/0</a>) 
+and proceeds normally. There are no restrictions on the guard code. A 
+well behaved guard is a <em>test</em>. Notably:
+
+<p>
+<ul class="latex">
+<li>Though not enforced<sup class="fn">165<span class="fn-text">We do 
+not know about an efficient way to enforce unification against head 
+arguments</span></sup>, guard code shall not instantiate variables in 
+the <var>Head</var> because this breaks the promise of SSU and may make 
+the node non-steadfast.
+<li>It is bad style (but again, not enforced) to have any type of side 
+effects (output, database change, etc.)
+<li>Typically, guard calls are <code>semidet</code>. Non-deterministic 
+calls are allowed. If the guard succeeds with choicepoints these are 
+pruned before the body is entered.
+</ul>
+
+<p>As a special exception, explicit unification against a variable in 
+the head is moved into the head. See <a class="sec" href="jitindex.html#sec:2.18.3">section 
+2.18.3</a>. In the example below, the <code>X = f(I)</code> is moved 
+into the head and (thus) is executed using single sided unification.
+
+<pre class="code">
+p(X), X = f(I), integer(I) =&gt; q(X).
+</pre>
+
+<blockquote>
+<b>Warning</b> Moving the guard unification into the head changes the 
+semantics of the unification. This may be defended by the rules above 
+that claim one should not unify against the head arguments in the guard. 
+Future versions may use a dedicated operator to indicate that the 
+unification may be moved into the head.
+</blockquote>
+
+<p><h3 id="sec:ssu-consequences"><a id="sec:5.6.2"><span class="sec-nr">5.6.2</span> <span class="sec-title">Consequenses 
 of <code>=&gt;</code> single sided unification rules</span></a></h3>
 
 <a id="sec:ssu-consequences"></a>
@@ -465,20 +507,20 @@ compiled into the construct below. The Picat <b>?=&gt;/2</b> <em>neck</em>
 operator is like
 <b>=&gt;/2</b>, but does not <em>commit</em> to this rule. We are not 
 yet sure whether or not SWI-Prolog will remain supporting
-<b>?=&gt;/2</b>.<sup class="fn">165<span class="fn-text"><b>?=&gt;/2</b> 
+<b>?=&gt;/2</b>.<sup class="fn">166<span class="fn-text"><b>?=&gt;/2</b> 
 is currently implemented but not defined as an operator.</span></sup>
 
 <pre class="code">
 Head ?=&gt; Guard, !, Body.
 </pre>
 
-<p>The main consequence is that <a id="idx:clause2:1854"></a><a class="pred" href="examineprog.html#clause/2">clause/2</a> 
+<p>The main consequence is that <a id="idx:clause2:1864"></a><a class="pred" href="examineprog.html#clause/2">clause/2</a> 
 cannot distinguish between a normal clause and a <b>=&gt;/2</b> clause. 
 In the current implementation it operates on both without distinguishing 
 the two. This implies e.g.,
 <em>cross referencing</em> still works. Meta interpretation however does 
-not work. In future versions <a id="idx:clause2:1855"></a><a class="pred" href="examineprog.html#clause/2">clause/2</a> 
-may fail on these rules. As an alternative we provide <a id="idx:rule2:1856"></a><a class="pred" href="ssu.html#rule/2">rule/2</a>,3.
+not work. In future versions <a id="idx:clause2:1865"></a><a class="pred" href="examineprog.html#clause/2">clause/2</a> 
+may fail on these rules. As an alternative we provide <a id="idx:rule2:1866"></a><a class="pred" href="ssu.html#rule/2">rule/2</a>,3.
 
 <dl class="latex">
 <dt class="pubdef"><a id="rule/2"><strong>rule</strong>(<var>:Head, 
@@ -493,7 +535,7 @@ it is a term <code>Head <code>=&gt;</code> Body</code>.
 </dd>
 </dl>
 
-<p><h3 id="sec:ssu-future"><a id="sec:5.6.2"><span class="sec-nr">5.6.2</span> <span class="sec-title">SSU: 
+<p><h3 id="sec:ssu-future"><a id="sec:5.6.3"><span class="sec-nr">5.6.3</span> <span class="sec-title">SSU: 
 Future considerations</span></a></h3>
 
 <a id="sec:ssu-future"></a>

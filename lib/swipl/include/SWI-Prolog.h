@@ -68,7 +68,7 @@ extern "C" {
 /* PLVERSION_TAG: a string, normally "", but for example "rc1" */
 
 #ifndef PLVERSION
-#define PLVERSION 80319
+#define PLVERSION 80322
 #endif
 #ifndef PLVERSION_TAG
 #define PLVERSION_TAG ""
@@ -85,8 +85,8 @@ numbers are atomic type.
 
 #define PL_FLI_VERSION      2		/* PL_*() functions */
 #define	PL_REC_VERSION      3		/* PL_record_external(), fastrw */
-#define PL_QLF_LOADVERSION 67		/* load all versions later >= X */
-#define PL_QLF_VERSION     67		/* save version number */
+#define PL_QLF_LOADVERSION 68		/* load all versions later >= X */
+#define PL_QLF_VERSION     68		/* save version number */
 
 
 		 /*******************************
@@ -118,8 +118,8 @@ duplicated this stuff.
 
 #ifdef HAVE_DECLSPEC
 # ifdef PL_KERNEL
-#define PL_EXPORT(type)		__declspec(dllexport) type
-#define PL_EXPORT_DATA(type)	__declspec(dllexport) type
+#define PL_EXPORT(type)		__declspec(dllexport) extern type
+#define PL_EXPORT_DATA(type)	__declspec(dllexport) extern type
 #define install_t		void
 # else
 #  ifdef __BORLANDC__

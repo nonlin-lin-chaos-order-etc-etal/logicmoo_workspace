@@ -3,9 +3,10 @@
     Author:        Benoit Desouter <Benoit.Desouter@UGent.be>
                    Jan Wielemaker (SWI-Prolog port)
                    Fabrizio Riguzzi (mode directed tabling)
-    Copyright (c) 2016-2020, Benoit Desouter,
+    Copyright (c) 2016-2021, Benoit Desouter,
                              Jan Wielemaker,
                              Fabrizio Riguzzi
+                             SWI-Prolog Solutions b.v.
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -124,7 +125,10 @@ wl_goal(WorkList, Goal, Skeleton) :-
 
 trie_goal(ATrie, Goal, Skeleton) :-
     '$tbl_table_status'(ATrie, _Status, M:Variant, Skeleton),
-    M:'$table_mode'(Goal0, Variant, _Moded),
+    (   M:'$table_mode'(Goal0, Variant, _Moded)
+    ->  true
+    ;   Goal0 = Variant                 % dynamic IDG nodes
+    ),
     unqualify_goal(M:Goal0, user, Goal).
 
 delay_goals(List, Goal) :-
@@ -140,7 +144,10 @@ user:portray(ATrie) :-
     '$is_answer_trie'(ATrie, _),
     trie_goal(ATrie, Goal, _Skeleton),
     (   '$idg_falsecount'(ATrie, FalseCount)
-    ->  format('~q [fc=~d] for ~p', [ATrie, FalseCount, Goal])
+    ->  (   '$idg_forced'(ATrie)
+        ->  format('~q [fc=~d/F] for ~p', [ATrie, FalseCount, Goal])
+        ;   format('~q [fc=~d] for ~p', [ATrie, FalseCount, Goal])
+        )
     ;   format('~q for ~p', [ATrie, Goal])
     ).
 user:portray(Cont) :-
@@ -371,7 +378,7 @@ start_tabling_2(Closure, Wrapper, Worker, Trie, Status, Skeleton) :-
     ;   Status == invalid
     ->  reeval(Trie, Wrapper, Skeleton)
     ;   % = run_follower, but never fresh and Status is a worklist
-        shift(call_info(Skeleton, Status))
+        shift_for_copy(call_info(Skeleton, Status))
     ).
 
 create_table(Trie, Fresh, Skeleton, Wrapper, Worker) :-
@@ -423,7 +430,7 @@ start_subsumptive_tabling(Closure, Wrapper, Worker) :-
         ;   Status == invalid
         ->  reeval(Trie, Wrapper, Skeleton),
             trie_gen_compiled(Trie, Skeleton)
-        ;   shift(call_info(Skeleton, Status))
+        ;   shift_for_copy(call_info(Skeleton, Status))
         )
     ;   more_general_table(Wrapper, ATrie),
         '$tbl_table_status'(ATrie, complete, Wrapper, Skeleton)
@@ -435,7 +442,7 @@ start_subsumptive_tabling(Closure, Wrapper, Worker) :-
             Wrapper = GenWrapper,
             '$tbl_answer_update_dl'(ATrie, GenSkeleton)
         ;   wrapper_skeleton(GenWrapper, GenSkeleton, Wrapper, Skeleton),
-            shift(call_info(GenSkeleton, Skeleton, Status)),
+            shift_for_copy(call_info(GenSkeleton, Skeleton, Status)),
             unify_subsumptive(Skeleton, GenSkeleton)
         )
     ;   start_tabling(Closure, Wrapper, Worker)
@@ -484,7 +491,7 @@ start_abstract_tabling(Closure, Wrapper, Worker) :-
         reeval(ATrie, GenWrapper, GenSkeleton),
         Wrapper = GenWrapper,
         '$tbl_answer_update_dl'(ATrie, Skeleton)
-    ;   shift(call_info(GenSkeleton, Skeleton, Status)),
+    ;   shift_for_copy(call_info(GenSkeleton, Skeleton, Status)),
         unify_subsumptive(Skeleton, GenSkeleton)
     ).
 
@@ -570,7 +577,7 @@ run_leader(Skeleton, Worker, fresh(SCC, Worklist), Status, Clause) :-
     (   Status == merged
     ->  tdebug(merge, 'Turning leader ~p into follower', [Goal]),
         '$tbl_wkl_make_follower'(Worklist),
-        shift(call_info(Skeleton, Worklist))
+        shift_for_copy(call_info(Skeleton, Worklist))
     ;   true                                    % completed
     ).
 
@@ -675,7 +682,7 @@ start_moded_tabling_2(_Closure, Wrapper, Worker, ModeArgs,
     ->  reeval(Trie, Wrapper, Skeleton),
         moded_gen_answer(Trie, Skeleton, ModeArgs)
     ;   % = run_follower, but never fresh and Status is a worklist
-        shift(call_info(Skeleton/ModeArgs, Status))
+        shift_for_copy(call_info(Skeleton/ModeArgs, Status))
     ).
 
 :- public
@@ -708,7 +715,7 @@ moded_run_leader(Wrapper, SkeletonMA, Worker, fresh(SCC, Worklist), Status) :-
     (   Status == merged
     ->  tdebug(merge, 'Turning leader ~p into follower', [Wrapper]),
         '$tbl_wkl_make_follower'(Worklist),
-        shift(call_info(SkeletonMA, Worklist))
+        shift_for_copy(call_info(SkeletonMA, Worklist))
     ;   true                                    % completed
     ).
 
@@ -884,7 +891,7 @@ floundering(Goal) :-
 negation_suspend(Wrapper, Skeleton, Worklist) :-
     tdebug(tnot, 'negation_suspend ~p (wl=~p)', [Wrapper, Worklist]),
     '$tbl_wkl_negative'(Worklist),
-    shift(call_info(Skeleton, tnot(Worklist))),
+    shift_for_copy(call_info(Skeleton, tnot(Worklist))),
     tdebug(tnot, 'negation resume ~p (wl=~p)', [Wrapper, Worklist]),
     '$tbl_wkl_is_false'(Worklist).
 
@@ -1638,10 +1645,10 @@ mon_propagate(Action, Head, ClauseRef) :-
     !,
     setup_call_cleanup(
         '$tbl_propagate_start'(Old),
-        propagate_assert(Head),
+        propagate_assert(Head),                 % eager monotonic dependencies
         '$tbl_propagate_end'(Old)),
     forall(dyn_affected(Head, ATrie),
-           '$mono_idg_changed'(ATrie, ClauseRef)).
+           '$mono_idg_changed'(ATrie, ClauseRef)). % lazy monotonic dependencies
 mon_propagate(retract, Head, _) :-
     !,
     mon_invalidate_dependents(Head).
@@ -1842,14 +1849,11 @@ try_reeval(ATrie, Goal, Return) :-
 try_reeval(ATrie, Goal, Return) :-
     tdebug(reeval, 'Planning reeval for ~p', [ATrie]),
     findall(Path, false_path(ATrie, Path), Paths0),
-    sort(0, @>, Paths0, Paths),
-    split_paths(Paths, Dynamic, Complete),
-    tdebug(forall('$member'(Path, Dynamic),
-                  tdebug(reeval, '  Re-eval dynamic path: ~p', [Path]))),
-    tdebug(forall('$member'(Path, Complete),
+    sort(0, @>, Paths0, Paths1),
+    clean_paths(Paths1, Paths),
+    tdebug(forall('$member'(Path, Paths),
                   tdebug(reeval, '  Re-eval complete path: ~p', [Path]))),
-    reeval_paths(Dynamic, ATrie),
-    reeval_paths(Complete, ATrie),
+    reeval_paths(Paths, ATrie),
     do_reeval(ATrie, Goal, Return).
 
 do_reeval(ATrie, Goal, Return) :-
@@ -1865,9 +1869,29 @@ do_reeval(ATrie, Goal, Return) :-
     ).
 
 
-split_paths([], [], []).
-split_paths([[_|Path]|T], DT, [Path|CT]) :-
-    split_paths(T, DT, CT).
+%!  clean_paths(+PathsIn, -Paths)
+%
+%   Clean the reevaluation paths. Get rid of   the head term for ranking
+%   and remove duplicate paths. Note that  a   Path  is a list of tries,
+%   ground terms.
+
+clean_paths([], []).
+clean_paths([[_|Path]|T0], [Path|T]) :-
+    clean_paths(T0, Path, T).
+
+clean_paths([], _, []).
+clean_paths([[_|CPath]|T0], CPath, T) :-
+    !,
+    clean_paths(T0, CPath, T).
+clean_paths([[_|Path]|T0], _, [Path|T]) :-
+    clean_paths(T0, Path, T).
+
+%!  reeval_paths(+Paths, +Atrie)
+%
+%   Make Atrie valid again by re-evaluating nodes   in Paths. We stop as
+%   soon as Atrie  is  valid  again.  Note   that  we  may  not  need to
+%   reevaluate all paths because evaluating the   head  of some path may
+%   include other nodes in an SCC, making them valid as well.
 
 reeval_paths([], _) :-
     !.
@@ -1875,24 +1899,26 @@ reeval_paths(BottomUp, ATrie) :-
     is_invalid(ATrie),
     !,
     reeval_heads(BottomUp, ATrie, BottomUp1),
-    reeval_paths(BottomUp1, ATrie).
+    tdebug(assertion(BottomUp \== BottomUp1)),
+    '$list_to_set'(BottomUp1, BottomUp2),
+    reeval_paths(BottomUp2, ATrie).
 reeval_paths(_, _).
 
-reeval_heads(_, ATrie, _) :-
+reeval_heads(_, ATrie, []) :-                % target is valid again
     \+ is_invalid(ATrie),
     !.
 reeval_heads([], _, []).
-reeval_heads([[H]|B], ATrie, BT) :-
-    !,
+reeval_heads([[H]|B], ATrie, BT) :-          % Last one of a falsepath
     reeval_node(H),
-    reeval_heads(B, ATrie, BT).
-reeval_heads([[]|B], ATrie, BT) :-
     !,
     reeval_heads(B, ATrie, BT).
 reeval_heads([[H|T]|B], ATrie, [T|BT]) :-
-    !,
     reeval_node(H),
+    !,
     reeval_heads(B, ATrie, BT).
+reeval_heads([FP|B], ATrie, [FP|BT]) :-
+    reeval_heads(B, ATrie, BT).
+
 
 %!  false_path(+Atrie, -Path) is nondet.
 %
@@ -1933,7 +1959,7 @@ is_invalid(ATrie) :-
     '$idg_falsecount'(ATrie, FalseCount),
     FalseCount > 0.
 
-%!  reeval_node(+ATrie)
+%!  reeval_node(+ATrie) is semidet.
 %
 %   Re-evaluate the invalid answer trie ATrie.  Initially this created a
 %   nested tabling environment, but this is dropped:
@@ -1943,6 +1969,9 @@ is_invalid(ATrie) :-
 %       outer SCC.  This doesn't work well with a sub-environment.
 %     - We do not need one.  If this environment is not merged into the
 %       outer one it will complete before we continue.
+%
+%   Fails if the node is not ready for   evaluation. This is the case if
+%   it is valid or it is a lazy table that has invalid dependencies.
 
 reeval_node(ATrie) :-
     '$tbl_reeval_prepare'(ATrie, M:Variant),
@@ -1961,31 +1990,56 @@ reeval_node(ATrie) :-
 reeval_node(ATrie) :-
     '$mono_reeval_prepare'(ATrie, Size),
     !,
+    setup_call_cleanup(
+        '$tbl_propagate_start'(Old),
+        reeval_monotonic_node(ATrie, Size),
+        '$tbl_propagate_end'(Old)).
+reeval_node(ATrie) :-
+    \+ is_invalid(ATrie).
+
+reeval_monotonic_node(ATrie, Size) :-
     tdebug(reeval, 'Re-evaluating lazy monotonic ~p', [ATrie]),
-    (   '$idg_mono_affects_lazy'(ATrie, SrcTrie, Dep, Answers),
+    (   '$idg_mono_affects_lazy'(ATrie, _0SrcTrie, Dep, DepRef, Answers),
+        length(Answers, Count),
         (   Dep = dependency(Head, Cont, Skel)
         ->  (   '$member'(ClauseRef, Answers),
                 '$clause'(Head, _Body, ClauseRef, _Bindings),
                 tdebug(monotonic, 'Propagating ~p from ~p to ~p',
-                       [Head, SrcTrie, ATrie]),
+                       [Head, _0SrcTrie, ATrie]),
                 pdelim(Cont, Skel, ATrie),
                 fail
-            ;   '$idg_mono_empty_queue'(SrcTrie, ATrie)
+            ;   '$idg_mono_empty_queue'(DepRef, Count)
             )
         ;   Dep = dependency(SrcSkel, true, Cont, Skel)
         ->  (   '$member'(Node, Answers),
                 '$tbl_node_answer'(Node, SrcSkel),
                 tdebug(monotonic, 'Propagating ~p from ~p to ~p',
-                       [Skel, SrcTrie, ATrie]),
+                       [Skel, _0SrcTrie, ATrie]),
                 pdelim(Cont, Skel, ATrie),
                 fail
-            ;   '$idg_mono_empty_queue'(SrcTrie, ATrie)
+            ;   '$idg_mono_empty_queue'(DepRef, Count)
             )
+        ;   tdebug(monotonic, 'Skipped queued ~p, answers ~p',
+                   [Dep, Answers])
         ),
         fail
-    ;   '$mono_reeval_done'(ATrie, Size)
+    ;   '$mono_reeval_done'(ATrie, Size, Deps),
+        (   Deps == []
+        ->  tdebug(reeval, 'Re-evaluation for ~p complete', [ATrie])
+        ;   Deps == false
+        ->  tdebug(reeval, 'Re-evaluation for ~p queued new answers', [ATrie]),
+            reeval_node(ATrie)
+        ;   tdebug(reeval, 'Re-evaluation for ~p: new invalid deps: ~p', [ATrie, Deps]),
+            reeval_nodes(Deps),
+            reeval_node(ATrie)
+        )
     ).
-reeval_node(_).
+
+reeval_nodes([]).
+reeval_nodes([H|T]) :-
+    reeval_node(H),
+    reeval_nodes(T).
+
 
 		 /*******************************
 		 *      EXPAND DIRECTIVES	*
