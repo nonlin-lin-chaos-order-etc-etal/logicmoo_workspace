@@ -22,31 +22,37 @@
 
 /* Print term as a tree */
 
-print_tree(T) :-
-   numbervars(T,1,_),
-   pt(T,0), nl, fail.
-print_tree(_).
+:- if( \+ current_predicate(print_tree/1)). 
+ print_tree(T):- print_tree_old(T).
+:- endif.
 
-pt(A,I) :-
-   as_is(A), !,
+:- listing(print_tree).
+
+print_tree_old(T) :-
+   numbervars(T,1,_),
+   pt_old(T,0), nl, fail.
+print_tree_old(_).
+
+pt_old(A,I) :-
+   as_is_old(A), !,
    tab(I), write(A), nl.
-pt([T|Ts],I) :- !,
-   pt(T,I),
-   pl(Ts,I).
-pt(T,I) :- !,
+pt_old([T|Ts],I) :- !,
+   pt_old(T,I),
+   pl_old(Ts,I).
+pt_old(T,I) :- !,
    T=..[F|As],
    tab(I), write(F), nl,
    I0 is I+3,
-   pl(As,I0).
+   pl_old(As,I0).
 
-pl([],_) :- !.
-pl([A|As],I) :- !,
-   pt(A,I),
-   pl(As,I).
+pl_old([],_) :- !.
+pl_old([A|As],I) :- !,
+   pt_old(A,I),
+   pl_old(As,I).
 
-as_is(A) :- \+ compound(A), !.
-as_is('$VAR'(_)) :- !.
-as_is('_'(_)) :- !.
-as_is(X) :-
+as_is_old(A) :- \+ compound(A), !.
+as_is_old('$VAR'(_)) :- !.
+as_is_old('_'(_)) :- !.
+as_is_old(X) :-
    quote(X).
 

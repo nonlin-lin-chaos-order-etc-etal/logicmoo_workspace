@@ -64,6 +64,7 @@ meta_noun_LF(number,of,_,V,Spatial&_,X,P,numberof(X,P,V)):- spatial(Spatial).
 
 /* Proper nouns */
 
+name_template_LF(X,Type):- name_template(X,Type).
 name_template(X,Spatial&circle) :-  circle_of_latitude(X), spatial(Spatial).
 name_template(X,SpatialCityPath) :- ti(city,X), spatial(Spatial), feature_path(Spatial,city,SpatialCityPath).
 name_template(X,Spatial&place&continent) :- spatial(Spatial), ti(continent,X).

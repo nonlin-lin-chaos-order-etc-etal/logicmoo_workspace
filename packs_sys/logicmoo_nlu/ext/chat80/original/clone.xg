@@ -137,7 +137,7 @@ np_compls(common,Agmt,Case,Mods,Set0,Mask) --->
 
 /* Nuclear noun phrase */
 
-np_head0(name(Name),3+sg,def+proper) ---> name(Name).
+np_head0(name(Name),3+sg,def+proper) ---> name_lex(Name).
 np_head0(np_head(Det,Adjs,Head),3+Number,Def+common) --->
    determiner(Det,Number,Def),
    adjs(Adjs),

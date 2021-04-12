@@ -39,10 +39,10 @@ verb_form(Verb,Tense,Agmt,Role) --->
    [W],
    {verb_form(W,Verb,Tense,Agmt)}.
 
-name(Name) --->
+name_lex(Name) --->
    opt_the,
    [Name],
-   {name(Name)}.
+   {name_LF(Name)}.
 
 int_art(X,plu,quant(same,wh(X))) ---> [how,many].
 int_art(X,Agmt,DX) --->

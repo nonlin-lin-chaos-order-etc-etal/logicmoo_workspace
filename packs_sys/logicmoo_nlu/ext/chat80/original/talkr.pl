@@ -30,7 +30,7 @@ write_tree(T):-
    fail.
 write_tree(_).
 
-wt(T,_L) :- as_is(T),write(T),!.
+wt(T,_L) :- as_is_old(T),write(T),!.
 wt((P:-Q),L) :- !, L1 is L+3,
    write(P), tab(1), write((:-)), nl,
    tab(L1), wt(Q,L1).

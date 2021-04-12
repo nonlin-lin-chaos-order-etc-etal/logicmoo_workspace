@@ -12,7 +12,7 @@
 */
 % File: /opt/PrologMUD/pack/logicmoo_base/prolog/logicmoo/util/logicmoo_util_filestreams.pl
 :- module(pretty_clauses,
-   [print_tree/1]).
+   [print_tree/1,print_as_tree/1,mort/1,print_tree_with_final/2]).
 
 :- set_module(class(library)).
 
@@ -30,16 +30,17 @@ prolog_pprint_tree(Term):-  prolog_pprint(Term), !.
 :- export(prolog_pprint/2).
 prolog_pprint(Term):- prolog_pprint(Term, []).
 prolog_pprint(Term, Options):-
-   \+ \+ (portray_vars:pretty_numbervars(Term, Term2),
+   \+ \+ (must_or_rtrace(portray_vars:pretty_numbervars(Term, Term2)),
      prolog_pprint_0(Term2, Options)), !.
 
 
 % prolog_pprint_0(Term, Options):- Options ==[], pprint_ecp_cmt(blue, Term), !.
 
 % prolog_pprint_0(Term, Options):- memberchk(portray(true), Options), \+ is_list(Term), \+ memberchk(portray_goal(_), Options), print_tree(Term, Options), !.
-prolog_pprint_0(Term, Options):-    \+ memberchk(right_margin(_), Options), !, prolog_pprint_0(Term, [right_margin(60)|Options]).
+prolog_pprint_0(Term, Options):-    \+ memberchk(right_margin(_), Options), !, prolog_pprint_0(Term, [right_margin(0)|Options]).
 prolog_pprint_0(Term, Options):-    \+ memberchk(portray(_), Options), !, prolog_pprint_0(Term, [portray(true)|Options]).
-prolog_pprint_0(Term, Options):- prolog_pretty_print:print_term(Term, [output(current_output)|Options]).
+prolog_pprint_0(Term, Options):- 
+  mort(prolog_pretty_print:print_term(Term, [output(current_output)|Options])).
 
 :- meta_predicate with_op_cleanup(*,*,*,0).
 
@@ -122,7 +123,26 @@ print_e_to_string_b(H, HS):- print_e_to_string(H, HS),!.
 
 % print_e_to_string(T, _Ops, S):- with_output_to(string(S),print_tree_with_final(T,'')),!.
 
+trim_lf(S0,S):- string_concat(S1,' ',S0),!,trim_lf(S1,S).
+trim_lf(S0,S):- string_concat(S1,'\n',S0),!,trim_lf(S1,S).
+trim_lf(S0,S):- str_repl('\n\n','\n',S0,S).
+may_compose.
+
 print_e_to_string(T,_Ops, S):- string(T),!,S=T.
+print_e_to_string(T,_Ops, S):- var(T),!, sformat(S,'~p',[T]).
+%print_e_to_string(T, _Ops, S):- T =(:-(H,B)), !, sformat(S,'~@\n ~@',[prolog_pprint(H),prolog_pprint(:-(B))]).
+print_e_to_string((H,B), _Ops, S):- may_compose, !, sformat(S0,'~@,\n ~@',[prolog_pprint(H),prolog_pprint(B)]),trim_lf(S0,S).
+print_e_to_string(':-'(H,B), _Ops, S):- may_compose, !, sformat(S,'~@  :-\n ~@',[prolog_pprint(H),print_tree_with_final(B,'')]).
+print_e_to_string(T, _Ops, S):- may_compose, as_is(T), without_ec_portray_hook(sformat(S,'~@',[prolog_pprint(T)])),!.
+print_e_to_string('^'(H,B), _Ops, S):- may_compose, !, sformat(S,'~@^\n~@',[prolog_pprint(H),prolog_pprint(:-(B))]).
+print_e_to_string(setof(T,B,L), _Ops, S):- 
+  fail, 
+  may_compose, 
+  print_e_to_string(B,BS), atom_contains(BS,'\n'),
+  output_line_position(Pos),Pos3 is Pos+3, sformat(Spaces,'~@\n',[tab(Pos3)]),
+  mid_pipe(BS,[str_repl('\n',Spaces)],BS1),
+  sformat(S,'setof( ~@ ,\n(~s ),\n ~@)',[prolog_pprint(T),BS1,prolog_pprint(L)]).
+
 print_e_to_string(T, Ops, S):- member(Infix,['<-']), member(Infix, Ops), !, 
    subst(T,Infix,(':-'),T0), 
    clause_to_string(T0,S0), !,
@@ -214,8 +234,9 @@ is_output_lang(_).
 
 :- export(pprint_ecp_cmt/2).
 
-pprint_ecp_cmt(C, P):-
+pprint_ecp_cmt(C, P0):- 
  quietly((echo_format('~N'),  
+  copy_term_nat(P0,P),
   print_e_to_string(P, S0),
   into_space_cmt(S0,S),
   to_ansi(C, C0),
@@ -223,9 +244,10 @@ pprint_ecp_cmt(C, P):-
 
 :- export(pprint_ecp/2).
 pprint_ecp(C, P):- \+ is_output_lang(C), !, pprint_ecp_cmt(C, P).
-pprint_ecp(C, P):-
+pprint_ecp(C, P0):-
   maybe_mention_s_l(1),
   quietly((echo_format('~N'),
+  copy_term_nat(P0,P),
   pprint_ec_and_f(C, P, '.~n'))).
 
 pprint_ec_and_f(C, P, AndF):-
@@ -236,17 +258,29 @@ pprint_ec_and_f(C, P, AndF):-
 
 user:portray(Term):- \+ current_prolog_flag(debug,true), \+ tracing, ec_portray_hook(Term).
 
+/*
+without_ec_portray_hook(Goal):-
+   setup_call_cleanup(current_prolog_flag(debug, Was),
+     (set_prolog_flag(debug, true),Goal),
+     set_prolog_flag(debug, Was)).
+
+*/
+without_ec_portray_hook(Goal):-
+   setup_call_cleanup(flag('$ec_portray', N, N+1000), 
+     Goal, flag('$ec_portray',_, N)).
+
 ec_portray_hook(Term):- 
  setup_call_cleanup(flag('$ec_portray', N, N+1), 
   ec_portray(N, Term),
-  flag(ec_portray,_, N)).
+  flag('$ec_portray',_, N)).
 
 ec_portray(_,Var):- var(Var),!,fail. % format('~p',[Var]),!.
+
 ec_portray(_,'$VAR'(Atomic)):-  atom(Atomic), name(Atomic,[C|_]), !,
    (code_type(C,prolog_var_start)->write(Atomic);writeq('$VAR'(Atomic))).
 ec_portray(_,Term):- notrace(is_list(Term)),!,Term\==[], fail, notrace(catch(text_to_string(Term,Str),_,fail)),!,format('"~s"',[Str]).
 ec_portray(_,Term):- compound(Term),compound_name_arity(Term, F, 0), !,ansi_format([bold,hfg(red)],'~q()',[F]),!.
-ec_portray(N,Term):- N < 2, 
+ec_portray(N,Term):- N < 15, 
   % ttyflush,
   ttyflush,
   catch(pprint_ec_no_newline(white, Term),_,fail),!.
@@ -260,7 +294,7 @@ pprint_ec_no_newline(C, P):-
 
 print_e_to_string(P, S):- 
    get_operators(P, Ops),
-   pretty_numbervars(P, T),
+   notrace(pretty_numbervars(P, T)),
    print_e_to_string(T, Ops, S).
 /*
 print_e_to_string(P, S):- 
@@ -467,12 +501,12 @@ pt_nl:- nl.
 % pretty_clauses:goal_expansion(pt_nl,(write(S:L),nl)):- source_location(S,L).
 
 write_simple(A):- get_portrayal_vars(Vs), 
-  setup_call_cleanup(asserta(pretty_tl:in_pretty,Ref),
+  without_ec_portray_hook((setup_call_cleanup(asserta(pretty_tl:in_pretty,Ref),
     write_term(A,[quoted(true),partial(true), portrayed(true), variable_names(Vs)]),
-    erase(Ref)).
+    erase(Ref)))).
 
 portray_with_vars(A):- get_portrayal_vars(Vs),  
-  simple_write_term(A,[quoted(true),partial(true), portrayed(true), variable_names(Vs)]),!.
+ without_ec_portray_hook(( simple_write_term(A,[quoted(true),partial(true), portrayed(true), variable_names(Vs)]))),!.
 
 :- thread_local(pretty_tl:in_pretty/0).
 
@@ -488,7 +522,8 @@ simple_write_term(A,Options):-  write_term(A,Options),!.
 
 get_portrayal_vars(Vs):- nb_current('$variable_names',Vs)-> true ; Vs=[].
 
-print_tree(Term) :- print_tree_with_final(Term,'.').
+print_as_tree(Term):- print_tree(Term).
+print_tree(Term) :- print_tree_with_final(Term,'').
 print_tree(Term, Options) :- select(fullstop(true),Options,OptionsNew),!,print_tree_final_options(Term, '.', OptionsNew).
 print_tree(Term, Options) :- print_tree_final_options(Term, '', Options).
 
@@ -601,14 +636,14 @@ pt1(FS,Final,TTs,Tab) :-
 pt1(FS,Final,(NPV),Tab) :- NPV=..[P,N,V], is_colon_mark(P),pt1_package(FS,Final,P,N,V,Tab).
 
 
-pt1(FS,Final,T,Tab0) :- fail,
+pt1(FS,Final,T,Tab0) :- 
    T=..[F,A,As], 
    major_conj(F),
    Tab is Tab0+1,
    prefix_spaces(Tab0),write('('),
    sformat(FinA, " ~w ~n",[F]), print_tree_with_final(A,FinA),
    format(atom(LC2),')~w',[Final]),
-   nl,prefix_spaces(Tab0), pt0([F|FS],LC2,As,Tab).
+   prefix_spaces(Tab), pt0([F|FS],LC2,As,Tab).
 
 /*
 pt1(FS,Final,Term,Tab) :- 
@@ -672,6 +707,7 @@ pt1_list(FS,Final,[T|Ts],Tab) :- !,
    pt_args([lf|FS],NLC,Ts,I2),!.
 
 
+is_colon_mark('^').
 is_colon_mark(':').
 is_colon_mark('::').
 is_colon_mark('::::').
@@ -700,7 +736,7 @@ pt1(FS,Final,T,Tab) :- fail,  T.=.[F,A,B|As], is_arity_lt1(A), !,
 */
 
 
-major_conj(F):-  (F == ',';F == ';' ;F=='&'),!.
+major_conj(F):-  (F == ',';F == ';' /*;F=='&'*/),!.
 
 splice_off([A0,A|As],[A0|Left],[R|Rest]):- 
    is_arity_lt1(A0), append(Left,[R|Rest],[A|As]), 
@@ -748,7 +784,7 @@ as_is('_'(_)) :- !.
 as_is(Q) :- is_quoted_pt(Q).
    
 as_is(not(A)) :- !,as_is(A).
-as_is(A) :- A=..[_|S], maplist(is_arity_lt1,S),length(S,SL),SL<4, !.
+as_is(A) :- A=..[_|S], maplist(is_arity_lt1,S),length(S,SL),SL<5, !.
 as_is(A) :- A=..[_,B|S], fail, as_is(B), maplist(is_arity_lt1,S), !.
 % as_is(F):- simple_arg(F), !.
 

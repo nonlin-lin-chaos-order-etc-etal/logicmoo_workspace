@@ -141,9 +141,9 @@ cycQuery80(Q):- current_predicate(_, Q), call(Q).
 % :- register_module_type(utility).
 
 
-:- shared_parser_data(parser_chat80:(contains0/2, country/8, city/3, borders/2, in_continent/2)).
+%:- shared_parser_data(parser_chat80:(contains0/2, country/8, city/3, borders/2, in_continent/2)).
 :- shared_parser_data(parser_chat80:contains/2).
-:- shared_parser_data(parser_chat80:trans/9).
+:- shared_parser_data(parser_chat80:trans_LF/9).
 :- shared_parser_data(parser_chat80:det/7).
 :- shared_parser_data(parser_chat80:sentence80/5).
 :- shared_parser_data(parser_chat80:noun/6).

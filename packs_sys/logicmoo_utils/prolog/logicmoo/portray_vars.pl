@@ -199,8 +199,9 @@ bad_varname(UP):-
 
 % mort(G):- must_or_rtrace(G),!.
 
-mort(G):- current_prolog_flag(debug,false),!,ignore(notrace(catch(G,_,fail))),!.
-mort(G):- ignore((catch(G,_,fail))),!.
+mort(G):- notrace(catch(G,_,fail)),!.
+mort((G1,G2)):- !, mort(G1),mort(G2).
+mort(G):- rtrace(G).
 
 to_var_or_name(L,LL):- var(L),!,LL=L.
 to_var_or_name('~','Not').
@@ -379,11 +380,13 @@ may_debug_var(_,V):- var(V), variable_name(V,IsGood),is_good_name(IsGood),!.
 %may_debug_var(R,V):- var(V), variable_name(V,_), atom(R), \+ is_good_name(R).
 may_debug_var(R,V):- debug_var(R,V).
 
-pretty_enough(H):- var(H),!. % prolog_load_context(variable_names, Vs), member(N=V,Vs), V==H, maybe_debug_var(N, H),!.
-pretty_enough(H):- \+ compound(H),!. % may_debug_var(F,'_Call',H).
-pretty_enough(H):- ground(H), !.
-pretty_enough('$VAR'(_)):- !.
-pretty_enough(H):- compound_name_arity_red(H,_,0), !.
+pretty_enough(H):- notrace(pretty_enough0(H)).
+
+pretty_enough0(H):- ground(H), !.
+pretty_enough0(H):- var(H),!. % prolog_load_context(variable_names, Vs), member(N=V,Vs), V==H, maybe_debug_var(N, H),!.
+pretty_enough0(H):- \+ compound(H),!. % may_debug_var(F,'_Call',H).
+pretty_enough0('$VAR'(_)):- !.
+pretty_enough0(H):- compound_name_arity(H,_,0), !.
 
 name_one(R,V):- is_dict(V), dict_pairs(V,VV,_), !, name_one(R,VV).
 name_one(V,R):- is_dict(V), dict_pairs(V,VV,_), !, name_one(VV,R).
@@ -397,7 +400,7 @@ name_one_var(R,V):- debug_var(R,V).
 pretty_element(NV):- ignore((NV=..[_,N,V],ignore(pretty1(N=V)))).
 
 pretty1(H):- pretty_enough(H),!.
-pretty1(ti(R,V)):- name_one(V,R).
+pretty1(ti(R,V)):- name_one(V,R),!.
 pretty1(ti(R,V)):- may_debug_var(R,V).
 pretty1(as_rest(Name, Rest, _)):- may_debug_var_v(Name,Rest).
 pretty1(get_var(Env, Name, Val)):- may_debug_var('GEnv',Env),may_debug_var(Name,Val).
@@ -440,8 +443,8 @@ pretty_two(N,F,A,[E|ARGS]):-
   ignore(maybe_nameable_arg(F,A,N,E)),
   pretty_two(Np1,F,A,ARGS).
 
-compound_name_arity_red(H,N,A):- compound_name_arity(H,M,A),reduce_fname(M,N).
-compound_name_args_red(H,N,A):- compound_name_arguments(H,M,A),reduce_fname(M,N).
+compound_name_arity_red(H,N,A):- notrace((compound_name_arity(H,M,A),reduce_fname(M,N))).
+compound_name_args_red(H,N,A):- notrace((compound_name_arguments(H,M,A),reduce_fname(M,N))).
 reduce_fname(ti,'').
 reduce_fname(card,size).
 reduce_fname(M,N):-atom_concat(N0,'pred',M),reduce_fname(N0,N).

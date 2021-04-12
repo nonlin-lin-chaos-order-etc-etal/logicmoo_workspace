@@ -31,7 +31,7 @@ word(Word) :- adverb(Word).
 word(Word) :- sup_adj(Word,_).
 word(Word) :- rel_adj(Word,_).
 word(Word) :- adj(Word,_).
-word(Word) :- name(Word).
+word(Word) :- name_LF(Word).
 word(Word) :- terminator(Word,_).
 word(Word) :- pers_pron(Word,_,_,_,_).
 word(Word) :- poss_pron(Word,_,_,_).
@@ -86,7 +86,7 @@ int_pron(which,undef).
 int_pron(who,subj).
 int_pron(whom,compl).
 
-name(Name) :- name_template(Name,_), !.
+name_LF(Name) :- name_template_LF(Name,_), !.
 
 noun_form(Plu,Sin,plu) :- noun_plu(Plu,Sin).
 noun_form(Sin,Sin,sg) :- noun_sin(Sin).
