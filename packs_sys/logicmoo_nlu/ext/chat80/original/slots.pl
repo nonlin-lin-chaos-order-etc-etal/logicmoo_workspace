@@ -72,7 +72,7 @@ i_np_head0(np_head(quant(Op0,N),Adjs,Noun),
    measure_op(Op,X,V--Units,P).
 i_np_head0(name(Name),
       Type-Name,Type-Name,id,'`' true,Pred,Pred,[]) :-
-   name_template(Name,Type).
+   name_template_LF(Name,Type).
 i_np_head0(wh(X),X,X,id,'`' true,Pred,Pred,[]).
 
 %i_np_mods([],_,[],'`' true,[],[],_,_).
@@ -298,7 +298,7 @@ noun_template(Noun,TypeV,V,aggr(F,V,[],'`' true,'`' true),
    [slot(prep(of),TypeS,_,_,free)]) :-
    aggr_noun(Noun,TypeV,TypeS,F).
 noun_template(Noun,Type,X,'`' P,Slots) :-
-   thing_LF(Noun,Type,X,P,Slots,_).
+   thing_LF_access(Noun,Type,X,P,Slots,_).
 noun_template(Noun,TypeV,V,apply(F,P),
       [slot(prep(Of),TypeX,X,_,apply)]) :-
    meta_noun_LF(Noun,Of,TypeV,V,TypeX,X,P,F).

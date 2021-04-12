@@ -24,8 +24,13 @@
 /* Nouns */
 
 spatial(spatial).
-feature_path(spatial,city,spatial&city).
-feature_path(spatial,river,spatial&river).
+%:- if(false).
+:- if(true).
+feature_path(Spatial,CR,Spatial&CR):- spatial(Spatial).
+:- else.
+feature_path(Spatial,CR,Spatial&place&CR):- spatial(Spatial).
+:- endif.
+
 
 property_LF(capital,  SpatialCity,    X,Spatial&place&country,Y,  
  specific_pred(Spatial,nation_capital,Y,X),[],_,_):- feature_path(Spatial,city,SpatialCity).
@@ -35,7 +40,7 @@ property_LF(latitude, measure&position,X,Spatial&_,Y,       position_pred(Spatia
 property_LF(longitude,measure&position,X,Spatial&_,Y,       position_pred(Spatial,longitude,Y,X),[],_,_).
 property_LF(population, measure&heads, X,Spatial&_,Y,          count_pred(Spatial,heads,Y,X),[],_,_).
 
-% thing_LF(place,Spatial&place/*g*/&_,X,ti(place/*g*/,X),[],_):- spatial(Spatial).
+% thing_LF(place,Spatial&place&_,X,ti(place,X),[],_):- spatial(Spatial).
 
 thing_LF_access(Noun,Type2,X,P,Slots,_):-
   thing_LF(Noun,Type1,X,P,Slots,_),
@@ -85,6 +90,9 @@ name_template(X,Spatial&place&seamass) :- spatial(Spatial), ti(seamass,X).
 
 /* Verbs */
 
+trans_LF(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,FOO):-
+  trans(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,FOO).
+  
 trans(border,Spatial&place&_,X,Spatial&place&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
 trans(contain,Spatial&place&_,X,Spatial&_,Y, trans_pred(Spatial,contains,X,Y),[],_,_).
 trans(govern,Spatial&_,X,Spatial&place&country,Y,specific_pred(Spatial,capital_city,Y,X),[],_,_).
