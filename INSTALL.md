@@ -31,7 +31,7 @@ git fetch --recurse-submodules
 
 stty sane
 
-export LOGICMOO_GAMES=$LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
+export LOGICMOO_GAMES=$DIR0/packs_sys/prologmud_samples/prolog/prologmud_sample_games
 ( cd $LOGICMOO_GAMES
 ( ./PreStartMUD.sh > /dev/null 2>&1 )
 
