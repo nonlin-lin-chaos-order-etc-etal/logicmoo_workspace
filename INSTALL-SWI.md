@@ -42,8 +42,8 @@ apt-get install -y \
         libxpm-dev libxt-dev \
         libdb-dev \
         libpcre3-dev \
-        libyaml-dev \
-        default-jdk junit4
+        libyaml-dev 
+        # default-jdk junit4
 
 ( cd $LOGICMOO_WS
   ( source $DIR0/INSTALL-DEPS.md )

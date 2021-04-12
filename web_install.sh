@@ -33,6 +33,10 @@ if [ ! -d "logicmoo_workspace" ]; then
 fi
 
 cd logicmoo_workspace
+git add remote github https://github.com/logicmoo/logicmoo_workspace.git
+git add remote gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
+git submodule update --init
+git status
 
 (source ./INSTALL.md)
 
