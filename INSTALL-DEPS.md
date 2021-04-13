@@ -46,7 +46,7 @@ echo LOGICMOO_WS=$LOGICMOO_WS
  #
  # wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
  # sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
- # sudo apt-get update && sudo apt-get install adoptopenjdk-8-hotspot
+ # sudo apt-get update && apt install -y adoptopenjdk-8-hotspot
  #
 
  apt-get install -y --no-install-recommends --allow-unauthenticated \
@@ -84,15 +84,19 @@ echo LOGICMOO_WS=$LOGICMOO_WS
     analog gyp libatk-wrapper-java libatk-wrapper-java-jni libc-ares2 libjs-d3 libjs-es5-shim libjs-highlight.js libjs-inherits libjs-is-typedarray libjs-jquery-datatables \
     libjs-jquery-selectize.js libjs-jquery-ui libjs-json libjs-microplugin.js libjs-prettify libjs-sifter.js libjs-twitter-bootstrap-datepicker liblua5.1-0 libnode-dev \
     libnode64 libuv1-dev \
-    \ #linux-image-4.19.0-11-amd64 
     nodejs-doc pandoc pandoc-data r-cran-base64enc r-cran-filehash r-cran-highr r-cran-shiny r-cran-sourcetools \
     r-cran-testit r-cran-tikzdevice r-cran-tinytex r-cran-xfun r-cran-xtable
 
   apt install -y libjpeg62-turbo > /dev/null 2>&1
   apt install -y libjpeg62-dev > /dev/null 2>&1
   apt install -y libjpeg62-turbo-dev > /dev/null 2>&1
-  apt install -y python-pip python-pip
-
+  apt install -y python3 python3-pip python3-setuptools
+  apt install -y python-pip python-setuptools
+  pip uninstall setuptools
+  pip install setuptools
+  # pip install --upgrade setuptools 
+  python -m pip install --upgrade pip setuptools wheel
+  python3 -m pip install --upgrade pip setuptools wheel
   pip install butterfly
   pip install butterfly[themes]  # If you want to use themes
   pip install butterfly[systemd]  # If you want to use systemd

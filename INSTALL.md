@@ -109,7 +109,7 @@ chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pld
 chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/
 chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/src~/
 
-#chown -R prologmud_server $LOGICMOO_WS/packs_web/butterfly
+chown -R prologmud_server /opt/logicmoo_workspace/packs_web/butterfly
 
 mkdir -p /tmp/tempDir/
 chown -R prologmud_server /tmp/tempDir/
