@@ -1,16 +1,7 @@
-FROM debian:buster
-FROM php:7.3-apache
+FROM logicmoo/logicmoo_starter_image
 
 USER root
 LABEL maintainer = "logicmoo@gmail.com"
-
-
-RUN mkdir /opt -p
-
-RUN echo "127.0.0.1 eggdrop"  >> /etc/hosts
-#for internal testing of the build env
-#RUN echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
-
 
 EXPOSE 22
 EXPOSE 80
@@ -25,17 +16,8 @@ EXPOSE 3334
 EXPOSE 3020
 EXPOSE 3080
 
-RUN apt-get update \
- && apt-get install -y --no-install-recommends --allow-unauthenticated apt-utils ncdu \
- software-properties-common curl git wget sudo bash bash-completion libncurses6 sudo lsof nano vim build-essential \
- cmake ninja-build gdb supervisor pwgen net-tools tightvncserver xfonts-base lwm xterm xdotool xvnc4viewer openssh-server \
- eggdrop screen libserd-dev libssh-dev libnet-nslookup-perl rlwrap psmisc rsync yarn dbus-x11 x11-utils lxde x11vnc xvfb
+# @TODO (something here)
 
-RUN curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh \ 
- && /bin/bash -c "source /tmp/web_install.sh"
-
-#for internal testing of the build env
-#RUN sleep 10000000
 
 CMD /opt/logicmoo_workspace/StartLogicmoo.sh
 

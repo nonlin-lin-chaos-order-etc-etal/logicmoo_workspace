@@ -17,3 +17,21 @@ source ./INSTALL.md
 
 ```
 
+# Your Docker 
+
+```docker build - --no-cache < Dockerfile```
+
+
+
+# Douglas' Docker 
+
+```
+docker build -t logicmoo/logicmoo_starter_image:latest --no-cache --add-host=logicmoo.org:10.0.0.90 - < Dockerfile.distro
+# Why 8GB (3GB once uploaded)?
+docker push logicmoo/logicmoo_starter_image:latest
+
+
+docker build -t logicmoo/logicmoo_workspace:latest --no-cache --add-host=logicmoo.org:10.0.0.90 - < Dockerfile
+docker push logicmoo/logicmoo_workspace:latest   
+```
+
