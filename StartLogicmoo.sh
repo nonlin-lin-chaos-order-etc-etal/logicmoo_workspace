@@ -18,6 +18,8 @@ export LOGICMOO_WS=$DIR0
 
 ./logicmoo_env.sh
 
+(source INSTALL.md)
+
 screen -wipe
 
 needs_message_update="1"
