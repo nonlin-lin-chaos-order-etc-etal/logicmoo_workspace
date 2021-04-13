@@ -58,6 +58,8 @@ local needs_message_update=1
 while [ 0 -lt 4 ]
 do
 
+git pull --recurse-submodules
+
 
 if pgrep -x "screen" > /dev/nulli="0"
 then
