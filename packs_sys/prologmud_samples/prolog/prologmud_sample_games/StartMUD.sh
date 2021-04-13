@@ -60,7 +60,7 @@ echo PATH=$PATH
 pidof  eggdrop >/dev/null
 if [[ $? -ne 0 ]] ; then
         echo "Restarting eggdrop:     $(date)" 
-( cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; eggdrop -m )
+( cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; sudo -u prologmud_server -- eggdrop -m )
 fi
 
 

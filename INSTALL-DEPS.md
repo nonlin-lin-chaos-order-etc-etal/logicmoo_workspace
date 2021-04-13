@@ -34,11 +34,26 @@ echo LOGICMOO_WS=$LOGICMOO_WS
  apt-get install -y libnet-nslookup-perl 
  apt-get install -y sudo lsof nano vim build-essential cmake ninja-build gdb
  apt-get install -y eggdrop
+ mkdir -p /usr/share/man/man1
+ apt-add-repository -y 'deb http://security.debian.org/debian-security stretch/updates main'
+ apt-get update
+ apt-get install -y openjdk-11-jdk
+ apt-get install -y openjdk-8-jdk
+ #
+ # curl -s "https://get.sdkman.io" | bash
+ # source "$HOME/.sdkman/bin/sdkman-init.sh"
+ # sdk install java 8.0.275.hs-adpt
+ #
+ # wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+ # sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+ # sudo apt-get update && sudo apt-get install adoptopenjdk-8-hotspot
+ #
+
  apt-get install -y --no-install-recommends --allow-unauthenticated \
     supervisor openssh-server pwgen sudo net-tools rsync \
     lxde x11vnc xvfb \
     gtk2-engines-murrine libreoffice \
-    python3-pip python3-dev mesa-utils libgl1-mesa-dri \
+    python-pip python-dev mesa-utils libgl1-mesa-dri \
     gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
     dbus-x11 x11-utils 
 
@@ -65,22 +80,43 @@ echo LOGICMOO_WS=$LOGICMOO_WS
     libsigsegv2 libsm-dev libssl-dev libstdc++-8-dev libtool libtsan0 libubsan1 libunwind-dev libx11-dev libxau-dev libxcb1-dev libxdmcp-dev libxext-dev libxft-dev \
     libxinerama-dev libxpm-dev libxrender-dev libxt-dev libyaml-dev linux-libc-dev m4 make odbcinst odbcinst1debian2 patch pkg-config \
     po-debconf unixodbc-dev uuid-dev x11proto-core-dev x11proto-dev x11proto-xext-dev x11proto-xinerama-dev xorg-sgml-doctools xtrans-dev zlib1g-dev \
-    texlive-extra-utils gdb libserd-dev libjpeg-turbo-progs libjpeg62 yarn python3-dev python3-pip python3-virtualenv rlwrap psmisc \
+    texlive-extra-utils gdb libserd-dev libjpeg-turbo-progs libjpeg62 yarn python-dev python-pip python-virtualenv rlwrap psmisc \
     analog gyp libatk-wrapper-java libatk-wrapper-java-jni libc-ares2 libjs-d3 libjs-es5-shim libjs-highlight.js libjs-inherits libjs-is-typedarray libjs-jquery-datatables \
     libjs-jquery-selectize.js libjs-jquery-ui libjs-json libjs-microplugin.js libjs-prettify libjs-sifter.js libjs-twitter-bootstrap-datepicker liblua5.1-0 libnode-dev \
-    libnode64 libuv1-dev linux-image-4.19.0-11-amd64 nodejs-doc pandoc pandoc-data r-cran-base64enc r-cran-filehash r-cran-highr r-cran-shiny r-cran-sourcetools \
+    libnode64 libuv1-dev \
+    \ #linux-image-4.19.0-11-amd64 
+    nodejs-doc pandoc pandoc-data r-cran-base64enc r-cran-filehash r-cran-highr r-cran-shiny r-cran-sourcetools \
     r-cran-testit r-cran-tikzdevice r-cran-tinytex r-cran-xfun r-cran-xtable
 
   apt install -y libjpeg62-turbo > /dev/null 2>&1
   apt install -y libjpeg62-dev > /dev/null 2>&1
   apt install -y libjpeg62-turbo-dev > /dev/null 2>&1
-  apt install -y python3-pip python-pip
+  apt install -y python-pip python-pip
+
+  pip install butterfly
+  pip install butterfly[themes]  # If you want to use themes
+  pip install butterfly[systemd]  # If you want to use systemd
+
+ ( cd /etc/systemd/system
+     curl -O https://raw.githubusercontent.com/paradoxxxzero/butterfly/master/butterfly.service
+     curl -O https://raw.githubusercontent.com/paradoxxxzero/butterfly/master/butterfly.socket
+     systemctl enable butterfly.socket
+     systemctl start butterfly.socket
+  )
+
   (cd /tmp
  # wget http://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libncurses6_6.2-0ubuntu2_amd64.deb http://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libtinfo6_6.2-0ubuntu2_amd64.deb
  # dpkg -i /tmp/libtinfo6_6.2-0ubuntu2_amd64.deb /tmp/libncurses6_6.2-0ubuntu2_amd64.deb 
   )
-  pip3 install --upgrade pip
-  pip3 install tornado asyncio butterfly
+  pip install --upgrade pip
+  pip install tornado asyncio butterfly
+  apt install -y snapd
+
+ wget http://mirror.umd.edu/eclipse/technology/epp/downloads/release/2020-06/R/eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz
+ sudo tar -zxvf eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz -C /usr/
+ #Symlink eclipse executable to /usr/bin path so that users on the machine can able to use Eclipse.
+ sudo ln -s /usr/eclipse/eclipse /usr/bin/eclipse
+
   echo "#* Maybe: apt install openjdk-11-jdk openjdk-11-jdk-headless"
 
   mkdir "${DIR0}"

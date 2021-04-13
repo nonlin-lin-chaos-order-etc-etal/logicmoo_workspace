@@ -8,6 +8,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+mkdir -p /usr/share/man/man1
+
 DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 DIR0=/opt/logicmoo_workspace
 
