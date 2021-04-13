@@ -53,7 +53,7 @@ function xscreen {
     wait
 }
 
-local needs_message_update=1
+local needs_message_update="1"
 
 while [ 0 -lt 4 ]
 do
@@ -65,14 +65,14 @@ git status
 
 if pgrep -x "screen" > /dev/nulli="0"
 then
-  if [ $needs_message_update -ne 0 ]; then
+  if [ "$needs_message_update" != "0" ]; then
     echo "Screen Already Running"
-    needs_message_update=0
+    needs_message_update="0"
   fi
 else
     echo "Screen not running"
     screen -mdS "LogicmooServer"
-    needs_message_update=0
+    needs_message_update="0"
     sleep 2
     screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
     sleep 2
@@ -80,13 +80,13 @@ fi
 
 if  pgrep -f "LogicmooServerLoop" > /dev/nulli="0"
 then
-   if [ $needs_message_update -ne 0 ]; then
+   if [ "$needs_message_update" != "0" ]; then
     echo "Looks good!"
-    needs_message_update=0
+    needs_message_update="0"
    fi
 else
     echo "Restarting LogicmooServerLoop"
-    needs_message_update=1
+    needs_message_update="1"
     screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
     sleep 2
 fi
