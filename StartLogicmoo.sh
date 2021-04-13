@@ -18,13 +18,13 @@ export LOGICMOO_WS=$DIR0
 
 ./logicmoo_env.sh
 
-(source INSTALL.md)
+( . INSTALL.md )
 
 screen -wipe
 
 needs_message_update="1"
 
-git checkout master . 
+# git checkout master . 
 
 while [ 0 -lt 4 ]
 do
@@ -62,7 +62,7 @@ else
     sleep 2
 fi
 
-sleep 10
+sleep 30
 
 done
 
