@@ -64,7 +64,7 @@ echo LOGICMOO_GAMES=$LOGICMOO_GAMES
 echo LOGICMOO_WS=$LOGICMOO_WS
 echo "127.0.0.1 eggdrop"  >> /etc/hosts      
 #for internal testing of the build env          
-#echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
+echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
 #git remote add github https://github.com/logicmoo/logicmoo_workspace.git
 #git remote add gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
 git status -s
