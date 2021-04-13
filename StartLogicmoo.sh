@@ -64,7 +64,7 @@ git status
 
 if pgrep -x "screen" > /dev/nulli="0"
 then
-  if [ $needs_message_update -neq 0 ]; then
+  if [ $needs_message_update -ne 0 ]; then
     echo "Screen Already Running"
     needs_message_update=0
   fi
@@ -79,7 +79,7 @@ fi
 
 if  pgrep -f "LogicmooServerLoop" > /dev/nulli="0"
 then
-   if [ $needs_message_update -neq 0 ]; then
+   if [ $needs_message_update -ne 0 ]; then
     echo "Looks good!"
     needs_message_update=0
    fi
