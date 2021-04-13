@@ -50,29 +50,34 @@ fi
 
 stty sane
 
+cd $DIR0
 export LOGICMOO_WS=$DIR0
-export LOGICMOO_GAMES=/opt/logicmoo_workspace/packs_sys/prologmud_samples/prolog/prologmud_sample_games
-
-( cd $LOGICMOO_GAMES
-( ./PreStartMUD.sh > /dev/null 2>&1 )
-
-find -name "*.qlf" -exec touch '{}' +
-
+export LOGICMOO_GAMES=$LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
+. $DIR0/logicmoo_env.sh
+(
+cd $DIR0
 echo whoami=`whoami`
 echo PATH=$PATH
 echo LOGICMOO_GAMES=$LOGICMOO_GAMES
 echo LOGICMOO_WS=$LOGICMOO_WS
-
-						 
 echo "127.0.0.1 eggdrop"  >> /etc/hosts      
 #for internal testing of the build env          
-echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
+#echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
 #git remote add github https://github.com/logicmoo/logicmoo_workspace.git
 #git remote add gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
+git status -s
+git config --global http.sslVerify false
+#git status -v --show-stash
 git submodule update --init > /dev/null 2>&1
-git pull -f
+git pull -f && git pull --recurse-submodules
 git update-index --assume-unchanged $LOGICMOO_WS/packs_sys/eggdrop/conf/P*
 git status -s
+)
+
+
+find -name "*.qlf" -exec touch '{}' +
+
+
 
 ln -s $LOGICMOO_WS/etc/profile.d/logicmoo_etc_profile_d.sh /etc/profile.d/ > /dev/null 2>&1
 ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicmoo.conf /etc/apache2/sites-enabled/000-logicmoo.conf > /dev/null 2>&1
