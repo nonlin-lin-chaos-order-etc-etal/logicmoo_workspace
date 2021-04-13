@@ -53,7 +53,7 @@ function xscreen {
     wait
 }
 
-local needs_message_update="1"
+needs_message_update="1"
 
 while [ 0 -lt 4 ]
 do

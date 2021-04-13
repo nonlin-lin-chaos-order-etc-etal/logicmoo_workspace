@@ -78,6 +78,7 @@ git remote add github https://github.com/logicmoo/logicmoo_workspace.git
 git remote add gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
 git submodule update --init
 git status
+git pull
 
 ln -s $LOGICMOO_WS/etc/profile.d/logicmoo_etc_profile_d.sh /etc/profile.d/
 ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicmoo.conf /etc/apache2/sites-enabled/000-logicmoo.conf
