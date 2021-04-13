@@ -25,6 +25,8 @@ git config --global http.sslVerify false
 git fetch --recurse-submodules
 #git status -v --show-stash
 
+git pull --recurse-submodules
+
 DIR="$LOGICMOO_WS/lib/deps_installed"
 
 if [ -d "$DIR" ]; then
