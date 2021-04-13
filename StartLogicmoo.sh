@@ -53,6 +53,7 @@ function xscreen {
     wait
 }
 
+local needs_message_update=1
 
 while [ 0 -lt 4 ]
 do
@@ -60,21 +61,29 @@ do
 
 if pgrep -x "screen" > /dev/nulli="0"
 then
+  if [ $needs_message_update -neq 0 ]; then
     echo "Screen Already Running"
-    ps axf
+    needs_message_update=0
+  fi
 else
     echo "Screen not running"
     screen -mdS "LogicmooServer"
+    needs_message_update=0
+    sleep 2
     screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
     sleep 2
 fi
 
-if pgrep -x "LogicmooServerLoop" > /dev/nulli="0"
+if  pgrep -f "LogicmooServerLoop" > /dev/nulli="0"
 then
+   if [ $needs_message_update -neq 0 ]; then
     echo "Looks good!"
+    needs_message_update=0
+   if
 else
     echo "Restarting LogicmooServerLoop"
-    # screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
+    needs_message_update=1
+    screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
     sleep 2
 fi
 
