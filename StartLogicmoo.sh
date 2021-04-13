@@ -5,74 +5,52 @@ if [[ $EUID -ne 0 ]]; then
    echo ""
    return 1 2>/dev/null
    exit 1
-fi
+else
 
-
-DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
-
-cd $DIR0
-export LOGICMOO_WS=$DIR0
-export LOGICMOO_GAMES=$LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
-. $DIR0/logicmoo_env.sh
 (
-cd $DIR0
+stty sane
+. ./logicmoo_env.sh
+
+export LOGICMOO_GAMES=$LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
+( cd $LOGICMOO_GAMES
+( ./PreStartMUD.sh > /dev/null 2>&1 )
+
+find -name "*.qlf" -exec touch '{}' +
+
 echo whoami=`whoami`
 echo PATH=$PATH
 echo LOGICMOO_GAMES=$LOGICMOO_GAMES
 echo LOGICMOO_WS=$LOGICMOO_WS
-echo "127.0.0.1 eggdrop"  >> /etc/hosts      
-#for internal testing of the build env          
-#echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
-#git remote add github https://github.com/logicmoo/logicmoo_workspace.git
-#git remote add gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
-git status -s
-git config --global http.sslVerify false
-#git status -v --show-stash
-git submodule update --init > /dev/null 2>&1
-git pull -f && git pull --recurse-submodules
-git update-index --assume-unchanged $LOGICMOO_WS/packs_sys/eggdrop/conf/P*
-git status -s
+ln -s $LOGICMOO_WS/etc/profile.d/logicmoo_etc_profile_d.sh /etc/profile.d/
+ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicmoo.conf /etc/apache2/sites-enabled/000-logicmoo.conf
+ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/conf-available/cliopatria_swish.conf /etc/apache2/conf-available/cliopatria_swish.conf
+
+
+adduser --disabled-password --gecos "" prologmud_server --home $LOGICMOO_GAMES
+chown -R prologmud_server ~prologmud_server/.?*
+
+touch $LOGICMOO_GAMES/history_3804
+touch $LOGICMOO_GAMES/completion_3804
+chown prologmud_server $LOGICMOO_GAMES/completion_*
+chown prologmud_server $LOGICMOO_GAMES/history_*
+touch $LOGICMOO_GAMES/nohup.out
+chown prologmud_server $LOGICMOO_GAMES/nohup.out
+chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/
+# in case of symlinking
+chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/
+chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/src~/
+
+#chown -R prologmud_server $LOGICMOO_WS/packs_web/butterfly
+
+mkdir -p /tmp/tempDir/
+chown -R prologmud_server /tmp/tempDir/
+
+(
+sudo -u prologmud_server -- sh -c "${LOGICMOO_WS}/logicmoo_env.sh ; . ${LOGICMOO_WS}/packs_web/butterfly/bin/activate ; export LOGICMOO_WS=$LOGICMOO_WS ; cd ${LOGICMOO_GAMES} ; ./StartMUD.sh $*"
+))
+stty sane
+
+
 )
-
-
-( . $DIR0/INSTALL.md )
-
-
-screen -wipe
-needs_message_update="1"
-while [ 0 -lt 4 ]
-do
-
-if pgrep -x "screen" > /dev/nulli="0"
-then
-  if [ "$needs_message_update" != "0" ]; then
-    echo "Screen Already Running"
-    needs_message_update="0"
-  fi
-else
-    echo "Screen not running"
-    screen -mdS "LogicmooServer"
-    needs_message_update="0"
-    sleep 2
-    screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
-    sleep 2
 fi
-
-if  pgrep -f "LogicmooServerLoop" > /dev/nulli="0"
-then
-   if [ "$needs_message_update" != "0" ]; then
-    echo "Looks good!"
-    needs_message_update="0"
-   fi
-else
-    echo "Restarting LogicmooServerLoop"
-    needs_message_update="1"
-    screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
-    sleep 2
-fi
-
-sleep 30
-
-done
 
