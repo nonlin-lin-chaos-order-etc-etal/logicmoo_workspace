@@ -16,16 +16,12 @@ export LOGICMOO_WS=$DIR0
 
 ./logicmoo_env.sh
 
-#d $LOGICMOO_WS
-
 #git submodule init
 #git submodule update
 #git submodule sync --recursive
 git config --global http.sslVerify false
-git fetch --recurse-submodules
 #git status -v --show-stash
-
-git pull --recurse-submodules
+git pull -f && git pull --recurse-submodules
 
 DIR="$LOGICMOO_WS/lib/deps_installed"
 
@@ -55,7 +51,7 @@ fi
 stty sane
 
 export LOGICMOO_WS=$DIR0
-export LOGICMOO_GAMES=$DIR0/packs_sys/prologmud_samples/prolog/prologmud_sample_games
+export LOGICMOO_GAMES=/opt/logicmoo_workspace/packs_sys/prologmud_samples/prolog/prologmud_sample_games
 
 ( cd $LOGICMOO_GAMES
 ( ./PreStartMUD.sh > /dev/null 2>&1 )
@@ -70,7 +66,7 @@ echo LOGICMOO_WS=$LOGICMOO_WS
 						 
 echo "127.0.0.1 eggdrop"  >> /etc/hosts      
 #for internal testing of the build env          
-#echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
+echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
 #git remote add github https://github.com/logicmoo/logicmoo_workspace.git
 #git remote add gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
 git submodule update --init > /dev/null 2>&1
@@ -82,9 +78,8 @@ ln -s $LOGICMOO_WS/etc/profile.d/logicmoo_etc_profile_d.sh /etc/profile.d/ > /de
 ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicmoo.conf /etc/apache2/sites-enabled/000-logicmoo.conf > /dev/null 2>&1
 ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/conf-available/cliopatria_swish.conf /etc/apache2/conf-available/cliopatria_swish.conf > /dev/null 2>&1
 
-
-
-adduser --disabled-password --gecos "" prologmud_server -M $LOGICMOO_GAMES --home $LOGICMOO_GAMES
+adduser --disabled-password --gecos "" prologmud_server --home $LOGICMOO_GAMES
+chown prologmud_server $LOGICMOO_GAMES
 chown -R prologmud_server $LOGICMOO_GAMES/*??*
 
 cp -f $LOGICMOO_GAMES/.??*rc ~/
