@@ -18,6 +18,17 @@ export LOGICMOO_WS=$DIR0
 
 ./logicmoo_env.sh
 
+                						 
+echo "127.0.0.1 eggdrop"  >> /etc/hosts      
+#for internal testing of the build env          
+#echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
+#git remote add github https://github.com/logicmoo/logicmoo_workspace.git
+#git remote add gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
+git submodule update --init > /dev/null 2>&1
+git pull -f
+git update-index --assume-unchanged $LOGICMOO_WS/packs_sys/eggdrop/conf/P*
+git status -s
+
 ( . INSTALL.md )
 
 screen -wipe
