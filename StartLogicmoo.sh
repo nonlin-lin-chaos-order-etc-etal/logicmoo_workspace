@@ -55,12 +55,14 @@ function xscreen {
 
 needs_message_update="1"
 
+git checkout master . 
+
 while [ 0 -lt 4 ]
 do
 
-git checkout .
-git pull --recurse-submodules
-git status
+git status -s
+git pull --recurse-submodules 
+git status -s
 
 
 if pgrep -x "screen" > /dev/nulli="0"
