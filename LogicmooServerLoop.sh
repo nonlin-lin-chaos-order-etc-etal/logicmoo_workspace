@@ -5,22 +5,17 @@ if [[ $EUID -ne 0 ]]; then
    echo ""
    return 1 2>/dev/null
    exit 1
-else
+fi
 
 DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
- cd $DIR0
-
-
- export LOGICMOO_WS=$DIR0
-
- ./logicmoo_env.sh
-
-
-  sudo -u prologmud_server -- sh -c "${LOGICMOO_WS}/logicmoo_env.sh ; . ${LOGICMOO_WS}/packs_web/butterfly/bin/activate ; export LOGICMOO_WS=$LOGICMOO_WS ; cd ${LOGICMOO_GAMES} ; ./StartMUD.sh $*"
-
- 
-  stty sane
-
-fi
+export LOGICMOO_WS=$DIR0
+export LOGICMOO_GAMES=$LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
+(
+   cd $DIR0
+   ./logicmoo_env.sh
+   echo LOGICMOO_GAMES=$LOGICMOO_GAMES
+   echo LOGICMOO_WS=$LOGICMOO_WS   
+   sudo -u prologmud_server -- sh -c "${LOGICMOO_WS}/logicmoo_env.sh ; . ${LOGICMOO_WS}/packs_web/butterfly/bin/activate ; export LOGICMOO_WS=$LOGICMOO_WS && cd ${LOGICMOO_GAMES} && ./StartMUD.sh $*"
+)
+stty sane
 
