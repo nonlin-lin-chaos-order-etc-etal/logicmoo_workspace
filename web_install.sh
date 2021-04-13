@@ -32,9 +32,10 @@ if [ ! -d "logicmoo_workspace" ]; then
   git config --global http.sslVerify $SSLWAS
 fi
 
+mkdir -p logicmoo_workspace
 cd logicmoo_workspace
-git pull
-git status
+git pull -f
+git status -s
 
 (source ./INSTALL.md)
 

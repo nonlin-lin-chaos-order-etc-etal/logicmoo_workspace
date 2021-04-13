@@ -68,25 +68,29 @@ echo LOGICMOO_GAMES=$LOGICMOO_GAMES
 echo LOGICMOO_WS=$LOGICMOO_WS
 
 
-
-
 						 
 echo "127.0.0.1 eggdrop"  >> /etc/hosts      
 #for internal testing of the build env          
 echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
-git remote add github https://github.com/logicmoo/logicmoo_workspace.git
-git remote add gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
-git submodule update --init
-git status
-git pull
+#git remote add github https://github.com/logicmoo/logicmoo_workspace.git
+#git remote add gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
+git submodule update --init > /dev/null 2>&1
+git pull -f
+git update-index --assume-unchanged packs_sys/eggdrop/conf/PrologMUD-freenode*
+git status -s
 
-ln -s $LOGICMOO_WS/etc/profile.d/logicmoo_etc_profile_d.sh /etc/profile.d/
-ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicmoo.conf /etc/apache2/sites-enabled/000-logicmoo.conf
-ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/conf-available/cliopatria_swish.conf /etc/apache2/conf-available/cliopatria_swish.conf
+ln -s $LOGICMOO_WS/etc/profile.d/logicmoo_etc_profile_d.sh /etc/profile.d/ > /dev/null 2>&1
+ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicmoo.conf /etc/apache2/sites-enabled/000-logicmoo.conf > /dev/null 2>&1
+ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/conf-available/cliopatria_swish.conf /etc/apache2/conf-available/cliopatria_swish.conf > /dev/null 2>&1
 
 
-adduser --disabled-password --gecos "" prologmud_server --home $LOGICMOO_GAMES
-chown -R prologmud_server ~prologmud_server/.?*
+
+adduser --disabled-password --gecos "" prologmud_server -M $LOGICMOO_GAMES --home $LOGICMOO_GAMES
+chown -R prologmud_server $LOGICMOO_GAMES/*??*
+
+cp -f $LOGICMOO_GAMES/.??*rc ~/
+cp -f $LOGICMOO_GAMES/.bash* ~/
+cp -f $LOGICMOO_GAMES/.profile* ~/
 
 touch $LOGICMOO_GAMES/history_3804
 touch $LOGICMOO_GAMES/completion_3804
