@@ -9,6 +9,8 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+DIR0=/opt/logicmoo_workspace
+
 (
 cd $DIR0
 
@@ -77,8 +79,6 @@ git status -s
 
 find -name "*.qlf" -exec touch '{}' +
 
-
-
 ln -s $LOGICMOO_WS/etc/profile.d/logicmoo_etc_profile_d.sh /etc/profile.d/ > /dev/null 2>&1
 ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicmoo.conf /etc/apache2/sites-enabled/000-logicmoo.conf > /dev/null 2>&1
 ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/conf-available/cliopatria_swish.conf /etc/apache2/conf-available/cliopatria_swish.conf > /dev/null 2>&1
@@ -112,5 +112,3 @@ chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pld
 mkdir -p /tmp/tempDir/
 chown -R prologmud_server /tmp/tempDir/
 
-)
-)

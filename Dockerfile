@@ -29,7 +29,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends --allow-unauthenticated apt-utils \
  software-properties-common curl git wget sudo bash bash-completion libncurses6 sudo lsof nano vim build-essential \
  cmake ninja-build gdb ncdu supervisor pwgen net-tools tightvncserver xfonts-base lwm xterm xdotool xvnc4viewer openssh-server \
- eggdrop screen libserd-dev libssh-dev libnet-nslookup-perl
+ eggdrop screen libserd-dev libssh-dev libnet-nslookup-perl rlwrap psmisc rsync yarn dbus-x11 x11-utils lxde x11vnc xvfb
 
 RUN curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh \ 
  && /bin/bash -c "source /tmp/web_install.sh"

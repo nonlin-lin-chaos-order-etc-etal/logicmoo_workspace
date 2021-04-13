@@ -8,13 +8,14 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+DIR0=/opt/logicmoo_workspace
 
 echo DIR0=$DIR0
 cd $DIR0
 
 export LOGICMOO_WS=$DIR0
 
-./logicmoo_env.sh
+. ./logicmoo_env.sh
 
 echo LOGICMOO_WS=$LOGICMOO_WS
 
@@ -34,12 +35,12 @@ echo LOGICMOO_WS=$LOGICMOO_WS
  apt-get install -y sudo lsof nano vim build-essential cmake ninja-build gdb
  apt-get install -y eggdrop
  apt-get install -y --no-install-recommends --allow-unauthenticated \
-        supervisor openssh-server pwgen sudo vim-tiny net-tools rsync \
-        lxde x11vnc xvfb \
-        gtk2-engines-murrine libreoffice \
-        python3-pip python3-dev mesa-utils libgl1-mesa-dri \
-        gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
-        dbus-x11 x11-utils 
+    supervisor openssh-server pwgen sudo net-tools rsync \
+    lxde x11vnc xvfb \
+    gtk2-engines-murrine libreoffice \
+    python3-pip python3-dev mesa-utils libgl1-mesa-dri \
+    gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
+    dbus-x11 x11-utils 
 
  # second line is BiocManager requirements
  apt-get install -y \
@@ -53,7 +54,8 @@ echo LOGICMOO_WS=$LOGICMOO_WS
     libxext-dev libice-dev libjpeg-dev libxinerama-dev libxft-dev \
     libxpm-dev libxt-dev libdb-dev libpcre3-dev libyaml-dev \
     junit4 libssh-dev qt5-default \
-    libraptor2-dev 
+    libraptor2-dev
+
  apt-get install -y \
     autoconf automake autopoint autotools-dev binutils binutils-common binutils-x86-64-linux-gnu build-essential cmake cmake-data dctrl-tools debhelper \
     dh-autoreconf dh-strip-nondeterminism dpkg-dev dwz g++ g++-8 gcc gcc-8 gettext intltool-debian junit libarchive-dev libarchive-zip-perl libasan5 \
@@ -65,9 +67,9 @@ echo LOGICMOO_WS=$LOGICMOO_WS
     po-debconf unixodbc-dev uuid-dev x11proto-core-dev x11proto-dev x11proto-xext-dev x11proto-xinerama-dev xorg-sgml-doctools xtrans-dev zlib1g-dev \
     texlive-extra-utils gdb libserd-dev libjpeg-turbo-progs libjpeg62 yarn python3-dev python3-pip python3-virtualenv rlwrap psmisc \
     analog gyp libatk-wrapper-java libatk-wrapper-java-jni libc-ares2 libjs-d3 libjs-es5-shim libjs-highlight.js libjs-inherits libjs-is-typedarray libjs-jquery-datatables \
-  libjs-jquery-selectize.js libjs-jquery-ui libjs-json libjs-microplugin.js libjs-prettify libjs-sifter.js libjs-twitter-bootstrap-datepicker liblua5.1-0 libnode-dev \
-  libnode64 libuv1-dev linux-image-4.19.0-11-amd64 nodejs-doc pandoc pandoc-data r-cran-base64enc r-cran-filehash r-cran-highr r-cran-shiny r-cran-sourcetools \
-  r-cran-testit r-cran-tikzdevice r-cran-tinytex r-cran-xfun r-cran-xtable
+    libjs-jquery-selectize.js libjs-jquery-ui libjs-json libjs-microplugin.js libjs-prettify libjs-sifter.js libjs-twitter-bootstrap-datepicker liblua5.1-0 libnode-dev \
+    libnode64 libuv1-dev linux-image-4.19.0-11-amd64 nodejs-doc pandoc pandoc-data r-cran-base64enc r-cran-filehash r-cran-highr r-cran-shiny r-cran-sourcetools \
+    r-cran-testit r-cran-tikzdevice r-cran-tinytex r-cran-xfun r-cran-xtable
 
   apt install -y libjpeg62-turbo > /dev/null 2>&1
   apt install -y libjpeg62-dev > /dev/null 2>&1
@@ -81,7 +83,7 @@ echo LOGICMOO_WS=$LOGICMOO_WS
   pip3 install tornado asyncio butterfly
   echo "#* Maybe: apt install openjdk-11-jdk openjdk-11-jdk-headless"
 
-  mkdir "${DIR}"
+  mkdir "${DIR0}"
 
 
 )
