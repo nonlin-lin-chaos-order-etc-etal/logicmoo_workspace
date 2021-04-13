@@ -58,6 +58,7 @@ local needs_message_update=1
 while [ 0 -lt 4 ]
 do
 
+git checkout .
 git pull --recurse-submodules
 git status
 
