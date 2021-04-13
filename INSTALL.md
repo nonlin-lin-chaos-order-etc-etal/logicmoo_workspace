@@ -84,6 +84,7 @@ ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicm
 ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/conf-available/cliopatria_swish.conf /etc/apache2/conf-available/cliopatria_swish.conf > /dev/null 2>&1
 
 adduser --disabled-password --gecos "" prologmud_server --home $LOGICMOO_GAMES
+
 chown prologmud_server $LOGICMOO_GAMES
 chown -R prologmud_server $LOGICMOO_GAMES/*??*
 
