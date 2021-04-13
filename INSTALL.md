@@ -83,7 +83,8 @@ ln -s $LOGICMOO_WS/etc/profile.d/logicmoo_etc_profile_d.sh /etc/profile.d/ > /de
 ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicmoo.conf /etc/apache2/sites-enabled/000-logicmoo.conf > /dev/null 2>&1
 ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/conf-available/cliopatria_swish.conf /etc/apache2/conf-available/cliopatria_swish.conf > /dev/null 2>&1
 
-adduser --disabled-password --gecos "" prologmud_server --home $LOGICMOO_GAMES
+echo adduser --disabled-password --gecos "" --no-create-home prologmud_server --home $LOGICMOO_GAMES
+adduser --disabled-password --gecos "" --no-create-home prologmud_server --home $LOGICMOO_GAMES
 
 chown prologmud_server $LOGICMOO_GAMES
 chown -R prologmud_server $LOGICMOO_GAMES/*??*
