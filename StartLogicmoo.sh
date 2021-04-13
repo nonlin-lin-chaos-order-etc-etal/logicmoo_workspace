@@ -27,9 +27,9 @@ git checkout master .
 while [ 0 -lt 4 ]
 do
 
-git status -s
-git pull --recurse-submodules 
-git status -s
+# git status -s
+# git pull --recurse-submodules 
+# git status -s
 
 
 if pgrep -x "screen" > /dev/nulli="0"
