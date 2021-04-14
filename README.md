@@ -39,3 +39,10 @@ docker build -t logicmoo/logicmoo_workspace:latest --no-cache --add-host=logicmo
 docker push logicmoo/logicmoo_workspace:latest   
 ```
 
+
+
+```
+docker kill $(docker ps -a -q)
+docker image prune --all -f
+docker rmi  logicmoo/logicmoo_starter_image:latest 
+```
