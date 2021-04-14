@@ -132,7 +132,7 @@ fi
 
  echo "#* Maybe: apt install openjdk-11-jdk openjdk-11-jdk-headless"
 
-
+  mkdir "${DIR}"
 )
 
 
