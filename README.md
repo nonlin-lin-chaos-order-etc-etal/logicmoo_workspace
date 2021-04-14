@@ -30,6 +30,10 @@ docker build -t logicmoo/logicmoo_starter_image:latest --no-cache --add-host=log
 # Why 8GB (3GB once uploaded)?
 docker push logicmoo/logicmoo_starter_image:latest
 
+docker run -t --add-host=logicmoo.org:10.0.0.90 logicmoo/logicmoo_starter_image:latest
+
+docker exec -it  $(docker ps -n 1 -q) bash
+
 
 docker build -t logicmoo/logicmoo_workspace:latest --no-cache --add-host=logicmoo.org:10.0.0.90 - < Dockerfile
 docker push logicmoo/logicmoo_workspace:latest   

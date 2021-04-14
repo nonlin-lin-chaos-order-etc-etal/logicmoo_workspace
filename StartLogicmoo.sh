@@ -38,6 +38,7 @@ git status -s
 
 ( . $DIR0/INSTALL.md )
 
+chmod 777 /opt/logicmoo_workspace/packs_sys/prologmud_samples/prolog/prologmud_sample_games/.swipl_history
 
 screen -wipe
 needs_message_update="1"

@@ -42,10 +42,11 @@ export NEWPWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #export SWIPL=/usr/local/lib/swipl-7.1.11/bin/x86_64-linux/swipl
 
 . $LOGICMOO_WS/packs_web/butterfly/bin/activate
+
 pip3 freeze > /tmp/requirements3a.txt
 pip freeze > /tmp/requirements2a.txt
 
-#pip3 install tornado asyncio butterfly
+pip install tornado asyncio
 
 # export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-oracle/jre/lib/amd64/server/
 export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
@@ -73,8 +74,8 @@ if [[ -z "${LOGICMOO_BASE_PORT}" ]]; then
   LOGICMOO_BASE_PORT=3000
 fi
 
-touch /home/prologmud_server/.swipl_history
-chmod 777 /home/prologmud_server/.swipl_history
+touch /opt/logicmoo_workspace/packs_sys/prologmud_samples/prolog/prologmud_sample_games/.swipl_history
+chmod 777 /opt/logicmoo_workspace/packs_sys/prologmud_samples/prolog/prologmud_sample_games/.swipl_history
 
 
 export RL_PREFIX=''
