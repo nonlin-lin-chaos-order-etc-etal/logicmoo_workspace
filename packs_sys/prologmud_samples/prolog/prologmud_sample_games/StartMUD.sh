@@ -21,6 +21,15 @@ else
     echo "The script WAS NOT sourced."
 fi
 
+echo PATH=$PATH
+
+(
+pidof  eggdrop >/dev/null
+if [[ $? -eq 1 ]] ; then
+ echo "Starting eggdrop:     $(date)" 
+ cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; sudo -u prologmud_server -- eggdrop -m
+fi
+)
 
 
 # #( mkdir -p /tmp/tempDir/ ; cp -a tempDir/?* /tmp/tempDir/?* ;  cd  /tmp/tempDir/ ; ln  -s * -r /home/prologmud_server/lib/swipl/pack/prologmud_samples/prolog/prologmud_sample_games/ )
@@ -31,6 +40,10 @@ fi
 export OLDPWD="`pwd`"
 export NEWPWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #export SWIPL=/usr/local/lib/swipl-7.1.11/bin/x86_64-linux/swipl
+
+. $LOGICMOO_WS/packs_web/butterfly/bin/activate
+pip3 freeze > /tmp/requirements3a.txt
+pip freeze > /tmp/requirements2a.txt
 
 #pip3 install tornado asyncio butterfly
 
@@ -47,28 +60,25 @@ pathmunge () {
         fi
 }
 
-$LOGICMOO_WS/logicmoo_env.sh
-
-#export LOGICMOO_WS=/opt/logicmoo_workspace
+. $LOGICMOO_WS/logicmoo_env.sh
 
 pathmunge $LOGICMOO_WS/bin
 pathmunge /opt/logicmoo_workspace/packs_web/butterfly
 #pathmunge /opt/anaconda3/bin
 
-echo PATH=$PATH
 
-pidof  eggdrop >/dev/null
-if [[ $? -ne 0 ]] ; then
-        echo "Restarting eggdrop:     $(date)" 
-( cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; sudo -u prologmud_server -- eggdrop -m )
-fi
 
 
 if [[ -z "${LOGICMOO_BASE_PORT}" ]]; then
   LOGICMOO_BASE_PORT=3000
 fi
 
-#export RL_PREFIX='rlwrap -a -A -r -c -N -r'
+touch /home/prologmud_server/.swipl_history
+chmod 777 /home/prologmud_server/.swipl_history
+
+
+export RL_PREFIX=''
+export RL_PREFIX='rlwrap -a -A -r -c -N -r'
 export USE_NET=1
 export USE_KB=0
 export KBFILE=""
@@ -275,6 +285,8 @@ wasdir=""
          wasdir=$(dirname -- $0)
          # cd $LOGICMOO_WS/packs_web/wetty
          rm -f nohup.out
+         pip3 freeze > /tmp/requirements3w.txt
+         pip freeze > /tmp/requirements2w.txt
          start_redirect $(($LOGICMOO_BASE_PORT+0))
          start_redirect $(($LOGICMOO_BASE_PORT+1))
          start_redirect $(($LOGICMOO_BASE_PORT+2))
