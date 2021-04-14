@@ -23,6 +23,8 @@ fi
 
 echo PATH=$PATH
 
+./PreStartMUD.sh
+
 (
 pidof  eggdrop >/dev/null
 if [[ $? -eq 1 ]] ; then
@@ -79,7 +81,7 @@ chmod 777 /opt/logicmoo_workspace/packs_sys/prologmud_samples/prolog/prologmud_s
 
 
 export RL_PREFIX=''
-export RL_PREFIX='rlwrap -a -A -r -c -N -r'
+# export RL_PREFIX='rlwrap -a -A -r -c -N -r'
 export USE_NET=1
 export USE_KB=0
 export KBFILE=""

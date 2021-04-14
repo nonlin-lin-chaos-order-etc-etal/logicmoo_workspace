@@ -54,20 +54,20 @@ then
 else
     echo "Screen not running"
     screen -mdS "LogicmooServer"
-    needs_message_update="0"
     sleep 2
     screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
     sleep 2
+    echo "Screen Started"
 fi
 
 if  pgrep -f "LogicmooServerLoop" > /dev/nulli="0"
 then
    if [ "$needs_message_update" != "0" ]; then
-    echo "Looks good!"
+    echo "Looks like LogicmooServerLoop is running!"
     needs_message_update="0"
    fi
 else
-    echo "Restarting LogicmooServerLoop"
+    echo "Starting LogicmooServerLoop"
     needs_message_update="1"
     screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
     sleep 2
