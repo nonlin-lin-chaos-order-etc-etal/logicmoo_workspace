@@ -25,9 +25,9 @@ echo "#* "
 echo "#* Install deps..."
 echo "#* "
 
-apt-add-repository -y ppa:swi-prolog/devel
-apt-get install -y swi-prolog elpa-ediprolog swi-prolog-java swi-prolog-odbc swi-prolog-bdb
-apt-get remove -y swi-prolog 
+#apt-add-repository -y ppa:swi-prolog/devel
+#apt-get install -y swi-prolog elpa-ediprolog swi-prolog-java swi-prolog-odbc swi-prolog-bdb
+#apt-get remove -y swi-prolog 
 #apt-get -y install cmake ninja-build $(apt-cache depends swi-prolog | grep Depends | sed "s/.*ends:\ //" | tr '\n' ' ')
 #apt-get build-dep swi-prolog
 apt-get install -y \

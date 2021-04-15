@@ -3,6 +3,31 @@ FROM logicmoo/logicmoo_starter_image
 USER root
 LABEL maintainer = "logicmoo@gmail.com"
 
+# Set environment variables
+ARG LOGICMOO_EXTRAS
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+ENV SHELL /bin/bash
+
+
+# who/where
+ENV LOGICMOO_USER prologmud_server
+ENV LOGICMOO_WS /opt/logicmoo_workspace
+ENV LOGICMOO_GAMES $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
+
+RUN if [[ -z "$LOGICMOO_EXTRAS" ]] ; then echo LOGICMOO_EXTRAS not included ; else \
+  curl -O http://mirror.umd.edu/eclipse/technology/epp/downloads/release/2020-06/R/eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz \
+  && tar -zxvf eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz -C /usr/ \
+  && ln -s /usr/eclipse/eclipse /usr/bin/eclipse \
+ ; fi
+
+
+WORKDIR $LOGICMOO_WS
+# Pull in fixes
+RUN git pull --recursive
+
+# do local updates
+RUN INSTALL.md
 
 EXPOSE 22
 EXPOSE 80
@@ -33,9 +58,6 @@ EXPOSE 4004
 EXPOSE 4005
 EXPOSE 4006
 
-
-RUN rm -f /tmp/web_install.sh ;  curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh
-RUN chmod +x /tmp/web_install.sh && /tmp/web_install.sh
-
-CMD /opt/logicmoo_workspace/StartLogicmoo.sh
+WORKDIR /opt/logicmoo_workspace
+ENTRYPOINT /opt/logicmoo_workspace/StartLogicmoo.sh
 
