@@ -1,5 +1,5 @@
 FROM debian:buster
-FROM php:7.3-apache
+FROM php:7.4-apache
 #RUN docker-php-ext-install mysqli
 
 USER root
@@ -8,22 +8,26 @@ LABEL maintainer = "logicmoo@gmail.com"
 ARG DEBIAN_FRONTEND=noninteractive
 ARG --security-opt seccomp:unconfined
 
-
 RUN mkdir /opt -p
 
-RUN echo "127.0.0.1 eggdrop"  >> /etc/hosts
-RUN echo "10.0.0.99 prologmud"  >> /etc/hosts
+RUN echo "127.0.0.1 eggdrop" >> /etc/hosts
+RUN echo "10.0.0.99 prologmud" >> /etc/hosts
 #for internal testing of the build env
-#RUN echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
+#RUN echo "10.0.0.90 logicmoo.org" >> /etc/hosts
 
 RUN mkdir -p /usr/share/man/man1 && apt-get update \
  && apt-get install -y --no-install-recommends --allow-unauthenticated apt-utils \
- software-properties-common curl git wget sudo bash bash-completion libncurses6 sudo lsof nano vim build-essential \
- cmake ninja-build gdb ncdu supervisor pwgen net-tools tightvncserver xfonts-base lwm xterm xdotool xvnc4viewer openssh-server \
- eggdrop screen libserd-dev libssh-dev libnet-nslookup-perl less 
+ software-properties-common curl git wget sudo bash bash-completion sudo lsof nano vim build-essential \
+ cmake ninja-build gdb ncdu supervisor pwgen net-tools openssh-server \
+ eggdrop screen libserd-dev libssh-dev libnet-nslookup-perl less \
+ libtcmalloc-minimal4 libarchive13 libyaml-dev libgmp10 libossp-uuid16 libssl1.1 ca-certificates \
+ libdb5.3 libpcre3 libedit2 libgeos-c1v5 libspatialindex4v5 unixodbc \
+ odbc-postgresql tdsodbc libmariadbclient18 libsqlite3-0 libserd-0-0 libraptor2-0
 
-RUN curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh \ 
- && /bin/bash -c "source /tmp/web_install.sh"
+RUN apt-get install -y --no-install-recommends tightvncserver xfonts-base lwm xterm xdotool xvnc4viewer
+
+# For Buster
+RUN apt-get install -y --no-install-recommends libncurses6
 
 RUN a2enmod access_compat alias auth_basic authn_core authn_file authz_core authz_host authz_user autoindex deflate dir env \
  filter headers http2 mime mpm_prefork negotiation php7.3 php7.4 proxy proxy_ajp proxy_balancer proxy_connect proxy_express \
@@ -62,6 +66,9 @@ EXPOSE 4003
 EXPOSE 4004
 EXPOSE 4005
 EXPOSE 4006
+
+RUN curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh \ 
+ && /bin/bash -c "source /tmp/web_install.sh"
 
 #for internal testing of the build env
 #RUN sleep 10000000

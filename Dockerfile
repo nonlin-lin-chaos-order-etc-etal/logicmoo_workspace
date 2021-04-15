@@ -6,6 +6,7 @@ LABEL maintainer = "logicmoo@gmail.com"
 
 EXPOSE 22
 EXPOSE 80
+EXPOSE 443
 EXPOSE 3020
 EXPOSE 3080
 EXPOSE 3100
