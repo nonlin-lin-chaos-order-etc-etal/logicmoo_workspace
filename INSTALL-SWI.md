@@ -80,7 +80,8 @@ git status)
 
 )
 
-echo "#* MAYBE cat .swiplrc >> ~/.config/swi-prolog/init.pl"
 stty sane
+echo "#* MAYBE cat .swiplrc >> ~/.config/swi-prolog/init.pl"
+
 
 
