@@ -3,13 +3,14 @@ services:
     www:
         build: .
         ports: 
-            - "8001:80"
-        volumes:
-            - ./www:/var/www/html/
-            - ./:/var/www/html/
+            - "80:80"
+            - "443:443"
+        #volumes:
+          #  - ./www:/var/www/html/
+          #  - ./:/var/www/html/
         networks:
-            nginx_vlan:
-                ipv4_address: 10.0.0.2
+            prologmud_vlan:
+                ipv4_address: 10.0.0.99
 networks:
   nginx_vlan:
     driver: macvlan
@@ -22,5 +23,6 @@ networks:
           gateway: 10.0.0.1
 
 volumes:
+  - . /opt/logicmoo_workspace
     persistent:
 
