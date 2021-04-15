@@ -42,5 +42,4 @@ git status -s
 
 echo -e "\e[1;32m Type: source ./StartLogicmoo.sh \e[0m"
 
-fi
 )
