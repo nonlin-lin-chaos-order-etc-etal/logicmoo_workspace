@@ -36,7 +36,11 @@ EXPOSE 4006
 
 # @TODO (something here)
 
+RUN /opt/logicmoo_workspace/web_install.sh
 
-#CMD /opt/logicmoo_workspace/StartLogicmoo.sh
-CMD service apache2 start && sleep 10000000
+#RUN /opt/logicmoo_workspace/INSTALL.md
+
+CMD /opt/logicmoo_workspace/StartLogicmoo.sh
+
+#CMD service apache2 start && sleep 10000000
 

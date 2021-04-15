@@ -3561,6 +3561,58 @@ i(/(xlisten,3),"Listen using XREAD on one or more Streams on the server Redis.",
 i(/(xlisten_group,5),"Listen as Consumer to Group.",swi_man_packages('redis.html'),packages,37856).
 i(/(xconsumer_stop,1),"May be called from a consumer listener to stop the consumer.",swi_man_packages('redis.html'),packages,39867).
 i(/(xhook,2),"This multifile predicate is called on certain stream events.",swi_man_packages('redis.html'),packages,40209).
+i(section(0,'0','packages/jpl.html'),"JPL: A bidirectional Prolog/Java interface",swi_man_packages('jpl.html'),packages,2794).
+i(section(3,'1','sec:jpl'),"library(jpl): A Java interface for SWI Prolog 7.x",swi_man_packages('jpl.html'),packages,3486).
+i(/(jpl_new,3),"X can be: an atomic classname, e.g.",swi_man_packages('jpl.html'),packages,3906).
+i(/(jpl_call,4),"X should be either an object reference, e.g.",swi_man_packages('jpl.html'),packages,5604).
+i(/(jpl_get,3),"X can be a classnameor a descriptoror an (object or array) type (for static fields)or a non-array object (for static and non-static fields)or an array (for’length' pseudo field, or indexed element retrieval) Fspec can be an atomic field nameor an integral array index (to get an element from an array)or a pair I-J of integers (to get a subrange of an array).",swi_man_packages('jpl.html'),packages,6979).
+i(/(jpl_set,3),"sets the Fspec-th field of (class or object) X to value V iff it is assignable X can be a class instance (for static or non-static fields)or an array (for indexed element or subrange assignment)or a classname, or a class(_,_) or array(_) type (for static fields)but not a String (no fields to retrieve) Fspec can be an atomic field name (overloading through shadowing has yet to be handled properly)or an array index I (X must be an array object: V is assigned to X[I])or a pair I-J of integers (X must be an array object, V must be a list of values: successive members of V are assigned to X[I..J]) V must be a suitable value or object.",swi_man_packages('jpl.html'),packages,7982).
+i(/(jpl_get_default_jvm_opts,1),"Returns (as a list of atoms) the options which will be passed to the JVM when it is initialised, e.g.",swi_man_packages('jpl.html'),packages,9060).
+i(/(jpl_set_default_jvm_opts,1),"Replaces the default JVM initialisation options with those supplied.",swi_man_packages('jpl.html'),packages,9380).
+i(/(jpl_get_actual_jvm_opts,1),"Returns (as a list of atoms) the options with which the JVM was initialised.",swi_man_packages('jpl.html'),packages,9644).
+i(/(jpl_pl_lib_version,1),"Version is the fully qualified version identifier of the in-use Prolog component (jpl.pl) of JPL.",swi_man_packages('jpl.html'),packages,10013).
+i(/(jpl_c_lib_version,1),"Version is the fully qualified version identifier of the in-use C component (jpl.c) of JPL.",swi_man_packages('jpl.html'),packages,10459).
+i(/(jpl_class_to_classname,2),"Class is a reference to a class object.",swi_man_packages('jpl.html'),packages,10908).
+i(/(jpl_class_to_type,2),"The Class is a reference to a (Java Universe) instance of java.lang.Class.",swi_man_packages('jpl.html'),packages,11613).
+i(/(jpl_classname_to_class,2),"EntityName is the entity name to be mapped to a class reference.",swi_man_packages('jpl.html'),packages,12220).
+i(/(jpl_entityname_to_type,2),"EntityName is the entity name (an atom) denoting a Java type, to be mapped to a JPL type.",swi_man_packages('jpl.html'),packages,12623).
+i(/(jpl_type_to_entityname,2),"This is the converse of jpl_entityname_to_type/2",swi_man_packages('jpl.html'),packages,14198).
+i(/(jpl_classname_to_type,2),"This is a wrapper around jpl_entityname_to_type/2 to keep the old exported predicate alive.",swi_man_packages('jpl.html'),packages,14473).
+i(/(jpl_type_to_classname,2),"This is a wrapper around jpl_type_to_entityname/2 to keep the old exported predicate alive.",swi_man_packages('jpl.html'),packages,15012).
+i(/(jpl_datum_to_type,2),"Datum must be a JPL representation of an instance of one (or more) Java types; Type is the unique most specialised type of which Datum denotes an instance; NB 3 is an instance of byte, char, short, int and long, of which byte and char are the joint, overlapping most specialised types, so this relates 3 to the pseudo subtype’char_byte'; See alsojpl_type_to_preferred_concrete_type/2 for converting inferred types to instantiable types",swi_man_packages('jpl.html'),packages,15551).
+i(/(jpl_object_to_class,2),"fails silently if Object is not a valid reference to a Java object Class is a (canonical) reference to the (canonical) class object which represents the class of Object NB what's the point of caching the type if we don't look there first?",swi_man_packages('jpl.html'),packages,16284).
+i(/(jpl_object_to_type,2),"Object must be a proper JPL reference to a Java object (i.e.",swi_man_packages('jpl.html'),packages,16726).
+i(/(jpl_primitive_type,1),"Type is an atomic JPL representation of one of Java's primitive types.",swi_man_packages('jpl.html'),packages,17066).
+i(/(jpl_ref_to_type,2),"Ref must be a proper JPL reference (to an object, null or void).",swi_man_packages('jpl.html'),packages,17511).
+i(/(jpl_type_to_class,2),"Type is the JPL type, a ground term designating a class or an array type.",swi_man_packages('jpl.html'),packages,17769).
+i(/(jpl_is_class,1),"True if Term is a JPL reference to an instance of java.lang.Class.",swi_man_packages('jpl.html'),packages,18143).
+i(/(jpl_is_false,1),"True if Term is @(false), the JPL representation of the Java boolean value’false'.",swi_man_packages('jpl.html'),packages,18359).
+i(/(jpl_is_null,1),"True if Term is @(null), the JPL representation of Java's’null' reference.",swi_man_packages('jpl.html'),packages,18598).
+i(/(jpl_is_object,1),"True if Term is a well-formed JPL object reference.",swi_man_packages('jpl.html'),packages,18827).
+i(/(jpl_is_object_type,1),"True if Term is an object (class or array) type, not e.g.",swi_man_packages('jpl.html'),packages,19080).
+i(/(jpl_is_ref,1),"True if Term is a well-formed JPL reference, either to a Java object or to Java's notional but important’null' non-object.",swi_man_packages('jpl.html'),packages,19314).
+i(/(jpl_is_true,1),"True if Term is @(true), the JPL representation of the Java boolean value’true'.",swi_man_packages('jpl.html'),packages,19576).
+i(/(jpl_is_type,1),"True if Term is a well-formed JPL type structure.",swi_man_packages('jpl.html'),packages,19811).
+i(/(jpl_is_void,1),"True if Term is @(void), the JPL representation of the pseudo Java value’void' (which is returned by jpl_call/4 when invoked on void methods).",swi_man_packages('jpl.html'),packages,19995).
+i(/(jpl_false,1),"X is @(false), the JPL representation of the Java boolean value’false'.",swi_man_packages('jpl.html'),packages,20419).
+i(/(jpl_null,1),"X is @(null), the JPL representation of Java's’null' reference.",swi_man_packages('jpl.html'),packages,20809).
+i(/(jpl_true,1),"X is @(true), the JPL representation of the Java boolean value’true'.",swi_man_packages('jpl.html'),packages,21187).
+i(/(jpl_void,1),"X is @(void), the JPL representation of the pseudo Java value’void'.",swi_man_packages('jpl.html'),packages,21571).
+i(/(jpl_array_to_length,2),"Array should be a JPL reference to a Java array of any type.",swi_man_packages('jpl.html'),packages,21954).
+i(/(jpl_array_to_list,2),"Array should be a JPL reference to a Java array of any type.",swi_man_packages('jpl.html'),packages,22419).
+i(/(jpl_datums_to_array,2),"A will be a JPL reference to a new Java array, whose base type is the most specific Java type of which each member of Datums is (directly or indirectly) an instance.",swi_man_packages('jpl.html'),packages,23052).
+i(/(jpl_enumeration_element,2),"Generates each Element from Enumeration.",swi_man_packages('jpl.html'),packages,23655).
+i(/(jpl_enumeration_to_list,2),"Enumeration should be a JPL reference to an object which implements the Enumeration interface.",swi_man_packages('jpl.html'),packages,24130).
+i(/(jpl_hashtable_pair,2),"Generates Key-Value pairs from the given HashTable.",swi_man_packages('jpl.html'),packages,24845).
+i(/(jpl_iterator_element,2),"Iterator should be a JPL reference to an object which implements the java.util.Iterator interface.",swi_man_packages('jpl.html'),packages,25316).
+i(/(jpl_list_to_array,2),"Datums should be a proper Prolog list of JPL datums (values or references).",swi_man_packages('jpl.html'),packages,25935).
+i(/(jpl_terms_to_array,2),"Terms should be a proper Prolog list of arbitrary terms.",swi_man_packages('jpl.html'),packages,26452).
+i(/(jpl_array_to_terms,2),"JRef should be a JPL reference to a Java array of org.jpl7.Term instances (or ots subtypes); Terms will be a list of the terms which the respective array elements represent.",swi_man_packages('jpl.html'),packages,26875).
+i(/(jpl_map_element,2),"Map must be a JPL Reference to an object which implements the java.util.Map interface This generates each Key-Value pair from the Map, e.g.",swi_man_packages('jpl.html'),packages,27235).
+i(/(jpl_set_element,2),"Set must be a JPL reference to an object which implements the java.util.Set interface.",swi_man_packages('jpl.html'),packages,28156).
+i(/(jpl_servlet_byref,3),"This serves the byref servlet demo, exemplifying one tactic for implementing a servlet in Prolog by accepting the Request and Response objects as JPL references and accessing their members via JPL as required; See alsojpl_servlet_byval/3",swi_man_packages('jpl.html'),packages,28730).
+i(/(jpl_servlet_byval,3),"This exemplifies an alternative (to jpl_servlet_byref) tactic for implementing a servlet in Prolog; most Request fields are extracted in Java before this is called, and passed in as a multimap (a map, some of whose values are maps).",swi_man_packages('jpl.html'),packages,29266).
+i(/(jpl_pl_syntax,1),"Unifies Syntax with’traditional' or’modern' according to the mode in which SWI Prolog 7.x was started",swi_man_packages('jpl.html'),packages,29673).
 i(section(0,'0','packages/ssl.html'),"SWI-Prolog SSL Interface",swi_man_packages('ssl.html'),packages,2776).
 i(section(2,'1','sec:ssl-intro'),"Introduction",swi_man_packages('ssl.html'),packages,9022).
 i(section(2,'2','sec:ssl'),"library(ssl): Secure Socket Layer (SSL) library",swi_man_packages('ssl.html'),packages,11054).

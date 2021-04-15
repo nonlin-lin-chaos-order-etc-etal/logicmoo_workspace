@@ -6,13 +6,12 @@ services:
             - "80:80"
             - "443:443"
         volumes:
-          - ./packages/api:/usr/packages/web
-          - shared:/usr/packages/web/src/shared
+          - .:/opt/logicmoo_workspace
         networks:
-            prologmud_vlan:
+            pub_net:
                 ipv4_address: 10.0.0.99
 networks:
-  prologmud_vlan:
+  pub_net:
     driver: macvlan
     driver_opts:
       parent: eth0
