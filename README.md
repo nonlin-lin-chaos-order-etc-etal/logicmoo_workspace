@@ -30,13 +30,15 @@ docker build -t logicmoo/logicmoo_starter_image:latest --no-cache --add-host=log
 # Why 8GB (3GB once uploaded)?
 docker push logicmoo/logicmoo_starter_image:latest
 
+docker network create -d macvlan --subnet=10.0.0.0/24 --gateway=10.0.0.1 -o parent=eth0 pub_net
+
 docker run -t --add-host=logicmoo.org:10.0.0.90 logicmoo/logicmoo_starter_image:latest
 
-docker exec -it  $(docker ps -n 1 -q) bash
+docker exec -it $(docker ps -n 1 -q) bash
 
 
 docker build -t logicmoo/logicmoo_workspace:latest --no-cache --add-host=logicmoo.org:10.0.0.90 - < Dockerfile
-docker push logicmoo/logicmoo_workspace:latest   
+docker push logicmoo/logicmoo_workspace:latest 
 ```
 
 
@@ -44,5 +46,5 @@ docker push logicmoo/logicmoo_workspace:latest
 ```
 docker kill $(docker ps -a -q)
 docker image prune --all -f
-docker rmi  logicmoo/logicmoo_starter_image:latest 
+docker rmi logicmoo/logicmoo_starter_image:latest 
 ```

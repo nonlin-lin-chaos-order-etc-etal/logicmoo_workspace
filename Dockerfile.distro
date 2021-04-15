@@ -1,5 +1,6 @@
 FROM debian:buster
 FROM php:7.3-apache
+#RUN docker-php-ext-install mysqli
 
 USER root
 LABEL maintainer = "logicmoo@gmail.com"
@@ -23,8 +24,15 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
 RUN curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh \ 
  && /bin/bash -c "source /tmp/web_install.sh"
 
+RUN a2enmod access_compat alias auth_basic authn_core authn_file authz_core authz_host authz_user autoindex deflate dir env filter headers http2 mime mpm_prefork negotiation php7.3 php7.4 proxy proxy_ajp proxy_balancer proxy_connect proxy_express proxy_fcgi proxy_fdpass proxy_ftp proxy_hcheck proxy_html proxy_http proxy_http2 proxy_scgi proxy_uwsgi proxy_wstunnel reqtimeout rewrite setenvif slotmem_shm socache_shmcb ssl status xml2enc
+
+COPY packs_web/logicmoo_webui/etc/apache2/ssl /etc/apache2/ssl
+COPY packs_web/logicmoo_webui/var/www/html /var/www/html
+COPY etc /etc
+
 EXPOSE 22
 EXPOSE 80
+EXPOSE 443
 EXPOSE 3020
 EXPOSE 3080
 EXPOSE 3100

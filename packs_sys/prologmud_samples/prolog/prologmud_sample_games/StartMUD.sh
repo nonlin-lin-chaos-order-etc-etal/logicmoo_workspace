@@ -25,13 +25,7 @@ echo PATH=$PATH
 
 ./PreStartMUD.sh
 
-(
-pidof  eggdrop >/dev/null
-if [[ $? -eq 1 ]] ; then
- echo "Starting eggdrop:     $(date)" 
- cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; sudo -u prologmud_server -- eggdrop -m
-fi
-)
+
 
 
 # #( mkdir -p /tmp/tempDir/ ; cp -a tempDir/?* /tmp/tempDir/?* ;  cd  /tmp/tempDir/ ; ln  -s * -r /home/prologmud_server/lib/swipl/pack/prologmud_samples/prolog/prologmud_sample_games/ )
@@ -118,6 +112,14 @@ fi
 
 echo LOGICMOO_WS=$LOGICMOO_WS
 echo LOGICMOO_BASE_PORT=$LOGICMOO_BASE_PORT
+
+(
+pidof  eggdrop >/dev/null
+if [[ $? -eq 1 ]] ; then
+ echo "Starting eggdrop:     $(date)" 
+ cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; sudo -u prologmud_server -- eggdrop -m
+fi
+)
 
 # killall -9 swipl-prologmud
        
