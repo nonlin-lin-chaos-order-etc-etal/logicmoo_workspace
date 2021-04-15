@@ -5,14 +5,14 @@ services:
         ports: 
             - "80:80"
             - "443:443"
-        #volumes:
-          #  - ./www:/var/www/html/
-          #  - ./:/var/www/html/
+        volumes:
+          - ./packages/api:/usr/packages/web
+          - shared:/usr/packages/web/src/shared
         networks:
             prologmud_vlan:
                 ipv4_address: 10.0.0.99
 networks:
-  nginx_vlan:
+  prologmud_vlan:
     driver: macvlan
     driver_opts:
       parent: eth0
@@ -23,6 +23,10 @@ networks:
           gateway: 10.0.0.1
 
 volumes:
-  - . /opt/logicmoo_workspace
-    persistent:
+  shared:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/"
 
