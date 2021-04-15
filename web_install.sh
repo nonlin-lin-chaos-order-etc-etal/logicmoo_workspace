@@ -10,7 +10,7 @@ if [[ $EUID -ne 0 ]]; then
    echo ""
    return 1 2>/dev/null
    exit 1
-else
+fi
 
 if git --version &>/dev/null; then
    echo "Found Git"; 
