@@ -34,13 +34,8 @@ EXPOSE 4005
 EXPOSE 4006
 
 
-# @TODO (something here)
-
-RUN /opt/logicmoo_workspace/web_install.sh
-
-#RUN /opt/logicmoo_workspace/INSTALL.md
+RUN curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh \ 
+ && /bin/bash -c "source /tmp/web_install.sh"
 
 CMD /opt/logicmoo_workspace/StartLogicmoo.sh
-
-#CMD service apache2 start && sleep 10000000
 

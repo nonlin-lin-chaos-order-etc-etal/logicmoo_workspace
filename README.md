@@ -28,6 +28,7 @@ source ./INSTALL.md
 ```
 docker build -t logicmoo/logicmoo_starter_image:latest  --no-cache --add-host=logicmoo.org:10.0.0.90 --file Dockerfile.distro .   
 docker push logicmoo/logicmoo_starter_image:latest
+docker-compose build --add-host=logicmoo.org:10.0.0.90
 
 docker network create -d macvlan --subnet=10.0.0.0/24 --gateway=10.0.0.1 -o parent=eth0 pub_net
 

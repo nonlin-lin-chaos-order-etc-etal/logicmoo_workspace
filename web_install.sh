@@ -24,6 +24,7 @@ echo ""
 fi
 
 mkdir -p /opt
+(
 cd /opt
 if [ ! -d "logicmoo_workspace" ]; then
   export SSLWAS=$(git config --global http.sslVerify)
@@ -32,7 +33,7 @@ if [ ! -d "logicmoo_workspace" ]; then
   git config --global http.sslVerify $SSLWAS
 fi
 
-mkdir -p logicmoo_workspace
+ls logicmoo_workspace
 cd logicmoo_workspace
 git pull -f
 git status -s
@@ -42,4 +43,4 @@ git status -s
 echo -e "\e[1;32m Type: source ./StartLogicmoo.sh \e[0m"
 
 fi
-
+)
