@@ -34,7 +34,7 @@ EXPOSE 4005
 EXPOSE 4006
 
 
-RUN curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh \ 
+RUN rm -f /tmp/web_install.sh ;  curl -o /tmp/web_install.sh https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh \ 
  && chmod +x /tmp/web_install.sh && /tmp/web_install.sh
 
 CMD /opt/logicmoo_workspace/StartLogicmoo.sh
