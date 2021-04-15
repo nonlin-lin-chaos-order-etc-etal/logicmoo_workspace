@@ -26,13 +26,14 @@ source ./INSTALL.md
 # Douglas' Docker 
 
 ```
-docker build -t logicmoo/logicmoo_starter_image:latest --no-cache --add-host=logicmoo.org:10.0.0.90 - < Dockerfile.distro
+docker build -t logicmoo/logicmoo_starter_image:latest --no-cache --add-host=logicmoo.org:10.0.0.9 --file=Dockerfile.distro .
+#docker build -t logicmoo/logicmoo_starter_image:latest --no-cache --add-host=logicmoo.org:10.0.0.90 - < Dockerfile.distro
 # Why 8GB (3GB once uploaded)?
 docker push logicmoo/logicmoo_starter_image:latest
 
 docker network create -d macvlan --subnet=10.0.0.0/24 --gateway=10.0.0.1 -o parent=eth0 pub_net
 
-docker run -t --add-host=logicmoo.org:10.0.0.90 logicmoo/logicmoo_starter_image:latest
+docker run -t --add-host=logicmoo.org:10.0.0.90  --network="logicmoo_workspace_prologmud_vlan"  logicmoo/logicmoo_starter_image:latest
 
 docker exec -it $(docker ps -n 1 -q) bash
 

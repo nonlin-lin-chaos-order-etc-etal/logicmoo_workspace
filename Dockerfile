@@ -37,5 +37,6 @@ EXPOSE 4006
 # @TODO (something here)
 
 
-CMD /opt/logicmoo_workspace/StartLogicmoo.sh
+#CMD /opt/logicmoo_workspace/StartLogicmoo.sh
+CMD service apache2 start && sleep 10000000
 
