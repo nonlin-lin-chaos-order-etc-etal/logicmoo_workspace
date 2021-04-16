@@ -30,7 +30,9 @@ RUN if [ ! -z "$LOGICMOO_EXTRAS" ]; then curl -O http://mirror.umd.edu/eclipse/t
 
 WORKDIR $LOGICMOO_WS
 # Pull in fixes
-RUN git pull --recurse-submodules
+RUN git fetch origin \
+ && git reset --hard origin/master
+ && pull --recurse-submodules
 
 # do local updates
 # RUN ./INSTALL.md
