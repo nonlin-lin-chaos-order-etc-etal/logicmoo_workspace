@@ -20,4 +20,8 @@ export LOGICMOO_GAMES=$LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_
    sudo -u prologmud_server -- sh -c "${LOGICMOO_WS}/logicmoo_env.sh ; . ${LOGICMOO_WS}/packs_web/butterfly/bin/activate ; export LOGICMOO_WS=$LOGICMOO_WS && cd ${LOGICMOO_GAMES} && ./StartMUD.sh $*"
 )
 stty sane
+return 0 2>/dev/null
+exit 0
+
+
 

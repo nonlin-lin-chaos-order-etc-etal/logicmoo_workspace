@@ -7,8 +7,12 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-
 DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+$DIR0/LogicmooServerLoop.sh
+
+return 0 2>/dev/null
+exit 0
+
 
 
 cd $DIR0
@@ -22,10 +26,6 @@ echo PATH=$PATH
 echo LOGICMOO_GAMES=$LOGICMOO_GAMES
 echo LOGICMOO_WS=$LOGICMOO_WS
 echo "127.0.0.1 eggdrop"  >> /etc/hosts      
-#for internal testing of the build env          
-#echo "10.0.0.90 logicmoo.org"  >> /etc/hosts
-#git remote add github https://github.com/logicmoo/logicmoo_workspace.git
-#git remote add gitlab https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
 git status -s
 git config --global http.sslVerify false
 #git status -v --show-stash
@@ -35,13 +35,11 @@ git update-index --assume-unchanged $LOGICMOO_WS/packs_sys/eggdrop/conf/P*
 git status -s
 )
 
-
-( . $DIR0/INSTALL.md )
-
 chmod 777 /opt/logicmoo_workspace/packs_sys/prologmud_samples/prolog/prologmud_sample_games/.swipl_history
 
 screen -wipe
 needs_message_update="1"
+
 while [ 0 -lt 4 ]
 do
 
