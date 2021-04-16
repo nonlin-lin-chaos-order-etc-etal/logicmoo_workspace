@@ -1,3 +1,11 @@
+# On Logicmoo's LAN: 
+#
+#  docker build -t logicmoo/logicmoo_workspace  --add-host=logicmoo.org:10.0.0.90 - < ./Dockerfile
+# 
+# Elsewhere
+#
+#  docker build -t logicmoo/logicmoo_workspace - < ./Dockerfile
+#
 FROM logicmoo/logicmoo_starter_image
 
 USER root
@@ -15,19 +23,17 @@ ENV LOGICMOO_USER prologmud_server
 ENV LOGICMOO_WS /opt/logicmoo_workspace
 ENV LOGICMOO_GAMES $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
 
-RUN if [[ -z "$LOGICMOO_EXTRAS" ]] ; then echo LOGICMOO_EXTRAS not included ; else \
-  curl -O http://mirror.umd.edu/eclipse/technology/epp/downloads/release/2020-06/R/eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz \
+RUN if [ ! -z "$LOGICMOO_EXTRAS" ]; then curl -O http://mirror.umd.edu/eclipse/technology/epp/downloads/release/2020-06/R/eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz \
   && tar -zxvf eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz -C /usr/ \
-  && ln -s /usr/eclipse/eclipse /usr/bin/eclipse \
- ; fi
+  && ln -s /usr/eclipse/eclipse /usr/bin/eclipse ; fi
 
 
 WORKDIR $LOGICMOO_WS
 # Pull in fixes
-RUN git pull --recursive
+RUN git pull --recurse-submodules
 
 # do local updates
-RUN INSTALL.md
+# RUN ./INSTALL.md
 
 EXPOSE 22
 EXPOSE 80

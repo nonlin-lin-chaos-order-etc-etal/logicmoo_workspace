@@ -288,7 +288,7 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
 
 # check out our repo
 RUN mkdir -p /opt
-WORKDIR /opt
+WORKDIR /opt/.
 RUN git clone --recursive https://github.com/logicmoo/logicmoo_workspace $LOGICMOO_WS
 
 # who/where
@@ -407,6 +407,10 @@ EXPOSE 4006
 WORKDIR $LOGICMOO_WS
 # run this container only for testing integrety
 RUN echo remember to: docker push logicmoo/logicmoo_starter_image:latest
-CMD systemctl enable butterfly.socket && systemctl start butterfly.socket && service apache2 start && sleep 10000000
+RUN echo docker run  -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --cap-add SYS_ADMIN --security-opt=seccomp:unconfined logicmoo/logicmoo_starter_image  --privileged
+#RUN apt-get install -y init redis-server
+#CMD /sbin/init ; service redis-server start ; systemctl enable butterfly.socket ; systemctl start butterfly.socket ; systemctl start apache2
+CMD  systemctl enable butterfly.socket ;  systemctl start apache2
+# sleep 10000000
 
 
