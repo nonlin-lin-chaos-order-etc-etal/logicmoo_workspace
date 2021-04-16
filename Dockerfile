@@ -32,7 +32,7 @@ WORKDIR $LOGICMOO_WS
 # Pull in fixes
 RUN git fetch origin \
  && git reset --hard origin/master \
- && pull --recurse-submodules
+ && git pull --recurse-submodules
 
 # do local updates
 # RUN ./INSTALL.md
