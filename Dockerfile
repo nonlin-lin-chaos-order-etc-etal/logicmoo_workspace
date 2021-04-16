@@ -66,6 +66,6 @@ EXPOSE 4004
 EXPOSE 4005
 EXPOSE 4006
 
-WORKDIR /opt/logicmoo_workspace
+WORKDIR /opt/logicmoo_workspace/.
 ENTRYPOINT /opt/logicmoo_workspace/StartLogicmoo.sh
 
