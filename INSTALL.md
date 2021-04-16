@@ -81,37 +81,5 @@ git status -s
 
 find -name "*.qlf" -exec touch '{}' +
 
-ln -s $LOGICMOO_WS/etc/profile.d/logicmoo_etc_profile_d.sh /etc/profile.d/ > /dev/null 2>&1
-ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicmoo.conf /etc/apache2/sites-enabled/000-logicmoo.conf > /dev/null 2>&1
-ln -s $LOGICMOO_WS/packs_web/logicmoo_webui/etc/apache2/conf-available/cliopatria_swish.conf /etc/apache2/conf-available/cliopatria_swish.conf > /dev/null 2>&1
-
-echo adduser --disabled-password --gecos "" --no-create-home prologmud_server --home $LOGICMOO_GAMES
-adduser --disabled-password --gecos "" --no-create-home prologmud_server --home $LOGICMOO_GAMES
-
-chown prologmud_server $LOGICMOO_GAMES
-chown -R prologmud_server $LOGICMOO_GAMES/*??*
-
-cp -f $LOGICMOO_GAMES/.??*rc ~/
-cp -f $LOGICMOO_GAMES/.bash* ~/
-cp -f $LOGICMOO_GAMES/.profile* ~/
-
-touch $LOGICMOO_GAMES/history_3804
-touch $LOGICMOO_GAMES/completion_3804
-chown prologmud_server $LOGICMOO_GAMES/completion_*
-chown prologmud_server $LOGICMOO_GAMES/history_*
-
-touch $LOGICMOO_GAMES/nohup.out
-chown prologmud_server $LOGICMOO_GAMES/nohup.out
-chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/eggdrop/
-chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/
-
-# in case of symlinking
-chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/
-chown -R prologmud_server /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/src~/
-
-chown -R prologmud_server /opt/logicmoo_workspace/packs_web/butterfly
-
-mkdir -p /tmp/tempDir/
-chown -R prologmud_server /tmp/tempDir/
 
 )

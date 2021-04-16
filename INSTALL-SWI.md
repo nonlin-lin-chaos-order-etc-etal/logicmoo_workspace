@@ -21,6 +21,7 @@ if [ -d "$DIR" ]; then
 
 fi
 
+
 echo "#* "
 echo "#* Install deps..."
 echo "#* "
@@ -57,7 +58,6 @@ echo "#* "
 #mkdir -p bin/
 #mkdir .local/share/swi-prolog/pack -p
 #chmod 555 .local/share/swi-prolog/pack
-find packs_* -name "*.qlf" -delete
 
 git clone https://github.com/SWI-Prolog/swipl-devel.git swipl-devel
 
@@ -79,6 +79,9 @@ git status)
  make install)
 
 )
+
+find packs_* -name "*.qlf"
+swipl 
 
 stty sane
 echo "#* MAYBE cat .swiplrc >> ~/.config/swi-prolog/init.pl"
