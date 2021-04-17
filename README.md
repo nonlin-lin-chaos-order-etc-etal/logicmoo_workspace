@@ -21,7 +21,7 @@ source ./INSTALL.md
 
 ```docker build - --no-cache < Dockerfile```
 
-
+docker run 
 
 # Douglas' Docker 
 

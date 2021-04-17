@@ -5,59 +5,13 @@
 ################################################################################
 
 FROM centminmod/docker-ubuntu-vnc-desktop
-
-# python library
-COPY rootfs/usr/local/lib/web/backend/requirements.txt /tmp/
-RUN apt-get update \
-    && dpkg-query -W -f='${Package}\n' > /tmp/a.txt \
-    && apt-get install -y python3-pip python3-dev build-essential \
-	&& pip3 install setuptools wheel && pip3 install -r /tmp/requirements.txt \
-    && ln -s /usr/bin/python3 /usr/local/bin/python \
-    && dpkg-query -W -f='${Package}\n' > /tmp/b.txt \
-    && apt-get remove -y `diff --changed-group-format='%>' --unchanged-group-format='' /tmp/a.txt /tmp/b.txt | xargs` \
-    && apt-get autoclean -y \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /var/cache/apt/* /tmp/a.txt /tmp/b.txt
+FROM dickhub/ubuntu-xfce-vnc
+FROM ct2034/vnc-ros-kinetic-full
+FROM tiryoh/ros2-desktop-vnc
 
 
-################################################################################
-# builder
-################################################################################
-FROM ubuntu:20.04 as builder
+EXPOSE 80
 
-
-RUN sed -i 's#http://archive.ubuntu.com/ubuntu/#mirror://mirrors.ubuntu.com/mirrors.txt#' /etc/apt/sources.list;
-
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl ca-certificates gnupg patch
-
-# nodejs
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-    && apt-get install -y nodejs
-
-# yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get update \
-    && apt-get install -y yarn
-
-# build frontend
-COPY web /src/web
-RUN cd /src/web \
-    && yarn \
-    && yarn build
-RUN sed -i 's#app/locale/#novnc/app/locale/#' /src/web/dist/static/novnc/app/ui.js
-
-
-
-################################################################################
-# merge
-################################################################################
-FROM ubuntu:20.04 as system
-FROM system
-LABEL maintainer="fcwu.tw@gmail.com"
 
 #
 # from root@debian10:/opt/logicmoo_workspace
@@ -65,7 +19,6 @@ LABEL maintainer="fcwu.tw@gmail.com"
 #
 # docker build -t logicmoo/logicmoo_starter_image:latest --no-cache --add-host=logicmoo.org:10.0.0.90 - < ./Dockerfile.distro
 #
-MAINTAINER FROM php:7.4-apache
 
 USER root
 LABEL maintainer = "logicmoo@gmail.com"
@@ -113,8 +66,8 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  rsync \
  rlwrap \
  r-cran-xtable \
- r-cran-xfun \
- r-cran-tinytex \
+ #r-cran-xfun \
+ #r-cran-tinytex \
  r-cran-tikzdevice \
  r-cran-testit \
  r-cran-sourcetools \
@@ -183,7 +136,7 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  libubsan1 \
  libtsan0 \
  libtool \
- libtinfo6 \
+ #libtinfo6 \
  libtiff-dev \
  libtcmalloc-minimal4 \
  libstdc++-8-dev \
@@ -199,7 +152,9 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  librhash0 \
  libreoffice \
  libreadline-dev \
- libraptor2-dev \
+ #libraptor2-dev \
+ #libcurl4-gnutls-dev \
+ libcurl4-openssl-dev \
  libraptor2-0 \
  libpthread-stubs0-dev \
  libpng-dev \
@@ -212,10 +167,10 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  libossp-uuid-dev \
  libopenmpi-dev \
  libodbc1 \
- libnode64 \
- libnode-dev \
+ #libnode64 \
+ #libnode-dev \
  libnet-nslookup-perl \
- libncurses6 \
+ #libncurses6 \
  libncurses-dev \
  libmpx2 \
  liblzma-dev \
@@ -335,12 +290,13 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  apache2 \
  analog \
  # odd deps we missed for SWI-Prolog (world build version) \
- cron elpa-ediprolog emacs emacs-bin-common emacs-common emacs-el emacs-gtk \
+ cron elpa-ediprolog emacs \
+ #emacs-bin-common emacs-common emacs-el emacs-gtk \
  emacsen-common exim4-base exim4-config exim4-daemon-light ghostscript \
  gsfonts guile-2.2-libs imagemagick-6-common install-info libde265-0 \
  libfftw3-double3 libgc1c2 libgnutls-dane0 libgsasl7 libheif1 \
- libkyotocabinet16v5 liblqr-1-0 libm17n-0 libmagickcore-6.q16-6 \
- libmagickwand-6.q16-6  libmariadb3 libntlm0 libotf0 libunbound8 \
+ #libkyotocabinet16v5 liblqr-1-0 libm17n-0 libmagickcore-6.q16-6 \
+ # libmagickwand-6.q16-6  libmariadb3 libntlm0 libotf0 libunbound8 \
  libwebpmux3 m17n-db mailutils mailutils-common mariadb-common \
  mysql-common \
  #python-virtualenv \
@@ -348,9 +304,17 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  #python-pip \
  #libx265-165 libjpeg62-turbo libmailutils5 \
  #xvnc4viewer libreadline7
+  libcurl4-openssl-dev libgazebo9-dev libignition-fuel-tools1-dev \
+  ros-dashing-desktop ros-dashing-gazebo-dev ros-dashing-gazebo-plugins \
+  ros-dashing-gazebo-ros ros-dashing-gazebo-ros-pkgs \
+  ros-dashing-libcurl-vendor ros-dashing-resource-retriever \
+  ros-dashing-rviz-common ros-dashing-rviz-default-plugins \
+  ros-dashing-rviz-rendering ros-dashing-rviz2 \
  && echo apt autoclean -y \
  && echo apt autoremove -y \
  && rm -rf /var/lib/apt/lists/* 
+
+
 
 # Install packages
 RUN apt-get update -qq && apt-get install -y \
@@ -415,11 +379,6 @@ ENV LOGICMOO_USER prologmud_server
 ENV LOGICMOO_WS /opt/logicmoo_workspace
 ENV LOGICMOO_GAMES $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
 
-# Install Composer
-RUN wget -O /tmp/composer.phar https://getcomposer.org/composer.phar \
-    && cp /tmp/composer.phar /usr/local/bin/composer \
-    && chmod +x /usr/local/bin/composer
-
 
 # enable some apache mods
 RUN a2enmod access_compat alias auth_basic authn_core authn_file authz_core authz_host authz_user autoindex deflate dir env \
@@ -441,27 +400,29 @@ EXPOSE 3050
 EXPOSE 3080
 
 RUN apt-get update -qq && apt-get install -y \
- tini \
+ #tini \
  nginx-full \
- python3-gevent-websocket \
+ #python3-gevent-websocket \
  python3-gevent \
- python3-novnc \
+ #python3-novnc \
  python3-flask-api \
- python3-flask-sockets \
+ #python3-flask-sockets \
  && echo apt autoclean -y \
  && echo apt autoremove -y \
  && rm -rf /var/lib/apt/lists/* 
 
 LABEL maintainer = "logicmoo@gmail.com"
-COPY --from=builder /src/web/dist/ /usr/local/lib/web/frontend/
-COPY rootfs /
-RUN ln -sf /usr/local/lib/web/frontend/static/websockify /usr/local/lib/web/frontend/static/novnc/utils/websockify && \
-	chmod +x /usr/local/lib/web/frontend/static/websockify/run
+################################################################################
+# merge
+################################################################################
+#FROM system
+LABEL maintainer="fcwu.tw@gmail.com"
+
 
 EXPOSE 80
-WORKDIR /root
+#WORKDIR /root
 ENV HOME=/home/ubuntu \
     SHELL=/bin/bash
-HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://127.0.0.1:6079/api/health
-ENTRYPOINT ["/startup.sh"]
-
+COPY rootfs /
+#HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://127.0.0.1:6079/api/health
+#ENTRYPOINT ["/startup_logicmoo.sh"]
