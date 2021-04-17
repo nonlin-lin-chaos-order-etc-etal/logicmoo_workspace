@@ -69,7 +69,6 @@ ENV HOME /root
 # check out our repo
 RUN mkdir -p /opt \
  && cd /opt ; pwd \
- && git config --global http.sslVerify false \
  && git clone https://github.com/logicmoo/logicmoo_workspace $LOGICMOO_WS \
  && cd $LOGICMOO_WS ; pwd \
  && git config --local http.sslVerify false \
@@ -87,13 +86,13 @@ RUN ./INSTALL.md
 
 # make our process running user
 RUN adduser --disabled-password --gecos "" --no-create-home $LOGICMOO_USER --home $LOGICMOO_GAMES \
- && echown -R $LOGICMOO_USER $LOGICMOO_GAMES
+ ; chown -R $LOGICMOO_USER $LOGICMOO_GAMES
 
 # apache config
 RUN cp -a $LOGICMOO_WS/packs_web/logicmoo_webui/etc/* /etc \
  && cp -a -n $LOGICMOO_WS/packs_web/logicmoo_webui/var/* /var \
  # shell config \
- && cp -a -n $LOGICMOO_WS/etc/* /etc
+ ; cp -a -n $LOGICMOO_WS/etc/* /etc
 
 # install swi-prolog
 MAINTAINER RUN cd $LOGICMOO_WS && ./INSTALL-SWI.md
