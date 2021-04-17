@@ -69,8 +69,8 @@ if [ ! -z "$LOGICMOO_EXTRAS" ];
 # check out our repo
 mkdir -p /opt \
  && cd /opt \
- && git config --global http.sslVerify false \
- && git clone https://github.com/logicmoo/logicmoo_workspace $LOGICMOO_WS
+ && git config --depth 1 --global http.sslVerify false \
+ && git clone https://github.com/logicmoo/logicmoo_workspace $LOGICMOO_WS ; /bin/true
 # do local updates \
 cd $LOGICMOO_WS \
  && git config --local http.sslVerify false \
@@ -82,9 +82,9 @@ adduser --disabled-password --gecos "" --no-create-home $LOGICMOO_USER --home $L
  && chown -R $LOGICMOO_USER $LOGICMOO_GAMES
 
 # apache config
-cp -a $LOGICMOO_WS/packs_web/logicmoo_webui/etc/* /etc \
- && cp -n $LOGICMOO_WS/packs_web/logicmoo_webui/var/* /var \
- && cp -n $LOGICMOO_WS/etc/* /etc
+cp -a -n-v $LOGICMOO_WS/packs_web/logicmoo_webui/etc/* /etc \
+ ; cp -a -n -v $LOGICMOO_WS/packs_web/logicmoo_webui/var/* /var \
+ ; cp -a -n -v $LOGICMOO_WS/etc/* /etc
 
 
 # install swi-prolog
@@ -103,8 +103,8 @@ fi
 
 # set up our runtime stuff (give root better shell stuff and our likely history commands)
 cp -n $LOGICMOO_GAMES/.??*rc ~root/ \
- && cp -n $LOGICMOO_GAMES/.bash* ~root/ \
- && cp -n $LOGICMOO_GAMES/.profile* ~root/ \
+ ; cp -n $LOGICMOO_GAMES/.bash* ~root/ \
+ ; cp -n $LOGICMOO_GAMES/.profile* ~root/ \
 
 cd $LOGICMOO_WS \
  && touch $LOGICMOO_GAMES/history_3804 \
