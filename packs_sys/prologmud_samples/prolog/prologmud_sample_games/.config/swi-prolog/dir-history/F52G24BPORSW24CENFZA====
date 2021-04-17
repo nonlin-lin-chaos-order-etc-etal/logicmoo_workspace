@@ -1,6 +1,4 @@
 _HiStOrY_V2_
-xlisting(give).
-xlisting(h(string("test"))\040+\040(string("ec_"))).
 ['/mnt/sdc1/logicmoo_workspace.1/packs_sys/logicmoo_ec/test/ec_planner/abdemo_test/abdemo_tests.pl'].
 demo_test.
 mmake.
@@ -99,3 +97,5 @@ mmake.
 testsit_all.
 ensure_loaded(library(logicmoo_agi)).
 testsit_all.
+threads.
+test_chat.

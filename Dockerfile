@@ -20,22 +20,20 @@ ENV SHELL /bin/bash
 
 # who/where
 ENV LOGICMOO_USER prologmud_server
+ENV HOME /root
 ENV LOGICMOO_WS /opt/logicmoo_workspace
 ENV LOGICMOO_GAMES $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
 
-RUN if [ ! -z "$LOGICMOO_EXTRAS" ]; then curl -O http://mirror.umd.edu/eclipse/technology/epp/downloads/release/2020-06/R/eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz \
+RUN mkdir -p $LOGICMOO_WS
+
+MAINTAINER RUN if [ ! -z "$LOGICMOO_EXTRAS" ]; \
+ then \
+  curl -O http://mirror.umd.edu/eclipse/technology/epp/downloads/release/2020-06/R/eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz \
   && tar -zxvf eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz -C /usr/ \
-  && ln -s /usr/eclipse/eclipse /usr/bin/eclipse ; fi
+  && ln -s /usr/eclipse/eclipse /usr/bin/eclipse \
+  && rm -f eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz \
+ fi
 
-
-WORKDIR $LOGICMOO_WS
-# Pull in fixes
-RUN git fetch origin \
- && git reset --hard origin/master \
- && git pull --recurse-submodules
-
-# do local updates
-# RUN ./INSTALL.md
 
 EXPOSE 22
 EXPOSE 80
@@ -66,6 +64,63 @@ EXPOSE 4004
 EXPOSE 4005
 EXPOSE 4006
 
-WORKDIR /opt/logicmoo_workspace/.
+RUN mkdir -p $LOGICMOO_WS/../
+WORKDIR $LOGICMOO_WS/../
+# check out our repo
+RUN mkdir -p /opt \
+ && cd /opt ; pwd \
+ && git config --global http.sslVerify false \
+ && git clone https://github.com/logicmoo/logicmoo_workspace $LOGICMOO_WS \
+ && cd $LOGICMOO_WS ; pwd \
+ && git config --local http.sslVerify false \
+ && git submodule update --init \
+ && git pull --recurse-submodules
+
+WORKDIR $LOGICMOO_WS
+# Pull in fixes
+MAINTAINER RUN cd $LOGICMOO_WS \
+ && git fetch origin \
+ && git reset --hard origin/master \
+ && git pull --recurse-submodules
+
+# do local updates
+MAINTAINER RUN ./INSTALL.md
+
+# make our process running user
+MAINTAINER RUN adduser --disabled-password --gecos "" --no-create-home $LOGICMOO_USER --home $LOGICMOO_GAMES \
+ && echo MAINTAINER chown -R $LOGICMOO_USER $LOGICMOO_GAMES
+
+# apache config
+MAINTAINER RUN cp -a $LOGICMOO_WS/packs_web/logicmoo_webui/etc/* /etc \
+ && cp -a $LOGICMOO_WS/packs_web/logicmoo_webui/var/* /var \
+ # shell config \
+ && cp -a $LOGICMOO_WS/etc/* /etc
+
+# install swi-prolog
+MAINTAINER RUN cd $LOGICMOO_WS && ./INSTALL-SWI.md
+
+# set up our runtime stuff (give root better shell stuff and our likely history commands)
+MAINTAINER RUN cp -f $LOGICMOO_GAMES/.??*rc ~root/ \
+ && cp -f $LOGICMOO_GAMES/.bash* ~root/ \
+ && cp -f $LOGICMOO_GAMES/.profile* ~root/ \
+ && touch $LOGICMOO_GAMES/history_3804 \
+ && touch $LOGICMOO_GAMES/completion_3804 \
+ && touch $LOGICMOO_GAMES/nohup.out \
+ && chown $LOGICMOO_USER $LOGICMOO_GAMES/completion_* \
+ && chown $LOGICMOO_USER $LOGICMOO_GAMES/history_* \
+ && chown $LOGICMOO_USER $LOGICMOO_GAMES/nohup.out \
+ && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/eggdrop/ \
+ && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/ \
+# in case of symlinking \
+ \
+ && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/ \
+ && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/src~/ \
+ && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_web/butterfly
+MAINTAINER WORKDIR $LOGICMOO_WS
+EXPOSE 57575
+MAINTAINER CMD ["butterfly", "--unsecure", "--host=0.0.0.0"]
+# ENTRYPOINT ["/opt/Logicmoo_docker/run.sh"]
+MAINTAINER ENTRYPOINT ["/opt/Logicmoo_docker/start.sh"]
+
 ENTRYPOINT /opt/logicmoo_workspace/StartLogicmoo.sh
 
