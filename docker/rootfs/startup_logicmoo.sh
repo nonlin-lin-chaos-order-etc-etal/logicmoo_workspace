@@ -4,7 +4,7 @@
 mkdir -p /opt \
  && cd /opt \
  && git config --global http.sslVerify false \
- ; git clone https://github.com/logicmoo/logicmoo_workspace 
+ ; git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace 
 
 /opt/logicmoo_workspace/INSTALL.md
 

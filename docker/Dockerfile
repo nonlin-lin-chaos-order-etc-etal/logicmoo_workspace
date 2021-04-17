@@ -425,4 +425,4 @@ ENV HOME=/home/ubuntu \
     SHELL=/bin/bash
 COPY rootfs /
 #HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://127.0.0.1:6079/api/health
-#ENTRYPOINT ["/startup_logicmoo.sh"]
+ENTRYPOINT ["/startup_logicmoo.sh"]
