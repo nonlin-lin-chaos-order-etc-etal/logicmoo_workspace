@@ -194,7 +194,7 @@ bot_nick("PrologMUD").
 %
 % Ctrl Server.
 %
-ctrl_server('eggdrop').
+ctrl_server('localhost').
 
 
 
