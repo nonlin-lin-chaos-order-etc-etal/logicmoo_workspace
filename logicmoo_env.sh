@@ -30,7 +30,7 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
 fi
 
 if [ -n "$DISPLAY" ] || [ -n "$DISPLAY" ]; then
-   export DISPLAY=10.0.0.122:0.0
+   echo export DISPLAY=10.0.0.122:0.0
 fi
 
 if [[ -z "${LIBJVM}" ]]; then
@@ -49,8 +49,8 @@ if [[ -z "${LIBJVM}" ]]; then
     fi
    
     export BOOST_ROOT=$LOGICMOO_WS/taupl/boost_1_67_0
-    export LD_LIBRARY_PATH=/usr/lib
-    export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server:.:$BOOST_ROOT/lib:$LD_LIBRARY_PATH   
+    #export LD_LIBRARY_PATH=/usr/lib
+    #export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server:.:$BOOST_ROOT/lib:$LD_LIBRARY_PATH   
     echo "#* LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
    fi
 

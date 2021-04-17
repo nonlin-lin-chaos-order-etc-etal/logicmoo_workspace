@@ -16,16 +16,14 @@ fg > /dev/null 2>&1
 fg > /dev/null 2>&1
 
 if [[ "$SOURCED"=="1" ]] ; then
-    echo "The script was sourced."
+    echo "The script $0 WAS sourced."
 else
-    echo "The script WAS NOT sourced."
+    echo "The script $0 WAS NOT sourced."
 fi
 
 echo PATH=$PATH
 
 ./PreStartMUD.sh
-
-
 
 
 # #( mkdir -p /tmp/tempDir/ ; cp -a tempDir/?* /tmp/tempDir/?* ;  cd  /tmp/tempDir/ ; ln  -s * -r /home/prologmud_server/lib/swipl/pack/prologmud_samples/prolog/prologmud_sample_games/ )
@@ -39,8 +37,8 @@ export NEWPWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 . $LOGICMOO_WS/packs_web/butterfly/bin/activate
 
-pip3 freeze > /tmp/requirements3a.txt
-pip freeze > /tmp/requirements2a.txt
+pip3 freeze > /tmp/requirements3a.txt 2>&1
+pip freeze > /tmp/requirements2a.txt 2>&1
 
 pip install tornado asyncio
 
@@ -62,8 +60,6 @@ pathmunge () {
 pathmunge $LOGICMOO_WS/bin
 pathmunge /opt/logicmoo_workspace/packs_web/butterfly
 #pathmunge /opt/anaconda3/bin
-
-
 
 
 if [[ -z "${LOGICMOO_BASE_PORT}" ]]; then
@@ -113,16 +109,10 @@ fi
 echo LOGICMOO_WS=$LOGICMOO_WS
 echo LOGICMOO_BASE_PORT=$LOGICMOO_BASE_PORT
 
-(
-pidof  eggdrop >/dev/null
-if [[ $? -eq 1 ]] ; then
+if [[ "$(pidof eggdrop)"=="" ]] ; then
  echo "Starting eggdrop:     $(date)" 
- cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; sudo -u prologmud_server -- eggdrop -m
-fi
-)
-
-# killall -9 swipl-prologmud
-       
+ ( cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; sudo -u prologmud_server -- eggdrop -m )
+fi     
 
 export SWIPL="$LOGICMOO_WS/bin/swipl"
 # SWIPL=+" -G18G -L18G -T18G"
@@ -134,8 +124,8 @@ export CMDARGS="-l run_mud_server.pl $*"
 # CMDARGS=+" --sigma --www --docs --cliop --swish --plweb --elfinder"
 # CMDARGS=+" --tinykb --fullkb --rcyc --logtalk --nlu --pdt --irc"
 
-#unset DISPLAY
 
+#unset DISPLAY
 #nvm use 8.0.0
 #nvm use --delete-prefix v8.0.0 --silent
 #node --version
@@ -197,8 +187,6 @@ cls_putty() {
 }
 
 [[ -z "$LOGTALKHOME" ]] && export LOGTALKHOME=/usr/share/logtalk
-
-
 [[ -z "$LOGTALKUSER" ]] && export LOGTALKUSER=$LOGTALKHOME
 
 export COMMAND_LAST=8
