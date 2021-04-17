@@ -20,7 +20,6 @@ ENV SHELL /bin/bash
 
 # who/where
 ENV LOGICMOO_USER prologmud_server
-ENV HOME /root
 ENV LOGICMOO_WS /opt/logicmoo_workspace
 ENV LOGICMOO_GAMES $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
 
@@ -66,6 +65,7 @@ EXPOSE 4006
 
 RUN mkdir -p $LOGICMOO_WS/../
 WORKDIR $LOGICMOO_WS/../
+ENV HOME /root
 # check out our repo
 RUN mkdir -p /opt \
  && cd /opt ; pwd \
@@ -80,29 +80,28 @@ WORKDIR $LOGICMOO_WS
 # Pull in fixes
 MAINTAINER RUN cd $LOGICMOO_WS \
  && git fetch origin \
- && git reset --hard origin/master \
  && git pull --recurse-submodules
 
 # do local updates
-MAINTAINER RUN ./INSTALL.md
+RUN ./INSTALL.md
 
 # make our process running user
-MAINTAINER RUN adduser --disabled-password --gecos "" --no-create-home $LOGICMOO_USER --home $LOGICMOO_GAMES \
- && echo MAINTAINER chown -R $LOGICMOO_USER $LOGICMOO_GAMES
+RUN adduser --disabled-password --gecos "" --no-create-home $LOGICMOO_USER --home $LOGICMOO_GAMES \
+ && echown -R $LOGICMOO_USER $LOGICMOO_GAMES
 
 # apache config
-MAINTAINER RUN cp -a $LOGICMOO_WS/packs_web/logicmoo_webui/etc/* /etc \
- && cp -a $LOGICMOO_WS/packs_web/logicmoo_webui/var/* /var \
+RUN cp -a $LOGICMOO_WS/packs_web/logicmoo_webui/etc/* /etc \
+ && cp -a -n $LOGICMOO_WS/packs_web/logicmoo_webui/var/* /var \
  # shell config \
- && cp -a $LOGICMOO_WS/etc/* /etc
+ && cp -a -n $LOGICMOO_WS/etc/* /etc
 
 # install swi-prolog
 MAINTAINER RUN cd $LOGICMOO_WS && ./INSTALL-SWI.md
 
 # set up our runtime stuff (give root better shell stuff and our likely history commands)
-MAINTAINER RUN cp -f $LOGICMOO_GAMES/.??*rc ~root/ \
- && cp -f $LOGICMOO_GAMES/.bash* ~root/ \
- && cp -f $LOGICMOO_GAMES/.profile* ~root/ \
+RUN cp -f $LOGICMOO_GAMES/.??*rc ~root/ \
+ && cp -n $LOGICMOO_GAMES/.bash* ~root/ \
+ && cp -n $LOGICMOO_GAMES/.profile* ~root/ \
  && touch $LOGICMOO_GAMES/history_3804 \
  && touch $LOGICMOO_GAMES/completion_3804 \
  && touch $LOGICMOO_GAMES/nohup.out \
