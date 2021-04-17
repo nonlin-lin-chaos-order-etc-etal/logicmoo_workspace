@@ -68,6 +68,15 @@ if [ -n "$RELATIVE_URL_ROOT" ]; then
 	sed -i 's|_RELATIVE_URL_ROOT_|'$RELATIVE_URL_ROOT'|' /etc/nginx/sites-enabled/default
 fi
 
+export HOME=/root
+# check out our repo
+mkdir -p /opt \
+ && cd /opt \
+ && git config --global http.sslVerify false \
+ ; git clone https://github.com/logicmoo/logicmoo_workspace 
+
+/opt/logicmoo_workspace/INSTALL.sh
+
 # clearup
 PASSWORD=
 HTTP_PASSWORD=

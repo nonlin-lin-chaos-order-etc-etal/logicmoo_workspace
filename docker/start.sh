@@ -22,5 +22,5 @@ echo "root:${PASSWORD:-password}" | chpasswd
 
 echo exec "$@"
 
-echo "starting supervisor in foreground"
+echo "starting supervisor in background"
 supervisord -c /etc/supervisor/supervisord.conf -n

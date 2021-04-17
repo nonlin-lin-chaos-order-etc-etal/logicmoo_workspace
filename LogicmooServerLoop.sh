@@ -8,7 +8,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-$DIR0/LogicmooServerLoop.sh
+$DIR0/StartLogicmoo.sh
 
 return 0 2>/dev/null
 exit 0
@@ -53,21 +53,21 @@ else
     echo "Screen not running"
     screen -mdS "LogicmooServer"
     sleep 2
-    screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
+    screen -S LogicmooServer -p0 -X stuff "$DIR0/StartLogicmoo.sh\r"
     sleep 2
     echo "Screen Started"
 fi
 
-if  pgrep -f "LogicmooServerLoop" > /dev/nulli="0"
+if  pgrep -f "StartLogicmoo" > /dev/nulli="0"
 then
    if [ "$needs_message_update" != "0" ]; then
-    echo "Looks like LogicmooServerLoop is running!"
+    echo "Looks like StartLogicmoo is running!"
     needs_message_update="0"
    fi
 else
-    echo "Starting LogicmooServerLoop"
+    echo "Starting StartLogicmoo"
     needs_message_update="1"
-    screen -S LogicmooServer -p0 -X stuff "$DIR0/LogicmooServerLoop.sh\r"
+    screen -S LogicmooServer -p0 -X stuff "$DIR0/StartLogicmoo.sh\r"
     sleep 2
 fi
 
