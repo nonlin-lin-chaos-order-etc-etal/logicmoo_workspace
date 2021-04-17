@@ -42,6 +42,19 @@ fi
  # libcurl4-gnutls-dev
  # libcurl4-openssl-dev
  #add-apt-repository ppa:c2d4u.team/c2d4u4.0+ -y
+return 0 2>/dev/null
+exit 0
+
+
+
+
+
+
+
+
+
+
+
 
  apt-get update
  apt-get install -y libnet-nslookup-perl 
