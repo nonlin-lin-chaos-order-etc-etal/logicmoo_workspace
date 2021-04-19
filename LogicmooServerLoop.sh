@@ -27,9 +27,8 @@ else
     screen -S LogicmooServer -p0 -X stuff "$DIR0/StartLogicmoo.sh\r"
     sleep 2
     echo "Screen Started"
-fi
 
-if  pgrep -f "StartLogicmoo" > /dev/nulli="0"
+     if  pgrep -f "StartLogicmoo" > /dev/nulli="0"
 then
    if [ "$needs_message_update" != "0" ]; then
     echo "Looks like StartLogicmoo is running!"
@@ -40,6 +39,8 @@ else
     needs_message_update="1"
     screen -S LogicmooServer -p0 -X stuff "$DIR0/StartLogicmoo.sh\r"
     sleep 2
+fi
+
 fi
 
 sleep 30
