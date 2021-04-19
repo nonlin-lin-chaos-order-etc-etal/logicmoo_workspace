@@ -1045,7 +1045,7 @@ fixup_exports_system:-   (prolog_load_context(source,SF)-> reexport(SF) ; true).
 
 %:- logicmoo_startup:use_module(library(option),[options/3]).
 
-logicmoo_base_port(Base):- getenv_or('LOGICMOO_BASE_PORT',Base,3000),!.
+logicmoo_base_port(Base):- getenv_or('LOGICMOO_BASE_PORT',Base,4000),!.
 logicmoo_base_port(Base):- app_argv1(One),\+ is_list(One),
    (atom(One)-> (atomic_list_concat([_,Atom],'port=',One),atom_number(Atom,Base20))),!,Base is Base20 -20,
    setenv('LOGICMOO_BASE_PORT',Base).
