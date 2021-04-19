@@ -31,8 +31,8 @@ then
 while :
 do
    setenv -x -e
-   echo MAYBE (IN OTHER TERMINAL): docker exec -it logicmoo screen -r
-   echo OR (IN OTHER TERMINAL): docker exec -it logicmoo bash
+   echo "MAYBE (IN OTHER TERMINAL): docker exec -it logicmoo screen -r"
+   echo "OR (IN OTHER TERMINAL): docker exec -it logicmoo bash"
 	sleep 30
 done
 else
