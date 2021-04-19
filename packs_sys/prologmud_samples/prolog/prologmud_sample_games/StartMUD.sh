@@ -136,14 +136,14 @@ function start_redirect {
       START_REDIR="nohup $BUTTERFLY --i-hereby-declare-i-dont-want-any-security-whatsoever --unsecure --host=0.0.0.0 --port=${PORT100} --cmd=\"/usr/bin/rlwrap -a -A -r -c -N -r --file=${COMP} --history-filename=${HIST} -s 1000 /usr/bin/telnet localhost ${PORT}\" "
       START_REDIR="nohup $BUTTERFLY --i-hereby-declare-i-dont-want-any-security-whatsoever --unsecure --host=0.0.0.0 --port=${PORT100} --cmd=\"/usr/bin/telnet localhost ${PORT}\" "
    echo $START_REDIR   
-   eval $START_REDIR & 
+  # eval $START_REDIR & 
 }
 
      
 
 function kill_redirect {
-     lsof -t -i:$((100+$1)) | xargs --no-run-if-empty echo USE_NET=1 kill -9
-     lsof -t -i:$((100+$1)) | xargs --no-run-if-empty kill -9
+   #  lsof -t -i:$((100+$1)) | xargs --no-run-if-empty echo USE_NET=1 kill -9
+   #  lsof -t -i:$((100+$1)) | xargs --no-run-if-empty kill -9
 }
 
 
@@ -153,8 +153,8 @@ if [ $# -eq 0 ]
  then
     # //root
      if [[ $(id -u) == 0 ]]; then
-        export RUNFILE="${RL_PREFIX} ${SWIPL} ${KBFILE} ${CMDARGS} --nonet --repl --noworld"
-        export USE_NET=0
+        export RUNFILE="${RL_PREFIX} ${SWIPL} ${KBFILE} ${CMDARGS}"
+        export USE_NET=1
      else
         export RUNFILE="${RL_PREFIX} ${SWIPL} ${KBFILE} ${CMDARGS}" 
      fi
@@ -320,8 +320,8 @@ wasdir=""
          kill_redirect $(($LOGICMOO_BASE_PORT+3))
          kill_redirect $(($LOGICMOO_BASE_PORT+23))
          kill_redirect $(($LOGICMOO_BASE_PORT+25))
-         kill_redirect $(($LOGICMOO_BASE_PORT+301))
-         kill_redirect $(($LOGICMOO_BASE_PORT+804))
+         #kill_redirect $(($LOGICMOO_BASE_PORT+301))
+         #kill_redirect $(($LOGICMOO_BASE_PORT+804))
        fi
 
       reset -c -Q -w -I -w
