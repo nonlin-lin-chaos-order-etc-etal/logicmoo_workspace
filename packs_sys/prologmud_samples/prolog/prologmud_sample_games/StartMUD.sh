@@ -127,10 +127,14 @@ function start_redirect {
    touch $COMP
    lsof -t -i:$PORT100 | xargs --no-run-if-empty kill -9
 
+    local BUTTERFLY="$LOGICMOO_WS/packs_web/butterfly/butterfly.server.py"
+      BUTTERFLY="/usr/local/bin/butterfly.server.py"
+
 #   local START_REDIR="nohup node app.js -p ${PORT100} -c rlwrap -a -A -r -c -N -r --file=${COMP} --history-filename=${HIST} -s 1000 telnet localhost ${PORT}"
 #   local START_REDIR="nohup ttyd -r 100 -p ${PORT100}    rlwrap -a -A -r -c -N -r --file=${COMP} --history-filename=${HIST} -s 1000 telnet localhost ${PORT}"
-      local START_REDIR="nohup $LOGICMOO_WS/packs_web/butterfly/butterfly.server.py --debug --i-hereby-declare-i-dont-want-any-security-whatsoever --unsecure --host=0.0.0.0 --port=${PORT100} --cmd=\"/usr/bin/rlwrap -a -A -r -c -N -r --file=${COMP} --history-filename=${HIST} -s 1000 /usr/bin/telnet localhost ${PORT}\" "
-   START_REDIR="nohup $LOGICMOO_WS/packs_web/butterfly/butterfly.server.py --debug --i-hereby-declare-i-dont-want-any-security-whatsoever --unsecure --host=0.0.0.0 --port=${PORT100} --cmd=\"/usr/bin/telnet localhost ${PORT}\" "
+      local START_REDIR=""
+      START_REDIR="nohup $BUTTERFLY --i-hereby-declare-i-dont-want-any-security-whatsoever --unsecure --host=0.0.0.0 --port=${PORT100} --cmd=\"/usr/bin/rlwrap -a -A -r -c -N -r --file=${COMP} --history-filename=${HIST} -s 1000 /usr/bin/telnet localhost ${PORT}\" "
+      START_REDIR="nohup $BUTTERFLY --i-hereby-declare-i-dont-want-any-security-whatsoever --unsecure --host=0.0.0.0 --port=${PORT100} --cmd=\"/usr/bin/telnet localhost ${PORT}\" "
    echo $START_REDIR   
    eval $START_REDIR & 
 }

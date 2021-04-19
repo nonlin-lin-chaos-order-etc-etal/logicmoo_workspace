@@ -30,7 +30,7 @@ then
  /startup.sh &
 while :
 do
-   setenv -x -e
+   set -e
    echo "MAYBE (IN OTHER TERMINAL): docker exec -it logicmoo screen -r"
    echo "OR (IN OTHER TERMINAL): docker exec -it logicmoo bash"
 	sleep 30
