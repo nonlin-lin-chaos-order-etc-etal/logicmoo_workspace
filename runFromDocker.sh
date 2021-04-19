@@ -36,7 +36,7 @@ docker build -t logicmoo/logicmoo_workspace $EXTRA  .
 
 echo MAYBE: docker push logicmoo/logicmoo_workspace
 
-exec docker run --name logicmoo -ti --rm -p 4022:57575 -p 4123:4123 -p 4180:80/tcp -p 4443:443/tcp -p 4020:3020/tcp -p 4000-4004:4000-4004/tcp -p 4100-4104:4100-4104/tcp -p 4188:801 $EXTRA logicmoo/logicmoo_workspace:latest
+echo exec docker run --name logicmoo -ti --rm -p 4022:57575 -p 4123:4123 -p 4180:80/tcp -p 4443:443/tcp -p 4020:3020/tcp -p 4000-4004:4000-4004/tcp -p 4100-4104:4100-4104/tcp -p 4188:801 $EXTRA logicmoo/logicmoo_workspace:latest
 
 
 )
