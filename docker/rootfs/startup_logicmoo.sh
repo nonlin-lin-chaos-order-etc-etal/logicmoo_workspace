@@ -15,7 +15,8 @@ fi
 . /opt/logicmoo_workspace/INSTALL.md
 
 find /opt/logicmoo_workspace/packs_sys/logicmoo_nlu -name "*.qlf" -delete
-rm -rf /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/tt0_00022_cycl.qlf
+rm -f /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/tt0_00022_cycl.qlf
+rm -f /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/plkb0988_kb.qlf
 
 find /opt/logicmoo_workspace/ -type d -exec chmod 777 {} +
 chmod a+w -R /opt/logicmoo_workspace/
