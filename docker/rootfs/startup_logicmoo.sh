@@ -7,10 +7,10 @@ then
  cd /opt 
  git config --global http.sslVerify false \
  git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace 
+else
+ cd /opt/logicmoo_workspace
+ git checkout master .
 fi
-
-cd /opt/logicmoo_workspace
-git checkout master .
 
 . /opt/logicmoo_workspace/INSTALL.md
 
@@ -28,10 +28,13 @@ chmod a+w -R /tmp/
 if [[ -f /startup.sh ]]
 then
  /startup.sh &
+while :
+do
+   echo MAYBE: docker exec -it logicmoo screen -r
+	sleep 10
+done
 else
  supervisord  -c /etc/supervisor/supervisord.conf
  /opt/logicmoo_workspace/StartLogicmoo.sh
 fi
 
-
-sleep 10000000000000
