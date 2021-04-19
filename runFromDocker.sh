@@ -21,7 +21,7 @@ export LOGICMOO_WS=$DIR0
 EXTRA="${@}"
 EXTRA="$EXTRA --add-host logicmoo.org:10.0.0.194"
 
-git commit -am docker/ros-eloquent-desktop.sh
+git commit -am "Docker $(date)"
 git push gitlab
 
 (

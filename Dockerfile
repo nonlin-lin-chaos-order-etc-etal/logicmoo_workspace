@@ -34,19 +34,19 @@ ENV HOME /root
 
 
 # @TODO (something here)
-MAINTAINER RUN apt-get update && apt-get install -y \
-	libcurl4-openssl-dev \
-	libssl-dev \
-	libcairo-dev \
-	libxml2-dev \
-	libudunits2-dev \
-	libgeos++-dev \
-	libtiff-dev \
-	libopenmpi-dev \
-        libtinfo-dev \
-        libreadline-dev \
-	swi-prolog-*
+ENV LOGICMOO_WS /opt/logicmoo_workspace
 
-#CMD /opt/logicmoo_workspace/StartLogicmoo.sh
+COPY . $LOGICMOO_WS
+ENV PATH="${LOGICMOO_WS}/bin:${PATH}"
+ENV WNDB $LOGICMOO_WS/packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog
+RUN git checkout $LOGICMOO_WS/packs_sys/logicmoo_nlu/ \
+ && cd $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata && swipl -g "time(qcompile(wn_iface)),halt." \
+ && cd $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata && swipl -g "time(qcompile(tt0_00022_cycl)),halt." \
+ \
+ && cd $LOGICMOO_WS/packs_xtra/logicmoo_pldata/ext/plkb0988 && swipl -g "time(qcompile(plkb098)),halt." \
+ && git commit -am "plkb0988-$(date)" \
+ && git push -f
+ && rm -rf $LOGICMOO_WS/packs_xtra/logicmoo_pldata/ext/plkb0988
 
-COPY . /opt/logicmoo_workspace
+#CMD $LOGICMOO_WS/StartLogicmoo.sh
+

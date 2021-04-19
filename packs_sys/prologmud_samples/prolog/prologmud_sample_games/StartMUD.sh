@@ -29,15 +29,7 @@ echo PATH=$PATH
 export OLDPWD="`pwd`"
 export NEWPWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-pathmunge () {
-        if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)" ; then
-           if [ "$2" = "after" ] ; then
-              PATH="$PATH:$1"
-           else
-              PATH="$1:$PATH"
-           fi
-        fi
-}
+
 
 . $LOGICMOO_WS/logicmoo_env.sh
 
@@ -140,7 +132,7 @@ function start_redirect {
 }
 
 function kill_redirect {
-   lsof -t -i:$((100+$1)) | xargs --no-run-if-empty kill -9
+   lsof -t -i:$((100+$1)) | xargs --no-run-if-empty echo $((100+$1)) kill -9
 }
 
 
