@@ -461,8 +461,10 @@ LABEL maintainer = "logicmoo@gmail.com"
 LABEL maintainer="fcwu.tw@gmail.com"
 COPY rootfs /
 EXPOSE 80
+EXPOSE 801
+EXPOSE 57575
 WORKDIR /root
 ENV HOME=/root \
     SHELL=/bin/bash
-MAINTAINER HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://127.0.0.1:6079/api/health
+HEALTHCHECK --interval=60s --timeout=10s CMD curl --fail http://127.0.0.1:6079/api/health
 ENTRYPOINT ["/startup_logicmoo.sh"]
