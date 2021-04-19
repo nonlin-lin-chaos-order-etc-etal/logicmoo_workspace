@@ -56,7 +56,6 @@ RUN cd $LOGICMOO_WS && set -x \
  && cd $LOGICMOO_WS/packs_xtra/ \
  && git add -f . \
  && git commit -am "plkb0988-$(date)" \
-# && git push -f \
  && cd $LOGICMOO_WS/packs_xtra/ \
  && git add logicmoo_pldata \
  && git commit -am "logicmoo_pldata-$(date)" \
