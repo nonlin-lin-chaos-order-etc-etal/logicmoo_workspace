@@ -9,7 +9,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-$DIR0/StartLogicmoo.sh
+# $DIR0/StartLogicmoo.sh
 
 while [ 0 -lt 4 ]
 do

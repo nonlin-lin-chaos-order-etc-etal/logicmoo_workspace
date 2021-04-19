@@ -26,24 +26,8 @@ echo PATH=$PATH
 ./PreStartMUD.sh
 
 
-# #( mkdir -p /tmp/tempDir/ ; cp -a tempDir/?* /tmp/tempDir/?* ;  cd  /tmp/tempDir/ ; ln  -s * -r /home/prologmud_server/lib/swipl/pack/prologmud_samples/prolog/prologmud_sample_games/ )
-
-#cls ; killall -9 swipl perl ; killall -9 swipl perl ;  swipl --irc --world --repl -g "[run_mud_server]" -s run_clio.pl
-#cls ; killall -9 swipl-prologmud perl ; killall -9 swipl perl ;  swipl -l run.pl -l run_mud_server.pl --irc --world --clio
-
 export OLDPWD="`pwd`"
 export NEWPWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-#export SWIPL=/usr/local/lib/swipl-7.1.11/bin/x86_64-linux/swipl
-
-. $LOGICMOO_WS/packs_web/butterfly/bin/activate
-
-pip3 freeze > /tmp/requirements3a.txt 2>&1
-pip freeze > /tmp/requirements2a.txt 2>&1
-
-pip install tornado asyncio
-
-# export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-oracle/jre/lib/amd64/server/
-#export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
 
 pathmunge () {
         if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)" ; then
@@ -125,10 +109,13 @@ export CMDARGS="-l run_mud_server.pl $*"
 # CMDARGS=+" --tinykb --fullkb --rcyc --logtalk --nlu --pdt --irc"
 
 
-#unset DISPLAY
-#nvm use 8.0.0
-#nvm use --delete-prefix v8.0.0 --silent
-#node --version
+
+. $LOGICMOO_WS/packs_web/butterfly/bin/activate
+
+pip3 freeze > /tmp/requirements3a.txt 2>&1
+pip freeze > /tmp/requirements2a.txt 2>&1
+
+pip install tornado asyncio
 
 function start_redirect {
    local PORT=$((200+$1))
