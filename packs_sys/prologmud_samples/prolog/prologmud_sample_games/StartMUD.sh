@@ -111,7 +111,7 @@ echo LOGICMOO_BASE_PORT=$LOGICMOO_BASE_PORT
 
 if [[ "$(pidof eggdrop)"=="" ]] ; then
  echo "Starting eggdrop:     $(date)" 
- ( cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; sudo -u prologmud_server -- eggdrop -m )
+ # ( cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; sudo -u prologmud_server -- eggdrop -m )
 fi     
 
 export SWIPL="$LOGICMOO_WS/bin/swipl"

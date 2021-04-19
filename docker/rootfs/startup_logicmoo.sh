@@ -12,5 +12,9 @@ mkdir -p /opt \
 #PASSWORD=
 #HTTP_PASSWORD=
 
-/startup.sh
-#exec /bin/tini -- supervisord -n -c /etc/supervisor/supervisord.conf
+[[ -f /startup.sh ]] && /startup.sh
+
+exec /bin/tini -- supervisord -n -c /etc/supervisor/supervisord.conf
+
+/opt/logicmoo_workspace/StartLogicmoo.sh
+sleep 10000000000000

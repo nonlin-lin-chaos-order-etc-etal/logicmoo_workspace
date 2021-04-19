@@ -4,12 +4,11 @@
 # base system
 ################################################################################
 
-FROM centminmod/docker-ubuntu-vnc-desktop
-FROM dickhub/ubuntu-xfce-vnc
-FROM ct2034/vnc-ros-kinetic-full
-FROM tiryoh/ros2-desktop-vnc
-
-
+#FROM centminmod/docker-ubuntu-vnc-desktop
+#FROM dickhub/ubuntu-xfce-vnc
+#FROM ct2034/vnc-ros-kinetic-full
+#FROM tiryoh/ros2-desktop-vnc
+FROM aicampbell/vnc-ubuntu18-xfce
 EXPOSE 80
 
 
@@ -137,6 +136,7 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  libtsan0 \
  libtool \
  #libtinfo6 \
+ libreadline-dev \
  libtiff-dev \
  libtcmalloc-minimal4 \
  libstdc++-8-dev \
@@ -304,12 +304,12 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  #python-pip \
  #libx265-165 libjpeg62-turbo libmailutils5 \
  #xvnc4viewer libreadline7
-  libcurl4-openssl-dev libgazebo9-dev libignition-fuel-tools1-dev \
-  ros-dashing-desktop ros-dashing-gazebo-dev ros-dashing-gazebo-plugins \
-  ros-dashing-gazebo-ros ros-dashing-gazebo-ros-pkgs \
-  ros-dashing-libcurl-vendor ros-dashing-resource-retriever \
-  ros-dashing-rviz-common ros-dashing-rviz-default-plugins \
-  ros-dashing-rviz-rendering ros-dashing-rviz2 \
+ # libcurl4-openssl-dev libgazebo9-dev libignition-fuel-tools1-dev \
+ # ros-dashing-desktop ros-dashing-gazebo-dev ros-dashing-gazebo-plugins \
+ # ros-dashing-gazebo-ros ros-dashing-gazebo-ros-pkgs \
+ # ros-dashing-libcurl-vendor ros-dashing-resource-retriever \
+ # ros-dashing-rviz-common ros-dashing-rviz-default-plugins \
+ # ros-dashing-rviz-rendering ros-dashing-rviz2 \
  && echo apt autoclean -y \
  && echo apt autoremove -y \
  && rm -rf /var/lib/apt/lists/* 

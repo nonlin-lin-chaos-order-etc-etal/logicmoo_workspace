@@ -65,12 +65,14 @@ if [ ! -z "$LOGICMOO_EXTRAS" ];
   && rm -f eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz
  fi
 
+apt-add-repository -y ppa:swi-prolog/devel
+apt-get install -y swi-prolog elpa-ediprolog swi-prolog-java swi-prolog-odbc swi-prolog-bdb
 
 # check out our repo
 mkdir -p /opt \
  && cd /opt \
- && git config --depth 1 --global http.sslVerify false \
- && git clone https://github.com/logicmoo/logicmoo_workspace $LOGICMOO_WS ; /bin/true
+ && git config --global http.sslVerify false \
+ && git clone --depth 1  https://github.com/logicmoo/logicmoo_workspace $LOGICMOO_WS ; /bin/true
 # do local updates \
 cd $LOGICMOO_WS \
  && git config --local http.sslVerify false \
