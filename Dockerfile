@@ -39,7 +39,11 @@ ENV LOGICMOO_WS /opt/logicmoo_workspace
 COPY . $LOGICMOO_WS
 ENV PATH="${LOGICMOO_WS}/bin:${PATH}"
 ENV WNDB $LOGICMOO_WS/packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog
-RUN git checkout $LOGICMOO_WS/packs_sys/logicmoo_nlu/ \
+
+RUN 
+ && cd $LOGICMOO_WS \
+ && git checkout . \
+ && git submodule update --init . \
  && cd $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata && swipl -g "time(qcompile(wn_iface)),halt." \
  && cd $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata && swipl -g "time(qcompile(tt0_00022_cycl)),halt." \
  \
