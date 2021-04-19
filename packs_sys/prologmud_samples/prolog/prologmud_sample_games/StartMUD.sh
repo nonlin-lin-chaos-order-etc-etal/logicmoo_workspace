@@ -43,7 +43,7 @@ pip freeze > /tmp/requirements2a.txt 2>&1
 pip install tornado asyncio
 
 # export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-oracle/jre/lib/amd64/server/
-export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
+#export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
 
 pathmunge () {
         if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)" ; then

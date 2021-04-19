@@ -7,10 +7,11 @@
 #FROM centminmod/docker-ubuntu-vnc-desktop
 #FROM dickhub/ubuntu-xfce-vnc
 #FROM ct2034/vnc-ros-kinetic-full
-#FROM tiryoh/ros2-desktop-vnc
-FROM aicampbell/vnc-ubuntu18-xfce
+FROM tiryoh/ros2-desktop-vnc
+MAINTAINER FROM dorowu/ubuntu-desktop-lxde-vnc:bionic
+LABEL maintainer="Tiryoh<tiryoh@gmail.com>"
+#FROM aicampbell/vnc-ubuntu18-xfce
 EXPOSE 80
-
 
 #
 # from root@debian10:/opt/logicmoo_workspace
@@ -25,17 +26,25 @@ LABEL maintainer = "logicmoo@gmail.com"
 ARG DEBIAN_FRONTEND=noninteractive
 ARG --security-opt seccomp:unconfined
 
-RUN mkdir -p /usr/share/man/man1 && apt-get update \
+
+RUN mkdir -p /usr/share/man/man1 \
+ && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
+ && apt-get update -qq && apt-get install -y locales -qq \
+ && locale-gen en_AU \
+ && locale-gen en_AU.UTF-8 \
+ && dpkg-reconfigure locales \
+ # && locale-gen C.UTF-8 \
+ && dpkg-reconfigure locales \
  && apt-get install -y --no-install-recommends --allow-unauthenticated \
  \
- init \
- openjdk-11-jdk \
- # openjdk-8-jdk \
- \
- apt-utils \
+ lsb-release \
+ tzdata \
+ gosu \
  zlib1g-dev \
  zlib1g \
+ zip \
  yarn \
+ #xvnc4viewer \
  xvfb \
  xtrans-dev \
  xterm \
@@ -44,18 +53,20 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  xdotool \
  xauth \
  x11vnc \
+ x11-utils \
  x11proto-xinerama-dev \
  x11proto-xext-dev \
  x11proto-dev \
  x11proto-core-dev \
- x11-utils \
  wget \
  vim \
  uuid-dev \
+ unzip \
  unixodbc-dev \
  unixodbc \
  unattended-upgrades \
  tightvncserver \
+ # tini \
  texlive-extra-utils \
  tdsodbc \
  supervisor \
@@ -80,9 +91,12 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  r-base-dev \
  r-base \
  qt5-default \
- python3-pip \
+ python-virtualenv \
+ python-setuptools \
  python-dev \
+ python3-pip \
  python3-dev \
+ python-pip-whl \
  pwgen \
  psmisc \
  po-debconf \
@@ -91,20 +105,29 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  pandoc-data \
  pandoc \
  openssh-server \
+ # openjdk-8-jdk \
+ openjdk-11-jdk \
+ odbc-postgresql \
  odbcinst1debian2 \
  odbcinst \
- odbc-postgresql \
  nodejs-doc \
  ninja-build \
- netbase \
+ #nginx-full \
+ nginx-core \
  net-tools \
+ netbase \
  ncurses-term \
  ncurses-dev \
  ncdu \
  nano \
+ mysql-common \
  mesa-utils \
+ mariadb-common \
  make \
+ mailutils-common \
+ mailutils \
  m4 \
+ m17n-db \
  lynx \
  lxde \
  lwm \
@@ -112,76 +135,87 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  linux-libc-dev \
  libyaml-dev \
  libyaml-0-2 \
- libxt6 \
  libxt-dev \
+ libxt6 \
  libxrender-dev \
- libxpm4 \
  libxpm-dev \
+ libxpm4 \
  libxml2-dev \
- libxinerama1 \
  libxinerama-dev \
- libxft2 \
+ libxinerama1 \
  libxft-dev \
- libxext6 \
+ libxft2 \
  libxext-dev \
+ libxext6 \
  libxdmcp-dev \
  libxcb1-dev \
  libxau-dev \
+ #libx265-165
  libx11-dev \
  libx11-6 \
+ libwebpmux3 \
  libuv1-dev \
  libunwind-dev \
+ #libunbound8 \
  libudunits2-dev \
  libubsan1 \
  libtsan0 \
  libtool \
  #libtinfo6 \
- libreadline-dev \
+ libtinfo5 \
  libtiff-dev \
  libtcmalloc-minimal4 \
  libstdc++-8-dev \
- libssl1.1 \
  libssl-dev \
+ libssl1.1 \
  libssh-dev \
  libsqlite3-0 \
- libsm6 \
  libsm-dev \
+ libsm6 \
  libsigsegv2 \
  libserd-dev \
  libserd-0-0 \
  librhash0 \
  libreoffice \
  libreadline-dev \
+ libreadline7 \
  #libraptor2-dev \
- #libcurl4-gnutls-dev \
- libcurl4-openssl-dev \
  libraptor2-0 \
  libpthread-stubs0-dev \
  libpng-dev \
  libpcrecpp0v5 \
- libpcre32-3 \
  libpcre3-dev \
+ libpcre32-3 \
  libpcre3 \
  libpcre16-3 \
- libossp-uuid16 \
+ #libotf0 \
  libossp-uuid-dev \
+ libossp-uuid16 \
  libopenmpi-dev \
  libodbc1 \
- #libnode64 \
+ #libntlm0 \
  #libnode-dev \
+ #libnode64 \
  libnet-nslookup-perl \
- #libncurses6 \
  libncurses-dev \
+ #libncurses6 \
  libmpx2 \
+ #libmariadb3 \
+ libmailutils5 \
+ #libmagickwand-6.q16-6
+ #libmagickcore-6.q16-6 \
+ #libm17n-0 \
  liblzma-dev \
  liblua5.1-0 \
- libltdl7 \
  libltdl-dev \
+ libltdl7 \
  liblsan0 \
- libjsoncpp1 \
+ #liblqr-1-0 \
+ #libkyotocabinet16v5 \
  libjs-twitter-bootstrap-datepicker \
  libjs-sifter.js \
  libjs-prettify \
+ libjsoncpp1 \
  libjs-microplugin.js \
  libjs-json \
  libjs-jquery-ui \
@@ -193,57 +227,72 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  libjs-highlight.js \
  libjs-es5-shim \
  libjs-d3 \
- libjpeg62 \
  libjpeg-turbo-progs \
  libjpeg-dev \
+ #libjpeg62-turbo \
+ libjpeg62 \
  libitm1 \
- libice6 \
  libice-dev \
+ libice6 \
+ libheif1 \
+ libgsasl7 \
  libgoogle-perftools-dev \
+ libgnutls-dane0 \
  libgmpxx4ldbl \
- libgmp10 \
  libgmp-dev \
+ libgmp10 \
  libgl1-mesa-dri \
- libgeos-c1v5 \
  libgeos++-dev \
+ libgeos-c1v5 \
  libgcc-8-dev \
+ libgc1c2 \
  libfreetype6-dev \
  libfreetype6 \
  libfontconfig1-dev \
  libfontconfig1 \
  libfile-stripnondeterminism-perl \
+ libfftw3-double3 \
  libffi-dev \
  libexpat1-dev \
- libedit2 \
  libedit-dev \
+ libedit2 \
  libdpkg-perl \
+ libde265-0 \
+ libdb-dev \
  libdb5.3-dev \
  libdb5.3 \
- libdb-dev \
+ libcurl4-openssl-dev \
+ #libcurl4-gnutls-dev \
+ libc-dev-bin \
  libcc1-0 \
+ libc-ares2 \
  libcairo-dev \
  libc6-dev \
  libc6 \
- libc-dev-bin \
- libc-ares2 \
  libbsd-dev \
  libbinutils \
  libatk-wrapper-java-jni \
  libatk-wrapper-java \
  libasan5 \
- libarchive13 \
  libarchive-zip-perl \
  libarchive-dev \
+ libarchive13 \
  libapache2-mod-wsgi \
  less \
  junit4 \
  junit \
  intltool-debian \
+ install-info \
+ init \
  gyp \
  gtk2-engines-pixbuf \
  gtk2-engines-murrine \
+ gsfonts guile-2.2-libs imagemagick-6-common \
+ ghostscript \
+ gnupg \
  gnome-themes-standard \
  gitweb \
+ git-lfs \
  gitk \
  git-gui \
  git \
@@ -256,6 +305,13 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  g++-8 \
  g++ \
  file \
+ exim4-base \
+ exim4-config \
+ exim4-daemon-light \
+ #emacs-gtk \
+ emacsen-common \
+ emacs \
+ elpa-ediprolog \
  eggdrop \
  dwz \
  dpkg-dev \
@@ -265,6 +321,7 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  dctrl-tools \
  dbus-x11 \
  curl \
+ cron \
  cmake-data \
  cmake \
  ca-certificates \
@@ -279,6 +336,7 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  automake \
  autoconf \
  arc-theme \
+ apt-utils \
  apache2-utils \
  apache2-suexec-pristine \
  apache2-suexec-custom \
@@ -289,21 +347,8 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  apache2-bin \
  apache2 \
  analog \
+ \
  # odd deps we missed for SWI-Prolog (world build version) \
- cron elpa-ediprolog emacs \
- #emacs-bin-common emacs-common emacs-el emacs-gtk \
- emacsen-common exim4-base exim4-config exim4-daemon-light ghostscript \
- gsfonts guile-2.2-libs imagemagick-6-common install-info libde265-0 \
- libfftw3-double3 libgc1c2 libgnutls-dane0 libgsasl7 libheif1 \
- #libkyotocabinet16v5 liblqr-1-0 libm17n-0 libmagickcore-6.q16-6 \
- # libmagickwand-6.q16-6  libmariadb3 libntlm0 libotf0 libunbound8 \
- libwebpmux3 m17n-db mailutils mailutils-common mariadb-common \
- mysql-common \
- #python-virtualenv \
- #python-setuptools \
- #python-pip \
- #libx265-165 libjpeg62-turbo libmailutils5 \
- #xvnc4viewer libreadline7
  # libcurl4-openssl-dev libgazebo9-dev libignition-fuel-tools1-dev \
  # ros-dashing-desktop ros-dashing-gazebo-dev ros-dashing-gazebo-plugins \
  # ros-dashing-gazebo-ros ros-dashing-gazebo-ros-pkgs \
@@ -314,50 +359,47 @@ RUN mkdir -p /usr/share/man/man1 && apt-get update \
  && echo apt autoremove -y \
  && rm -rf /var/lib/apt/lists/* 
 
+RUN mkdir -p /var/lock/apache2 /var/run/apache2 /var/run/sshd /var/log/supervisor
+#RUN cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original
+#RUN chmod a-w /etc/ssh/sshd_config.original
+RUN echo 'root:ubuntu' | chpasswd
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+#COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+EXPOSE 22 80
+#CMD [“/usr/bin/supervisord”]
+ENV USER ubuntu
+MAINTAINER RUN useradd --create-home --home-dir /home/ubuntu --shell /bin/bash --user-group --groups adm,sudo ubuntu && \
+    echo ubuntu:ubuntu | chpasswd && \
+    echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+COPY ./ros-eloquent-desktop.sh /ros-eloquent-desktop.sh
+RUN mkdir -p /tmp/ros_setup_scripts_ubuntu && mv /ros-eloquent-desktop.sh /tmp/ros_setup_scripts_ubuntu/ && \
+    ( gosu ubuntu /tmp/ros_setup_scripts_ubuntu/ros-eloquent-desktop.sh ; /bin/true) && \
+    rm -rf /var/lib/apt/lists/*
 
+ENV USER=root
+ENV HOME=/root
 
-# Install packages
-RUN apt-get update -qq && apt-get install -y \
-    locales -qq \
-    && locale-gen en_AU \
-    && locale-gen en_AU.UTF-8 \
-    && dpkg-reconfigure locales \
-    # && locale-gen C.UTF-8 \
-    && dpkg-reconfigure locales \
-    && apt-get update && apt-get install -y \
-      gnupg \
-      software-properties-common \
-      build-essential \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
-    && apt-get update && apt-get install -y  \
-      supervisor \
-      wget \
-      curl \
-      zip \
-      unzip \
-      apache2 \
+# Phase two in case we forgot any above
+RUN add-apt-repository -y ppa:ondrej/php \
+ && apt-get update \
+ && apt-get install -y -q --no-install-recommends \
+  libapache2-mod-php \
+  libapache2-mod-php7.3 \
+  libapache2-mod-php7.4 \
+  libapache2-mod-wsgi \
+  libapache2-mod-proxy-uwsgi \
+ php7.4 \
+ php7.4-common php7.4-mysql php7.4-xml php7.4-xmlrpc php7.4-curl \
+ php7.4-gd php7.4-imagick php7.4-cli php7.4-dev php7.4-imap php7.4-mbstring \
+ php7.4-opcache php7.4-soap php7.4-zip php7.4-intl  \
  && echo apt autoclean -y \
  && echo apt autoremove -y \
- && rm -rf /var/lib/apt/lists/* 
-
+ && rm -rf /var/lib/apt/lists/*
 
 
 # install our Butterfly websockets (telnet server over httpd)
-RUN apt-get update \
- && apt-get install -y -q --no-install-recommends \
-    build-essential \
-    libffi-dev \
-    libssl-dev \
-    python-dev \
-    python3-pip \
-    python-pip-whl \
-    python-setuptools \
-    ca-certificates \
- && echo apt autoclean -y \
- && echo apt autoremove -y \
- && rm -rf /var/lib/apt/lists/* \
- # && pip install --upgrade pip ; # python -m \
- && python3 -m pip install --upgrade pip \
+RUN \
+ pip install --upgrade pip ; python3 -m pip install --upgrade pip \
  # && python3 -m pip uninstall setuptools ; pip install setuptools \
  && python3 -m pip install --upgrade setuptools wheel \
  && python3 -m pip install tornado asyncio \
@@ -380,14 +422,15 @@ ENV LOGICMOO_WS /opt/logicmoo_workspace
 ENV LOGICMOO_GAMES $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
 
 
-# enable some apache mods
-RUN a2enmod access_compat alias auth_basic authn_core authn_file authz_core authz_host authz_user autoindex deflate dir env \
+COPY rootfs/etc /etc
+RUN echo enable some apache mods \
+ && a2dismod mpm_event \
+ && a2enmod access_compat alias auth_basic authn_core authn_file authz_core authz_host authz_user autoindex deflate dir env \
  filter headers http2 mime mpm_prefork negotiation php7.3 php7.4 proxy proxy_ajp proxy_balancer proxy_connect proxy_express \
  proxy_fcgi proxy_fdpass proxy_ftp proxy_hcheck proxy_html proxy_http proxy_http2 proxy_scgi proxy_uwsgi proxy_wstunnel reqtimeout \
  rewrite setenvif slotmem_shm socache_shmcb ssl status xml2enc ; /bin/true \
  \
 # confirm our webconfig works (or it exits docker build) \
- \
  && service apache2 start && service apache2 status
 
 
@@ -399,9 +442,8 @@ EXPOSE 3020
 EXPOSE 3050
 EXPOSE 3080
 
+# Phase three in case we forgot any above
 RUN apt-get update -qq && apt-get install -y \
- #tini \
- nginx-full \
  #python3-gevent-websocket \
  python3-gevent \
  #python3-novnc \
@@ -417,12 +459,10 @@ LABEL maintainer = "logicmoo@gmail.com"
 ################################################################################
 #FROM system
 LABEL maintainer="fcwu.tw@gmail.com"
-
-
-EXPOSE 80
-#WORKDIR /root
-ENV HOME=/home/ubuntu \
-    SHELL=/bin/bash
 COPY rootfs /
-#HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://127.0.0.1:6079/api/health
+EXPOSE 80
+WORKDIR /root
+ENV HOME=/root \
+    SHELL=/bin/bash
+MAINTAINER HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://127.0.0.1:6079/api/health
 ENTRYPOINT ["/startup_logicmoo.sh"]
