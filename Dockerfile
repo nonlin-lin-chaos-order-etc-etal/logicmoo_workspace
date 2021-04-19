@@ -52,7 +52,7 @@ RUN cd $LOGICMOO_WS && set -x \
  && cd $LOGICMOO_WS/packs_xtra/logicmoo_pldata/ext/plkb0988 \
  && swipl -g "time(qcompile(plkb0988_kb)),halt." \
  && git status \
- && git add -f plkb0988_kb.qlf
+ && git add -f plkb0988_kb.qlf \
  && git commit -am "plkb0988-$(date)" \
  && git push -f \
  && cd $LOGICMOO_WS/packs_xtra/ \
