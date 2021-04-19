@@ -211,7 +211,7 @@ list_descendants ()
 export WHOLE="gdb -x gdbinit -return-child-result --args ${RUNFILE}"
 #export WHOLE="gdb -x gdbinit -return-child-result -ex \"set pagination off\" -ex run -ex quit --args ${RUNFILE}"
 #export WHOLE="gdb -x gdbinit -return-child-result -ex \"set pagination off\" --args ${RUNFILE}"
-#export WHOLE="${RUNFILE}"
+export WHOLE="${RUNFILE}"
 
 if [[ $UID == 0 ]]; then
   export WHOLE="sudo -u prologmud_server ${WHOLE}"
@@ -226,7 +226,6 @@ do
       echo "You should rarely see this";
       echo cls_putty
    fi
-
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     echo "~~~~~~~~~~~~~KILL PREV~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
