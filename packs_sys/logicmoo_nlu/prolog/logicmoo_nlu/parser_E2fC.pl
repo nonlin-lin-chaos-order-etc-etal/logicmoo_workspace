@@ -1956,6 +1956,7 @@ eng_subj(Eng,Subj):-!.
 getVarAtomName(Value,Name):-var(Value),!,term_to_atom(Value,Vname),atom_codes(Vname,[95, _|CODES]),atom_codes(Name,CODES),!.
 getVarAtomName('$VAR'(VNUM),Name):-concat_atom([VNUM],Name),!.
 
+% ['h','e','l','l','o'] = "hello" = [104, 101, 108, 108, 111]
 
 phraseNoun_each(Eng,Form,CycL):-posMeans(Eng,'SimpleNoun',Form,CycL).
 phraseNoun_each(Eng,Form,CycL):-posMeans(Eng,'MassNoun',Form,CycL).

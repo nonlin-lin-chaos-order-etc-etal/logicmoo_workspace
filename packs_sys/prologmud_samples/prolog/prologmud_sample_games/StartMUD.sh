@@ -110,14 +110,14 @@ pip freeze > /tmp/requirements2a.txt 2>&1
 pip install tornado asyncio
 
 function start_redirect {
-   local PORT=$((200+$1))
+   local PORT=$((00+$1))
    local PORT100=$((100 + $1))
    local HIST=$PWD/history_$1
    local COMP=$PWD/completion_$1
    touch $HIST
 
    touch $COMP
-   lsof -t -i:$PORT100 | xargs --no-run-if-empty kill -9
+   echo "lsof -t -i:$PORT100 | xargs --no-run-if-empty kill -9"
 
     local BUTTERFLY="$LOGICMOO_WS/packs_web/butterfly/butterfly.server.py"
       BUTTERFLY="/usr/local/bin/butterfly.server.py"
@@ -132,7 +132,7 @@ function start_redirect {
 }
 
 function kill_redirect {
-   lsof -t -i:$((100+$1)) | xargs --no-run-if-empty echo $((100+$1)) kill -9
+   echo "lsof -t -i:$((100+$1)) | xargs --no-run-if-empty $((100+$1)) kill -9"
 }
 
 
@@ -303,7 +303,7 @@ wasdir=""
       echo "~~~~ EXIT CODE ${COMMAND_LAST} ~~~~"
       echo "~~~~~~~~~~~~~~~~~~~~~~~"
        if [[ "$USE_NET" == "1" ]]; then
-         lsof -t -i:$LOGICMOO_BASE_PORT | xargs --no-run-if-empty kill -9
+        # lsof -t -i:$LOGICMOO_BASE_PORT | xargs --no-run-if-empty kill -9
          kill_redirect $(($LOGICMOO_BASE_PORT+0))
          kill_redirect $(($LOGICMOO_BASE_PORT+1))
          kill_redirect $(($LOGICMOO_BASE_PORT+2))
