@@ -30,8 +30,10 @@ then
  /startup.sh &
 while :
 do
-   echo MAYBE: docker exec -it logicmoo screen -r
-	sleep 10
+   setenv -x -e
+   echo MAYBE (IN OTHER TERMINAL): docker exec -it logicmoo screen -r
+   echo OR (IN OTHER TERMINAL): docker exec -it logicmoo bash
+	sleep 30
 done
 else
  supervisord  -c /etc/supervisor/supervisord.conf
