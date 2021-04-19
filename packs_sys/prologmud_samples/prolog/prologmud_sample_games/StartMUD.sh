@@ -47,7 +47,7 @@ pathmunge /opt/logicmoo_workspace/packs_web/butterfly
 
 
 if [[ -z "${LOGICMOO_BASE_PORT}" ]]; then
-  LOGICMOO_BASE_PORT=3000
+  LOGICMOO_BASE_PORT=4000
 fi
 
 touch /opt/logicmoo_workspace/packs_sys/prologmud_samples/prolog/prologmud_sample_games/.swipl_history
@@ -57,7 +57,7 @@ chmod 777 /opt/logicmoo_workspace/packs_sys/prologmud_samples/prolog/prologmud_s
 export RL_PREFIX=''
 # export RL_PREFIX='rlwrap -a -A -r -c -N -r'
 export USE_NET=1
-export USE_KB=0
+# export USE_KB=1
 export KBFILE=""
 
 
@@ -139,10 +139,7 @@ function start_redirect {
   # eval $START_REDIR & 
 }
 
-     
-
 function kill_redirect {
-   # lsof -t -i:$((100+$1)) | xargs --no-run-if-empty echo USE_NET=1 kill -9
    lsof -t -i:$((100+$1)) | xargs --no-run-if-empty kill -9
 }
 

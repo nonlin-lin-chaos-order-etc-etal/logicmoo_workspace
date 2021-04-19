@@ -1,5 +1,24 @@
 #!/bin/bash
 
+
+munge () {
+    local value="${1}"
+        if ! echo "$value" | grep -Eq "(^|:)$2($|:)" ; then
+           if [ "$3" = "after" ] ; then
+              value="$value:$2"
+           else
+              value="$2:$value"
+           fi
+        fi
+    echo "$value"
+}
+
+pathmunge () {
+   PATH=$(munge "$PATH" $1 $2)
+}
+
+export -f pathmunge
+
 if [[ -z "${LOGICMOO_WS}" ]]; then
  WS_MAYBE="$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P)"
 
@@ -20,7 +39,7 @@ if [[ ":$PATH:" == *"$LOGICMOO_WS/bin:"* ]]; then
       echo "#* GOOD: Logicmoo [$LOGICMOO_WS/bin] found in your PATH"
    fi
 else
- PATH="/root/.cpm/bin:/opt/logicmoo_workspace/packs_xtra/logicmoo_packages/prolog/pakcs/bin:$PATH"
+ # PATH="/root/.cpm/bin:/opt/logicmoo_workspace/packs_xtra/logicmoo_packages/prolog/pakcs/bin:$PATH"
  export PATH="$LOGICMOO_WS/bin:$PATH"
  echo "#* PATH=$PATH"
 fi
@@ -29,8 +48,9 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
   set -o ignoreeof
 fi
 
-if [ -n "$DISPLAY" ] || [ -n "$DISPLAY" ]; then
+if [ -n "$DISPLAY" ] || [ -z "$DISPLAY" ]; then
    echo export DISPLAY=10.0.0.122:0.0
+   echo export DISPLAY=:1
 fi
 
 if [[ -z "${LIBJVM}" ]]; then
@@ -55,8 +75,6 @@ if [[ -z "${LIBJVM}" ]]; then
    fi
 
 fi
-
-
 
 
 if [[ ! -v SSH_TTY ]]; then
