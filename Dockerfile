@@ -45,7 +45,7 @@ RUN git checkout $LOGICMOO_WS/packs_sys/logicmoo_nlu/ \
  \
  && cd $LOGICMOO_WS/packs_xtra/logicmoo_pldata/ext/plkb0988 && swipl -g "time(qcompile(plkb098)),halt." \
  && git commit -am "plkb0988-$(date)" \
- && git push -f
+ && git push -f \
  && rm -rf $LOGICMOO_WS/packs_xtra/logicmoo_pldata/ext/plkb0988
 
 #CMD $LOGICMOO_WS/StartLogicmoo.sh
