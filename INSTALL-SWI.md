@@ -87,7 +87,7 @@ git status)
 )
 
 find packs_* -name "*.qlf"
-swipl 
+# swipl 
 
 stty sane
 echo "#* MAYBE cat .swiplrc >> ~/.config/swi-prolog/init.pl"

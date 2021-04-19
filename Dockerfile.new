@@ -1,0 +1,36 @@
+FROM logicmoo/logicmoo_starter_image
+
+USER root
+LABEL maintainer = "logicmoo@gmail.com"
+
+EXPOSE 22
+EXPOSE 80
+EXPOSE 4000
+EXPOSE 4001
+EXPOSE 4002
+EXPOSE 4003
+EXPOSE 4004
+EXPOSE 4005
+EXPOSE 4006
+EXPOSE 3334
+EXPOSE 3020
+EXPOSE 3080
+
+# @TODO (something here)
+RUN apt-get update && apt-get install -y \
+	libcurl4-openssl-dev \
+	libssl-dev \
+	libcairo-dev
+# BiocManager requirements
+RUN apt-get update && apt-get install -y \
+	libxml2-dev \
+	libudunits2-dev \
+	libgeos++-dev \
+	libtiff-dev \
+	libopenmpi-dev \
+        libtinfo-dev \
+        libreadline-dev
+
+#CMD /opt/logicmoo_workspace/StartLogicmoo.sh
+
+
