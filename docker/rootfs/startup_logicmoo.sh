@@ -31,7 +31,7 @@ then
 while :
 do
    set -e
-   echo "MAYBE (IN OTHER TERMINAL): docker exec -it logicmoo screen -r"
+   echo "MAYBE (IN OTHER TERMINAL): docker exec -it logicmoo screen -rx"
    echo "OR (IN OTHER TERMINAL): docker exec -it logicmoo bash"
 	sleep 30
 done
