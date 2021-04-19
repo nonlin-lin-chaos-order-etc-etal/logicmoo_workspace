@@ -117,7 +117,9 @@ start_mud_telnet(Port):-
       start_tnet(login_and_run_debug,  Port+1  , "MUD Debug"),
       start_tnet(login_and_run_xhtml,  Port+2  , "MUDLET Telnet"),
       start_tnet(               repl,  Port+3  , "WAM-CL Telnet"),
-      start_tnet(             prolog,  Port+23 , "PROLOG Telnet"),
+      % Port+4 = srv_mu
+      % Port+23 = "screen -rx"
+      start_tnet(             prolog,  Port+25 , "PROLOG Telnet"),
       !.
 
 golorpish:- nodebugx(golorp).
@@ -771,6 +773,7 @@ start_telnet :-
 :- all_source_file_predicates_are_transparent.
 :- fixup_exports.
 
+golorp_start :- !.
 golorp_start :- app_argv('--nogolorp'),!.
 golorp_start:- logicmoo_base_port(Port),
     ensure_loaded('/opt/logicmoo_workspace/packs_xtra/logicmoo_packages/prolog/golorp/load'),

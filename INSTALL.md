@@ -88,14 +88,14 @@ git pull --recurse-submodules
 
 # make our process running user
 adduser --disabled-password --gecos "" --no-create-home $LOGICMOO_USER --home $LOGICMOO_GAMES
-mkdir -p ~$LOGICMOO_USER/.config/nomicmu 
+mkdir -p $LOGICMOO_GAMES/.config/nomicmu 
 chown -R $LOGICMOO_USER $LOGICMOO_GAMES
 
 
 # apache config
-cp -a -n -v $LOGICMOO_WS/packs_web/logicmoo_webui/etc/* /etc \
- ; cp -a -n -v $LOGICMOO_WS/packs_web/logicmoo_webui/var/* /var \
- ; cp -a -n -v $LOGICMOO_WS/etc/* /etc
+#cp -a -n -v $LOGICMOO_WS/packs_web/logicmoo_webui/etc/* /etc \
+# ; cp -a -n -v $LOGICMOO_WS/packs_web/logicmoo_webui/var/* /var \
+# ; cp -a -n -v $LOGICMOO_WS/etc/* /etc
 
 
 # install swi-prolog
@@ -118,12 +118,22 @@ cp -n $LOGICMOO_GAMES/.??*rc ~root/ \
  ; cp -n $LOGICMOO_GAMES/.profile* ~root/ \
 
 cd $LOGICMOO_WS \
- && touch $LOGICMOO_GAMES/history_3804 \
- && touch $LOGICMOO_GAMES/completion_3804 \
+ && touch $LOGICMOO_GAMES/history_4000 \
+ && touch $LOGICMOO_GAMES/completion_4000 \
+ && touch $LOGICMOO_GAMES/history_4001 \
+ && touch $LOGICMOO_GAMES/completion_4001 \
+ && touch $LOGICMOO_GAMES/history_4002 \
+ && touch $LOGICMOO_GAMES/completion_4002 \
+ && touch $LOGICMOO_GAMES/history_4003 \
+ && touch $LOGICMOO_GAMES/completion_4003 \
+ && touch $LOGICMOO_GAMES/history_4004 \
+ && touch $LOGICMOO_GAMES/completion_4004 \
+ && touch $LOGICMOO_GAMES/history_4025 \
+ && touch $LOGICMOO_GAMES/completion_4025 \
  && touch $LOGICMOO_GAMES/nohup.out \
- && chown $LOGICMOO_USER $LOGICMOO_GAMES/completion_* \
- && chown $LOGICMOO_USER $LOGICMOO_GAMES/history_* \
- && chown $LOGICMOO_USER $LOGICMOO_GAMES/nohup.out \
+ && chmod 777 $LOGICMOO_GAMES/completion_* \
+ && chmod 777 $LOGICMOO_GAMES/history_* \
+ && chmod 777 $LOGICMOO_GAMES/nohup* \
  && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/eggdrop/ \
  && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/ \
  && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/ \
