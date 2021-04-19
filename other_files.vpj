@@ -1694,6 +1694,40 @@
 					</Folder>
 				</Folder>
 			</Folder>
+			<Folder Name="logicmoo_cg">
+				<Folder Name="prolog">
+					<Folder Name="MProlog-2.0">
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/auxiliary.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/belief.cal"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/belief_box.cal"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/belief_test1.mpl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/belief_test2.mpl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/compile_c.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/compile_p.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/compiler.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/datastr.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/groups.cal"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/mprolog.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/params.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/parser.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/platform.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/README.txt"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/smnm.cal"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/smnm_test1.mpl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/smnm_test2.mpl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/smnm_test3.mpl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/smnm_test4.mpl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/smnm_test5.mpl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/smnm_test6.mpl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/smnm_test7.mpl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/solver.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/temp.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/tracer.pl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/wise_men_3.mpl"/>
+						<F N="packs_sys/logicmoo_cg/prolog/MProlog-2.0/wise_men_n.mpl"/>
+					</Folder>
+				</Folder>
+			</Folder>
 			<Folder Name="logicmoo_ec">
 				<Folder Name="ext">
 					<Folder Name="aiswi">
