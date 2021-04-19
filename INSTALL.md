@@ -78,12 +78,16 @@ cd $LOGICMOO_WS \
  && git submodule update --init \
  && git pull --recurse-submodules
 
+. /opt/logicmoo_workspace/packs_web/butterfly/bin/activate
+
 # make our process running user
 adduser --disabled-password --gecos "" --no-create-home $LOGICMOO_USER --home $LOGICMOO_GAMES \
+ && mkdir -p ~$LOGICMOO_USER/.config/nomicmu 
  && chown -R $LOGICMOO_USER $LOGICMOO_GAMES
 
+
 # apache config
-cp -a -n-v $LOGICMOO_WS/packs_web/logicmoo_webui/etc/* /etc \
+cp -a -n -v $LOGICMOO_WS/packs_web/logicmoo_webui/etc/* /etc \
  ; cp -a -n -v $LOGICMOO_WS/packs_web/logicmoo_webui/var/* /var \
  ; cp -a -n -v $LOGICMOO_WS/etc/* /etc
 
