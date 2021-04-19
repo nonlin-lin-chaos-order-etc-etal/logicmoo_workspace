@@ -142,8 +142,8 @@ function start_redirect {
      
 
 function kill_redirect {
-   #  lsof -t -i:$((100+$1)) | xargs --no-run-if-empty echo USE_NET=1 kill -9
-   #  lsof -t -i:$((100+$1)) | xargs --no-run-if-empty kill -9
+   # lsof -t -i:$((100+$1)) | xargs --no-run-if-empty echo USE_NET=1 kill -9
+   lsof -t -i:$((100+$1)) | xargs --no-run-if-empty kill -9
 }
 
 
