@@ -46,7 +46,11 @@ RUN cd $LOGICMOO_WS && set -x -e \
  && cd $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata && swipl -g "time(qcompile(wn_iface)),halt." \
  && cd $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata && swipl -g "time(qcompile(tt0_00022_cycl)),halt." \
  \
- && cd $LOGICMOO_WS/packs_xtra/logicmoo_pldata/ext/plkb0988 && swipl -g "time(qcompile(plkb0988_kb)),halt." \
+ && cd $LOGICMOO_WS/packs_xtra/logicmoo_pldata/ext/plkb0988
+ && git checkout . \
+ && git checkout master \
+ && swipl -g "time(qcompile(plkb0988_kb)),halt." \
+ && git status \
  && git commit -am "plkb0988-$(date)" \
  && git push -f \
  && rm -rf $LOGICMOO_WS/packs_xtra/logicmoo_pldata/ext/plkb0988
