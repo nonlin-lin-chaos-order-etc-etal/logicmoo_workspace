@@ -282,7 +282,8 @@ wasdir=""
          cat nohup.out
          cd $wasdir
      fi
-          
+
+     export LD_LIBRARY_PATH=".:/usr/lib/jvm/java-11-openjdk-amd64/lib:/usr/local/lib:/usr/lib"
      
      echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
      echo "~~~~~~~~~~~~~CURRENT-P~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
