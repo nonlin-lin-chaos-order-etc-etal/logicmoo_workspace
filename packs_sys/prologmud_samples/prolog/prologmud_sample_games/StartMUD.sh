@@ -274,10 +274,11 @@ wasdir=""
          start_redirect $(($LOGICMOO_BASE_PORT+1))
          start_redirect $(($LOGICMOO_BASE_PORT+2))
          start_redirect $(($LOGICMOO_BASE_PORT+3))
+         start_redirect $(($LOGICMOO_BASE_PORT+4))
          start_redirect $(($LOGICMOO_BASE_PORT+23))
          start_redirect $(($LOGICMOO_BASE_PORT+25))
-         start_redirect $(($LOGICMOO_BASE_PORT+301))
-         start_redirect $(($LOGICMOO_BASE_PORT+804))
+         #start_redirect $(($LOGICMOO_BASE_PORT+301))
+         #start_redirect $(($LOGICMOO_BASE_PORT+804))
          cat nohup.out
          cd $wasdir
      fi
