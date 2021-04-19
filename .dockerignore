@@ -101,8 +101,8 @@
 ./eclipse-workspace/WumpusAgents/
 ./eclipse-workspace/.metadata/
 ./eclipse-workspace/.sonarlint/
-./etc/
-./etc/profile.d/
+#./etc/
+#./etc/profile.d/
 ./files.txt
 #./INSTALL.md
 #./INSTALL-DEPS.md
@@ -146,11 +146,11 @@
 ./packs_lib/trill/
 ./packs_lib/xlibrary/
 ./packs_lib/xtools/
-./packs_sys/
+#./packs_sys/
 ./packs_sys/.gitignore
 ./packs_sys/dictoo/
 ./packs_sys/Downloads/
-./packs_sys/eggdrop/
+#./packs_sys/eggdrop/
 ./packs_sys/instant_prolog_docs/
 ./packs_sys/logicmoo_agi/
 ./packs_sys/logicmoo_base/
