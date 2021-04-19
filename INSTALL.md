@@ -68,15 +68,21 @@ if [ ! -z "$LOGICMOO_EXTRAS" ];
 #apt-add-repository -y ppa:swi-prolog/devel && apt-get install -y swi-prolog elpa-ediprolog swi-prolog-java swi-prolog-odbc swi-prolog-bdb
 
 # check out our repo
-mkdir -p /opt \
- && cd /opt \
- && git config --global http.sslVerify false \
- && git clone --depth 1  https://github.com/logicmoo/logicmoo_workspace $LOGICMOO_WS ; /bin/true
-# do local updates \
-cd $LOGICMOO_WS \
- && git config --local http.sslVerify false \
- && git submodule update --init \
- && git pull --recurse-submodules
+if [[ ! -d /opt/logicmoo_workspace ]]
+then
+ mkdir -p /opt
+ cd /opt 
+ git config --global http.sslVerify false \
+ git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace 
+ cd /opt/logicmoo_workspace
+else
+ cd /opt/logicmoo_workspace
+ git checkout master .
+fi
+
+git config --local http.sslVerify false
+git submodule update --init
+git pull --recurse-submodules
 
 . /opt/logicmoo_workspace/packs_web/butterfly/bin/activate 
 
