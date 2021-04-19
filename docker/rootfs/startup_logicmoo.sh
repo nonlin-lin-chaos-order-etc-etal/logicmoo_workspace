@@ -1,10 +1,18 @@
 #!/bin/bash
 
 # check out our repo
-mkdir -p /opt \
- && cd /opt \
- && git config --global http.sslVerify false \
- ; git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace 
+if [[ ! -d /opt/logicmoo_workspace ]];
+then
+ mkdir -p /opt
+ cd /opt 
+ git config --global http.sslVerify false \
+ git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace 
+fi
+
+cd /opt/logicmoo_workspace
+git checkout master .
+
+find /opt/logicmoo_workspace/packs_sys/logicmoo_nlu -name "*.qlf" -delete
 
 find /opt/logicmoo_workspace/ -type d -exec chmod 777 {} +
 chmod a+w -R /opt/logicmoo_workspace/

@@ -65,7 +65,7 @@ if [ ! -z "$LOGICMOO_EXTRAS" ];
   && rm -f eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz
  fi
 
-echo apt-add-repository -y ppa:swi-prolog/devel && apt-get install -y swi-prolog elpa-ediprolog swi-prolog-java swi-prolog-odbc swi-prolog-bdb
+#apt-add-repository -y ppa:swi-prolog/devel && apt-get install -y swi-prolog elpa-ediprolog swi-prolog-java swi-prolog-odbc swi-prolog-bdb
 
 # check out our repo
 mkdir -p /opt \

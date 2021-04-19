@@ -38,7 +38,7 @@ ENV HOME /root
 
 
 # @TODO (something here)
-RUN apt-get update && apt-get install -y \
+MAINTAINER RUN apt-get update && apt-get install -y \
 	libcurl4-openssl-dev \
 	libssl-dev \
 	libcairo-dev \
@@ -53,4 +53,4 @@ RUN apt-get update && apt-get install -y \
 
 #CMD /opt/logicmoo_workspace/StartLogicmoo.sh
 
-
+COPY . /opt/logicmoo_workspace
