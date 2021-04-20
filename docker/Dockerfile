@@ -448,6 +448,7 @@ RUN apt-get update -qq && apt-get install -y \
  python3-gevent \
  #python3-novnc \
  python3-flask-api \
+ telnet \
  #python3-flask-sockets \
  && echo apt autoclean -y \
  && echo apt autoremove -y \
