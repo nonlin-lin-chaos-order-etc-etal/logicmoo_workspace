@@ -4,22 +4,36 @@ USER root
 LABEL maintainer = "logicmoo@gmail.com"
 
 
-EXPOSE 22    \# SSHD
-EXPOSE 80    \# Apache HTTP 
-EXPOSE 443   \# Apache SSL 
-EXPOSE 801   \# Ngynx
-EXPOSE 57575 \# Butterfly Logins
-EXPOSE 3020  \# SWISH
-EXPOSE 3334  \# Eggdrop
+# SSHD
+EXPOSE 22    
+# Apache HTTP 
+EXPOSE 80    
+# Apache SSL 
+EXPOSE 443   
+# Ngynx
+EXPOSE 801   
+# Butterfly Logins
+EXPOSE 57575
+# SWISH
+EXPOSE 3020
+# Eggdrop
+EXPOSE 3334
 
 #      HTTPS  HTTP  TELNET
-EXPOSE 14100  4100  4000   # MUD Plain Text
-EXPOSE 14101  4101  4001   # MUD with Debug
-EXPOSE 14102  4102  4002   # MUD with Graphics
-EXPOSE 14103  4103  4003   # WAM-CL REPL
-EXPOSE 14104  4104  4004   # NOMIC MU
-EXPOSE 14123  4123  4023   # Shared SWIPL ?-
-EXPOSE 14125  4125  4025   # Non-Shared SWIPL ?-
+EXPOSE 14100  4100  4000   
+                            # MUD Plain Text
+EXPOSE 14101  4101  4001   
+                            # MUD with Debug
+EXPOSE 14102  4102  4002  
+                            # MUD with Graphics
+EXPOSE 14103  4103  4003  
+                           # WAM-CL REPL
+EXPOSE 14104  4104  4004  
+                           # NOMIC MU
+EXPOSE 14123  4123  4023  
+                           #  Shared SWIPL ?-
+EXPOSE 14125  4125  4025   
+                           # Non-Shared SWIPL ?-
 
 #EXPOSE 4100
 #EXPOSE 4101
