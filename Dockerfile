@@ -4,13 +4,13 @@ USER root
 LABEL maintainer = "logicmoo@gmail.com"
 
 
-EXPOSE 22    # SSHD
-EXPOSE 80    # Apache HTTP 
-EXPOSE 443   # Apache SSL 
-EXPOSE 801   # Ngynx
-EXPOSE 57575 # Butterfly Logins
-EXPOSE 3020  # SWISH
-EXPOSE 3334  # Eggdrop
+EXPOSE 22    \# SSHD
+EXPOSE 80    \# Apache HTTP 
+EXPOSE 443   \# Apache SSL 
+EXPOSE 801   \# Ngynx
+EXPOSE 57575 \# Butterfly Logins
+EXPOSE 3020  \# SWISH
+EXPOSE 3334  \# Eggdrop
 
 #      HTTPS  HTTP  TELNET
 EXPOSE 14100  4100  4000   # MUD Plain Text
