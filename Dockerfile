@@ -33,7 +33,7 @@ EXPOSE 14104  4104  4004
 EXPOSE 14123  4123  4023  
                            #  Shared SWIPL ?-
 EXPOSE 14125  4125  4025   
-                          // # Non-Shared SWIPL ?-
+                           # Non-Shared SWIPL ?-
 
 #EXPOSE 4100
 #EXPOSE 4101

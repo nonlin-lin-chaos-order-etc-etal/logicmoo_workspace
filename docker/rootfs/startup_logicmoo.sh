@@ -4,6 +4,7 @@ set +x +e
 
 export LOGICMOO_WS=/opt/logicmoo_workspace
 export SHARED_SERVER=$(route -n | awk '/UG[ \t]/{print $2}')
+#export DISPLAY=$SHARED_SERVER:0.0
 export DO_PULL=1
 
 if ping -c 1 -W 1 "$SHARED_SERVER"; then
