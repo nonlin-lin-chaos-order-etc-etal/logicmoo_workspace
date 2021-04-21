@@ -22,8 +22,9 @@ W:\opt\logicmoo_workspace\packs_sys\logicmoo_utils\prolog;W:\opt\logicmoo_worksp
 
 */
 
+
 pre_run_mud_server:-
-  (noguitracer),(tnodebug),
+  (current_prolog_flag(xpce, true) -> (noguitracer,tnodebug) ; true),
   discontiguous(rdf11:'$exported_op'/3),
   discontiguous(phil:'$exported_op'/3),
   discontiguous(lemur:'$exported_op'/3),
@@ -553,8 +554,10 @@ start_all :- keep_user_module((start_network, start_rest)).
 %:- lps_sanity.
 %:- goat.
 
-
+:- if( current_prolog_flag(xpce, true) ).
 :- noguitracer, tnodebug.
+:- endif.
+
 
 :- initialization(start_network,restore).
 :- if( \+ compiling).
@@ -757,7 +760,11 @@ start_all :- keep_user_module((start_network, start_rest)).
 
 % swish_highlight:lazy_read_lines
 
+
+:- if( current_prolog_flag(xpce, true) ).
 :- noguitracer, tnodebug.
+:- endif.
+
 
 % :- qsave_logicmoo.
 %:- setenv('DISPLAY', '192.168.88.1:0.0').
