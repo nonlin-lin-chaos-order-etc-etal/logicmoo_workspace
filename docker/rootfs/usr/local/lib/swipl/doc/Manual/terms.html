@@ -360,6 +360,12 @@ must be sufficiently instantiated, which means either <var>Term1</var>
 or <var>Term2</var> must be bound or both <var>Name</var> and <var>Arity</var> 
 must be bound.
 
+<p>This predicate handles both zero-argument compounds (<code>f()</code>) 
+as atoms for <var>Term1</var> and <var>Term2</var>. If only <var>Name</var> 
+and <var>Arity</var> are given and <var>Arity</var> is
+<code>0</code>, <var>Term1</var> and <var>Term2</var> are unified with <var>Name</var> 
+(an atom).
+
 <dl class="tags">
 <dt class="tag">Compatibility</dt>
 <dd>

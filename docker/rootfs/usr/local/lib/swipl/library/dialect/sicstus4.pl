@@ -47,6 +47,7 @@
 	      create_mutable/2,
 	      get_mutable/2,
 	      update_mutable/2,
+	      sicstus_is_readable_stream/1,
 	      read_line/1,
 	      read_line/2,
 	      trimcore/0,
@@ -104,6 +105,16 @@ push_sicstus4_library :-
 
 
 :- push_sicstus4_library.
+
+
+%%	setup_dialect
+%
+%	Further dialect initialization.
+%
+%	sicstus4 currently performs the same initialization
+%	as the sicstus (SICStus 3) dialect.
+
+setup_dialect :- sicstus:setup_dialect.
 
 
 		 /*******************************

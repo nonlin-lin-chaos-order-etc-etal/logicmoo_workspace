@@ -49,6 +49,7 @@
 	    get_mutable/2,		% ?Value, +Mutable
 	    update_mutable/2,		% ?Value, !Mutable
 
+	    sicstus_is_readable_stream/1, % +Stream
 	    read_line/1,		% -Codes
 	    read_line/2,		% +Stream, -Codes
 
@@ -156,14 +157,26 @@ qualified(_:_).
 
 user:goal_expansion(use_module(Module,Imports),
 		    use_module(Module,[op(_,_,_)|Imports])) :-
+	in_sicstus_dialect,
 	% Prevent infinite recursion.
 	\+ memberchk(op(_,_,_),Imports).
 
 %%	setup_dialect
 %
 %	Further dialect initialization.
+%
+%	Currently this disables quoting when printing atoms,
+%	which SWI does by default, but SICStus doesn't.
+%	This globally modifies the print_write_options Prolog flag,
+%	so this change also affects code that doesn't request
+%	SICStus compatibility.
 
-setup_dialect.
+setup_dialect :-
+	current_prolog_flag(print_write_options, Options),
+	(   selectchk(quoted(true), Options, OptionsNoQuoted)
+	->  set_prolog_flag(print_write_options, OptionsNoQuoted)
+	;   true
+	).
 
 
 		 /*******************************
@@ -410,6 +423,20 @@ read_line(Codes) :-
 read_line(Stream, Codes) :-
     read_line_to_codes(Stream, Codes).
 
+% Emulate the SICStus behavior of at_end_of_stream, which silently fails
+% instead of blocking if reading from the stream would block.
+% Also fails silently if Stream is not actually a valid stream.
+
+sicstus_is_readable_stream(Stream) :-
+	is_stream(Stream),
+	stream_property(Stream, end_of_stream(not)).
+
+user:goal_expansion(at_end_of_stream(Stream), \+ sicstus_is_readable_stream(Stream)) :-
+	in_sicstus_dialect.
+
+user:goal_expansion(at_end_of_stream, \+ sicstus_is_readable_stream(current_input)) :-
+	in_sicstus_dialect.
+
 
 		 /*******************************
 		 *  COROUTINING & CONSTRAINTS	*
@@ -476,6 +503,14 @@ prolog_flag(Flag, Value) :-
 	debug(prolog_flag, 'prolog_flag(~q, ~q)', [Flag, Value]),
 	sicstus_flag(Flag, Value).
 
+sicstus_flag(host_type, HostType) :- !,
+	% Not a perfect emulation. SWI's arch flag only contains the
+	% architecture and OS family (e. g. 'x86_64-darwin'),
+	% but SICStus host_type also contains the OS version number
+	% (e. g. 'x86_64-darwin-15.6.0').
+	% But this works well enough for code that just checks the
+	% architecture/OS part and not the exact version.
+	current_prolog_flag(arch, HostType).
 sicstus_flag(system_type, Type) :- !,
 	(   current_prolog_flag(saved_program, true)
 	->  Type = runtime

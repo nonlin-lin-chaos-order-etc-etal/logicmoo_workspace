@@ -2659,6 +2659,7 @@ i(/(snowball,3),"Apply the Snowball Algorithm on Input and unify the result (an 
 i(/(snowball_current_algorithm,1),"True if Algorithm is the official name of an algorithm suported by snowball/3.",swi_man_packages('nlp.html'),packages,12177).
 i(section(2,'4','sec:isub'),"library(isub): isub: a string similarity measure",swi_man_packages('nlp.html'),packages,12587).
 i(/(isub,4),"Similarity is a measure for the distance between Text1 and Text2.",swi_man_packages('nlp.html'),packages,13181).
+i(/(isub_short,4),"Modified isub algorithm to allow also for short (less than 3 characters) similarities or dissimilarities.",swi_man_packages('nlp.html'),packages,14378).
 i(section(0,'0','packages/clib.html'),"SWI-Prolog C-library",swi_man_packages('clib.html'),packages,2772).
 i(section(2,'1','sec:clib-intro'),"Introduction",swi_man_packages('clib.html'),packages,8142).
 i(section(2,'2','sec:process'),"library(process): Create processes and redirect I/O",swi_man_packages('clib.html'),packages,9097).
@@ -3030,60 +3031,60 @@ i(/(rdf_read_turtle,3),"Read a stream or file into a set of triples or quadruple
 i(/(rdf_load_turtle,3),"deprecatedUse rdf_read_turtle/3",swi_man_packages('semweb.html'),packages,166717).
 i(/(rdf_process_turtle,3),"Streaming Turtle parser.",swi_man_packages('semweb.html'),packages,167008).
 i(/('rdf_db:rdf_load_stream',3),"(Turtle clauses)",swi_man_packages('semweb.html'),packages,168432).
-i(/(rdf_save_ntriples,2),"Save RDF using ntriples format.",swi_man_packages('semweb.html'),packages,168687).
-i(/(rdf_save_canonical_trig,2),"Save triples in a canonical format.",swi_man_packages('semweb.html'),packages,168997).
-i(/(rdf_save_trig,2),"Save multiple RDF graphs into a TriG file.",swi_man_packages('semweb.html'),packages,169329).
-i(/(rdf_save_canonical_turtle,2),"Save triples in a canonical format.",swi_man_packages('semweb.html'),packages,170013).
-i(/(rdf_save_turtle,2),"Save an RDF graph as Turtle.",swi_man_packages('semweb.html'),packages,170860).
-i(section(2,'6','sec:rdfntriples'),"library(semweb/rdf_ntriples): Process files in the RDF N-Triples format",swi_man_packages('semweb.html'),packages,175197).
-i(/(read_ntriple,2),"Read the next triple from Stream as Triple.",swi_man_packages('semweb.html'),packages,176246).
-i(/(read_nquad,2),"Read the next quad from Stream as Quad.",swi_man_packages('semweb.html'),packages,176988).
-i(/(read_ntuple,2),"Read the next triple or quad from Stream as Tuple.",swi_man_packages('semweb.html'),packages,177720).
-i(/(rdf_read_ntriples,3),"True when Triples/Quads is a list of triples/quads from Input.",swi_man_packages('semweb.html'),packages,178279).
-i(/(rdf_read_nquads,3),"True when Triples/Quads is a list of triples/quads from Input.",swi_man_packages('semweb.html'),packages,178279).
-i(/(rdf_process_ntriples,3),"Call-back interface, compatible with the other triple readers.",swi_man_packages('semweb.html'),packages,180052).
-i(/('rdf_db:rdf_load_stream',3),"Plugin rule that supports loading the ntriples and nquads formats.",swi_man_packages('semweb.html'),packages,180741).
-i(/('rdf_db:rdf_file_type',2),"Bind the ntriples reader to files with the extensions nt, ntriples and nquads.",swi_man_packages('semweb.html'),packages,181081).
-i(section(2,'7','sec:rdfa'),"library(semweb/rdfa): Extract RDF from an HTML or XML DOM",swi_man_packages('semweb.html'),packages,181437).
-i(/(read_rdfa,3),"True when Triples is a list of rdf(S,P,O) triples extracted from Input.",swi_man_packages('semweb.html'),packages,182373).
-i(/(xml_rdfa,3),"True when RDF is a list of rdf(S,P,O) terms extracted from DOM according to the RDFa specification.",swi_man_packages('semweb.html'),packages,183066).
-i(/('rdf_db:rdf_load_stream',3),"Register library(semweb/rdfa) as loader for HTML RDFa files.",swi_man_packages('semweb.html'),packages,183995).
-i(section(2,'8','sec:rdfs'),"library(semweb/rdfs): RDFS related queries",swi_man_packages('semweb.html'),packages,184479).
-i(section(3,'8.1','sec:semweb-rdfs-classes'),"Hierarchy and class-individual relations",swi_man_packages('semweb.html'),packages,185843).
-i(/(rdfs_subproperty_of,2),"True if SubProperty is equal to Property or Property can be reached from SubProperty following the rdfs:subPropertyOf relation.",swi_man_packages('semweb.html'),packages,186383).
-i(/(rdfs_subclass_of,2),"True if SubClass is equal to Class or Class can be reached from SubClass following the rdfs:subClassOf relation.",swi_man_packages('semweb.html'),packages,187296).
-i(/(rdfs_class_property,2),"True if the domain of Property includes Class.",swi_man_packages('semweb.html'),packages,187793).
-i(/(rdfs_individual_of,2),"True if Resource is an indivisual of Class.",swi_man_packages('semweb.html'),packages,188070).
-i(section(3,'8.2','sec:semweb-rdfs-containers'),"Collections and Containers",swi_man_packages('semweb.html'),packages,188551).
-i(/(rdfs_member,2),"Test or generate the members of Set.",swi_man_packages('semweb.html'),packages,189006).
-i(/(rdfs_list_to_prolog_list,2),"Convert Set, which must be an individual of rdf:List into a Prolog list of objects.",swi_man_packages('semweb.html'),packages,189285).
-i(/(rdfs_assert_list,2),"Equivalent to rdfs_assert_list/3 using DB = user.",swi_man_packages('semweb.html'),packages,189550).
-i(/(rdfs_assert_list,3),"If List is a list of resources, create an RDF list Resource that reflects these resources.",swi_man_packages('semweb.html'),packages,189852).
-i(section(2,'9','sec:rdflib'),"Managing RDF input files",swi_man_packages('semweb.html'),packages,190340).
-i(section(3,'9.1','sec:semweb-rdf-manifest'),"The Manifest file",swi_man_packages('semweb.html'),packages,191320).
-i(section(4,'9.1.1','sec:semweb-void'),"Support for the VoID and VANN vocabularies",swi_man_packages('semweb.html'),packages,195582).
-i(section(4,'9.1.2','sec:semweb-find-manifest'),"Finding manifest files",swi_man_packages('semweb.html'),packages,197611).
-i(/(rdf_attach_library,1),"Load meta-data on RDF repositories from FileOrDirectory.",swi_man_packages('semweb.html'),packages,197994).
-i(/(rdf_list_library,0),"List the available resources in the library.",swi_man_packages('semweb.html'),packages,198936).
-i(/(rdf_list_library,1),"Same as rdf_list_library(Id,[]).",swi_man_packages('semweb.html'),packages,200016).
-i(/(rdf_list_library,2),"Lists the resources that will be loaded if Id is handed to rdf_load_library/2.",swi_man_packages('semweb.html'),packages,200193).
-i(/(rdf_load_library,2),"Load the given library.",swi_man_packages('semweb.html'),packages,201064).
-i(section(3,'9.2','sec:usage'),"Usage scenarios",swi_man_packages('semweb.html'),packages,201464).
-i(section(4,'9.2.1','sec:semweb-manifest-resources'),"Referencing resources",swi_man_packages('semweb.html'),packages,204413).
-i(section(3,'9.3','sec:semweb-rdflib-example'),"Putting it all together",swi_man_packages('semweb.html'),packages,206853).
-i(section(3,'9.4','sec:w3cmanifest'),"Example: A metadata file for W3C WordNet",swi_man_packages('semweb.html'),packages,208115).
-i(section(2,'10','sec:sparqlclient'),"library(semweb/sparql_client): SPARQL client library",swi_man_packages('semweb.html'),packages,211894).
-i(/(sparql_query,3),"Execute a SPARQL query on an HTTP SPARQL endpoint.",swi_man_packages('semweb.html'),packages,212960).
-i(/(sparql_set_server,1),"Set sparql server default options.",swi_man_packages('semweb.html'),packages,215526).
-i(/(sparql_read_xml_result,2),"Specs from http://www.w3.org/TR/rdf-sparql-XMLres/.",swi_man_packages('semweb.html'),packages,215998).
-i(/(sparql_read_json_result,2),"The returned Result term is of the format: select(VarNames, Rows)Where VarNames is a term v(Name, ...) and Rows is a list of row(....) containing the column values in the same order as the variable names.",swi_man_packages('semweb.html'),packages,216779).
-i(section(2,'11','sec:rdfcompare'),"library(semweb/rdf_compare): Compare RDF graphs",swi_man_packages('semweb.html'),packages,217663).
-i(/(rdf_equal_graphs,3),"True if GraphA and GraphB are the same under Substition.",swi_man_packages('semweb.html'),packages,218238).
-i(section(2,'12','sec:rdfportray'),"library(semweb/rdf_portray): Portray RDF resources",swi_man_packages('semweb.html'),packages,219236).
-i(/(rdf_portray_as,1),"Set the style used to portray resources.",swi_man_packages('semweb.html'),packages,220310).
-i(/(rdf_portray_lang,1),"If Lang is a list, set the list or preferred languages.",swi_man_packages('semweb.html'),packages,221237).
-i(section(2,'13','sec:semweb-related-packages'),"Related packages",swi_man_packages('semweb.html'),packages,221559).
-i(section(2,'14','sec:semweb-version3'),"Version 3 release notes",swi_man_packages('semweb.html'),packages,222555).
+i(/(rdf_save_trig,2),"Save multiple RDF graphs into a TriG file.",swi_man_packages('semweb.html'),packages,168687).
+i(/(rdf_save_canonical_turtle,2),"Save triples in a canonical format.",swi_man_packages('semweb.html'),packages,169371).
+i(/(rdf_save_turtle,2),"Save an RDF graph as Turtle.",swi_man_packages('semweb.html'),packages,170218).
+i(/(rdf_save_ntriples,2),"Save RDF using ntriples format.",swi_man_packages('semweb.html'),packages,174545).
+i(/(rdf_save_canonical_trig,2),"Save triples in a canonical format.",swi_man_packages('semweb.html'),packages,174855).
+i(section(2,'6','sec:rdfntriples'),"library(semweb/rdf_ntriples): Process files in the RDF N-Triples format",swi_man_packages('semweb.html'),packages,175198).
+i(/(read_ntriple,2),"Read the next triple from Stream as Triple.",swi_man_packages('semweb.html'),packages,176247).
+i(/(read_nquad,2),"Read the next quad from Stream as Quad.",swi_man_packages('semweb.html'),packages,176989).
+i(/(read_ntuple,2),"Read the next triple or quad from Stream as Tuple.",swi_man_packages('semweb.html'),packages,177721).
+i(/(rdf_read_ntriples,3),"True when Triples/Quads is a list of triples/quads from Input.",swi_man_packages('semweb.html'),packages,178280).
+i(/(rdf_read_nquads,3),"True when Triples/Quads is a list of triples/quads from Input.",swi_man_packages('semweb.html'),packages,178280).
+i(/(rdf_process_ntriples,3),"Call-back interface, compatible with the other triple readers.",swi_man_packages('semweb.html'),packages,180053).
+i(/('rdf_db:rdf_load_stream',3),"Plugin rule that supports loading the ntriples and nquads formats.",swi_man_packages('semweb.html'),packages,180742).
+i(/('rdf_db:rdf_file_type',2),"Bind the ntriples reader to files with the extensions nt, ntriples and nquads.",swi_man_packages('semweb.html'),packages,181082).
+i(section(2,'7','sec:rdfa'),"library(semweb/rdfa): Extract RDF from an HTML or XML DOM",swi_man_packages('semweb.html'),packages,181438).
+i(/(read_rdfa,3),"True when Triples is a list of rdf(S,P,O) triples extracted from Input.",swi_man_packages('semweb.html'),packages,182374).
+i(/(xml_rdfa,3),"True when RDF is a list of rdf(S,P,O) terms extracted from DOM according to the RDFa specification.",swi_man_packages('semweb.html'),packages,183067).
+i(/('rdf_db:rdf_load_stream',3),"Register library(semweb/rdfa) as loader for HTML RDFa files.",swi_man_packages('semweb.html'),packages,183996).
+i(section(2,'8','sec:rdfs'),"library(semweb/rdfs): RDFS related queries",swi_man_packages('semweb.html'),packages,184480).
+i(section(3,'8.1','sec:semweb-rdfs-classes'),"Hierarchy and class-individual relations",swi_man_packages('semweb.html'),packages,185844).
+i(/(rdfs_subproperty_of,2),"True if SubProperty is equal to Property or Property can be reached from SubProperty following the rdfs:subPropertyOf relation.",swi_man_packages('semweb.html'),packages,186384).
+i(/(rdfs_subclass_of,2),"True if SubClass is equal to Class or Class can be reached from SubClass following the rdfs:subClassOf relation.",swi_man_packages('semweb.html'),packages,187297).
+i(/(rdfs_class_property,2),"True if the domain of Property includes Class.",swi_man_packages('semweb.html'),packages,187794).
+i(/(rdfs_individual_of,2),"True if Resource is an indivisual of Class.",swi_man_packages('semweb.html'),packages,188071).
+i(section(3,'8.2','sec:semweb-rdfs-containers'),"Collections and Containers",swi_man_packages('semweb.html'),packages,188552).
+i(/(rdfs_member,2),"Test or generate the members of Set.",swi_man_packages('semweb.html'),packages,189007).
+i(/(rdfs_list_to_prolog_list,2),"Convert Set, which must be an individual of rdf:List into a Prolog list of objects.",swi_man_packages('semweb.html'),packages,189286).
+i(/(rdfs_assert_list,2),"Equivalent to rdfs_assert_list/3 using DB = user.",swi_man_packages('semweb.html'),packages,189551).
+i(/(rdfs_assert_list,3),"If List is a list of resources, create an RDF list Resource that reflects these resources.",swi_man_packages('semweb.html'),packages,189853).
+i(section(2,'9','sec:rdflib'),"Managing RDF input files",swi_man_packages('semweb.html'),packages,190341).
+i(section(3,'9.1','sec:semweb-rdf-manifest'),"The Manifest file",swi_man_packages('semweb.html'),packages,191321).
+i(section(4,'9.1.1','sec:semweb-void'),"Support for the VoID and VANN vocabularies",swi_man_packages('semweb.html'),packages,195583).
+i(section(4,'9.1.2','sec:semweb-find-manifest'),"Finding manifest files",swi_man_packages('semweb.html'),packages,197612).
+i(/(rdf_attach_library,1),"Load meta-data on RDF repositories from FileOrDirectory.",swi_man_packages('semweb.html'),packages,197995).
+i(/(rdf_list_library,0),"List the available resources in the library.",swi_man_packages('semweb.html'),packages,198937).
+i(/(rdf_list_library,1),"Same as rdf_list_library(Id,[]).",swi_man_packages('semweb.html'),packages,200017).
+i(/(rdf_list_library,2),"Lists the resources that will be loaded if Id is handed to rdf_load_library/2.",swi_man_packages('semweb.html'),packages,200194).
+i(/(rdf_load_library,2),"Load the given library.",swi_man_packages('semweb.html'),packages,201065).
+i(section(3,'9.2','sec:usage'),"Usage scenarios",swi_man_packages('semweb.html'),packages,201465).
+i(section(4,'9.2.1','sec:semweb-manifest-resources'),"Referencing resources",swi_man_packages('semweb.html'),packages,204414).
+i(section(3,'9.3','sec:semweb-rdflib-example'),"Putting it all together",swi_man_packages('semweb.html'),packages,206854).
+i(section(3,'9.4','sec:w3cmanifest'),"Example: A metadata file for W3C WordNet",swi_man_packages('semweb.html'),packages,208116).
+i(section(2,'10','sec:sparqlclient'),"library(semweb/sparql_client): SPARQL client library",swi_man_packages('semweb.html'),packages,211895).
+i(/(sparql_query,3),"Execute a SPARQL query on an HTTP SPARQL endpoint.",swi_man_packages('semweb.html'),packages,212961).
+i(/(sparql_set_server,1),"Set sparql server default options.",swi_man_packages('semweb.html'),packages,215527).
+i(/(sparql_read_xml_result,2),"Specs from http://www.w3.org/TR/rdf-sparql-XMLres/.",swi_man_packages('semweb.html'),packages,215999).
+i(/(sparql_read_json_result,2),"The returned Result term is of the format: select(VarNames, Rows)Where VarNames is a term v(Name, ...) and Rows is a list of row(....) containing the column values in the same order as the variable names.",swi_man_packages('semweb.html'),packages,216780).
+i(section(2,'11','sec:rdfcompare'),"library(semweb/rdf_compare): Compare RDF graphs",swi_man_packages('semweb.html'),packages,217664).
+i(/(rdf_equal_graphs,3),"True if GraphA and GraphB are the same under Substition.",swi_man_packages('semweb.html'),packages,218239).
+i(section(2,'12','sec:rdfportray'),"library(semweb/rdf_portray): Portray RDF resources",swi_man_packages('semweb.html'),packages,219237).
+i(/(rdf_portray_as,1),"Set the style used to portray resources.",swi_man_packages('semweb.html'),packages,220311).
+i(/(rdf_portray_lang,1),"If Lang is a list, set the list or preferred languages.",swi_man_packages('semweb.html'),packages,221238).
+i(section(2,'13','sec:semweb-related-packages'),"Related packages",swi_man_packages('semweb.html'),packages,221560).
+i(section(2,'14','sec:semweb-version3'),"Version 3 release notes",swi_man_packages('semweb.html'),packages,222556).
 i(section(0,'0','packages/protobufs.html'),"Google's Protocol Buffers Library",swi_man_packages('protobufs.html'),packages,2785).
 i(section(2,'1','sec:protobufs-main'),"Google's Protocol Buffers",swi_man_packages('protobufs.html'),packages,6719).
 i(section(3,'1.1','sec:protobufs-overview'),"Overview",swi_man_packages('protobufs.html'),packages,6898).
@@ -3397,257 +3398,257 @@ i(/(http_location_by_id,2),"True when Location represents the HTTP path to which
 i(/(http_link_to_id,3),"HREF is a link on the local server to a handler with given ID, passing the given Parameters.",swi_man_packages('http.html'),packages,68806).
 i(/(http_reload_with_parameters,3),"Create a request on the current handler with replaced search parameters.",swi_man_packages('http.html'),packages,71143).
 i(/(http_reply_file,3),"Options is a list of cache(+Boolean)If true (default), handle If-modified-since and send modification time.",swi_man_packages('http.html'),packages,71430).
-i(/(http_safe_file,2),"True if FileSpec is considered safe.",swi_man_packages('http.html'),packages,73112).
-i(/(http_redirect,3),"Redirect to a new location.",swi_man_packages('http.html'),packages,73688).
-i(/(http_404,2),"Reply using an \"HTTP 404 not found\" page.",swi_man_packages('http.html'),packages,74684).
-i(/(http_switch_protocol,2),"Send an \"HTTP 101 Switching Protocols\" reply.",swi_man_packages('http.html'),packages,75351).
-i(section(3,'3.3','sec:httpdirindex'),"library(http/http_dirindex): HTTP directory listings",swi_man_packages('http.html'),packages,77002).
-i(/(http_reply_dirindex,3),"Provide a directory listing for Request, assuming it is an index for the physical directrory Dir.",swi_man_packages('http.html'),packages,77627).
-i(//(directory_index,2),"Show index for a directory.",swi_man_packages('http.html'),packages,78147).
-i(:(http,/(mime_type_icon,2)),"Multi-file hook predicate that can be used to associate icons to files listed by http_reply_dirindex/3.",swi_man_packages('http.html'),packages,78984).
-i(section(3,'3.4','sec:httpfiles'),"library(http/http_files): Serve plain files from a hierarchy",swi_man_packages('http.html'),packages,79623).
-i(/(http_reply_from_files,3),"HTTP handler that serves files from the directory Dir.",swi_man_packages('http.html'),packages,80959).
-i(section(3,'3.5','sec:httpsession'),"library(http/http_session): HTTP Session management",swi_man_packages('http.html'),packages,82800).
-i(/(http_set_session_options,1),"Set options for the session library.",swi_man_packages('http.html'),packages,85096).
-i(/(http_session_option,1),"True if Option is a current option of the session system.",swi_man_packages('http.html'),packages,88549).
-i(/(http_set_session,1),"Overrule a setting for the current or specified session.",swi_man_packages('http.html'),packages,88797).
-i(/(http_set_session,2),"Overrule a setting for the current or specified session.",swi_man_packages('http.html'),packages,88797).
-i(/(http_session_id,1),"True if SessionId is an identifier for the current session.",swi_man_packages('http.html'),packages,89446).
-i(/(http_in_session,1),"True if SessionId is an identifier for the current session.",swi_man_packages('http.html'),packages,90049).
-i(/(http_open_session,2),"Establish a new session.",swi_man_packages('http.html'),packages,90974).
-i(/(http_session_asserta,1),"Versions of assert/1, retract/1 and retractall/1 that associate data with the current HTTP session.",swi_man_packages('http.html'),packages,92093).
-i(/(http_session_assert,1),"Versions of assert/1, retract/1 and retractall/1 that associate data with the current HTTP session.",swi_man_packages('http.html'),packages,92093).
-i(/(http_session_retract,1),"Versions of assert/1, retract/1 and retractall/1 that associate data with the current HTTP session.",swi_man_packages('http.html'),packages,92093).
-i(/(http_session_retractall,1),"Versions of assert/1, retract/1 and retractall/1 that associate data with the current HTTP session.",swi_man_packages('http.html'),packages,92093).
-i(/(http_session_data,1),"True if Data is associated using http_session_assert/1 to the current HTTP session.",swi_man_packages('http.html'),packages,92918).
-i(/(http_session_asserta,2),"Versions of assert/1, retract/1 and retractall/1 that associate data with an explicit HTTP session.",swi_man_packages('http.html'),packages,93348).
-i(/(http_session_assert,2),"Versions of assert/1, retract/1 and retractall/1 that associate data with an explicit HTTP session.",swi_man_packages('http.html'),packages,93348).
-i(/(http_session_retract,2),"Versions of assert/1, retract/1 and retractall/1 that associate data with an explicit HTTP session.",swi_man_packages('http.html'),packages,93348).
-i(/(http_session_retractall,2),"Versions of assert/1, retract/1 and retractall/1 that associate data with an explicit HTTP session.",swi_man_packages('http.html'),packages,93348).
-i(/(http_session_data,2),"Versions of assert/1, retract/1 and retractall/1 that associate data with an explicit HTTP session.",swi_man_packages('http.html'),packages,93348).
-i(/(http_current_session,2),"Enumerate the current sessions and associated data.",swi_man_packages('http.html'),packages,94525).
-i(/(http_close_session,1),"Closes an HTTP session.",swi_man_packages('http.html'),packages,95075).
-i(/(http_session_cookie,1),"Generate a random cookie that can be used by a browser to identify the current session.",swi_man_packages('http.html'),packages,96564).
-i(/(hooked,0),"These multifile predicates may be used to hook the data storage of this library.",swi_man_packages('http.html'),packages,97046).
-i(/(hook,1),"These multifile predicates may be used to hook the data storage of this library.",swi_man_packages('http.html'),packages,97046).
-i(section(3,'3.6','sec:httpcors'),"library(http/http_cors): Enable CORS: Cross-Origin Resource Sharing",swi_man_packages('http.html'),packages,97533).
-i(/(cors_enable,0),"Emit the HTTP header Access-Control-Allow-Origin using domains from the setting http:cors.",swi_man_packages('http.html'),packages,99618).
-i(/(cors_enable,2),"CORS reply to a Preflight OPTIONS request.",swi_man_packages('http.html'),packages,100069).
-i(section(3,'3.7','sec:httpauthenticate'),"library(http/http_authenticate): Authenticate HTTP connections using 401 headers",swi_man_packages('http.html'),packages,101125).
-i(/(http_authenticate,3),"True if Request contains the information to continue according to Type.",swi_man_packages('http.html'),packages,101673).
-i(/(http_authorization_data,2),"Decode the HTTP Authorization header.",swi_man_packages('http.html'),packages,103449).
-i(/(http_current_user,3),"True when User is present in the htpasswd file File and Fields provides the additional fields.",swi_man_packages('http.html'),packages,103961).
-i(/(http_read_passwd_file,2),"Read a password file.",swi_man_packages('http.html'),packages,104630).
-i(/(http_write_passwd_file,2),"Write password data Data to File.",swi_man_packages('http.html'),packages,105207).
-i(:(http,/(authenticate,3)),"Plugin for library(http_dispatch) to perform basic HTTP authentication.",swi_man_packages('http.html'),packages,105778).
-i(section(3,'3.8','sec:httpdigest'),"library(http/http_digest): HTTP Digest authentication",swi_man_packages('http.html'),packages,106629).
-i(//(http_digest_challenge,2),"Generate the content for a 401 WWW-Authenticate: Digest header field.",swi_man_packages('http.html'),packages,109535).
-i(/(http_parse_digest_challenge,2),"Parse the value of an HTTP WWW-Authenticate header into a list of Name(Value) terms.",swi_man_packages('http.html'),packages,109790).
-i(/(http_digest_response,5),"Formulate a reply to a digest authentication request.",swi_man_packages('http.html'),packages,110094).
-i(/(http_digest_password_hash,4),"Compute the password hash for the HTTP password file.",swi_man_packages('http.html'),packages,111349).
-i(:(http,/(authenticate,3)),"Plugin for library(http_dispatch) to perform basic HTTP authentication.",swi_man_packages('http.html'),packages,112134).
-i(:(http,/(authenticate_client,2)),"This hooks is called by http_open/3 with the following Action value: send_auth_header(+AuthData, +Out, +Options)Called when sending the initial request.",swi_man_packages('http.html'),packages,113133).
-i(section(3,'3.9','sec:httpdynworkers'),"library(http/http_dyn_workers): Dynamically schedule HTTP workers.",swi_man_packages('http.html'),packages,114295).
-i(:(http,/(schedule_workers,1)),"Called if there is no immediately free worker to handle the incomming request.",swi_man_packages('http.html'),packages,116028).
-i(section(3,'3.10','sec:http-custom-error-page'),"Custom Error Pages",swi_man_packages('http.html'),packages,116448).
-i(:(http,/(status_page_hook,3)),"TermOrCode is either the first argument of the http_reply exception or the HTTP status code, i.e., the hook is called twice.",swi_man_packages('http.html'),packages,117244).
-i(section(3,'3.11','sec:httpopenid'),"library(http/http_openid): OpenID consumer and server library",swi_man_packages('http.html'),packages,118527).
-i(/(openid_hook,1),"Call hook on the OpenID management library.",swi_man_packages('http.html'),packages,121292).
-i(/(openid_login,1),"Associate the current HTTP session with OpenID.",swi_man_packages('http.html'),packages,122474).
-i(/(openid_logout,1),"Remove the association of the current session with any OpenID",swi_man_packages('http.html'),packages,122783).
-i(/(openid_logged_in,1),"True if session is associated with OpenID.",swi_man_packages('http.html'),packages,123020).
-i(/(openid_user,3),"True if OpenID is a validated OpenID associated with the current session.",swi_man_packages('http.html'),packages,123248).
-i(//(openid_login_form,2),"Create the OpenID form.",swi_man_packages('http.html'),packages,125114).
-i(/(openid_verify,2),"Handle the initial login form presented to the user by the relying party (consumer).",swi_man_packages('http.html'),packages,126350).
-i(/(openid_server,3),"True if OpenIDLogin is the typed id for OpenID verified by Server.",swi_man_packages('http.html'),packages,127967).
-i(/(openid_current_url,2),"Find the public URL for Request that we can make available to our identity provider.",swi_man_packages('http.html'),packages,128529).
-i(/(openid_current_host,3),"Find current location of the server.",swi_man_packages('http.html'),packages,129101).
-i(/(openid_authenticate,4),"Succeeds if Request comes from the OpenID server and confirms that User is a verified OpenID user.",swi_man_packages('http.html'),packages,129494).
-i(/(openid_server,2),"Realise the OpenID server.",swi_man_packages('http.html'),packages,130689).
-i(/(openid_grant,1),"Handle the reply from checkid_setup_server/3.",swi_man_packages('http.html'),packages,130899).
-i(/(openid_associate,3),"Calls openid_associate/4 as openid_associate(URL, Handle, Assoc, []).",swi_man_packages('http.html'),packages,131319).
-i(/(openid_associate,4),"Associate with an open-id server.",swi_man_packages('http.html'),packages,131651).
-i(section(3,'3.12','sec:httpparam'),"Get parameters from HTML forms",swi_man_packages('http.html'),packages,132537).
-i(/(http_parameters,2),"The predicate is passes the Request as provided to the handler goal by http_wrapper/5 as well as a partially instantiated lists describing the requested parameters and their types.",swi_man_packages('http.html'),packages,133062).
-i(/(http_parameters,3),"In addition to http_parameters/2, the following options are defined.",swi_man_packages('http.html'),packages,138755).
-i(section(3,'3.13','sec:request'),"Request format",swi_man_packages('http.html'),packages,140161).
-i(/(http_read_request,2),"Reads an HTTP request from Stream and unify Request with the parsed request.",swi_man_packages('http.html'),packages,140628).
-i(section(4,'3.13.1','sec:http-read-post'),"Handling POST requests",swi_man_packages('http.html'),packages,145775).
-i(section(3,'3.14','sec:http-running-server'),"Running the server",swi_man_packages('http.html'),packages,147156).
-i(section(4,'3.14.1','sec:http-server-options'),"Common server interface options",swi_man_packages('http.html'),packages,149420).
-i(section(4,'3.14.2','sec:mthttpd'),"Multi-threaded Prolog",swi_man_packages('http.html'),packages,150053).
-i(/(http_server,3),"Create the server.",swi_man_packages('http.html'),packages,150891).
-i(/(http_server_property,2),"True if Property is a property of the HTTP server running at Port.",swi_man_packages('http.html'),packages,154738).
-i(/(http_workers,2),"Query or manipulate the number of workers of the server identified by Port.",swi_man_packages('http.html'),packages,155633).
-i(/(http_add_worker,2),"Add a new worker to the HTTP server for port Port.",swi_man_packages('http.html'),packages,156501).
-i(/(http_stop_server,2),"Stop the HTTP server at Port.",swi_man_packages('http.html'),packages,157015).
-i(/(http_current_worker,2),"True if ThreadID is the identifier of a Prolog thread serving Port.",swi_man_packages('http.html'),packages,157443).
-i(/(http_spawn,2),"Continue handling this request in a new thread running Goal.",swi_man_packages('http.html'),packages,157815).
-i(section(4,'3.14.3','sec:httpunixdaemon'),"library(http/http_unix_daemon): Run SWI-Prolog HTTP server as a Unix system daemon",swi_man_packages('http.html'),packages,159940).
-i(/(http_daemon,0),"Start the HTTP server as a daemon process.",swi_man_packages('http.html'),packages,163659).
-i(/(http_daemon,1),"Start the HTTP server as a daemon process.",swi_man_packages('http.html'),packages,169256).
-i(/(http_certificate_hook,3),"Hook called before starting the server if the --https option is used.",swi_man_packages('http.html'),packages,169838).
-i(/(http_server_hook,1),"Hook that is called to start the HTTP server.",swi_man_packages('http.html'),packages,170361).
-i(:(http,/(sni_options,2)),"Hook to provide Server Name Indication (SNI) for TLS servers.",swi_man_packages('http.html'),packages,170745).
-i(section(4,'3.14.4','sec:http-inetd'),"From (Unix) inetd",swi_man_packages('http.html'),packages,171378).
-i(/(http_server,2),"Initialises and runs http_wrapper/5 in a loop until failure or end-of-file.",swi_man_packages('http.html'),packages,172602).
-i(section(4,'3.14.5','sec:http-inetd-mswin'),"MS-Windows",swi_man_packages('http.html'),packages,173730).
-i(section(4,'3.14.6','sec:http-server-as-cgi'),"As CGI script",swi_man_packages('http.html'),packages,173974).
-i(section(4,'3.14.7','sec:proxy'),"Using a reverse proxy",swi_man_packages('http.html'),packages,174172).
-i(section(3,'3.15','sec:http-wrapper'),"The wrapper library",swi_man_packages('http.html'),packages,177834).
-i(/(http_wrapper,5),"Handle an HTTP request where In is an input stream from the client, Out is an output stream to the client and Goal defines the goal realising the body.",swi_man_packages('http.html'),packages,178363).
-i(:(http,/(request_expansion,2)),"This multifile hook predicate is called just before the goal that produces the body, while the output is already redirected to collect the reply.",swi_man_packages('http.html'),packages,179877).
-i(/(http_current_request,1),"Get access to the currently executing request.",swi_man_packages('http.html'),packages,180840).
-i(/(http_relative_path,2),"Convert an absolute path (without host, fragment or search) into a path relative to the current page, defined as the path component from the current request (see http_current_request/1).",swi_man_packages('http.html'),packages,181421).
-i(section(3,'3.16','sec:httphost'),"library(http/http_host): Obtain public server location",swi_man_packages('http.html'),packages,182105).
-i(/(http_public_url,2),"True when URL is an absolute URL for the current request.",swi_man_packages('http.html'),packages,182818).
-i(/(http_public_host_url,2),"True when URL is the public URL at which this server can be contacted.",swi_man_packages('http.html'),packages,183170).
-i(/(http_public_host,4),"Current global host and port of the HTTP server.",swi_man_packages('http.html'),packages,183601).
-i(/(http_current_host,4),"deprecatedUse http_public_host/4 (same semantics)",swi_man_packages('http.html'),packages,184996).
-i(section(3,'3.17','sec:httplog'),"library(http/http_log): HTTP Logging module",swi_man_packages('http.html'),packages,185366).
-i(/(http_log_stream,1),"True when Stream is a stream to the opened HTTP log file.",swi_man_packages('http.html'),packages,186163).
-i(/(http_log_close,1),"If there is a currently open HTTP logfile, close it after adding a term server(Reason, Time).",swi_man_packages('http.html'),packages,187033).
-i(/(http_log,2),"Write message from Format and Args to log-stream.",swi_man_packages('http.html'),packages,187770).
-i(/(password_field,1),"Multifile predicate that can be defined to hide passwords from the logfile.",swi_man_packages('http.html'),packages,188118).
-i(/(nolog,1),"Multifile predicate that can be defined to hide request parameters from the request logfile.",swi_man_packages('http.html'),packages,188376).
-i(/(nolog_post_content_type,1),"Multifile hook called with the Content-type header.",swi_man_packages('http.html'),packages,188629).
-i(/(post_data_encoded,2),"Encode the POST body for inclusion into the HTTP log file.",swi_man_packages('http.html'),packages,189270).
-i(/(http_logrotate,1),"Rotate the available log files.",swi_man_packages('http.html'),packages,189770).
-i(/(http_schedule_logrotate,2),"Schedule log rotation based on maintenance broadcasts.",swi_man_packages('http.html'),packages,191357).
-i(section(3,'3.18','sec:http-debug'),"Debugging HTTP servers",swi_man_packages('http.html'),packages,192425).
-i(section(3,'3.19','sec:httpheader'),"library(http/http_header): Handling HTTP headers",swi_man_packages('http.html'),packages,193193).
-i(/(http_read_request,2),"Read an HTTP request-header from FdIn and return the broken-down request fields as +Name(+Value) pairs in a list.",swi_man_packages('http.html'),packages,193624).
-i(/(http_read_reply_header,2),"Read the HTTP reply header.",swi_man_packages('http.html'),packages,194041).
-i(/(http_reply,2),"Compose a complete HTTP reply from the term Data using additional headers from HdrExtra to the output stream Out.",swi_man_packages('http.html'),packages,194304).
-i(/(http_reply,3),"Compose a complete HTTP reply from the term Data using additional headers from HdrExtra to the output stream Out.",swi_man_packages('http.html'),packages,194304).
-i(/(http_reply,4),"Compose a complete HTTP reply from the term Data using additional headers from HdrExtra to the output stream Out.",swi_man_packages('http.html'),packages,194304).
-i(/(http_reply,5),"Compose a complete HTTP reply from the term Data using additional headers from HdrExtra to the output stream Out.",swi_man_packages('http.html'),packages,194304).
-i(/(http_reply,6),"Compose a complete HTTP reply from the term Data using additional headers from HdrExtra to the output stream Out.",swi_man_packages('http.html'),packages,194304).
-i(/(http_status_reply,4),"Emit HTML non-200 status reports.",swi_man_packages('http.html'),packages,197372).
-i(/(http_status_reply,5),"Emit HTML non-200 status reports.",swi_man_packages('http.html'),packages,197372).
-i(/(http_status_reply,6),"Emit HTML non-200 status reports.",swi_man_packages('http.html'),packages,197372).
-i(:(http,/(serialize_reply,2)),"Multifile hook to serialize the result of http:status_reply/3 into a term body(Type, Encoding, Content)In this term, Type is the media type, Encoding is the required wire encoding and Content a string representing the content.",swi_man_packages('http.html'),packages,199374).
-i(/(http_join_headers,3),"Append headers from Default to Header if they are not already part of it.",swi_man_packages('http.html'),packages,199989).
-i(/(http_update_encoding,3),"Allow for rewrite of the header, adjusting the encoding.",swi_man_packages('http.html'),packages,200240).
-i(:(http,/(mime_type_encoding,2)),"Encoding is the (default) character encoding for MimeType.",swi_man_packages('http.html'),packages,200732).
-i(/(http_update_connection,4),"Merge keep-alive information from Request and CGIHeader into Header.",swi_man_packages('http.html'),packages,201377).
-i(/(http_update_transfer,4),"Decide on the transfer encoding from the Request and the CGI header.",swi_man_packages('http.html'),packages,201663).
-i(/(http_post_data,3),"Send data on behalf on an HTTP POST request.",swi_man_packages('http.html'),packages,202520).
-i(/(http_reply_header,3),"Create a reply header using reply_header//3 and send it to Stream.",swi_man_packages('http.html'),packages,206158).
-i(/(http_parse_header_value,3),"Translate Value in a meaningful Prolog term.",swi_man_packages('http.html'),packages,206451).
-i(/(http_timestamp,2),"Generate a description of a Time in HTTP format (RFC1123)",swi_man_packages('http.html'),packages,208590).
-i(/(http_read_header,2),"Read Name: Value lines from FD until an empty line is encountered.",swi_man_packages('http.html'),packages,208846).
-i(/(http_parse_header,2),"Header is a list of Name(Value)-terms representing the structure of the HTTP header in Text.",swi_man_packages('http.html'),packages,209248).
-i(:(http,//(/,1)),"HTML-rule that emits the location of the HTTP server.",swi_man_packages('http.html'),packages,209672).
-i(:(http,/(status_page,3)),"Hook called by http_status_reply/4 and http_status_reply/5 that allows for emitting custom error pages for the following HTTP page types: 201 - created(Location)301 - moved(To)302 - moved_temporary(To)303 - see_other(To)400 - bad_request(ErrorTerm)401 - authorise(AuthMethod)403 - forbidden(URL)404 - not_found(URL)405 - method_not_allowed(Method,URL)406 - not_acceptable(Why)500 - server_error(ErrorTerm)503 - unavailable(Why) The hook is tried twice, first using the status term, e.g., not_found(URL) and than with the code, e.g.",swi_man_packages('http.html'),packages,210077).
-i(section(3,'3.20','sec:htmlwrite'),"The library(http/html_write) library",swi_man_packages('http.html'),packages,211851).
-i(//(html,1),"The DCG non-terminal html//1 is the main predicate of this library.",swi_man_packages('http.html'),packages,213039).
-i(//(page,2),"The DCG non-terminal page//2 generated a complete page, including the SGML DOCTYPE declaration.",swi_man_packages('http.html'),packages,218883).
-i(//(page,1),"This version of the page/[1,2] only gives you the SGML DOCTYPE and the HTML element.",swi_man_packages('http.html'),packages,220234).
-i(//(html_begin,1),"Just open the given element.",swi_man_packages('http.html'),packages,220609).
-i(//(html_end,1),"End an element.",swi_man_packages('http.html'),packages,221696).
-i(section(4,'3.20.1','sec:html-write'),"Emitting HTML documents",swi_man_packages('http.html'),packages,221946).
-i(/(reply_html_page,2),"Same as reply_html_page(default, Head, Body).",swi_man_packages('http.html'),packages,222637).
-i(/(reply_html_page,3),"Writes an HTML page preceded by an HTTP header as required by library(http_wrapper) (CGI-style).",swi_man_packages('http.html'),packages,222835).
-i(/(print_html,1),"Print the token list to the Prolog current output stream.",swi_man_packages('http.html'),packages,224402).
-i(/(print_html,2),"Print the token list to the specified output stream",swi_man_packages('http.html'),packages,224581).
-i(/(html_print_length,2),"When calling html_print/[1,2] on List, Length characters will be produced.",swi_man_packages('http.html'),packages,224764).
-i(section(4,'3.20.2','sec:html-post'),"Repositioning HTML for CSS and javascript links",swi_man_packages('http.html'),packages,225184).
-i(//(html_post,2),"Reposition HTML to the receiving Id.",swi_man_packages('http.html'),packages,226100).
-i(//(html_receive,1),"Receive posted HTML tokens.",swi_man_packages('http.html'),packages,227520).
-i(//(html_receive,2),"This extended version of html_receive//1 causes Handler to be called to process all messages posted to the channal at the time output is generated.",swi_man_packages('http.html'),packages,228256).
-i(//(xhtml_ns,2),"Demand an xmlns:id=Value in the outer html tag.",swi_man_packages('http.html'),packages,229948).
-i(section(4,'3.20.3','sec:html-write-rules'),"Adding rules for html//1",swi_man_packages('http.html'),packages,231235).
-i(//('html_write:expand',1),"Hook to add additional translation rules for html//1.",swi_man_packages('http.html'),packages,231729).
-i(//(html_quoted,1),"Emit the text in Atom, inserting entity-references for the SGML special characters <&>.",swi_man_packages('http.html'),packages,231934).
-i(//(html_quoted_attribute,1),"Emit the text in Atom suitable for use as an SGML attribute, inserting entity-references for the SGML special characters <&>\".",swi_man_packages('http.html'),packages,232196).
-i(section(4,'3.20.4','sec:htmllayout'),"Generating layout",swi_man_packages('http.html'),packages,232528).
-i(/('html_write:layout',3),"Specify the layout conventions for the element Tag, which is a lowercase atom.",swi_man_packages('http.html'),packages,233039).
-i(section(4,'3.20.5','sec:html-write-examples'),"Examples for using the HTML write library",swi_man_packages('http.html'),packages,234153).
-i(section(4,'3.20.6','sec:html-write-remarks'),"Remarks on the library(http/html_write) library",swi_man_packages('http.html'),packages,236578).
-i(section(3,'3.21','sec:jswrite'),"library(http/js_write): Utilities for including JavaScript",swi_man_packages('http.html'),packages,238028).
-i(//(js_script,1),"Generate a JavaScript script element with the given content.",swi_man_packages('http.html'),packages,238986).
-i(/(javascript,4),"Quasi quotation parser for JavaScript that allows for embedding Prolog variables to substitude identifiers in the JavaScript snippet.",swi_man_packages('http.html'),packages,239234).
-i(//(js_call,1),"Emit a call to a Javascript function.",swi_man_packages('http.html'),packages,240732).
-i(//(js_new,2),"Emit a call to a Javascript object declaration.",swi_man_packages('http.html'),packages,241322).
-i(//(js_arg_list,1),"Write javascript (function) arguments.",swi_man_packages('http.html'),packages,241630).
-i(//(js_expression,1),"Emit a single JSON argument.",swi_man_packages('http.html'),packages,241982).
-i(//(js_arg,1),"Same as js_expression//1, but fails if Expression is invalid, where js_expression//1 raises an error.",swi_man_packages('http.html'),packages,243641).
-i(section(3,'3.22','sec:httppath'),"library(http/http_path): Abstract specification of HTTP server locations",swi_man_packages('http.html'),packages,244183).
-i(:(http,/(location,3)),"Multifile hook used to specify new HTTP locations.",swi_man_packages('http.html'),packages,246212).
-i(/(http_absolute_uri,2),"URI is the absolute (i.e., starting with http://) URI for the abstract specification Spec.",swi_man_packages('http.html'),packages,247468).
-i(/(http_absolute_location,3),"Path is the HTTP location for the abstract specification Spec.",swi_man_packages('http.html'),packages,248044).
-i(/(http_clean_location_cache,0),"HTTP locations resolved through http_absolute_location/3 are cached.",swi_man_packages('http.html'),packages,248742).
-i(section(3,'3.23','sec:htmlhead'),"library(http/html_head): Automatic inclusion of CSS and scripts links",swi_man_packages('http.html'),packages,249159).
-i(section(4,'3.23.1','sec:html-resource-ordering'),"About resource ordering",swi_man_packages('http.html'),packages,250811).
-i(section(4,'3.23.2','sec:html-resource-debugging'),"Debugging dependencies",swi_man_packages('http.html'),packages,251669).
-i(section(4,'3.23.3','sec:html-resource-predicates'),"Predicates",swi_man_packages('http.html'),packages,252149).
-i(/(html_resource,2),"Register an HTML head resource.",swi_man_packages('http.html'),packages,252358).
-i(/(html_current_resource,1),"True when About is a currently known resource.",swi_man_packages('http.html'),packages,254661).
-i(//(html_requires,1),"Include ResourceOrList and all dependencies derived from it and add them to the HTML head using html_post/2.",swi_man_packages('http.html'),packages,254901).
-i(//(mime_include,2),"Hook called to include a link to an HTML resource of type Mime into the HTML head.",swi_man_packages('http.html'),packages,255378).
-i(section(3,'3.24','sec:httppwp'),"library(http/http_pwp): Serve PWP pages through the HTTP server",swi_man_packages('http.html'),packages,256195).
-i(/(pwp_handler,2),"Handle PWP files.",swi_man_packages('http.html'),packages,257592).
-i(/(reply_pwp_page,3),"Reply a PWP file.",swi_man_packages('http.html'),packages,259972).
-i(section(2,'4','sec:transfer'),"Transfer encodings",swi_man_packages('http.html'),packages,262707).
-i(section(3,'4.1','sec:http-chunked'),"The library(http/http_chunked) library",swi_man_packages('http.html'),packages,264173).
-i(/(http_chunked_open,3),"Create a stream to realise HTTP chunked encoding or decoding.",swi_man_packages('http.html'),packages,264391).
-i(section(2,'5','sec:websocket'),"library(http/websocket): WebSocket support",swi_man_packages('http.html'),packages,264848).
-i(/(http_open_websocket,3),"Establish a client websocket connection.",swi_man_packages('http.html'),packages,266570).
-i(/(http_upgrade_to_websocket,3),"Create a websocket connection running call(Goal, WebSocket), where WebSocket is a socket-pair.",swi_man_packages('http.html'),packages,268378).
-i(/(ws_send,2),"Send a message over a websocket.",swi_man_packages('http.html'),packages,270414).
-i(/(ws_receive,2),"Receive the next message from WebSocket.",swi_man_packages('http.html'),packages,273115).
-i(/(ws_receive,3),"Receive the next message from WebSocket.",swi_man_packages('http.html'),packages,273115).
-i(/(ws_close,3),"Close a WebSocket connection by sending a close message if this was not already sent and wait for the close reply.",swi_man_packages('http.html'),packages,275528).
-i(/(ws_open,3),"Turn a raw TCP/IP (or any other binary stream) into a websocket stream.",swi_man_packages('http.html'),packages,276387).
-i(/(ws_property,2),"True if Property is a property WebSocket.",swi_man_packages('http.html'),packages,278114).
-i(section(2,'6','sec:hub'),"library(http/hub): Manage a hub for websockets",swi_man_packages('http.html'),packages,278662).
-i(/(hub_create,3),"Create a new hub.",swi_man_packages('http.html'),packages,280877).
-i(/(current_hub,2),"True when there exists a hub Hub with Name.",swi_man_packages('http.html'),packages,281987).
-i(/(hub_add,3),"Add a WebSocket to the hub.",swi_man_packages('http.html'),packages,282221).
-i(/(hub_member,2),"True when Id is a member of the hub HubName.",swi_man_packages('http.html'),packages,282539).
-i(/(hub_send,2),"Send message to the indicated ClientId.",swi_man_packages('http.html'),packages,282774).
-i(/(hub_broadcast,2),"Send Message to all websockets associated with Hub for which call(Condition, Id) succeeds.",swi_man_packages('http.html'),packages,283254).
-i(/(hub_broadcast,3),"Send Message to all websockets associated with Hub for which call(Condition, Id) succeeds.",swi_man_packages('http.html'),packages,283254).
-i(section(2,'7','sec:jsonsupport'),"Supporting JSON",swi_man_packages('http.html'),packages,283982).
-i(section(3,'7.1','sec:json'),"library(http/json): Reading and writing JSON serialization",swi_man_packages('http.html'),packages,286517).
-i(/(atom_json_term,3),"Convert between textual representation and a JSON term.",swi_man_packages('http.html'),packages,287985).
-i(/(json_read,2),"Read next JSON value from Stream into a Prolog term.",swi_man_packages('http.html'),packages,288535).
-i(/(json_read,3),"Read next JSON value from Stream into a Prolog term.",swi_man_packages('http.html'),packages,288535).
-i(/(json_write,2),"Write a JSON term to Stream.",swi_man_packages('http.html'),packages,291657).
-i(/(json_write,3),"Write a JSON term to Stream.",swi_man_packages('http.html'),packages,291657).
-i(/(json_write_hook,4),"Hook that can be used to emit a JSON representation for Term to Stream.",swi_man_packages('http.html'),packages,294582).
-i(/(is_json_term,1),"True if Term is a json term.",swi_man_packages('http.html'),packages,295621).
-i(/(is_json_term,2),"True if Term is a json term.",swi_man_packages('http.html'),packages,295621).
-i(/(json_read_dict,2),"Read a JSON object, returning objects as a dicts.",swi_man_packages('http.html'),packages,296187).
-i(/(json_read_dict,3),"Read a JSON object, returning objects as a dicts.",swi_man_packages('http.html'),packages,296187).
-i(/(json_write_dict,2),"Write a JSON term, represented using dicts.",swi_man_packages('http.html'),packages,298633).
-i(/(json_write_dict,3),"Write a JSON term, represented using dicts.",swi_man_packages('http.html'),packages,298633).
-i(/(atom_json_dict,3),"Convert between textual representation and a JSON term represented as a dict.",swi_man_packages('http.html'),packages,299155).
-i(section(3,'7.2','sec:jsonconvert'),"library(http/json_convert): Convert between JSON terms and Prolog application terms",swi_man_packages('http.html'),packages,299921).
-i(/(current_json_object,3),"Multifile predicate computed from the json_object/1 declarations.",swi_man_packages('http.html'),packages,303389).
-i(/(json_object,1),"Declare a JSON object.",swi_man_packages('http.html'),packages,303983).
-i(/(prolog_to_json,2),"Translate a Prolog application Term into a JSON object term.",swi_man_packages('http.html'),packages,305197).
-i(/(json_to_prolog,2),"Translate a JSON term into an application term.",swi_man_packages('http.html'),packages,306071).
-i(section(3,'7.3','sec:httpjson'),"library(http/http_json): HTTP JSON Plugin module",swi_man_packages('http.html'),packages,306927).
-i(/('http_client:http_convert_data',4),"Hook implementation that supports reading JSON documents.",swi_man_packages('http.html'),packages,310284).
-i(/(is_json_content_type,1),"True if ContentType is a header value (either parsed or as atom/string) that denotes a JSON value.",swi_man_packages('http.html'),packages,310919).
-i(/(json_type,1),"True if MediaType is a JSON media type.",swi_man_packages('http.html'),packages,311217).
-i(:(http,/(post_data_hook,3)),"Hook implementation that allows http_post_data/3 posting JSON objects using one of the forms below.",swi_man_packages('http.html'),packages,311771).
-i(/(http_read_json,2),"Extract JSON data posted to this HTTP request.",swi_man_packages('http.html'),packages,312846).
-i(/(http_read_json,3),"Extract JSON data posted to this HTTP request.",swi_man_packages('http.html'),packages,312846).
-i(/(http_read_json_dict,2),"Similar to http_read_json/2,3, but by default uses the version 7 extended datatypes.",swi_man_packages('http.html'),packages,314032).
-i(/(http_read_json_dict,3),"Similar to http_read_json/2,3, but by default uses the version 7 extended datatypes.",swi_man_packages('http.html'),packages,314032).
-i(/(reply_json,1),"Formulate a JSON HTTP reply.",swi_man_packages('http.html'),packages,314517).
-i(/(reply_json,2),"Formulate a JSON HTTP reply.",swi_man_packages('http.html'),packages,314517).
-i(/(reply_json_dict,1),"As reply_json/1 and reply_json/2, but assumes the new dict based data representation.",swi_man_packages('http.html'),packages,315848).
-i(/(reply_json_dict,2),"As reply_json/1 and reply_json/2, but assumes the new dict based data representation.",swi_man_packages('http.html'),packages,315848).
-i(section(2,'8','sec:http-mime'),"MIME support",swi_man_packages('http.html'),packages,316605).
-i(section(3,'8.1','sec:mimepack'),"library(http/mimepack): Create a MIME message",swi_man_packages('http.html'),packages,316758).
-i(/(mime_pack,3),"Pack a number of inputs into a MIME package using a specified or generated boundary.",swi_man_packages('http.html'),packages,317489).
-i(section(2,'9','sec:http-security'),"Security",swi_man_packages('http.html'),packages,321059).
-i(section(2,'10','sec:http-tips-and-tricks'),"Tips and tricks",swi_man_packages('http.html'),packages,324077).
-i(section(2,'11','sec:http-status'),"Status",swi_man_packages('http.html'),packages,325363).
+i(/(http_safe_file,2),"True if FileSpec is considered safe.",swi_man_packages('http.html'),packages,73542).
+i(/(http_redirect,3),"Redirect to a new location.",swi_man_packages('http.html'),packages,74118).
+i(/(http_404,2),"Reply using an \"HTTP 404 not found\" page.",swi_man_packages('http.html'),packages,75114).
+i(/(http_switch_protocol,2),"Send an \"HTTP 101 Switching Protocols\" reply.",swi_man_packages('http.html'),packages,75781).
+i(section(3,'3.3','sec:httpdirindex'),"library(http/http_dirindex): HTTP directory listings",swi_man_packages('http.html'),packages,77432).
+i(/(http_reply_dirindex,3),"Provide a directory listing for Request, assuming it is an index for the physical directrory Dir.",swi_man_packages('http.html'),packages,78057).
+i(//(directory_index,2),"Show index for a directory.",swi_man_packages('http.html'),packages,78577).
+i(:(http,/(mime_type_icon,2)),"Multi-file hook predicate that can be used to associate icons to files listed by http_reply_dirindex/3.",swi_man_packages('http.html'),packages,79414).
+i(section(3,'3.4','sec:httpfiles'),"library(http/http_files): Serve plain files from a hierarchy",swi_man_packages('http.html'),packages,80053).
+i(/(http_reply_from_files,3),"HTTP handler that serves files from the directory Dir.",swi_man_packages('http.html'),packages,81389).
+i(section(3,'3.5','sec:httpsession'),"library(http/http_session): HTTP Session management",swi_man_packages('http.html'),packages,83230).
+i(/(http_set_session_options,1),"Set options for the session library.",swi_man_packages('http.html'),packages,85526).
+i(/(http_session_option,1),"True if Option is a current option of the session system.",swi_man_packages('http.html'),packages,88979).
+i(/(http_set_session,1),"Overrule a setting for the current or specified session.",swi_man_packages('http.html'),packages,89227).
+i(/(http_set_session,2),"Overrule a setting for the current or specified session.",swi_man_packages('http.html'),packages,89227).
+i(/(http_session_id,1),"True if SessionId is an identifier for the current session.",swi_man_packages('http.html'),packages,89876).
+i(/(http_in_session,1),"True if SessionId is an identifier for the current session.",swi_man_packages('http.html'),packages,90479).
+i(/(http_open_session,2),"Establish a new session.",swi_man_packages('http.html'),packages,91404).
+i(/(http_session_asserta,1),"Versions of assert/1, retract/1 and retractall/1 that associate data with the current HTTP session.",swi_man_packages('http.html'),packages,92523).
+i(/(http_session_assert,1),"Versions of assert/1, retract/1 and retractall/1 that associate data with the current HTTP session.",swi_man_packages('http.html'),packages,92523).
+i(/(http_session_retract,1),"Versions of assert/1, retract/1 and retractall/1 that associate data with the current HTTP session.",swi_man_packages('http.html'),packages,92523).
+i(/(http_session_retractall,1),"Versions of assert/1, retract/1 and retractall/1 that associate data with the current HTTP session.",swi_man_packages('http.html'),packages,92523).
+i(/(http_session_data,1),"True if Data is associated using http_session_assert/1 to the current HTTP session.",swi_man_packages('http.html'),packages,93348).
+i(/(http_session_asserta,2),"Versions of assert/1, retract/1 and retractall/1 that associate data with an explicit HTTP session.",swi_man_packages('http.html'),packages,93778).
+i(/(http_session_assert,2),"Versions of assert/1, retract/1 and retractall/1 that associate data with an explicit HTTP session.",swi_man_packages('http.html'),packages,93778).
+i(/(http_session_retract,2),"Versions of assert/1, retract/1 and retractall/1 that associate data with an explicit HTTP session.",swi_man_packages('http.html'),packages,93778).
+i(/(http_session_retractall,2),"Versions of assert/1, retract/1 and retractall/1 that associate data with an explicit HTTP session.",swi_man_packages('http.html'),packages,93778).
+i(/(http_session_data,2),"Versions of assert/1, retract/1 and retractall/1 that associate data with an explicit HTTP session.",swi_man_packages('http.html'),packages,93778).
+i(/(http_current_session,2),"Enumerate the current sessions and associated data.",swi_man_packages('http.html'),packages,94955).
+i(/(http_close_session,1),"Closes an HTTP session.",swi_man_packages('http.html'),packages,95505).
+i(/(http_session_cookie,1),"Generate a random cookie that can be used by a browser to identify the current session.",swi_man_packages('http.html'),packages,96994).
+i(/(hooked,0),"These multifile predicates may be used to hook the data storage of this library.",swi_man_packages('http.html'),packages,97476).
+i(/(hook,1),"These multifile predicates may be used to hook the data storage of this library.",swi_man_packages('http.html'),packages,97476).
+i(section(3,'3.6','sec:httpcors'),"library(http/http_cors): Enable CORS: Cross-Origin Resource Sharing",swi_man_packages('http.html'),packages,97963).
+i(/(cors_enable,0),"Emit the HTTP header Access-Control-Allow-Origin using domains from the setting http:cors.",swi_man_packages('http.html'),packages,100048).
+i(/(cors_enable,2),"CORS reply to a Preflight OPTIONS request.",swi_man_packages('http.html'),packages,100499).
+i(section(3,'3.7','sec:httpauthenticate'),"library(http/http_authenticate): Authenticate HTTP connections using 401 headers",swi_man_packages('http.html'),packages,101555).
+i(/(http_authenticate,3),"True if Request contains the information to continue according to Type.",swi_man_packages('http.html'),packages,102103).
+i(/(http_authorization_data,2),"Decode the HTTP Authorization header.",swi_man_packages('http.html'),packages,103879).
+i(/(http_current_user,3),"True when User is present in the htpasswd file File and Fields provides the additional fields.",swi_man_packages('http.html'),packages,104391).
+i(/(http_read_passwd_file,2),"Read a password file.",swi_man_packages('http.html'),packages,105060).
+i(/(http_write_passwd_file,2),"Write password data Data to File.",swi_man_packages('http.html'),packages,105637).
+i(:(http,/(authenticate,3)),"Plugin for library(http_dispatch) to perform basic HTTP authentication.",swi_man_packages('http.html'),packages,106208).
+i(section(3,'3.8','sec:httpdigest'),"library(http/http_digest): HTTP Digest authentication",swi_man_packages('http.html'),packages,107059).
+i(//(http_digest_challenge,2),"Generate the content for a 401 WWW-Authenticate: Digest header field.",swi_man_packages('http.html'),packages,109965).
+i(/(http_parse_digest_challenge,2),"Parse the value of an HTTP WWW-Authenticate header into a list of Name(Value) terms.",swi_man_packages('http.html'),packages,110220).
+i(/(http_digest_response,5),"Formulate a reply to a digest authentication request.",swi_man_packages('http.html'),packages,110524).
+i(/(http_digest_password_hash,4),"Compute the password hash for the HTTP password file.",swi_man_packages('http.html'),packages,111779).
+i(:(http,/(authenticate,3)),"Plugin for library(http_dispatch) to perform basic HTTP authentication.",swi_man_packages('http.html'),packages,112564).
+i(:(http,/(authenticate_client,2)),"This hooks is called by http_open/3 with the following Action value: send_auth_header(+AuthData, +Out, +Options)Called when sending the initial request.",swi_man_packages('http.html'),packages,113563).
+i(section(3,'3.9','sec:httpdynworkers'),"library(http/http_dyn_workers): Dynamically schedule HTTP workers.",swi_man_packages('http.html'),packages,114725).
+i(:(http,/(schedule_workers,1)),"Called if there is no immediately free worker to handle the incomming request.",swi_man_packages('http.html'),packages,116458).
+i(section(3,'3.10','sec:http-custom-error-page'),"Custom Error Pages",swi_man_packages('http.html'),packages,116878).
+i(:(http,/(status_page_hook,3)),"TermOrCode is either the first argument of the http_reply exception or the HTTP status code, i.e., the hook is called twice.",swi_man_packages('http.html'),packages,117674).
+i(section(3,'3.11','sec:httpopenid'),"library(http/http_openid): OpenID consumer and server library",swi_man_packages('http.html'),packages,118957).
+i(/(openid_hook,1),"Call hook on the OpenID management library.",swi_man_packages('http.html'),packages,121722).
+i(/(openid_login,1),"Associate the current HTTP session with OpenID.",swi_man_packages('http.html'),packages,122904).
+i(/(openid_logout,1),"Remove the association of the current session with any OpenID",swi_man_packages('http.html'),packages,123213).
+i(/(openid_logged_in,1),"True if session is associated with OpenID.",swi_man_packages('http.html'),packages,123450).
+i(/(openid_user,3),"True if OpenID is a validated OpenID associated with the current session.",swi_man_packages('http.html'),packages,123678).
+i(//(openid_login_form,2),"Create the OpenID form.",swi_man_packages('http.html'),packages,125544).
+i(/(openid_verify,2),"Handle the initial login form presented to the user by the relying party (consumer).",swi_man_packages('http.html'),packages,126780).
+i(/(openid_server,3),"True if OpenIDLogin is the typed id for OpenID verified by Server.",swi_man_packages('http.html'),packages,128397).
+i(/(openid_current_url,2),"Find the public URL for Request that we can make available to our identity provider.",swi_man_packages('http.html'),packages,128959).
+i(/(openid_current_host,3),"Find current location of the server.",swi_man_packages('http.html'),packages,129531).
+i(/(openid_authenticate,4),"Succeeds if Request comes from the OpenID server and confirms that User is a verified OpenID user.",swi_man_packages('http.html'),packages,129924).
+i(/(openid_server,2),"Realise the OpenID server.",swi_man_packages('http.html'),packages,131119).
+i(/(openid_grant,1),"Handle the reply from checkid_setup_server/3.",swi_man_packages('http.html'),packages,131329).
+i(/(openid_associate,3),"Calls openid_associate/4 as openid_associate(URL, Handle, Assoc, []).",swi_man_packages('http.html'),packages,131749).
+i(/(openid_associate,4),"Associate with an open-id server.",swi_man_packages('http.html'),packages,132081).
+i(section(3,'3.12','sec:httpparam'),"Get parameters from HTML forms",swi_man_packages('http.html'),packages,132967).
+i(/(http_parameters,2),"The predicate is passes the Request as provided to the handler goal by http_wrapper/5 as well as a partially instantiated lists describing the requested parameters and their types.",swi_man_packages('http.html'),packages,133492).
+i(/(http_parameters,3),"In addition to http_parameters/2, the following options are defined.",swi_man_packages('http.html'),packages,139185).
+i(section(3,'3.13','sec:request'),"Request format",swi_man_packages('http.html'),packages,140591).
+i(/(http_read_request,2),"Reads an HTTP request from Stream and unify Request with the parsed request.",swi_man_packages('http.html'),packages,141058).
+i(section(4,'3.13.1','sec:http-read-post'),"Handling POST requests",swi_man_packages('http.html'),packages,146205).
+i(section(3,'3.14','sec:http-running-server'),"Running the server",swi_man_packages('http.html'),packages,147586).
+i(section(4,'3.14.1','sec:http-server-options'),"Common server interface options",swi_man_packages('http.html'),packages,149850).
+i(section(4,'3.14.2','sec:mthttpd'),"Multi-threaded Prolog",swi_man_packages('http.html'),packages,150483).
+i(/(http_server,3),"Create the server.",swi_man_packages('http.html'),packages,151321).
+i(/(http_server_property,2),"True if Property is a property of the HTTP server running at Port.",swi_man_packages('http.html'),packages,155168).
+i(/(http_workers,2),"Query or manipulate the number of workers of the server identified by Port.",swi_man_packages('http.html'),packages,156063).
+i(/(http_add_worker,2),"Add a new worker to the HTTP server for port Port.",swi_man_packages('http.html'),packages,156931).
+i(/(http_stop_server,2),"Stop the HTTP server at Port.",swi_man_packages('http.html'),packages,157445).
+i(/(http_current_worker,2),"True if ThreadID is the identifier of a Prolog thread serving Port.",swi_man_packages('http.html'),packages,157873).
+i(/(http_spawn,2),"Continue handling this request in a new thread running Goal.",swi_man_packages('http.html'),packages,158245).
+i(section(4,'3.14.3','sec:httpunixdaemon'),"library(http/http_unix_daemon): Run SWI-Prolog HTTP server as a Unix system daemon",swi_man_packages('http.html'),packages,160370).
+i(/(http_daemon,0),"Start the HTTP server as a daemon process.",swi_man_packages('http.html'),packages,164089).
+i(/(http_daemon,1),"Start the HTTP server as a daemon process.",swi_man_packages('http.html'),packages,169686).
+i(/(http_certificate_hook,3),"Hook called before starting the server if the --https option is used.",swi_man_packages('http.html'),packages,170268).
+i(/(http_server_hook,1),"Hook that is called to start the HTTP server.",swi_man_packages('http.html'),packages,170791).
+i(:(http,/(sni_options,2)),"Hook to provide Server Name Indication (SNI) for TLS servers.",swi_man_packages('http.html'),packages,171175).
+i(section(4,'3.14.4','sec:http-inetd'),"From (Unix) inetd",swi_man_packages('http.html'),packages,171808).
+i(/(http_server,2),"Initialises and runs http_wrapper/5 in a loop until failure or end-of-file.",swi_man_packages('http.html'),packages,173032).
+i(section(4,'3.14.5','sec:http-inetd-mswin'),"MS-Windows",swi_man_packages('http.html'),packages,174160).
+i(section(4,'3.14.6','sec:http-server-as-cgi'),"As CGI script",swi_man_packages('http.html'),packages,174404).
+i(section(4,'3.14.7','sec:proxy'),"Using a reverse proxy",swi_man_packages('http.html'),packages,174602).
+i(section(3,'3.15','sec:http-wrapper'),"The wrapper library",swi_man_packages('http.html'),packages,178264).
+i(/(http_wrapper,5),"Handle an HTTP request where In is an input stream from the client, Out is an output stream to the client and Goal defines the goal realising the body.",swi_man_packages('http.html'),packages,178793).
+i(:(http,/(request_expansion,2)),"This multifile hook predicate is called just before the goal that produces the body, while the output is already redirected to collect the reply.",swi_man_packages('http.html'),packages,180307).
+i(/(http_current_request,1),"Get access to the currently executing request.",swi_man_packages('http.html'),packages,181270).
+i(/(http_relative_path,2),"Convert an absolute path (without host, fragment or search) into a path relative to the current page, defined as the path component from the current request (see http_current_request/1).",swi_man_packages('http.html'),packages,181851).
+i(section(3,'3.16','sec:httphost'),"library(http/http_host): Obtain public server location",swi_man_packages('http.html'),packages,182535).
+i(/(http_public_url,2),"True when URL is an absolute URL for the current request.",swi_man_packages('http.html'),packages,183248).
+i(/(http_public_host_url,2),"True when URL is the public URL at which this server can be contacted.",swi_man_packages('http.html'),packages,183600).
+i(/(http_public_host,4),"Current global host and port of the HTTP server.",swi_man_packages('http.html'),packages,184031).
+i(/(http_current_host,4),"deprecatedUse http_public_host/4 (same semantics)",swi_man_packages('http.html'),packages,185426).
+i(section(3,'3.17','sec:httplog'),"library(http/http_log): HTTP Logging module",swi_man_packages('http.html'),packages,185796).
+i(/(http_log_stream,1),"True when Stream is a stream to the opened HTTP log file.",swi_man_packages('http.html'),packages,186593).
+i(/(http_log_close,1),"If there is a currently open HTTP logfile, close it after adding a term server(Reason, Time).",swi_man_packages('http.html'),packages,187463).
+i(/(http_log,2),"Write message from Format and Args to log-stream.",swi_man_packages('http.html'),packages,188200).
+i(/(password_field,1),"Multifile predicate that can be defined to hide passwords from the logfile.",swi_man_packages('http.html'),packages,188548).
+i(/(nolog,1),"Multifile predicate that can be defined to hide request parameters from the request logfile.",swi_man_packages('http.html'),packages,188806).
+i(/(nolog_post_content_type,1),"Multifile hook called with the Content-type header.",swi_man_packages('http.html'),packages,189059).
+i(/(post_data_encoded,2),"Encode the POST body for inclusion into the HTTP log file.",swi_man_packages('http.html'),packages,189700).
+i(/(http_logrotate,1),"Rotate the available log files.",swi_man_packages('http.html'),packages,190200).
+i(/(http_schedule_logrotate,2),"Schedule log rotation based on maintenance broadcasts.",swi_man_packages('http.html'),packages,191787).
+i(section(3,'3.18','sec:http-debug'),"Debugging HTTP servers",swi_man_packages('http.html'),packages,192855).
+i(section(3,'3.19','sec:httpheader'),"library(http/http_header): Handling HTTP headers",swi_man_packages('http.html'),packages,193623).
+i(/(http_read_request,2),"Read an HTTP request-header from FdIn and return the broken-down request fields as +Name(+Value) pairs in a list.",swi_man_packages('http.html'),packages,194054).
+i(/(http_read_reply_header,2),"Read the HTTP reply header.",swi_man_packages('http.html'),packages,194471).
+i(/(http_reply,2),"Compose a complete HTTP reply from the term Data using additional headers from HdrExtra to the output stream Out.",swi_man_packages('http.html'),packages,194734).
+i(/(http_reply,3),"Compose a complete HTTP reply from the term Data using additional headers from HdrExtra to the output stream Out.",swi_man_packages('http.html'),packages,194734).
+i(/(http_reply,4),"Compose a complete HTTP reply from the term Data using additional headers from HdrExtra to the output stream Out.",swi_man_packages('http.html'),packages,194734).
+i(/(http_reply,5),"Compose a complete HTTP reply from the term Data using additional headers from HdrExtra to the output stream Out.",swi_man_packages('http.html'),packages,194734).
+i(/(http_reply,6),"Compose a complete HTTP reply from the term Data using additional headers from HdrExtra to the output stream Out.",swi_man_packages('http.html'),packages,194734).
+i(/(http_status_reply,4),"Emit HTML non-200 status reports.",swi_man_packages('http.html'),packages,197802).
+i(/(http_status_reply,5),"Emit HTML non-200 status reports.",swi_man_packages('http.html'),packages,197802).
+i(/(http_status_reply,6),"Emit HTML non-200 status reports.",swi_man_packages('http.html'),packages,197802).
+i(:(http,/(serialize_reply,2)),"Multifile hook to serialize the result of http:status_reply/3 into a term body(Type, Encoding, Content)In this term, Type is the media type, Encoding is the required wire encoding and Content a string representing the content.",swi_man_packages('http.html'),packages,199804).
+i(/(http_join_headers,3),"Append headers from Default to Header if they are not already part of it.",swi_man_packages('http.html'),packages,200419).
+i(/(http_update_encoding,3),"Allow for rewrite of the header, adjusting the encoding.",swi_man_packages('http.html'),packages,200670).
+i(:(http,/(mime_type_encoding,2)),"Encoding is the (default) character encoding for MimeType.",swi_man_packages('http.html'),packages,201162).
+i(/(http_update_connection,4),"Merge keep-alive information from Request and CGIHeader into Header.",swi_man_packages('http.html'),packages,201807).
+i(/(http_update_transfer,4),"Decide on the transfer encoding from the Request and the CGI header.",swi_man_packages('http.html'),packages,202093).
+i(/(http_post_data,3),"Send data on behalf on an HTTP POST request.",swi_man_packages('http.html'),packages,202950).
+i(/(http_reply_header,3),"Create a reply header using reply_header//3 and send it to Stream.",swi_man_packages('http.html'),packages,206588).
+i(/(http_parse_header_value,3),"Translate Value in a meaningful Prolog term.",swi_man_packages('http.html'),packages,206881).
+i(/(http_timestamp,2),"Generate a description of a Time in HTTP format (RFC1123)",swi_man_packages('http.html'),packages,209020).
+i(/(http_read_header,2),"Read Name: Value lines from FD until an empty line is encountered.",swi_man_packages('http.html'),packages,209276).
+i(/(http_parse_header,2),"Header is a list of Name(Value)-terms representing the structure of the HTTP header in Text.",swi_man_packages('http.html'),packages,209678).
+i(:(http,//(/,1)),"HTML-rule that emits the location of the HTTP server.",swi_man_packages('http.html'),packages,210102).
+i(:(http,/(status_page,3)),"Hook called by http_status_reply/4 and http_status_reply/5 that allows for emitting custom error pages for the following HTTP page types: 201 - created(Location)301 - moved(To)302 - moved_temporary(To)303 - see_other(To)400 - bad_request(ErrorTerm)401 - authorise(AuthMethod)403 - forbidden(URL)404 - not_found(URL)405 - method_not_allowed(Method,URL)406 - not_acceptable(Why)500 - server_error(ErrorTerm)503 - unavailable(Why) The hook is tried twice, first using the status term, e.g., not_found(URL) and than with the code, e.g.",swi_man_packages('http.html'),packages,210507).
+i(section(3,'3.20','sec:htmlwrite'),"The library(http/html_write) library",swi_man_packages('http.html'),packages,212281).
+i(//(html,1),"The DCG non-terminal html//1 is the main predicate of this library.",swi_man_packages('http.html'),packages,213469).
+i(//(page,2),"The DCG non-terminal page//2 generated a complete page, including the SGML DOCTYPE declaration.",swi_man_packages('http.html'),packages,219313).
+i(//(page,1),"This version of the page/[1,2] only gives you the SGML DOCTYPE and the HTML element.",swi_man_packages('http.html'),packages,220664).
+i(//(html_begin,1),"Just open the given element.",swi_man_packages('http.html'),packages,221039).
+i(//(html_end,1),"End an element.",swi_man_packages('http.html'),packages,222126).
+i(section(4,'3.20.1','sec:html-write'),"Emitting HTML documents",swi_man_packages('http.html'),packages,222376).
+i(/(reply_html_page,2),"Same as reply_html_page(default, Head, Body).",swi_man_packages('http.html'),packages,223067).
+i(/(reply_html_page,3),"Writes an HTML page preceded by an HTTP header as required by library(http_wrapper) (CGI-style).",swi_man_packages('http.html'),packages,223265).
+i(/(print_html,1),"Print the token list to the Prolog current output stream.",swi_man_packages('http.html'),packages,224832).
+i(/(print_html,2),"Print the token list to the specified output stream",swi_man_packages('http.html'),packages,225011).
+i(/(html_print_length,2),"When calling html_print/[1,2] on List, Length characters will be produced.",swi_man_packages('http.html'),packages,225194).
+i(section(4,'3.20.2','sec:html-post'),"Repositioning HTML for CSS and javascript links",swi_man_packages('http.html'),packages,225614).
+i(//(html_post,2),"Reposition HTML to the receiving Id.",swi_man_packages('http.html'),packages,226530).
+i(//(html_receive,1),"Receive posted HTML tokens.",swi_man_packages('http.html'),packages,227950).
+i(//(html_receive,2),"This extended version of html_receive//1 causes Handler to be called to process all messages posted to the channal at the time output is generated.",swi_man_packages('http.html'),packages,228686).
+i(//(xhtml_ns,2),"Demand an xmlns:id=Value in the outer html tag.",swi_man_packages('http.html'),packages,230378).
+i(section(4,'3.20.3','sec:html-write-rules'),"Adding rules for html//1",swi_man_packages('http.html'),packages,231665).
+i(//('html_write:expand',1),"Hook to add additional translation rules for html//1.",swi_man_packages('http.html'),packages,232159).
+i(//(html_quoted,1),"Emit the text in Atom, inserting entity-references for the SGML special characters <&>.",swi_man_packages('http.html'),packages,232364).
+i(//(html_quoted_attribute,1),"Emit the text in Atom suitable for use as an SGML attribute, inserting entity-references for the SGML special characters <&>\".",swi_man_packages('http.html'),packages,232626).
+i(section(4,'3.20.4','sec:htmllayout'),"Generating layout",swi_man_packages('http.html'),packages,232958).
+i(/('html_write:layout',3),"Specify the layout conventions for the element Tag, which is a lowercase atom.",swi_man_packages('http.html'),packages,233469).
+i(section(4,'3.20.5','sec:html-write-examples'),"Examples for using the HTML write library",swi_man_packages('http.html'),packages,234583).
+i(section(4,'3.20.6','sec:html-write-remarks'),"Remarks on the library(http/html_write) library",swi_man_packages('http.html'),packages,237008).
+i(section(3,'3.21','sec:jswrite'),"library(http/js_write): Utilities for including JavaScript",swi_man_packages('http.html'),packages,238458).
+i(//(js_script,1),"Generate a JavaScript script element with the given content.",swi_man_packages('http.html'),packages,239416).
+i(/(javascript,4),"Quasi quotation parser for JavaScript that allows for embedding Prolog variables to substitude identifiers in the JavaScript snippet.",swi_man_packages('http.html'),packages,239664).
+i(//(js_call,1),"Emit a call to a Javascript function.",swi_man_packages('http.html'),packages,241162).
+i(//(js_new,2),"Emit a call to a Javascript object declaration.",swi_man_packages('http.html'),packages,241752).
+i(//(js_arg_list,1),"Write javascript (function) arguments.",swi_man_packages('http.html'),packages,242060).
+i(//(js_expression,1),"Emit a single JSON argument.",swi_man_packages('http.html'),packages,242412).
+i(//(js_arg,1),"Same as js_expression//1, but fails if Expression is invalid, where js_expression//1 raises an error.",swi_man_packages('http.html'),packages,244071).
+i(section(3,'3.22','sec:httppath'),"library(http/http_path): Abstract specification of HTTP server locations",swi_man_packages('http.html'),packages,244613).
+i(:(http,/(location,3)),"Multifile hook used to specify new HTTP locations.",swi_man_packages('http.html'),packages,246642).
+i(/(http_absolute_uri,2),"URI is the absolute (i.e., starting with http://) URI for the abstract specification Spec.",swi_man_packages('http.html'),packages,247898).
+i(/(http_absolute_location,3),"Path is the HTTP location for the abstract specification Spec.",swi_man_packages('http.html'),packages,248474).
+i(/(http_clean_location_cache,0),"HTTP locations resolved through http_absolute_location/3 are cached.",swi_man_packages('http.html'),packages,249172).
+i(section(3,'3.23','sec:htmlhead'),"library(http/html_head): Automatic inclusion of CSS and scripts links",swi_man_packages('http.html'),packages,249589).
+i(section(4,'3.23.1','sec:html-resource-ordering'),"About resource ordering",swi_man_packages('http.html'),packages,251241).
+i(section(4,'3.23.2','sec:html-resource-debugging'),"Debugging dependencies",swi_man_packages('http.html'),packages,252099).
+i(section(4,'3.23.3','sec:html-resource-predicates'),"Predicates",swi_man_packages('http.html'),packages,252579).
+i(/(html_resource,2),"Register an HTML head resource.",swi_man_packages('http.html'),packages,252788).
+i(/(html_current_resource,1),"True when About is a currently known resource.",swi_man_packages('http.html'),packages,255091).
+i(//(html_requires,1),"Include ResourceOrList and all dependencies derived from it and add them to the HTML head using html_post/2.",swi_man_packages('http.html'),packages,255331).
+i(//(mime_include,2),"Hook called to include a link to an HTML resource of type Mime into the HTML head.",swi_man_packages('http.html'),packages,255808).
+i(section(3,'3.24','sec:httppwp'),"library(http/http_pwp): Serve PWP pages through the HTTP server",swi_man_packages('http.html'),packages,256625).
+i(/(pwp_handler,2),"Handle PWP files.",swi_man_packages('http.html'),packages,258022).
+i(/(reply_pwp_page,3),"Reply a PWP file.",swi_man_packages('http.html'),packages,260402).
+i(section(2,'4','sec:transfer'),"Transfer encodings",swi_man_packages('http.html'),packages,263137).
+i(section(3,'4.1','sec:http-chunked'),"The library(http/http_chunked) library",swi_man_packages('http.html'),packages,264603).
+i(/(http_chunked_open,3),"Create a stream to realise HTTP chunked encoding or decoding.",swi_man_packages('http.html'),packages,264821).
+i(section(2,'5','sec:websocket'),"library(http/websocket): WebSocket support",swi_man_packages('http.html'),packages,265278).
+i(/(http_open_websocket,3),"Establish a client websocket connection.",swi_man_packages('http.html'),packages,267000).
+i(/(http_upgrade_to_websocket,3),"Create a websocket connection running call(Goal, WebSocket), where WebSocket is a socket-pair.",swi_man_packages('http.html'),packages,268808).
+i(/(ws_send,2),"Send a message over a websocket.",swi_man_packages('http.html'),packages,270844).
+i(/(ws_receive,2),"Receive the next message from WebSocket.",swi_man_packages('http.html'),packages,273545).
+i(/(ws_receive,3),"Receive the next message from WebSocket.",swi_man_packages('http.html'),packages,273545).
+i(/(ws_close,3),"Close a WebSocket connection by sending a close message if this was not already sent and wait for the close reply.",swi_man_packages('http.html'),packages,275958).
+i(/(ws_open,3),"Turn a raw TCP/IP (or any other binary stream) into a websocket stream.",swi_man_packages('http.html'),packages,276817).
+i(/(ws_property,2),"True if Property is a property WebSocket.",swi_man_packages('http.html'),packages,278544).
+i(section(2,'6','sec:hub'),"library(http/hub): Manage a hub for websockets",swi_man_packages('http.html'),packages,279092).
+i(/(hub_create,3),"Create a new hub.",swi_man_packages('http.html'),packages,281307).
+i(/(current_hub,2),"True when there exists a hub Hub with Name.",swi_man_packages('http.html'),packages,282417).
+i(/(hub_add,3),"Add a WebSocket to the hub.",swi_man_packages('http.html'),packages,282651).
+i(/(hub_member,2),"True when Id is a member of the hub HubName.",swi_man_packages('http.html'),packages,282969).
+i(/(hub_send,2),"Send message to the indicated ClientId.",swi_man_packages('http.html'),packages,283204).
+i(/(hub_broadcast,2),"Send Message to all websockets associated with Hub for which call(Condition, Id) succeeds.",swi_man_packages('http.html'),packages,283684).
+i(/(hub_broadcast,3),"Send Message to all websockets associated with Hub for which call(Condition, Id) succeeds.",swi_man_packages('http.html'),packages,283684).
+i(section(2,'7','sec:jsonsupport'),"Supporting JSON",swi_man_packages('http.html'),packages,284412).
+i(section(3,'7.1','sec:json'),"library(http/json): Reading and writing JSON serialization",swi_man_packages('http.html'),packages,286947).
+i(/(atom_json_term,3),"Convert between textual representation and a JSON term.",swi_man_packages('http.html'),packages,288415).
+i(/(json_read,2),"Read next JSON value from Stream into a Prolog term.",swi_man_packages('http.html'),packages,288965).
+i(/(json_read,3),"Read next JSON value from Stream into a Prolog term.",swi_man_packages('http.html'),packages,288965).
+i(/(json_write,2),"Write a JSON term to Stream.",swi_man_packages('http.html'),packages,292087).
+i(/(json_write,3),"Write a JSON term to Stream.",swi_man_packages('http.html'),packages,292087).
+i(/(json_write_hook,4),"Hook that can be used to emit a JSON representation for Term to Stream.",swi_man_packages('http.html'),packages,295012).
+i(/(is_json_term,1),"True if Term is a json term.",swi_man_packages('http.html'),packages,296051).
+i(/(is_json_term,2),"True if Term is a json term.",swi_man_packages('http.html'),packages,296051).
+i(/(json_read_dict,2),"Read a JSON object, returning objects as a dicts.",swi_man_packages('http.html'),packages,296617).
+i(/(json_read_dict,3),"Read a JSON object, returning objects as a dicts.",swi_man_packages('http.html'),packages,296617).
+i(/(json_write_dict,2),"Write a JSON term, represented using dicts.",swi_man_packages('http.html'),packages,299063).
+i(/(json_write_dict,3),"Write a JSON term, represented using dicts.",swi_man_packages('http.html'),packages,299063).
+i(/(atom_json_dict,3),"Convert between textual representation and a JSON term represented as a dict.",swi_man_packages('http.html'),packages,299585).
+i(section(3,'7.2','sec:jsonconvert'),"library(http/json_convert): Convert between JSON terms and Prolog application terms",swi_man_packages('http.html'),packages,300351).
+i(/(current_json_object,3),"Multifile predicate computed from the json_object/1 declarations.",swi_man_packages('http.html'),packages,303819).
+i(/(json_object,1),"Declare a JSON object.",swi_man_packages('http.html'),packages,304413).
+i(/(prolog_to_json,2),"Translate a Prolog application Term into a JSON object term.",swi_man_packages('http.html'),packages,305627).
+i(/(json_to_prolog,2),"Translate a JSON term into an application term.",swi_man_packages('http.html'),packages,306501).
+i(section(3,'7.3','sec:httpjson'),"library(http/http_json): HTTP JSON Plugin module",swi_man_packages('http.html'),packages,307357).
+i(/('http_client:http_convert_data',4),"Hook implementation that supports reading JSON documents.",swi_man_packages('http.html'),packages,310714).
+i(/(is_json_content_type,1),"True if ContentType is a header value (either parsed or as atom/string) that denotes a JSON value.",swi_man_packages('http.html'),packages,311349).
+i(/(json_type,1),"True if MediaType is a JSON media type.",swi_man_packages('http.html'),packages,311647).
+i(:(http,/(post_data_hook,3)),"Hook implementation that allows http_post_data/3 posting JSON objects using one of the forms below.",swi_man_packages('http.html'),packages,312201).
+i(/(http_read_json,2),"Extract JSON data posted to this HTTP request.",swi_man_packages('http.html'),packages,313276).
+i(/(http_read_json,3),"Extract JSON data posted to this HTTP request.",swi_man_packages('http.html'),packages,313276).
+i(/(http_read_json_dict,2),"Similar to http_read_json/2,3, but by default uses the version 7 extended datatypes.",swi_man_packages('http.html'),packages,314462).
+i(/(http_read_json_dict,3),"Similar to http_read_json/2,3, but by default uses the version 7 extended datatypes.",swi_man_packages('http.html'),packages,314462).
+i(/(reply_json,1),"Formulate a JSON HTTP reply.",swi_man_packages('http.html'),packages,314947).
+i(/(reply_json,2),"Formulate a JSON HTTP reply.",swi_man_packages('http.html'),packages,314947).
+i(/(reply_json_dict,1),"As reply_json/1 and reply_json/2, but assumes the new dict based data representation.",swi_man_packages('http.html'),packages,316278).
+i(/(reply_json_dict,2),"As reply_json/1 and reply_json/2, but assumes the new dict based data representation.",swi_man_packages('http.html'),packages,316278).
+i(section(2,'8','sec:http-mime'),"MIME support",swi_man_packages('http.html'),packages,317035).
+i(section(3,'8.1','sec:mimepack'),"library(http/mimepack): Create a MIME message",swi_man_packages('http.html'),packages,317188).
+i(/(mime_pack,3),"Pack a number of inputs into a MIME package using a specified or generated boundary.",swi_man_packages('http.html'),packages,317919).
+i(section(2,'9','sec:http-security'),"Security",swi_man_packages('http.html'),packages,321489).
+i(section(2,'10','sec:http-tips-and-tricks'),"Tips and tricks",swi_man_packages('http.html'),packages,324507).
+i(section(2,'11','sec:http-status'),"Status",swi_man_packages('http.html'),packages,325793).
 i(section(0,'0','packages/odbc.html'),"SWI-Prolog ODBC Interface",swi_man_packages('odbc.html'),packages,2777).
 i(section(2,'1','sec:odbc-intro'),"Introduction",swi_man_packages('odbc.html'),packages,6994).
 i(section(2,'2','sec:odbc'),"The ODBC layer",swi_man_packages('odbc.html'),packages,8138).

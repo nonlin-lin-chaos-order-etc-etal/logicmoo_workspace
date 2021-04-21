@@ -1719,10 +1719,18 @@ Overrule mime-type guessing from the filename as provided by <span class="pred-e
 </dd>
 <dt><strong>static_gzip</strong>(<var>+Boolean</var>)</dt>
 <dd class="defbody">
-If true (default <code>false</code>) and, in addition to the plain file, 
-there is a <code>.gz</code> file that is not older than the plain file 
-and the client acceps <code>gzip</code> encoding, send the compressed 
-file with <code>Transfer-encoding: gzip</code>.
+If <code>true</code> (default <code>false</code>) and, in addition to 
+the plain file, there is a <code>.gz</code> file that is not older than 
+the plain file and the client acceps <code>gzip</code> encoding, send 
+the compressed file with <code>Transfer-encoding: gzip</code>.
+</dd>
+<dt><strong>cached_gzip</strong>(<var>+Boolean</var>)</dt>
+<dd class="defbody">
+If <code>true</code> (default <code>false</code>) the system maintains 
+cached gzipped files in a directory accessible using the file search 
+path <code>http_gzip_cache</code> and serves these similar to the <code>static_gzip(true)</code> 
+option. If the gzip file does not exist or is older than the input the 
+file is recreated.
 </dd>
 <dt><strong>unsafe</strong>(<var>+Boolean</var>)</dt>
 <dd class="defbody">

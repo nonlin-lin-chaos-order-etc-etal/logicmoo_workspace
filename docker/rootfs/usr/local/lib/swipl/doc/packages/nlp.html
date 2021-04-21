@@ -482,6 +482,41 @@ atom, string or a list of characters or character codes. </td></tr>
 [0.0..1.0], where 1.0 means <i>most similar</i> </td></tr>
 </table>
 </dd>
+<dt class="pubdef"><span class="pred-tag">[det]</span><a id="isub_short/4"><strong>isub_short</strong>(<var>+Text1:text, 
++Text2:text, +Normalize:bool, -Similarity:float</var>)</a></dt>
+<dd class="defbody">
+Modified isub algorithm to allow also for short (less than 3 characters) 
+similarities or dissimilarities. <var>Similarity</var> is a measure for 
+the distance between <var>Text1</var> and <var>Text2</var>. E.g.
+
+<pre class="code">
+?- isub_short(joe,hoe,true,D).
+D = 0.7657657657657657.
+?- isub(joe,hoe,true,D).
+D = 0.0.
+?- isub_short('aa', 'aa', true, D).
+D = 1.0.
+?- isub(aa,aa,true,D).    % isub/4 does not support short similarities
+D = 0.09999999999999998.
+</pre>
+
+<p>Like <a class="pred" href="#isub/4">isub/4</a>, but modified to allow 
+for short similarities/ dissimilarities. The original algorithm for <a class="pred" href="#isub/4">isub/4</a> 
+was designed primarily to be a string metric for ontologies. However, 
+although useful for ontologies, it does not work for short similarities 
+less than three characters long.
+<a class="pred" href="#isub_short/4">isub_short/4</a> allows proper 
+comparison even if the similarities/dissimilarities are short, but it 
+may produce a result different than the original algorithm which was 
+designed primarily for ontologies (where we want to treat short 
+dissimilarities differently, e.g. score and store).
+<table class="arglist">
+<tr><td><var>Text1</var> </td><td>and <var>Text2</var> are either an 
+atom, string or a list of characters or character codes. </td></tr>
+<tr><td><var>Similarity</var> </td><td>is a float in the range 
+[0.0..1.0], where 1.0 means <i>most similar</i> </td></tr>
+</table>
+</dd>
 </dl>
 
 <h1><a id="document-index">Index</a></h1>
@@ -494,6 +529,7 @@ atom, string or a list of characters or character codes. </td></tr>
 <dd>
 <a class="idx" href="#idx:doublemetaphone3:1">1</a></dd>
 <dt><a class="idx" href="#isub/4">isub/4</a></dt>
+<dt><a class="idx" href="#isub_short/4">isub_short/4</a></dt>
 <dt><a class="idx" href="#porter_stem/2">porter_stem/2</a></dt>
 <dd>
 <a class="idx" href="#idx:porterstem2:2">2</a></dd>
