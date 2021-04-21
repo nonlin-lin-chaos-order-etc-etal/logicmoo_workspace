@@ -12,7 +12,6 @@ export DO_PULL=1
 
 if ping -c 1 -W 1 "$SHARED_SERVER"; then
    echo "$SHARED_SERVER is UP .. trying to mount..."
-   apt install -y nfs-common
    service rpcbind start
    service nfs-common start
    mkdir -p $LOGICMOO_WS
@@ -45,7 +44,13 @@ then
 fi
 
 cd $LOGICMOO_WS
-if [["$DO_PULL"=="1"]]; then git checkout master . ; else echo "Skipping pull" ; fi
+if [["$DO_PULL"=="1"]]
+then 
+   echo "git checkout master"
+   git checkout master .
+else 
+   echo "Skipping pull"
+fi
 
 . $LOGICMOO_WS/INSTALL.md
 
