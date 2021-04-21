@@ -22,10 +22,9 @@ packs_usr/johnpollock.us/
 packs_usr/readylog/
 packs_usr/redplushunter/
 packs_web/lps_corner/
-pldoc/
 /pyswip-0.2.3/
 /Mirrors/
 *.vtg*
 modified_sys/
-
+pldox/
 packs_web/logicmoo_webui/serv*/
