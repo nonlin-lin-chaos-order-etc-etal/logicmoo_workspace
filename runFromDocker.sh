@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set +x +e
+
 if [[ $EUID -ne 0 ]]; then
    echo "#* "
    echo -e "\e[1;31mERROR This script must be run as root. \e[0m"
