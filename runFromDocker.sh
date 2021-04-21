@@ -23,6 +23,9 @@ export LOGICMOO_WS=$DIR0
 EXTRA="${@}"
 EXTRA="$EXTRA --add-host logicmoo.org:10.0.0.194"
 
+find $LOGICMOO_WS/*/ -type d -exec chmod 777 {} + # */
+chmod a+w -R $LOGICMOO_WS/*/ # */
+
 git commit -am "Docker $(date)"
 git push github master
 
