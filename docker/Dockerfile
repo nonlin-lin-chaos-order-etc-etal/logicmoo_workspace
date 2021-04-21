@@ -384,7 +384,6 @@ RUN add-apt-repository -y ppa:ondrej/php \
  && apt-get update \
  && apt-get install -y -q --no-install-recommends \
   libapache2-mod-php \
-  libapache2-mod-php7.3 \
   libapache2-mod-php7.4 \
   libapache2-mod-wsgi \
   libapache2-mod-proxy-uwsgi \
@@ -426,7 +425,7 @@ COPY rootfs/etc /etc
 RUN echo enable some apache mods \
  && a2dismod mpm_event \
  && a2enmod access_compat alias auth_basic authn_core authn_file authz_core authz_host authz_user autoindex deflate dir env \
- filter headers http2 mime mpm_prefork negotiation php7.3 php7.4 proxy proxy_ajp proxy_balancer proxy_connect proxy_express \
+ filter headers http2 mime mpm_prefork negotiation  php7.4 proxy proxy_ajp proxy_balancer proxy_connect proxy_express \
  proxy_fcgi proxy_fdpass proxy_ftp proxy_hcheck proxy_html proxy_http proxy_http2 proxy_scgi proxy_uwsgi proxy_wstunnel reqtimeout \
  rewrite setenvif slotmem_shm socache_shmcb ssl status xml2enc ; /bin/true \
  \
@@ -448,7 +447,8 @@ RUN apt-get update -qq && apt-get install -y \
  python3-gevent \
  #python3-novnc \
  python3-flask-api \
- ping \
+ iputils-ping \
+ iputils-arping \
  nfs-kernel-server \
  nfs-common \
  rpcbind \ 
