@@ -49,13 +49,9 @@ if ["$DO_PULL"=="1"]; then git checkout master . ; else echo "Skipping pull" ; f
 
 . $LOGICMOO_WS/INSTALL.md
 
-#find $LOGICMOO_WS/packs_*/ -name "*.qlf" -delete
-#rm -f $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/tt0_00022_cycl.qlf
-#rm -f $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/plkb0988_kb.qlf
-
-find $LOGICMOO_WS/ -type d -exec chmod 777 {} +
-chmod a+w -R $LOGICMOO_WS/
-chmod a+w -R /tmp/
+#find $LOGICMOO_WS/ -type d -exec chmod 777 {} +
+#chmod a+w -R $LOGICMOO_WS/
+#chmod a+w -R /tmp/
 
 # clearup
 #PASSWORD=
