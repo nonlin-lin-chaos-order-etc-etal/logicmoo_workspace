@@ -436,11 +436,11 @@ RUN echo enable some apache mods \
 
 # expose our used ports
 EXPOSE 22
-EXPOSE 80
-EXPOSE 443
-EXPOSE 3020
-EXPOSE 3050
-EXPOSE 3080
+EXPOSE 80 4080
+EXPOSE 443 4443
+EXPOSE 3020 4020
+EXPOSE 111 2049
+EXPOSE 139 445
 
 # Phase three in case we forgot any above
 RUN apt-get update -qq && apt-get install -y \
@@ -448,8 +448,11 @@ RUN apt-get update -qq && apt-get install -y \
  python3-gevent \
  #python3-novnc \
  python3-flask-api \
+ ping \
+ nfs-kernel-server \
+ nfs-common \
+ rpcbind \ 
  telnet \
-
  #python3-flask-sockets \
  && echo apt autoclean -y \
  && echo apt autoremove -y \
@@ -463,8 +466,8 @@ LABEL maintainer = "logicmoo@gmail.com"
 LABEL maintainer="fcwu.tw@gmail.com"
 COPY rootfs /
 EXPOSE 80
-EXPOSE 801
-EXPOSE 57575
+EXPOSE 4180
+EXPOSE 4022
 WORKDIR /root
 ENV HOME=/root \
     SHELL=/bin/bash
