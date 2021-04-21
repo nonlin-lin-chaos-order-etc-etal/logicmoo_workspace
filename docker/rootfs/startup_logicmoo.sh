@@ -2,11 +2,7 @@
 
 set +x +e
 
-apt update
-apt install -y iputils-ping
-
 export LOGICMOO_WS=/opt/logicmoo_workspace
-
 export SHARED_SERVER=10.0.0.197
 export DO_PULL=1
 
