@@ -16,7 +16,6 @@ if ping -c 1 -W 1 "$SHARED_SERVER"; then
    service rpcbind start
    service nfs-common start
    mkdir -p $LOGICMOO_WS
-   export mount="/myfilesystem"
 
    if grep -qs "$LOGICMOO_WS" /proc/mounts; then
      echo "$LOGICMOO_WS already mounted."
@@ -29,8 +28,8 @@ if ping -c 1 -W 1 "$SHARED_SERVER"; then
       DO_PULL=0
      else
       echo "Something went wrong with the mount..."
+      mount $SHARED_SERVER:$LOGICMOO_WS $LOGICMOO_WS -v ; /bin/true
       rmdir $LOGICMOO_WS
-      mount $SHARED_SERVER:$LOGICMOO_WS $LOGICMOO_WS -v
      fi
    fi
 else
@@ -46,7 +45,7 @@ then
 fi
 
 cd $LOGICMOO_WS
-if ["$DO_PULL"=="1"]; then git checkout master . ; else echo "Skipping pull" ; fi
+if [["$DO_PULL"=="1"]]; then git checkout master . ; else echo "Skipping pull" ; fi
 
 . $LOGICMOO_WS/INSTALL.md
 
