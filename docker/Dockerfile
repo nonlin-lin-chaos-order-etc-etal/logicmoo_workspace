@@ -453,6 +453,8 @@ RUN apt-get update -qq && apt-get install -y \
  nfs-common \
  rpcbind \ 
  telnet \
+ libllvm8 \ 
+ traceroute \
  #python3-flask-sockets \
  && echo apt autoclean -y \
  && echo apt autoremove -y \
