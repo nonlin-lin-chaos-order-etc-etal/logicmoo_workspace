@@ -4,39 +4,57 @@
 apt update
 apt install -y iputils-ping
 
+export LOGICMOO_WS=/opt/logicmoo_workspace
 
 export SHARED_SERVER=10.0.0.194
+export DO_PULL=1
 
 if ping -c 1 -W 1 "$SHARED_SERVER"; then
    echo "$SHARED_SERVER is UP .. trying to mount..."
    apt install -y nfs-common
    service rpcbind start
    service nfs-common start
-   mkdir -p /opt/logicmoo_workspace
-   mount -v $SHARED_SERVER:/opt/logicmoo_workspace /opt/logicmoo_workspace
-else
-   echo "$SHARED_SERVER is pining for the fjords"
+   mkdir -p $LOGICMOO_WS
+   export mount="/myfilesystem"
 
-   # check out our repo
-   if [[ ! -d /opt/logicmoo_workspace ]]
-   then
-    cd /opt
-    git config --global http.sslVerify false \
-    git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace 
+   if grep -qs "$LOGICMOO_WS" /proc/mounts; then
+     echo "$LOGICMOO_WS already mounted."
+     DO_PULL=0
    else
-    cd /opt/logicmoo_workspace
-    git checkout master .
+     echo "$LOGICMOO_WS is not mounted."
+     mount $SHARED_SERVER:$LOGICMOO_WS $LOGICMOO_WS
+     if [ $? -eq 0 ]; then
+      echo "Success mount $SHARED_SERVER:$LOGICMOO_WS $LOGICMOO_WS !"
+      DO_PULL=0
+     else
+      echo "Something went wrong with the mount..."
+      rmdir $LOGICMOO_WS
+      mount $SHARED_SERVER:$LOGICMOO_WS $LOGICMOO_WS -v
+     fi
    fi
+else
+   echo "$SHARED_SERVER is not local"
 fi
 
-. /opt/logicmoo_workspace/INSTALL.md
+# check out our repo
+if [[ ! -d $LOGICMOO_WS ]]
+then
+ cd /opt
+ git config --global http.sslVerify false \
+ git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace
+fi
 
-#find /opt/logicmoo_workspace/packs_*/ -name "*.qlf" -delete
-#rm -f /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/tt0_00022_cycl.qlf
-#rm -f /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/plkb0988_kb.qlf
+cd $LOGICMOO_WS
+if ["$DO_PULL"=="1"]; then git checkout master . ; else echo "Skipping pull" ; fi
 
-find /opt/logicmoo_workspace/ -type d -exec chmod 777 {} +
-chmod a+w -R /opt/logicmoo_workspace/
+. $LOGICMOO_WS/INSTALL.md
+
+#find $LOGICMOO_WS/packs_*/ -name "*.qlf" -delete
+#rm -f $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/tt0_00022_cycl.qlf
+#rm -f $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/plkb0988_kb.qlf
+
+find $LOGICMOO_WS/ -type d -exec chmod 777 {} +
+chmod a+w -R $LOGICMOO_WS/
 chmod a+w -R /tmp/
 
 # clearup
@@ -55,6 +73,6 @@ do
 done
 else
  supervisord  -c /etc/supervisor/supervisord.conf
- /opt/logicmoo_workspace/StartLogicmoo.sh
+ $LOGICMOO_WS/StartLogicmoo.sh
 fi
 
