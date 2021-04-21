@@ -1,15 +1,32 @@
 #!/bin/bash
 
-# check out our repo
-if [[ ! -d /opt/logicmoo_workspace ]]
-then
- mkdir -p /opt
- cd /opt 
- git config --global http.sslVerify false \
- git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace 
+
+apt update
+apt install -y iputils-ping
+
+
+export SHARED_SERVER=10.0.0.194
+
+if ping -c 1 -W 1 "$SHARED_SERVER"; then
+   echo "$SHARED_SERVER is UP .. trying to mount..."
+   apt install -y nfs-common
+   service rpcbind start
+   service nfs-common start
+   mkdir -p /opt/logicmoo_workspace
+   mount -v $SHARED_SERVER:/opt/logicmoo_workspace /opt/logicmoo_workspace
 else
- cd /opt/logicmoo_workspace
- git checkout master .
+   echo "$SHARED_SERVER is pining for the fjords"
+
+   # check out our repo
+   if [[ ! -d /opt/logicmoo_workspace ]]
+   then
+    cd /opt
+    git config --global http.sslVerify false \
+    git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace 
+   else
+    cd /opt/logicmoo_workspace
+    git checkout master .
+   fi
 fi
 
 . /opt/logicmoo_workspace/INSTALL.md
