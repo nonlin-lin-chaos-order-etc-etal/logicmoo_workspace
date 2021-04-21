@@ -40,8 +40,7 @@ then
 fi
 
 cd $LOGICMOO_WS
-if [["$DO_PULL"=="1"]]
-then 
+if [ $DO_PULL -gt 0 ]; then 
    echo "git checkout master"
    git checkout master .
 else 
