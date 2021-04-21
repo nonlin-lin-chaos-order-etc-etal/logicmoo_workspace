@@ -45,7 +45,7 @@ adv_server(Port) :-
    ]).
 
 peer_alias(Prefix, Peer, Host, Alias):-
- (tcp_host_to_address(Host, Peer);Host=Peer),
+ catch(tcp_host_to_address(Host, Peer),exception(error(socket_error(host_not_found,_),_)),Host=Peer),
  format(string(S), '~w@~w_', [Host, Prefix]),
  gensym(S, Alias), !.
 
