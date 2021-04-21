@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set +x +e
 
 apt update
 apt install -y iputils-ping
