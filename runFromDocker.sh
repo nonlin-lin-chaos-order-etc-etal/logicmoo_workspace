@@ -37,6 +37,6 @@ docker build -t logicmoo/logicmoo_workspace $EXTRA  .
 echo MAYBE: docker push logicmoo/logicmoo_workspace
 docker push logicmoo/logicmoo_workspace
 
-echo docker run --name logicmoo -privileged --rm -it -p 4123:4123 -p 4000-4004:4000-4004 -p 4100-4104:4100-4104 -p 4022:4022 -p 4080:80 -p 4180:4180 -p 4443:443 -p 3020:3020 -p 4020:3020 $EXTRA logicmoo/logicmoo_workspace:latest
+echo docker run --name logicmoo --privileged=true --rm -it -p 4123:4123 -p 4000-4004:4000-4004 -p 4100-4104:4100-4104 -p 4022:4022 -p 4080:80 -p 4180:4180 -p 4443:443 -p 3020:3020 -p 4020:3020 $EXTRA logicmoo/logicmoo_workspace:latest
 
 )
