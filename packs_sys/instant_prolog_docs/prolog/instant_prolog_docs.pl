@@ -565,7 +565,7 @@ target_module(P, M):-mpred_source_file(M:P, F), baseKB:mpred_is_impl_file(F), ma
 % Autodoc Output Path.
 %
 autodoc_output_path(File, PlDocFile):-
-   atom_subst(File, '/prolog', '/pldoc', PlDocFile0),
+   atom_subst(File, '/prolog', '/pldox', PlDocFile0),
    (PlDocFile0\==File-> PlDocFile=PlDocFile0 ;
        (atom_subst(PlDocFile0, '/logicmoo_base/', '/logicmoo_base_docs/', PlDocFile1),
          (PlDocFile1\==PlDocFile0->PlDocFile=PlDocFile1;PlDocFile=user))),

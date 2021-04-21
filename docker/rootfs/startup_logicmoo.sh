@@ -38,6 +38,8 @@ then
  echo "clone --depth 1 https://github.com/logicmoo/logicmoo_workspace"
  git config --global http.sslVerify false
  git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace
+ find $LOGICMOO_WS/ -type d -exec chmod 777 {} +
+ chmod a+w -R $LOGICMOO_WS/
 fi
 
 cd $LOGICMOO_WS
@@ -50,9 +52,7 @@ fi
 
 . $LOGICMOO_WS/INSTALL.md
 
-#find $LOGICMOO_WS/ -type d -exec chmod 777 {} +
-#chmod a+w -R $LOGICMOO_WS/
-#chmod a+w -R /tmp/
+chmod a+w -R /tmp/
 
 # clearup
 #PASSWORD=
