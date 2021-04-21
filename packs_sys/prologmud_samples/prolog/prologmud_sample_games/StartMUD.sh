@@ -90,7 +90,8 @@ if [[ "$(pidof eggdrop)"=="" ]] ; then
  # ( cd $LOGICMOO_WS/packs_sys/eggdrop/conf/ ; sudo -u prologmud_server -- eggdrop -m )
 fi     
 
-export SWIPL="$LOGICMOO_WS/bin/swipl "
+export SWIPL="$LOGICMOO_WS/bin/swipl"
+SWIPL=/opt/logicmoo_workspace/bin/swipl
 # SWIPL=+" -G18G -L18G -T18G"
 # SWIPL=+" --signals=true --stack_limit=32g"
 # SWIPL=+" --pce=false"
