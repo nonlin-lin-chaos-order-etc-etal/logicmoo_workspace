@@ -32,16 +32,17 @@ else
 fi
 
 # check out our repo
-if [[ ! -d $LOGICMOO_WS ]]
+if [[ ! -d $LOGICMOO_WS/.git ]]
 then
  cd /opt
- git config --global http.sslVerify false \
+ echo "clone --depth 1 https://github.com/logicmoo/logicmoo_workspace"
+ git config --global http.sslVerify false
  git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace
 fi
 
 cd $LOGICMOO_WS
 if [ $DO_PULL -gt 0 ]; then 
-   echo "git checkout master"
+   echo "git checkout master ."
    git checkout master .
 else 
    echo "Skipping pull"
