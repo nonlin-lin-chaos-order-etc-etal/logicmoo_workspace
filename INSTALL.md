@@ -73,18 +73,23 @@ then
  mkdir -p /opt
  cd /opt 
  git config --global http.sslVerify false \
+ echo "git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace"
  git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace 
  cd /opt/logicmoo_workspace
 else
  cd /opt/logicmoo_workspace
- git checkout master .
+ echo "git pull"
+ git pull
 fi
 
 git config --local http.sslVerify false
+echo "git submodule update --init"
 git submodule update --init
+echo "git pull --recurse-submodules"
 git pull --recurse-submodules
 
-. /opt/logicmoo_workspace/packs_web/butterfly/bin/activate 
+echo ". /opt/logicmoo_workspace/packs_web/butterfly/bin/activate"
+. /opt/logicmoo_workspace/packs_web/butterfly/bin/activate
 
 # make our process running user
 adduser --disabled-password --gecos "" --no-create-home $LOGICMOO_USER --home $LOGICMOO_GAMES
@@ -111,12 +116,13 @@ else
 (cd $LOGICMOO_WS && ./INSTALL-SWI.md)
 fi
 
-
+echo "copying config RC's into /root/"
 # set up our runtime stuff (give root better shell stuff and our likely history commands)
 cp -n $LOGICMOO_GAMES/.??*rc ~root/ \
  ; cp -n $LOGICMOO_GAMES/.bash* ~root/ \
  ; cp -n $LOGICMOO_GAMES/.profile* ~root/ \
 
+echo "Chowning and Chmoding..."
 cd $LOGICMOO_WS \
  && touch $LOGICMOO_GAMES/history_4000 \
  && touch $LOGICMOO_GAMES/completion_4000 \
@@ -134,17 +140,21 @@ cd $LOGICMOO_WS \
  && chmod 777 $LOGICMOO_GAMES/completion_* \
  && chmod 777 $LOGICMOO_GAMES/history_* \
  && chmod 777 $LOGICMOO_GAMES/nohup* \
+ && echo Maybe chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/ \
  && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/eggdrop/ \
- && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/ \
- && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/ \
- && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/src~/ \
- && chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_web/butterfly
+ && echo Maybe chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/ \
+ && echo Maybe chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/src~/ \
+ && echo Maybe chown -R $LOGICMOO_USER $LOGICMOO_WS/packs_web/butterfly
     
-git update-index --assume-unchanged $LOGICMOO_WS/packs_sys/eggdrop/conf/P*
-git status -s
+#git update-index --assume-unchanged $LOGICMOO_WS/packs_sys/eggdrop/conf/P*
+#echo "${BASH_SOURCE[0]} Assesing GIT STATUS..."
+#git status -s
 )
 
 find -name "*.qlf" -exec touch '{}' +
 
 
 )
+
+echo "${BASH_SOURCE[0]} Exiting."
+

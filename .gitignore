@@ -7,7 +7,9 @@ packs_sys/prologmud_samples/prolog/prologmud_sample_games/nohup.out
 .gitignore
 ~~*~~
 *~
+packs_sys/logicmoo_cg/prolog/MProlog-2.0/
 .git/
+is_dir
 #packs_sys/logicmoo_ec/ext/PKnows/
 /DEAD
 *.sav*

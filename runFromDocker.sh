@@ -2,6 +2,7 @@
 
 set +x +e
 
+
 if [[ $EUID -ne 0 ]]; then
    echo "#* "
    echo -e "\e[1;31mERROR This script must be run as root. \e[0m"
@@ -26,6 +27,7 @@ EXTRA="$EXTRA --add-host logicmoo.org:10.0.0.194"
 #find $LOGICMOO_WS/?*/ -type d -exec chmod 777 "{}" + 
 #chmod a+w -R $LOGICMOO_WS/?*/
 
+echo "Scanning changes for GIT ..."
 git commit -am "Docker $(date)"
 git push github master
 
@@ -42,6 +44,11 @@ docker build -t logicmoo/logicmoo_workspace $EXTRA  .
 echo MAYBE: docker push logicmoo/logicmoo_workspace
 docker push logicmoo/logicmoo_workspace
 
-docker run --name logicmoo --privileged=true --rm -it -p 4123:4123 -p 4000-4004:4000-4004 -p 4100-4104:4100-4104 -p 4022:4022 -p 4080:80 -p 4180:4180 -p 4443:443 -p 3020:3020 -p 4020:3020 $EXTRA logicmoo/logicmoo_workspace:latest
+docker kill logicmoo ; /bin/true
+
+export DOCKER_RUN="--name logicmoo --privileged=true --rm -it -p 4000-4440:4000-4440  -p 4443:443 -p 3020:3020 $EXTRA logicmoo/logicmoo_workspace:latest"
+
+echo "docker run $DOCKER_RUN"
+docker run $DOCKER_RUN
 
 )

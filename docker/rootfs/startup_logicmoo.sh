@@ -51,6 +51,7 @@ else
    echo "Skipping pull"
 fi
 
+echo "Starting . $LOGICMOO_WS/INSTALL.md"
 . $LOGICMOO_WS/INSTALL.md
 
 chmod a+w -R /tmp/

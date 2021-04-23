@@ -21,6 +21,7 @@ W:\opt\logicmoo_workspace\packs_sys\logicmoo_utils\prolog;W:\opt\logicmoo_worksp
 
 
 */
+:- set_prolog_flag(xpce, false).
 
 
 pre_run_mud_server:-
@@ -453,7 +454,7 @@ load_rest3_now:-
    add_hist(start_all),
    add_hist(qsave_logicmoo),
    system:reexport(pldata(kb_0988)),
-   (current_prolog_flag(gui_tracer,true)->noguitracer;true),
+  % (current_prolog_flag(gui_tracer,true)->noguitracer;true),
    % run_before_qsave,
    do_setup_history,
    nodebug,
@@ -555,7 +556,7 @@ start_all :- keep_user_module((start_network, start_rest)).
 %:- goat.
 
 :- if( current_prolog_flag(xpce, true) ).
-:- noguitracer, tnodebug.
+%:- noguitracer, tnodebug.
 :- endif.
 
 
@@ -762,7 +763,7 @@ start_all :- keep_user_module((start_network, start_rest)).
 
 
 :- if( current_prolog_flag(xpce, true) ).
-:- noguitracer, tnodebug.
+%:- noguitracer, tnodebug.
 :- endif.
 
 

@@ -3,17 +3,16 @@ FROM logicmoo/logicmoo_starter_image
 USER root
 LABEL maintainer = "logicmoo@gmail.com"
 
-
 # SSHD
 EXPOSE 22    
 # Apache HTTP 
 EXPOSE 80    
 # Apache SSL 
-EXPOSE 443   
+EXPOSE 443 4443
 # Ngynx
-EXPOSE 801   
+EXPOSE 4801   
 # Butterfly Logins
-EXPOSE 57575
+EXPOSE 4180
 # SWISH
 EXPOSE 3020
 # Eggdrop
@@ -35,30 +34,26 @@ EXPOSE 14123  4123  4023
 EXPOSE 14125  4125  4025   
                            # Non-Shared SWIPL ?-
 
-#EXPOSE 4100
-#EXPOSE 4101
-#EXPOSE 4102
-#EXPOSE 4103
-#EXPOSE 4104
-#EXPOSE 4123
-#EXPOSE 4125
-
-#EXPOSE 4000
-#EXPOSE 4001
-#EXPOSE 4002
-#EXPOSE 4003
-#EXPOSE 4004
-#EXPOSE 4023
-#EXPOSE 4025
+EXPOSE 4090 4091
 
 
 ENV HOME /root
 
+COPY docker/rootfs /
+
+RUN echo enable some apache mods \
+ && a2dismod mpm_event \
+ && a2enmod access_compat alias auth_basic authn_core authn_file authz_core authz_host authz_user autoindex deflate dir env \
+ filter headers http2 mime mpm_prefork negotiation  php7.4 proxy proxy_ajp proxy_balancer proxy_connect proxy_express \
+ proxy_fcgi proxy_fdpass proxy_ftp proxy_hcheck proxy_html proxy_http proxy_http2 proxy_scgi proxy_uwsgi proxy_wstunnel reqtimeout \
+ rewrite setenvif slotmem_shm socache_shmcb ssl status xml2enc ; /bin/true \
+ \
+# confirm our webconfig works (or it exits docker build) \
+ && service apache2 start && service apache2 status
 
 # @TODO (something here)
 ENV LOGICMOO_WS /opt/logicmoo_workspace
 
-COPY . $LOGICMOO_WS
 ENV PATH="${LOGICMOO_WS}/bin:${PATH}"
 ENV WNDB $LOGICMOO_WS/packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog
 

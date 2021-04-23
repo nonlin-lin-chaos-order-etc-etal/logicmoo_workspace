@@ -49,21 +49,25 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
 fi
 
 if [ -n "$DISPLAY" ] || [ -z "$DISPLAY" ]; then
-   echo export DISPLAY=10.0.0.122:0.0
-   echo export DISPLAY=:1
+   echo Maybe: export DISPLAY=10.0.0.122:0.0
+   echo OR Maybe: export DISPLAY=:1
 fi
 
 if [[ -z "${LIBJVM}" ]]; then
-
-   if [[ -z "${JAVA_HOME}" ]]; then
+   echo "Finding/Setting LIBJVM..."
+   if ! [[ -z "${JAVA_HOME}" ]]; then
     export LIBJVM=$(find $JAVA_HOME -name libjvm.so -printf "%h\n" | head -n 1)
    else
     export LIBJVM=$(find /usr/lib/jvm -name libjvm.so -printf "%h\n" | head -n 1)
    fi
-   
-   if ! [[ ":$LD_LIBRARY_PATH:" == ":$LIBJVM"* ]]; then
+fi
+
+echo "#* LIBJVM=$LIBJVM"
+
+if ! [[ ":$LD_LIBRARY_PATH:" == ":$LIBJVM"* ]]; then
+   echo "Finding/Setting LD_LIBRARY_PATH..."
     if [[ -z "${LD_LIBRARY_PATH}" ]]; then
-       export LD_LIBRARY_PATH=$LIBJVM
+       export LD_LIBRARY_PATH=$LIBJVM:/usr/local/lib
     else
        export LD_LIBRARY_PATH=$LIBJVM:$LD_LIBRARY_PATH
     fi
@@ -71,11 +75,9 @@ if [[ -z "${LIBJVM}" ]]; then
     export BOOST_ROOT=$LOGICMOO_WS/taupl/boost_1_67_0
     #export LD_LIBRARY_PATH=/usr/lib
     #export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server:.:$BOOST_ROOT/lib:$LD_LIBRARY_PATH   
-    echo "#* LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
-   fi
-
 fi
 
+echo "#* LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 
 if [[ ! -v SSH_TTY ]]; then
 /bin/true
@@ -87,6 +89,9 @@ else
  echo "#* MAYBE: need to chmod  o+rw $SSH_TTY"
  chmod o+rw $SSH_TTY
 fi
+
+export LIBJVM
+export LD_LIBRARY_PATH
 
 
 

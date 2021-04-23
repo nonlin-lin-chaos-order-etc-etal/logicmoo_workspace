@@ -10,8 +10,11 @@
 % ===================================================================
 
 :-module(parser_stanford,[
-            call_corenlp/1, call_corenlp/2, call_corenlp/3,
+            call_corenlp/1, 
+            call_corenlp/2, 
+            call_corenlp/3,
             test_corenlp/0,
+            test_corenlp/1,
          into_text100_atoms/2
 
          ]).
@@ -28,7 +31,7 @@ baseKB:sanity_test:- test_corenlp.
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
-call_corenlp(English):- make, call_corenlp(English, _Options).
+call_corenlp(English):- call_corenlp(English, _Options).
 
 call_corenlp(English, Options):-
   call_corenlp(English, Options, OutF),!,
@@ -45,7 +48,7 @@ call_corenlp(English, OptionsIn, OutS):-
   atomic_list_concat(Options, ',', OptionsStr),
   format(atom(For), '{"annotators":"~w", "outputFormat":"json"}', [OptionsStr]),
   % http_open([host(localhost), port(3090), post([PostData]), path(''), search([properties=For])], In, []),
-  uri_encoded(query_value, For, Encoded), atom_concat('http://logicmoo.org:3090/?properties=', Encoded, URL),
+  uri_encoded(query_value, For, Encoded), atom_concat('http://localhost:4090/?properties=', Encoded, URL),
   http_post(URL, [PostData], json(Reply), []),
   %maplist(print_reply_colored,Reply), print_reply_colored("==============================================================="),
   % maplist(wdmsg, Reply),
@@ -158,7 +161,13 @@ sentence_reply(Number, Toks, SExpr, In, In):-
 
 
 
-test_corenlp:- call_corenlp(
+test_corenlp:- forall(test_corenlp(X),call_corenlp(X)).
+
+test_corenlp(X):- nonvar(X),once(call_corenlp(X)).
+
+test_corenlp(".\nThe Norwegian lives in the first house.\n.").
+test_corenlp("Rydell used his straw to stir the foam and ice remaining at the bottom of his tall plastic cup, as though he were hoping to find a secret prize.").
+test_corenlp(
 'There are 5 houses with five different owners.
  These five owners drink a certain type of beverage, smoke a certain brand of cigar and keep a certain pet.
  No owners have the same pet, smoke the same brand of cigar or drink the same beverage.
@@ -173,10 +182,7 @@ test_corenlp:- call_corenlp(
  "You look like the cat that swallowed the canary, " he said, giving her a puzzled look.').
 
 
-test_corenlp:- call_corenlp(".\nThe Norwegian lives in the first house.\n.").
-test_corenlp:- call_corenlp("Rydell used his straw to stir the foam and ice remaining at the bottom of his tall plastic cup, as though he were hoping to find a secret prize.").
-
-test_corenlp:- call_corenlp(
+test_corenlp(
 ".
 The Brit lives in the red house.
 The Swede keeps dogs as pets.

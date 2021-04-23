@@ -101,6 +101,14 @@
 							</Folder>
 						</Folder>
 					</Folder>
+					<Folder Name="packs_xtra">
+						<Folder Name="logicmoo_pldata">
+							<Folder Name="prolog">
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/prolog/is_dir"/>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/prolog/logicmoo_pldata.pl"/>
+							</Folder>
+						</Folder>
+					</Folder>
 				</Folder>
 			</Folder>
 		</Folder>

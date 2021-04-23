@@ -371,7 +371,7 @@ ENV USER ubuntu
 MAINTAINER RUN useradd --create-home --home-dir /home/ubuntu --shell /bin/bash --user-group --groups adm,sudo ubuntu && \
     echo ubuntu:ubuntu | chpasswd && \
     echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-COPY ./ros-eloquent-desktop.sh /ros-eloquent-desktop.sh
+COPY rootfs/ros-eloquent-desktop.sh /ros-eloquent-desktop.sh
 RUN mkdir -p /tmp/ros_setup_scripts_ubuntu && mv /ros-eloquent-desktop.sh /tmp/ros_setup_scripts_ubuntu/ && \
     ( gosu ubuntu /tmp/ros_setup_scripts_ubuntu/ros-eloquent-desktop.sh ; /bin/true) && \
     rm -rf /var/lib/apt/lists/*
@@ -421,18 +421,6 @@ ENV LOGICMOO_WS /opt/logicmoo_workspace
 ENV LOGICMOO_GAMES $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
 
 
-COPY rootfs/etc /etc
-RUN echo enable some apache mods \
- && a2dismod mpm_event \
- && a2enmod access_compat alias auth_basic authn_core authn_file authz_core authz_host authz_user autoindex deflate dir env \
- filter headers http2 mime mpm_prefork negotiation  php7.4 proxy proxy_ajp proxy_balancer proxy_connect proxy_express \
- proxy_fcgi proxy_fdpass proxy_ftp proxy_hcheck proxy_html proxy_http proxy_http2 proxy_scgi proxy_uwsgi proxy_wstunnel reqtimeout \
- rewrite setenvif slotmem_shm socache_shmcb ssl status xml2enc ; /bin/true \
- \
-# confirm our webconfig works (or it exits docker build) \
- && service apache2 start && service apache2 status
-
-
 # expose our used ports
 EXPOSE 22
 EXPOSE 80 4080
@@ -466,7 +454,6 @@ LABEL maintainer = "logicmoo@gmail.com"
 ################################################################################
 #FROM system
 LABEL maintainer="fcwu.tw@gmail.com"
-COPY rootfs /
 EXPOSE 80
 EXPOSE 4180
 EXPOSE 4022
