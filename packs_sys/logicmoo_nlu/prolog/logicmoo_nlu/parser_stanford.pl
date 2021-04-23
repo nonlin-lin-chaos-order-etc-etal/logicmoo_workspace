@@ -45,12 +45,13 @@ call_corenlp(English, OptionsIn, OutS):-
   ignore(OptionsIn=DefaultOpts), % depparse, lemma
   atomic_list_concat(['\n.\n',English,"\n.\n"], PostData),
   (OptionsIn==[]->Options=DefaultOpts;Options=OptionsIn),
-  atomic_list_concat(Options, ',', OptionsStr),
-  nop(format(atom(For), '{"annotators":"~w", "outputFormat":"json"}', [OptionsStr])),
-  format(atom(For), '{"outputFormat":"json"}', []),
+  atomic_list_concat(Options, '%2C', OptionsStr),
+  %format(atom(For), '"annotators":"~w", "outputFormat":"json"', [OptionsStr]),
+  % format(atom(For), '{"outputFormat":"json"}', []),
   % http_open([host(localhost), port(3090), post([PostData]), path(''), search([properties=For])], In, []),
-  uri_encoded(query_value, For, Encoded), 
-  atom_concat('http://localhost:4090/?properties=', Encoded, URL),
+  %uri_encoded(query_value, For, Encoded), 
+  atomic_list_concat(['http://localhost:4090/?properties={%22annotators%22%3A%22', OptionsStr,'%22%2C%22outputFormat%22%3A%22json%22}'], URL),
+  wdmsg(uRL=URL),
   http_post(URL, [PostData], json(Reply), []),
   %maplist(print_reply_colored,Reply), print_reply_colored("==============================================================="),
   % maplist(wdmsg, Reply),
@@ -59,6 +60,8 @@ call_corenlp(English, OptionsIn, OutS):-
   sort(OutF, OutR),
   reverse(OutR, OutS),
   !.
+% http://localhost:4090/stanford/?properties={%22annotators%22%3A%22quote,tokenize,ssplit,pos,lemma,depparse,natlog,coref,dcoref,nmat%22%3A%22json%22}
+% http://localhost:4090/stanford/?properties={%22annotators%22%3A%22tokenize%2Cssplit%2Cpos%2Cdepparse%22%2C%22outputFormat%22%3A%22conllu%22}
 
 parse_reply(Ctx, List, Out):- is_list(List),!, maplist(parse_reply(Ctx),List, Out).
 parse_reply(Ctx, InnerCtx=json(List), Out):- !,  parse_reply([InnerCtx|Ctx], List, Out).

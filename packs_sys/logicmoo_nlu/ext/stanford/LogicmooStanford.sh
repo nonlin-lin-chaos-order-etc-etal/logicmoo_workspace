@@ -14,16 +14,20 @@ if [[ ! -f deps/stanford-corenlp-4.2.0-models.jar ]]; then
 fi
 
 
-export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -preload -status_port 4091 -timeout 15000 $@"
+#export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -preload -status_port 4091 -timeout 15000 $@"
 
-export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -preload -status_port 4091 -timeout 15000"
+#export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -timeout 15000 -uriContext /stanford"
+
+export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -timeout 15000"
 
 # -annotators tokenize,quote,ssplit,pos,lemma,ner,truecase,parse,hcoref,relation
 echo cd `pwd`
 echo java -mx4g -cp "deps/*" $OPTS
 java -mx4g -cp "deps/*" $OPTS
 
-sleep 3
+sleep 1
+# curl --data "How are you today?" 'http://localhost:4090/stanford/?properties={%22annotators%22%3A%22tokenize%2Cssplit%2Cpos%2Cdepparse%22%2C%22outputFormat%22%3A%22conllu%22}'
+# curl --data "How are you today?" 'http://localhost:4090/?properties={%22annotators%22%3A%22quote%2Ctokenize%2Cssplit%2Cpos%2Clemma%2Cdepparse%2Cnatlog%2Ccoref%2Cdcoref%2Cner%2Crelation%2Cudfeats%22%2C%22outputFormat%22%3A%22json%22}'
 echo "${BASH_SOURCE[0]} Exiting..."
 
 
