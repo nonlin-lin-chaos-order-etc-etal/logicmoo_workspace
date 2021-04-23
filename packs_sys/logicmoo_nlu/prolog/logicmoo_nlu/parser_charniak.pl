@@ -47,10 +47,10 @@ read_lines(StringIn, Out, AllCodes) :-
         read_lines(Line2, Out, Lines),
         atomics_to_string([StringIn,'\n',Lines],AllCodes).
 
-charniak_pos(Text,(POS-Segs)):-
+charniak_pos(Text,(SegsF)):-
   charniak_lparse(Text,LExpr),
-  sexpr_to_pos(LExpr,POS),!,
-  sexpr_to_segs(LExpr,Segs).
+  %sexpr_to_pos(LExpr,POS),!,
+  sexpr_to_segs(LExpr,Segs),flatten(Segs,SegsF).
 
 sexpr_to_segs([],[]):- !.
 sexpr_to_segs(WORD,[POS]):- is_pos(WORD,POS),!. 
@@ -61,13 +61,13 @@ sexpr_to_segs([H|T],POS):- sexpr_to_segs(H,POSH),sexpr_to_segs(T,POST), !, appen
 
 %add_p_to_words(_,[],[]):-!.
 add_p_to_words(P,[H|T],[HH|TT]):-add_p_to_words(P,H,HH),add_p_to_words(P,T,TT).
-add_p_to_words(P,w(S,Pos),w(S,PosP)):- append(Pos,P,PosP).
+add_p_to_words(P,w(S,Pos),w(S,PosP)):- append(Pos,[P],PosP).
 add_p_to_words(_,H,H):-!.
 %sexpr_to_segs([WORD],[POS]):- is_pos(WORD,POS),!. 
 
 sexpr_to_pos(In,Out):- sexpr_to_pos1(In,Mid),sexpr_to_pos2(Mid,Out),!.
 is_pos([Pos,[quote,Head]],Out):-!,is_pos([Pos,Head],Out).
-is_pos([Pos,Head],w(Head,[Pos])):- maplist(atom,[Pos,Head]),!.
+is_pos([Pos,Head],w(Head,[DC])):- maplist(atom,[Pos,Head]),downcase_atom(Pos,DC),!.
 is_pos([Word],Out):-!,is_pos(Word,Out).
 
 sexpr_to_pos1([],[]):- !.
