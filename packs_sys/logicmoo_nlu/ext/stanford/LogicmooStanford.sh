@@ -1,11 +1,6 @@
 #!/bin/bash
 
 echo "${BASH_SOURCE[0]} Starting..."
-(
-cd CoreNLP 
-#ant
-#cd classes ; jar -cf ../stanford-corenlp.jar edu
-)
 
 if [[ ! -f deps/stanford-corenlp-4.2.0-models.jar ]]; then
 (
