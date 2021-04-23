@@ -443,6 +443,9 @@ RUN apt-get update -qq && apt-get install -y \
  telnet \
  libllvm8 \ 
  traceroute \
+ inotify-tools \
+ swig \
+ flex \
  #python3-flask-sockets \
  && echo apt autoclean -y \
  && echo apt autoremove -y \

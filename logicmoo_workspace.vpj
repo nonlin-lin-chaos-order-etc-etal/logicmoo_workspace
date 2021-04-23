@@ -13722,6 +13722,24 @@
 				<F N="packs_xtra/logicmoo_packages/is_dir"/>
 			</Folder>
 			<Folder Name="logicmoo_pldata">
+				<Folder Name="bllip-parser">
+					<Folder Name="dockerfiles">
+						<Folder Name="python">
+							<Folder Name="userfiles">
+								<F N="packs_xtra/logicmoo_pldata/bllip-parser/dockerfiles/python/userfiles/runvnc.sh"/>
+							</Folder>
+						</Folder>
+					</Folder>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/eval-reranker.sh"/>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/LogicmooCharniak.sh"/>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/nfeatures-train-eval-reranker.sh"/>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/oparse.sh"/>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/parse-50best.sh"/>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/parse-and-fuse.sh"/>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/parse-eval.sh"/>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/parse.sh"/>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/train-eval-reranker.sh"/>
+				</Folder>
 				<Folder Name="ext">
 					<Folder Name="plkb0988">
 						<F N="packs_xtra/logicmoo_pldata/ext/plkb0988/plkb0988_iface.pl"/>
