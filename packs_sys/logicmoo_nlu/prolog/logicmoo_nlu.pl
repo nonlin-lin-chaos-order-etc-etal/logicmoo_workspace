@@ -30,6 +30,7 @@
    reexport(library(logicmoo_nlu/nl_pipeline)),
    set_prolog_flag(access_level,WAS).
 
+%:- break.
 
 /*
 % :- system:ensure_loaded(pack(logicmoo_nlu/prolog/logicmoo_nlu/parser_chat80)).

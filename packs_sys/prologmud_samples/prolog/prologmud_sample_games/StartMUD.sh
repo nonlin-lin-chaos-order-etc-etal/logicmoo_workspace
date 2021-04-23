@@ -195,7 +195,8 @@ export WHOLE="gdb -x gdbinit -return-child-result --args ${RUNFILE}"
 export WHOLE="${RUNFILE}"
 
 if [[ $UID == 0 ]]; then
-  export WHOLE="sudo -u prologmud_server ${WHOLE}"
+  # export WHOLE="sudo -u prologmud_server ${WHOLE}"
+  echo WHOLE=$WHOLE
 fi
 
 echo "LOGICMOO_BASE_PORT=${LOGICMOO_BASE_PORT}"

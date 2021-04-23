@@ -425,7 +425,7 @@ start_network_now:-
    threads,statistics]),
    !.
 
-  load_rest:- keep_user_module(load_rest_now).
+load_rest:- keep_user_module(load_rest_now).
 load_rest_now:- 
   maplist(call_safely,
   [
@@ -435,7 +435,7 @@ load_rest_now:-
    baseKB:ensure_loaded(library(logicmoo_cg)),
    baseKB:ensure_loaded(library(logicmoo_ec)),
    use_module(library(instant_prolog_docs)),
-   baseKB:ensure_loaded(library(narsese)),
+   baseKB:ensure_loaded(library(narsese)),   
    add_history((mmake, autodoc_test)),
    load_rest2]),
    !.
