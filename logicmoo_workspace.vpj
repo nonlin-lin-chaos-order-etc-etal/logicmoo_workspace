@@ -1233,6 +1233,7 @@
 			</Folder>
 			<F N="docker/.dockerignore"/>
 			<F N="docker/dmiles-make-docker.sh"/>
+			<F N="docker/Dockerfile"/>
 			<F N="docker/is_dir"/>
 			<F N="docker/make-docker.sh"/>
 		</Folder>
@@ -1807,6 +1808,7 @@
 						<F N="packs_lib/rocksdb/rocksdb/tools/benchmark.sh"/>
 						<F N="packs_lib/rocksdb/rocksdb/tools/benchmark_leveldb.sh"/>
 						<F N="packs_lib/rocksdb/rocksdb/tools/check_format_compatible.sh"/>
+						<F N="packs_lib/rocksdb/rocksdb/tools/Dockerfile"/>
 						<F N="packs_lib/rocksdb/rocksdb/tools/generate_random_db.sh"/>
 						<F N="packs_lib/rocksdb/rocksdb/tools/ingest_external_sst.sh"/>
 						<F N="packs_lib/rocksdb/rocksdb/tools/regression_test.sh"/>
@@ -6005,6 +6007,10 @@
 				<Folder Name="swish">
 					<Folder Name="docker">
 						<F N="packs_sys/logicmoo_lps/swish/docker/buildpush.sh"/>
+						<F N="packs_sys/logicmoo_lps/swish/docker/Dockerfile"/>
+						<F N="packs_sys/logicmoo_lps/swish/docker/Dockerfile-SWISH-1.3.1"/>
+						<F N="packs_sys/logicmoo_lps/swish/docker/Dockerfile-SWISH-June2020"/>
+						<F N="packs_sys/logicmoo_lps/swish/docker/Dockerfile-SWISH-valentine2019"/>
 						<F N="packs_sys/logicmoo_lps/swish/docker/entry.sh"/>
 						<F N="packs_sys/logicmoo_lps/swish/docker/is_dir"/>
 					</Folder>
@@ -11617,6 +11623,7 @@
 				<F N="packs_web/butterfly/.gitignore"/>
 				<F N="packs_web/butterfly/.gitmodules"/>
 				<F N="packs_web/butterfly/CHANGELOG.md"/>
+				<F N="packs_web/butterfly/Dockerfile"/>
 				<F N="packs_web/butterfly/is_dir"/>
 				<F N="packs_web/butterfly/Makefile.config"/>
 				<F N="packs_web/butterfly/README.md"/>
@@ -13421,6 +13428,7 @@
 									<Folder Name="kitchen-sink">
 										<Folder Name="docs">
 											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/.gitignore"/>
+											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/Dockerfile"/>
 											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/eiffel.e"/>
 											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/lisp.lisp"/>
 											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/luapage.lp"/>
@@ -13428,6 +13436,26 @@
 											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/perl.pl"/>
 											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/sh.sh"/>
 										</Folder>
+									</Folder>
+								</Folder>
+								<Folder Name="src">
+									<Folder Name="snippets">
+										<F N="packs_web/swish/web/node_modules/ace/build/src/snippets/dockerfile.js"/>
+									</Folder>
+								</Folder>
+								<Folder Name="src-min">
+									<Folder Name="snippets">
+										<F N="packs_web/swish/web/node_modules/ace/build/src-min/snippets/dockerfile.js"/>
+									</Folder>
+								</Folder>
+								<Folder Name="src-min-noconflict">
+									<Folder Name="snippets">
+										<F N="packs_web/swish/web/node_modules/ace/build/src-min-noconflict/snippets/dockerfile.js"/>
+									</Folder>
+								</Folder>
+								<Folder Name="src-noconflict">
+									<Folder Name="snippets">
+										<F N="packs_web/swish/web/node_modules/ace/build/src-noconflict/snippets/dockerfile.js"/>
 									</Folder>
 								</Folder>
 								<F N="packs_web/swish/web/node_modules/ace/build/CODE_OF_CONDUCT.md"/>
@@ -13470,6 +13498,11 @@
 						<Folder Name="codemirror">
 							<Folder Name="component-tools">
 								<F N="packs_web/swish/web/node_modules/codemirror/component-tools/build.sh"/>
+							</Folder>
+							<Folder Name="mode">
+								<Folder Name="dockerfile">
+									<F N="packs_web/swish/web/node_modules/codemirror/mode/dockerfile/dockerfile.js"/>
+								</Folder>
 							</Folder>
 							<F N="packs_web/swish/web/node_modules/codemirror/CHANGELOG.md"/>
 							<F N="packs_web/swish/web/node_modules/codemirror/CONTRIBUTING.md"/>
@@ -13728,10 +13761,14 @@
 			<Folder Name="logicmoo_pldata">
 				<Folder Name="bllip-parser">
 					<Folder Name="dockerfiles">
+						<Folder Name="centos6">
+							<F N="packs_xtra/logicmoo_pldata/bllip-parser/dockerfiles/centos6/Dockerfile"/>
+						</Folder>
 						<Folder Name="python">
 							<Folder Name="userfiles">
 								<F N="packs_xtra/logicmoo_pldata/bllip-parser/dockerfiles/python/userfiles/runvnc.sh"/>
 							</Folder>
+							<F N="packs_xtra/logicmoo_pldata/bllip-parser/dockerfiles/python/Dockerfile"/>
 						</Folder>
 					</Folder>
 					<F N="packs_xtra/logicmoo_pldata/bllip-parser/eval-reranker.sh"/>
