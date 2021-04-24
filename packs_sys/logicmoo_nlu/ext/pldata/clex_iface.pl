@@ -249,6 +249,6 @@ clex_dynload(M,F):- absolute_file_name(F, File, [access(read),file_type(prolog)]
 
 % apply_fixes:- clex_verb(Formed, Verb, dv(Prep), PP)
 
-% :- reexport(talk_db).                      
+% :- re export(talk_db).                      
 
 

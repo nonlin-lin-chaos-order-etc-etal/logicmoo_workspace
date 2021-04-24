@@ -9540,6 +9540,7 @@
 							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_parts_of_speech.pl"/>
 							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_quantifiers.pl"/>
 							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_rephrasing.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_saved.txt"/>
 							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_sentence.pl"/>
 							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_utility.pl"/>
 							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_verb_phrase.pl"/>
@@ -9547,11 +9548,14 @@
 							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/logicmoo_cyc_nl_sem.pl"/>
 							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/logicmoo_nl_sem_dcgRedress.pl"/>
 						</Folder>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/erere"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/erere.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/is_dir"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_ape.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_bratko.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_candc.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_charniak.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_chart89.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_chat80.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_chat80_regress.pl"/>

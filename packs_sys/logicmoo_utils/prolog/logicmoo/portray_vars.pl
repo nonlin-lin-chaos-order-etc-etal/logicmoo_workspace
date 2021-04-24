@@ -396,6 +396,7 @@ pretty_element(NV):- ignore((NV=..[_,N,V],ignore(pretty1(N=V)))).
 pretty1(H):- pretty_enough(H),!.
 pretty1(ti(R,V)):- name_one(V,R).
 pretty1(ti(R,V)):- may_debug_var(R,V).
+pretty1(H):- trump_pretty(H),!.
 pretty1(as_rest(Name, Rest, _)):- may_debug_var_v(Name,Rest).
 pretty1(get_var(Env, Name, Val)):- may_debug_var('GEnv',Env),may_debug_var(Name,Val).
 pretty1(deflexical(Env,_Op, Name, Val)):- may_debug_var('SEnv',Env),may_debug_var(Name,Val).
@@ -426,8 +427,18 @@ pretty1(H):-compound_name_arguments(H,_,ARGS),ignore(must_maplist_det(pretty1,AR
 is_comparison(OP):- atom_concat(_,'=',OP).
 is_comparison(OP):- atom_concat('cg_',_,OP).
 
+contains_atom_ci(A1,A2):- upcase_atom(A1,U1),upcase_atom(A2,U2),contains_atom(U1,U2).
+append_varname(R,_Var):- is_letterless(R),!. % ignore
+append_varname(R,Var):- get_var_name(Var,Prev), ignore(( \+ contains_atom_ci(Prev,R),\+ contains_atom_ci(R,Prev),atomic_list_concat([Prev,'_',R],RS),add_var_to_env_now(RS,Var))),!.
+append_varname(R,Var):- add_var_to_env_now(R,Var).
+
+trump_pretty(WRT):- \+ compound(WRT), fail.
+trump_pretty(w(R,T)):- is_list(T), atomic(R), term_variables(T,Vs),Vs\==[],maplist(append_varname(R),Vs),!.
+trump_pretty(isa(V,R)):- var(V), atomic(R), append_varname(R,V).
+
 pretty_two(H):- pretty_enough(H),!.
 pretty_two(H):- is_list(H), !, maplist(pretty_two,H).
+pretty_two(H):- trump_pretty(H),!.
 pretty_two(H):- compound_name_arity(H,F,A),compound_name_arguments(H,_,ARGS),
    reduce_fname(F,F0),
    pretty_two(1,F0,A,ARGS), !.
@@ -441,12 +452,14 @@ pretty_two(N,F,A,[E|ARGS]):-
 reduce_fname(M,N):- \+ atom(M),!, N=M.
 reduce_fname(ti,'').
 reduce_fname(card,size).
+reduce_fname(partOf,'').
 reduce_fname(M,N):-atom_concat(N0,'pred',M),reduce_fname(N0,N).
 reduce_fname(M,N):-atom_concat(N0,'_',M),reduce_fname(N0,N).
 reduce_fname(M,N):-atom_concat('_',N0,M),reduce_fname(N0,N).
 reduce_fname(M,N):-atom_concat('trans',N0,M),reduce_fname(N0,N).
 reduce_fname(M,N):-atom_concat('symmetric',N0,M),reduce_fname(N0,N).
 reduce_fname(N,N):-!.
+
 
 maybe_nameable_arg(F,A,N,E):- compound(E)-> pretty_two(E) ; 
  ((var(E),arg_type_decl_name(F,A,N,T),\+ is_letterless(T))-> afix_varname(T,E) ; true).
@@ -495,6 +508,8 @@ pretty_three(H):-
    must_maplist_det(pretty_three,[P1|ARGS]))),!. 
 
 pretty_final(H):- pretty_enough(H),!.
+
+% pretty_final(H):- trump_pretty(H),!.
 pretty_final([H | B]):- pretty_final(H),pretty_final(B),may_debug_var_weak('CAR',H),may_debug_var_weak('CDR',B).
 pretty_final(H):- compound_name_arity(H,F,A),compound_name_arguments(H,F,[P1|ARGS]), pretty_final(H,F,A,P1,ARGS).
 
@@ -656,26 +671,26 @@ simpler_textname(Name,Text):- simpler_textname(Name,'',Text).
 simpler_textname(Name,Sep,Text):-atomic(Name),to_case_breaks(Name,ListN),to_case_breaks_trimed(Name,ListN,Sep,Text),!.
 
 to_case_breaks_trimed(Name,[xti(TextL,ClassL),xti(TextR,ClassR)|ListN],Sep,Text):-  ClassL==ClassR,!,
-    maplist(to_descriptive_name(Name),[xti(TextL,ClassL),xti(TextR,ClassR)|ListN],Desc),
+    maplist(to_descriptive_name_xti(Name),[xti(TextL,ClassL),xti(TextR,ClassR)|ListN],Desc),
     (string(Sep) -> atomics_to_string(Desc,Sep,Text) ; atomic_list_concat(Desc,Sep,Text)).
 
 to_case_breaks_trimed(Name,[xti(_,lower),xti(TextR,ClassR)|ListN],Sep,Text):-
-    maplist(to_descriptive_name(Name),[xti(TextR,ClassR)|ListN],Desc),
+    maplist(to_descriptive_name_xti(Name),[xti(TextR,ClassR)|ListN],Desc),
     (string(Sep) -> atomics_to_string(Desc,Sep,Text) ; atomic_list_concat(Desc,Sep,Text)).
 
 to_case_breaks_trimed(Name,ListN,Sep,Text):- is_list(ListN),!,
-    maplist(to_descriptive_name(Name),ListN,Desc),
+    maplist(to_descriptive_name_xti(Name),ListN,Desc),
     (string(Sep) -> atomics_to_string(Desc,Sep,Text) ; atomic_list_concat(Desc,Sep,Text)).
 
 
 
 :- fixup_exports.
 
-%to_descriptive_name(For,Desc,Atom):- type_descriptive_name(Type,Desc,Atom),isa(For,Type),!.
-%to_descriptive_name(_For,Pefix,Desc):- (type_prefix(Pefix,TypeName)), simpler_textname(TypeName,Desc).
-%to_descriptive_name(For,xti(Pefix,lower),Desc):-!,to_descriptive_name(For,Pefix,Desc).
-to_descriptive_name(For,xti(Pefix,_),Desc):-!,to_descriptive_name(For,Pefix,Desc).
-to_descriptive_name(_For,X,X).
+%to_descriptive_name_xti(For,Desc,Atom):- type_descriptive_name(Type,Desc,Atom),isa(For,Type),!.
+%to_descriptive_name_xti(_For,Pefix,Desc):- (type_prefix(Pefix,TypeName)), simpler_textname(TypeName,Desc).
+%to_descriptive_name_xti(For,xti(Pefix,lower),Desc):-!,to_descriptive_name_xti(For,Pefix,Desc).
+to_descriptive_name_xti(For,xti(Pefix,_),Desc):-!,to_descriptive_name_xti(For,Pefix,Desc).
+to_descriptive_name_xti(_For,X,X).
 
 :- multifile(user:portray/1).
 :- dynamic(user:portray/1).

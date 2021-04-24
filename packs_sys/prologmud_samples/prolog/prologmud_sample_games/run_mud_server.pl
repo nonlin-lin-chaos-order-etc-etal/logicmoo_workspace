@@ -409,14 +409,26 @@ load_before_compile_now:-
    webui_load_swish_and_clio,   
    add_hist(start_network). 
 
+check_memory:-
+  catch(process_create(path(true), [], []),
+    error(resource_error(no_memory),_),
+     (dumpST,wdmsg(no_memory(after,G)),break)).
+:- dynamic(system:term_expansion/2).
+:- multifile(system:term_expansion/2).
+% find our leaker!
+system:term_expansion(X,_):- X==end_of_file,check_memory,fail.
+
 %start_network:- 
 %   load_before_compile,!.
-
-call_safely(G):- must_or_rtrace(G).
+call_safely([H|T]):- !, maplist(call_safely,[H|T]).
+call_safely((G,!,G2)):- !, call_safely(G),!,call_safely(G2).
+call_safely((G,!)):- !, call_safely(G),!.
+call_safely(G):- ignore(must_or_rtrace(G)),
+  check_memory.
 
 start_network:- keep_user_module(start_network_now).
 start_network_now:-  
-  maplist(call_safely,
+  call_safely(
    [
    load_before_compile,
    user:use_module(library(eggdrop)),
@@ -427,7 +439,7 @@ start_network_now:-
 
 load_rest:- keep_user_module(load_rest_now).
 load_rest_now:- 
-  maplist(call_safely,
+  call_safely(
   [
    nodebug,   
    load_nomic_mu,   
@@ -446,6 +458,8 @@ load_rest2:- locally(set_prolog_flag(verbose_load,true),load_rest3).
 
 load_rest3:- keep_user_module(load_rest3_now).
 load_rest3_now:-
+  call_safely(
+  [
    set_modules_baseKB,
    baseKB:ensure_loaded(library(logicmoo_nlu)),
    baseKB:ensure_loaded(library(logicmoo_clif)),
@@ -453,13 +467,14 @@ load_rest3_now:-
    add_hist(try_zebra),
    add_hist(start_all),
    add_hist(qsave_logicmoo),
-   system:reexport(pldata(kb_0988)),
+   %system:reexport(pldata(kb_0988)),
+   ensure_loaded(pldata(kb_0988)),
   % (current_prolog_flag(gui_tracer,true)->noguitracer;true),
    % run_before_qsave,
    do_setup_history,
    nodebug,
    baseKB:ensure_loaded(library(logicmoo_mud)),
-   finish_processing_world,
+   finish_processing_world]),
   !.
 
 %:- add_hist(load_before_compile).
@@ -513,7 +528,9 @@ start_rest:-
 start_rest2:- \+ gethostname('logicmoo.org'), !.
 start_rest2:- \+ current_predicate(baseKB:start_runtime_mud/0), !.
 start_rest2:- 
-  keep_user_module((
+  keep_user_module((  
+  call_safely(
+  [
     set_modules_baseKB,
    baseKB:start_runtime_mud,
    run_setup_now,  
@@ -521,7 +538,7 @@ start_rest2:-
    % adventure,
    % lar,
    baseKB:listing(mudAtLoc),
-   threads)),
+   threads]))),
    !.
 
 skip_sandboxing(F):- functor(P,F,1), 

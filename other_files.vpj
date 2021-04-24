@@ -100,13 +100,89 @@
 								</Folder>
 							</Folder>
 						</Folder>
+						<Folder Name="logicmoo_nlu">
+							<Folder Name="ext">
+								<Folder Name="pldata">
+									<Folder Name="plkb0988">
+										<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/plkb0988_iface.pl"/>
+										<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/plkb0988_kb.pl"/>
+										<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb0988/plkb0988_kb_supp.pl"/>
+									</Folder>
+									<Folder Name="plkb7166">
+										<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb7166/kb7166.pl"/>
+									</Folder>
+									<Folder Name="plkb7166_supports">
+										<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb7166_supports/kb7166_supports.pl"/>
+									</Folder>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/abbreviations.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/ac_xnl_7166.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/ac_xnl_7166_nlkb.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/ac_xnl_iface.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/clex_iface.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/framenet.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/kb_0988.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/kb_7166.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/kb_7166_supports.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/make_nl_data.sh"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/mworld0_declpreds.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/nl_iface.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/nldata_BRN_WSJ_LEXICON.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/nldata_colloc_pdat.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/nldata_cycl_pos0.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/nldata_dictionary_some01.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/nldata_freq_pdat.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/posm_cached_data2.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/propbank_iface.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/talk_db.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/tiny_kb.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/trans_header.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/transform_dump.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/tt0_00022_cycl.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/tt0_iface.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/verbnet_candc_boxer.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/verbnet_iface.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/verbs.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/vnsmall.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/wn30_iface.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/wn_frames.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/wn_iface.pl"/>
+								</Folder>
+							</Folder>
+						</Folder>
 					</Folder>
 					<Folder Name="packs_xtra">
 						<Folder Name="logicmoo_pldata">
+							<Folder Name="bllip-parser">
+								<Folder Name="dockerfiles">
+									<Folder Name="python">
+										<Folder Name="userfiles">
+											<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/dockerfiles/python/userfiles/runvnc.sh"/>
+										</Folder>
+									</Folder>
+								</Folder>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/CharniakParse.sh"/>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/eval-reranker.sh"/>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/LogicmooCharniak.sh"/>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/nfeatures-train-eval-reranker.sh"/>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/oparse.sh"/>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/parse-50best.sh"/>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/parse-and-fuse.sh"/>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/parse-eval.sh"/>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/parse.sh"/>
+								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/train-eval-reranker.sh"/>
+							</Folder>
+							<Folder Name="ext">
+								<Folder Name="plkb0988">
+									<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/ext/plkb0988/plkb0988_iface.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/ext/plkb0988/plkb0988_kb.pl"/>
+									<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/ext/plkb0988/plkb0988_kb_supp.pl"/>
+								</Folder>
+							</Folder>
 							<Folder Name="prolog">
 								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/prolog/is_dir"/>
 								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/prolog/logicmoo_pldata.pl"/>
 							</Folder>
+							<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/pack.pl"/>
 						</Folder>
 					</Folder>
 				</Folder>
@@ -4759,6 +4835,11 @@
 						Recurse="1"
 						Refilter="0"
 						Excludes=""/>
+				</Folder>
+			</Folder>
+			<Folder Name="logicmoo_pldata">
+				<Folder Name="prolog">
+					<F N="packs_xtra/logicmoo_pldata/prolog/logicmoo_pldata.pl"/>
 				</Folder>
 			</Folder>
 		</Folder>

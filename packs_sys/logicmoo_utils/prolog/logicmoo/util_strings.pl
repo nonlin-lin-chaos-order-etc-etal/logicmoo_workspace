@@ -313,6 +313,11 @@ get_text_restore_pred(_,any_to_string).
 any_to_string(Atom,String):-   any_to_string1(Atom,StringS),!,StringS=String.
 % any_to_string(Atom,String):- with_err_to_pred(nop, (must(any_to_string1(Atom,StringS)),!,must(StringS=String))),!.
 
+maybe_keep_postion(Stream,Goal):-
+  setup_call_cleanup(
+    stream_property(Stream,position(Pos)),
+    Goal,
+    (stream_property(Stream,reposition(true))->set_stream_position(Stream,Pos);true)).
 
 %= 	 	 
 
@@ -320,6 +325,10 @@ any_to_string(Atom,String):-   any_to_string1(Atom,StringS),!,StringS=String.
 %
 % Any Converted To String Secondary Helper.
 %
+any_to_string1(Atom,String):- atomic(Atom),is_stream(Stream),
+ stream_property(Stream,reposition(true)),!,
+ maybe_keep_postion(Stream,read_stream_to_codes(Stream,Codes)),!,any_to_string1(Codes,String).
+any_to_string1(Atom,String):- atomic(Atom),is_stream(Stream), maybe_keep_postion(Stream,read_stream_to_codes(Stream,Codes)),!,any_to_string1(Codes,String).
 any_to_string1(Atom,String):- var(Atom),show_call((term_string(Atom,String))),!.
 any_to_string1(Atom,String):- var(Atom),!,=(Atom,String).
 any_to_string1(Atom,String):- string(Atom),!,Atom=String.
@@ -333,6 +342,8 @@ any_to_string1(Atom,String):- atomic(Atom),!,convert_to_string(Atom,String),!.
 any_to_string1(Empty,""):- empty_str(Empty),!.
 
 any_to_string1(string(Atom),String):- !, any_to_string1(Atom,String). 
+any_to_string1(atom(Atom),String):- !, any_to_string1(Atom,String). 
+any_to_string1(text(Atom),String):- !, any_to_string1(Atom,String). 
 any_to_string1(fmt(Fmt,Args),String):-!,must(sformat(String,Fmt,Args)).
 any_to_string1(txtFormatFn(Fmt,Args),String):-!,must(sformat(String,Fmt,Args)).
 % any_to_string1([Atom],String):-  !, any_to_string1(Atom,String).

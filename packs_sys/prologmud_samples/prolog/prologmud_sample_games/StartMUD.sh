@@ -97,6 +97,7 @@ SWIPL=/opt/logicmoo_workspace/bin/swipl
 # SWIPL=+" --pce=false"
 
 # export CMDARGS="-l run_mud_server.pl $* --all --world --lispsock --sumo --planner"
+export CMDARGS="run_mud_server.pl -g prolog $*"
 export CMDARGS="-l run_mud_server.pl $*"
 # CMDARGS=+" --sigma --www --docs --cliop --swish --plweb --elfinder"
 # CMDARGS=+" --tinykb --fullkb --rcyc --logtalk --nlu --pdt --irc"

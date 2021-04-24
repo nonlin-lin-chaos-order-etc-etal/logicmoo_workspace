@@ -333,7 +333,7 @@ save_to_file(Name,Belongs,F):-
 % :- forall((S=adv,talkdb:talk_db(S,X)), ignore((show_success((S=S,retract(talkdb:talk_db(adj,X))))))).
 
 :- fixup_exports. 
-:- fixup_exports_system.%  system:reexport(talk_db).
+:- fixup_exports_system.%  system:re export(talk_db).
 
 % =================================
 % some random talk_db/2-6 from the other file (to help see the meanings)

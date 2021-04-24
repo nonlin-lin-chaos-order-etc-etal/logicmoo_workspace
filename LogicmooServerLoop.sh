@@ -42,7 +42,7 @@ else
       fi
 fi
 
-sleep 30
+sleep 1
 
 done
 
