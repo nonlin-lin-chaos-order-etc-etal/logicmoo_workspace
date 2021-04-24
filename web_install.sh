@@ -40,11 +40,6 @@ git status -s
 
 (source ./INSTALL.md)
 
-echo -e "\e[1;32m ":+
-        "If Docker is installed ":+
-        "Type:  ":+
-        "  ./runFromDocker.sh":+
-        "otherwise this might work:":+
-        "  source ./StartLogicmoo.sh \e[0m"
+echo -e "\e[1;32m If Docker is installed: ./runFromDocker.sh  (otherwise: source ./StartLogicmoo.sh)\e[0m"
 
 )
