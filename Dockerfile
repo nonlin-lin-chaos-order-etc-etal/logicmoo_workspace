@@ -17,24 +17,31 @@ EXPOSE 4180
 EXPOSE 3020
 # Eggdrop
 EXPOSE 3334
-
-#      HTTPS  HTTP  TELNET
+# MUD Plain Text (HTTPS/HTTP/TELNET)
 EXPOSE 14100  4100  4000   
-                            # MUD Plain Text
+# MUD with Debug (HTTPS/HTTP/TELNET)
 EXPOSE 14101  4101  4001   
-                            # MUD with Debug
+# MUD with Graphics (HTTPS/HTTP/TELNET)
 EXPOSE 14102  4102  4002  
-                            # MUD with Graphics
+# WAM-CL REPL (HTTPS/HTTP/TELNET)
 EXPOSE 14103  4103  4003  
-                           # WAM-CL REPL
-EXPOSE 14104  4104  4004  
-                           # NOMIC MU
+# NOMIC MU (HTTPS/HTTP/TELNET)
+EXPOSE 14104  4104  4004   
+#  Shared SWIPL ?-  (HTTPS/HTTP/TELNET)
 EXPOSE 14123  4123  4023  
-                           #  Shared SWIPL ?-
+# Non-Shared SWIPL ?- (HTTPS/HTTP/TELNET)
 EXPOSE 14125  4125  4025   
-                           # Non-Shared SWIPL ?-
 
 EXPOSE 4090 4091
+
+
+MAINTAINER RUN if [ ! -z "$LOGICMOO_EXTRAS" ]; \
+ then \
+  curl -O http://mirror.umd.edu/eclipse/technology/epp/downloads/release/2020-06/R/eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz \
+  && tar -zxvf eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz -C /usr/ \
+  && ln -s /usr/eclipse/eclipse /usr/bin/eclipse \
+  && rm -f eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz \
+ fi
 
 
 ENV HOME /root
@@ -51,10 +58,12 @@ RUN echo enable some apache mods \
 # confirm our webconfig works (or it exits docker build) \
  && service apache2 start && service apache2 status
 
-# @TODO (something here)
+# who/where
 ENV LOGICMOO_WS /opt/logicmoo_workspace
+ENV LOGICMOO_USER prologmud_server
+ENV LOGICMOO_GAMES $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games
 
-ENV PATH="${LOGICMOO_WS}/bin:${PATH}"
+ENV PATH "${LOGICMOO_WS}/bin:${PATH}"
 ENV WNDB $LOGICMOO_WS/packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog
 
 MAINTAINER RUN cd $LOGICMOO_WS && set -x \
