@@ -1,12 +1,35 @@
 # logicmoo's LogicMOO Parent Project 
 
-Initial starter Docs https://github.com/logicmoo/logicmoo_workspace/wiki
-
-As well as https://docs.google.com/document/d/1fkOxnmI1LqxadvZuCRS-fGIEweIKyPn6AVGp5Yjse1I/edit
 
 =========
 
-# Install and Run
+# Install/Run  Methods
+
+## From web-installer 
+ 
+```bash
+source <(curl -sS https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh)
+```
+
+## Niave Docker  
+```bash
+docker run --rm -it --name logicmoo --privileged=true \  
+  -p 4000-4440:4000-4440 -p 4443:443 -p 3020:3020 \
+  logicmoo/logicmoo_workspace:latest
+
+```
+
+## Developer's Docker (Mounts your local filesystem for development purposes)
+```bash
+cd /opt
+git clone https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
+cd logicmoo_workspace
+
+./runFromDocker.sh -d  # the -d is for running detatched
+```
+
+
+## Old Way (might work with older versions)
 
 ```bash
 cd /opt
@@ -17,33 +40,20 @@ source ./INSTALL.md
 
 ```
 
-# Your Docker 
 
-```docker build - --no-cache < Dockerfile```
 
-docker run 
 
-# Douglas' Docker 
-
+# Douglas' Docker pastebin
 ```
-docker build -t logicmoo/logicmoo_starter_image:latest --add-host=logicmoo.org:10.0.0.90 - < Dockerfile.distro 
-docker push logicmoo/logicmoo_starter_image:latest
-docker network create -d macvlan --subnet=10.0.0.0/24 --gateway=10.0.0.1 -o parent=eth0 pub_net
-docker-compose build --add-host=logicmoo.org:10.0.0.90
-
-docker run -t --add-host=logicmoo.org:10.0.0.90  --network="logicmoo_workspace_prologmud_vlan"  logicmoo/logicmoo_starter_image:latest
-
+docker kill logicmoo
 docker exec -it $(docker ps -n 1 -q) bash
-
-
-docker build -t logicmoo/logicmoo_workspace:latest --no-cache --add-host=logicmoo.org:10.0.0.90 - < Dockerfile
-docker push logicmoo/logicmoo_workspace:latest 
-```
-
-
-
-```
+docker network create -d macvlan --subnet=10.0.0.0/24 --gateway=10.0.0.1 -o parent=eth0 pub_net
+docker run ./runFromDocker.sh --network="logicmoo_workspace_prologmud_vlan"
 docker kill $(docker ps -a -q)
 docker image prune --all -f
 docker rmi logicmoo/logicmoo_starter_image:latest 
 ```
+Initial starter Docs https://github.com/logicmoo/logicmoo_workspace/wiki
+
+As well as https://docs.google.com/document/d/1fkOxnmI1LqxadvZuCRS-fGIEweIKyPn6AVGp5Yjse1I/edit
+
