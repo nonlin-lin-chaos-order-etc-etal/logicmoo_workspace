@@ -21,8 +21,10 @@ export LOGICMOO_WS=$DIR0
 
 ./logicmoo_env.sh
 
-EXTRA="${@}"
-EXTRA="$EXTRA --add-host logicmoo.org:10.0.0.194"
+EXTRA="${*}"
+if ping -c 1 -W 1 "10.0.0.194"; then
+EXTRA+=" --add-host logicmoo.org:10.0.0.194"
+fi
 
 #find $LOGICMOO_WS/?*/ -type d -exec chmod 777 "{}" + 
 #chmod a+w -R $LOGICMOO_WS/?*/
@@ -46,7 +48,7 @@ docker push logicmoo/logicmoo_workspace
 
 docker kill logicmoo ; /bin/true
 
-export DOCKER_RUN="--name logicmoo --privileged=true --rm -it -p 4000-4440:4000-4440  -p 4443:443 -p 3020:3020 $EXTRA logicmoo/logicmoo_workspace:latest"
+export DOCKER_RUN="--name logicmoo --privileged=true -v /opt/logicmoo_workspace:/opt/logicmoo_workspace --rm -it -p 4000-4440:4000-4440 -p 4443:443 -p 3020:3020 $EXTRA logicmoo/logicmoo_workspace:latest"
 
 echo "docker run $DOCKER_RUN"
 docker run $DOCKER_RUN
