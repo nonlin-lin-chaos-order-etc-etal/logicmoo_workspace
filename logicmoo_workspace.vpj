@@ -11232,6 +11232,40 @@
 			<F N="packs_sys/is_dir"/>
 		</Folder>
 		<Folder Name="packs_usr">
+			<Folder Name="PythonPengines">
+				<Folder Name="docs">
+					<F N="packs_usr/PythonPengines/docs/conf.py"/>
+					<F N="packs_usr/PythonPengines/docs/index.rst"/>
+				</Folder>
+				<Folder Name="pengines">
+					<F N="packs_usr/PythonPengines/pengines/__init__.py"/>
+					<F N="packs_usr/PythonPengines/pengines/Builder.py"/>
+					<F N="packs_usr/PythonPengines/pengines/Exceptions.py"/>
+					<F N="packs_usr/PythonPengines/pengines/Pengine.py"/>
+					<F N="packs_usr/PythonPengines/pengines/Query.py"/>
+					<F N="packs_usr/PythonPengines/pengines/State.py"/>
+				</Folder>
+				<Folder Name="tests">
+					<F N="packs_usr/PythonPengines/tests/log_testing.py"/>
+					<F N="packs_usr/PythonPengines/tests/prototype.py"/>
+					<F N="packs_usr/PythonPengines/tests/server.pl"/>
+					<F N="packs_usr/PythonPengines/tests/srctest_test.py"/>
+					<F N="packs_usr/PythonPengines/tests/tests.py"/>
+				</Folder>
+				<F N="packs_usr/PythonPengines/.gitignore"/>
+				<F N="packs_usr/PythonPengines/.travis.yml"/>
+				<F N="packs_usr/PythonPengines/CHANGES.md"/>
+				<F N="packs_usr/PythonPengines/LICENSE"/>
+				<F
+					N="packs_usr/PythonPengines/Makefile"
+					Type="Makefile"/>
+				<F N="packs_usr/PythonPengines/PengineProtocolnotes.txt"/>
+				<F N="packs_usr/PythonPengines/README.rst"/>
+				<F N="packs_usr/PythonPengines/requirements-dev.txt"/>
+				<F N="packs_usr/PythonPengines/requirements.txt"/>
+				<F N="packs_usr/PythonPengines/setup.cfg"/>
+				<F N="packs_usr/PythonPengines/setup.py"/>
+			</Folder>
 			<F N="packs_usr/.pdtproperties"/>
 			<F N="packs_usr/.project"/>
 			<F N="packs_usr/is_dir"/>
