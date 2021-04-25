@@ -430,23 +430,23 @@ EXPOSE 111 2049
 EXPOSE 139 445
 
 # Phase three in case we forgot any above
-RUN apt-get update -qq && apt-get install -y \
  #python3-gevent-websocket \
- python3-gevent \
  #python3-novnc \
+ #python3-flask-sockets \
+RUN apt-get update -qq && apt-get install -y \
+ python3-gevent \
  python3-flask-api \
  iputils-ping \
  iputils-arping \
  nfs-kernel-server \
  nfs-common \
- rpcbind \ 
+ rpcbind \
  telnet \
- libllvm8 \ 
  traceroute \
  inotify-tools \
  swig \
  flex \
- #python3-flask-sockets \
+ libllvm8 \
  && echo apt autoclean -y \
  && echo apt autoremove -y \
  && rm -rf /var/lib/apt/lists/* 
