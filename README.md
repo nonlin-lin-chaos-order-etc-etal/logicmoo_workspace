@@ -1,4 +1,4 @@
-# logicmoo's LogicMOO Parent Project 
+# LogicMOO's Parent Project 
 
 
 =========
@@ -11,7 +11,7 @@
 source <(curl -sS https://raw.githubusercontent.com/logicmoo/logicmoo_workspace/master/web_install.sh)
 ```
 
-## Niave Docker  
+## Docker without installing
 ```bash
 docker run --rm -it --name logicmoo --privileged=true \  
   -p 4000-4440:4000-4440 -p 4443:443 -p 3020:3020 \
@@ -19,7 +19,8 @@ docker run --rm -it --name logicmoo --privileged=true \
 
 ```
 
-## Developer's Docker (Mounts your local filesystem for development purposes)
+## Developer's Docker 
+(Copies the git repo where things can be edited for development purposes. while running in Docker)
 ```bash
 cd /opt
 git clone https://logicmoo.org/gitlab/logicmoo/logicmoo_workspace.git
