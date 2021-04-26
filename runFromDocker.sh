@@ -52,7 +52,7 @@ docker push logicmoo/logicmoo_starter_image
 docker build $EXTRA -t logicmoo/logicmoo_workspace .
 
 echo MAYBE: docker push logicmoo/logicmoo_workspace
-docker push logicmoo/logicmoo_workspace
+docker push logicmoo/logicmoo_workspace &
 
 docker kill logicmoo ; /bin/true
 
