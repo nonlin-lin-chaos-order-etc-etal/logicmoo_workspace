@@ -643,3 +643,32 @@ echo "ls,prolog." | swipl
 echo "ls,prolog,ls" | swipl
 echo "ls,prolog." | swipl
 echo "ls." | swipl -g "prolog".
+ls
+pwd
+pwd
+cd ~prologmud_server/
+ls
+echo $HOME 
+cd /
+ls
+cd root
+ls
+cd /
+ls /root.dist/
+find /root.dist/
+cat /root.dist/.profile 
+cp -a /root.dist/.cache/pip  /root/.cache/
+cp -a /root.dist/.cache/pip  /root/.cache/ -f
+cp -a /root.dist/.cache/pip  /root/.cache/ -fr
+unalias cp
+cp -a /root.dist/.cache/pip  /root/.cache/ -fr
+rm -rf /root.dist/
+ls
+./ros-eloquent-desktop.sh 
+cat  /etc/ros/rosdep/sources.list.d/20-default.list
+rm  /etc/ros/rosdep/sources.list.d/20-default.list
+./ros-eloquent-desktop.sh 
+/opt/ros/eloquent/setup.bash
+. /opt/ros/eloquent/setup.bash
+ps axf
+cat /etc/passwd

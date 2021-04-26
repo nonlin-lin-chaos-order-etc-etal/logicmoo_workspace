@@ -102,3 +102,4 @@ alias ls='ls --color=auto -A '
 alias cp='cp -i '
 alias mv='mv -i '
 
+source /opt/ros/eloquent/setup.bash

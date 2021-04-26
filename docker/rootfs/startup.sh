@@ -70,7 +70,7 @@ rm -rf /etc/supervisor
 ln -s $LOGICMOO_WS/docker/rootfs/etc/supervisor /etc/supervisor
 mv /root /root.dist
 ln -s $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games/ /root
-chown -R root.prologmud_server /root/
+chown -R prologmud_server:www-data /root
 
 if [ -n "$VNC_PASSWORD" ]; then
     echo -n "$VNC_PASSWORD" > /.password1
@@ -111,7 +111,7 @@ sed -i -e "s|%USER%|$USER|" -e "s|%HOME%|$HOME|" /etc/supervisor/conf.d/supervis
 # home folder
 mkdir -p $HOME/.config/pcmanfm/LXDE/
 ln -sf /usr/local/share/doro-lxde-wallpapers/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE/
-chown -R $USER:$USER $HOME
+# chown -R $USER:$USER $HOME
 
 # nginx workers
 sed -i 's|worker_processes .*|worker_processes 1;|' /etc/nginx/nginx.conf
