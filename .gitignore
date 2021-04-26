@@ -1,14 +1,14 @@
 swipl-devel/
 packs_xtra/programk/
 #packs_xtra/logicmoo_packages/prolog/*/
-packs_sys/prologmud_samples/prolog/prologmud_sample_games/.dbus/
+#packs_sys/prologmud_samples/prolog/prologmud_sample_games/.dbus/
 packs_sys/prologmud_samples/prolog/prologmud_sample_games/nohup.out
 ./packs_web/butterfly/results.txt
 .gitignore
 ~~*~~
 *~
 packs_sys/logicmoo_cg/prolog/MProlog-2.0/
-.git/
+#.git/
 is_dir
 #packs_sys/logicmoo_ec/ext/PKnows/
 /DEAD
@@ -30,5 +30,5 @@ packs_web/lps_corner/
 modified_sys/
 pldox/
 packs_web/logicmoo_webui/serv*/
-packs_usr/
+#packs_usr/
 
