@@ -70,7 +70,7 @@ i_np_head0(np_head(quant(Op0,N),Adjs,Noun),
    measure_LF(Noun,Type,Adjs,Units),
    conversion(N,Op0,Type,V,Op),
    measure_op(Op,X,V--Units,P).
-i_np_head0(name(Name),
+i_np_head0(nameOf(Name),
       Type-Name,Type-Name,id,'`' true,Pred,Pred,[]) :-
    name_template_LF(Name,Type).
 i_np_head0(wh(X),X,X,id,'`' true,Pred,Pred,[]).
@@ -185,14 +185,14 @@ i_neg(pos,id).
 i_neg(neg,not).
 
 i_subj(Voice,Subj,Slots0,Slots,Quant,Up,Id) :-
-   subj_case(Voice,Case),
+   subj_case_opt(Voice,Case),
    verb_slot(arg(Case,Subj),[],[],Slots0,Slots,[Quant],[],Up,Id).
 
 i_verb_args(VArgs,XA0,XA,Slots0,Slots,Args0,Args,Up,Id) :-
    fill_verb(VArgs,XA0,XA,Slots0,Slots,Args0,Args,Up,Id).
 
-subj_case(active,subj).
-subj_case(passive,s_subj).
+subj_case_opt(active,subj).
+subj_case_opt(passive,s_subj).
 
 fill_verb([],XA,XA,Slots,Slots,Args,Args,[],_).
 fill_verb([Node|Nodes0],XA0,XA,Slots0,Slots,Args0,Args,Up,Id) :-
