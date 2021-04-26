@@ -150,9 +150,12 @@ is_testing_e2c(S, Traits, Type1-Type2):- !,
 run_e2c_test(S, _T):- e2c(S).
 
 add_e2c(S):- add_e2c(S, sanity).
+add_e2c(S, W):- nonvar(W), \+ is_list(W), !, add_e2c(S, [W]).
+add_e2c(S, W):- nonvar(S), \+ source_location(_,_),!,run_e2c_test(S, [requested|W]).
 add_e2c(S, W):-  clause(test_e2c(S, W), true), !.
 add_e2c(S, W):- listify(W, L), assertz(test_e2c(S, L)).
 
+sent_to_parsed(U,E):- deepen_pos(parser_chat80:sentence80(E,U,[],[],[])).
 
 :- export(test_e2c/1).
 :- export(test_e2c/2).
@@ -246,7 +249,8 @@ e2c :- locally(tracing80,
 
 :-export(e2c/1).
 e2c(Sentence):-
-  with_error_to_predicate(nop, make),
+  % with_error_to_predicate(nop, make),
+   mmake,
    setup_call_cleanup(
    must(notrace((to_wordlist_atoms(Sentence, Words), fmt('?-'(e2c(Sentence)))))),
    (call_residue_vars(must(e2c_0(Words)), Vs), del_e2c_attributes(Vs)),

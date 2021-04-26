@@ -409,22 +409,23 @@ load_before_compile_now:-
    webui_load_swish_and_clio,   
    add_hist(start_network). 
 
-check_memory:-
+check_memory(G):-
   catch(process_create(path(true), [], []),
     error(resource_error(no_memory),_),
      (dumpST,wdmsg(no_memory(after,G)),break)).
 :- dynamic(system:term_expansion/2).
 :- multifile(system:term_expansion/2).
 % find our leaker!
-system:term_expansion(X,_):- X==end_of_file,check_memory,fail.
+system:term_expansion(X,_):- X==end_of_file,check_memory(X==end_of_file),fail.
 
 %start_network:- 
 %   load_before_compile,!.
 call_safely([H|T]):- !, maplist(call_safely,[H|T]).
 call_safely((G,!,G2)):- !, call_safely(G),!,call_safely(G2).
 call_safely((G,!)):- !, call_safely(G),!.
+call_safely((G,G2)):-!,call_safely(G),call_safely(G2).
 call_safely(G):- ignore(must_or_rtrace(G)),
-  check_memory.
+  check_memory(G).
 
 start_network:- keep_user_module(start_network_now).
 start_network_now:-  

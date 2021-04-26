@@ -5827,9 +5827,16 @@
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/employment_contract.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/employment_contract_base.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/Escrow.pl"/>
+						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/fintechExamples.swinb"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/fire_recurrent.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/fireRecurrent.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/fireSimple.pl"/>
+						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/First_steps_with_LPS.swinb"/>
+						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/firststeps1.swinb"/>
+						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/firststeps2.swinb"/>
+						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/firststeps3.swinb"/>
+						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/firststeps4.swinb"/>
+						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/FirstStepswithLPS.swinb"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/GameWithOracle.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/GameWithOracleSimpler.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/goat.pl"/>
@@ -5838,6 +5845,7 @@
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/is_dir"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/life.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/life_lazyGUI.pl"/>
+						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/loan.swinb"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/loan_agreement.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/loanAgreementPostConditions.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/loanAgreementPostConditionsRT.pl"/>
@@ -5849,6 +5857,7 @@
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/loanAgreementPostConditionsRTbasePaysEarly.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/loanAgreementPostConditionsRTbasePaysEarlyTricky.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/loanAgreementPostConditionsRTbasePaysLate.pl"/>
+						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/lpsExamples.swinb"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/mapColouring.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/negatedEvents-FS.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/negatedEvents.pl"/>
@@ -5866,6 +5875,7 @@
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/RockPaperScissorsServer.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/RockPaperScissorsServer.pl_f1_.P"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/rstapi_test.pl"/>
+						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/simplifiedLoan.swinb"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/simulateExternalEvent.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/smartHomePrimitives.pl"/>
 						<F N="packs_sys/logicmoo_lps/examples/CLOUT_workshop/sortWithTime.pl"/>
@@ -6016,6 +6026,7 @@
 					</Folder>
 					<Folder Name="profiles">
 						<F N="packs_sys/logicmoo_lps/swish/profiles/40-LPS.pl"/>
+						<F N="packs_sys/logicmoo_lps/swish/profiles/40-LPS.swinb"/>
 						<F N="packs_sys/logicmoo_lps/swish/profiles/is_dir"/>
 					</Folder>
 					<Folder Name="systemd">
@@ -9786,6 +9797,11 @@
 						<F N="packs_sys/pfc/doc/swish/bc_compile.pl"/>
 						<F N="packs_sys/pfc/doc/swish/is_dir"/>
 						<F N="packs_sys/pfc/doc/swish/mcp.pl"/>
+						<F N="packs_sys/pfc/doc/swish/pfc_example_01_exists.swinb"/>
+						<F N="packs_sys/pfc/doc/swish/pfc_example_02_exists.swinb"/>
+						<F N="packs_sys/pfc/doc/swish/pfc_example_03_exists.swinb"/>
+						<F N="packs_sys/pfc/doc/swish/pfc_example_04_exists.swinb"/>
+						<F N="packs_sys/pfc/doc/swish/pfc_examples.swinb"/>
 					</Folder>
 					<F N="packs_sys/pfc/doc/is_dir"/>
 					<F N="packs_sys/pfc/doc/repropagate.md"/>
@@ -10519,6 +10535,9 @@
 							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/circlemuddata/convert_cm.sh"/>
 						</Folder>
 						<Folder Name="config-enabled-swish">
+							<Folder Name="gitty">
+								<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/gitty/Help.swinb"/>
+							</Folder>
 							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/auth_google.pl"/>
 							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/auth_http.pl"/>
 							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/auth_stackoverflow.pl"/>
@@ -12763,6 +12782,7 @@
 				</Folder>
 				<Folder Name="config-available">
 					<Folder Name="gitty">
+						<F N="packs_web/swish/config-available/gitty/Hangout.swinb"/>
 						<F N="packs_web/swish/config-available/gitty/is_dir"/>
 					</Folder>
 					<Folder Name="web">
@@ -12824,6 +12844,7 @@
 				<Folder Name="examples">
 					<Folder Name="aleph">
 						<F N="packs_web/swish/examples/aleph/abduce.pl"/>
+						<F N="packs_web/swish/examples/aleph/aleph_examples.swinb"/>
 						<F N="packs_web/swish/examples/aleph/animals.pl"/>
 						<F N="packs_web/swish/examples/aleph/constraints.pl"/>
 						<F N="packs_web/swish/examples/aleph/features.pl"/>
@@ -12846,6 +12867,9 @@
 						<F N="packs_web/swish/examples/aleph/wedge.pl"/>
 					</Folder>
 					<Folder Name="inference">
+						<F N="packs_web/swish/examples/inference/04-coin_tosses_solution.swinb"/>
+						<F N="packs_web/swish/examples/inference/06-haiku_solution.swinb"/>
+						<F N="packs_web/swish/examples/inference/09-lineland_solution.swinb"/>
 						<F N="packs_web/swish/examples/inference/admission.pl"/>
 						<F N="packs_web/swish/examples/inference/alarm.pl"/>
 						<F N="packs_web/swish/examples/inference/alarm_R.pl"/>
@@ -12862,6 +12886,7 @@
 						<F N="packs_web/swish/examples/inference/bloodtype.pl"/>
 						<F N="packs_web/swish/examples/inference/bloodtype_R.pl"/>
 						<F N="packs_web/swish/examples/inference/coin.pl"/>
+						<F N="packs_web/swish/examples/inference/coin.swinb"/>
 						<F N="packs_web/swish/examples/inference/coin2.pl"/>
 						<F N="packs_web/swish/examples/inference/coin2_R.pl"/>
 						<F N="packs_web/swish/examples/inference/coin_R.pl"/>
@@ -12872,7 +12897,11 @@
 						<F N="packs_web/swish/examples/inference/cora.pl"/>
 						<F N="packs_web/swish/examples/inference/cora_R.pl"/>
 						<F N="packs_web/swish/examples/inference/coupon.pl"/>
+						<F N="packs_web/swish/examples/inference/coupon.swinb"/>
+						<F N="packs_web/swish/examples/inference/decision_theory.swinb"/>
+						<F N="packs_web/swish/examples/inference/diabetes.swinb"/>
 						<F N="packs_web/swish/examples/inference/dice.pl"/>
+						<F N="packs_web/swish/examples/inference/dice.swinb"/>
 						<F N="packs_web/swish/examples/inference/dice_R.pl"/>
 						<F N="packs_web/swish/examples/inference/dirichlet_process.pl"/>
 						<F N="packs_web/swish/examples/inference/dirichlet_process_R.pl"/>
@@ -12888,7 +12917,12 @@
 						<F N="packs_web/swish/examples/inference/eruption_mpe.pl"/>
 						<F N="packs_web/swish/examples/inference/eruption_R.pl"/>
 						<F N="packs_web/swish/examples/inference/eruption_vit.pl"/>
+						<F N="packs_web/swish/examples/inference/figaro_coin.swinb"/>
+						<F N="packs_web/swish/examples/inference/figaro_coin_bag.swinb"/>
+						<F N="packs_web/swish/examples/inference/figaro_printer.swinb"/>
+						<F N="packs_web/swish/examples/inference/figaro_product.swinb"/>
 						<F N="packs_web/swish/examples/inference/flexprob.pl"/>
+						<F N="packs_web/swish/examples/inference/fruit.swinb"/>
 						<F N="packs_web/swish/examples/inference/gambling.pl"/>
 						<F N="packs_web/swish/examples/inference/gauss_mean_est.pl"/>
 						<F N="packs_web/swish/examples/inference/gauss_mean_est_R.pl"/>
@@ -12899,23 +12933,30 @@
 						<F N="packs_web/swish/examples/inference/gpr.pl"/>
 						<F N="packs_web/swish/examples/inference/gpr_R.pl"/>
 						<F N="packs_web/swish/examples/inference/h_index.pl"/>
+						<F N="packs_web/swish/examples/inference/hats.swinb"/>
 						<F N="packs_web/swish/examples/inference/hhmm.pl"/>
 						<F N="packs_web/swish/examples/inference/hmm.pl"/>
 						<F N="packs_web/swish/examples/inference/hmm_R.pl"/>
 						<F N="packs_web/swish/examples/inference/hmm_vit.pl"/>
 						<F N="packs_web/swish/examples/inference/hmmpos.pl"/>
+						<F N="packs_web/swish/examples/inference/hmmpos.swinb"/>
 						<F N="packs_web/swish/examples/inference/hmmpos2.pl"/>
 						<F N="packs_web/swish/examples/inference/indian_gpa.pl"/>
 						<F N="packs_web/swish/examples/inference/indian_gpadc.pl"/>
+						<F N="packs_web/swish/examples/inference/inference_examples.swinb"/>
+						<F N="packs_web/swish/examples/inference/inference_examples_R.swinb"/>
 						<F N="packs_web/swish/examples/inference/iris.pl"/>
 						<F N="packs_web/swish/examples/inference/iris_c3.pl"/>
 						<F N="packs_web/swish/examples/inference/is_dir"/>
 						<F N="packs_web/swish/examples/inference/jail.pl"/>
+						<F N="packs_web/swish/examples/inference/jail.swinb"/>
 						<F N="packs_web/swish/examples/inference/kalman_filter.pl"/>
+						<F N="packs_web/swish/examples/inference/kalman_filter.swinb"/>
 						<F N="packs_web/swish/examples/inference/kalman_filter_R.pl"/>
 						<F N="packs_web/swish/examples/inference/kalman_filtermsw.pl"/>
 						<F N="packs_web/swish/examples/inference/kalman_filtermsw_R.pl"/>
 						<F N="packs_web/swish/examples/inference/lda.pl"/>
+						<F N="packs_web/swish/examples/inference/lda.swinb"/>
 						<F N="packs_web/swish/examples/inference/light.pl"/>
 						<F N="packs_web/swish/examples/inference/markov_chain.pl"/>
 						<F N="packs_web/swish/examples/inference/markov_chain_R.pl"/>
@@ -12927,7 +12968,10 @@
 						<F N="packs_web/swish/examples/inference/meta.pl"/>
 						<F N="packs_web/swish/examples/inference/metacomb.pl"/>
 						<F N="packs_web/swish/examples/inference/mln.pl"/>
+						<F N="packs_web/swish/examples/inference/mln.swinb"/>
 						<F N="packs_web/swish/examples/inference/monty.pl"/>
+						<F N="packs_web/swish/examples/inference/monty.swinb"/>
+						<F N="packs_web/swish/examples/inference/monty_general.swinb"/>
 						<F N="packs_web/swish/examples/inference/monty_simple.pl"/>
 						<F N="packs_web/swish/examples/inference/multiple_paths.pl"/>
 						<F N="packs_web/swish/examples/inference/multiple_paths_simple.pl"/>
@@ -12935,7 +12979,9 @@
 						<F N="packs_web/swish/examples/inference/nballs.pl"/>
 						<F N="packs_web/swish/examples/inference/nballsdc.pl"/>
 						<F N="packs_web/swish/examples/inference/path.pl"/>
+						<F N="packs_web/swish/examples/inference/path.swinb"/>
 						<F N="packs_web/swish/examples/inference/path_tabling.pl"/>
+						<F N="packs_web/swish/examples/inference/path_tabling.swinb"/>
 						<F N="packs_web/swish/examples/inference/pcfg.pl"/>
 						<F N="packs_web/swish/examples/inference/pcfglr.pl"/>
 						<F N="packs_web/swish/examples/inference/pcfglr_R.pl"/>
@@ -12948,10 +12994,13 @@
 						<F N="packs_web/swish/examples/inference/pre_plcg.pl"/>
 						<F N="packs_web/swish/examples/inference/prefix.pl"/>
 						<F N="packs_web/swish/examples/inference/prefix_R.pl"/>
+						<F N="packs_web/swish/examples/inference/random_walk.swinb"/>
 						<F N="packs_web/swish/examples/inference/rmc.pl"/>
 						<F N="packs_web/swish/examples/inference/seven_scientists.pl"/>
 						<F N="packs_web/swish/examples/inference/seven_scientists_R.pl"/>
+						<F N="packs_web/swish/examples/inference/ship.swinb"/>
 						<F N="packs_web/swish/examples/inference/simpson.pl"/>
+						<F N="packs_web/swish/examples/inference/simpson.swinb"/>
 						<F N="packs_web/swish/examples/inference/slp_pcfg.pl"/>
 						<F N="packs_web/swish/examples/inference/slp_pdcg.pl"/>
 						<F N="packs_web/swish/examples/inference/slp_pdcg_R.pl"/>
@@ -12964,12 +13013,14 @@
 						<F N="packs_web/swish/examples/inference/threesideddice.pl"/>
 						<F N="packs_web/swish/examples/inference/threesideddicemc.pl"/>
 						<F N="packs_web/swish/examples/inference/tile_map.pl"/>
+						<F N="packs_web/swish/examples/inference/tile_map.swinb"/>
 						<F N="packs_web/swish/examples/inference/tile_mapcond.pl"/>
 						<F N="packs_web/swish/examples/inference/tile_mapnocut.pl"/>
 						<F N="packs_web/swish/examples/inference/tiny_event_calculus.pl"/>
 						<F N="packs_web/swish/examples/inference/tiny_event_calculusmc.pl"/>
 						<F N="packs_web/swish/examples/inference/trigger.pl"/>
 						<F N="packs_web/swish/examples/inference/truel.pl"/>
+						<F N="packs_web/swish/examples/inference/truel.swinb"/>
 						<F N="packs_web/swish/examples/inference/truncated_dirichlet_process.pl"/>
 						<F N="packs_web/swish/examples/inference/uwcse.pl"/>
 						<F N="packs_web/swish/examples/inference/var_obj.pl"/>
@@ -12978,8 +13029,10 @@
 						<F N="packs_web/swish/examples/inference/var_obj_R.pl"/>
 						<F N="packs_web/swish/examples/inference/var_objdb.pl"/>
 						<F N="packs_web/swish/examples/inference/viral.pl"/>
+						<F N="packs_web/swish/examples/inference/viral.swinb"/>
 						<F N="packs_web/swish/examples/inference/viralpb.pl"/>
 						<F N="packs_web/swish/examples/inference/viraltab.pl"/>
+						<F N="packs_web/swish/examples/inference/von_neumann_trick.swinb"/>
 						<F N="packs_web/swish/examples/inference/widget.pl"/>
 						<F N="packs_web/swish/examples/inference/widget_R.pl"/>
 						<F N="packs_web/swish/examples/inference/widgetmsw.pl"/>
@@ -12993,10 +13046,12 @@
 						<F N="packs_web/swish/examples/learning/bongard_R.pl"/>
 						<F N="packs_web/swish/examples/learning/bongardkeys.pl"/>
 						<F N="packs_web/swish/examples/learning/exauc.pl"/>
+						<F N="packs_web/swish/examples/learning/exauc.swinb"/>
 						<F N="packs_web/swish/examples/learning/exauc_R.pl"/>
 						<F N="packs_web/swish/examples/learning/hmmlearn.pl"/>
 						<F N="packs_web/swish/examples/learning/is_dir"/>
 						<F N="packs_web/swish/examples/learning/learn_effect_axioms.pl"/>
+						<F N="packs_web/swish/examples/learning/learning_examples.swinb"/>
 						<F N="packs_web/swish/examples/learning/mach.pl"/>
 						<F N="packs_web/swish/examples/learning/mach_R.pl"/>
 						<F N="packs_web/swish/examples/learning/multiple_paths_learning.pl"/>
@@ -13010,6 +13065,7 @@
 						<F N="packs_web/swish/examples/lemur/bongard.pl"/>
 						<F N="packs_web/swish/examples/lemur/bongardkeys.pl"/>
 						<F N="packs_web/swish/examples/lemur/is_dir"/>
+						<F N="packs_web/swish/examples/lemur/lemur_examples.swinb"/>
 						<F N="packs_web/swish/examples/lemur/mach.pl"/>
 						<F N="packs_web/swish/examples/lemur/registration.pl"/>
 					</Folder>
@@ -13017,6 +13073,16 @@
 						<F N="packs_web/swish/examples/logicmoo/animals.pl"/>
 						<F N="packs_web/swish/examples/logicmoo/ftc-pddl.lisp"/>
 						<F N="packs_web/swish/examples/logicmoo/is_dir"/>
+						<F N="packs_web/swish/examples/logicmoo/logicmoo_begin.swinb"/>
+						<F N="packs_web/swish/examples/logicmoo/logicmoo_examples.swinb"/>
+						<F N="packs_web/swish/examples/logicmoo/logicmoo_tutorial_01.swinb"/>
+						<F N="packs_web/swish/examples/logicmoo/logicmoo_tutorial_02.swinb"/>
+						<F N="packs_web/swish/examples/logicmoo/logicmoo_tutorial_03.swinb"/>
+						<F N="packs_web/swish/examples/logicmoo/logicmoo_tutorial_04.swinb"/>
+						<F N="packs_web/swish/examples/logicmoo/logicmoo_tutorial_05.swinb"/>
+						<F N="packs_web/swish/examples/logicmoo/logicmoo_utils.swinb"/>
+						<F N="packs_web/swish/examples/logicmoo/logicmoo_utils_debugging.swinb"/>
+						<F N="packs_web/swish/examples/logicmoo/reactome_pengine.swinb"/>
 					</Folder>
 					<Folder Name="logtalk">
 						<F N="packs_web/swish/examples/logtalk/is_dir"/>
@@ -13026,6 +13092,7 @@
 						<F N="packs_web/swish/examples/phil/bongardkeys.pl"/>
 						<F N="packs_web/swish/examples/phil/is_dir"/>
 						<F N="packs_web/swish/examples/phil/muta.pl"/>
+						<F N="packs_web/swish/examples/phil/phil_examples.swinb"/>
 						<F N="packs_web/swish/examples/phil/pyrimidine.pl"/>
 						<F N="packs_web/swish/examples/phil/university.pl"/>
 						<F N="packs_web/swish/examples/phil/uwcse.pl"/>
@@ -13033,12 +13100,16 @@
 					</Folder>
 					<Folder Name="prologmud">
 						<F N="packs_web/swish/examples/prologmud/is_dir"/>
+						<F N="packs_web/swish/examples/prologmud/logicmoo_mud.swinb"/>
+						<F N="packs_web/swish/examples/prologmud/nomicmu_mud.swinb"/>
+						<F N="packs_web/swish/examples/prologmud/prologmud_examples.swinb"/>
 					</Folder>
 					<Folder Name="trill">
 						<F N="packs_web/swish/examples/trill/biopaxLevel3.pl"/>
 						<F N="packs_web/swish/examples/trill/BRCA.pl"/>
 						<F N="packs_web/swish/examples/trill/commander.pl"/>
 						<F N="packs_web/swish/examples/trill/DBPedia.pl"/>
+						<F N="packs_web/swish/examples/trill/examples_trill.swinb"/>
 						<F N="packs_web/swish/examples/trill/is_dir"/>
 						<F N="packs_web/swish/examples/trill/johnEmployee.pl"/>
 						<F N="packs_web/swish/examples/trill/peoplePets.pl"/>
@@ -13046,22 +13117,69 @@
 						<F N="packs_web/swish/examples/trill/vicodi.pl"/>
 					</Folder>
 					<F N="packs_web/swish/examples/.cpackignore"/>
+					<F N="packs_web/swish/examples/basic_graph_examples.swinb"/>
+					<F N="packs_web/swish/examples/c3_examples.swinb"/>
+					<F N="packs_web/swish/examples/chat80.swinb"/>
 					<F N="packs_web/swish/examples/clpfd_queens.pl"/>
 					<F N="packs_web/swish/examples/clpfd_sudoku.pl"/>
+					<F N="packs_web/swish/examples/data_source.swinb"/>
+					<F N="packs_web/swish/examples/data_source_csv.swinb"/>
+					<F N="packs_web/swish/examples/data_source_scrape.swinb"/>
+					<F N="packs_web/swish/examples/data_source_sparql.swinb"/>
 					<F N="packs_web/swish/examples/database.pl"/>
+					<F N="packs_web/swish/examples/dict.swinb"/>
 					<F N="packs_web/swish/examples/eliza.pl"/>
+					<F N="packs_web/swish/examples/enumerating_examples.swinb"/>
+					<F N="packs_web/swish/examples/examples.swinb"/>
+					<F N="packs_web/swish/examples/examples_swish.swinb"/>
 					<F N="packs_web/swish/examples/expert_system.pl"/>
 					<F N="packs_web/swish/examples/grammar.pl"/>
 					<F N="packs_web/swish/examples/houses_puzzle.pl"/>
+					<F N="packs_web/swish/examples/html_output.swinb"/>
+					<F N="packs_web/swish/examples/htmlcell.swinb"/>
+					<F N="packs_web/swish/examples/IEEE754.swinb"/>
 					<F N="packs_web/swish/examples/io.pl"/>
+					<F N="packs_web/swish/examples/iris.swinb"/>
 					<F N="packs_web/swish/examples/is_dir"/>
 					<F N="packs_web/swish/examples/japanese.pl"/>
+					<F N="packs_web/swish/examples/jquery.swinb"/>
 					<F N="packs_web/swish/examples/kb.pl"/>
 					<F N="packs_web/swish/examples/knights_and_knaves.pl"/>
 					<F N="packs_web/swish/examples/lists.pl"/>
+					<F N="packs_web/swish/examples/literal_examples.swinb"/>
+					<F N="packs_web/swish/examples/md_eval.swinb"/>
 					<F N="packs_web/swish/examples/member.pl"/>
+					<F N="packs_web/swish/examples/member.swinb"/>
+					<F N="packs_web/swish/examples/mortgage.swinb"/>
 					<F N="packs_web/swish/examples/movies.pl"/>
+					<F N="packs_web/swish/examples/prefix_examples.swinb"/>
+					<F N="packs_web/swish/examples/projections.swinb"/>
+					<F N="packs_web/swish/examples/prolog_tutorials.swinb"/>
 					<F N="packs_web/swish/examples/queens.pl"/>
+					<F N="packs_web/swish/examples/query_parms.swinb"/>
+					<F N="packs_web/swish/examples/rational.swinb"/>
+					<F N="packs_web/swish/examples/Rbasics.swinb"/>
+					<F N="packs_web/swish/examples/Rdataframe.swinb"/>
+					<F N="packs_web/swish/examples/rdf_examples.swinb"/>
+					<F N="packs_web/swish/examples/Rdownload.swinb"/>
+					<F N="packs_web/swish/examples/render_bdd.swinb"/>
+					<F N="packs_web/swish/examples/render_c3.swinb"/>
+					<F N="packs_web/swish/examples/render_chess.swinb"/>
+					<F N="packs_web/swish/examples/render_codes.swinb"/>
+					<F N="packs_web/swish/examples/render_graphviz.swinb"/>
+					<F N="packs_web/swish/examples/render_mathjax.swinb"/>
+					<F N="packs_web/swish/examples/render_sudoku.swinb"/>
+					<F N="packs_web/swish/examples/render_svgtree.swinb"/>
+					<F N="packs_web/swish/examples/render_table.swinb"/>
+					<F N="packs_web/swish/examples/render_term.swinb"/>
+					<F N="packs_web/swish/examples/render_XXX.swinb"/>
+					<F N="packs_web/swish/examples/rendering.swinb"/>
+					<F N="packs_web/swish/examples/Rserve.swinb"/>
+					<F N="packs_web/swish/examples/siatec.swinb"/>
+					<F N="packs_web/swish/examples/slider.swinb"/>
+					<F N="packs_web/swish/examples/stats.swinb"/>
+					<F N="packs_web/swish/examples/swish_tutorials.swinb"/>
+					<F N="packs_web/swish/examples/tabling.swinb"/>
 				</Folder>
 				<Folder Name="lib">
 					<Folder Name="data">
@@ -13356,22 +13474,39 @@
 				</Folder>
 				<Folder Name="profiles">
 					<F N="packs_web/swish/profiles/00-Empty.pl"/>
+					<F N="packs_web/swish/profiles/00-Empty.swinb"/>
 					<F N="packs_web/swish/profiles/10-PITA.pl"/>
+					<F N="packs_web/swish/profiles/10-PITA.swinb"/>
+					<F N="packs_web/swish/profiles/10-RDF11.swinb"/>
 					<F N="packs_web/swish/profiles/10-TRILL.pl"/>
+					<F N="packs_web/swish/profiles/10-TRILL.swinb"/>
 					<F N="packs_web/swish/profiles/11-PFC.pl"/>
+					<F N="packs_web/swish/profiles/11-PFC.swinb"/>
 					<F N="packs_web/swish/profiles/12-LogicMOO.pl"/>
 					<F N="packs_web/swish/profiles/13-MUD.pl"/>
+					<F N="packs_web/swish/profiles/13-MUD.swinb"/>
 					<F N="packs_web/swish/profiles/20-MCINTYRE.pl"/>
+					<F N="packs_web/swish/profiles/20-MCINTYRE.swinb"/>
 					<F N="packs_web/swish/profiles/20-TRILLP.pl"/>
+					<F N="packs_web/swish/profiles/20-TRILLP.swinb"/>
 					<F N="packs_web/swish/profiles/30-SLIPCOVER.pl"/>
+					<F N="packs_web/swish/profiles/30-SLIPCOVER.swinb"/>
 					<F N="packs_web/swish/profiles/30-TORNADO.pl"/>
+					<F N="packs_web/swish/profiles/30-TORNADO.swinb"/>
 					<F N="packs_web/swish/profiles/31-PHIL.pl"/>
+					<F N="packs_web/swish/profiles/31-PHIL.swinb"/>
 					<F N="packs_web/swish/profiles/35-LEMUR.pl"/>
+					<F N="packs_web/swish/profiles/35-LEMUR.swinb"/>
 					<F N="packs_web/swish/profiles/40-ALEPH.pl"/>
+					<F N="packs_web/swish/profiles/40-ALEPH.swinb"/>
 					<F N="packs_web/swish/profiles/40-LPS.pl"/>
+					<F N="packs_web/swish/profiles/40-LPS.swinb"/>
 					<F N="packs_web/swish/profiles/40-OWLRDF.pl"/>
+					<F N="packs_web/swish/profiles/40-OWLRDF.swinb"/>
 					<F N="packs_web/swish/profiles/50-Student.pl"/>
+					<F N="packs_web/swish/profiles/50-Student.swinb"/>
 					<F N="packs_web/swish/profiles/60-CLP.pl"/>
+					<F N="packs_web/swish/profiles/60-CLP.swinb"/>
 					<F N="packs_web/swish/profiles/is_dir"/>
 				</Folder>
 				<Folder Name="rdf">
@@ -13393,12 +13528,26 @@
 				</Folder>
 				<Folder Name="tutorial">
 					<Folder Name="inference">
+						<F N="packs_web/swish/tutorial/inference/arithm.swinb"/>
+						<F N="packs_web/swish/tutorial/inference/coin.swinb"/>
+						<F N="packs_web/swish/tutorial/inference/coinmc.swinb"/>
+						<F N="packs_web/swish/tutorial/inference/dice.swinb"/>
+						<F N="packs_web/swish/tutorial/inference/earthquake.swinb"/>
+						<F N="packs_web/swish/tutorial/inference/epidemic.swinb"/>
 						<F N="packs_web/swish/tutorial/inference/is_dir"/>
+						<F N="packs_web/swish/tutorial/inference/markov_chain.swinb"/>
+						<F N="packs_web/swish/tutorial/inference/pctl_slep.swinb"/>
+						<F N="packs_web/swish/tutorial/inference/sneezing.swinb"/>
 					</Folder>
 					<Folder Name="learning">
+						<F N="packs_web/swish/tutorial/learning/bongard.swinb"/>
 						<F N="packs_web/swish/tutorial/learning/is_dir"/>
+						<F N="packs_web/swish/tutorial/learning/mach.swinb"/>
+						<F N="packs_web/swish/tutorial/learning/registration.swinb"/>
 					</Folder>
 					<F N="packs_web/swish/tutorial/is_dir"/>
+					<F N="packs_web/swish/tutorial/lpad.swinb"/>
+					<F N="packs_web/swish/tutorial/tutorial.swinb"/>
 				</Folder>
 				<Folder Name="web">
 					<Folder Name="css">
