@@ -31,11 +31,16 @@ fi
 
 echo "Scanning changes for GIT ..."
 git status -s
+
+if [[ "${1}"=="commit" ]]; then
+shift 1
 git commit -am "Docker $(date)"
-git submodule foreach 'git checkout master ; git commit -am "Docker $(date)" ; /bin/true'
-git submodule foreach 'git push master ; /bin/true'
+git submodule foreach 'git commit -am "Docker $(date)" ; /bin/true'
+git submodule foreach 'git push  ; /bin/true'
 git submodule foreach 'SUBM=$(pwd) ; cd .. ; git add $SUBM  ; /bin/true'
 git push github master
+fi
+
 
 (
 cd docker
