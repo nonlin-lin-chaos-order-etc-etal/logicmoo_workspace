@@ -430,7 +430,7 @@ lexfw_info(String):-
  lexfw_info(_AllKind, String, Datum),
  lex_print(Datum).
 
-:- kb_global(do_e2c_fwd/1).
+:- kb_global(do_e2c_fwd/2).
 :- kb_global(nl_pass1/1).
 :- export(lexfw_info/3).
 lexfw_info(_Kind, String, Out):-

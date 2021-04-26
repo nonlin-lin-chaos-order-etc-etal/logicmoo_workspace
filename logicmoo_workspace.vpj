@@ -224,6 +224,7 @@
 							<F N="docker/rootfs/etc/supervisor/conf.d/supervisord_logicmoo.conf"/>
 						</Folder>
 						<F N="docker/rootfs/etc/supervisor/is_dir"/>
+						<F N="docker/rootfs/etc/supervisor/supervisord.conf"/>
 					</Folder>
 					<F N="docker/rootfs/etc/is_dir"/>
 				</Folder>
@@ -10604,6 +10605,11 @@
 			</Folder>
 			<Folder Name="prologmud_samples">
 				<Folder Name="prolog">
+					<Folder Name="prologmud_sample_games/.config">
+						<Folder Name="butterfly">
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/.config/butterfly/butterfly.conf"/>
+						</Folder>
+					</Folder>
 					<Folder Name="prologmud_sample_games">
 						<Folder Name="attic">
 							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/attic/ansi2html.sh"/>
@@ -14560,6 +14566,11 @@
 							<F N="packs_xtra/logicmoo_pldata/bllip-parser/dockerfiles/centos6/Dockerfile"/>
 						</Folder>
 						<Folder Name="python">
+							<Folder Name="userfiles/.config">
+								<Folder Name="lxterminal">
+									<F N="packs_xtra/logicmoo_pldata/bllip-parser/dockerfiles/python/userfiles/.config/lxterminal/lxterminal.conf"/>
+								</Folder>
+							</Folder>
 							<Folder Name="userfiles">
 								<F N="packs_xtra/logicmoo_pldata/bllip-parser/dockerfiles/python/userfiles/runvnc.sh"/>
 							</Folder>
