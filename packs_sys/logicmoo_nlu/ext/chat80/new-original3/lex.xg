@@ -1,0 +1,153 @@
+:- op(1001,xfy, ... ).
+:- op(1200,xfx,'--->').
+
+
+:-asserta(tlxgproc:do_xg_process_te).
+
+/* Parts of speech */
+/*
+the TextC(W1,CYCPOS,Y=W1)  ---> {t_l:old_text,!},[W1],{W1=Y}.
+the TextC(W1,CYCPOS,Y=W1)  ---> {!},[w(W1,_)],{W1=Y}.
+the TextC(W1,CYCPOS,WHY) ---> [W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
+see newdict.pl
+*/
+
+theTextL(W1,_CYCPOS,Y=W1)  ---> {t_l:old_text,!},theText80(W1),{W1=Y}.
+theTextL(W1,_CYCPOS,Y=W1)  ---> {!},theText80(W1),{W1=Y}.
+theTextL(W1,_CYCPOS,WHY) ---> theText80(W1),{call(WHY)}.
+
+noText ---> [].
+
+theText1(IC)---> {t_l:old_text,!},[W0],{parser_tokenize:any_nb_to_atom(W0,W1),downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC))}.
+theText1(Txt)---> [w(Txt,_)].
+
+theText1(W1,_CYCPOS)--->{t_l:old_text,!},[W1]. % compatible_pos_db(CW,CYCPOS),cw_db(W1,CW)
+theText1(Txt,_CYCPOS)---> [w(Txt,_)]. 
+
+theText80(Text)---> {is_list(Text),!},theText_cl(Text).
+theText80([W1])---> theText1(W1).
+theText80([W1,W2])---> {!}, theText1(W1),theText1(W2).
+theText80(DCG)---> {!,nonvar(DCG)}, DCG.
+theText80(Text)---> {Text=@=[_|_],!},theText_ol(Text).
+theText80(Text)---> {var(Text),dmsg(theText_DCG_VAR(Text)),!},theText_ol(Text).
+theText80(DCG)---> {dmsg(theText_DCG(DCG)),dtrace,nonvar(DCG)},DCG.
+%:- share_mp(theText80//1).
+
+
+theText_ol([W1,W2,W3])---> theText1(W1),theText1(W2),theText1(W3).
+theText_ol([W1,W2])---> theText1(W1),theText1(W2).
+theText_ol([W1])---> theText1(W1).
+
+theText_cl([]) ---> {!},[].
+theText_cl([W1|WL])---> theText1(W1),{!},theText_cl(WL).
+
+
+optText1(_,_,_)---> noText.
+optText1(W,POS,HOW)---> theTextC(W,POS,HOW).
+
+optText1(_,_)---> noText.
+optText1(W,POS)---> theText1(W,POS).
+
+opt_the ---> optText1(the,'Determiner').
+%opt_the ---> optTextC(The,'Determiner',The=the).
+
+optText(_Text) ---> noText.
+optText(Text) ---> theText80(Text).
+
+textOpt(Text) ---> theText80(Text).
+textOpt(_Text) ---> noText.
+
+
+noun(Noun,Agmt) --->
+   [W],
+   {noun_form_db(W,Noun,Agmt)}.
+
+det(det(Det),Number,Def) --->
+   [W],
+   {det_db(W,Number,Det,Def)}.
+det(generic,_,generic) ---> [].
+
+adj(Type,adj(Adj)) --->
+   [Adj],
+   {adj_db(Adj,Type)}.
+
+prep(prep(Prep)) --->
+   [Prep],
+   {prep_db(Prep)}.
+
+rel_adj(adj(Adj)) --->
+   [RAdj],
+   {rel_adj_db(RAdj,Adj)}.
+
+sup_adj(adj(Adj)) --->
+   [SAdj],
+   {sup_adj_db(SAdj,Adj)}.
+
+comp_adv(less) ---> [less].
+comp_adv(more) ---> [more].
+
+sup_adv(least) ---> [least].
+sup_adv(most) ---> [most].
+
+rel_pron(Case) --->
+   [W],
+   {rel_pron_db(W,Case)}.
+
+verb_form_db(Verb,Tense,Agmt,Role) --->
+   [W],
+   {verb_form_db(W,Verb,Tense,Agmt)}.
+
+name_lex(Name) --->
+   opt_the,
+   [Name],
+   {name_LF(Name)}.
+
+int_art(X,pl,quant(same,wh(X))) ---> [how,many].
+int_art(X,Agmt,DX) --->
+   [Art],
+   {int_art_db(Art,X,Agmt,DX)}.
+
+int_pron(Case) --->
+   [Pron],
+   {int_pron_db(Pron,Case)}.
+
+adverb(adv(Adv)) --->
+   [Adv],
+   {adverb_db(Adv)}.
+
+poss_pron(pronoun(Gender),Person+Number) --->
+   [W],
+   {poss_pron_db(W,Gender,Person,Number)}.
+
+pers_pron(pronoun(Gender),Person+Number,Case) --->
+   [W],
+   {pers_pron_db(W,Gender,Person,Number,Case)}.
+
+quantifier_pron(Det,Noun) --->
+   [W],
+   {quantifier_pron_db(W,Det,Noun)}.
+
+context_pron(prep(in),place) ---> [where].
+context_pron(prep(at),time) ---> [when].
+
+number(nb(I),Number) --->
+   [W],
+   {number_db(W,I,Number)}.
+
+terminator(Type) --->
+   [Term],
+   {terminator_db(Term,Type)}.
+
+opt_the ---> [].
+opt_the ---> [the].
+
+conj(_,list,list) ---> [','].
+conj(Conj,list,end) --->
+   [Conj],
+   {conj_db(Conj)}.
+
+loc_pred(Of,P) --->
+   [W],
+   {loc_pred_db(Of,W,P)}.
+
+:-retract(tlxgproc:do_xg_process_te).
