@@ -58,7 +58,7 @@ variable_q(X,Agmt,compl,VCase) ...
 variable_q(X,_,compl,VCase) ...
       pred(adj,value(Adj,wh(X)),Mask) --->
    theText1(how),
-   adj_xg(quant,Adj),
+   adj(quant,Adj),
    {is_empty_bits(Mask), is_verb_case(VCase)}.
 
 whq(X,Agmt,NP,undef) --->
