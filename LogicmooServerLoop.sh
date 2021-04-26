@@ -8,11 +8,24 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+function green {
+    printf "${GREEN}$@${NC}\n"
+}
+function red {
+    printf "${RED}$@${NC}\n"
+}
+
 DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # $DIR0/StartLogicmoo.sh
 
+COUNTER=0
+
 while [ 0 -lt 4 ]
 do
+
+let COUNTER+=1
 
 if pgrep -x "screen" > /dev/nulli="0"
 then
@@ -41,6 +54,12 @@ else
           sleep 2
       fi
 fi
+
+ if [ $COUNTER -gt 30 ]; then  
+  echo "MAYBE (IN OTHER TERMINAL): " $(green "docker exec -it logicmoo screen -rx ")
+  echo "OR (Bash IN OTHER TERMINAL): " $(green "docker exec -it logicmoo bash ")
+  COUNTER=0
+ fi
 
 sleep 1
 
