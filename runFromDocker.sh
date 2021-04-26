@@ -30,8 +30,9 @@ fi
 #chmod a+w -R $LOGICMOO_WS/?*/
 
 echo "Scanning changes for GIT ..."
-git commit -am "Docker $(date)"
-git push github master
+#git commit -am "Docker $(date)"
+git status -s
+#git push github master
 
 (
 cd docker
