@@ -59,6 +59,9 @@ chmod a+w -R /tmp/
 unalias cp
 cp -a -v $LOGICMOO_WS/docker/rootfs/?* /
 
+rm -rf /root/
+ln -s $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games/ /root
+
 rm -rf /etc/supervisor
 ln -s $LOGICMOO_WS/docker/rootfs/etc/supervisor /etc/supervisor
 
