@@ -36,7 +36,7 @@ if [[ "${1}"=="commit" ]]; then
 shift 1
 git submodule foreach 'git commit -am "Docker $(date)" ; /bin/true'
 git submodule foreach 'git push  ; /bin/true'
-git submodule foreach 'SUBM=$(pwd) ; echo $SUBM  ; cd .. ; git add $SUBM  ; /bin/true'
+git submodule foreach 'SUBM=$(basename `pwd`) ; echo $SUBM  ; cd .. ; git add $SUBM  ; /bin/true'
 git commit -am "Docker $(date)"
 git push github master
 fi
