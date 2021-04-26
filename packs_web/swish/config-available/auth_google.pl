@@ -77,6 +77,7 @@ module:
 
 swish_config:login_item(google, 10-Item) :-
     http_absolute_location(icons('social_google_box.png'), Img, []),
+    Img = 'icons/unity.png',
     Item = img([ src(Img),
                  class('login-with'),
                  'data-server'(google),

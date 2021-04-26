@@ -60,11 +60,17 @@ rsync -ra $LOGICMOO_WS/docker/rootfs/. /.
 echo "Starting . $LOGICMOO_WS/INSTALL.md"
 . $LOGICMOO_WS/INSTALL.md
 
-rm -rf /root
-ln -s $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games/ /root
-
+rm -rf /etc/apache2/conf-available
+ln -s $LOGICMOO_WS/docker/rootfs/etc/apache2/conf-available /etc/apache2/conf-available 
+rm -rf /etc/apache2/conf-available
+ln -s $LOGICMOO_WS/docker/rootfs/etc/apache2/sites-enabled /etc/apache2/sites-enabled
+rm -rf /etc/apache2/ssl
+ln -s $LOGICMOO_WS/docker/rootfs/etc/apache2/sites-enabled /etc/apache2/ssl
 rm -rf /etc/supervisor
 ln -s $LOGICMOO_WS/docker/rootfs/etc/supervisor /etc/supervisor
+mv /root /root.dist
+ln -s $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games/ /root
+chown -R root.prologmud_server /root/
 
 if [ -n "$VNC_PASSWORD" ]; then
     echo -n "$VNC_PASSWORD" > /.password1

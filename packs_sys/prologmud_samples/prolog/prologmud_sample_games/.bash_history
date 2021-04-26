@@ -628,3 +628,18 @@ supervisorctl help restart
 supervisorctl help restart all
 supervisorctl  restart all
 cd /
+export DISPLAY=10.0.0.78:0.0
+firefox 
+chown root . -R
+firefox 
+bg
+chown prologmud_server . -R
+docker exec -it logicmoo screen -rx
+echo "ls." | swipl
+echo "ls." | swipl -g prolog.
+echo "ls." | swipl -t prolog
+echo "ls,prolog" | swipl
+echo "ls,prolog." | swipl
+echo "ls,prolog,ls" | swipl
+echo "ls,prolog." | swipl
+echo "ls." | swipl -g "prolog".

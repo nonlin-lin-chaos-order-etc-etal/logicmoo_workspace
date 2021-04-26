@@ -30,8 +30,7 @@
 %:- xlisting(lock_predicate/1).
 %:- autoload_all.
 
-t_l:old_text.
-t_l:useAltPOS:- fail.
+
 %:- module(baseKB).
 
 :- 
