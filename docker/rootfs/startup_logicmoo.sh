@@ -40,6 +40,7 @@ then
  git config --global http.sslVerify false
  git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace
  find $LOGICMOO_WS/ -type d -exec chmod 777 {} +
+ git lfs checkout
  chmod a+w -R $LOGICMOO_WS/
 fi
 

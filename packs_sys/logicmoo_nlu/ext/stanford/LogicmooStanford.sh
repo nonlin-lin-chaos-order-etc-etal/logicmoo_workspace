@@ -13,12 +13,15 @@ if [[ ! -f deps/stanford-corenlp-4.2.0-models.jar ]]; then
 )
 fi
 
+apt remove adoptopenjdk-8-hotspot
+
 
 #export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -preload -status_port 4091 -timeout 15000 $@"
 
 #export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -timeout 15000 -uriContext /stanford"
 
 export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -timeout 15000"
+
 
 # -annotators tokenize,quote,ssplit,pos,lemma,ner,truecase,parse,hcoref,relation
 echo cd `pwd`

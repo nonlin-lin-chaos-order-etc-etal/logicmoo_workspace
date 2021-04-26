@@ -39,6 +39,7 @@ then
  echo "clone --depth 1 https://github.com/logicmoo/logicmoo_workspace"
  git config --global http.sslVerify false
  git clone --depth 1 https://github.com/logicmoo/logicmoo_workspace
+ git lfs checkout
  find $LOGICMOO_WS/ -type d -exec chmod 777 {} +
  chmod a+w -R $LOGICMOO_WS/
 fi
@@ -57,9 +58,9 @@ echo "Starting . $LOGICMOO_WS/INSTALL.md"
 chmod a+w -R /tmp/
 
 unalias cp
-cp -a -v $LOGICMOO_WS/docker/rootfs/?* /
+rsync $LOGICMOO_WS/docker/rootfs/. /.
 
-rm -rf /root/
+rm -rf /root
 ln -s $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games/ /root
 
 rm -rf /etc/supervisor

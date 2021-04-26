@@ -87,6 +87,9 @@ echo "git submodule update --init"
 git submodule update --init
 echo "git pull --recurse-submodules"
 git pull --recurse-submodules
+git lfs checkout
+git submodule foreach 'git lfs checkout'
+
 
 echo ". /opt/logicmoo_workspace/packs_web/butterfly/bin/activate"
 . /opt/logicmoo_workspace/packs_web/butterfly/bin/activate
