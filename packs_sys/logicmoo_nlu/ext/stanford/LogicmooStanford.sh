@@ -22,11 +22,14 @@ apt remove adoptopenjdk-8-hotspot
 
 export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -timeout 15000"
 
+cd deps
+cd $(readlink $PWD)
+git lfs checkout .
 
 # -annotators tokenize,quote,ssplit,pos,lemma,ner,truecase,parse,hcoref,relation
 echo cd `pwd`
-echo java -mx4g -cp "deps/*" $OPTS
-java -mx4g -cp "deps/*" $OPTS
+echo java -mx4g -cp "*" $OPTS
+java -mx4g -cp "*" $OPTS
 
 sleep 2
 # curl --data "How are you today?" 'http://localhost:4090/stanford/?properties={%22annotators%22%3A%22tokenize%2Cssplit%2Cpos%2Cdepparse%22%2C%22outputFormat%22%3A%22conllu%22}'
