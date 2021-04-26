@@ -52,13 +52,13 @@ else
    echo "Skipping pull"
 fi
 
-echo "Starting . $LOGICMOO_WS/INSTALL.md"
-. $LOGICMOO_WS/INSTALL.md
-
 chmod a+w -R /tmp/
 
-unalias cp
-rsync $LOGICMOO_WS/docker/rootfs/. /.
+rsync -ra $LOGICMOO_WS/docker/rootfs/. /.
+
+
+echo "Starting . $LOGICMOO_WS/INSTALL.md"
+. $LOGICMOO_WS/INSTALL.md
 
 rm -rf /root
 ln -s $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games/ /root
