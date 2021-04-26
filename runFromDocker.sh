@@ -32,10 +32,10 @@ fi
 echo "Scanning changes for GIT ..."
 git status -s
 git commit -am "Docker $(date)"
-git submodule foreach 'git commit -am "Docker $(date)"'
-git submodule foreach 'git push'
-git submodule foreach 'cd .. ; git add *'
-#git push github master
+git submodule foreach 'git commit -am "Docker $(date)" ; /bin/true'
+git submodule foreach 'git push  ; /bin/true'
+git submodule foreach 'cd .. ; git add *  ; /bin/true'
+git push github master
 
 (
 cd docker
