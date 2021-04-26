@@ -21,11 +21,6 @@ export LOGICMOO_WS=$DIR0
 
 ./logicmoo_env.sh
 
-EXTRA="${*}"
-if ping -c 1 -W 1 "10.0.0.194"; then
-EXTRA+=" --add-host logicmoo.org:10.0.0.194"
-fi
-
 #find $LOGICMOO_WS/?*/ -type d -exec chmod 777 "{}" + 
 #chmod a+w -R $LOGICMOO_WS/?*/
 
@@ -41,16 +36,21 @@ git commit -am "Docker $(date)"
 git push github master
 fi
 
+EXTRA="${*}"
+if ping -c 1 -W 1 "10.0.0.194"; then
+  EXTRA+=" --add-host logicmoo.org:10.0.0.194"
+fi
+
 
 (
 cd docker
-docker build -t logicmoo/logicmoo_starter_image $EXTRA .
+docker build $EXTRA -t logicmoo/logicmoo_starter_image .
 
 echo MAYBE: docker push logicmoo/logicmoo_starter_image
 docker push logicmoo/logicmoo_starter_image
 )
 
-docker build -t logicmoo/logicmoo_workspace $EXTRA  .
+docker build $EXTRA -t logicmoo/logicmoo_workspace .
 
 echo MAYBE: docker push logicmoo/logicmoo_workspace
 docker push logicmoo/logicmoo_workspace
