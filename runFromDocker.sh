@@ -27,11 +27,12 @@ export LOGICMOO_WS=$DIR0
 echo "Scanning changes for GIT ..."
 git status -s
 
-if [[ "${1}"=="commit" ]]; then
-shift 1
-git submodule foreach 'git commit -am "Docker $(date)" ; git push  ; /bin/true; SUBM=$(basename `pwd`) ; echo $SUBM  ; cd .. ; git add $SUBM  ; /bin/true'
-git commit -am "Docker $(date)"
-git push github master
+if [[ "${1}"=="commit" ]]; 
+ then
+   git submodule foreach 'git commit -am "Docker $(date)" ; git push ; SUBM=$(basename `pwd`) ; echo $SUBM  ; cd .. ; git add $SUBM  ; /bin/true'
+   git commit -am "Docker $(date)"
+   git push github master
+   shift 1
 fi
 
 EXTRA="${*}"
