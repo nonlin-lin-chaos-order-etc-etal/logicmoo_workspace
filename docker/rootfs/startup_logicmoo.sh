@@ -62,14 +62,14 @@ chmod a+w -R /tmp/
 
 if [[ -f /startup.sh ]]
 then
- /startup.sh &
-while :
-do
-   set -e
-   echo "MAYBE (IN OTHER TERMINAL): docker exec -it logicmoo screen -rx"
-   echo "OR (IN OTHER TERMINAL): docker exec -it logicmoo bash"
-	sleep 30
-done
+ ./startup.sh
+   while :
+   do
+      set -e
+      echo "MAYBE (IN OTHER TERMINAL): docker exec -it logicmoo screen -rx"
+      echo "OR (IN OTHER TERMINAL): docker exec -it logicmoo bash"
+   	sleep 30
+   done
 else
  supervisord  -c /etc/supervisor/supervisord.conf
  $LOGICMOO_WS/StartLogicmoo.sh

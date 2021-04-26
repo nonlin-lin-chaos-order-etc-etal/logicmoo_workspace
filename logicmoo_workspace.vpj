@@ -221,6 +221,7 @@
 					<Folder Name="supervisor">
 						<Folder Name="conf.d">
 							<F N="docker/rootfs/etc/supervisor/conf.d/is_dir"/>
+							<F N="docker/rootfs/etc/supervisor/conf.d/supervisord.conf"/>
 							<F N="docker/rootfs/etc/supervisor/conf.d/supervisord_logicmoo.conf"/>
 						</Folder>
 						<F N="docker/rootfs/etc/supervisor/is_dir"/>

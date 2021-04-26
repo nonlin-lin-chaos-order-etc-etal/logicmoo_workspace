@@ -465,3 +465,4 @@ ENV HOME=/root \
     SHELL=/bin/bash
 HEALTHCHECK --interval=60s --timeout=10s CMD curl --fail http://127.0.0.1:6079/api/health
 ENTRYPOINT ["/startup_logicmoo.sh"]
+ENTRYPOINT ["/startup.sh"]
