@@ -243,8 +243,8 @@ unit_det(lambda).
 unit_det(quant(_, _)).
 unit_det(det(_)).
 unit_det(question(_)).
-unit_det(id).
-unit_det(void).
+unit_det(identityQ).
+unit_det(voidQ).
 unit_det(not).
 unit_det(generic).
 unit_det(int_det(_)).
@@ -261,9 +261,9 @@ apply(proportion(_Type-V), _, X, P, Y, Q,
          N^(numberof(Y,(one_of(S, Y), Q), N),
             M^(card(S, M), ratio(N, M, V))))).
 
-apply(id, _, X, P, X, Q,(P, Q)).
+apply(identityQ, _, X, P, X, Q,(P, Q)).
 
-apply(void, _, X, P, X, Q, X^(P, Q)).
+apply(voidQ, _, X, P, X, Q, X^(P, Q)).
 
 apply(set, _, Index:X, P0, S, Q, S^(P, Q)) :-
    apply_set(Index, X, P0, S, P).
@@ -327,9 +327,9 @@ governs_lex(Det0, Det) :-
    Det=det(_);
    Det=quant(_, _)).
 
-governs_lex(_, void).
+governs_lex(_, voidQ).
 governs_lex(_, lambda).
-governs_lex(_, id).
+governs_lex(_, identityQ).
 governs_lex(det(each), question([_|_])).
 governs_lex(det(each), det(each)).
 governs_lex(det(any), not).
@@ -381,7 +381,7 @@ setifiable(det(all)).
 % =================================================================
 % Operators (currently, identity, negation and 'and')
 
-op_apply(id, P, P).
+op_apply(identityQ, P, P).
 op_apply(not, P, \+P).
 
 bubble(not, det(any), det(every)) :- !.

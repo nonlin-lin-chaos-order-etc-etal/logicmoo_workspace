@@ -10,8 +10,8 @@ Copyright (C) 1987, Quintus Computer Systems, Inc.  All rights reserved.
  [compiling /usr/sri-marvin/pereira/chat/80/clotab.pl...]
  [clotab.pl compiled 1.850 sec 2,100 bytes]
  [compiling /usr/sri-marvin/pereira/chat/80/newdict.pl...]
-[WARNING: Clauses for verb_form/4 are not together in the source file]
-[WARNING: Clauses for verb_type/2 are not together in the source file]
+[WARNING: Clauses for verb_form_db/4 are not together in the source file]
+[WARNING: Clauses for verb_type_db/2 are not together in the source file]
 [WARNING: Clauses for regular_pres/1 are not together in the source file]
 [WARNING: Clauses for noun_form/3 are not together in the source file]
 [WARNING: Clauses for verb_root/1 are not together in the source file]
@@ -75,7 +75,7 @@ whq
             river
          []
       verb(be,active,pres+fin,[],pos)
-      void
+      voidQ
       []
 
 
@@ -1455,7 +1455,7 @@ whq
             country
          []
       verb(be,active,pres+fin,[],pos)
-      void
+      voidQ
       pp
          prep(in)
          np

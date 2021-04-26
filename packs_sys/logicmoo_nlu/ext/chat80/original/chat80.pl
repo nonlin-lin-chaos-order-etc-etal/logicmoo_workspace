@@ -116,7 +116,7 @@ chat_print_tree(Tree) :-
 
 %!  chat_example(?Nr, ?Sentence, ?Correct)
 %
-%   True when Nr is the (integer) id of the tokenized Sentence and
+%   True when Nr is the (integer) Id of the tokenized Sentence and
 %   Correct is the correct answer.
 
 chat_example(Nr, Sentence, Correct) :-

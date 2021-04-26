@@ -93,9 +93,9 @@ rel_pron(Case) --->
    [W],
    {rel_pron(W,Case)}.
 
-verb_form(Verb,Tense,Agmt,Role) --->
+verb_form_db(Verb,Tense,Agmt,Role) --->
    [W],
-   {verb_form(W,Verb,Tense,Agmt)}.
+   {verb_form_db(W,Verb,Tense,Agmt)}.
 
 name_lex(Name) --->
    opt_the,

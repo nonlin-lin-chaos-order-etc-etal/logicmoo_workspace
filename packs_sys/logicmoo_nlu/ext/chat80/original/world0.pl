@@ -100,11 +100,11 @@ unit_format(population,_X--thousand).
 ti(region,R) :- continent_contains_region(_,R).
 
 % if X is contained in africa then X is african.
-ti(An,X) :- agentitive_trans(Contains,Af,An), (trans_pred(spatial,Contains,Af,X);Af=X).
-agentitive_trans(contains,africa,african).
-agentitive_trans(contains,america,american).
-agentitive_trans(contains,asia,asian).
-agentitive_trans(contains,europe,european).
+ti(An,X) :- agentitive_trans_db(Contains,Af,An), (trans_pred(spatial,Contains,Af,X);Af=X).
+agentitive_trans_db(contains,africa,african).
+agentitive_trans_db(contains,america,american).
+agentitive_trans_db(contains,asia,asian).
+agentitive_trans_db(contains,europe,european).
 
 
 

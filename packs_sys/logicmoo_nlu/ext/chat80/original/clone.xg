@@ -81,7 +81,7 @@ question80(QCase,NPCase,S) --->
 
 int_art(X,Agmt), det(DX,Agmt,def) ---> int_art(X,Agmt,DX).
 
-subj_qustion(subj).
+subj_question(subj).
 subj_question(undef).
 
 /* Yes-no questions */
@@ -92,22 +92,22 @@ yn_question(q(S)) --->
 
 
 fronted_verb(QCase,NPCase) ...
-      verb_form(Root,Tense,Agmt,Role), neg(_,Neg) --->
-   verb_form(Root,Tense,Agmt,_),
-   {verb_type(Root,aux+_),
+      verb_form_db(Root,Tense,Agmt,Role), neg_opt(_,Neg) --->
+   verb_form_db(Root,Tense,Agmt,_),
+   {verb_type_db(Root,aux+_),
     is_to_role_case(QCase,Role,NPCase)},
-   neg(_,Neg).
+   neg_opt(_,Neg).
 
 /* Imperative sentences */
 
-imperative80(imp(S)) --->
-   imperative_verb,
+imperative80(imp(You,V,S)) --->
+   imperative_verb(You,V),
    s80(S,_).
 
-imperative_verb,
+imperative_verb(You,Root),
    [you],
-   verb_form(Root,imp+fin,2+sg,main) --->
-   verb_form(Root,inf,_,_).
+   verb_form_db(Root,imp+fin,2+sg,main) --->
+   verb_form_db(Root,inf,_,_),{You=you}.
 
 /* Basic sentence (actually, declarative sentence) */
 
@@ -183,7 +183,6 @@ possessive(Kernel,Agmt,Type,PostMods,Mods,
 
 gen_case, [the] ---> gen_marker.
 
-gen_marker ---> [''''], an_s.
 
 gen_marker ---> theText1('\''), an_s.
 
@@ -212,10 +211,10 @@ quant_opt(Op,indef) --->
    sup_adv(Adv),
    {sup_op(Adv,Op)}.
 quant(the,def) ---> [the].
-quant(same,indef) ---> [].
+quant(same,indef) ---> noText.
 
 neg_adv(Adv,not+Adv) ---> [not].
-neg_adv(Adv,Adv) ---> [].
+neg_adv(Adv,Adv) ---> noText.
 
 sup_op(least,not+less).
 sup_op(most,not+more).
@@ -367,16 +366,16 @@ reduced_rel(Agmt,reduced_rel(X,S),Mask) --->
 
 reduced_wh(Agmt,X),
    np(np(Agmt,wh(X),[]),Agmt,NPCase,_,_,Set0,Mask0),
-   verb_form(be,pres+fin,Agmt,main),
-   neg(_,Neg),
+   verb_form_db(be,pres+fin,Agmt,main),
+   neg_opt(_,Neg),
    pred(Neg,Pred,Mask) --->
-   neg(_,Neg),
+   neg_opt(_,Neg),
    pred(Neg,Pred,Mask),
    {is_trace82(Set0,Mask0), is_subj_case(NPCase)}.
 reduced_wh(Agmt,X),
    np(np(Agmt,wh(X),[]),Agmt,NPCase,_,_,Set,Mask),
    verb(Verb,_,Type,Voice) --->
-   participle(Verb,Type,Voice),
+   participle_vt(Verb,Type,Voice),
    {is_trace82(Set,Mask), is_subj_case(NPCase)}.
 reduced_wh(AgmtX,X),
    np(Subj,Agmt,SCase,Def,_,Set0,Mask0) ...
@@ -388,49 +387,49 @@ reduced_wh(AgmtX,X),
 /* Verb phrase (less the complements) */
 
 verb(verb(Root,Voice,Time+fin,Aspect,Neg),Agmt,Type,Voice) --->
-   verb_form(Root0,Time+fin,Agmt,Role),
-   {verb_type(Root0,Type0)},
-   neg(Type0,Neg),
+   verb_form_db(Root0,Time+fin,Agmt,Role),
+   {verb_type_db(Root0,Type0)},
+   neg_opt(Type0,Neg),
    rest_verb(Role,Root0,Root,Voice,Aspect),
-   {verb_type(Root,Type)}.
+   {verb_type_db(Root,Type)}.
 
-neg(aux+_,neg) ---> [not].
-neg(_,pos) ---> [].
+neg_opt(aux+_,negP) ---> theText1(not).
+neg_opt(_,posP) ---> noText.
 
 rest_verb(aux,have,Root,Voice,[perf|Aspect]) --->
-   verb_form(Root0,past+part,_,_),
-   have(Root0,Root,Voice,Aspect).
+   verb_form_db(Root0,past+part,_,_),
+   have_vt(Root0,Root,Voice,Aspect).
 rest_verb(aux,be,Root,Voice,Aspect) --->
-   verb_form(Root0,Tense0,_,_),
-   be(Tense0,Root0,Root,Voice,Aspect).
+   verb_form_db(Root0,Tense0,_,_),
+   be_vt(Tense0,Root0,Root,Voice,Aspect).
 rest_verb(aux,do,Root,active,[]) --->
-   verb_form(Root,inf,_,_).
-rest_verb(main,Root,Root,active,[]) ---> [].
+   verb_form_db(Root,inf,_,_).
+rest_verb(main,Root,Root,active,[]) ---> noText.
 
-have(be,Root,Voice,Aspect) --->
-   verb_form(Root0,Tense0,_,_),
-   be(Tense0,Root0,Root,Voice,Aspect).
-have(Root,Root,active,[]) ---> [].
+have_vt(be,Root,Voice,Aspect) --->
+   verb_form_db(Root0,Tense0,_,_),
+   be_vt(Tense0,Root0,Root,Voice,Aspect).
+have_vt(Root,Root,active,[]) ---> noText.
 
-be(past+part,Root,Root,passive,[]) ---> [].
-be(pres+part,Root0,Root,Voice,[prog]) --->
-   passive(Root0,Root,Voice).
+be_vt(past+part,Root,Root,passive,[]) ---> noText.
+be_vt(pres+part,Root0,Root,Voice,[prog]) --->
+   passive_vt(Root0,Root,Voice).
 
-passive(be,Root,passive) --->
-   verb_form(Root,past+part,_,_),
-   {verb_type(Root,Type), passive(Type)}.
-passive(Root,Root,active) ---> [].
+passive_vt(be,Root,passive) --->
+   verb_form_db(Root,past+part,_,_),
+   {verb_type_db(Root,Type), passive_vt(Type)}.
+passive_vt(Root,Root,active) ---> noText.
 
-participle(verb(Root,Voice,inf,Aspect,Neg),Type,Voice) --->
-   neg(_,Neg),
-   verb_form(Root,Tense,_,_),
-   {participle(Tense,Voice,Aspect), verb_type(Root,Type)}.
+participle_vt(verb(Root,Voice,inf,Aspect,Neg),Type,Voice) --->
+   neg_opt(_,Neg),
+   verb_form_db(Root,Tense,_,_),
+   {participle_vt(Tense,Voice,Aspect), verb_type_db(Root,Type)}.
 
-passive(_+trans).
-passive(_+ditrans(_Prep)).
+passive_vt(_+tv).
+passive_vt(_+dv(_Prep)).
 
-participle(pres+part,active,[prog]).
-participle(past+part,passive,[]).
+participle_vt(pres+part,active,[prog]).
+participle_vt(past+part,passive,[]).
 
 /* Extraposition brackets */
 
@@ -442,12 +441,12 @@ verb_args(_+Type,Voice,AdvArgs,Mask0,Mask) --->
    advs_opt(AdvArgs,Args,_),
    verb_args(Type,Voice,Args,Mask0,Mask).
 
-verb_args(trans,active,[arg(dir,Dir)],_,Mask) --->
+verb_args(tv,active,[arg(dir,Dir)],_,Mask) --->
    verb_arg(np,Dir,Mask).
-verb_args(ditrans(_Prep),_,[arg(Case,NP)|X],_,Mask) --->
+verb_args(dv(_Prep),_,[arg(Case,NP)|X],_,Mask) --->
    verb_arg(np,NP,Mask0),
    object_opt(Case,X,Mask0,Mask).
-verb_args(be,_,[void],Mask,Mask) ---> [there].
+verb_args(be,_,[voidQ],Mask,Mask) ---> [there].
 verb_args(be,_,[arg(pred,P)],_,Mask) --->
    pred_conj(_,P,Mask).
 verb_args(be,_,[arg(dir,P)],_,Mask) ---> verb_arg(np,P,Mask).
@@ -460,7 +459,7 @@ object_opt(Case,AdvArg,Mask0,Mask) --->
    obj_opt(Case,X,Mask0,Mask).
 
 obj_opt(ind,[arg(dir,NP)],_,Mask) ---> verb_arg(np,NP,Mask).
-obj_opt(dir,[],Mask,Mask) ---> [].
+obj_opt(dir,[],Mask,Mask) ---> noText.
 
 pred_conj(Conj,Arg,Mask) --->
    pred(_,Arg0,Mask0),
@@ -476,7 +475,7 @@ verb_arg(np,NP,Mask) --->
    np(NP,_,VCase,_,compl,SAll,Mask).
 
 pred(_,Adj,Mask) ---> adj_phrase(Adj,Mask).
-pred(neg,PP,Mask) --->
+pred(negP,PP,Mask) --->
    {is_s_all(SAll)},
    prep_phrase(PP,compl,SAll,Mask).
 pred(_,Adv,Mask) --->
@@ -492,9 +491,9 @@ advs_opt(R,R,_) ---> noText.
 adj_phrase(P,Nil) ---> adj(_,P), { is_empty_bits(Nil) }.
 adj_phrase(P,Mask) --->  comp_phrase(P,Mask).
 
-no_args_vt(trans).
-no_args_vt(ditrans(_Prep)).
-no_args_vt(intrans).
+no_args_vt(tv).
+no_args_vt(dv(_Prep)).
+no_args_vt(iv).
 
 /* Conjunctions */
 

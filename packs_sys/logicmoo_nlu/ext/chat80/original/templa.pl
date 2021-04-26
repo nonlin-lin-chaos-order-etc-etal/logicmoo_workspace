@@ -96,25 +96,25 @@ name_template(X,Spatial&geo&seamass) :- spatial(Spatial), ti(seamass,X).
 /* Verbs */
 
 trans_LF(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,FOO):-
-  trans(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,FOO).
+  trans_db(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,FOO).
   
-trans(border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
-trans(contain,Spatial&_,X,Spatial&_,Y, trans_pred(Spatial,contains,X,Y),[],_,_).
+trans_db(border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
+trans_db(contain,Spatial&_,X,Spatial&_,Y, trans_pred(Spatial,contains,X,Y),[],_,_).
 
-trans(govern,SpatialCity,X,Spatial&geo&country,Y,specific_pred(Spatial,nation_capital,Y,X),[],_,_):-
+trans_db(govern,SpatialCity,X,Spatial&geo&country,Y,specific_pred(Spatial,nation_capital,Y,X),[],_,_):-
   spatial(Spatial),
   bfeature_path(Spatial,city,SpatialCity).
 
-trans(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).
+trans_db(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).
 
-intrans(drain,SpatialRiver,X,path_pred(ends,river,X,Y), 
+intrans_db(drain,SpatialRiver,X,path_pred(ends,river,X,Y), 
    [slot(prep(into),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
-intrans(flow,SpatialRiver,X,path_pred(thru,river,X,Y),
+intrans_db(flow,SpatialRiver,X,path_pred(thru,river,X,Y),
    [slot(prep(through),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
-intrans(flow,SpatialRiver,X,path_pred_s2(links,river,X,Y,Z),
+intrans_db(flow,SpatialRiver,X,path_pred_s2(links,river,X,Y,Z),
    [slot(prep(into),Spatial&_,Z,_,free),
     slot(prep(from),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
-intrans(rise,SpatialRiver,X,path_pred(begins,river,X,Y),
+intrans_db(rise,SpatialRiver,X,path_pred(begins,river,X,Y),
    [slot(prep(in),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
 
 /* Adjectives */

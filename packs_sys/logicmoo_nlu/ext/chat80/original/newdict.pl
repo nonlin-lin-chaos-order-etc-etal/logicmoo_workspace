@@ -37,7 +37,7 @@ word(Word) :- terminator(Word,_).
 word(Word) :- pers_pron(Word,_,_,_,_).
 word(Word) :- poss_pron(Word,_,_,_).
 word(Word) :- rel_pron(Word,_).
-word(Word) :- verb_form(Word,_,_,_).
+word(Word) :- verb_form_db(Word,_,_,_).
 word(Word) :- noun_form(Word,_,_).
 word(Word) :- prep(Word).
 word(Word) :- quantifier_pron(Word,_,_).
@@ -189,48 +189,48 @@ tr_number(ten,10).
 tr_number(three,3).
 tr_number(two,2).
 
-verb_form(am,be,pres+fin,1+sg).
-verb_form(are,be,pres+fin,2+sg).
-verb_form(are,be,pres+fin,_+pl).
-verb_form(been,be,past+part,_).
-verb_form(being,be,pres+part,_).
-verb_form(did,do,past+fin,_).
-verb_form(does,do,pres+fin,3+sg).
-verb_form(doing,do,pres+part,_).
-verb_form(done,do,past+part,_).
-verb_form(has,have,pres+fin,3+sg).
-verb_form(having,have,pres+part,_).
-verb_form(is,be,pres+fin,3+sg).
-verb_form(was,be,past+fin,1+sg).
-verb_form(was,be,past+fin,3+sg).
-verb_form(were,be,past+fin,2+sg).
-verb_form(were,be,past+fin,_+pl).
+verb_form_db(am,be,pres+fin,1+sg).
+verb_form_db(are,be,pres+fin,2+sg).
+verb_form_db(are,be,pres+fin,_+pl).
+verb_form_db(been,be,past+part,_).
+verb_form_db(being,be,pres+part,_).
+verb_form_db(did,do,past+fin,_).
+verb_form_db(does,do,pres+fin,3+sg).
+verb_form_db(doing,do,pres+part,_).
+verb_form_db(done,do,past+part,_).
+verb_form_db(has,have,pres+fin,3+sg).
+verb_form_db(having,have,pres+part,_).
+verb_form_db(is,be,pres+fin,3+sg).
+verb_form_db(was,be,past+fin,1+sg).
+verb_form_db(was,be,past+fin,3+sg).
+verb_form_db(were,be,past+fin,2+sg).
+verb_form_db(were,be,past+fin,_+pl).
 
-verb_form(bordering,border,pres+part,_).
-verb_form(borders,border,pres+fin,3+sg).
-verb_form(containing,contain,pres+part,_).
-verb_form(contains,contain,pres+fin,3+sg).
-verb_form(draining,drain,pres+part,_).
-verb_form(drains,drain,pres+fin,3+sg).
-verb_form(exceeding,exceed,pres+part,_).
-verb_form(exceeds,exceed,pres+fin,3+sg).
-verb_form(flowing,flow,pres+part,_).
-verb_form(flows,flow,pres+fin,3+sg).
-verb_form(governing,govern,pres+part,_).
-verb_form(governs,govern,pres+fin,3+sg).
-verb_form(risen,rise,past+part,_).
-verb_form(rises,rise,pres+fin,3+sg).
-verb_form(rose,rise,past+fin,_).
+verb_form_db(bordering,border,pres+part,_).
+verb_form_db(borders,border,pres+fin,3+sg).
+verb_form_db(containing,contain,pres+part,_).
+verb_form_db(contains,contain,pres+fin,3+sg).
+verb_form_db(draining,drain,pres+part,_).
+verb_form_db(drains,drain,pres+fin,3+sg).
+verb_form_db(exceeding,exceed,pres+part,_).
+verb_form_db(exceeds,exceed,pres+fin,3+sg).
+verb_form_db(flowing,flow,pres+part,_).
+verb_form_db(flows,flow,pres+fin,3+sg).
+verb_form_db(governing,govern,pres+part,_).
+verb_form_db(governs,govern,pres+fin,3+sg).
+verb_form_db(risen,rise,past+part,_).
+verb_form_db(rises,rise,pres+fin,3+sg).
+verb_form_db(rose,rise,past+fin,_).
 
-verb_form(Verb,Verb,pres+fin,_+pl) :- Verb = V, verb_root(V).
+verb_form_db(Verb,Verb,pres+fin,_+pl) :- Verb = V, verb_root(V).
 % ... because [which,countries,border,france,?] was not properly parsed (the singular form was)
-verb_form(Verb,Verb,inf,_) :-  Verb = V,  verb_root(V).
+verb_form_db(Verb,Verb,inf,_) :-  Verb = V,  verb_root(V).
 % ... because [does,france,border,belgium,?] was not properly parsed
-verb_form(Verb,Inf,past+part,_) :- regular_past(Verb,Inf).
-% ... because [is,france,bordered,by,belgium,?] was not properly parsed. Deduced from verb_form(done,do,past+part,_) above.
+verb_form_db(Verb,Inf,past+part,_) :- regular_past(Verb,Inf).
+% ... because [is,france,bordered,by,belgium,?] was not properly parsed. Deduced from verb_form_db(done,do,past+part,_) above.
 
-%verb_form(A,A,C,D) :-
-%  writef("********************************** verb_form {0} failed", [[A,A,C,D]]).
+%verb_form_db(A,A,C,D) :-
+%  writef("********************************** verb_form_db {0} failed", [[A,A,C,D]]).
 %  !,
 %  fail.
 
@@ -246,23 +246,23 @@ verb_root(flow).
 verb_root(govern).
 verb_root(rise).
 
-verb_type(be,aux+be).
-verb_type(do,aux+ditrans).
-verb_type(have,aux+have).
+verb_type_db(be,aux+be).
+verb_type_db(do,aux+dv(_Prep)).
+verb_type_db(have,aux+have).
 
-verb_type(border,main+trans).
-verb_type(contain,main+trans).
-verb_type(drain,main+intrans).
-verb_type(exceed,main+trans).
-verb_type(flow,main+intrans).
-verb_type(govern,main+trans).
-verb_type(rise,main+intrans).
+verb_type_db(border,main+tv).
+verb_type_db(contain,main+tv).
+verb_type_db(drain,main+iv).
+verb_type_db(exceed,main+tv).
+verb_type_db(flow,main+iv).
+verb_type_db(govern,main+tv).
+verb_type_db(rise,main+iv).
 
 
 % =================================================================
 % Specialised Dictionary
 
-adj(African,restr):- agentitive_trans(_,_,African).
+adj(African,restr):- agentitive_trans_db(_,_,African).
 adj(Baltic,restr):- agentitive_symmetric_type(_,Baltic).
 %adj(american,restr).
 %adj(asian,restr).
