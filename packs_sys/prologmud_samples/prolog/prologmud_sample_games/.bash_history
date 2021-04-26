@@ -582,3 +582,49 @@ ls
 vi eggdrop.conf 
 git status
 exit
+ export DISPLAY=10.0.0.78:0.0
+firefox 
+bg
+ls
+ps axf
+supervisorctl 
+cd /etc/supervisor
+supervisorctl 
+supervisorctl 
+cd ..
+ls
+ls supervisor
+ls supervisor -l
+ls apache2/ -l
+ls apache2 -l
+cd apache2/
+ls apache2 -l
+ls -l
+ls -l sites-enabled/
+ls -l sites-enabled/ -l
+ls
+ls
+cd /
+ls
+su -
+exit
+ls
+pwd
+firefox 
+chown root .
+chown root . -r
+chown root . -R
+firefox 
+netstat -a -n -p
+netstat -a -n -p | grep 49
+netstat -a -n -p | grep LIST
+cd /etc/supervisor
+supervisor reload
+supervisorctl reload
+supervisorctl reload
+supervisorctl reload
+supervisord -c /etc/supervisor/supervisord.conf
+supervisorctl help restart
+supervisorctl help restart all
+supervisorctl  restart all
+cd /
