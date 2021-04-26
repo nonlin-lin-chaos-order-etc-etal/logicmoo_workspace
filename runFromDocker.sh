@@ -46,7 +46,7 @@ cd docker
 docker build $EXTRA -t logicmoo/logicmoo_starter_image .
 
 echo MAYBE: docker push logicmoo/logicmoo_starter_image
-docker push logicmoo/logicmoo_starter_image
+docker push logicmoo/logicmoo_starter_image &
 )
 
 docker build $EXTRA -t logicmoo/logicmoo_workspace .
