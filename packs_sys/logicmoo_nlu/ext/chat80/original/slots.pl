@@ -32,7 +32,7 @@ i_sentence(q(S),question([],P)) :-
    i_s(S,P,[],0).
 i_sentence(whq(X,S),question([X],P)) :-
    i_s(S,P,[],0).
-i_sentence(imp(s(_,Verb,VArgs,VMods)),imp(V,Args)) :-
+i_sentence(imp(U,Ve,s(_,Verb,VArgs,VMods)),imp(U,Ve,V,Args)) :-
    i_verb(Verb,V,_,active,posP,Slots0,[],transparent),
    i_verb_args(VArgs,[],[],Slots0,Slots,Args,Args0,Up,-0),
    append(Up,VMods,Mods),
@@ -63,8 +63,8 @@ i_np_head0(np_head(Det,Adjs,Noun),X,T,Det,Head0,Pred0,Pred,Slots) :-
    i_noun(Noun,X,Head,Slots).
 i_np_head0(np_head(int_det(V),Adjs,Noun),
       Type-X,Type-X,Det,'`' true,Pred,Pred,
-      [slot(prep(of),Type,X,_,comparator)]) :-
-   comparator(Noun,Type,V,Adjs,Det).
+      [slot(prep(of),Type,X,_,comparator_LF)]) :-
+   comparator_LF(Noun,Type,V,Adjs,Det).
 i_np_head0(np_head(quant(Op0,N),Adjs,Noun),
       Type-X,Type-X,voidQ,'`' P,Pred,Pred,[]) :-
    measure_LF(Noun,Type,Adjs,Units),
@@ -146,7 +146,7 @@ i_adj(adj(Adj),TypeX-X,TypeV-V,_,
 i_adj(sup(Op0,adj(Adj)),Type-X,Type-V,_,
       aggr(F,V,[Y,X],Head,'`' P&Pred),Head,'`' true,Pred) :-
    chat_sign(Adj,Sign),
-   inverse(Op0,Sign,Op),
+   op_inverse(Op0,Sign,Op),
    i_sup_op(Op,F),
    attribute_LF(Adj,Type,X,_,Y,P).
 i_adj(adj(Adj),TypeX-X,T,T,_,
@@ -241,7 +241,7 @@ i_pred(comp(Op0,adj(Adj),NP),X,[P1 & P2 & '`' P3,Q|As],As,Up,Id) :-
    chat_sign(Adj,Sign),
    i_measure(X,Adj,Type,U,P1),
    i_measure(Y,Adj,Type,V,P2),
-   inverse(Op0,Sign,Op),
+   op_inverse(Op0,Sign,Op),
    measure_op(Op,U,V,P3).
 i_pred(prep_phrase(prep(Prep),NP),X,['`' H,Q|As],As,Up,Id) :-
    i_np(NP,Y,Q,Up,Id,unit,[],[]),
@@ -284,12 +284,12 @@ measure_op(not+less,X,Y,\+exceeds(Y,X)).
 measure_op(more,X,Y,exceeds(X,Y)).
 measure_op(not+more,X,Y,\+exceeds(X,Y)).
 
-inverse(most,-,least).
-inverse(least,-,most).
-inverse(same,-,same).
-inverse(less,-,more).
-inverse(more,-,less).
-inverse(X,+,X).
+op_inverse(most,-,least).
+op_inverse(least,-,most).
+op_inverse(same,-,same).
+op_inverse(less,-,more).
+op_inverse(more,-,less).
+op_inverse(X,+,X).
 
 noun_template(Noun,TypeV,V,'`' P,
       [slot(poss,TypeO,O,Os,index)|Slots]) :-
@@ -321,14 +321,15 @@ verb_template(Verb,Pred,
 verb_kind(be,_,TypeS,S,S=A,[slot(dir,TypeS,A,_,free)]).
 verb_kind(be,_,TypeS,S,true,[slot(pred,TypeS,S,_,free)]).
 verb_kind(iv,Verb,TypeS,S,Pred,Slots) :-
-   intrans_db(Verb,TypeS,S,Pred,Slots,_).
+   intrans_LF(Verb,TypeS,S,Pred,Slots,_).
 verb_kind(tv,Verb,TypeS,S,Pred,
       [slot(dir,TypeD,D,SlotD,free)|Slots]) :-
-   trans_db(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,_).
+   trans_LF(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,_).
 verb_kind(dv(Prep),Verb,TypeS,S,Pred,
       [slot(dir,TypeD,D,SlotD,free),
        slot(ind,TypeI,I,SlotI,free)|Slots]) :-
    ditrans_db(Verb,Prep,TypeS,S,TypeD,D,TypeI,I,Pred,Slots,SlotD,SlotI,_).
+
 deepen_case(prep(at),time).
 deepen_case(s_subj,dir).
 deepen_case(s_subj,ind).
@@ -343,24 +344,24 @@ deepen_case(X,X).
 index_slot(index,I,I).
 index_slot(free,_,unit).
 index_slot(apply,_,apply).
-index_slot(comparator,_,comparator).
+index_slot(comparator_LF,_,comparator_LF).
 
 index_args(det(the(pl)),unit,I,set(I),index(I)) :- !.
 index_args(int_det(X),index(I),_,int_det(I,X),unit) :- !.
 index_args(generic,apply,_,lambda,unit) :-!.
-index_args(D,comparator,_,identityQ,unit) :-
- ( indexable(D); D=generic), !.
+index_args(D,comparator_LF,_,identityQ,unit) :-
+ ( indexable_arg(D); D=generic), !.
 index_args(D,unit,_,D,unit) :- !.
 index_args(det(D),I,_,I,I) :-
-   indexable(D),
-   my_index(I), !.
+   indexable_arg(D),
+   is_my_index(I), !.
 index_args(D,I,_,D,I).
 
-indexable(the(pl)).
-indexable(all).
-indexable(de(pl)).
-indexable(alle).
+indexable_arg(the(pl)).
+indexable_arg(all).
+indexable_arg(de(pl)).
+indexable_arg(alle).
 
-my_index(index(_I)).
+is_my_index(index(_I)).
 
 :- fixup_exports.

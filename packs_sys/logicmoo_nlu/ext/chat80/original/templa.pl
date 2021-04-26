@@ -83,38 +83,36 @@ meta_noun_LF(number,of,_,V,Spatial&_,X,P,numberof(X,P,V)):- spatial(Spatial).
 
 /* Proper nouns */
 
-name_template_LF(X,Type2):- name_template(X,Type1), type_conversion(Type1,Type2).
+name_template_LF(X,Type2):- name_template_lf0(X,Type1), type_conversion(Type1,Type2).
 
-name_template(X,Spatial&circle) :-  circle_of_latitude(X), spatial(Spatial).
-name_template(X,SpatialCity) :- ti(city,X), spatial(Spatial), bfeature_path(Spatial,city,SpatialCity).
-name_template(X,Spatial&geo&continent) :- spatial(Spatial), ti(continent,X).
-name_template(X,Spatial&geo&country) :- spatial(Spatial), ti(country,X).
-name_template(X,Spatial&_) :- spatial(Spatial), ti(region,X).
-name_template(X,SpatialRiver) :- ti(river,X), spatial(Spatial), bfeature_path(Spatial,river,SpatialRiver).
-name_template(X,Spatial&geo&seamass) :- spatial(Spatial), ti(seamass,X).
+name_template_lf0(X,Spatial&circle) :-  circle_of_latitude(X), spatial(Spatial).
+name_template_lf0(X,SpatialCity) :- ti(city,X), spatial(Spatial), bfeature_path(Spatial,city,SpatialCity).
+name_template_lf0(X,Spatial&geo&continent) :- spatial(Spatial), ti(continent,X).
+name_template_lf0(X,Spatial&geo&country) :- spatial(Spatial), ti(country,X).
+name_template_lf0(X,Spatial&_) :- spatial(Spatial), ti(region,X).
+name_template_lf0(X,SpatialRiver) :- ti(river,X), spatial(Spatial), bfeature_path(Spatial,river,SpatialRiver).
+name_template_lf0(X,Spatial&geo&seamass) :- spatial(Spatial), ti(seamass,X).
 
 /* Verbs */
 
-trans_LF(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,FOO):-
-  trans_db(Verb,TypeS,S,TypeD,D,Pred,Slots,SlotD,FOO).
   
-trans_db(border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
-trans_db(contain,Spatial&_,X,Spatial&_,Y, trans_pred(Spatial,contains,X,Y),[],_,_).
+trans_LF(border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
+trans_LF(contain,Spatial&_,X,Spatial&_,Y, trans_pred(Spatial,contains,X,Y),[],_,_).
 
-trans_db(govern,SpatialCity,X,Spatial&geo&country,Y,specific_pred(Spatial,nation_capital,Y,X),[],_,_):-
+trans_LF(govern,SpatialCity,X,Spatial&geo&country,Y,specific_pred(Spatial,nation_capital,Y,X),[],_,_):-
   spatial(Spatial),
   bfeature_path(Spatial,city,SpatialCity).
 
-trans_db(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).
+trans_LF(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).
 
-intrans_db(drain,SpatialRiver,X,path_pred(ends,river,X,Y), 
+intrans_LF(drain,SpatialRiver,X,path_pred(ends,river,X,Y), 
    [slot(prep(into),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
-intrans_db(flow,SpatialRiver,X,path_pred(thru,river,X,Y),
+intrans_LF(flow,SpatialRiver,X,path_pred(thru,river,X,Y),
    [slot(prep(through),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
-intrans_db(flow,SpatialRiver,X,path_pred_s2(links,river,X,Y,Z),
+intrans_LF(flow,SpatialRiver,X,path_pred_s2(links,river,X,Y,Z),
    [slot(prep(into),Spatial&_,Z,_,free),
     slot(prep(from),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
-intrans_db(rise,SpatialRiver,X,path_pred(begins,river,X,Y),
+intrans_LF(rise,SpatialRiver,X,path_pred(begins,river,X,Y),
    [slot(prep(in),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
 
 /* Adjectives */
@@ -137,10 +135,13 @@ aggr_adj(maximum,_,_,maximum).
 /* Prepositions */
 
 adjunction_LF(in,Spatial&_-X,Spatial&_-Y,trans_pred(Spatial,contains,Y,X)).
+adjunction_LF(cp(East,Of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(East,Of),X,Y)).
+/*
 adjunction_LF(cp(east,of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(east,of),X,Y)).
 adjunction_LF(cp(west,of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(west,of),X,Y)).
 adjunction_LF(cp(north,of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(north,of),X,Y)).
 adjunction_LF(cp(south,of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(south,of),X,Y)).
+*/
 
 /* Measure */
 
@@ -159,5 +160,5 @@ chat_sign(great,+).
 
 /* Proportions and the like */
 
-comparator(proportion,_,V,[],proportion(V)).
-comparator(percentage,_,V,[],proportion(V)).
+comparator_LF(proportion,_,V,[],proportion(V)).
+comparator_LF(percentage,_,V,[],proportion(V)).
