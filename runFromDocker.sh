@@ -34,7 +34,7 @@ git status -s
 git commit -am "Docker $(date)"
 git submodule foreach 'git checkout master ; git commit -am "Docker $(date)" ; /bin/true'
 git submodule foreach 'git push master ; /bin/true'
-git submodule foreach 'cd .. ; git add *  ; /bin/true'
+git submodule foreach 'SUBM=$(pwd) ; cd .. ; git add $SUBM  ; /bin/true'
 git push github master
 
 (
