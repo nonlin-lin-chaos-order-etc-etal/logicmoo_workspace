@@ -58,7 +58,7 @@ variable_q(X,Agmt,compl,VCase) ...
 variable_q(X,_,compl,VCase) ...
       pred(adj,value(Adj,wh(X)),Mask) --->
    theText1(how),
-   adj(quant,Adj),
+   adj_xg(quant,Adj),
    {is_empty_bits(Mask), is_verb_case(VCase)}.
 
 whq(X,Agmt,NP,undef) --->
@@ -92,22 +92,22 @@ yn_question(q(S)) --->
 
 
 fronted_verb(QCase,NPCase) ...
-      verb_form_db(Root,Tense,Agmt,Role), neg_opt(_,Neg) --->
-   verb_form_db(Root,Tense,Agmt,_),
-   {verb_type_db(Root,aux+_),
+      verb_form_lex80(Root,Tense,Agmt,Role), neg_opt(_,Neg) --->
+   verb_form_lex80(Root,Tense,Agmt,_),
+   {verb_type_lex80(Root,aux+_),
     is_to_role_case(QCase,Role,NPCase)},
    neg_opt(_,Neg).
 
 /* Imperative sentences */
 
-imperative80(imp(You,V,S)) --->
+imperative80(imp(_U,_V,You,V,S)) --->
    imperative_verb(You,V),
    s80(S,_).
 
 imperative_verb(You,Root),
    [you],
-   verb_form_db(Root,imp+fin,2+sg,main) --->
-   verb_form_db(Root,inf,_,_),{You=you}.
+   verb_form_lex80(Root,imp+fin,2+sg,main) --->
+   verb_form_lex80(Root,inf,_,_),{You=you}.
 
 /* Basic sentence (actually, declarative sentence) */
 
@@ -366,7 +366,7 @@ reduced_rel(Agmt,reduced_rel(X,S),Mask) --->
 
 reduced_wh(Agmt,X),
    np(np(Agmt,wh(X),[]),Agmt,NPCase,_,_,Set0,Mask0),
-   verb_form_db(be,pres+fin,Agmt,main),
+   verb_form_lex80(be,pres+fin,Agmt,main),
    neg_opt(_,Neg),
    pred(Neg,Pred,Mask) --->
    neg_opt(_,Neg),
@@ -387,27 +387,27 @@ reduced_wh(AgmtX,X),
 /* Verb phrase (less the complements) */
 
 verb(verb(Root,Voice,Time+fin,Aspect,Neg),Agmt,Type,Voice) --->
-   verb_form_db(Root0,Time+fin,Agmt,Role),
-   {verb_type_db(Root0,Type0)},
+   verb_form_lex80(Root0,Time+fin,Agmt,Role),
+   {verb_type_lex80(Root0,Type0)},
    neg_opt(Type0,Neg),
    rest_verb(Role,Root0,Root,Voice,Aspect),
-   {verb_type_db(Root,Type)}.
+   {verb_type_lex80(Root,Type)}.
 
 neg_opt(aux+_,negP) ---> theText1(not).
 neg_opt(_,posP) ---> noText.
 
 rest_verb(aux,have,Root,Voice,[perf|Aspect]) --->
-   verb_form_db(Root0,past+part,_,_),
+   verb_form_lex80(Root0,past+part,_,_),
    have_vt(Root0,Root,Voice,Aspect).
 rest_verb(aux,be,Root,Voice,Aspect) --->
-   verb_form_db(Root0,Tense0,_,_),
+   verb_form_lex80(Root0,Tense0,_,_),
    be_vt(Tense0,Root0,Root,Voice,Aspect).
 rest_verb(aux,do,Root,active,[]) --->
-   verb_form_db(Root,inf,_,_).
+   verb_form_lex80(Root,inf,_,_).
 rest_verb(main,Root,Root,active,[]) ---> noText.
 
 have_vt(be,Root,Voice,Aspect) --->
-   verb_form_db(Root0,Tense0,_,_),
+   verb_form_lex80(Root0,Tense0,_,_),
    be_vt(Tense0,Root0,Root,Voice,Aspect).
 have_vt(Root,Root,active,[]) ---> noText.
 
@@ -416,14 +416,14 @@ be_vt(pres+part,Root0,Root,Voice,[prog]) --->
    passive_vt(Root0,Root,Voice).
 
 passive_vt(be,Root,passive) --->
-   verb_form_db(Root,past+part,_,_),
-   {verb_type_db(Root,Type), passive_vt(Type)}.
+   verb_form_lex80(Root,past+part,_,_),
+   {verb_type_lex80(Root,Type), passive_vt(Type)}.
 passive_vt(Root,Root,active) ---> noText.
 
 participle_vt(verb(Root,Voice,inf,Aspect,Neg),Type,Voice) --->
    neg_opt(_,Neg),
-   verb_form_db(Root,Tense,_,_),
-   {participle_vt(Tense,Voice,Aspect), verb_type_db(Root,Type)}.
+   verb_form_lex80(Root,Tense,_,_),
+   {participle_vt(Tense,Voice,Aspect), verb_type_lex80(Root,Type)}.
 
 passive_vt(_+tv).
 passive_vt(_+dv(_Prep)).

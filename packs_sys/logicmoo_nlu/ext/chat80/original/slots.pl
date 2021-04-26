@@ -315,7 +315,7 @@ verb_template(have,Y=Z,
         held_arg(poss,-(-(-(+Id))),TypeS-S), have).
 verb_template(Verb,Pred,
       [slot(subj,TypeS,S,_,free)|Slots],[],transparent) :-
-   verb_type_db(Verb,_+Kind),
+   verb_type_lex80(Verb,_+Kind),
    verb_kind(Kind,Verb,TypeS,S,Pred,Slots).
 
 verb_kind(be,_,TypeS,S,S=A,[slot(dir,TypeS,A,_,free)]).
@@ -328,7 +328,7 @@ verb_kind(tv,Verb,TypeS,S,Pred,
 verb_kind(dv(Prep),Verb,TypeS,S,Pred,
       [slot(dir,TypeD,D,SlotD,free),
        slot(ind,TypeI,I,SlotI,free)|Slots]) :-
-   ditrans_db(Verb,Prep,TypeS,S,TypeD,D,TypeI,I,Pred,Slots,SlotD,SlotI,_).
+   ditrans_lex80(Verb,Prep,TypeS,S,TypeD,D,TypeI,I,Pred,Slots,SlotD,SlotI,_).
 
 deepen_case(prep(at),time).
 deepen_case(s_subj,dir).
