@@ -571,7 +571,9 @@ name_db([upper, volta], upper_volta).
 name_db([W1, W2], Name) :- reorder_if_var(W2, atomic_list_concat([W1, '_', W2], Name),
    name_template_db(Name, _)).
 %name_db([Name], Name) :- any_will_cut(name_template_db(Name, _), Cut), (Cut==! -> !; call(Cut)).
-name_db([Name], Name) :- last_clause(name_template_db(Name, _)).
+
+%name_db([Name], Name) :- last_clause(name_template_db(Name, _)).
+name_db([Name], Name) :- name_template_db(Name, _).
 name_db([Name], Name) :- t_l:useAltPOS, downcase_atom(Name, DCName), loop_check(not(cw_db(DCName, _))).
 
 

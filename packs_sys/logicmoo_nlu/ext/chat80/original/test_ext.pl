@@ -30,20 +30,9 @@
 %:- xlisting(lock_predicate/1).
 %:- autoload_all.
 
-:- module(baseKB).
-
-
-:- if( \+ current_predicate( (share_mp)/1)).
-share_mp(MFA):- MFA=M:_FA,!, % FA = F/A,   
-   (M:multifile(MFA)), 
-   (M:module_transparent(MFA)),
-   (M:dynamic(MFA)),
-   (M:export(MFA)),
-   (M:public(MFA)), !. 
-share_mp(FA):- strip_module(FA,M,_),!,share_mp(M:FA).
-
-:- endif.
-
+t_l:old_text.
+t_l:useAltPOS:- fail.
+%:- module(baseKB).
 
 :- 
  include(load).

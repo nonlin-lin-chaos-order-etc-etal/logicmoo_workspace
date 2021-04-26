@@ -1267,6 +1267,9 @@
 		<Folder Name="eclipse-workspace">
 			<Folder Name="BW4Thuman">
 				<F N="eclipse-workspace/BW4Thuman/.project"/>
+				<F N="eclipse-workspace/BW4Thuman/human.pl"/>
+				<F N="eclipse-workspace/BW4Thuman/messageTranslation.pl"/>
+				<F N="eclipse-workspace/BW4Thuman/robot.pl"/>
 			</Folder>
 			<Folder Name="External Prolog Files">
 				<F N="eclipse-workspace/External Prolog Files/.pdtproperties"/>
@@ -1274,8 +1277,13 @@
 			</Folder>
 			<Folder Name="logicmoo_pfc_example">
 				<F N="eclipse-workspace/logicmoo_pfc_example/.project"/>
+				<F N="eclipse-workspace/logicmoo_pfc_example/logicmoo_pfc_example_01.pl"/>
 			</Folder>
 			<Folder Name="ProDTTest">
+				<Folder Name="src">
+					<F N="eclipse-workspace/ProDTTest/src/pdt_mud.pl"/>
+					<F N="eclipse-workspace/ProDTTest/src/ProDT_test.pl"/>
+				</Folder>
 				<F N="eclipse-workspace/ProDTTest/.pdtproperties"/>
 				<F N="eclipse-workspace/ProDTTest/.project"/>
 			</Folder>
@@ -1287,6 +1295,10 @@
 			</Folder>
 			<Folder Name="WumpusAgents">
 				<F N="eclipse-workspace/WumpusAgents/.project"/>
+				<F N="eclipse-workspace/WumpusAgents/facts.pl"/>
+				<F N="eclipse-workspace/WumpusAgents/initBeliefs.pl"/>
+				<F N="eclipse-workspace/WumpusAgents/initGoals.pl"/>
+				<F N="eclipse-workspace/WumpusAgents/prodt_test.pl"/>
 			</Folder>
 			<F N="eclipse-workspace/.gitignore"/>
 			<F N="eclipse-workspace/.goalprefs"/>
@@ -1617,6 +1629,47 @@
 				<F N="packs_lib/cplint_r/pack.pl"/>
 				<F N="packs_lib/cplint_r/README.md"/>
 			</Folder>
+			<Folder Name="dcgutils">
+				<Folder Name="prolog">
+					<F N="packs_lib/dcgutils/prolog/dcg_codes.pl"/>
+					<F N="packs_lib/dcgutils/prolog/dcg_core.pl"/>
+					<F N="packs_lib/dcgutils/prolog/dcg_macros.pl"/>
+					<F N="packs_lib/dcgutils/prolog/dcg_pair.pl"/>
+					<F N="packs_lib/dcgutils/prolog/dcg_progress.pl"/>
+					<F N="packs_lib/dcgutils/prolog/dcg_shell.pl"/>
+					<F N="packs_lib/dcgutils/prolog/snobol.pl"/>
+				</Folder>
+				<F N="packs_lib/dcgutils/pack.pl"/>
+			</Folder>
+			<Folder Name="genutils">
+				<Folder Name="prolog">
+					<Folder Name="data">
+						<F N="packs_lib/genutils/prolog/data/env.pl"/>
+						<F N="packs_lib/genutils/prolog/data/pair.pl"/>
+						<F N="packs_lib/genutils/prolog/data/store.pl"/>
+						<F N="packs_lib/genutils/prolog/data/tree.pl"/>
+					</Folder>
+					<F N="packs_lib/genutils/prolog/argutils.pl"/>
+					<F N="packs_lib/genutils/prolog/callutils.pl"/>
+					<F N="packs_lib/genutils/prolog/ccenv.pl"/>
+					<F N="packs_lib/genutils/prolog/ccnbref.pl"/>
+					<F N="packs_lib/genutils/prolog/ccreader.pl"/>
+					<F N="packs_lib/genutils/prolog/ccref.pl"/>
+					<F N="packs_lib/genutils/prolog/ccstate.pl"/>
+					<F N="packs_lib/genutils/prolog/clambda.pl"/>
+					<F N="packs_lib/genutils/prolog/delimcc.pl"/>
+					<F N="packs_lib/genutils/prolog/hostname.pl"/>
+					<F N="packs_lib/genutils/prolog/insist.pl"/>
+					<F N="packs_lib/genutils/prolog/lambdaki.pl"/>
+					<F N="packs_lib/genutils/prolog/lazy.pl"/>
+					<F N="packs_lib/genutils/prolog/listutils.pl"/>
+					<F N="packs_lib/genutils/prolog/math.pl"/>
+					<F N="packs_lib/genutils/prolog/rbutils.pl"/>
+					<F N="packs_lib/genutils/prolog/rcutils.pl"/>
+					<F N="packs_lib/genutils/prolog/termutils.pl"/>
+				</Folder>
+				<F N="packs_lib/genutils/pack.pl"/>
+			</Folder>
 			<Folder Name="lambda">
 				<Folder Name="prolog">
 					<F N="packs_lib/lambda/prolog/lambda.pl"/>
@@ -1672,6 +1725,26 @@
 				<F N="packs_lib/phil/buildenvmingw64.sh"/>
 				<F N="packs_lib/phil/pack.pl"/>
 				<F N="packs_lib/phil/README.md"/>
+			</Folder>
+			<Folder Name="regex">
+				<Folder Name="prolog">
+					<Folder Name="regex">
+						<Folder Name="engine">
+							<F N="packs_lib/regex/prolog/regex/engine/pp.pl"/>
+						</Folder>
+						<F N="packs_lib/regex/prolog/regex/parser.pl"/>
+						<F N="packs_lib/regex/prolog/regex/state.pl"/>
+					</Folder>
+					<F N="packs_lib/regex/prolog/regex.pl"/>
+				</Folder>
+				<Folder Name="t">
+					<F N="packs_lib/regex/t/captures.pl"/>
+					<F N="packs_lib/regex/t/examples.pl"/>
+					<F N="packs_lib/regex/t/options.pl"/>
+					<F N="packs_lib/regex/t/perl_classes.pl"/>
+					<F N="packs_lib/regex/t/synopsis.pl"/>
+				</Folder>
+				<F N="packs_lib/regex/pack.pl"/>
 			</Folder>
 			<Folder Name="rocksdb">
 				<Folder Name="demo">
@@ -1878,6 +1951,133 @@
 				<F N="packs_lib/sldnfdraw/pack.pl"/>
 				<F N="packs_lib/sldnfdraw/README.md"/>
 			</Folder>
+			<Folder Name="sparqlprog">
+				<Folder Name="bin">
+					<F N="packs_lib/sparqlprog/bin/sprog_client.pl"/>
+					<F N="packs_lib/sparqlprog/bin/sprog_service.pl"/>
+				</Folder>
+				<Folder Name="examples">
+					<Folder Name="dbpedia">
+						<F N="packs_lib/sparqlprog/examples/dbpedia/dbpedia_rules.pl"/>
+					</Folder>
+					<F N="packs_lib/sparqlprog/examples/allie-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/biotea-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/dbpedia-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/disgenet-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/ebi-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/gocam-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/keggoc-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/kg-covid-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/local-queries.sh"/>
+					<F N="packs_lib/sparqlprog/examples/local-sparql-queries.sh"/>
+					<F N="packs_lib/sparqlprog/examples/mbgd-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/monarch-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/ncats-red-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/nextprot-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/oma-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/oma_ebi_federated.pl"/>
+					<F N="packs_lib/sparqlprog/examples/ontobee-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/pubmedgraph-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/uniprot-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/wikidata-examples.sh"/>
+					<F N="packs_lib/sparqlprog/examples/wikipathways-examples.sh"/>
+				</Folder>
+				<Folder Name="prolog">
+					<Folder Name="sparqlprog">
+						<Folder Name="ontologies">
+							<Folder Name="dbpedia">
+								<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/dbpedia/dbpedia_matcher.pl"/>
+							</Folder>
+							<Folder Name="ebi">
+								<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/ebi/reactome.pl"/>
+							</Folder>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/allie_sflf.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/bgee.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/biofed.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/biogateway.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/biopax3.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/biotea.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/chembl.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/dbpedia.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/disgenet.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/ebi.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/enipedia.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/faldo.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/gaz.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/gocam.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/jcm.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/keggoc.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/kghub.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/load.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/mbgd.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/monarch.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/ncit.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/nextprot.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/oban.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/obo.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/oma.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/ontobee.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/owl.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/pubmedgraph.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/rhea.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/sequence_feature.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/sio.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/skos.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/sosa.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/togovar.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/uniprot.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/wikidata.pl"/>
+							<F N="packs_lib/sparqlprog/prolog/sparqlprog/ontologies/wikipathways.pl"/>
+						</Folder>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/blazegraph.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/dataframe.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/emulate_builtins.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/endpoints.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/graph_util.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/io_utils.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/labelutils.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/nlp_util.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/obo_util.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/owl_search_viz.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/owl_types.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/owl_util.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/pathlang.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/search_util.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/stacktrace.pl"/>
+						<F N="packs_lib/sparqlprog/prolog/sparqlprog/test_aux.pl"/>
+					</Folder>
+					<F N="packs_lib/sparqlprog/prolog/concurrency.pl"/>
+					<F N="packs_lib/sparqlprog/prolog/sparql_dcg.pl"/>
+					<F N="packs_lib/sparqlprog/prolog/sparqlprog.pl"/>
+				</Folder>
+				<Folder Name="tests">
+					<F N="packs_lib/sparqlprog/tests/basic_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/bigtests.pl"/>
+					<F N="packs_lib/sparqlprog/tests/builtins_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/dataframe_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/dbpedia_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/gocam_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/graph_util_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/integration_tests.pl"/>
+					<F N="packs_lib/sparqlprog/tests/labelutils_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/localsparql_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/nlp_util_table_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/nlp_util_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/obo_util_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/owl_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/owl_util_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/prolog_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/search_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/search_viz_test.pl"/>
+					<F N="packs_lib/sparqlprog/tests/search_viz_tests.pl"/>
+					<F N="packs_lib/sparqlprog/tests/tests.pl"/>
+				</Folder>
+				<F N="packs_lib/sparqlprog/buildenv.sh"/>
+				<F N="packs_lib/sparqlprog/install.pl"/>
+				<F N="packs_lib/sparqlprog/pack.pl"/>
+				<F N="packs_lib/sparqlprog/packplus.pl"/>
+				<F N="packs_lib/sparqlprog/release.sh"/>
+			</Folder>
 			<Folder Name="trill">
 				<Folder Name="prolog">
 					<Folder Name="examples">
@@ -1913,6 +2113,12 @@
 				<F N="packs_lib/trill/ChangeLog.md"/>
 				<F N="packs_lib/trill/pack.pl"/>
 				<F N="packs_lib/trill/README.md"/>
+			</Folder>
+			<Folder Name="typedef">
+				<Folder Name="prolog">
+					<F N="packs_lib/typedef/prolog/typedef.pl"/>
+				</Folder>
+				<F N="packs_lib/typedef/pack.pl"/>
 			</Folder>
 			<Folder Name="xlibrary">
 				<Folder Name="prolog">
@@ -6307,6 +6513,73 @@
 				<F N="packs_sys/logicmoo_nars/README.md"/>
 			</Folder>
 			<Folder Name="logicmoo_nlu">
+				<Folder Name="data">
+					<Folder Name="WNprolog-1.6">
+						<Folder Name="prolog">
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_ant.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_at.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_cs.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_ent.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_fr.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_g.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_hyp.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_mm.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_mp.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_ms.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_per.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_ppl.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_s.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_sa.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_sim.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.6/prolog/wn_vgp.pl"/>
+						</Folder>
+					</Folder>
+					<Folder Name="WNprolog-1.7.1">
+						<Folder Name="prolog">
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_ant.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_at.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_cs.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_ent.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_fr.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_g.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_hyp.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_mm.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_mp.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_ms.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_per.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_ppl.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_s.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_sa.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_sim.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-1.7.1/prolog/wn_vgp.pl"/>
+						</Folder>
+					</Folder>
+					<Folder Name="WNprolog-3.0">
+						<Folder Name="prolog">
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_ant.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_at.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_cls.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_cs.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_der.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_ent.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_fr.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_g.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_hyp.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_ins.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_mm.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_mp.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_ms.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_per.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_ppl.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_s.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_sa.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_sim.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_sk.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_syntax.pl"/>
+							<F N="packs_sys/logicmoo_nlu/data/WNprolog-3.0/prolog/wn_vgp.pl"/>
+						</Folder>
+					</Folder>
+				</Folder>
 				<Folder Name="ext">
 					<Folder Name="ace_in_gf">
 						<Folder Name="docs">
@@ -6859,8 +7132,11 @@
 					<Folder Name="chat80">
 						<Folder Name="current">
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/aggreg.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/clotab.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/clone.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/demo"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/lex.xg"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/load.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/log"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/newdict.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/newdict_regress.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/newdict_shared.pl"/>
@@ -6879,32 +7155,30 @@
 						</Folder>
 						<Folder Name="original">
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/aggreg.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/borders.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/chat.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/chat80.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/chatops.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/cities.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/clotab.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/contain.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/countries.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/clone.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/demo"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/lex.xg"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/load.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/ndtabl.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/log"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/log.old"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/newdict.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/newg.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/newtop.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/portray.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/ptree.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/qplan.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/read_atoms_lc.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/readin.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/README.TXT"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/rivers.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/scopes.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/slots.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/talkr.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/templa.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/test_ext.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/world0.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/world1.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/xgproc.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/xgrun.pl"/>
 						</Folder>
@@ -6912,7 +7186,11 @@
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/aggreg.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/chat.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/chattop.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/clone.xg"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/clotab.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/demo"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/lex.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/log"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/newdic.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/portray.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/ptree.pl"/>
@@ -6927,13 +7205,18 @@
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/xgrun.pl"/>
 						</Folder>
 						<Folder Name="regressed">
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/regressed/clone.xg"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/regressed/newdict.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/regressed/slots.pl"/>
 						</Folder>
 						<Folder Name="target">
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/aggreg.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/clone.xg"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/clotab.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/demo"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/lex.xg"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/load.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/log"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/newdict.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/newdict_regress.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/newdict_shared.pl"/>
@@ -7772,6 +8055,7 @@
 									<F N="packs_sys/logicmoo_nlu/ext/regulus/Examples/Calendar/japanese_wavfiles/README.txt"/>
 								</Folder>
 								<Folder Name="java">
+									<F N="packs_sys/logicmoo_nlu/ext/regulus/Examples/Calendar/java/calendar.prop"/>
 									<F N="packs_sys/logicmoo_nlu/ext/regulus/Examples/Calendar/java/readme.txt"/>
 								</Folder>
 								<Folder Name="Prolog">
@@ -9281,192 +9565,6 @@
 						</Folder>
 					</Folder>
 					<Folder Name="stanford">
-						<Folder Name="CoreNLP">
-							<Folder Name="data">
-								<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/data/README"/>
-							</Folder>
-							<Folder Name="doc">
-								<Folder Name="classify">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/classify/README.txt"/>
-								</Folder>
-								<Folder Name="corenlp">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/corenlp/corenlp.sh"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/corenlp/README.txt"/>
-								</Folder>
-								<Folder Name="lexparser">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/lexparser/README.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/lexparser/README_dependencies.txt"/>
-								</Folder>
-								<Folder Name="loglinear">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/loglinear/README.txt"/>
-								</Folder>
-								<Folder Name="ner">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/ner/ner-gui.sh"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/ner/ner.sh"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/ner/README-cyc.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/ner/README.txt"/>
-								</Folder>
-								<Folder Name="openie">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/openie/README.txt"/>
-								</Folder>
-								<Folder Name="segmenter">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/segmenter/README-Arabic.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/segmenter/README-Chinese.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/segmenter/README.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/segmenter/segment-05202008.sh"/>
-								</Folder>
-								<Folder Name="tagger">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/tagger/README-Models.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/tagger/README.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/tagger/stanford-postagger-gui.sh"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/tagger/stanford-postagger.sh"/>
-								</Folder>
-								<Folder Name="tregex">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/tregex/README-gui.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/tregex/README-tregex.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/tregex/tregex.sh"/>
-								</Folder>
-								<Folder Name="tsurgeon">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/tsurgeon/README-tsurgeon.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/tsurgeon/tsurgeon.sh"/>
-								</Folder>
-								<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/doc/README"/>
-							</Folder>
-							<Folder Name="examples">
-								<Folder Name="sample-maven-project">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/examples/sample-maven-project/README.txt"/>
-								</Folder>
-							</Folder>
-							<Folder Name="lib">
-								<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/lib/README"/>
-							</Folder>
-							<Folder Name="liblocal">
-								<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/liblocal/README"/>
-							</Folder>
-							<Folder Name="scripts">
-								<Folder Name="arabic-segmenter">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/scripts/arabic-segmenter/train_ar_segmenter.sh"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/scripts/arabic-segmenter/train_ar_segmenter_da.sh"/>
-								</Folder>
-								<Folder Name="lexparser">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/scripts/lexparser/lexparser-gui.sh"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/scripts/lexparser/lexparser-lang-train-test.sh"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/scripts/lexparser/lexparser-lang.sh"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/scripts/lexparser/lexparser.sh"/>
-								</Folder>
-								<Folder Name="ner">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/scripts/ner/eval_conll_cmd.sh"/>
-								</Folder>
-								<Folder Name="sentiment">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/scripts/sentiment/convert_sentiment.sh"/>
-								</Folder>
-								<Folder Name="truecase">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/scripts/truecase/readme.txt"/>
-								</Folder>
-							</Folder>
-							<Folder Name="src">
-								<Folder Name="edu">
-									<Folder Name="stanford">
-										<Folder Name="nlp">
-											<Folder Name="coref">
-												<Folder Name="hybrid">
-													<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/coref/hybrid/README.txt"/>
-												</Folder>
-											</Folder>
-											<Folder Name="ie">
-												<Folder Name="machinereading">
-													<Folder Name="domains">
-														<Folder Name="ace">
-															<Folder Name="reader">
-																<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/ie/machinereading/domains/ace/reader/true_caser.sh"/>
-															</Folder>
-														</Folder>
-													</Folder>
-												</Folder>
-												<Folder Name="pascal">
-													<Folder Name="task1">
-														<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/ie/pascal/task1/build_task1_system.pl"/>
-														<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/ie/pascal/task1/stripanswers.pl"/>
-														<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/ie/pascal/task1/task1_test.pl"/>
-													</Folder>
-													<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/ie/pascal/acstats.pl"/>
-													<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/ie/pascal/buildDefaultTeXHyphenData.pl"/>
-													<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/ie/pascal/phase2.pl"/>
-												</Folder>
-											</Folder>
-											<Folder Name="international">
-												<Folder Name="arabic">
-													<Folder Name="pipeline">
-														<Folder Name="configurations">
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/configurations/atb-bn.conf"/>
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/configurations/atb-google.conf"/>
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/configurations/atb-latest.conf"/>
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/configurations/atb-segmenter.conf"/>
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/configurations/atb-tagger.conf"/>
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/configurations/cl-2011.conf"/>
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/configurations/coling-2010-tagger.conf"/>
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/configurations/coling-2010.conf"/>
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/configurations/gale-p4.conf"/>
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/configurations/ibmv2.conf"/>
-														</Folder>
-														<Folder Name="mapping">
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/mapping/bies-stanford.lisp"/>
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/arabic/pipeline/mapping/spenceg-pos.lisp"/>
-														</Folder>
-													</Folder>
-												</Folder>
-												<Folder Name="french">
-													<Folder Name="pipeline">
-														<Folder Name="configurations">
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/french/pipeline/configurations/ftb-latest.conf"/>
-														</Folder>
-														<Folder Name="splits">
-															<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/international/french/pipeline/splits/README"/>
-														</Folder>
-													</Folder>
-												</Folder>
-											</Folder>
-											<Folder Name="io">
-												<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/io/ReaderInputStream.java"/>
-											</Folder>
-											<Folder Name="objectbank">
-												<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/objectbank/ReaderIteratorFactory.java"/>
-											</Folder>
-											<Folder Name="sentiment">
-												<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/sentiment/ReadSentimentDataset.java"/>
-											</Folder>
-											<Folder Name="tagger">
-												<Folder Name="maxent">
-													<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/tagger/maxent/ReadDataTagged.java"/>
-												</Folder>
-											</Folder>
-											<Folder Name="trees">
-												<Folder Name="international">
-													<Folder Name="pennchinese">
-														<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/trees/international/pennchinese/README"/>
-													</Folder>
-												</Folder>
-												<Folder Name="tregex">
-													<Folder Name="gui">
-														<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/src/edu/stanford/nlp/trees/tregex/gui/README-AppleJavaExtensions.txt"/>
-													</Folder>
-												</Folder>
-											</Folder>
-										</Folder>
-									</Folder>
-								</Folder>
-							</Folder>
-							<Folder Name="test">
-								<Folder Name="regression">
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/test/regression/README.txt"/>
-									<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/test/regression/test-document-preprocessing.sh"/>
-								</Folder>
-							</Folder>
-							<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/.gitignore"/>
-							<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/.project"/>
-							<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/CONTRIBUTING.md"/>
-							<F N="packs_sys/logicmoo_nlu/ext/stanford/CoreNLP/README.md"/>
-						</Folder>
 						<Folder Name="parser">
 							<Folder Name="bin">
 								<F N="packs_sys/logicmoo_nlu/ext/stanford/parser/bin/is_dir"/>
@@ -9565,8 +9663,6 @@
 							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/logicmoo_cyc_nl_sem.pl"/>
 							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/logicmoo_nl_sem_dcgRedress.pl"/>
 						</Folder>
-						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/erere"/>
-						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/erere.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/is_dir"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_ape.pl"/>
@@ -11251,6 +11347,426 @@
 			<F N="packs_sys/is_dir"/>
 		</Folder>
 		<Folder Name="packs_usr">
+			<Folder Name="myuser">
+				<Folder Name="bin">
+					<F N="packs_usr/myuser/bin/pengine.pl"/>
+					<F N="packs_usr/myuser/bin/service_old.pl"/>
+					<F N="packs_usr/myuser/bin/sprog_client.pl"/>
+					<F N="packs_usr/myuser/bin/sprog_service.pl"/>
+				</Folder>
+				<Folder Name="examples">
+					<Folder Name="dbpedia">
+						<F N="packs_usr/myuser/examples/dbpedia/dbpedia_rules.pl"/>
+					</Folder>
+					<F N="packs_usr/myuser/examples/biotea-examples.sh"/>
+					<F N="packs_usr/myuser/examples/dbpedia-examples.sh"/>
+					<F N="packs_usr/myuser/examples/disgenet-examples.sh"/>
+					<F N="packs_usr/myuser/examples/ebi-examples.sh"/>
+					<F N="packs_usr/myuser/examples/gocam-examples.sh"/>
+					<F N="packs_usr/myuser/examples/internal-examples.sh"/>
+					<F N="packs_usr/myuser/examples/keggoc-examples.sh"/>
+					<F N="packs_usr/myuser/examples/local-queries.sh"/>
+					<F N="packs_usr/myuser/examples/local-sparql-queries.sh"/>
+					<F N="packs_usr/myuser/examples/monarch-examples.sh"/>
+					<F N="packs_usr/myuser/examples/ncats-red-examples.sh"/>
+					<F N="packs_usr/myuser/examples/nextprot-examples.sh"/>
+					<F N="packs_usr/myuser/examples/oma-examples.sh"/>
+					<F N="packs_usr/myuser/examples/oma_ebi_federated.pl"/>
+					<F N="packs_usr/myuser/examples/ontobee-examples.sh"/>
+					<F N="packs_usr/myuser/examples/pubmedgraph-examples.sh"/>
+					<F N="packs_usr/myuser/examples/uniprot-examples.sh"/>
+					<F N="packs_usr/myuser/examples/wikidata-examples.sh"/>
+					<F N="packs_usr/myuser/examples/wikipathways-examples.sh"/>
+				</Folder>
+				<Folder Name="lib">
+					<Folder Name="swipl">
+						<Folder Name="pack">
+							<Folder Name="dcgutils">
+								<Folder Name="prolog">
+									<F N="packs_usr/myuser/lib/swipl/pack/dcgutils/prolog/dcg_codes.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/dcgutils/prolog/dcg_core.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/dcgutils/prolog/dcg_macros.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/dcgutils/prolog/dcg_pair.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/dcgutils/prolog/dcg_progress.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/dcgutils/prolog/dcg_shell.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/dcgutils/prolog/snobol.pl"/>
+								</Folder>
+								<F N="packs_usr/myuser/lib/swipl/pack/dcgutils/pack.pl"/>
+							</Folder>
+							<Folder Name="genutils">
+								<Folder Name="prolog">
+									<Folder Name="data">
+										<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/data/env.pl"/>
+										<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/data/pair.pl"/>
+										<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/data/store.pl"/>
+										<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/data/tree.pl"/>
+									</Folder>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/argutils.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/callutils.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/ccenv.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/ccnbref.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/ccreader.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/ccref.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/ccstate.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/clambda.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/delimcc.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/hostname.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/insist.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/lambdaki.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/lazy.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/listutils.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/math.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/rbutils.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/rcutils.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/genutils/prolog/termutils.pl"/>
+								</Folder>
+								<F N="packs_usr/myuser/lib/swipl/pack/genutils/pack.pl"/>
+							</Folder>
+							<Folder Name="regex">
+								<Folder Name="prolog">
+									<Folder Name="regex">
+										<Folder Name="engine">
+											<F N="packs_usr/myuser/lib/swipl/pack/regex/prolog/regex/engine/pp.pl"/>
+										</Folder>
+										<F N="packs_usr/myuser/lib/swipl/pack/regex/prolog/regex/parser.pl"/>
+										<F N="packs_usr/myuser/lib/swipl/pack/regex/prolog/regex/state.pl"/>
+									</Folder>
+									<F N="packs_usr/myuser/lib/swipl/pack/regex/prolog/regex.pl"/>
+								</Folder>
+								<Folder Name="t">
+									<F N="packs_usr/myuser/lib/swipl/pack/regex/t/captures.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/regex/t/examples.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/regex/t/options.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/regex/t/perl_classes.pl"/>
+									<F N="packs_usr/myuser/lib/swipl/pack/regex/t/synopsis.pl"/>
+								</Folder>
+								<F N="packs_usr/myuser/lib/swipl/pack/regex/pack.pl"/>
+							</Folder>
+							<Folder Name="typedef">
+								<Folder Name="prolog">
+									<F N="packs_usr/myuser/lib/swipl/pack/typedef/prolog/typedef.pl"/>
+								</Folder>
+								<F N="packs_usr/myuser/lib/swipl/pack/typedef/pack.pl"/>
+							</Folder>
+						</Folder>
+					</Folder>
+				</Folder>
+				<Folder Name="myuser">
+					<Folder Name="bin">
+						<F N="packs_usr/myuser/myuser/bin/pengine.pl"/>
+						<F N="packs_usr/myuser/myuser/bin/service_old.pl"/>
+						<F N="packs_usr/myuser/myuser/bin/sprog_client.pl"/>
+						<F N="packs_usr/myuser/myuser/bin/sprog_service.pl"/>
+					</Folder>
+					<Folder Name="examples">
+						<Folder Name="dbpedia">
+							<F N="packs_usr/myuser/myuser/examples/dbpedia/dbpedia_rules.pl"/>
+						</Folder>
+						<F N="packs_usr/myuser/myuser/examples/biotea-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/dbpedia-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/disgenet-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/ebi-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/gocam-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/internal-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/keggoc-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/local-queries.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/local-sparql-queries.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/monarch-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/ncats-red-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/nextprot-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/oma-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/oma_ebi_federated.pl"/>
+						<F N="packs_usr/myuser/myuser/examples/ontobee-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/pubmedgraph-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/uniprot-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/wikidata-examples.sh"/>
+						<F N="packs_usr/myuser/myuser/examples/wikipathways-examples.sh"/>
+					</Folder>
+					<Folder Name="lib">
+						<Folder Name="swipl">
+							<Folder Name="pack">
+								<Folder Name="dcgutils">
+									<Folder Name="prolog">
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/dcgutils/prolog/dcg_codes.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/dcgutils/prolog/dcg_core.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/dcgutils/prolog/dcg_macros.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/dcgutils/prolog/dcg_pair.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/dcgutils/prolog/dcg_progress.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/dcgutils/prolog/dcg_shell.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/dcgutils/prolog/snobol.pl"/>
+									</Folder>
+									<F N="packs_usr/myuser/myuser/lib/swipl/pack/dcgutils/pack.pl"/>
+								</Folder>
+								<Folder Name="genutils">
+									<Folder Name="prolog">
+										<Folder Name="data">
+											<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/data/env.pl"/>
+											<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/data/pair.pl"/>
+											<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/data/store.pl"/>
+											<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/data/tree.pl"/>
+										</Folder>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/argutils.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/callutils.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/ccenv.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/ccnbref.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/ccreader.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/ccref.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/ccstate.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/clambda.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/delimcc.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/hostname.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/insist.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/lambdaki.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/lazy.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/listutils.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/math.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/rbutils.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/rcutils.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/prolog/termutils.pl"/>
+									</Folder>
+									<F N="packs_usr/myuser/myuser/lib/swipl/pack/genutils/pack.pl"/>
+								</Folder>
+								<Folder Name="regex">
+									<Folder Name="prolog">
+										<Folder Name="regex">
+											<Folder Name="engine">
+												<F N="packs_usr/myuser/myuser/lib/swipl/pack/regex/prolog/regex/engine/pp.pl"/>
+											</Folder>
+											<F N="packs_usr/myuser/myuser/lib/swipl/pack/regex/prolog/regex/parser.pl"/>
+											<F N="packs_usr/myuser/myuser/lib/swipl/pack/regex/prolog/regex/state.pl"/>
+										</Folder>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/regex/prolog/regex.pl"/>
+									</Folder>
+									<Folder Name="t">
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/regex/t/captures.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/regex/t/examples.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/regex/t/options.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/regex/t/perl_classes.pl"/>
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/regex/t/synopsis.pl"/>
+									</Folder>
+									<F N="packs_usr/myuser/myuser/lib/swipl/pack/regex/pack.pl"/>
+								</Folder>
+								<Folder Name="typedef">
+									<Folder Name="prolog">
+										<F N="packs_usr/myuser/myuser/lib/swipl/pack/typedef/prolog/typedef.pl"/>
+									</Folder>
+									<F N="packs_usr/myuser/myuser/lib/swipl/pack/typedef/pack.pl"/>
+								</Folder>
+							</Folder>
+						</Folder>
+					</Folder>
+					<Folder Name="prolog">
+						<Folder Name="sparqlprog">
+							<Folder Name="ontologies">
+								<Folder Name="dbpedia">
+									<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/dbpedia/dbpedia_matcher.pl"/>
+								</Folder>
+								<Folder Name="ebi">
+									<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/ebi/reactome.pl"/>
+								</Folder>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/bgee.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/biofed.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/biogateway.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/biopax3.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/biotea.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/chembl.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/dbpedia.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/disgenet.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/dumontierlab.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/ebi.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/enipedia.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/faldo.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/gaz.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/gocam.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/keggoc.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/load.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/monarch.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/ncit.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/nextprot.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/oban.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/obo.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/oma.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/oma_ebi.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/ontobee.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/owl.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/pubmedgraph.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/rhea.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/sequence_feature.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/sio.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/skos.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/sosa.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/togovar.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/uniprot.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/wikidata.pl"/>
+								<F N="packs_usr/myuser/myuser/prolog/sparqlprog/ontologies/wikipathways.pl"/>
+							</Folder>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/blazegraph.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/crawler.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/dataframe.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/emulate_builtins.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/endpoints.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/graph_util.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/io_utils.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/labelutils.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/nlp_util.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/obo_util.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/owl_search_lang.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/owl_search_viz.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/owl_types.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/owl_util.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/pathlang.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/search_util.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/stacktrace.pl"/>
+							<F N="packs_usr/myuser/myuser/prolog/sparqlprog/test_aux.pl"/>
+						</Folder>
+						<F N="packs_usr/myuser/myuser/prolog/concurrency.pl"/>
+						<F N="packs_usr/myuser/myuser/prolog/sparql_dcg.pl"/>
+						<F N="packs_usr/myuser/myuser/prolog/sparqlprog.pl"/>
+					</Folder>
+					<Folder Name="tests">
+						<F N="packs_usr/myuser/myuser/tests/basic_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/bigtests.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/builtins_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/crawl_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/crawler_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/dataframe_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/dbpedia_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/gocam_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/graph_util_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/integration_tests.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/labelutils_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/localsparql_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/nlp_util_table_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/nlp_util_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/obo_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/obo_util_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/owl_inmemory_test-OLD.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/owl_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/owl_util_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/pengine_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/prolog_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/search_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/search_viz_test.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/search_viz_tests.pl"/>
+						<F N="packs_usr/myuser/myuser/tests/tests.pl"/>
+					</Folder>
+					<F N="packs_usr/myuser/myuser/debug.pl"/>
+					<F N="packs_usr/myuser/myuser/foo.pl"/>
+					<F N="packs_usr/myuser/myuser/install.pl"/>
+					<F N="packs_usr/myuser/myuser/load.pl"/>
+					<F N="packs_usr/myuser/myuser/mavis_test.pl"/>
+					<F N="packs_usr/myuser/myuser/pack.pl"/>
+					<F N="packs_usr/myuser/myuser/packplus.pl"/>
+					<F N="packs_usr/myuser/myuser/release.sh"/>
+					<F N="packs_usr/myuser/myuser/start-doc-server.sh"/>
+					<F N="packs_usr/myuser/myuser/t.pl"/>
+				</Folder>
+				<Folder Name="prolog">
+					<Folder Name="sparqlprog">
+						<Folder Name="ontologies">
+							<Folder Name="dbpedia">
+								<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/dbpedia/dbpedia_matcher.pl"/>
+							</Folder>
+							<Folder Name="ebi">
+								<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/ebi/reactome.pl"/>
+							</Folder>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/bgee.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/biofed.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/biogateway.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/biopax3.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/biotea.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/chembl.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/dbpedia.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/disgenet.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/dumontierlab.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/ebi.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/enipedia.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/faldo.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/gaz.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/gocam.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/keggoc.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/load.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/monarch.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/ncit.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/nextprot.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/oban.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/obo.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/oma.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/oma_ebi.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/ontobee.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/owl.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/pubmedgraph.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/rhea.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/sequence_feature.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/sio.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/skos.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/sosa.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/togovar.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/uniprot.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/wikidata.pl"/>
+							<F N="packs_usr/myuser/prolog/sparqlprog/ontologies/wikipathways.pl"/>
+						</Folder>
+						<F N="packs_usr/myuser/prolog/sparqlprog/blazegraph.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/crawler.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/dataframe.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/emulate_builtins.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/endpoints.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/graph_util.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/io_utils.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/labelutils.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/nlp_util.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/obo_util.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/owl_search_lang.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/owl_search_viz.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/owl_types.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/owl_util.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/pathlang.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/search_util.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/stacktrace.pl"/>
+						<F N="packs_usr/myuser/prolog/sparqlprog/test_aux.pl"/>
+					</Folder>
+					<F N="packs_usr/myuser/prolog/concurrency.pl"/>
+					<F N="packs_usr/myuser/prolog/sparql_dcg.pl"/>
+					<F N="packs_usr/myuser/prolog/sparqlprog.pl"/>
+				</Folder>
+				<Folder Name="tests">
+					<F N="packs_usr/myuser/tests/basic_test.pl"/>
+					<F N="packs_usr/myuser/tests/bigtests.pl"/>
+					<F N="packs_usr/myuser/tests/builtins_test.pl"/>
+					<F N="packs_usr/myuser/tests/crawl_test.pl"/>
+					<F N="packs_usr/myuser/tests/crawler_test.pl"/>
+					<F N="packs_usr/myuser/tests/dataframe_test.pl"/>
+					<F N="packs_usr/myuser/tests/dbpedia_test.pl"/>
+					<F N="packs_usr/myuser/tests/gocam_test.pl"/>
+					<F N="packs_usr/myuser/tests/graph_util_test.pl"/>
+					<F N="packs_usr/myuser/tests/integration_tests.pl"/>
+					<F N="packs_usr/myuser/tests/labelutils_test.pl"/>
+					<F N="packs_usr/myuser/tests/localsparql_test.pl"/>
+					<F N="packs_usr/myuser/tests/nlp_util_table_test.pl"/>
+					<F N="packs_usr/myuser/tests/nlp_util_test.pl"/>
+					<F N="packs_usr/myuser/tests/obo_test.pl"/>
+					<F N="packs_usr/myuser/tests/obo_util_test.pl"/>
+					<F N="packs_usr/myuser/tests/owl_inmemory_test-OLD.pl"/>
+					<F N="packs_usr/myuser/tests/owl_test.pl"/>
+					<F N="packs_usr/myuser/tests/owl_util_test.pl"/>
+					<F N="packs_usr/myuser/tests/pengine_test.pl"/>
+					<F N="packs_usr/myuser/tests/prolog_test.pl"/>
+					<F N="packs_usr/myuser/tests/search_test.pl"/>
+					<F N="packs_usr/myuser/tests/search_viz_test.pl"/>
+					<F N="packs_usr/myuser/tests/search_viz_tests.pl"/>
+					<F N="packs_usr/myuser/tests/tests.pl"/>
+				</Folder>
+				<F N="packs_usr/myuser/debug.pl"/>
+				<F N="packs_usr/myuser/foo.pl"/>
+				<F N="packs_usr/myuser/install.pl"/>
+				<F N="packs_usr/myuser/load.pl"/>
+				<F N="packs_usr/myuser/mavis_test.pl"/>
+				<F N="packs_usr/myuser/pack.pl"/>
+				<F N="packs_usr/myuser/packplus.pl"/>
+				<F N="packs_usr/myuser/release.sh"/>
+				<F N="packs_usr/myuser/start-doc-server.sh"/>
+				<F N="packs_usr/myuser/t.pl"/>
+			</Folder>
 			<Folder Name="PythonPengines">
 				<Folder Name="docs">
 					<F N="packs_usr/PythonPengines/docs/conf.py"/>
@@ -11284,6 +11800,102 @@
 				<F N="packs_usr/PythonPengines/requirements.txt"/>
 				<F N="packs_usr/PythonPengines/setup.cfg"/>
 				<F N="packs_usr/PythonPengines/setup.py"/>
+			</Folder>
+			<Folder Name="sbcl">
+				<Folder Name="contrib">
+					<Folder Name="asdf">
+						<F N="packs_usr/sbcl/contrib/asdf/pull-asdf.sh"/>
+					</Folder>
+				</Folder>
+				<Folder Name="crossbuild-runner">
+					<F N="packs_usr/sbcl/crossbuild-runner/build-all.sh"/>
+				</Folder>
+				<Folder Name="doc">
+					<Folder Name="internals">
+						<F N="packs_usr/sbcl/doc/internals/clean.sh"/>
+						<F N="packs_usr/sbcl/doc/internals/make-top.sh"/>
+					</Folder>
+					<Folder Name="manual">
+						<F N="packs_usr/sbcl/doc/manual/clean.sh"/>
+						<F N="packs_usr/sbcl/doc/manual/make-tempfiles.sh"/>
+					</Folder>
+					<F N="packs_usr/sbcl/doc/clean.sh"/>
+					<F N="packs_usr/sbcl/doc/make-doc.sh"/>
+				</Folder>
+				<Folder Name="tests">
+					<Folder Name="heap-reloc">
+						<F N="packs_usr/sbcl/tests/heap-reloc/mmap-test.sh"/>
+					</Folder>
+					<F N="packs_usr/sbcl/tests/ansi-tests.sh"/>
+					<F N="packs_usr/sbcl/tests/banner.test.sh"/>
+					<F N="packs_usr/sbcl/tests/chill.test.sh"/>
+					<F N="packs_usr/sbcl/tests/clos.test.sh"/>
+					<F N="packs_usr/sbcl/tests/compiler.test.sh"/>
+					<F N="packs_usr/sbcl/tests/elfcore.test.sh"/>
+					<F N="packs_usr/sbcl/tests/expect.sh"/>
+					<F N="packs_usr/sbcl/tests/filesys.test.sh"/>
+					<F N="packs_usr/sbcl/tests/find-tests.sh"/>
+					<F N="packs_usr/sbcl/tests/foreign.test.sh"/>
+					<F N="packs_usr/sbcl/tests/futex-wait.test.sh"/>
+					<F N="packs_usr/sbcl/tests/init.test.sh"/>
+					<F N="packs_usr/sbcl/tests/install-test.sh"/>
+					<F N="packs_usr/sbcl/tests/interface.test.sh"/>
+					<F N="packs_usr/sbcl/tests/lzcore.test.sh"/>
+					<F N="packs_usr/sbcl/tests/parallel-exec.sh"/>
+					<F N="packs_usr/sbcl/tests/relocation.test.sh"/>
+					<F N="packs_usr/sbcl/tests/room.test.sh"/>
+					<F N="packs_usr/sbcl/tests/run-compiler.sh"/>
+					<F N="packs_usr/sbcl/tests/run-program.test.sh"/>
+					<F N="packs_usr/sbcl/tests/run-tests.sh"/>
+					<F N="packs_usr/sbcl/tests/save-coalesce-ctype.test.sh"/>
+					<F N="packs_usr/sbcl/tests/save1.test.sh"/>
+					<F N="packs_usr/sbcl/tests/save2.test.sh"/>
+					<F N="packs_usr/sbcl/tests/save3.test.sh"/>
+					<F N="packs_usr/sbcl/tests/save5.test.sh"/>
+					<F N="packs_usr/sbcl/tests/save6.test.sh"/>
+					<F N="packs_usr/sbcl/tests/save7.test.sh"/>
+					<F N="packs_usr/sbcl/tests/save8.test.sh"/>
+					<F N="packs_usr/sbcl/tests/script.test.sh"/>
+					<F N="packs_usr/sbcl/tests/side-effectful-pathnames.test.sh"/>
+					<F N="packs_usr/sbcl/tests/stream.test.sh"/>
+					<F N="packs_usr/sbcl/tests/stress-gc.sh"/>
+					<F N="packs_usr/sbcl/tests/subr.sh"/>
+					<F N="packs_usr/sbcl/tests/threads.test.sh"/>
+					<F N="packs_usr/sbcl/tests/toplevel.test.sh"/>
+					<F N="packs_usr/sbcl/tests/undefined-classoid-bug.test.sh"/>
+				</Folder>
+				<Folder Name="tools-for-build">
+					<F N="packs_usr/sbcl/tools-for-build/grovel-features.sh"/>
+					<F N="packs_usr/sbcl/tools-for-build/openbsd-sigcontext.sh"/>
+					<F N="packs_usr/sbcl/tools-for-build/sparc-funcdef.sh"/>
+				</Folder>
+				<F N="packs_usr/sbcl/binary-distribution.sh"/>
+				<F N="packs_usr/sbcl/build-comparison.sh"/>
+				<F N="packs_usr/sbcl/clean.sh"/>
+				<F N="packs_usr/sbcl/cross-make.sh"/>
+				<F N="packs_usr/sbcl/distclean.sh"/>
+				<F N="packs_usr/sbcl/find-gnumake.sh"/>
+				<F N="packs_usr/sbcl/generate-version.sh"/>
+				<F N="packs_usr/sbcl/html-distribution.sh"/>
+				<F N="packs_usr/sbcl/install.sh"/>
+				<F N="packs_usr/sbcl/make-c-runtime.sh"/>
+				<F N="packs_usr/sbcl/make-config.sh"/>
+				<F N="packs_usr/sbcl/make-genesis-2.sh"/>
+				<F N="packs_usr/sbcl/make-host-1.sh"/>
+				<F N="packs_usr/sbcl/make-host-2.sh"/>
+				<F N="packs_usr/sbcl/make-target-1.sh"/>
+				<F N="packs_usr/sbcl/make-target-2.sh"/>
+				<F N="packs_usr/sbcl/make-target-contrib.sh"/>
+				<F N="packs_usr/sbcl/make-windows-installer.sh"/>
+				<F N="packs_usr/sbcl/make.sh"/>
+				<F N="packs_usr/sbcl/release.sh"/>
+				<F N="packs_usr/sbcl/run-sbcl.sh"/>
+				<F N="packs_usr/sbcl/sbcl-pwd.sh"/>
+				<F N="packs_usr/sbcl/slam.sh"/>
+				<F N="packs_usr/sbcl/source-distribution.sh"/>
+				<F N="packs_usr/sbcl/tagify.sh"/>
+				<F N="packs_usr/sbcl/verify-header-parsing.sh"/>
+				<F N="packs_usr/sbcl/wc.sh"/>
 			</Folder>
 			<F N="packs_usr/.pdtproperties"/>
 			<F N="packs_usr/.project"/>
@@ -13954,8 +14566,10 @@
 							<F N="packs_xtra/logicmoo_pldata/bllip-parser/dockerfiles/python/Dockerfile"/>
 						</Folder>
 					</Folder>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/CharniakParse.sh"/>
 					<F N="packs_xtra/logicmoo_pldata/bllip-parser/eval-reranker.sh"/>
 					<F N="packs_xtra/logicmoo_pldata/bllip-parser/LogicmooCharniak.sh"/>
+					<F N="packs_xtra/logicmoo_pldata/bllip-parser/LogicmooSetup.sh"/>
 					<F N="packs_xtra/logicmoo_pldata/bllip-parser/nfeatures-train-eval-reranker.sh"/>
 					<F N="packs_xtra/logicmoo_pldata/bllip-parser/oparse.sh"/>
 					<F N="packs_xtra/logicmoo_pldata/bllip-parser/parse-50best.sh"/>

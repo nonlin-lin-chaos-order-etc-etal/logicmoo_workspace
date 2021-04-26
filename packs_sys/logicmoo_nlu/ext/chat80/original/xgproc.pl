@@ -15,17 +15,30 @@ abolish_xg(Prop):- ignore(tlxgproc:current_xg_module(M)),
                  ignore((memberchk(xg_pred=P,Props),dmsg(abolising(current_xg_pred(M,F,N,Props))),predicate_property(P,number_of_clauses(NC)),flag(xg_assertions,A,A-NC))),
                  abolish(F,N),retractall(user:current_xg_pred(M,F,N,_)))).
 
+maybe_share_mp(M:F/A):- 
+    MFA=M:F/A,!, % FA = F/A,   
+   (M:multifile(MFA)), 
+   (M:module_transparent(MFA)),
+   (M:dynamic(MFA)),
+   (M:export(MFA)),
+   (M:public(MFA)), !. 
+maybe_share_mp(FA):- strip_module(FA,M,_),!,share_mp(M:FA).
+
+ 
 new_pred(P):- must(tlxgproc:current_xg_module(M)),new_pred(M,P).
 new_pred(M,P0):- functor(P0,F,A),functor(P,F,A),new_pred(M,P,F,A),!.
 
 new_pred(M,_,F,A):- user:current_xg_pred(M,F,A,_),!.
 new_pred(_,P,_,_):- recorded(P,'xg.pred',_), !.
 new_pred(M,P,F,A) :-   
-   share_mp(M:F/A),
+   maybe_share_mp(M:F/A),
    findall(K=V,(((K=xg_source,tlxgproc:current_xg_filename(V));(prolog_load_context(K,V),not(member(K,[stream,directory,variable_names])));((seeing(S),member(G,[(K=file,P=file_name(V)),(K=position,P=position(V))]),G,stream_property(S,P))))),Props),
    assert_if_new(user:current_xg_pred(M,F,A,[xg_source=F,xg_ctx=M,xg_fa=(F/A),xg_pred=P|Props])),
    recordz(P,'xg.pred',_),
    recordz('xg.pred',P,_).
+
+:- module_transparent(new_pred/4).
+:- system:import(new_pred/4).
 
 is_file_ext(Ext):-prolog_load_context(file,F),file_name_extension(_,Ext,F).
 :-thread_local tlxgproc:do_xg_process_te/0.
@@ -116,7 +129,7 @@ xg_process((L-->R),Mode) :- !,
    usurping(Mode,P),
    xg_assertz((P :- Q)), !.
 
-xg_process(( :- G),_) :- !, G.
+xg_process(( :- G),_) :- !, call(G).
 
 xg_process((P :- Q),Mode) :-
    usurping(Mode,P),
@@ -270,6 +283,7 @@ load_xg:-
 
 go_xg :- load_xg, xg_listing('newg.pl').
 
+:- fixup_exports.
 
 end_of_file.
 

@@ -31,7 +31,7 @@ theText80(DCG)---> {!,nonvar(DCG)}, DCG.
 theText80(Text)---> {Text=@=[_|_],!},theText_ol(Text).
 theText80(Text)---> {var(Text),dmsg(theText_DCG_VAR(Text)),!},theText_ol(Text).
 theText80(DCG)---> {dmsg(theText_DCG(DCG)),dtrace,nonvar(DCG)},DCG.
-:- share_mp(theText80//1).
+%:- share_mp(theText80//1).
 
 
 theText_ol([W1,W2,W3])---> theText1(W1),theText1(W2),theText1(W3).
@@ -99,9 +99,9 @@ human_name(X) ---> capitalized(FN),capitalized(SN),{atomic_list_concat([FN,'_',S
 verb_form(Verb,Tense,Agmt,_Role) ---> theText1(W), {no_repeats(verb_form_db(W,Verb,Tense,Agmt))}.
 %verb_form(Verb,Tense,Agmt,_Role) ---> theTextC(W,VerbPOS,v_db(W,Verb,Tense,Agmt,VerbPOS)).
 
-name(Obj) ---> opt_the, theText80(Name), {no_repeats(name_db(Name,Obj))}.
-name(Obj) ---> opt_the, theText1(W1),theText1(W2), {atomic_list_concat([W1,'_',W2],Name), no_repeats(name_db(Name,Obj))},{!}.
-name(Obj) ---> opt_the, some_var(Obj).
+name_lex(Obj) ---> opt_the, theText80(Name), {no_repeats(name_db(Name,Obj))}.
+name_lex(Obj) ---> opt_the, theText1(W1),theText1(W2), {atomic_list_concat([W1,'_',W2],Name), no_repeats(name_db(Name,Obj))},{!}.
+name_lex(Obj) ---> opt_the, some_var(Obj).
 
 some_var(Obj) ---> opt_the, theText1(?), theText1(VarName), {foc_framevar(VarName,_VarFn,Obj)},{!}.
 % name(Obj) ---> opt_the, theTextC(Name,'ProperNoun',name_db([Name],Obj)).
@@ -132,8 +132,8 @@ quantifier_pron(Det,Noun) ---> theTextC(W,'Pronoun',quantifier_pron_db(W,Det,Nou
 context_pron(prep(In),Place) ---> theText1(Where,'Pronoun') , {no_repeats(context_pron_db(In,Place,Where))}.
 context_pron(prep(In),Place) ---> theTextC(Where,'Pronoun',context_pron_db(In,Place,Where)).
 
-number(nb(I),Number) ---> theText1(W,'Number-SP'), {no_repeats(number_db(W,I,Number))}.
-number(nb(I),Number) ---> theTextC(W,'Number-SP',number_db(W,I,Number)).
+number_xg(nb(I),Number) ---> theText1(W,'Number-SP'), {no_repeats(number_db(W,I,Number))}.
+number_xg(nb(I),Number) ---> theTextC(W,'Number-SP',number_db(W,I,Number)).
 
 terminator(Type) ---> theText1(Term,'Symbol-SP'), {no_repeats(terminator_db(Term,Type))}.
 terminator(Type) ---> theTextC(Term,'Symbol-SP',terminator_db(Term,Type)).
@@ -143,9 +143,12 @@ conj_list(Conj,list,end) ---> theText1(Conj,'Conjunction'), {no_repeats(conj_db(
 conj_list(_,list,list) ---> theTextC(T,'Symbol-SP',T=',').
 conj_list(Conj,list,end) ---> theTextC(Conj,'Conjunction',conj_db(Conj)).
 
-loc_pred_prep(P,OFPREP) ---> theText1(W), {no_repeats(loc_pred_prep_db(W,P,OFPREP))}.
-loc_pred_prep(P,OFPREP) ---> theTextC(W,'Preposition',loc_pred_prep_db(W,P,OFPREP)).
-
+loc_pred_xg(Of,Prep1) --->
+   [East],
+   [Of],
+   {loc_pred_prep_db(Of,East,Prep1)}.
+loc_pred_xg(Of,OFPREP) ---> theText1(East), {no_repeats(loc_pred_prep_db(East,Of,OFPREP))}.
+loc_pred_xg(Of,OFPREP) ---> theTextC(East,'Preposition',loc_pred_prep_db(East,Of,OFPREP)).
 
 
 :-retract(tlxgproc:do_xg_process_te).

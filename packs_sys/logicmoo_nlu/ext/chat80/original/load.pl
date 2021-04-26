@@ -59,14 +59,15 @@
 % :- expects_dialect(pfc).
 :-op(600,xfy,--).
 
-:- include(countries).
+%:- include(countries).
 :- include(world0).     	% data base
-:- include(rivers).
-:- include(cities).
-:- include(contain).
-:- include(borders).
+%:- include(rivers).
+%:- include(cities).
+%:- include(contain).
+%:- include(borders).
+:- include(world1).
 
-:- include(clotab).	% attachment tables
+%:- include(clotab).	% attachment tables
 :- include(newdict).	% syntactic dictionary
 :- include(slots).	% fits arguments into predicates
 :- include(scopes).	% quantification and scoping
@@ -75,7 +76,7 @@
 
 :- use_module(qplan).	% query planning
 :- include(talkr).	% query evaluation
-:- include(ndtabl).	% relation info.
+%:- include(ndtabl).	% relation info.
 :- include(readin).	% sentence input
 :- include(ptree).	% print trees
 :- include(aggreg).	% aggregation operators

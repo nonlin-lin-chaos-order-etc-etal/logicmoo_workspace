@@ -172,7 +172,7 @@ np_compls(common,Agmt,Case,Mods,Set0,Mask) --->
 
 /* Nuclear noun phrase */
 
-np_head0(nameOf(Name),3+sg,def+proper) ---> name(Name).
+np_head0(nameOf(Name),3+sg,def+proper) ---> name_lex(Name).
 
 :- style_check(-singleton).
 
@@ -213,7 +213,7 @@ determiner(Det,Number,Def) ---> quant_phrase(Det,Number,Def).
 % Measure is X
 quant_phrase(quant(Op,Quant),Number,Def) --->
    quant_opt(Op,Def),
-   number(Quant,Number).
+   number_xg(Quant,Number).
 
 % Measure is more / less than
 quant_opt(Op,indef) --->
@@ -266,8 +266,8 @@ verb_mod(Adv,Set,Nil) --->
 verb_mod(PP,Set,Mask) ---> prep_phrase(PP,compl,Set,Mask).
 
 adv_phrase(prep_phrase(Prep,NP),Set,Mask) --->
-   loc_pred_prep(Prep,OFPREP),
-   prep_phrase(prep_phrase(prep(OFPREP),NP),compl,Set,Mask).
+   loc_pred_xg(Prep,OFPRED),
+   prep_phrase(prep_phrase(prep(OFPRED),NP),compl,Set,Mask).
 
 /* Adjectival Constructions */
 
@@ -282,7 +282,7 @@ pre_adj(Adj) --->  sup_phrase(Adj).
 
 sup_phrase(sup(most,Adj)) ---> sup_adj(Adj).
 sup_phrase(sup(Op,Adj)) --->
-   sup_adv(Op),
+   sup_adv(Op), % Op should been Adv?
    adj(quant,Adj).
 
 comp_phrase(comp(Comp,Adj,Arg),Mask) --->
@@ -409,8 +409,7 @@ verb(verb(Root,Voice,Time+fin,Aspect,Neg),Agmt,Type,Voice) --->
    {verb_type_db(Root0,Type0)},
    neg_opt(Type0,Neg),
    rest_verb(Role,Root0,Root,Voice,Aspect),
-   {verb_type_db(Root,Type)
-   }.
+   {verb_type_db(Root,Type)}.
 
 neg_opt(aux+_,neg(WhyNot)) ---> theText1(Not),{txt_not_db(Not,WhyNot)}.
 neg_opt(_,pos(_)) ---> noText.
@@ -420,18 +419,18 @@ rest_verb(aux,have,Root,Voice,[perf|Aspect]) --->
    have_opt(Root0,Root,Voice,Aspect).
 rest_verb(aux,be,Root,Voice,Aspect) --->
    verb_form(Root0,Tense0,_,_),
-   be(Tense0,Root0,Root,Voice,Aspect).
+   be_opt(Tense0,Root0,Root,Voice,Aspect).
 rest_verb(aux,do,Root,active,[]) --->
    verb_form(Root,inf,_,_).
 rest_verb(main,Root,Root,active,[]) ---> noText.
 
 have_opt(be,Root,Voice,Aspect) --->
    verb_form(Root0,Tense0,_,_),
-   be(Tense0,Root0,Root,Voice,Aspect).
+   be_opt(Tense0,Root0,Root,Voice,Aspect).
 have_opt(Root,Root,active,[]) ---> noText.
 
-be(past+part,Root,Root,passive,[]) ---> noText.
-be(pres+part,Root0,Root,Voice,[prog]) --->
+be_opt(past+part,Root,Root,passive,[]) ---> noText.
+be_opt(pres+part,Root0,Root,Voice,[prog]) --->
    passive_active(Root0,Root,Voice).
 
 passive_active(be,Root,passive) --->
@@ -521,11 +520,118 @@ no_args_vt(iv).
 
 /* Conjunctions */
 
-conj(conj(Conj,Ctx0), conj(Conj,Ctx),Left,Right, conj(Conj,Left,Right)) ---> 
-   conj_list(Conj,Ctx0,Ctx).
+conj(conj(Conj,Ctx0),
+     conj(Conj,Ctx),Left,Right,
+     conj(Conj,Left,Right)) --->
+        conj_list(Conj,Ctx0,Ctx).
 
 :-retract(tlxgproc:do_xg_process_te).
 
 :-retract(t_l:disable_px).
+
+/* @(#)clotab.pl	24.1 2/23/88 */
+
+
+/* 
+	Copyright 1986, Fernando C.N. Pereira and David H.D. Warren,
+
+			   All Rights Reserved
+*/
+/*
+ _________________________________________________________________________
+|       Copyright (C) 1982                                                |
+|                                                                         |
+|       David Warren,                                                     |
+|               SRI International, 333 Ravenswood Ave., Menlo Park,       |
+|               California 94025, USA;                                    |
+|                                                                         |
+|       Fernando Pereira,                                                 |
+|               Dept. of Architecture, University of Edinburgh,           |
+|               20 Chambers St., Edinburgh EH1 1JZ, Scotland              |
+|                                                                         |
+|       This program may be used, copied, altered or included in other    |
+|       programs only for academic purposes and provided that the         |
+|       authorship of the initial program is aknowledged.                 |
+|       Use for commercial purposes without the previous written          |
+|       agreement of the authors is forbidden.                            |
+|_________________________________________________________________________|
+
+*/
+
+% Normal form masks
+
+is_pp(#(1,_,_,_)).
+
+is_pred(#(_,1,_,_)).
+
+is_trace(#(_,_,1,_)).
+
+is_adv(#(_,_,_,1)).
+
+is_trace82(#(_,_,1,_),#(0,0,0,0)).
+
+is_trace_bits(#(0,0,1,0)).
+
+is_adv_bits(#(0,0,0,1)).
+
+is_empty_bits(#(0,0,0,0)).
+
+is_np_all(#(1,1,1,0)).
+
+is_s_all(#(1,0,1,1)).
+
+is_np_no_trace(#(1,1,0,0)).
+
+% Mask operations
+
+plus_mask(#(B1,B2,B3,B4),#(C1,C2,C3,C4),#(D1,D2,D3,D4)) :-
+   or_xmask(B1,C1,D1),
+   or_xmask(B2,C2,D2),
+   or_xmask(B3,C3,D3),
+   or_xmask(B4,C4,D4).
+
+minus_mask(#(B1,B2,B3,B4),#(C1,C2,C3,C4),#(D1,D2,D3,D4)) :-
+   anot_xmask(B1,C1,D1),
+   anot_xmask(B2,C2,D2),
+   anot_xmask(B3,C3,D3),
+   anot_xmask(B4,C4,D4).
+
+or_xmask(1,_,1).
+or_xmask(0,1,1).
+or_xmask(0,0,0).
+
+anot_xmask(X,0,X).
+anot_xmask(_X,1,0).
+
+% Noun phrase position features
+
+is_to_role_case(subj,_,#(1,0,0)).
+is_to_role_case(compl,_,#(0,_,_)).
+is_to_role_case(undef,main,#(_,0,_)).
+is_to_role_case(undef,aux,#(0,_,_)).
+is_to_role_case(undef,decl,_).
+is_to_role_case(nil,_,_).
+
+is_subj_case(#(1,0,0)).
+is_verb_case(#(0,1,0)).
+is_prep_case(#(0,0,1)).
+is_compl_case(#(0,_,_)).
+
+:- op(100,fx,?).
+
+user:portray('#'(PP,Pred,Trace,Adv)) :-
+   portray_bit(prep_phrase,PP,S0,S1),
+   portray_bit(pred,Pred,S1,S2),
+   portray_bit(trace,Trace,S2,S3),
+   portray_bit(adv,Adv,S3,[]),
+   write(S0).
+
+portray_bit(Bit,Value,[?Bit|Bits],Bits) :- var(Value), !.
+portray_bit(Bit,1,[+Bit|Bits],Bits).
+portray_bit(Bit,0,[-Bit|Bits],Bits).
+portray_bit(Bit,What,[Bit=What|Bits],Bits).
+portray_bit(Bit,1,[Bit|Bits],Bits).
+portray_bit(Bit,0,Bits,Bits).
+portray_bit(_,_,Bits,Bits).
 
 end_of_file.

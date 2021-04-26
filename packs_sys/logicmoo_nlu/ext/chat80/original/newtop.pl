@@ -24,10 +24,27 @@
 %:- ensure_loaded(readin).
 :- ensure_loaded('/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_tokenize').
 
+%theTextC(W1,CYCPOS,Y=W1)  ---> {t_l:old_text,!},[W1],{W1=Y}.
+theTextC(A,_,F=A,B,C,D,E) :- t_l:old_text, !,terminal(A, B, C, D, E),A=F, is_sane_nv(A).
+theTextC(A,_,F=A,B,C,D,E) :- !,terminal(w(A, _), B, C, D, E),A=F,is_sane_nv(A).
+%theTextC(W1,CYCPOS,Y=W1)  ---> {!},[w(W1,_)],{W1=Y}.
+%theTextC(W1,CYCPOS,WHY) ---> [W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
+%theTextC(H,F,E,A,B,C,D) :- fail, is_sane(C), terminal(G, A, B, C, D),memoize_pos_to_db(E, F, G, H),is_sane_nv(H).
+
+is_sane_nv(C) :-
+    must((nonvar(C), term_depth(C, D), D<100)).
+
+/*
+theTextC(W1,_CYCPOS,Y=W1) ---> {t_l:old_text,!},[W1],{W1=Y}.
+%theTextC(W1,_CYCPOS,Y=W1) ---> {!},[w(W1,_)],{W1=Y}.
+theTextC(A,_,F=A,B,C,D,E) :- !,terminal(w(A, _), B, C, D, E),A=F,is_sane_nv(A).
+theTextC(W1,_CYCPOS,WHY) ---> {t_l:old_text,!},[W1],WHY.
+% theTextC(W1,CYCPOS,WHY) ---> {trace_or_throw(memoize_pos_to_db(WHY,CYCPOS,W2,W1))},[W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
+*/
 
 % Chat-80 : A small subset of English for database querying.
 
-:-public hi/0, hi/1, quote/1.
+:-public hi80/0, hi80/1, quote/1.
 
 :- op(400,xfy,&).
 :- op(200,xfx,--).
@@ -365,12 +382,12 @@ close_answer(A,B):-
 runtime_entry(start) :-
    version,
    format(user,'~nChat Demonstration Program~n~n',[]),
-   hi.
+   hi80.
 
-hi :-
+hi80 :-
 %   tracing ~= on,
 %   tell('hi_out.txt'),
-   hi(user)
+   hi80(user)
 %   ,told
    .
 
@@ -392,7 +409,7 @@ hi2 :-
 %   ,told.
   .
 
-hi(File) :-
+hi80(File) :-
    repeat,
       ask(File,P),
       control80(P), !,
@@ -512,13 +529,13 @@ process(normal,U) :-
    write('I don''t understand! '+U), nl,fail.
 process(_,_).
 
-eng_to_logic(U,S):- sentence(E,U,[],[],[]), parsed_to_logic(E,S).
+eng_to_logic(U,S):- sentence80(E,U,[],[],[]), parsed_to_logic(E,S).
 
 process4(How,Sentence,Answer,Times) :-
    Times = [ParseTime,SemTime,TimePlan,TimeAns,TotalTime],
    check_words(Sentence,U),
    runtime(StartParse),  
- ((sentence(E,U,[],[],[]),
+ ((sentence80(E,U,[],[],[]),
    notrace((runtime(StopParse),
     ParseTime is StopParse - StartParse,
     report(How,E,'Parse',ParseTime,tree),
@@ -571,7 +588,7 @@ report_item0(expr,Item) :- !,
 
 %report_item0(_,Item) :- !, \+ \+ write_tree(Item), nl.
 
-report_item0(tree,Item) :- \+ \+ print_tree_old(Item),!, nl.
+report_item0(tree,Item) :- \+ \+ print_tree80(Item),!, nl.
 
 report_item0(cmt,Item) :-
     pprint_ecp_cmt(yellow,Item),!.
@@ -593,6 +610,7 @@ quote(_+_).
 quote(verb(_,_,_,_,_)).
 quote(wh(_)).
 quote(name(_)).
+quote(nameOf(_)).
 quote(prep(_)).
 quote(det(_)).
 quote(quant(_,_)).
@@ -721,7 +739,7 @@ check_words(NonList,Out):-
  into_text80_atoms(NonList,M),!,
  check_words(M,Out).
 check_words([],[]).
-check_words([Word1,Word2|Words],RevWords) :- atomic(Word1),atomic(Word2),atomic_list_concat([Word1,'_',Word2],Word),word(Word),!,
+check_words([Word1,Word2|Words],RevWords) :- atomic(Word1),atomic(Word2),atomic_list_concat([Word1,'_',Word2],Word),chk_word(Word),!,
   check_words([Word|Words],RevWords).
 check_words([Word1,'_',Word2|Words],RevWords) :- atomic(Word1),atomic(Word2),atomic_list_concat([Word1,'_',Word2],Word),!,
   check_words([Word|Words],RevWords).
@@ -732,7 +750,7 @@ check_words([Word|Words],[RevWord|RevWords]) :-
 %:- mode check_word(+,-).
 
 check_word(Word,nb(Word)) :- number(Word),!.
-check_word(Word,Word) :- word(Word), !.
+check_word(Word,Word) :- chk_word(Word), !.
 check_word(Word,Word):- compound(Word),!.
 check_word(Word,NewWord) :-
    % write('? '), write(Word), write(' -> (!. to abort) '), ttyflush, read(NewWord0), NewWord0 \== !,

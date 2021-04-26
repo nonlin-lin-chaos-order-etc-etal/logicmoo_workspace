@@ -58,5 +58,5 @@
 :- consult(newtop).		% top level control
 
 save_chat :-
-   qsave_program(chat, [goal(hi)]).
+   qsave_program(chat, [goal(hi80)]).
 

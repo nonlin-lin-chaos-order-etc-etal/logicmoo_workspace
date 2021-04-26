@@ -25,6 +25,7 @@
 ag_number(1,sg).
 ag_number(N,pl) :- N>1.
 
+chk_word(Word):- word(Word).
 word(Word) :- '`' (Word).
 word(Word) :- conj(Word).
 word(Word) :- adverb(Word).

@@ -23,16 +23,16 @@
 /* Print term as a tree */
 
 :- if( \+ current_predicate(print_tree/1)). 
- print_tree(T):- print_tree_old(T).
+ print_tree(T):- print_tree80(T).
 :- endif.
 
 %:- listing(print_tree/1).
 
-print_tree_old(T) :- pprint_ecp_cmt(grey,T),!.
-print_tree_old(T) :-
+print_tree80(T) :- pprint_ecp_cmt(yellow,T),!.
+print_tree80(T) :-
    numbervars(T,3,_),
    pt_old(T,0), nl, fail.
-print_tree_old(_).
+print_tree80(_).
 
 pt_old(A,I) :-
    as_is_old(A), !,

@@ -1,4 +1,62 @@
+:- op(1001,xfy, ... ).
+:- op(1200,xfx,'--->').
+
+
+:-asserta(tlxgproc:do_xg_process_te).
+
 /* Parts of speech */
+/*
+the TextC(W1,CYCPOS,Y=W1)  ---> {t_l:old_text,!},[W1],{W1=Y}.
+the TextC(W1,CYCPOS,Y=W1)  ---> {!},[w(W1,_)],{W1=Y}.
+the TextC(W1,CYCPOS,WHY) ---> [W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
+see newdict.pl
+*/
+
+theTextL(W1,_CYCPOS,Y=W1)  ---> {t_l:old_text,!},theText80(W1),{W1=Y}.
+theTextL(W1,_CYCPOS,Y=W1)  ---> {!},theText80(W1),{W1=Y}.
+theTextL(W1,_CYCPOS,WHY) ---> theText80(W1),{call(WHY)}.
+
+noText ---> [].
+
+theText1(IC)---> {t_l:old_text,!},[W0],{parser_tokenize:any_nb_to_atom(W0,W1),downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC))}.
+theText1(Txt)---> [w(Txt,_)].
+
+theText1(W1,_CYCPOS)--->{t_l:old_text,!},[W1]. % compatible_pos_db(CW,CYCPOS),cw_db(W1,CW)
+theText1(Txt,_CYCPOS)---> [w(Txt,_)]. 
+
+theText80(Text)---> {is_list(Text),!},theText_cl(Text).
+theText80([W1])---> theText1(W1).
+theText80([W1,W2])---> {!}, theText1(W1),theText1(W2).
+theText80(DCG)---> {!,nonvar(DCG)}, DCG.
+theText80(Text)---> {Text=@=[_|_],!},theText_ol(Text).
+theText80(Text)---> {var(Text),dmsg(theText_DCG_VAR(Text)),!},theText_ol(Text).
+theText80(DCG)---> {dmsg(theText_DCG(DCG)),dtrace,nonvar(DCG)},DCG.
+%:- share_mp(theText80//1).
+
+
+theText_ol([W1,W2,W3])---> theText1(W1),theText1(W2),theText1(W3).
+theText_ol([W1,W2])---> theText1(W1),theText1(W2).
+theText_ol([W1])---> theText1(W1).
+
+theText_cl([]) ---> {!},[].
+theText_cl([W1|WL])---> theText1(W1),{!},theText_cl(WL).
+
+
+optText1(_,_,_)---> noText.
+optText1(W,POS,HOW)---> theTextC(W,POS,HOW).
+
+optText1(_,_)---> noText.
+optText1(W,POS)---> theText1(W,POS).
+
+opt_the ---> optText1(the,'Determiner').
+%opt_the ---> optTextC(The,'Determiner',The=the).
+
+optText(_Text) ---> noText.
+optText(Text) ---> theText80(Text).
+
+textOpt(Text) ---> theText80(Text).
+textOpt(_Text) ---> noText.
+
 
 noun(Noun,Agmt) --->
    [W],
@@ -91,3 +149,5 @@ conj(Conj,list,end) --->
 loc_pred(Of,P) --->
    [W],
    {loc_pred(Of,W,P)}.
+
+:-retract(tlxgproc:do_xg_process_te).

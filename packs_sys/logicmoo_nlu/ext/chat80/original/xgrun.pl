@@ -20,6 +20,13 @@
 
 */
 
+
+/*
+:- op(1001,xfy,...).
+:- op(1101,xfx,'--->').
+:- op(500,fx,+).
+:- op(500,fx,-).
+*/
 terminal(T,S,S,x(_,terminal,T,X),X).
 %   writef("           terminal -- SUCCEEDED1 for T= {0} S= {1}", [T,S])
 %.
@@ -33,3 +40,10 @@ gap(x(gap,_,_,_)).
 gap([]).
 
 virtual(NT,x(_,nonterminal,NT,X),X).
+
+phraseXG(P,A1,A2,A3,A4):-
+   safe_univ(P,[F|Args0]),
+   dtrace,
+   conc_gx(Args0,[A1,A2,A3,A4],Args),
+   Q=..[F|Args], 
+   call(Q).

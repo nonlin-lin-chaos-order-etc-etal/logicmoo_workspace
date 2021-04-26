@@ -30,8 +30,8 @@ prolog_pprint_tree(Term):-  prolog_pprint(Term), !.
 :- export(prolog_pprint/2).
 prolog_pprint(Term):- prolog_pprint(Term, []).
 prolog_pprint(Term, Options):-
-   \+ \+ (mort((portray_vars:pretty_numbervars(Term, Term2)),
-     prolog_pprint_0(Term2, Options))), !.
+   \+ \+ (mort((portray_vars:pretty_numbervars(Term, Term2),
+     prolog_pprint_0(Term2, Options)))), !.
 
 
 % prolog_pprint_0(Term, Options):- Options ==[], pprint_ecp_cmt(blue, Term), !.

@@ -55,7 +55,7 @@ Copyright (C) 1987, Quintus Computer Systems, Inc.  All rights reserved.
  [compiling /usr/sri-marvin/pereira/chat/80/newtop.pl...]
  [newtop.pl compiled 5.850 sec 5,252 bytes]
 [compilation completed 162.833 sec 167,180 bytes]
-| ?- hi(demo).
+| ?- hi80(demo).
 
 trace . 
 Tracing from now on!

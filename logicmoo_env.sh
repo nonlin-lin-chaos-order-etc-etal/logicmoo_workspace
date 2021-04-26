@@ -44,6 +44,8 @@ else
  echo "#* PATH=$PATH"
 fi
 
+pathmunge $LOGICMOO_WS/packs_lib/sparqlprog/bin after
+
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
   set -o ignoreeof
 fi

@@ -82,7 +82,7 @@ chat_process(Question, Answer) :-
 %   Perform the parsing phase of CHAT80.
 
 chat_parse(Question, Tree) :-
-    sentence(Tree,Question,[],[],[]).
+    sentence80(Tree,Question,[],[],[]).
 
 %!  chat_semantics(+Tree, -Query)
 %
@@ -112,7 +112,7 @@ chat_answer(Query, Answer) :-
 %   Print an NLP parse tree
 
 chat_print_tree(Tree) :-
-    print_tree_old(Tree).
+    print_tree80(Tree).
 
 %!  chat_example(?Nr, ?Sentence, ?Correct)
 %
