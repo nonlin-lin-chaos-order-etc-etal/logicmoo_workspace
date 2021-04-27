@@ -354,17 +354,14 @@ is true.</dd>
 <dt class="pubdef"><span class="pred-tag">[semidet]</span><a id="same_functor/4"><strong>same_functor</strong>(<var>?Term1, 
 ?Term2, ?Name, ?Arity</var>)</a></dt>
 <dd class="defbody">
-True when <var>Term1</var> and <var>Term2</var> are compound terms that 
-have the same functor (<var>Name</var>/<var>Arity</var>). The arguments 
-must be sufficiently instantiated, which means either <var>Term1</var> 
-or <var>Term2</var> must be bound or both <var>Name</var> and <var>Arity</var> 
-must be bound.
+True when <var>Term1</var> and <var>Term2</var> are terms that have the 
+same functor (<var>Name</var>/<var>Arity</var>). The arguments must be 
+sufficiently instantiated, which means either <var>Term1</var> or <var>Term2</var> 
+must be bound or both <var>Name</var> and <var>Arity</var> must be 
+bound.
 
-<p>This predicate handles both zero-argument compounds (<code>f()</code>) 
-as atoms for <var>Term1</var> and <var>Term2</var>. If only <var>Name</var> 
-and <var>Arity</var> are given and <var>Arity</var> is
-<code>0</code>, <var>Term1</var> and <var>Term2</var> are unified with <var>Name</var> 
-(an atom).
+<p>If <var>Arity</var> is 0, <var>Term1</var> and <var>Term2</var> are 
+unified with <var>Name</var> for compatibility.
 
 <dl class="tags">
 <dt class="tag">Compatibility</dt>

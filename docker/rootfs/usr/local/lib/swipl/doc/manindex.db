@@ -1485,25 +1485,26 @@ i(/(prolog_choice_attribute,3),"Extract attributes of a choice point.",swi_man_m
 i(/(deterministic,1),"Unifies its argument with true if no choice point exists that is more recent than the entry of the clause in which it appears.",swi_man_manual('manipstack.html'),manual,11075).
 i(section(2,'4.21','sec:manipterm'),"Analysing and Constructing Terms",swi_man_manual('manipterm.html'),manual,3517).
 i(/(functor,3),"True when Term is a term with functor Name/Arity.",swi_man_manual('manipterm.html'),manual,3712).
-i(/(arg,3),"Term should be instantiated to a term, Arg to an integer between 1 and the arity of Term.",swi_man_manual('manipterm.html'),manual,5113).
-i(/(=..,2),"List is a list whose head is the functor of Term and the remaining arguments are the arguments of the term.",swi_man_manual('manipterm.html'),manual,6238).
-i(/(compound_name_arity,3),"Rationalized version of functor/3 that only works for compound terms and can examine and create compound terms with zero arguments (e.g, name()).",swi_man_manual('manipterm.html'),manual,7334).
-i(/(compound_name_arguments,3),"Rationalized version of =../2 that can compose and decompose compound terms with zero arguments.",swi_man_manual('manipterm.html'),manual,7884).
-i(/(numbervars,3),"Unify the free variables in Term with a term $VAR(N), where N is the number of the variable.",swi_man_manual('manipterm.html'),manual,8338).
-i(/(numbervars,4),"As numbervars/3, providing the following options: functor_name(+Atom)Name of the functor to use instead of $VAR.",swi_man_manual('manipterm.html'),manual,9804).
-i(/(var_number,2),"True if Term is numbered by numbervars/3 and VarNumber is the number given to this variable.",swi_man_manual('manipterm.html'),manual,11815).
-i(/(term_variables,2),"Unify List with a list of variables, each sharing with a unique variable of Term.",swi_man_manual('manipterm.html'),manual,12349).
-i(/(nonground,2),"True when Var is a variable in Term.",swi_man_manual('manipterm.html'),manual,13413).
-i(/(term_variables,3),"Difference list version of term_variables/2.",swi_man_manual('manipterm.html'),manual,14353).
-i(/(term_singletons,2),"Unify List with a list of variables, each sharing with a variable that appears only once in Term.",swi_man_manual('manipterm.html'),manual,14713).
-i(/(is_most_general_term,1),"True if Term is a callable term where all arguments are non-sharing variables or Term is a list whose members are all non-sharing variables.",swi_man_manual('manipterm.html'),manual,15539).
-i(/(copy_term,2),"Create a version of In with renamed (fresh) variables and unify it to Out.",swi_man_manual('manipterm.html'),manual,17107).
-i(section(3,'4.21.1','sec:setarg'),"Non-logical operations on terms",swi_man_manual('manipterm.html'),manual,18134).
-i(/(setarg,3),"Extra-logical predicate.",swi_man_manual('manipterm.html'),manual,18780).
-i(/(nb_setarg,3),"Assigns the Arg-th argument of the compound term Term with the given Value as setarg/3, but on backtracking the assignment is not reversed.",swi_man_manual('manipterm.html'),manual,20436).
-i(/(nb_linkarg,3),"As nb_setarg/3, but like nb_linkval/2 it does not duplicate Value.",swi_man_manual('manipterm.html'),manual,22246).
-i(/(duplicate_term,2),"Version of copy_term/2 that also copies ground terms and therefore ensures that destructive modification using setarg/3 does not affect the copy.",swi_man_manual('manipterm.html'),manual,22801).
-i(/(same_term,2),"True if T1 and T2 are equivalent and will remain equivalent, even if setarg/3 is used on either of them.",swi_man_manual('manipterm.html'),manual,23650).
+i(/(functor,4),"As functor/3, but designed to work with zero-arity terms (e.g., a(), see section 5).",swi_man_manual('manipterm.html'),manual,5209).
+i(/(arg,3),"Term should be instantiated to a term, Arg to an integer between 1 and the arity of Term.",swi_man_manual('manipterm.html'),manual,7106).
+i(/(=..,2),"List is a list whose head is the functor of Term and the remaining arguments are the arguments of the term.",swi_man_manual('manipterm.html'),manual,8231).
+i(/(compound_name_arity,3),"Version of functor/3 that only works for compound terms and can examine and create compound terms with zero arguments (e.g, name()).",swi_man_manual('manipterm.html'),manual,9327).
+i(/(compound_name_arguments,3),"Rationalized version of =../2 that can compose and decompose compound terms with zero arguments.",swi_man_manual('manipterm.html'),manual,9967).
+i(/(numbervars,3),"Unify the free variables in Term with a term $VAR(N), where N is the number of the variable.",swi_man_manual('manipterm.html'),manual,10421).
+i(/(numbervars,4),"As numbervars/3, providing the following options: functor_name(+Atom)Name of the functor to use instead of $VAR.",swi_man_manual('manipterm.html'),manual,11887).
+i(/(var_number,2),"True if Term is numbered by numbervars/3 and VarNumber is the number given to this variable.",swi_man_manual('manipterm.html'),manual,13898).
+i(/(term_variables,2),"Unify List with a list of variables, each sharing with a unique variable of Term.",swi_man_manual('manipterm.html'),manual,14432).
+i(/(nonground,2),"True when Var is a variable in Term.",swi_man_manual('manipterm.html'),manual,15496).
+i(/(term_variables,3),"Difference list version of term_variables/2.",swi_man_manual('manipterm.html'),manual,16436).
+i(/(term_singletons,2),"Unify List with a list of variables, each sharing with a variable that appears only once in Term.",swi_man_manual('manipterm.html'),manual,16796).
+i(/(is_most_general_term,1),"True if Term is a callable term where all arguments are non-sharing variables or Term is a list whose members are all non-sharing variables.",swi_man_manual('manipterm.html'),manual,17622).
+i(/(copy_term,2),"Create a version of In with renamed (fresh) variables and unify it to Out.",swi_man_manual('manipterm.html'),manual,19190).
+i(section(3,'4.21.1','sec:setarg'),"Non-logical operations on terms",swi_man_manual('manipterm.html'),manual,20217).
+i(/(setarg,3),"Extra-logical predicate.",swi_man_manual('manipterm.html'),manual,20863).
+i(/(nb_setarg,3),"Assigns the Arg-th argument of the compound term Term with the given Value as setarg/3, but on backtracking the assignment is not reversed.",swi_man_manual('manipterm.html'),manual,22519).
+i(/(nb_linkarg,3),"As nb_setarg/3, but like nb_linkval/2 it does not duplicate Value.",swi_man_manual('manipterm.html'),manual,24329).
+i(/(duplicate_term,2),"Version of copy_term/2 that also copies ground terms and therefore ensures that destructive modification using setarg/3 does not affect the copy.",swi_man_manual('manipterm.html'),manual,24884).
+i(/(same_term,2),"True if T1 and T2 are equivalent and will remain equivalent, even if setarg/3 is used on either of them.",swi_man_manual('manipterm.html'),manual,25733).
 i(section(2,'4.43','sec:memory'),"Memory Management",swi_man_manual('memory.html'),manual,3507).
 i(section(3,'4.43.1','sec:gc'),"Garbage collection",swi_man_manual('memory.html'),manual,3665).
 i(/(garbage_collect,0),"Invoke the global and trail stack garbage collector.",swi_man_manual('memory.html'),manual,3836).
@@ -2109,9 +2110,9 @@ i(/(subsumes,2),"True if Generic is unified to Specific without changing Specifi
 i(/(term_subsumer,3),"General is the most specific term that is a generalisation of Special1 and Special2.",swi_man_manual('terms.html'),manual,6030).
 i(/(term_factorized,3),"Is true when Skeleton is Term where all subterms that appear multiple times are replaced by a variable and Substitution is a list of Var=Value that provides the subterm at the location Var.",swi_man_manual('terms.html'),manual,6544).
 i(/(mapargs,3),"Term1 and Term2 have the same functor (name/arity) and for each matching pair of arguments call(Goal, A1, A2) is true.",swi_man_manual('terms.html'),manual,7185).
-i(/(same_functor,2),"True when Term1 and Term2 are compound terms that have the same functor (Name/Arity).",swi_man_manual('terms.html'),manual,7473).
-i(/(same_functor,3),"True when Term1 and Term2 are compound terms that have the same functor (Name/Arity).",swi_man_manual('terms.html'),manual,7473).
-i(/(same_functor,4),"True when Term1 and Term2 are compound terms that have the same functor (Name/Arity).",swi_man_manual('terms.html'),manual,7473).
+i(/(same_functor,2),"True when Term1 and Term2 are terms that have the same functor (Name/Arity).",swi_man_manual('terms.html'),manual,7473).
+i(/(same_functor,3),"True when Term1 and Term2 are terms that have the same functor (Name/Arity).",swi_man_manual('terms.html'),manual,7473).
+i(/(same_functor,4),"True when Term1 and Term2 are terms that have the same functor (Name/Arity).",swi_man_manual('terms.html'),manual,7473).
 i(section(2,'2.5','sec:theme'),"UI Themes",swi_man_manual('theme.html'),manual,3512).
 i(section(3,'2.5.1','sec:theme-status'),"Status of theme support",swi_man_manual('theme.html'),manual,5636).
 i(section(2,'10.2','sec:thmonitor'),"Monitoring threads",swi_man_manual('thmonitor.html'),manual,3529).
@@ -2323,6 +2324,58 @@ i(/(unicode_nfkd,2),"Characters are decomposed by compatibility equivalence.",sw
 i(/(unicode_nfkc,2),"Characters are decomposed by compatibility equivalence, then recomposed by canonical equivalence.",swi_man_packages('utf8proc.html'),packages,9729).
 i(/(unicode_property,2),"True if Property is defined for Char.",swi_man_packages('utf8proc.html'),packages,9993).
 i(section(2,'2','sec:utf8proc-license'),"License",swi_man_packages('utf8proc.html'),packages,11766).
+i(section(0,'0','packages/jpl.html'),"JPL: A bidirectional Prolog/Java interface",swi_man_packages('jpl.html'),packages,2794).
+i(section(3,'1','sec:jpl'),"library(jpl): A Java interface for SWI Prolog 7.x",swi_man_packages('jpl.html'),packages,3486).
+i(/(jpl_new,3),"X can be: an atomic classname, e.g.",swi_man_packages('jpl.html'),packages,3906).
+i(/(jpl_call,4),"X should be either an object reference, e.g.",swi_man_packages('jpl.html'),packages,5604).
+i(/(jpl_get,3),"X can be a classnameor a descriptoror an (object or array) type (for static fields)or a non-array object (for static and non-static fields)or an array (for’length' pseudo field, or indexed element retrieval) Fspec can be an atomic field nameor an integral array index (to get an element from an array)or a pair I-J of integers (to get a subrange of an array).",swi_man_packages('jpl.html'),packages,6979).
+i(/(jpl_set,3),"sets the Fspec-th field of (class or object) X to value V iff it is assignable X can be a class instance (for static or non-static fields)or an array (for indexed element or subrange assignment)or a classname, or a class(_,_) or array(_) type (for static fields)but not a String (no fields to retrieve) Fspec can be an atomic field name (overloading through shadowing has yet to be handled properly)or an array index I (X must be an array object: V is assigned to X[I])or a pair I-J of integers (X must be an array object, V must be a list of values: successive members of V are assigned to X[I..J]) V must be a suitable value or object.",swi_man_packages('jpl.html'),packages,7982).
+i(/(jpl_get_default_jvm_opts,1),"Returns (as a list of atoms) the options which will be passed to the JVM when it is initialised, e.g.",swi_man_packages('jpl.html'),packages,9060).
+i(/(jpl_set_default_jvm_opts,1),"Replaces the default JVM initialisation options with those supplied.",swi_man_packages('jpl.html'),packages,9380).
+i(/(jpl_get_actual_jvm_opts,1),"Returns (as a list of atoms) the options with which the JVM was initialised.",swi_man_packages('jpl.html'),packages,9644).
+i(/(jpl_pl_lib_version,1),"Version is the fully qualified version identifier of the in-use Prolog component (jpl.pl) of JPL.",swi_man_packages('jpl.html'),packages,10013).
+i(/(jpl_c_lib_version,1),"Version is the fully qualified version identifier of the in-use C component (jpl.c) of JPL.",swi_man_packages('jpl.html'),packages,10459).
+i(/(jpl_class_to_classname,2),"Class is a reference to a class object.",swi_man_packages('jpl.html'),packages,10908).
+i(/(jpl_class_to_type,2),"The Class is a reference to a (Java Universe) instance of java.lang.Class.",swi_man_packages('jpl.html'),packages,11613).
+i(/(jpl_classname_to_class,2),"EntityName is the entity name to be mapped to a class reference.",swi_man_packages('jpl.html'),packages,12220).
+i(/(jpl_entityname_to_type,2),"EntityName is the entity name (an atom) denoting a Java type, to be mapped to a JPL type.",swi_man_packages('jpl.html'),packages,12623).
+i(/(jpl_type_to_entityname,2),"This is the converse of jpl_entityname_to_type/2",swi_man_packages('jpl.html'),packages,14198).
+i(/(jpl_classname_to_type,2),"This is a wrapper around jpl_entityname_to_type/2 to keep the old exported predicate alive.",swi_man_packages('jpl.html'),packages,14473).
+i(/(jpl_type_to_classname,2),"This is a wrapper around jpl_type_to_entityname/2 to keep the old exported predicate alive.",swi_man_packages('jpl.html'),packages,15012).
+i(/(jpl_datum_to_type,2),"Datum must be a JPL representation of an instance of one (or more) Java types; Type is the unique most specialised type of which Datum denotes an instance; NB 3 is an instance of byte, char, short, int and long, of which byte and char are the joint, overlapping most specialised types, so this relates 3 to the pseudo subtype’char_byte'; See alsojpl_type_to_preferred_concrete_type/2 for converting inferred types to instantiable types",swi_man_packages('jpl.html'),packages,15551).
+i(/(jpl_object_to_class,2),"fails silently if Object is not a valid reference to a Java object Class is a (canonical) reference to the (canonical) class object which represents the class of Object NB what's the point of caching the type if we don't look there first?",swi_man_packages('jpl.html'),packages,16284).
+i(/(jpl_object_to_type,2),"Object must be a proper JPL reference to a Java object (i.e.",swi_man_packages('jpl.html'),packages,16726).
+i(/(jpl_primitive_type,1),"Type is an atomic JPL representation of one of Java's primitive types.",swi_man_packages('jpl.html'),packages,17066).
+i(/(jpl_ref_to_type,2),"Ref must be a proper JPL reference (to an object, null or void).",swi_man_packages('jpl.html'),packages,17511).
+i(/(jpl_type_to_class,2),"Type is the JPL type, a ground term designating a class or an array type.",swi_man_packages('jpl.html'),packages,17769).
+i(/(jpl_is_class,1),"True if Term is a JPL reference to an instance of java.lang.Class.",swi_man_packages('jpl.html'),packages,18143).
+i(/(jpl_is_false,1),"True if Term is @(false), the JPL representation of the Java boolean value’false'.",swi_man_packages('jpl.html'),packages,18359).
+i(/(jpl_is_null,1),"True if Term is @(null), the JPL representation of Java's’null' reference.",swi_man_packages('jpl.html'),packages,18598).
+i(/(jpl_is_object,1),"True if Term is a well-formed JPL object reference.",swi_man_packages('jpl.html'),packages,18827).
+i(/(jpl_is_object_type,1),"True if Term is an object (class or array) type, not e.g.",swi_man_packages('jpl.html'),packages,19080).
+i(/(jpl_is_ref,1),"True if Term is a well-formed JPL reference, either to a Java object or to Java's notional but important’null' non-object.",swi_man_packages('jpl.html'),packages,19314).
+i(/(jpl_is_true,1),"True if Term is @(true), the JPL representation of the Java boolean value’true'.",swi_man_packages('jpl.html'),packages,19576).
+i(/(jpl_is_type,1),"True if Term is a well-formed JPL type structure.",swi_man_packages('jpl.html'),packages,19811).
+i(/(jpl_is_void,1),"True if Term is @(void), the JPL representation of the pseudo Java value’void' (which is returned by jpl_call/4 when invoked on void methods).",swi_man_packages('jpl.html'),packages,19995).
+i(/(jpl_false,1),"X is @(false), the JPL representation of the Java boolean value’false'.",swi_man_packages('jpl.html'),packages,20419).
+i(/(jpl_null,1),"X is @(null), the JPL representation of Java's’null' reference.",swi_man_packages('jpl.html'),packages,20809).
+i(/(jpl_true,1),"X is @(true), the JPL representation of the Java boolean value’true'.",swi_man_packages('jpl.html'),packages,21187).
+i(/(jpl_void,1),"X is @(void), the JPL representation of the pseudo Java value’void'.",swi_man_packages('jpl.html'),packages,21571).
+i(/(jpl_array_to_length,2),"Array should be a JPL reference to a Java array of any type.",swi_man_packages('jpl.html'),packages,21954).
+i(/(jpl_array_to_list,2),"Array should be a JPL reference to a Java array of any type.",swi_man_packages('jpl.html'),packages,22419).
+i(/(jpl_datums_to_array,2),"A will be a JPL reference to a new Java array, whose base type is the most specific Java type of which each member of Datums is (directly or indirectly) an instance.",swi_man_packages('jpl.html'),packages,23052).
+i(/(jpl_enumeration_element,2),"Generates each Element from Enumeration.",swi_man_packages('jpl.html'),packages,23655).
+i(/(jpl_enumeration_to_list,2),"Enumeration should be a JPL reference to an object which implements the Enumeration interface.",swi_man_packages('jpl.html'),packages,24130).
+i(/(jpl_hashtable_pair,2),"Generates Key-Value pairs from the given HashTable.",swi_man_packages('jpl.html'),packages,24845).
+i(/(jpl_iterator_element,2),"Iterator should be a JPL reference to an object which implements the java.util.Iterator interface.",swi_man_packages('jpl.html'),packages,25316).
+i(/(jpl_list_to_array,2),"Datums should be a proper Prolog list of JPL datums (values or references).",swi_man_packages('jpl.html'),packages,25935).
+i(/(jpl_terms_to_array,2),"Terms should be a proper Prolog list of arbitrary terms.",swi_man_packages('jpl.html'),packages,26452).
+i(/(jpl_array_to_terms,2),"JRef should be a JPL reference to a Java array of org.jpl7.Term instances (or ots subtypes); Terms will be a list of the terms which the respective array elements represent.",swi_man_packages('jpl.html'),packages,26875).
+i(/(jpl_map_element,2),"Map must be a JPL Reference to an object which implements the java.util.Map interface This generates each Key-Value pair from the Map, e.g.",swi_man_packages('jpl.html'),packages,27235).
+i(/(jpl_set_element,2),"Set must be a JPL reference to an object which implements the java.util.Set interface.",swi_man_packages('jpl.html'),packages,28156).
+i(/(jpl_servlet_byref,3),"This serves the byref servlet demo, exemplifying one tactic for implementing a servlet in Prolog by accepting the Request and Response objects as JPL references and accessing their members via JPL as required; See alsojpl_servlet_byval/3",swi_man_packages('jpl.html'),packages,28730).
+i(/(jpl_servlet_byval,3),"This exemplifies an alternative (to jpl_servlet_byref) tactic for implementing a servlet in Prolog; most Request fields are extracted in Java before this is called, and passed in as a multimap (a map, some of whose values are maps).",swi_man_packages('jpl.html'),packages,29266).
+i(/(jpl_pl_syntax,1),"Unifies Syntax with’traditional' or’modern' according to the mode in which SWI Prolog 7.x was started",swi_man_packages('jpl.html'),packages,29673).
 i(section(0,'0','packages/pl2cpp.html'),"A C++ interface to SWI-Prolog",swi_man_packages('pl2cpp.html'),packages,2781).
 i(section(2,'1','sec:cpp-intro'),"Introduction",swi_man_packages('pl2cpp.html'),packages,8851).
 i(section(2,'2','sec:cpp-overview'),"Overview",swi_man_packages('pl2cpp.html'),packages,10018).
@@ -2621,10 +2674,10 @@ i(section(2,'10','sec:sgml-unsupported'),"Unsupported SGML features",swi_man_pac
 i(section(2,'11','sec:sgml-acknowledgements'),"Acknowledgements",swi_man_packages('sgml.html'),packages,108135).
 i(section(0,'0','packages/readline.html'),"SWI-Prolog binding to GNU readline",swi_man_packages('readline.html'),packages,2786).
 i(section(2,'1','sec:readline'),"library(readline): GNU readline interface",swi_man_packages('readline.html'),packages,3542).
-i(/(rl_read_init_file,1),"Read a GNU readline config file.",swi_man_packages('readline.html'),packages,4460).
-i(/(rl_add_history,1),"Add a line to the history.",swi_man_packages('readline.html'),packages,4705).
-i(/(rl_write_history,1),"Save the history to File.",swi_man_packages('readline.html'),packages,4896).
-i(/(rl_read_history,1),"Read a saved history from File.",swi_man_packages('readline.html'),packages,5212).
+i(/(rl_read_init_file,1),"Read a GNU readline config file.",swi_man_packages('readline.html'),packages,4466).
+i(/(rl_add_history,1),"Add a line to the history.",swi_man_packages('readline.html'),packages,4711).
+i(/(rl_write_history,1),"Save the history to File.",swi_man_packages('readline.html'),packages,4902).
+i(/(rl_read_history,1),"Read a saved history from File.",swi_man_packages('readline.html'),packages,5218).
 i(section(0,'0','packages/rdf2pl.html'),"SWI-Prolog RDF parser",swi_man_packages('rdf2pl.html'),packages,2772).
 i(section(2,'1','sec:rdfxml-intro'),"Introduction",swi_man_packages('rdf2pl.html'),packages,5024).
 i(section(2,'2','sec:rdfxml-parser'),"Parsing RDF in Prolog",swi_man_packages('rdf2pl.html'),packages,6685).
@@ -3031,83 +3084,89 @@ i(/(rdf_read_turtle,3),"Read a stream or file into a set of triples or quadruple
 i(/(rdf_load_turtle,3),"deprecatedUse rdf_read_turtle/3",swi_man_packages('semweb.html'),packages,166717).
 i(/(rdf_process_turtle,3),"Streaming Turtle parser.",swi_man_packages('semweb.html'),packages,167008).
 i(/('rdf_db:rdf_load_stream',3),"(Turtle clauses)",swi_man_packages('semweb.html'),packages,168432).
-i(/(rdf_save_trig,2),"Save multiple RDF graphs into a TriG file.",swi_man_packages('semweb.html'),packages,168687).
-i(/(rdf_save_canonical_turtle,2),"Save triples in a canonical format.",swi_man_packages('semweb.html'),packages,169371).
-i(/(rdf_save_turtle,2),"Save an RDF graph as Turtle.",swi_man_packages('semweb.html'),packages,170218).
-i(/(rdf_save_ntriples,2),"Save RDF using ntriples format.",swi_man_packages('semweb.html'),packages,174545).
-i(/(rdf_save_canonical_trig,2),"Save triples in a canonical format.",swi_man_packages('semweb.html'),packages,174855).
-i(section(2,'6','sec:rdfntriples'),"library(semweb/rdf_ntriples): Process files in the RDF N-Triples format",swi_man_packages('semweb.html'),packages,175198).
-i(/(read_ntriple,2),"Read the next triple from Stream as Triple.",swi_man_packages('semweb.html'),packages,176247).
-i(/(read_nquad,2),"Read the next quad from Stream as Quad.",swi_man_packages('semweb.html'),packages,176989).
-i(/(read_ntuple,2),"Read the next triple or quad from Stream as Tuple.",swi_man_packages('semweb.html'),packages,177721).
-i(/(rdf_read_ntriples,3),"True when Triples/Quads is a list of triples/quads from Input.",swi_man_packages('semweb.html'),packages,178280).
-i(/(rdf_read_nquads,3),"True when Triples/Quads is a list of triples/quads from Input.",swi_man_packages('semweb.html'),packages,178280).
-i(/(rdf_process_ntriples,3),"Call-back interface, compatible with the other triple readers.",swi_man_packages('semweb.html'),packages,180053).
-i(/('rdf_db:rdf_load_stream',3),"Plugin rule that supports loading the ntriples and nquads formats.",swi_man_packages('semweb.html'),packages,180742).
-i(/('rdf_db:rdf_file_type',2),"Bind the ntriples reader to files with the extensions nt, ntriples and nquads.",swi_man_packages('semweb.html'),packages,181082).
-i(section(2,'7','sec:rdfa'),"library(semweb/rdfa): Extract RDF from an HTML or XML DOM",swi_man_packages('semweb.html'),packages,181438).
-i(/(read_rdfa,3),"True when Triples is a list of rdf(S,P,O) triples extracted from Input.",swi_man_packages('semweb.html'),packages,182374).
-i(/(xml_rdfa,3),"True when RDF is a list of rdf(S,P,O) terms extracted from DOM according to the RDFa specification.",swi_man_packages('semweb.html'),packages,183067).
-i(/('rdf_db:rdf_load_stream',3),"Register library(semweb/rdfa) as loader for HTML RDFa files.",swi_man_packages('semweb.html'),packages,183996).
-i(section(2,'8','sec:rdfs'),"library(semweb/rdfs): RDFS related queries",swi_man_packages('semweb.html'),packages,184480).
-i(section(3,'8.1','sec:semweb-rdfs-classes'),"Hierarchy and class-individual relations",swi_man_packages('semweb.html'),packages,185844).
-i(/(rdfs_subproperty_of,2),"True if SubProperty is equal to Property or Property can be reached from SubProperty following the rdfs:subPropertyOf relation.",swi_man_packages('semweb.html'),packages,186384).
-i(/(rdfs_subclass_of,2),"True if SubClass is equal to Class or Class can be reached from SubClass following the rdfs:subClassOf relation.",swi_man_packages('semweb.html'),packages,187297).
-i(/(rdfs_class_property,2),"True if the domain of Property includes Class.",swi_man_packages('semweb.html'),packages,187794).
-i(/(rdfs_individual_of,2),"True if Resource is an indivisual of Class.",swi_man_packages('semweb.html'),packages,188071).
-i(section(3,'8.2','sec:semweb-rdfs-containers'),"Collections and Containers",swi_man_packages('semweb.html'),packages,188552).
-i(/(rdfs_member,2),"Test or generate the members of Set.",swi_man_packages('semweb.html'),packages,189007).
-i(/(rdfs_list_to_prolog_list,2),"Convert Set, which must be an individual of rdf:List into a Prolog list of objects.",swi_man_packages('semweb.html'),packages,189286).
-i(/(rdfs_assert_list,2),"Equivalent to rdfs_assert_list/3 using DB = user.",swi_man_packages('semweb.html'),packages,189551).
-i(/(rdfs_assert_list,3),"If List is a list of resources, create an RDF list Resource that reflects these resources.",swi_man_packages('semweb.html'),packages,189853).
-i(section(2,'9','sec:rdflib'),"Managing RDF input files",swi_man_packages('semweb.html'),packages,190341).
-i(section(3,'9.1','sec:semweb-rdf-manifest'),"The Manifest file",swi_man_packages('semweb.html'),packages,191321).
-i(section(4,'9.1.1','sec:semweb-void'),"Support for the VoID and VANN vocabularies",swi_man_packages('semweb.html'),packages,195583).
-i(section(4,'9.1.2','sec:semweb-find-manifest'),"Finding manifest files",swi_man_packages('semweb.html'),packages,197612).
-i(/(rdf_attach_library,1),"Load meta-data on RDF repositories from FileOrDirectory.",swi_man_packages('semweb.html'),packages,197995).
-i(/(rdf_list_library,0),"List the available resources in the library.",swi_man_packages('semweb.html'),packages,198937).
-i(/(rdf_list_library,1),"Same as rdf_list_library(Id,[]).",swi_man_packages('semweb.html'),packages,200017).
-i(/(rdf_list_library,2),"Lists the resources that will be loaded if Id is handed to rdf_load_library/2.",swi_man_packages('semweb.html'),packages,200194).
-i(/(rdf_load_library,2),"Load the given library.",swi_man_packages('semweb.html'),packages,201065).
-i(section(3,'9.2','sec:usage'),"Usage scenarios",swi_man_packages('semweb.html'),packages,201465).
-i(section(4,'9.2.1','sec:semweb-manifest-resources'),"Referencing resources",swi_man_packages('semweb.html'),packages,204414).
-i(section(3,'9.3','sec:semweb-rdflib-example'),"Putting it all together",swi_man_packages('semweb.html'),packages,206854).
-i(section(3,'9.4','sec:w3cmanifest'),"Example: A metadata file for W3C WordNet",swi_man_packages('semweb.html'),packages,208116).
-i(section(2,'10','sec:sparqlclient'),"library(semweb/sparql_client): SPARQL client library",swi_man_packages('semweb.html'),packages,211895).
-i(/(sparql_query,3),"Execute a SPARQL query on an HTTP SPARQL endpoint.",swi_man_packages('semweb.html'),packages,212961).
-i(/(sparql_set_server,1),"Set sparql server default options.",swi_man_packages('semweb.html'),packages,215527).
-i(/(sparql_read_xml_result,2),"Specs from http://www.w3.org/TR/rdf-sparql-XMLres/.",swi_man_packages('semweb.html'),packages,215999).
-i(/(sparql_read_json_result,2),"The returned Result term is of the format: select(VarNames, Rows)Where VarNames is a term v(Name, ...) and Rows is a list of row(....) containing the column values in the same order as the variable names.",swi_man_packages('semweb.html'),packages,216780).
-i(section(2,'11','sec:rdfcompare'),"library(semweb/rdf_compare): Compare RDF graphs",swi_man_packages('semweb.html'),packages,217664).
-i(/(rdf_equal_graphs,3),"True if GraphA and GraphB are the same under Substition.",swi_man_packages('semweb.html'),packages,218239).
-i(section(2,'12','sec:rdfportray'),"library(semweb/rdf_portray): Portray RDF resources",swi_man_packages('semweb.html'),packages,219237).
-i(/(rdf_portray_as,1),"Set the style used to portray resources.",swi_man_packages('semweb.html'),packages,220311).
-i(/(rdf_portray_lang,1),"If Lang is a list, set the list or preferred languages.",swi_man_packages('semweb.html'),packages,221238).
-i(section(2,'13','sec:semweb-related-packages'),"Related packages",swi_man_packages('semweb.html'),packages,221560).
-i(section(2,'14','sec:semweb-version3'),"Version 3 release notes",swi_man_packages('semweb.html'),packages,222556).
+i(/(rdf_save_ntriples,2),"Save RDF using ntriples format.",swi_man_packages('semweb.html'),packages,168687).
+i(/(rdf_save_canonical_trig,2),"Save triples in a canonical format.",swi_man_packages('semweb.html'),packages,168997).
+i(/(rdf_save_trig,2),"Save multiple RDF graphs into a TriG file.",swi_man_packages('semweb.html'),packages,169329).
+i(/(rdf_save_canonical_turtle,2),"Save triples in a canonical format.",swi_man_packages('semweb.html'),packages,170013).
+i(/(rdf_save_turtle,2),"Save an RDF graph as Turtle.",swi_man_packages('semweb.html'),packages,170860).
+i(section(2,'6','sec:rdfntriples'),"library(semweb/rdf_ntriples): Process files in the RDF N-Triples format",swi_man_packages('semweb.html'),packages,175197).
+i(/(read_ntriple,2),"Read the next triple from Stream as Triple.",swi_man_packages('semweb.html'),packages,176246).
+i(/(read_nquad,2),"Read the next quad from Stream as Quad.",swi_man_packages('semweb.html'),packages,176988).
+i(/(read_ntuple,2),"Read the next triple or quad from Stream as Tuple.",swi_man_packages('semweb.html'),packages,177720).
+i(/(rdf_read_ntriples,3),"True when Triples/Quads is a list of triples/quads from Input.",swi_man_packages('semweb.html'),packages,178279).
+i(/(rdf_read_nquads,3),"True when Triples/Quads is a list of triples/quads from Input.",swi_man_packages('semweb.html'),packages,178279).
+i(/(rdf_process_ntriples,3),"Call-back interface, compatible with the other triple readers.",swi_man_packages('semweb.html'),packages,180052).
+i(/('rdf_db:rdf_load_stream',3),"Plugin rule that supports loading the ntriples and nquads formats.",swi_man_packages('semweb.html'),packages,180741).
+i(/('rdf_db:rdf_file_type',2),"Bind the ntriples reader to files with the extensions nt, ntriples and nquads.",swi_man_packages('semweb.html'),packages,181081).
+i(section(2,'7','sec:rdfa'),"library(semweb/rdfa): Extract RDF from an HTML or XML DOM",swi_man_packages('semweb.html'),packages,181437).
+i(/(read_rdfa,3),"True when Triples is a list of rdf(S,P,O) triples extracted from Input.",swi_man_packages('semweb.html'),packages,182373).
+i(/(xml_rdfa,3),"True when RDF is a list of rdf(S,P,O) terms extracted from DOM according to the RDFa specification.",swi_man_packages('semweb.html'),packages,183066).
+i(/('rdf_db:rdf_load_stream',3),"Register library(semweb/rdfa) as loader for HTML RDFa files.",swi_man_packages('semweb.html'),packages,183995).
+i(section(2,'8','sec:rdfs'),"library(semweb/rdfs): RDFS related queries",swi_man_packages('semweb.html'),packages,184479).
+i(section(3,'8.1','sec:semweb-rdfs-classes'),"Hierarchy and class-individual relations",swi_man_packages('semweb.html'),packages,185843).
+i(/(rdfs_subproperty_of,2),"True if SubProperty is equal to Property or Property can be reached from SubProperty following the rdfs:subPropertyOf relation.",swi_man_packages('semweb.html'),packages,186383).
+i(/(rdfs_subclass_of,2),"True if SubClass is equal to Class or Class can be reached from SubClass following the rdfs:subClassOf relation.",swi_man_packages('semweb.html'),packages,187296).
+i(/(rdfs_class_property,2),"True if the domain of Property includes Class.",swi_man_packages('semweb.html'),packages,187793).
+i(/(rdfs_individual_of,2),"True if Resource is an indivisual of Class.",swi_man_packages('semweb.html'),packages,188070).
+i(section(3,'8.2','sec:semweb-rdfs-containers'),"Collections and Containers",swi_man_packages('semweb.html'),packages,188551).
+i(/(rdfs_member,2),"Test or generate the members of Set.",swi_man_packages('semweb.html'),packages,189006).
+i(/(rdfs_list_to_prolog_list,2),"Convert Set, which must be an individual of rdf:List into a Prolog list of objects.",swi_man_packages('semweb.html'),packages,189285).
+i(/(rdfs_assert_list,2),"Equivalent to rdfs_assert_list/3 using DB = user.",swi_man_packages('semweb.html'),packages,189550).
+i(/(rdfs_assert_list,3),"If List is a list of resources, create an RDF list Resource that reflects these resources.",swi_man_packages('semweb.html'),packages,189852).
+i(section(2,'9','sec:rdflib'),"Managing RDF input files",swi_man_packages('semweb.html'),packages,190340).
+i(section(3,'9.1','sec:semweb-rdf-manifest'),"The Manifest file",swi_man_packages('semweb.html'),packages,191320).
+i(section(4,'9.1.1','sec:semweb-void'),"Support for the VoID and VANN vocabularies",swi_man_packages('semweb.html'),packages,195582).
+i(section(4,'9.1.2','sec:semweb-find-manifest'),"Finding manifest files",swi_man_packages('semweb.html'),packages,197611).
+i(/(rdf_attach_library,1),"Load meta-data on RDF repositories from FileOrDirectory.",swi_man_packages('semweb.html'),packages,197994).
+i(/(rdf_list_library,0),"List the available resources in the library.",swi_man_packages('semweb.html'),packages,198936).
+i(/(rdf_list_library,1),"Same as rdf_list_library(Id,[]).",swi_man_packages('semweb.html'),packages,200016).
+i(/(rdf_list_library,2),"Lists the resources that will be loaded if Id is handed to rdf_load_library/2.",swi_man_packages('semweb.html'),packages,200193).
+i(/(rdf_load_library,2),"Load the given library.",swi_man_packages('semweb.html'),packages,201064).
+i(section(3,'9.2','sec:usage'),"Usage scenarios",swi_man_packages('semweb.html'),packages,201464).
+i(section(4,'9.2.1','sec:semweb-manifest-resources'),"Referencing resources",swi_man_packages('semweb.html'),packages,204413).
+i(section(3,'9.3','sec:semweb-rdflib-example'),"Putting it all together",swi_man_packages('semweb.html'),packages,206853).
+i(section(3,'9.4','sec:w3cmanifest'),"Example: A metadata file for W3C WordNet",swi_man_packages('semweb.html'),packages,208115).
+i(section(2,'10','sec:sparqlclient'),"library(semweb/sparql_client): SPARQL client library",swi_man_packages('semweb.html'),packages,211894).
+i(/(sparql_query,3),"Execute a SPARQL query on an HTTP SPARQL endpoint.",swi_man_packages('semweb.html'),packages,212960).
+i(/(sparql_set_server,1),"Set sparql server default options.",swi_man_packages('semweb.html'),packages,215526).
+i(/(sparql_read_xml_result,2),"Specs from http://www.w3.org/TR/rdf-sparql-XMLres/.",swi_man_packages('semweb.html'),packages,215998).
+i(/(sparql_read_json_result,2),"The returned Result term is of the format: select(VarNames, Rows)Where VarNames is a term v(Name, ...) and Rows is a list of row(....) containing the column values in the same order as the variable names.",swi_man_packages('semweb.html'),packages,216779).
+i(section(2,'11','sec:rdfcompare'),"library(semweb/rdf_compare): Compare RDF graphs",swi_man_packages('semweb.html'),packages,217663).
+i(/(rdf_equal_graphs,3),"True if GraphA and GraphB are the same under Substition.",swi_man_packages('semweb.html'),packages,218238).
+i(section(2,'12','sec:rdfportray'),"library(semweb/rdf_portray): Portray RDF resources",swi_man_packages('semweb.html'),packages,219236).
+i(/(rdf_portray_as,1),"Set the style used to portray resources.",swi_man_packages('semweb.html'),packages,220310).
+i(/(rdf_portray_lang,1),"If Lang is a list, set the list or preferred languages.",swi_man_packages('semweb.html'),packages,221237).
+i(section(2,'13','sec:semweb-related-packages'),"Related packages",swi_man_packages('semweb.html'),packages,221559).
+i(section(2,'14','sec:semweb-version3'),"Version 3 release notes",swi_man_packages('semweb.html'),packages,222555).
 i(section(0,'0','packages/protobufs.html'),"Google's Protocol Buffers Library",swi_man_packages('protobufs.html'),packages,2785).
 i(section(2,'1','sec:protobufs-main'),"Google's Protocol Buffers",swi_man_packages('protobufs.html'),packages,6719).
 i(section(3,'1.1','sec:protobufs-overview'),"Overview",swi_man_packages('protobufs.html'),packages,6898).
-i(section(3,'1.2','sec:protobufs-swipl'),"The SWI-Prolog Implementation",swi_man_packages('protobufs.html'),packages,8366).
-i(section(3,'1.3','sec:protobufs-wire-types'),"Wiretypes",swi_man_packages('protobufs.html'),packages,9661).
-i(section(3,'1.4','sec:protobufs-tags'),"Tags",swi_man_packages('protobufs.html'),packages,12299).
-i(section(3,'1.5','sec:protobufs-basic-usage'),"Basic Usage",swi_man_packages('protobufs.html'),packages,12821).
-i(section(3,'1.6','sec:protobufs-aaee'),"Alternation, Aggregation, Encapsulation, and Enumeration",swi_man_packages('protobufs.html'),packages,14641).
-i(section(4,'1.6.1','sec:protobufs-alternation'),"Alternation",swi_man_packages('protobufs.html'),packages,14855).
-i(section(4,'1.6.2','sec:protobufs-aggregation'),"Aggregation",swi_man_packages('protobufs.html'),packages,15472).
-i(section(4,'1.6.3','sec:protobufs-encapsulation'),"Encapsulation and Enumeration",swi_man_packages('protobufs.html'),packages,16985).
-i(section(4,'1.6.4','sec:protobufs-heterogeneous'),"Heterogeneous Collections",swi_man_packages('protobufs.html'),packages,19309).
-i(section(3,'1.7','sec:protobufs-groups'),"Groups (deprecated)",swi_man_packages('protobufs.html'),packages,20314).
-i(section(3,'1.8','sec:protobufs-advanced'),"Advanced Topics",swi_man_packages('protobufs.html'),packages,20904).
-i(section(4,'1.8.1','sec:protobufs-precompiled'),"Precompiled Messages",swi_man_packages('protobufs.html'),packages,21085).
-i(section(4,'1.8.2','sec:protobufs-user-types'),"Supplying Your Own Host Type Message Sequences",swi_man_packages('protobufs.html'),packages,22540).
-i(section(2,'2','sec:protobufs-appendix'),"Appendix",swi_man_packages('protobufs.html'),packages,23402).
-i(section(3,'2.1','sec:protobufs-ex-xml'),"Example: A Simple XML Like Structure",swi_man_packages('protobufs.html'),packages,23571).
+i(section(3,'1.2','sec:protobufs-swipl'),"The SWI-Prolog Implementation",swi_man_packages('protobufs.html'),packages,8360).
+i(section(3,'1.3','sec:protobufs-wire-types'),"Wiretypes",swi_man_packages('protobufs.html'),packages,9633).
+i(section(3,'1.4','sec:protobufs-tags'),"Tags",swi_man_packages('protobufs.html'),packages,12322).
+i(section(3,'1.5','sec:protobufs-basic-usage'),"Basic Usage",swi_man_packages('protobufs.html'),packages,12844).
+i(section(3,'1.6','sec:protobufs-aaee'),"Alternation, Aggregation, Encapsulation, and Enumeration",swi_man_packages('protobufs.html'),packages,15078).
+i(section(4,'1.6.1','sec:protobufs-alternation'),"Alternation",swi_man_packages('protobufs.html'),packages,15292).
+i(section(4,'1.6.2','sec:protobufs-aggregation'),"Aggregation",swi_man_packages('protobufs.html'),packages,15909).
+i(section(4,'1.6.3','sec:protobufs-encapsulation'),"Encapsulation and Enumeration",swi_man_packages('protobufs.html'),packages,17433).
+i(section(4,'1.6.4','sec:protobufs-heterogeneous'),"Heterogeneous Collections",swi_man_packages('protobufs.html'),packages,19711).
+i(section(3,'1.7','sec:protobufs-groups'),"Groups (deprecated)",swi_man_packages('protobufs.html'),packages,20716).
+i(section(3,'1.8','sec:protobufs-advanced'),"Advanced Topics",swi_man_packages('protobufs.html'),packages,21306).
+i(section(4,'1.8.1','sec:protobufs-precompiled'),"Precompiled Messages",swi_man_packages('protobufs.html'),packages,21487).
+i(section(4,'1.8.2','sec:protobufs-user-types'),"Supplying Your Own Host Type Message Sequences",swi_man_packages('protobufs.html'),packages,22865).
+i(section(2,'2','sec:protobufs-appendix'),"Appendix",swi_man_packages('protobufs.html'),packages,23735).
+i(section(3,'2.1','sec:protobufs-ex-xml'),"Example: A Simple XML Like Structure",swi_man_packages('protobufs.html'),packages,23904).
 i(section(3,'2.2','sec:protobufs-ex-vector-of-numbers'),"Example: Vectors of Numbers",swi_man_packages('protobufs.html'),packages,28387).
-i(section(3,'2.3','sec:protobufs-ex-heterogeneous'),"Example: Heterogeneous Collections",swi_man_packages('protobufs.html'),packages,30928).
-i(section(2,'3','sec:protobufs'),"library(protobufs): Google's Protocol Buffers",swi_man_packages('protobufs.html'),packages,33017).
-i(/(protobuf_message,2),"Marshalls and unmarshalls byte streams encoded using Google's Protobuf grammars.",swi_man_packages('protobufs.html'),packages,35431).
-i(/(protobuf_message,3),"Marshalls and unmarshalls byte streams encoded using Google's Protobuf grammars.",swi_man_packages('protobufs.html'),packages,35431).
+i(section(3,'2.3','sec:protobufs-ex-heterogeneous'),"Example: Heterogeneous Collections",swi_man_packages('protobufs.html'),packages,30868).
+i(section(2,'3','sec:protobufs'),"library(protobufs): Google's Protocol Buffers",swi_man_packages('protobufs.html'),packages,32953).
+i(/(protobuf_message,2),"Marshals and unmarshals byte streams encoded using Google's Protobuf grammars.",swi_man_packages('protobufs.html'),packages,35885).
+i(/(protobuf_message,3),"Marshals and unmarshals byte streams encoded using Google's Protobuf grammars.",swi_man_packages('protobufs.html'),packages,35885).
+i(/(protobuf_segment_message,2),"Low level marshalling and unmarshalling of byte streams.",swi_man_packages('protobufs.html'),packages,37535).
+i(/(protobuf_segment_convert,2),"A convenience predicate for dealing with the situation where protobuf_segment_message/2 interprets a segment of the wire stream as a form that you don't want (e.g., as a message but it should have been a UTF8 string).",swi_man_packages('protobufs.html'),packages,42060).
+i(/(float32_codes,2),"Convert between a 32-bit floating point value and its wirestream codes.",swi_man_packages('protobufs.html'),packages,43565).
+i(/(int64_codes,2),"Convert between a 64-bit integer value and its wirestream codes.",swi_man_packages('protobufs.html'),packages,43978).
+i(/(float64_codes,2),"Convert between a 64-bit floating point value and its wirestream codes.",swi_man_packages('protobufs.html'),packages,44367).
+i(/(integer_zigzag,2),"Convert between an integer value and its zigzag encoding Original an integer in the original form Encoded the zigzag encoding of Original",swi_man_packages('protobufs.html'),packages,44780).
 i(section(0,'0','packages/cql.html'),"Constraint Query Language A high level interface to SQL databases",swi_man_packages('cql.html'),packages,2817).
 i(section(2,'1','sec:cql'),"library(cql/cql): CQL - Constraint Query Language",swi_man_packages('cql.html'),packages,13967).
 i(section(3,'1.1','sec:cql-warnings'),"Warnings from CQL",swi_man_packages('cql.html'),packages,14576).

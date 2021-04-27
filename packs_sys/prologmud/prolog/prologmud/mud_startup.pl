@@ -291,4 +291,5 @@ start_runtime_mud:-
 :- add_history(baseKB:lst).
 :- add_history(logicmoo_i_cyc_xform).
 
+:- fixup_exports.
 

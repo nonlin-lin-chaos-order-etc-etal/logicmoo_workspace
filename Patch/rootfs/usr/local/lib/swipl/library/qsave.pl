@@ -6,7 +6,7 @@
     Copyright (c)  1995-2020, University of Amsterdam
                               VU University Amsterdam
                               CWI, Amsterdam
-    all rights reserved.
+    All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions
@@ -267,6 +267,7 @@ doption(init_file).
 doption(system_init_file).
 doption(class).
 doption(home).
+doption(nosignals).
 
 %!  save_options(+ArchiveHandle, +SaveClass, +Options)
 %

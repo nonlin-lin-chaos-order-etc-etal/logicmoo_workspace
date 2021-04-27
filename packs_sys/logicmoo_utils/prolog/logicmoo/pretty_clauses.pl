@@ -239,7 +239,7 @@ pprint_ec_and_f(C, P, AndF):-
   echo_format(AndF))), !,
   ttyflush.
 
-user:portray(Term):- \+ current_prolog_flag(debug,true), \+ tracing, ec_portray_hook(Term).
+user:portray(Term):- fail, \+ current_prolog_flag(debug,true), \+ tracing, ec_portray_hook(Term).
 
 /*
 without_ec_portray_hook(Goal):-

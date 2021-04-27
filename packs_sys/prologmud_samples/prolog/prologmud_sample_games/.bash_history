@@ -672,3 +672,28 @@ rm  /etc/ros/rosdep/sources.list.d/20-default.list
 . /opt/ros/eloquent/setup.bash
 ps axf
 cat /etc/passwd
+ls
+./StartMUD.sh 
+screen -r
+screen -rx
+vi  /opt/logicmoo_workspace/lib/swipl/boot/autoload.pl 
+cd /tmp/
+ls
+cd tempDir/
+ls
+rm -rf akill*
+rm -rf a???
+rm -rf a??
+rm -rf a?
+ls
+ls
+ls
+./akill266 
+ls
+ls
+ls
+ls
+ls
+./akill297
+ps axf
+exit

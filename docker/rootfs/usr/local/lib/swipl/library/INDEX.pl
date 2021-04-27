@@ -196,11 +196,6 @@ index((test_installation), 0, check_installation, check_installation).
 index((test_installation), 1, check_installation, check_installation).
 index((check_old_last), 0, checklast, checklast).
 index((check_old_select), 0, checkselect, checkselect).
-index((chr_show_store), 1, chr, chr).
-index((find_chr_constraint), 1, chr, chr).
-index((chr_trace), 0, chr, chr).
-index((chr_notrace), 0, chr, chr).
-index((chr_leash), 1, chr, chr).
 index((format_to_codes), 3, codesio, codesio).
 index((format_to_codes), 4, codesio, codesio).
 index((write_to_codes), 2, codesio, codesio).
@@ -882,6 +877,12 @@ index((xref_used_class), 2, prolog_xref, prolog_xref).
 index((xref_defined_class), 3, prolog_xref, prolog_xref).
 index((protobuf_message), 2, protobufs, protobufs).
 index((protobuf_message), 3, protobufs, protobufs).
+index((protobuf_segment_message), 2, protobufs, protobufs).
+index((protobuf_segment_convert), 2, protobufs, protobufs).
+index((float32_codes), 2, protobufs, protobufs).
+index((int64_codes), 2, protobufs, protobufs).
+index((float64_codes), 2, protobufs, protobufs).
+index((integer_zigzag), 2, protobufs, protobufs).
 index((phrase_from_file), 2, pure_input, pure_input).
 index((phrase_from_file), 3, pure_input, pure_input).
 index((phrase_from_stream), 2, pure_input, pure_input).

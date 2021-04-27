@@ -21,7 +21,7 @@ W:\opt\logicmoo_workspace\packs_sys\logicmoo_utils\prolog;W:\opt\logicmoo_worksp
 
 
 */
-:- set_prolog_flag(xpce, false).
+%:- set_prolog_flag(xpce, false).
 
 
 pre_run_mud_server:-
@@ -375,6 +375,11 @@ baseKB:':-'(ConsqIn):- throw(':-'(ConsqIn)).
    (4)   /etc/xdg/swi-prolog/pack
 
 */
+:- multifile(html_write:html_meta/1).
+:- dynamic(html_write:html_meta/1).
+
+:-  use_module(library(prolog_autoload)).
+:-  use_module(library(qsave)).
 
 keep_user_module(Goal):- 
    setup_call_cleanup('$current_typein_module'(WasTIM), 
@@ -409,7 +414,23 @@ load_before_compile_now:-
    webui_load_swish_and_clio,   
    add_hist(start_network). 
 
+:- set_prolog_flag(check_memory,false).
+:- set_prolog_flag(debug,true). 
+:- set_prolog_flag(report_error,true). 
+:- set_prolog_flag(verbose_load,true). 
+:- set_prolog_flag(debug_on_error,true). 
+
+:- use_module(library(qsave)).
+check_memory(_):- current_prolog_flag(check_memory,false),!.
+check_memory(_):- \+ current_prolog_flag(check_memory,true),!.
 check_memory(G):-
+  set_prolog_flag(debug,true),
+  set_prolog_flag(report_error,true),
+  set_prolog_flag(debug_on_error,true),
+  prolog_load_context(file,Y),
+  writeln(prolog_load_context(file,Y)),
+  gensym(akill,X),
+  qsave_program(X),
   catch(process_create(path(true), [], []),
     error(resource_error(no_memory),_),
      (dumpST,wdmsg(no_memory(after,G)),break)).
@@ -436,6 +457,7 @@ start_network_now:-
    egg_go,   
    webui_start_swish_and_clio,
    threads,statistics]),
+  set_prolog_flag(check_memory,true),
    !.
 
 load_rest:- keep_user_module(load_rest_now).
@@ -778,7 +800,6 @@ start_all :- keep_user_module((start_network, start_rest)).
 :- meta_predicate xml_reader:immediateCall(*,0).
 
 % swish_highlight:lazy_read_lines
-
 
 :- if( current_prolog_flag(xpce, true) ).
 %:- noguitracer, tnodebug.

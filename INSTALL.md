@@ -1,8 +1,18 @@
-#!/bin/bash
+#!/bin/bash -x
+
+function MAINTAINER {
+ echo SKIPPING: $*
+}
+function RUN {
+ echo RUNing: $*
+ $*
+}
+
+set +e
 
 if [[ $EUID -ne 0 ]]; then
    echo "#* "
-   echo -e "\e[1;31mERROR This script must be run as root. \e[0m"
+   echo -e "\e[1;31mERROR This script ${BASH_SOURCE[0]} must be run as root. \e[0m"
    echo "#* "
    return 1 2>/dev/null
    exit 1
@@ -12,7 +22,6 @@ fi
 mkdir -p /usr/share/man/man1
 
 DIR0="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-DIR0=/opt/logicmoo_workspace
 
 (
 cd $DIR0
@@ -119,9 +128,9 @@ else
 (cd $LOGICMOO_WS && ./INSTALL-SWI.md)
 fi
 
-echo "copying config RC's into /root/"
+RUN echo "copying config RC's into /root/"
 # set up our runtime stuff (give root better shell stuff and our likely history commands)
-cp -n $LOGICMOO_GAMES/.??*rc ~root/ \
+MAINTAINER cp -n $LOGICMOO_GAMES/.??*rc ~root/ \
  ; cp -n $LOGICMOO_GAMES/.bash* ~root/ \
  ; cp -n $LOGICMOO_GAMES/.profile* ~root/ \
 

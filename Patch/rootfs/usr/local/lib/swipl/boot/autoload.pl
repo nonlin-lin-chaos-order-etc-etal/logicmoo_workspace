@@ -517,7 +517,7 @@ system:term_expansion((:- autoload_path(Alias)),
         'safe_autoload3'(PI),
         restore_sandbox(Old)).
 
-safe_autoload3( M_22058:_22064/0):-  \+ ground(M_22058),!.
+safe_autoload3(M:_/_):-  \+ ground(M),!.
 safe_autoload3(PI) :- '$autoload3'(PI).
 
 leave_sandbox(Sandboxed) :-
