@@ -514,8 +514,11 @@ system:term_expansion((:- autoload_path(Alias)),
 '$autoload2'(PI) :-
     setup_call_cleanup(
         leave_sandbox(Old),
-        '$autoload3'(PI),
+        'safe_autoload3'(PI),
         restore_sandbox(Old)).
+
+safe_autoload3(M:_/_):-  \+ ground(M),!.
+safe_autoload3(PI) :- '$autoload3'(PI).
 
 leave_sandbox(Sandboxed) :-
     current_prolog_flag(sandboxed_load, Sandboxed),
@@ -952,3 +955,4 @@ comma_list((A,B)) -->
     comma_list(B).
 comma_list(A) -->
     [A].
+

@@ -277,7 +277,7 @@ known_module(M:_, _) :-
 known_module(_,_):- current_prolog_flag(no_sandbox, true), !, fail.    
 known_module(M:G, Parents) :-
     do_permission_error(call, sandboxed, M:G,
-                sandbox(M:G, Parents).
+                sandbox(M:G, Parents)).
 
 add_iso_parent(G, Parents, Parents) :-
     is_control(G),

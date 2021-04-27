@@ -174,7 +174,7 @@ declared_advstate(Fact):- get_advstate(State), declared(Fact, State).
 update_agent_model_props(Agent, Figment, M0, M1) :-  agent_mem(Agent, M0, M1, A0, A1),
   memorize_edit_0(Agent, append, Figment, A0, A1).
 
-:- meta_predicate(memorize_edit(+, 3, *, *, *)).
+:- meta_predicate(memorize_edit_0(+, 3, *, *, *)).
 memorize_edit_0(_Agent, Pred3, Figment, M0, M2) :- assertion(\+ is_list(Figment)),
  must_mw1((
    Figment =.. [Name, Value], OldFigment =.. [Name, OldValue],

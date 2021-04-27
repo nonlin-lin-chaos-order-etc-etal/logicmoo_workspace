@@ -220,22 +220,23 @@ must_input_state(S0):- quietly(check4bugs(input, S0)).
 must_output_state(S0):- quietly(check4bugs(output, S0)).
 %must_state(S0):- quietly(check4bugs(anon, S0)).
 
-:- meta_predicate mu:api_invoke(+).
-:- meta_predicate mu:api_invoke(+,?,?).
-:- meta_predicate mu:apply_act(+,?,?).
-:- meta_predicate mu:aXiom(+).
-:- meta_predicate mu:aXiom(+,?,?).
-:- meta_predicate mu:call_lf(?,0).
-:- meta_predicate mu:call_z(1,?).
-:- meta_predicate mu:eVent(*,+).
-:- meta_predicate mu:eVent(*,+,*,?).
-:- meta_predicate mu:map_apply_findall(+,?,?).
-:- meta_predicate mu:munl_call(0).
-:- meta_predicate mu:must_act(+,?,?).
-:- meta_predicate mu:rapply_state(1,+,-,?).
-:- meta_predicate mu:reframed_call(4,*,?).
-:- meta_predicate mu:reframed_call(4,?,?,?,?).
-:- meta_predicate mu:thread_create_adv(0,?,+).
+:- meta_predicate api_invoke(+,?,?).
+:- meta_predicate aXiom(+).
+:- meta_predicate aXiom(+,?,?).
+:- meta_predicate call_z(1,?).
+:- meta_predicate eVent(*,+,*,?).
+:- meta_predicate rapply_state(1,+,-,?).
+
+%:- meta_predicate api_invoke(+).
+%:- meta_predicate apply_act(+,?,?).
+%:- meta_predicate call_lf(?,0).
+%:- meta_predicate eVent(*,+).
+%:- meta_predicate map_apply_findall(+,?,?).
+%:- meta_predicate munl_call(0).
+%:- meta_predicate must_act(+,?,?).
+%:- meta_predicate reframed_call(4,*,?).
+%:- meta_predicate reframed_call(4,?,?,?,?).
+%:- meta_predicate thread_create_adv(0,?,+).
 
 
 

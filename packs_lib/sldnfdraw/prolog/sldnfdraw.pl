@@ -102,7 +102,7 @@ http://endif.unife.it/it/ricerca-1/aree-di-ricerca/informazione/ingegneria-infor
 
 :-meta_predicate set_depth(:).
 :-meta_predicate draw_goal(:).
-:-meta_predicate draw_goal(:,+).
+%:-meta_predicate draw_goal(:,+).
 :-meta_predicate draw(:,+,+,+).
 :-meta_predicate draw(:,+,+,+,+,-).
 :-meta_predicate print_builtin_children(+,:,+,+,+,+,+).

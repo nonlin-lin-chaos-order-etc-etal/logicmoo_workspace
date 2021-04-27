@@ -23,8 +23,11 @@ W:\opt\logicmoo_workspace\packs_sys\logicmoo_utils\prolog;W:\opt\logicmoo_worksp
 */
 %:- set_prolog_flag(xpce, false).
 
-
 pre_run_mud_server:-
+ 
+ volatile(http_log:log_stream/1),
+ volatile(http_log:log_stream/2),
+ volatile(prolog_listing:opened_source/3),
   (current_prolog_flag(xpce, true) -> (noguitracer,tnodebug) ; true),
   discontiguous(rdf11:'$exported_op'/3),
   discontiguous(phil:'$exported_op'/3),
@@ -40,7 +43,7 @@ pre_run_mud_server:-
   multifile(swish_render_rdf:rdf_link/4),
   dynamic(swish_render_rdf:rdf_link/4),
   
-  (getenv('DISPLAY',_)->true;setenv('DISPLAY','10,0,0,122:0,0')),
+  (getenv('DISPLAY',_)->true;setenv('DISPLAY','10.0.0.78:0.0')),
   %(notrace(gtrace),nodebug),
   %set_prolog_flag(verbose_load,true),
   set_prolog_flag(pfc_version,v(2,0,0)),
@@ -99,7 +102,7 @@ set_startup_flags:-
   set_prolog_flag(unsafe_speedups, false),
   set_prolog_flag(logicmoo_message_hook,dumpst),
   set_prolog_flag(encoding,text),
-  set_prolog_flag(lisp_repl_goal,true),
+  set_prolog_flag(lisp_repl_goal,prolog),
   current_prolog_flag('argv',Is),writeq(current_prolog_flag('argv',Is)),!,nl,
   !.
 
@@ -375,6 +378,7 @@ baseKB:':-'(ConsqIn):- throw(':-'(ConsqIn)).
    (4)   /etc/xdg/swi-prolog/pack
 
 */
+
 :- multifile(html_write:html_meta/1).
 :- dynamic(html_write:html_meta/1).
 
@@ -408,36 +412,22 @@ load_before_compile_now:-
    ignore(catch(pack_install(phil),_,true)),
    ignore(catch(pack_install(cplint_r),_,true)),
    */
-   ignore(( \+ exists_directory('/tmp/tempDir/') -> catch(shell('./PreStartMUD.sh'),_,true))),
-   ignore(( exists_directory('/tmp/tempDir') -> cd('/tmp/tempDir'))),
-   use_module(library(logicmoo_webui)),   
-   webui_load_swish_and_clio,   
-   add_hist(start_network). 
+    ignore(( \+ exists_directory('/tmp/tempDir/') -> catch(shell('./PreStartMUD.sh'),_,true))),
+    ignore(( exists_directory('/tmp/tempDir') -> cd('/tmp/tempDir'))),
+    use_module(library(logicmoo_webui)),   
+    webui_load_swish_and_clio,
+    load_nomic_mu,
+    baseKB:ensure_loaded(library(logicmoo_cg)),
+    baseKB:ensure_loaded(library(logicmoo_ec)),
+    baseKB:ensure_loaded(library(logicmoo_nlu)),
+    baseKB:ensure_loaded(library(logicmoo_clif)),
+    baseKB:ensure_loaded(library('logicmoo/common_logic/common_logic_sumo.pfc')),   
+    %system:reexport(pldata(kb_0988)),
+    ensure_loaded(pldata(kb_0988)),    
+    use_module(library(instant_prolog_docs)),
+    baseKB:ensure_loaded(library(narsese)),   
+    add_hist(start_network). 
 
-:- set_prolog_flag(check_memory,false).
-:- set_prolog_flag(debug,true). 
-:- set_prolog_flag(report_error,true). 
-:- set_prolog_flag(verbose_load,true). 
-:- set_prolog_flag(debug_on_error,true). 
-
-:- use_module(library(qsave)).
-check_memory(_):- current_prolog_flag(check_memory,false),!.
-check_memory(_):- \+ current_prolog_flag(check_memory,true),!.
-check_memory(G):-
-  set_prolog_flag(debug,true),
-  set_prolog_flag(report_error,true),
-  set_prolog_flag(debug_on_error,true),
-  prolog_load_context(file,Y),
-  writeln(prolog_load_context(file,Y)),
-  gensym(akill,X),
-  qsave_program(X),
-  catch(process_create(path(true), [], []),
-    error(resource_error(no_memory),_),
-     (dumpST,wdmsg(no_memory(after,G)),break)).
-:- dynamic(system:term_expansion/2).
-:- multifile(system:term_expansion/2).
-% find our leaker!
-system:term_expansion(X,_):- X==end_of_file,check_memory(X==end_of_file),fail.
 
 %start_network:- 
 %   load_before_compile,!.
@@ -446,18 +436,19 @@ call_safely((G,!,G2)):- !, call_safely(G),!,call_safely(G2).
 call_safely((G,!)):- !, call_safely(G),!.
 call_safely((G,G2)):-!,call_safely(G),call_safely(G2).
 call_safely(G):- ignore(must_or_rtrace(G)),
-  check_memory(G).
+  nop(check_memory(G)).
+
+only_runtime(G):- (current_prolog_flag(logicmoo_compiling,true);compiling)-> true; call(G).
 
 start_network:- keep_user_module(start_network_now).
 start_network_now:-  
   call_safely(
    [
-   load_before_compile,
+   %load_before_compile,
    user:use_module(library(eggdrop)),
-   egg_go,   
-   webui_start_swish_and_clio,
+   only_runtime(egg_go),
+   only_runtime(webui_start_swish_and_clio),
    threads,statistics]),
-  set_prolog_flag(check_memory,true),
    !.
 
 load_rest:- keep_user_module(load_rest_now).
@@ -465,12 +456,6 @@ load_rest_now:-
   call_safely(
   [
    nodebug,   
-   load_nomic_mu,   
-   load_before_compile,
-   baseKB:ensure_loaded(library(logicmoo_cg)),
-   baseKB:ensure_loaded(library(logicmoo_ec)),
-   use_module(library(instant_prolog_docs)),
-   baseKB:ensure_loaded(library(narsese)),   
    add_history((mmake, autodoc_test)),
    load_rest2]),
    !.
@@ -484,14 +469,9 @@ load_rest3_now:-
   call_safely(
   [
    set_modules_baseKB,
-   baseKB:ensure_loaded(library(logicmoo_nlu)),
-   baseKB:ensure_loaded(library(logicmoo_clif)),
-   baseKB:ensure_loaded(library('logicmoo/common_logic/common_logic_sumo.pfc')),   
    add_hist(try_zebra),
    add_hist(start_all),
    add_hist(qsave_logicmoo),
-   %system:reexport(pldata(kb_0988)),
-   ensure_loaded(pldata(kb_0988)),
   % (current_prolog_flag(gui_tracer,true)->noguitracer;true),
    % run_before_qsave,
    do_setup_history,
@@ -509,6 +489,19 @@ normalize_imports(M):-
 
 normalize_and_save_imports :- forall(current_module(M),normalize_imports(M)).
 
+check_memory(_):- current_prolog_flag(check_memory,false),!.
+check_memory(_):- \+ current_prolog_flag(check_memory,true),!.
+check_memory(G):-
+  set_prolog_flag(debug,true),
+  set_prolog_flag(report_error,true),
+  set_prolog_flag(debug_on_error,true),
+  prolog_load_context(file,Y),
+  writeln(prolog_load_context(file,Y)),
+  gensym(akill,X),
+  qsave_program(X),
+  catch(process_create(path(true), [], []),
+    error(resource_error(no_memory),_),
+     (dumpST,wdmsg(no_memory(after,G)),break)).
 
 qsave_logicmoo :-   
    load_before_compile,
@@ -540,12 +533,12 @@ import_some:-
 
 start_rest:-
   keep_user_module((    
-   load_rest,  
+   %load_rest,  
    % rtrace,
    %load_nomic_mu,% autoload_all([verbose(true)]), 
    import_some,
    expose_all,
-   start_rest2)),
+   only_runtime(start_rest2))),
    !.
 
 start_rest2:- \+ gethostname('logicmoo.org'), !.
@@ -591,18 +584,11 @@ start_all :- keep_user_module((start_network, start_rest)).
 
 :- keep_user_module((load_before_compile)).
 
-
 %:- lps_sanity.
 %:- goat.
 
 :- if( current_prolog_flag(xpce, true) ).
 %:- noguitracer, tnodebug.
-:- endif.
-
-
-:- initialization(start_network,restore).
-:- if( \+ compiling).
-:- initialization(start_network,now).
 :- endif.
 
 
@@ -612,192 +598,24 @@ start_all :- keep_user_module((start_network, start_rest)).
 
 %:- abolish(user:prolog_load_file/2).
 %:- dynamic(user:prolog_load_file/2).
+:- initialization(start_network,restore).
+:- if( \+ current_prolog_flag(logicmoo_compiling,false)).
+:- initialization(start_network,now).
+:- endif.
 
 :- load_rest.
 :- initialization(start_rest,restore).
-:- if( \+ compiling).
+:- if( \+ current_prolog_flag(logicmoo_compiling,false)).
 :- initialization(start_rest,now).
 :- endif.
 % :- initialization(qsave_logicmoo, main).
 :- initialization(keep_user_module(initialize),restore).
-:- if( \+ compiling).
+:- if( \+ current_prolog_flag(logicmoo_compiling,false)).
 :- initialization(keep_user_module(initialize),now).
 :- endif.
 
-:- volatile(http_log:log_stream/1).
-:- volatile(http_log:log_stream/2).
-:- volatile(prolog_listing:opened_source/3).
 %:- abolish( yall:(?)/0 ).
 %:- delete_import_module(user,pfc_lib).
-
-:- meta_predicate aleph:abgen(*,*,*,0).
-:- meta_predicate aleph:abgen(*,*,0).
-:- meta_predicate aleph:abgen(*,0).
-:- meta_predicate aleph:add_eqs(*,*,*,*,*,*,0).
-:- meta_predicate aleph:add_eqs(*,*,*,*,*,0).
-:- meta_predicate aleph:add_new_lit(*,*,*,*,*,*,0).
-:- meta_predicate aleph:aleph_induce_theory(*,*,0).
-:- meta_predicate aleph:aleph_induce_theory(*,0).
-:- meta_predicate aleph:create_worker_pool(*,*,*,*,0).
-:- meta_predicate aleph:cwinduce(0).
-:- meta_predicate aleph:estimate_clauselength_distribution(*,*,*,*,0).
-:- meta_predicate aleph:estimate_clauselength_scores(*,*,*,*,*,0).
-:- meta_predicate aleph:evalfn(*,*,0).
-:- meta_predicate aleph:execute_equality(0).
-:- meta_predicate aleph:find_clause(*,*,0).
-:- meta_predicate aleph:find_clause(*,0).
-:- meta_predicate aleph:find_theory(*,*,0).
-:- meta_predicate aleph:find_theory1(*,0).
-:- meta_predicate aleph:flatten(*,*,*,*,0).
-:- meta_predicate aleph:flatten_atom(*,*,*,*,*,*,*,0).
-:- meta_predicate aleph:flatten_atoms(*,*,*,*,0).
-:- meta_predicate aleph:flatten_lits(*,*,*,*,*,*,*,0).
-:- meta_predicate aleph:gcws(*,*,*,*,0).
-:- meta_predicate aleph:gcws(0).
-:- meta_predicate aleph:gen_abduced_atoms(*,*,0).
-:- meta_predicate aleph:get_atoms(*,*,*,*,*,0).
-:- meta_predicate aleph:get_atoms1(*,*,*,*,*,0).
-:- meta_predicate aleph:get_besthyp(*,0).
-:- meta_predicate aleph:get_gain(*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,0).
-:- meta_predicate aleph:get_gains(*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,0).
-:- meta_predicate aleph:get_refine_gain(*,*,*,*,*,*,*,*,*,*,*,0).
-:- meta_predicate aleph:get_sibgain(*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,0).
-:- meta_predicate aleph:get_sibgains(*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,0).
-:- meta_predicate aleph:get_theory_gain(*,*,*,*,*,*,*,*,*,*,0).
-:- meta_predicate aleph:graphsearch(*,*,0).
-:- meta_predicate aleph:insert_eqs(*,*,*,*,0).
-:- meta_predicate aleph:reduce(*,*,0).
-:- meta_predicate aleph:reduce(*,0).
-:- meta_predicate aleph:rls_refine(*,*,*,0).
-:- meta_predicate aleph:rls_search(*,*,*,*,*,0).
-:- meta_predicate aleph:rls_thread(*,*,*,*,*,0).
-:- meta_predicate aleph:rsat(*,0).
-:- meta_predicate aleph:rsat(0).
-:- meta_predicate aleph:sample_clauses(*,*,0).
-:- meta_predicate aleph:sample_nclauses(*,*,*,0).
-:- meta_predicate aleph:sat(*,*,0).
-:- meta_predicate aleph:sat(*,0).
-:- meta_predicate aleph:search(*,*,0).
-:- meta_predicate aleph:sphyp(0).
-:- meta_predicate aleph:theory_move(*,*,*,0).
-:- meta_predicate aleph:theorysearch(*,*,0).
-:- meta_predicate aleph:time(0,*,*).
-:- meta_predicate aleph:time_loop(*,0,*).
-:- meta_predicate aleph:tsearch(*,*,0).
-:- meta_predicate aleph:work(*,*,0).
-:- meta_predicate aleph:worker(*,*,0).
-:- meta_predicate ape_utils:cpu_time(0,*).
-:- meta_predicate baseKB:add_game_dir(*,0).
-:- meta_predicate baseKB:agent_coerce_for(2,*,?,?,?).
-:- meta_predicate baseKB:apply_cond(*,0).
-:- meta_predicate baseKB:call_close_and_detatch(*,*,*,0).
-:- meta_predicate baseKB:cycword_sem(*,*,0).
-:- meta_predicate baseKB:dcgParse213(//,//,//,*,*).
-:- meta_predicate baseKB:findall_set(?,0,*).
-:- meta_predicate baseKB:freeze_safe(?,0).
-:- meta_predicate baseKB:get_sorted_instances(?,*,3).
-:- meta_predicate baseKB:hooked_random_instance(*,*,0).
-:- meta_predicate baseKB:in_call(*,0,*,0).
-:- meta_predicate baseKB:intersect(*,*,*,*,0,-).
-:- meta_predicate baseKB:matcher_to_data_args(3,*,*,?,*,?).
-:- meta_predicate baseKB:nonvar_must_be(*,0).
-:- meta_predicate baseKB:now_try_game_dir(0).
-:- meta_predicate baseKB:punless(0,0).
-:- meta_predicate baseKB:random_instance_no_throw0(*,*,0).
-:- meta_predicate baseKB:run_mud_test_clause(:,0).
-:- meta_predicate baseKB:string_to_info(*,0).
-:- meta_predicate baseKB:t(1,?).
-:- meta_predicate baseKB:t(2,?,?).
-:- meta_predicate baseKB:t(3,?,?,?).
-:- meta_predicate baseKB:t(4,?,?,?,?).
-:- meta_predicate baseKB:t(5,?,?,?,?,?).
-:- meta_predicate baseKB:t(6,?,?,?,?,?,?).
-:- meta_predicate baseKB:t(7,?,?,?,?,?,?,?).
-:- meta_predicate baseKB:tdomcall(0).
-:- meta_predicate baseKB:telnet_repl_writer(*,*,*,0).
-:- meta_predicate baseKB:term_to_info(*,0).
-:- meta_predicate baseKB:test_call0(0).
-:- meta_predicate baseKB:thread_signal_blocked(*,0).
-:- meta_predicate baseKB:time_as(*,0).
-:- meta_predicate baseKB:time_as(0).
-:- meta_predicate baseKB:trye(0).
-:- meta_predicate baseKB:want_more_question(0).
-:- meta_predicate baseKB:with_domain_preds(1).
-:- meta_predicate baseKB:within_user(0).
-:- meta_predicate common_logic_compiler:map_each_subterm_compound(2,*,*).
-:- meta_predicate drs_to_coreace:conds_to_andlist(2,*,*).
-:- meta_predicate ec_loader:must_or_dumpst(0).
-:- meta_predicate ec_loader:only_dec_pl(0).
-:- meta_predicate ec_loader:only_lps(0).
-:- meta_predicate ec_nnf:if_dbg(0).
-:- meta_predicate ec_nnf:thmust(0).
-:- meta_predicate get_ape_results:call_ape(0).
-:- meta_predicate grammar_words:try(0,*,*,*).
-:- meta_predicate grammar_words:word(*,0,*,*).
-:- meta_predicate grammar_words:word_initial(*,0,*,*).
-:- meta_predicate grammar_words:word_noninitial(*,0,*,*).
-:- meta_predicate grammar_words:words(*,0,*,*).
-:- meta_predicate grammar_words:words_initial(*,0,*,*).
-:- meta_predicate grammar_words:words_noninitial(*,0,*,*).
-:- meta_predicate icl_int:ex(0,*,*).
-:- meta_predicate icl_int:example_query(0).
-:- meta_predicate icl_int:explain(0).
-:- meta_predicate icl_int:explain(0,*).
-:- meta_predicate icl_int:explain(0,*,*).
-:- meta_predicate icl_int:prove(0,*,*,*,*,*,*,*).
-:- meta_predicate icl_int:prove1(0,*,*,*,*,*,*,*).
-:- meta_predicate icl_int:tprove(*,0,*,*,*,*,*,*,*).
-:- meta_predicate logicmoo_ocl:tdomcall(0).
-:- meta_predicate logicmoo_ocl:time_as(*,0).
-:- meta_predicate logicmoo_ocl:time_as(0).
-:- meta_predicate logicmoo_ocl:trye(0).
-:- meta_predicate logicmoo_ocl:with_domain_preds(1).
-:- meta_predicate logicmoo_startup:enotrace(0).
-:- meta_predicate logicmoo_startup:with_abs_paths(1,?).
-:- meta_predicate logicmoo_util_autocut:do_body(0).
-:- meta_predicate logicmoo_util_autocut:do_body(0,*,*).
-:- meta_predicate logicmoo_util_autocut:last_clause(0).
-:- meta_predicate logicmoo_util_autocut:last_clause(0,*).
-:- meta_predicate logicmoo_util_body_reorder:call_body_reorder_compare(*,*,0,0).
-:- meta_predicate logicmoo_util_body_reorder:call_body_reorder_key(*,*,*,0,0).
-:- meta_predicate logicmoo_util_body_reorder:reorder_if_var(*,0,0).
-:- meta_predicate lps_server_UI:any_call(0).
-:- meta_predicate mcintyre:take_a_sample(*,*,*,2,?).
-%:- meta_predicate mpred_type_constraints:'__aux_maplist/2_freeze_rev+1'(*,0).
-%:- meta_predicate mpred_type_constraints:'__aux_wrapper_594d82f1742fe8b6586d0fcc675e4bd8258e4541'(0).
-:- meta_predicate mpred_type_constraints:freeze_rev(0,?).
-:- meta_predicate mpred_type_constraints:lazy_1(0).
-:- meta_predicate parser_sharing:try_maybe_f(*,0,*).
-:- meta_predicate psyntax:dumploaded(0,*).
-:- meta_predicate rdf_describe:rdf_bounded_description(3,+,*,+,-).
-:- meta_predicate rdf_describe:rdf_include_labels(3,+,+).
-:- meta_predicate rsasak_forward_wa_star_h_add:replc_structure_vars(2,-).
-:- meta_predicate rsasak_forward_wa_star_h_add:replc_structure_vars1(2,-).
-:- meta_predicate rsasak_pddl_parser:dcgStructSetOpt(*,*,3,?,?).
-:- meta_predicate rsasak_pddl_parser:dcgStructSetOptTraced(*,*,3,?,?).
-:- meta_predicate rsasak_pddl_parser:effected_typed_list(3,*,?,*).
-:- meta_predicate rsasak_pddl_parser:function_typed_list(3,*,?,*).
-:- meta_predicate rsasak_pddl_parser:oneOrMore(3,*,?,?).
-:- meta_predicate rsasak_pddl_parser:typed_list(3,*,?,*).
-:- meta_predicate rsasak_pddl_parser:typed_list0(3,*,?,*).
-:- meta_predicate rsasak_pddl_parser:typed_list_as_list(3,*,?,?).
-:- meta_predicate rsasak_pddl_parser:typed_list_exact(3,*,?,*).
-:- meta_predicate rsasak_pddl_parser:typed_list_keys(3,*,?,*).
-:- meta_predicate rsasak_pddl_parser:zeroOrMore(3,*,?,?).
-:- meta_predicate smtp:do_send_mail(*,*,*,1,*).
-:- meta_predicate smtp:do_send_mail_cont(*,*,*,1,*,*).
-:- meta_predicate smtp:error_cleanup(*,0).
-:- meta_predicate states_explorer:my_ite(0,0,0).
-:- meta_predicate swish_data_source:range(*,:,0).
-:- meta_predicate swish_filesystems:catch_reply(0,?,0).
-:- meta_predicate swish_svgtree:'__aux_maplist/3_filtered_tree+2'(*,*,3,+).
-:- meta_predicate talkdb:erase_when(2,?,?).
-:- meta_predicate talkdb:save_to_file(*,2,*).
-:- meta_predicate utility_translation:time_goal(0,*).
-:- meta_predicate utility_translation:timed_forall(0,0).
-:- meta_predicate verbnet_iface:is_reloading(0).
-:- meta_predicate xml_reader:error_catch(0,*,0).
-:- meta_predicate xml_reader:immediateCall(*,0).
 
 % swish_highlight:lazy_read_lines
 

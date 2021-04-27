@@ -822,7 +822,7 @@ into_what('_',Type):- Type=_.
 into_what('all',Type):- Type=_.
 into_what(W2,Type):- Type=W2.
 
-subst_string(In,Before,After,Out):- atomics_to_string(List,Before,In),atomics_to_string(List,After,Out).
+egg_subst_string(In,Before,After,Out):- atomics_to_string(List,Before,In),atomics_to_string(List,After,Out).
 
 do_and_show_fallbacks(PM,Channel,Agent, Modality,W2):-
   do_fallbacks(PM,Channel,Agent, Modality,W2),
@@ -843,7 +843,7 @@ do_fallbacks(+,Channel,Agent,_Modality,W2):- into_what(W2,Type), ignore((retract
                                                  asserta(lmconf:chat_isWith(W2,Channel,Agent)).
 do_fallbacks(-,Channel,Agent,_Modality,W2):- into_what(W2,Type), ignore((retract(lmconf:chat_isWith(Type,Channel,Agent)),fail)),
                                                  !.
-do_fallbacks(PM,Channel,Agent, Modality,W2):- subst_string(W2,","," ",W3),atomic_list_concat(ListR," ",W3),
+do_fallbacks(PM,Channel,Agent, Modality,W2):- egg_subst_string(W2,","," ",W3),atomic_list_concat(ListR," ",W3),
                                         reverse(ListR,List),maplist(do_fallbacks(PM,Channel,Agent, Modality),List).
 
 maybe_chat_command(Channel,Agent, Modality,W0):- trim_text(W0,W1),W1\==W0, !, maybe_chat_command(Channel,Agent, Modality,W1).
