@@ -198,7 +198,7 @@ test_lps_pddl_convert([convert]):-
 
 
 
-:- add_history((cls, lps_pddl_convert)).
+:- add_history((cls, test_lps_pddl_convert)).
 
 test_lps_pddl_convert([convert]):- 
   pre_pddl_tests,

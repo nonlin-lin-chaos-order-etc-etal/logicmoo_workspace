@@ -372,13 +372,16 @@ app_argv(Atom):- \+ atom(Atom),!,current_app_argv(Atom).
 app_argv(Atom):- app_argv_off(Atom),!,fail.
 app_argv(Atom):- app_argv1(Atom),!.
 app_argv(Atom):- atom_concat(Pos,'=yes',Atom),!,app_argv1(Pos).
-app_argv(Atom):- app_argv1('--all'), atom_concat('--',_Stem,Atom), \+ atom_concat('--no',_Stem2,Atom),!.
+app_argv(Atom):- \+ is_argv_neg(Atom), app_argv1('--all'), atom_concat('--',_Stem,Atom).
 
 app_argv_ok(Atom):- app_argv1(Atom),!.
 app_argv_ok(Atom):- \+ app_argv_off(Atom).
 
+is_argv_neg(Neg):- atom_concat('--no',_,Neg).
+
+app_argv_off(Neg):- is_argv_neg(Neg),!,fail.
 app_argv_off(Atom):- atom_concat('--',Pos,Atom), atom_concat('--no',Pos,Neg),app_argv1(Neg),!.
-app_argv_off(Pos):- atom_concat('--no',Pos,Neg),app_argv1(Neg),!.
+app_argv_off(Pos):-  atom_concat('--no',Pos,Neg),app_argv1(Neg),!.
 app_argv_off(Pos):- atom_concat(Pos,'=no',Neg),app_argv1(Neg),!.
 
 app_argv1(Atom):- current_app_argv(List),member(Atom,List).
@@ -977,7 +980,7 @@ init_logicmoo :- ensure_loaded(library(logicmoo_repl)),init_why(during_booting,i
 :- use_module(library(prolog_history)).
 
 add_history(O):- is_list(O), member(E,O), compound(E), !, maplist(add_history,O).
-add_history(O):- !, wdmsg(not_add_history(O)),!.
+%add_history(O):- !, wdmsg(not_add_history(O)),!.
 add_history(O):- 
    ignore_not_not((nonvar(O),make_historial(O,A),add_history0(A))),!.
 

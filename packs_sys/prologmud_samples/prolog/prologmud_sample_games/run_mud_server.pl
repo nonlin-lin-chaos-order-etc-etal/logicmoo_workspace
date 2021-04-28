@@ -412,20 +412,21 @@ load_before_compile_now:-
    ignore(catch(pack_install(phil),_,true)),
    ignore(catch(pack_install(cplint_r),_,true)),
    */
-    ignore(( \+ exists_directory('/tmp/tempDir/') -> catch(shell('./PreStartMUD.sh'),_,true))),
-    ignore(( exists_directory('/tmp/tempDir') -> cd('/tmp/tempDir'))),
-    use_module(library(logicmoo_webui)),   
+   % ignore(( \+ exists_directory('/tmp/tempDir/') -> catch(shell('./PreStartMUD.sh'),_,true))),
+   % ignore(( exists_directory('/tmp/tempDir') -> cd('/tmp/tempDir'))),
+    use_module(library(logicmoo_webui)),
     webui_load_swish_and_clio,
     load_nomic_mu,
     baseKB:ensure_loaded(library(logicmoo_cg)),
     baseKB:ensure_loaded(library(logicmoo_ec)),
-    baseKB:ensure_loaded(library(logicmoo_nlu)),
+    baseKB:ensure_loaded(library(logicmoo_nlu)),    
     baseKB:ensure_loaded(library(logicmoo_clif)),
     baseKB:ensure_loaded(library('logicmoo/common_logic/common_logic_sumo.pfc')),   
     %system:reexport(pldata(kb_0988)),
     ensure_loaded(pldata(kb_0988)),    
-    use_module(library(instant_prolog_docs)),
+    baseKB:ensure_loaded(library(logicmoo_mud)),
     baseKB:ensure_loaded(library(narsese)),   
+    use_module(library(instant_prolog_docs)),
     add_hist(start_network). 
 
 
@@ -440,14 +441,14 @@ call_safely(G):- ignore(must_or_rtrace(G)),
 
 only_runtime(G):- (current_prolog_flag(logicmoo_compiling,true);compiling)-> true; call(G).
 
-start_network:- keep_user_module(start_network_now).
+start_network:- only_runtime(keep_user_module(start_network_now)).
 start_network_now:-  
   call_safely(
    [
    %load_before_compile,
    user:use_module(library(eggdrop)),
-   only_runtime(egg_go),
-   only_runtime(webui_start_swish_and_clio),
+   egg_go,
+   webui_start_swish_and_clio,
    threads,statistics]),
    !.
 
@@ -476,7 +477,6 @@ load_rest3_now:-
    % run_before_qsave,
    do_setup_history,
    nodebug,
-   baseKB:ensure_loaded(library(logicmoo_mud)),
    finish_processing_world]),
   !.
 

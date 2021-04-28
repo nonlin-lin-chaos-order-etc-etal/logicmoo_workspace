@@ -1093,7 +1093,7 @@ unquoteAtom(Atom,New):-concat_atom_safe(LIST,'"',Atom),concat_atom_safe(LIST,'',
 is_charlist([A]):-  !, is_charlist_char(A).
 is_charlist([A|L]):- is_charlist_char(A),is_charlist(L).
 
-is_charlist_char(C):- atom(C), atom_length(C,1).
+is_charlist_char(C):- atom(C), atom_length(C,1), name(C,[Code]),swish_render_codes_charset_code(_,Code).
 
 any_to_charlist(A,C):- is_charlist(A),!,A=C.
 any_to_charlist(A,C):- any_to_string(A,S),atom_chars(S,C).
@@ -1106,9 +1106,21 @@ any_to_charlist(A,C):- any_to_string(A,S),atom_chars(S,C).
 % If Is A Codelist.
 %
 is_codelist([A]):-  !, is_codelist_code(A).
-is_codelist([A|L]):- is_codelist_code(A),is_codelist(L).
+is_codelist([A|L]):- is_codelist_code(A),is_codelist(L). 
 
-is_codelist_code(A):- integer(A),!,A>8,A<129.
+is_codelist_code(H):- integer(H), swish_render_codes_charset_code(ascii,H),!.
+
+swish_render_codes_charset_code(_,9).
+swish_render_codes_charset_code(_,10).
+swish_render_codes_charset_code(_,13).
+swish_render_codes_charset_code(ascii, C) :- 
+    between(32, 126, C).
+swish_render_codes_charset_code(iso_latin_1, C) :-
+    (   between(32, 126, C)
+    ;   between(160, 255, C)
+    ).
+
+
 
 any_to_codelist(A,C):- is_codelist(A),!,A=C.
 any_to_codelist(A,C):- any_to_string(A,S),atom_codes(S,C).

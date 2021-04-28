@@ -14,9 +14,6 @@
 :- use_module(library(gensym)).
 :- use_module(library(when)).
 
-:- use_module(library(occurs)).
-:- use_module(library(gensym)).
-:- use_module(library(when)).
 
 
 :- use_module(library(backcomp)).
@@ -118,8 +115,7 @@ atom_concat_some_left(L,R,LR):- downcase_atom(L,L0),L\==L0,atom_concat_w_blobs(L
 
 
 reduce_atomLR(L,L):- \+ atom(L), !.
-reduce_atomLR(L,R):- name(L,[LC1,UC,LC2|Rest]),char_type(UC,upper),char_type(LC1,lower),char_type(LC2,lower),!,
-  name(LL,[UC,LC2|Rest]), reduce_atomLR(LL,R).
+reduce_atomLR(L,R):- reduce_single_letter(L,LL), reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('v',LL,L),name(LL,[UC,LC|_]),char_type(UC,upper),char_type(LC,lower),reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('Cl_',LL,L),reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('U_',LL,L),reduce_atomLR(LL,R).
@@ -127,6 +123,7 @@ reduce_atomLR(L,R):- atom_concat_some_left('F_',LL,L),reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('Pf_',LL,L),reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('Kw_',LL,L),reduce_atomLR(LL,R).
 reduce_atomLR(L,R):- atom_concat_some_left('Sys_',LL,L),reduce_atomLR(LL,R).
+reduce_atomLR(L,R):- did_reduce_fname(L,M),reduce_atomLR(M,R).
 reduce_atomLR(L,L).
 
 %p_n_atom0(Atom,UP):- simpler_textname(Atom,M),Atom\==M,!,p_n_atom0(M,UP).
@@ -148,9 +145,13 @@ debug_var0(Var,_):- var(Var),!.
 debug_var0([C|S],Var):- \+ ground(C+S),!,afix_varname('List',Var).
 debug_var0([C|S],Var):- notrace(catch(atom_codes_w_blobs(Atom,[C|S]),_,fail)),!,afix_varname(Atom,Var).
 debug_var0([AtomI|Rest],Var):-!,toProperCamelAtom([AtomI|Rest], NAME),afix_varname(NAME,Var),!.
-debug_var0(Atom,Var):- p_n_atom(Atom,UP),  
-  check_varname(UP),
-  afix_varname(UP,Var),!.
+debug_var0(Atom,Var):- debug_var1(Atom,Var).
+
+debug_var1(Atom,Var):- p_n_atom(Atom,UP), debug_var2(UP,Var).
+debug_var2(New, _):- unusable_name(New),!.
+debug_var2(UP,_):- check_varname(UP),fail.
+debug_var2(Atom,Var):- afix_varname(Atom,Var).
+
 
 
 afix_varname(Suffix,Var):- var(Var), get_var_name(Var,Prev),atomic(Prev),afix_varname_w_prev(Prev,Suffix,Var).
@@ -171,6 +172,8 @@ afix_ordered_varname(Left,Right, Var):- atomic_list_concat([Left,'_',Right],New)
   add_var_to_env_trimed(New,Var).
 
 add_var_to_env_trimed('',_):- !.
+add_var_to_env_trimed(New, _):- unusable_name(New),!.
+add_var_to_env_trimed(New,Var):- did_reduce_fname(New,M),!, add_var_to_env_trimed(M,Var).
 add_var_to_env_trimed(New,Var):- atom_length(New,Len), Len < 2, !, add_var_to_env_now(New,Var).
 add_var_to_env_trimed(New,Var):- atom_concat_w_blobs(NewNew,'_',New),add_var_to_env_trimed(NewNew,Var).
 add_var_to_env_trimed(New,Var):- atom_concat_w_blobs(NewNew,'_v',New),add_var_to_env_trimed(NewNew,Var).
@@ -179,7 +182,14 @@ add_var_to_env_trimed(New,Var):- atom_concat_w_blobs('?',NewNew,New),add_var_to_
 add_var_to_env_trimed(New,Var):- add_var_to_env_now(New,Var).
 %afix_ordered_varname(UP,_Prev,Var):- add_var_to_env_trimed(UP,Var).
 
+
+unusable_name(New):- \+ atom(New), \+ string(New),!.
+unusable_name(New):- atom_number(New,_),!.
+unusable_name('').
+
+add_var_to_env_now(New, _):- unusable_name(New),!.
 add_var_to_env_now(New0,Var):- toProperCamelAtom(New0,New),check_varname(New),add_var_to_env(New,Var).
+
 
 check_varname(UP):- name(UP,[C|Rest]),
   (
@@ -196,9 +206,9 @@ bad_varname(UP):-
 
 % mort(G):- must_or_rtrace(G),!.
 
-mort(G):- notrace(catch(G,_,fail)),!.
+mort(G):- notrace(catch(G,E,(nl,display(E),nl,fail))),!.
 mort((G1,G2)):- !, mort(G1),mort(G2).
-mort(G):- writeln(failed_mort(G)),rtrace(G),break.
+mort(G):- display(failed_mort(G)),notrace,trace,rtrace(G),notrace,trace,break.
 
 to_var_or_name(L,LL):- var(L),!,LL=L.
 to_var_or_name('~','Not').
@@ -424,6 +434,7 @@ pretty1(card(V,Num,R)):- ground(Num:R),atomic_list_concat(['_',R,'_',Num],Eq_2),
 pretty1(Cmpd):-  Cmpd=..[OP, R, V], is_comparison(OP), name_one(V,R), !.
 pretty1(H):-compound_name_arguments(H,_,ARGS),ignore(must_maplist_det(pretty1,ARGS)).
 
+is_comparison(OP):- \+ atom(OP),!.
 is_comparison(OP):- atom_concat(_,'=',OP).
 is_comparison(OP):- atom_concat('cg_',_,OP).
 
@@ -449,18 +460,36 @@ pretty_two(N,F,A,[E|ARGS]):-
   ignore(maybe_nameable_arg(F,A,N,E)),
   pretty_two(Np1,F,A,ARGS).
 
-reduce_fname(M,N):- \+ atom(M),!, N=M.
+did_reduce_fname(New,M):- reduce_fname(New,M), !, New\==M.
+
+lc_reduceable(LC0,LC1):- char_type(LC0,to_upper(LC0)),char_type(LC1,to_lower(LC1)).
+lc_reduceable(LC0,LC1):- char_type(LC0,to_lower(LC0)),char_type(LC1,to_lower(LC1)).
+
+reduce_single_letter(L,LL):- name(L,[LC0,LC1,UC,LC2|Rest]),lc_reduceable(LC0,LC1),char_type(UC,upper),char_type(LC2,lower),!,
+  name(LL,[UC,LC2|Rest]).
+reduce_single_letter(L,LL):- name(L,[LC1,UC,LC2|Rest]),char_type(LC1,lower),char_type(UC,upper),char_type(LC2,lower),!,
+  name(LL,[UC,LC2|Rest]).
+
+reduce_fname(M,N):- \+ atom(M),!,term_to_atom(M,N0),!,reduce_fname(N0,N).
+reduce_fname(M,N):- atom_codes(M,[C|R]), \+ code_type(C,alpha), atom_codes(N0,R),reduce_fname(N0,N).
+reduce_fname(M,N):- atom_codes(M,Codes), append(R,[C],Codes), \+ code_type(C,alnum), atom_codes(N0,R),reduce_fname(N0,N).
+
+reduce_fname(L,R):- reduce_single_letter(L,LL), reduce_fname(LL,R).
+reduce_fname(M,N):-atom_concat(N0,'pred',M),reduce_fname(N0,N).
+reduce_fname(M,N):-atom_concat('trans',N0,M),reduce_fname(N0,N).
+reduce_fname(M,N):-atom_concat('symmetric',N0,M),reduce_fname(N0,N).
+reduce_fname(L,R):- atom_concat_some_left('v',LL,L),name(LL,[UC,LC|_]),char_type(UC,upper),char_type(LC,lower),reduce_fname(LL,R).
+reduce_fname(L,R):- atom_concat_some_left('Cl_',LL,L),reduce_fname(LL,R).
+reduce_fname(L,R):- atom_concat_some_left('U_',LL,L),reduce_fname(LL,R).
+reduce_fname(L,R):- atom_concat_some_left('F_',LL,L),reduce_fname(LL,R).
+reduce_fname(L,R):- atom_concat_some_left('T_',LL,L),reduce_fname(LL,R).
+reduce_fname(L,R):- atom_concat_some_left('Pf_',LL,L),reduce_fname(LL,R).
+reduce_fname(L,R):- atom_concat_some_left('Kw_',LL,L),reduce_fname(LL,R).
+reduce_fname(L,R):- atom_concat_some_left('Sys_',LL,L),reduce_fname(LL,R).
 reduce_fname(ti,'').
 reduce_fname(card,size).
 reduce_fname(partOf,'').
-reduce_fname(M,N):-atom_concat(N0,'pred',M),reduce_fname(N0,N).
-reduce_fname(M,N):-atom_concat(N0,'_',M),reduce_fname(N0,N).
-reduce_fname(M,N):-atom_concat('_',N0,M),reduce_fname(N0,N).
-reduce_fname(M,N):-atom_concat('trans',N0,M),reduce_fname(N0,N).
-reduce_fname(M,N):-atom_concat('symmetric',N0,M),reduce_fname(N0,N).
 reduce_fname(N,N):-!.
-
-
 maybe_nameable_arg(F,A,N,E):- compound(E)-> pretty_two(E) ; 
  ((var(E),arg_type_decl_name(F,A,N,T),\+ is_letterless(T))-> afix_varname(T,E) ; true).
 
@@ -469,6 +498,7 @@ ec_timed(EC23):- member(EC23,[holds_at,holds,releasedAt,happens]).
 :- multifile(user:argname_hook/4).
 :- dynamic(user:argname_hook/4).
 
+arg_type_decl_name(F,_,_,_):- atomic(F),\+atom(F),!, fail.
 arg_type_decl_name(F,A,N,Use):- clause(user:argname_hook(F,A,N,T),Body),catch(((call(Body),toProperCamelAtom(T,Use))),_,fail).
 arg_type_decl_name(happens,2,2,when).
 arg_type_decl_name(EC23,2,2,time_at):- ec_timed(EC23).

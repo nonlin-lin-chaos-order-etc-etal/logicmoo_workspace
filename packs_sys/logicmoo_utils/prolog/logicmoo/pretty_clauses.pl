@@ -239,7 +239,7 @@ pprint_ec_and_f(C, P, AndF):-
   echo_format(AndF))), !,
   ttyflush.
 
-user:portray(Term):- fail, \+ current_prolog_flag(debug,true), \+ tracing, ec_portray_hook(Term).
+user:portray(Term):- \+ current_prolog_flag(debug,true), \+ tracing, ec_portray_hook(Term).
 
 /*
 without_ec_portray_hook(Goal):-
@@ -278,8 +278,8 @@ print_e_to_string(P0, S):-
    mort((
    duplicate_nat(P0,P),
    get_operators(P, Ops),
-   pretty_numbervars(P, T),
-   print_e_to_string(T, Ops, S))).
+   pretty_numbervars(P, T))),!,
+   print_e_to_string(T, Ops, S).
 /*
 print_e_to_string(P, S):- 
    get_operators(P, Ops),
@@ -683,6 +683,9 @@ pt1_functor(FS,Final,F,Tab,I0,LC2):-
        ; (prefix_spaces(Tab), format_functor(F),format('(',[]), I0 is Tab+3, /*pt_nl,*/ LCO=')~w'))),
      format(atom(LC2),LCO,[Final]).
 
+pt1_list(_FS,Final,[T|Ts],Tab) :- is_codelist([T|Ts]), 
+   prefix_spaces(Tab),
+   format('`~s`~w',[[T|Ts],Final]).
 
 pt1_list(FS,Final,[T|Ts],Tab) :- !,
   prefix_spaces(Tab),write('[ '),

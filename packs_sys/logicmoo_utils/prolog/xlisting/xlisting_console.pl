@@ -56,7 +56,8 @@
             plisting/1,
             portray_hb/2,
             portray_hbr/3,
-            portray_one_line/1,
+            portray_phbr/4,
+            portray_one_line/2,
             pp_listing/1,
             predicateUsesCall/1,
             printAll/1,
@@ -86,7 +87,7 @@
             synth_clause_ref/5,
             synth_in_listing/1,
             term_matches_hb/3,
-            term_matches_hb/4,
+         
             term_matches_unify/3,
             unify_in_thread/2,
             unify_in_thread_tl/2,
@@ -162,7 +163,8 @@
         plisting_0/1,
         portray_hb/2,
         portray_hbr/3,
-        portray_one_line/1,
+        portray_phbr/4,
+        portray_one_line/2,
         pp_listing/1,
         predicateUsesCall/1,
         print_clause_properties/2,
@@ -190,8 +192,7 @@
         synth_clause_for_large/6,
         synth_clause_ref/5,
         synth_in_listing/1,
-        term_matches_hb/3,
-        term_matches_hb/4,
+        term_matches_hb/3,       
         term_matches_unify/3,
         unmake_search_key/2,
         update_changed_files/0,
@@ -796,7 +797,8 @@ xlisting:- xlisting([]).
 %
 % Xlisting.
 %
-xlisting(Match):- retractall(lmcache:completely_expanded(_,_)),retractall(t_l:no_xlisting(Match)),xlisting_0(Match).
+xlisting(Match):-
+  retractall(etmp:last_s_l(_,_)), retractall(lmcache:completely_expanded(_,_)),retractall(t_l:no_xlisting(Match)),xlisting_0(Match).
 
 xlisting_0(Match):- \+ \+ t_l:no_xlisting(Match),!.
 xlisting_0([]):- '$current_source_module'(M),!,listing(M:_),'$current_typein_module'(TM),(TM==M->true;listing(TM:_)),!.
@@ -847,7 +849,7 @@ plisting(Match):- locally(t_l:no_xlisting(Match),xlisting:plisting_0(Match)).
 plisting_0(Match):- findall(G,to_mpi_matcher(Match,G),Gs),
   forall(member(H,Gs),
     ignore((synth_clause_for(H,B,R,_SIZE,SYNTH),SYNTH,
-     once(portray_hbr(H,B,R)),fail))).
+     once(portray_phbr(portray_hbr,H,B,R)),fail))).
 
 
 :- export(mpred_match_listing/1).
@@ -885,20 +887,24 @@ mpred_match_listing_skip_pi(How,Match,SkipPI):-
 % Get Matcher Code.
 %
 get_matcher_code(Match,H,B,MATCHER):-  atom(Match),!, MATCHER= once(term_matches_unify(99,Match,((H:-B)))).
-get_matcher_code(Match,H,B,MATCHER):-  MATCHER = term_matches_hb(Match,H,B).
+get_matcher_code(Match,H,B,MATCHER):-  MATCHER = term_matches_term(Match,(H:-B)).
 
 :- meta_predicate xlisting_inner(3,+,+).
 
 %= 	 	 
 
+
 %% xlisting_inner( :PRED3Pred, +Match, +SkipPI) is semidet.
 %
 % Xlisting Inner.
 %
-xlisting_inner(Pred,Match,SkipPI):-  
+xlisting_inner(_,portray_phbr(PW,Match),SkipPI):-!,
+  xlisting_inner(portray_phbr(PW),Match,SkipPI).
+ 
+xlisting_inner(Printer,Match,SkipPI):-  
  must_det_l((
-   get_matcher_code(Match,H,B,MATCHER),
-   PRINT = must(ignore((once(call(Pred,H,B,Ref))))),   
+   get_matcher_code(Match,H,B,MATCHER),!,
+   PRINT = must(ignore((once(call(Printer,H,B,Ref))))),   
    PREDZ = ( (synth_clause_for(H,B,Ref,Size,SYNTH)), \+member(H,SkipPI)),
    forall(PREDZ,
      must(( 
@@ -1059,7 +1065,11 @@ synth_clause_ref(_:no_xlisting(_),_B,_Ref, _Size, _CALL):-!,fail.
 synth_clause_ref(_:in_prolog_listing(_),_B,_Ref, _Size, _CALL):-!,fail.
 synth_clause_ref(_:varname_info(_,_,_,_),_B,_Ref,_Size, _CALL):- \+ is_listing_hidden(showAll),!,fail.
 
-synth_clause_ref(M:H,B,Ref, 250, SYNTH):- \+ is_listing_hidden(hideMeta), SYNTH= (findall(PP,predicate_property(M:H,PP),PPL),Ref=0,CPPL=..[pp|PPL],B=M:(pp(CPPL))).
+synth_clause_ref(M:H,info(B),Ref, 250, SYNTH):- \+ is_listing_hidden(hideMeta), 
+  SYNTH= (findall(PP,predicate_property(M:H,PP),PPL),Ref=0,
+  %CPPL=..['$'|PPL],
+  CPPL=PPL,
+  B=M:('$predicate_property'(H,CPPL))).
 synth_clause_ref(MHG,B,Ref, 213, SYNTH):- predicateUsesCall(MHG),synth_in_listing(MHG), !, 
   SYNTH= (on_x_fail(MHG),Ref=0,B=predicateUsedCall).
 
@@ -1107,7 +1117,7 @@ synth_in_listing(MH):- ( \+ is_listing_hidden(MH), \+ sourceTextPredicateSource(
 %
 % Term Matches Head+body.
 %
-term_matches_hb(HO,H,B):-term_matches_hb(999,HO,H,B).
+term_matches_term(HO,HB):-term_matches_hb(999,HO,HB),!.
 
 %= 	 	 
 
@@ -1115,64 +1125,84 @@ term_matches_hb(HO,H,B):-term_matches_hb(999,HO,H,B).
 %
 % Term Matches Head+body.
 %
-term_matches_hb(_,Var,_,_):-var(Var),!.
+term_matches_hb(_,Var,_):-var(Var),!.
 
-term_matches_hb(_,[],_,_):-!.
-term_matches_hb(D,_,_,_):- D<0,!,fail.
-term_matches_hb(_,noinfo,_,info(_)):-!,fail. 
+term_matches_hb(_,[],_):-!.
+term_matches_hb(D,_,_):- D<0,!,fail.
 
-term_matches_hb(D,M:HO,H,B):-!,term_matches_hb(D,(module(M),HO),H,B).
-term_matches_hb(D,(HO:-BO),H,B):- !, (nonvar(HO) -> term_matches_unify(D,HO,H) ; true),(nonvar(BO) -> term_matches_unify(D,BO,B) ; true).
-term_matches_hb(D,unify(HO),H,B):- !,term_matches_unify(D,HO,(H:-B)).
-term_matches_hb(D,[F1],H,B):-!,term_matches_hb(D,F1,H,B),!.
-term_matches_hb(D,[F1+FS],H,B):-!,term_matches_hb(D,(F1,FS),H,B).
-term_matches_hb(D,(F1+FS),H,B):-!,term_matches_hb(D,(F1,FS),H,B).
-term_matches_hb(D,(F1-FS),H,B):-!,term_matches_hb(D,(F1),H,B), \+(term_matches_hb(D,FS,H,B)).
-term_matches_hb(D,(F1,FS),H,B):-!,term_matches_hb(D,F1,H,B),term_matches_hb(D,FS,H,B).
-term_matches_hb(D,(F1;FS),H,B):-!, (term_matches_hb(D,F1,H,B);term_matches_hb(D,FS,H,B)).
-term_matches_hb(D,[F1|FS],H,B):-!,term_matches_hb(D,(F1;FS),H,B).
-term_matches_hb(D,-(C),H,B):-nonvar(C),!,\+(term_matches_hb(D,C,H,B)).
-term_matches_hb(D,not(C),H,B):-nonvar(C),!,\+(term_matches_hb(D,C,H,B)).
-term_matches_hb(D,+(C),H,B):-nonvar(C),!, term_matches_hb(D,C,H,B).
-term_matches_hb(_,module(M),H,_):-!,predicate_property(H,imported_from(M)).
-term_matches_hb(D,h(P),H,_):-!,term_matches_hb(D,P,H,666666).
-term_matches_hb(D,b(P),_,B):-!,term_matches_hb(D,P,B,666666).
-term_matches_hb(_,string(HO),H,B):- nonvar(HO),any_to_atom(HO,HS),!, with_output_to(string(H1B1),write_canonical((H:-B))), (sub_atom_icasechk(HS,_,H1B1);sub_atom_icasechk(H1B1,_,HS)),!.
-%term_matches_hb(_,cistring(HO),H,B):- nonvar(HO),any_to_atom(HO,HS),!, with_output_to(string(H1B1),write_canonical((H:-B))), (sub_atom_icasechk(HS,_,H1B1);sub_atom_icasechk(H1B1,_,HS)),!.
-term_matches_hb(_,depth(Depth,HO),H,B):- term_matches_hb(Depth,HO,H,B).
-term_matches_hb(D,contains(HO),H,B):- !,term_matches_hb(D,string(HO),H,B).
-term_matches_hb(D,F/A,H,B):-atom(F),var(A),!,term_matches_hb(D,functor(F),H,B).
-term_matches_hb(D,F/A,H,B):-var(F),integer(A),!,term_matches_hb(D,arity(A),H,B).
+term_matches_hb(D,noinfo,H):- !, \+ term_matches_hb(D,unify(info(_)),H).
 
-term_matches_hb(D,F/A,H,B):-atom(F),integer(A),!,functor(P,F,A),!, (term_matches_unify(D,P,H);term_matches_unify(D,P,B)).
-% term_matches_hb(D,P,H,B):- (term_matches_unify(D,P,H);term_matches_unify(D,P,B)).
-term_matches_hb(D,HO,H,B):- \+ \+ term_matches_unify(D,HO,(H:-B)).
+term_matches_hb(D,head(P),HB):-!,expand_to_hb(HB,H,_),strip_module(H,_,H0), !, term_matches_hb(D,P,H0).
+term_matches_hb(D,body(P),HB):-!,expand_to_hb(HB,_,B), term_matches_hb(D,P,B).
+term_matches_hb(_,unify(N,HO),HB):- !,term_matches_unify(N,HO,HB).
+term_matches_hb(D,unify(HO),HB):- !,term_matches_unify(D,HO,HB).
+term_matches_hb(D,(F1+FS),HB):-!,term_matches_hb(D,(F1),HB), \+ \+(term_matches_hb(D,FS,HB)).
+term_matches_hb(D,(F1-FS),HB):-!,term_matches_hb(D,(F1),HB), \+(term_matches_hb(D,FS,HB)).
+term_matches_hb(D,(F1,FS),HB):-!,term_matches_hb(D,F1,HB),term_matches_hb(D,FS,HB).
+term_matches_hb(D,(F1;FS),HB):-!, (term_matches_hb(D,F1,HB);term_matches_hb(D,FS,HB)).
+term_matches_hb(D,[F1],HB):-!,term_matches_hb(D,F1,HB),!.
+term_matches_hb(D,[F1|FS],HB):-!,term_matches_hb(D,(F1;FS),HB).
+term_matches_hb(D,-(C),HB):-nonvar(C),!,\+(term_matches_hb(D,C,HB)).
+term_matches_hb(D,not(C),HB):-nonvar(C),!,\+(term_matches_hb(D,C,HB)).
+term_matches_hb(D,+(C),HB):-nonvar(C),!, term_matches_hb(D,C,HB).
+term_matches_hb(D,M:HO,HB):-!,term_matches_hb(D,(module(M),HO),HB).
+%term_matches_hb(_,cistring(HO),HB):- nonvar(HO),any_to_atom(HO,HS),!, with_output_to(string(H1B1),write_canonical((H:-B))), (sub_atom_icasechk(HS,_,H1B1);sub_atom_icasechk(H1B1,_,HS)),!.
+term_matches_hb(_,depth(Depth,HO),HB):- term_matches_hb(Depth,HO,HB).
+term_matches_hb(D,F/A,HB):-atom(F),var(A),!,term_matches_hb(D,functor(F),HB).
+term_matches_hb(D,F/A,HB):-var(F),integer(A),!,term_matches_hb(D,arity(A),HB).
+term_matches_hb(D,F/A,HB):-atom(F),integer(A),!,functor(P,F,A),!,expand_to_hb(HB,H,B), (term_matches_unify(D,P,H);term_matches_unify(D,P,B)).
+term_matches_hb(D,F/A,HB):-var(F),var(A),!,fail,term_matches_hb(D,call1(compound),HB).
+% term_matches_hb(D,P,HB):- (term_matches_unify(D,P,H);term_matches_unify(D,P,B)).
+term_matches_hb(_,contains(HO),HB):- !, my_wildcard_match(HO,HB,false).
+term_matches_hb(_,match(HO),HB):- !, my_wildcard_match(HO,HB,true).
+term_matches_hb(D,HO,HB):- expand_to_hb(HB,H,B),
+ (term_matches_unify(D,HO,H); 
+   (B\==H,B\==true,term_matches_unify(D,HO,B))).
 
 
-% ?- xlisting((h(depth(0,'$pt'/3)),same(tBird(A)))).
+% ?- xlisting((head(depth(0,'$pt'/3)),same(tBird(A)))).
 
 :- export(term_matches_unify/3).
 
+my_wildcard_match(HO,HB,TF):- 
+  nonvar(HO),any_to_string(HO,HS),!, with_output_to(string(H1B1),write_canonical((HB))),!,
+  my_wildcard_match_1(HS,H1B1,TF).
+
+my_wildcard_match_1(HS,H1B1,false):- !, (sub_atom_icasechk(HS,_,H1B1);sub_atom_icasechk(H1B1,_,HS)),!.
+my_wildcard_match_1(HS,H1B1,TF):- wildcard_match(HS,H1B1,[case_sensitive(TF)]),!.
 %= 	 	 
+
+term_matches_module(M,F):- atom(F),!,current_predicate(M:F/A),
+ compound_name_arity(HB,F,A), \+ predicate_property(M:HB, imported_from(_)).
+term_matches_module(M,HB):- compound(HB),!,compound_name_arity(HB,F,A), 
+  \+ predicate_property(M:HB, imported_from(_)), current_predicate(M:F/A).
 
 %% term_matches_unify( :GoalR, ?V, ?V) is semidet.
 %
 % Term Matches Unify.
 %
-term_matches_unify(_R,M,V):- var(V),!,M==var,fail.
-term_matches_unify(_,unify(HO),V):- nonvar(HO),!,\+ HO \= V.
-term_matches_unify(_R,V1,V2):- V1=@=V2,!.
-term_matches_unify(_R,same(HO),V):-HO=@=V.
-term_matches_unify(_R,A,Str):- string(Str),atom(A),!,atom_string(A,Str).
-term_matches_unify(_R,_,V):- \+ compound(V),!,fail.
+term_matches_unify(_,M,V):- var(M),!, var(V),!.
+term_matches_unify(_,call1(HO),V):- callable(HO),call(HO,V), !.
+term_matches_unify(_,M,V):- var(V),!,M==var,fail.
+term_matches_unify(_,same(HO),V):-HO=@=V,!.
+term_matches_unify(_,V1,V2):- V1=@=V2,!.
+%(sub_atom_icasechk(HS,_,H1B1);sub_atom_icasechk(H1B1,_,HS)),!.
+term_matches_unify(_,A,Str):- string(Str),atom(A),!,atom_string(A,Str).
+term_matches_unify(_,unify(HO),V):- nonvar(HO),!, \+ HO \= V, !.
+term_matches_unify(_,module(M),HB):- term_matches_module(M,HB).
+term_matches_unify(_,functor(F),H):- atom(H),!,H==F.
+term_matches_unify(_,functor(F),H):- !, compound_name_arity(H,F,_).
+term_matches_unify(_,arity(R),H):- atom(H),!,xin_range(0,R).
+term_matches_unify(_,arity(R),H):- !, compound(H), compound_name_arity(H,_,A), xin_range(A,R).
+term_matches_unify(_,_,V):- \+ compound(V),!,fail.
 %term_matches_unify(D,F/A,HB):- atom(F),integer(A),!, compound_name_arity(P,F,A), term_matches_unify(D,P,HB).
-term_matches_unify(_R,arity(A),H):- functor(H,_,A).
-term_matches_unify(_R,functor(F),H):- functor(H,F,_).
 %term_matches_unify(R,M,O):- compound(O), sub_term(I,O), nonvar(I), term_matches_unify(R,M,I),!.
-term_matches_unify(0,_,_):-!,fail.
+term_matches_unify(0,_,_):- !,fail.
 term_matches_unify(R,HO,V):- RR is R -1, compound_name_arguments(V,F,ARGS),member(E,[F|ARGS]),term_matches_unify(RR,HO,E),!.
 
-
+xin_range(A,R):- number(R),!,A == R.
+xin_range(A,between(L,H)):- !, between(L,H,A).
+xin_range(A,R):- R=..[F|List],C=..[F,A|List],call(C),!.
 
 %= 	 	 
 
@@ -1421,6 +1451,7 @@ bad_pred(M:P):-!,atom(M),bad_pred(P).
 %bad_pred(P):-predicate_property(P,imported_from(_)),predicate_property(P,static).
 %bad_pred(P):-predicate_property(P,foreign).
 
+:- export(portray_phbr/4).
 :- export(portray_hbr/3).
 :- export(portray_hb/2).
 
@@ -1428,25 +1459,30 @@ bad_pred(M:P):-!,atom(M),bad_pred(P).
 
 %= 	 	 
 
-%% portray_hbr( :TermH, :TermB, ?R) is semidet.
+%% portray_phbr(PW, :TermH, :TermB, ?R) is semidet.
 %
 % Portray Hbr.
 %
-portray_hbr(M: P, M:pp(PPL),_):- (atom(P);compound(P)),format('~N~n'),
+portray_hbr(H,B,R):-
+ portray_phbr(pprint_ecp(yellow),H,B,R).
+
+portray_phbr(_PW,M: P, M:pp(PPL),_):- (atom(P);compound(P)),format('~N~n'),
        in_cmt(writeq(P=PPL)),!,format('~N~n').
 
-portray_hbr(M:P,M:predicate_property(P,Props),_):- (atom(P);compound(P)),
+portray_phbr(PW,M:P,info(M:'$predicate_property'(P,Props)),_):- (atom(P);compound(P)),
        % functor(P,F,A), NEWH = pp(M:F/A,Props),
-       NEWH = Props,
-       in_cmt(portray_one_line(NEWH)),!.
+       pprint_ecp_cmt([hfg(black)],portray_hb1(PW,'$predicate_property'(P),Props)),!.
 
-portray_hbr(H,B,Ref):- var(Ref), clause_u_here(H,B,Ref), nonvar(Ref),!, portray_hbr(H,B,Ref).
-portray_hbr(H,B,in_cmt(NV)):- in_cmt(portray_hbr(H,B,NV)),!.
-portray_hbr(H,B,Ref) :- nonvar(Ref),
+portray_phbr(PW,H,B,Ref):- var(Ref), clause_u_here(H,B,Ref), nonvar(Ref),!, portray_phbr(PW,H,B,Ref).
+portray_phbr(PW,H,B,in_cmt(NV)):- in_cmt(portray_phbr(PW,H,B,NV)),!.
+
+portray_phbr(_,H,B,Ref) :- nonvar(Ref),
     catch(clause_property(Ref,module(M)),_,fail),
     once(notrace(on_x_fail(((prolog_listing_list_clause((M:(H:-B)),Ref,_,[source(true)])))); 
           notrace(on_x_fail((prolog_listing_list_clause(_,Ref,_,[source(true)])))))).          
-portray_hbr(H,B,Ref):- portray_refinfo(Ref),portray_hb1(H,B).
+
+portray_phbr(PW,H,B,Ref):- 
+ portray_refinfo(Ref),portray_hb1(PW,H,B).
 
 clause_u_here(H,B,Ref):- catch(call(call,clause_u(H,B,Ref)),_,clause(H,B,Ref)).
 
@@ -1464,11 +1500,11 @@ source_file_info(R,F:L):- (clause_property(R,line_count(L));L= (-1)), (clause_pr
 % Portray Head+body.
 %
 
-portray_hb(H,B):- portray_hb1(H,B).
+portray_hb(H,B):- portray_hb1(print_ecp(white),H,B).
 
 
-portray_hb1(H,B):- B==true, !, format('~N'), portray_one_line(H),format('~N').
-portray_hb1(H,B):- format('~N'), portray_one_line((H:-B)), format('~N').
+portray_hb1(PW,H,B):- B==true, !, portray_one_line(PW,H),format('~N').
+portray_hb1(PW,H,B):-  portray_one_line(PW,(H:-B)), format('~N').
 
 
 /*
@@ -1511,7 +1547,7 @@ list_clause(Module:Head, Body, Ref, Source, Options) :-
     portray_clause((Head:-Body)).
 */
 
-:- export(portray_one_line/1).
+:- export(portray_one_line/2).
 :- thread_local(baseKB:portray_one_line_hook/1).
 
 :- meta_predicate(catch_each(:,-,-)).
@@ -1523,19 +1559,26 @@ catch_each(M:G,E,Or):-
   (Module:catchv(M:B,E,(nb_setarg(1,LE,E),fail))))->!;(LE = ex(W),throw(W)))),E,Or).
 
 
-%% portray_one_line( ?H) is semidet.
+%% portray_one_line(PW, ?H) is semidet.
 %
 % Portray One Line.
 %
-portray_one_line(H):- quietly((tlbugger:no_slow_io,!, writeq(H),write('.'),nl)),!.
-portray_one_line(H):-  quietly((catch_each(portray_one_line0(H),_,(writeq(H),write('.'),nl)))),!.
+portray_one_line(_,H):- quietly((tlbugger:no_slow_io,!, writeq(H),write('.'),nl)),!.
+portray_one_line(PW,H):-  quietly((catch_each(portray_one_line0(PW,H),_,(writeq(H),write('.'),nl)))),!.
 
-portray_one_line0(H):- baseKB:portray_one_line_hook(H),!.
-portray_one_line0(H):- maybe_separate(H,(format('~N'))),fail.
-portray_one_line0(H):- \+ \+ ((logicmoo_varnames:get_clause_vars(H), portray_clause(H))),!.
-portray_one_line0(H):- on_x_fail(user:portray(H)),write('.'),nl,!.
-portray_one_line0(H):- print(H),write('.'),nl,!.
-portray_one_line0(H):- writeq(H),write('.'),nl,!.
+portray_one_line0(_,H):- baseKB:portray_one_line_hook(H),!.
+portray_one_line0(_,H):- maybe_separate(H,(format('~N~n'))),fail.
+portray_one_line0(PW,H):- \+ \+ ((logicmoo_varnames:get_clause_vars(H), portray_one_line1(PW,H))),!.
+portray_one_line0(PW,H):- portray_one_line1(PW,H),!.
+
+portray_one_line1(PW,H):- ignore(mort(xlisting_console:catch(portray_one_line2(PW,H),_,fail))),!.
+
+portray_one_line2( PW,H):- on_x_fail(call(PW,H)),!.
+portray_one_line2(_PW,H):- on_x_fail(pprint_ecp(green,H)),!.
+portray_one_line2(_PW,H):- on_x_fail(user:portray(H)),!,write('.'),nl.
+portray_one_line2(_PW,H):- print(H),!,write('.'),nl.
+portray_one_line2(_PW,H):- writeq(H),!,write('.'),nl.
+portray_one_line2(_PW,H):- display(H),!,write('.'),nl.
 
 
 :- thread_local t_l:last_portray_key/1.

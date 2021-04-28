@@ -159,10 +159,10 @@ start_mud_server:-
 % ==============================================
 % [Optionaly] Start the telent server % iCommanderdata66
 % ==============================================
-:- if( \+ app_argv('--nonet')).
+%:- if( \+ app_argv('--nonet')).
 :- after_boot(start_mud_server).
 % :- assert_setting01(lmconf:eachFact_Preconditional(isRuntime)).
-:- endif.
+%:- endif.
 
 % [Manditory] This loads the game and initializes so test can be ran
 :- baseKB:ensure_loaded(sample_games('src_game_nani/objs_misc_household.pfc')).

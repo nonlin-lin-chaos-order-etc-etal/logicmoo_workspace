@@ -161,15 +161,18 @@
 :- endif.
 */
 
+/*
 set_default_argv:- dmsg("SETTING DEFAULT ARGV!!!!"),
    set_prolog_flag(os_argv,[swipl, '-f', '/dev/null','--nonet','--unsafe','--']).
+*/
 
 set_full_argv :-
-   set_default_argv,
-   current_prolog_flag(argv,WasArgV),
+ current_prolog_flag(argv,WasArgV),
+ ignore((  
+           \+ ((member(E,WasArgV), 
+                atom_concat('--',_,E))),
    append(WasArgV,[
    '--',   
-
    '--mud', % Load MUD server
    '--world', % Load MUD server World
    %'--nonet' '--noworld',
@@ -200,12 +203,12 @@ set_full_argv :-
    '--all', % all default options (in case there are new ones!)
    '--defaults'
    ], NewArgV),
-   set_prolog_flag('argv',NewArgV),
-   current_prolog_flag('argv',Is),
-   asserta(lmconf:saved_app_argv(Is)),
-   writeq(set_prolog_flag('argv',Is)),!,nl.
+   set_prolog_flag('argv',NewArgV))),
+ current_prolog_flag(argv,Is),
+ (\+ lmconf:saved_app_argv(_) -> asserta(lmconf:saved_app_argv(Is)) ; true),
+ writeq(set_prolog_flag('argv',Is)),!,nl.
 
-:- (current_prolog_flag(os_argv,[swipl]) ; current_prolog_flag(argv,[])) -> set_full_argv; true.
+%:- (current_prolog_flag(os_argv,[swipl]) ; current_prolog_flag(argv,[])) -> set_full_argv; true.
 
 
 

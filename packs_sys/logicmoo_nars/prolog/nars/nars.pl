@@ -24,6 +24,10 @@ do_nars_example_tests:-
 run_nars_example_tests:-
   forall(nal_examples:nal_example_test(Goal, Results),
          do_nars_example_test(Goal, Results)).
+
+baseKB:sanity_test:- do_nars_example_tests.
+
+baseKB:feature_test:- run_nars_example_tests.
 /*
 ```diff
 - text in red
