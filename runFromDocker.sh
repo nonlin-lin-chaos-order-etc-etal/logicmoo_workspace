@@ -21,6 +21,8 @@ export LOGICMOO_WS=$DIR0
 
 ./logicmoo_env.sh
 
+docker kill logicmoo 2>/dev/null ; /bin/true
+
 #find $LOGICMOO_WS/?*/ -type d -exec chmod 777 "{}" + 
 #chmod a+w -R $LOGICMOO_WS/?*/
 
@@ -54,7 +56,7 @@ docker build $EXTRA -t logicmoo/logicmoo_workspace .
 echo MAYBE: docker push logicmoo/logicmoo_workspace
 docker push logicmoo/logicmoo_workspace &
 
-docker kill logicmoo ; /bin/true
+docker kill logicmoo 2>/dev/null ; /bin/true
 
 export DOCKER_RUN="--name logicmoo --privileged=true -v /opt/logicmoo_workspace:/opt/logicmoo_workspace --rm -it -p 4000-4440:4000-4440 -p 4443:443 -p 3020:3020 $EXTRA logicmoo/logicmoo_workspace:latest"
 
