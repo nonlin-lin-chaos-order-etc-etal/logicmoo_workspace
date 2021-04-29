@@ -58,15 +58,16 @@ rsync -ra $LOGICMOO_WS/docker/rootfs/. /.
 
 
 echo "Starting . $LOGICMOO_WS/INSTALL.md"
-. $LOGICMOO_WS/INSTALL.md
+cd $LOGICMOO_WS
+bash -x $LOGICMOO_WS/INSTALL.md
 
-rm -rf /etc/apache2/conf-available
+mv /etc/apache2/conf-available /etc/apache2/conf-available.dist
 ln -s $LOGICMOO_WS/docker/rootfs/etc/apache2/conf-available /etc/apache2/conf-available 
-rm -rf /etc/apache2/conf-available
+mv /etc/apache2/sites-enabled /etc/apache2/sites-enabled.dist
 ln -s $LOGICMOO_WS/docker/rootfs/etc/apache2/sites-enabled /etc/apache2/sites-enabled
-rm -rf /etc/apache2/ssl
-ln -s $LOGICMOO_WS/docker/rootfs/etc/apache2/sites-enabled /etc/apache2/ssl
-rm -rf /etc/supervisor
+mv /etc/apache2/ssl /etc/apache2/ssl.dist
+ln -s $LOGICMOO_WS/docker/rootfs/etc/apache2/ssl /etc/apache2/ssl
+mv /etc/supervisor /etc/supervisor.dist
 ln -s $LOGICMOO_WS/docker/rootfs/etc/supervisor /etc/supervisor
 mv /root /root.dist
 ln -s $LOGICMOO_WS/packs_sys/prologmud_samples/prolog/prologmud_sample_games/ /root

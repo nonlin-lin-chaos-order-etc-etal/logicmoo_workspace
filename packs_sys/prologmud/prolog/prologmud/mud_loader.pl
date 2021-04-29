@@ -129,8 +129,8 @@ user:prolog_load_file(ModuleSpec, Options) :-
 % [Optionaly] Solve the Halting problem
 :-use_module(library(process)).
 % :-use_module(library(pce)).
-:- has_gui_debug -> true ; remove_pred(pce_principal,send,2).
-:- has_gui_debug -> true ; remove_pred(pce_principal,new,2).
+%:- has_gui_debug -> true ; remove_pred(pce_principal,send,2).
+%:- has_gui_debug -> true ; remove_pred(pce_principal,new,2).
 
 
 :- export(add_game_dir/2).

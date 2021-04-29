@@ -23,6 +23,13 @@ W:\opt\logicmoo_workspace\packs_sys\logicmoo_utils\prolog;W:\opt\logicmoo_worksp
 */
 %:- set_prolog_flag(xpce, false).
 
+%:- reconsult('/opt/logicmoo_workspace/lib/swipl/xpce/prolog/lib/pce.pl').
+
+% :- dynamic(pce_principal:send/2).
+%:- lock_predicate(pce_principal:send/2).
+% :- use_module(library(jpl)).
+
+
 pre_run_mud_server:-
  
  volatile(http_log:log_stream/1),
@@ -78,7 +85,7 @@ load_package_dirs_1:-
   ignore(catch(make_directory('/tmp/tempDir/pack'),_,true)),
   (user:file_search_path(pack,'/tmp/tempDir/pack') -> true ; asserta(user:file_search_path(pack,'/tmp/tempDir/pack'))),
   attach_packs('/tmp/tempDir/pack'),
-  pack_install(logicmoo_utils,[upgrade(true),interactive(false)]),
+  % nop(pack_install(logicmoo_utils,[upgrade(true),interactive(false)])),
   !.
 
 load_package_dirs:-
@@ -369,6 +376,7 @@ lps_sanity(File):- Limit = 110580,
 
 baseKB:':-'(ConsqIn):- throw(':-'(ConsqIn)).
 :- lock_predicate(baseKB:':-'/1).
+
 % t:/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/pldata/plkb7166/kb7166_pt7_constant_renames.pldata
 
 /*
@@ -604,6 +612,8 @@ start_all :- keep_user_module((start_network, start_rest)).
                                  Culprit),
                 _)))))).
 
+
+
 :- set_prolog_flag(debug,true).
 :- set_prolog_flag(access_level,system).
 
@@ -644,6 +654,13 @@ start_all :- keep_user_module((start_network, start_rest)).
 % :- mu:srv_mu.
 
 :- add_history((mmake, autodoc_test)).
+
+swi_ide:- \+ current_prolog_flag(xpce, true), !.
+swi_ide:- use_module(library(swi_ide)),
+ ( getenv('DISPLAY',_)
+   -> prolog_ide(thread_monitor)
+    ;true).
+:- add_history(swi_ide).
 
 %:- lps_sanity.
 
