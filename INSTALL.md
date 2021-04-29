@@ -97,6 +97,8 @@ git submodule update --init
 echo "git pull --recurse-submodules"
 git pull --recurse-submodules
 git lfs checkout
+git submodule foreach 'git lfs pull'
+git submodule foreach 'git lfs checkout .'
 git submodule foreach 'git lfs checkout'
 
 
