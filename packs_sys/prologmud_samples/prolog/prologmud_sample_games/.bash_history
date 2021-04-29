@@ -697,3 +697,8 @@ ls
 ./akill297
 ps axf
 exit
+cls
+screen -r
+ls /etc/letsencrypt/live/logicmoo.org-000*
+ps axfmake.
+ls

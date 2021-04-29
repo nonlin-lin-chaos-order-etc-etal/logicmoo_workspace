@@ -353,7 +353,9 @@ real_ansi_format0(Ansi, Fmt, Args) :-
 
 %s_l(F,L):- source_location(F,L),!.
 
-:- dynamic(etmp:last_s_l/2).
+:- thread_local(etmp:last_s_l/2).
+%:- dynamic(etmp:last_s_l/2).
+%:- volatile(etmp:last_s_l/2).
 
 :- export(maybe_mention_s_l/1).
 maybe_mention_s_l(N):- etmp:last_s_l(B,L), LLL is L+N,  s_l(BB,LL), B==BB, !, (LLL<LL -> mention_s_l; (N==1->mention_o_s_l;true)).
@@ -367,6 +369,10 @@ mention_s_l:-
   asserta(etmp:last_s_l(F,L)).
 
 
+%:- dynamic(ec_reader:o_s_l/2).
+:- thread_local(ec_reader:o_s_l/2).
+%:- volatile(ec_reader:o_s_l/2).
+
 o_s_l_diff:- s_l(F2,L2), ec_reader:o_s_l(F1,L1), (F1 \= F2; ( Diff is abs(L1-L2), Diff > 0)), !.
 
 maybe_o_s_l:- \+ o_s_l_diff, !.
@@ -378,8 +384,10 @@ output_line_count(L):- line_count(current_output,L).
 
 output_line_position(L):- line_position(current_output,L).
 
-:- dynamic(ec_reader:last_output_lc/3).
-ec_reader:last_output_lc(0,foo,bar).
+%:- dynamic(ec_reader:last_output_lc/3).
+:- thread_local(ec_reader:last_output_lc/3).
+%:- volatile(ec_reader:last_output_lc/3).
+% ec_reader:last_output_lc(0,foo,bar).
 
 mention_o_s_l:- ignore(do_mention_o_s_l),!.
 do_mention_o_s_l:- ec_reader:o_s_l(F,L),!,out_o_s_l_1(F,L).
@@ -397,7 +405,6 @@ out_o_s_l_2(F,L):-
         (format('~N~q.~n', [:- was_s_l(F,L)]), with_output_to(user_error,(ansi_format([fg(green)], '~N% From ~w~n', [F:L]),ttyflush)))
          ; (ansi_format([fg(green)], '~N% From ~w~n', [F:L]),ttyflush)),!.
 
-:- dynamic(ec_reader:o_s_l/2).
 :- export(was_s_l/2).
 was_s_l(B,L):- retractall(ec_reader:o_s_l(_,_)),asserta(ec_reader:o_s_l(B,L)), out_o_s_l_2(B,L).
   

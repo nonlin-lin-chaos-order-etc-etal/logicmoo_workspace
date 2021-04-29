@@ -246,8 +246,8 @@ pddl_test_unit(monkey) :- planner_solve_files(pddl('hakank-pddl/monkey-domain.pd
 %:- show_call(flag(time_used_other,W,W)).
 %:- show_call(flag(time_used,W,W)).
 
-
-:- xlisting(logicmoo_planner).
+% :- xlisting(logicmoo_planner).
+% :- xlisting(test).
 
 :- fixup_exports.
 

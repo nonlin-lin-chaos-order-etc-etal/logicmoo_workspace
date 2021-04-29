@@ -62,6 +62,7 @@ maybe_debug_var(X,Y):- mort(may_debug_var(X,Y)).
 p_n_atom(Cmpd,UPO):- p_n_atom1(Cmpd,UP),toProperCamelAtom(UP,UPO),!.
 
 p_n_atom1(Cmpd,UP):- number(Cmpd),!,format(atom(UP),"_Num~w_",[Cmpd]).
+p_n_atom1(Cmpd,UP):- string(Cmpd),atom_subst(Cmpd," ","_",String),!,p_n_atom1(String,UP).
 p_n_atom1(Cmpd,UP):- Cmpd=='', UP='',!.
 p_n_atom1(Cmpd,UP):- compound(Cmpd), sub_term(Atom,Cmpd),atomic(Atom), \+ number(Atom), Atom\==[], catch(p_n_atom0(Atom,UP),_,fail), !.
 p_n_atom1(Cmpd,UP):- compound(Cmpd), compound_name_arity(Cmpd,Atom,_), catch(p_n_atom0(Atom,UP),_,fail), !.
@@ -147,6 +148,8 @@ debug_var0([C|S],Var):- notrace(catch(atom_codes_w_blobs(Atom,[C|S]),_,fail)),!,
 debug_var0([AtomI|Rest],Var):-!,toProperCamelAtom([AtomI|Rest], NAME),afix_varname(NAME,Var),!.
 debug_var0(Atom,Var):- debug_var1(Atom,Var).
 
+
+debug_var1(Atom,_Var):- unusable_name(Atom),!.
 debug_var1(Atom,Var):- p_n_atom(Atom,UP), debug_var2(UP,Var).
 debug_var2(New, _):- unusable_name(New),!.
 debug_var2(UP,_):- check_varname(UP),fail.
@@ -185,6 +188,7 @@ add_var_to_env_trimed(New,Var):- add_var_to_env_now(New,Var).
 
 unusable_name(New):- \+ atom(New), \+ string(New),!.
 unusable_name(New):- atom_number(New,_),!.
+unusable_name("").
 unusable_name('').
 
 add_var_to_env_now(New, _):- unusable_name(New),!.
@@ -212,7 +216,7 @@ mort(G):- display(failed_mort(G)),notrace,trace,rtrace(G),notrace,trace,break.
 
 to_var_or_name(L,LL):- var(L),!,LL=L.
 to_var_or_name('~','Not').
-to_var_or_name([],'Nil').
+to_var_or_name([],'NList').
 to_var_or_name(L,LL):- \+ atom(L),!,format(atom(LL),"~w",[L]).
 % to_var_or_name(L,LL):- to_var_or_name_2(L,LL),!.
 % to_var_or_name(F,LL):- is_letterless(F), name(F,X),atomic_list_concat([c|X],'c',LL),!.
@@ -471,6 +475,7 @@ reduce_single_letter(L,LL):- name(L,[LC1,UC,LC2|Rest]),char_type(LC1,lower),char
   name(LL,[UC,LC2|Rest]).
 
 reduce_fname(M,N):- \+ atom(M),!,term_to_atom(M,N0),!,reduce_fname(N0,N).
+
 reduce_fname(M,N):- atom_codes(M,[C|R]), \+ code_type(C,alpha), atom_codes(N0,R),reduce_fname(N0,N).
 reduce_fname(M,N):- atom_codes(M,Codes), append(R,[C],Codes), \+ code_type(C,alnum), atom_codes(N0,R),reduce_fname(N0,N).
 

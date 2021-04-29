@@ -59,12 +59,12 @@
             is_cgi_stream/0,
             is_context/2,
             is_goog_bot/0,
-            'list clauses'/4,
-            'list magic'/2,
-            'list magic'/3,
-            'list magic'/4,
+            list_w_clauses/4,
+            list_w_magic/2,
+            list_w_magic/3,
+            list_w_magic/4,
             logic_lang_name/2,
-            make_page_pretext_obj/1,
+            do_xlisting_html/1,
             make_quotable/2,
             make_session/1,
             maybe_paren/5,
@@ -164,13 +164,13 @@
 
 :- set_module(class(library)).
 /*
-% % % OFF :- system:use_module(library(hook_database)).
-% % % OFF :- system:use_module(library(logicmoo/no_repeats)).
-% % % OFF :- system:use_module(library(logicmoo/each_call)).
-% % % OFF :- system:use_module(library(logicmoo/locally_redo)).
-% % % OFF :- system:use_module(library(logicmoo/virtualize_source)).% WAS OFF  :- system:use_module(library(no_repeats)).
+:- system:use_module(library(hook_database)).
+:- system:use_module(library(logicmoo/no_repeats)).
+:- system:use_module(library(logicmoo/each_call)).
+:- system:use_module(library(logicmoo/locally_redo)).
+:- system:use_module(library(logicmoo/virtualize_source)).% WAS OFF  :- system:use_module(library(no_repeats)).
 */
-% % % OFF :- system:use_module(library(logicmoo/attvar_serializer)).
+:- system:use_module(library(logicmoo/attvar_serializer)).
 
 :- dynamic user:library_directory/1.
 :- multifile user:library_directory/1.
@@ -186,22 +186,28 @@ hide_xpce_library_directory.
 :- set_prolog_flag(hide_xpce_library_directory,true).
 
 %:- ensure_loaded(library(logicmoo_swilib)).
-% % % OFF :- system:use_module(library(http/thread_httpd)).
-% % % OFF :- system:use_module(thread_httpd:library(http/http_dispatch)).
-% % % OFF :- system:use_module(swi(library/http/html_write)).
-% % % OFF :- system:use_module(swi(library/http/html_head)).
-% % % OFF :- system:use_module(library(http/http_dispatch)).
-% % % OFF :- system:use_module(library(http/http_path)).
-% % % OFF :- system:use_module(library(http/http_log)).
-% % % OFF :- system:use_module(library(http/http_client)).
-% % % OFF :- system:use_module(library(http/http_server_files)).
-% % % OFF :- system:use_module(library(http/http_parameters)).
+:- system:use_module(library(http/thread_httpd)).
+:- system:use_module(thread_httpd:library(http/http_dispatch)).
+%:- system:use_module(swi(library/http/html_write)).
+:- system:use_module(swi(library/http/html_head)).
+:- system:use_module(library(http/http_dispatch)).
+:- system:use_module(library(http/http_path)).
+:- system:use_module(library(http/http_log)).
+:- system:use_module(library(http/http_client)).
+:- system:use_module(library(http/http_server_files)).
+:- system:use_module(library(http/http_parameters)).
+
+:- system:use_module(library(uri)).
+:- system:use_module(library(http/http_openid)).
+:- system:use_module(library(http/http_host)).
+:- use_module(library(http/html_write)).
+:- system:use_module(library(http/http_error)).
 
 
-% % % OFF :- system:use_module(library(predicate_streams)).
-% % % OFF :- system:use_module(library(logicmoo/with_no_x)).
-% % % OFF :- system:use_module(library(logicmoo/each_call)).
-% % % OFF :- system:use_module(library(logicmoo/butterfly)).
+:- system:use_module(library(predicate_streams)).
+:- system:use_module(library(logicmoo/with_no_x)).
+:- system:use_module(library(logicmoo/each_call)).
+:- system:use_module(library(logicmoo/butterfly_console)).
 
 
 :- thread_local(t_l:no_cycstrings/0).
@@ -245,9 +251,9 @@ hide_xpce_library_directory.
 :- thread_local(t_l:print_mode/1).
 
 :- if(exists_source(cliopatria('applications/help/load'))).
-% % % OFF :- system:use_module(cliopatria('applications/help/load')).
+:- system:use_module(cliopatria('applications/help/load')).
 % Load ClioPatria itself.  Better keep this line.
-% % % OFF :- system:use_module(cliopatria(cliopatria)).
+:- system:use_module(cliopatria(cliopatria)).
 :- else.
 cp_menu:cp_menu(X,X).
 cp_menu:cp_menu.
@@ -339,16 +345,16 @@ ensure_sigma:- ensure_sigma(3020).
 % :- portray_text(false).  % or Enable portray of strings
 
 
-:- thread_local(t_l:omit_full_stop).
+:- thread_local(t_l:omit_full_stop/0).
 
 % :- thread_property(_,alias('http@3020'))->true; http_server(http_dispatch, [port(3020)]).
 
 register_logicmoo_browser:- 
   http_handler('/logicmoo/', handler_logicmoo_cyclone, [prefix]), % chunked
-  http_handler('/logicmoo_nc/', handler_logicmoo_cyclone, [prefix,chunked]),
-  http_handler('/swish/logicmoo/', handler_logicmoo_cyclone, [prefix]), % chunked
-  http_handler('/swish/logicmoo_nc/', handler_logicmoo_cyclone, [prefix,chunked]),
-  doc_collect(true).
+  http_handler('/logicmoo_nc/', handler_logicmoo_cyclone1, [prefix,chunked]),
+  http_handler('/swish/logicmoo/', handler_logicmoo_cyclone2, [prefix]), % chunked
+  http_handler('/swish/logicmoo_nc/', handler_logicmoo_cyclone3, [prefix,chunked]),
+  nop(doc_collect(true)).
 
 
 %% location( ?ARG1, ?ARG2, ?ARG3) is det.
@@ -375,7 +381,7 @@ register_logicmoo_browser:-
 
 :- must(prolog_load_context(module,xlisting_web)).
 in_xlisting_web1.
-:- must( \+ pfc_lib:is_pfc_file0).
+%:- must( \+ pfc_lib:is_pfc_file0).
 :- ensure_loaded('xlisting_web.pfc').
 :- must( \+ is_pfc_file).
 
@@ -617,7 +623,9 @@ save_request_in_session(Request):-
 %% handler_logicmoo_cyclone( +Request) is det.
 %
 % Handler Logicmoo Cyclone.
-%
+handler_logicmoo_cyclone3(A):- handler_logicmoo_cyclone(A).
+handler_logicmoo_cyclone2(A):- handler_logicmoo_cyclone(A).
+handler_logicmoo_cyclone1(A):- handler_logicmoo_cyclone(A).
 handler_logicmoo_cyclone(_):- quietly(is_goog_bot),!,
   quietly((format('Content-type: text/html~n~n',[]),
   bformat('<!DOCTYPE html><html><head></head><body><pre></pre></body></html>~n~n',[]),
@@ -650,10 +658,12 @@ handler_logicmoo_cyclone(Request):-
      member(path(PATH),Request),
     directory_file_path(_,FCALL,PATH),
    once(get_param_req(webproc,Call);(current_predicate(FCALL/0),Call=FCALL);get_param_sess(webproc,Call,edit1term)),
-   must_run(Call)))))))))),!.
+   wdmsg(Call),
+   must_run((Call))))))))))),!.
    
 
-
+:- multifile(cp_menu:menu_item/2).
+:- dynamic(cp_menu:menu_item/2).
 :- asserta(cp_menu:menu_item(500=places/handler_logicmoo_cyclone,	'LogicMOO')).
 :- asserta(cp_menu:menu_item(500=swish/handler_logicmoo_cyclone,	'LogicMOO')).
 
@@ -912,10 +922,10 @@ write_term_to_atom_one(atom(A),Term):-format(atom(A),'~q',[Term]).
 	classify_alpha_tail(+),
 	classify_other_tail(+),
 	'functor spec'(+, -, -, -),
-	'list clauses'(+, +, +, +),
-	'list magic'(+, +),
-	'list magic'(+, +, +),
-	'list magic'(+, +, +, +),
+	list_w_clauses(+, +, +, +),
+	list_w_magic(+, +),
+	list_w_magic(+, +, +),
+	list_w_magic(+, +, +, +),
 	maybe_paren(+, +, +, +, -),
 	maybe_space(+, +),
 	rok_portray_clause(+),
@@ -1483,17 +1493,17 @@ rok_portray_clause1( :-(Command)) :-
 	),  !,
 	nl,
 	% nu mbervars(Body, 0, _),
-	\+ \+ 'list clauses'(Body, Key, 2, 8),!.
+	\+ \+ list_w_clauses(Body, Key, 2, 8),!.
 rok_portray_clause1(M:(Pred:-Body)) :- !,
      must_run((
 	% nu mbervars(Pred+Body, 0, _),
 	\+ \+ portable_writeq(M:Pred),
-	\+ \+ 'list clauses'(Body, 0, 2, 8))), !.
+	\+ \+ list_w_clauses(Body, 0, 2, 8))), !.
 rok_portray_clause1((Pred:-Body)) :- !,
      must_run((
 	% nu mbervars(Pred+Body, 0, _),
 	\+ \+ portable_writeq(Pred),
-	\+ \+ 'list clauses'(Body, 0, 2, 8))), !.
+	\+ \+ list_w_clauses(Body, 0, 2, 8))), !.
 rok_portray_clause1(M:(Pred)) :- 
 	call(call,rok_portray_clause1((M:Pred:-true))).
 rok_portray_clause1((Pred)) :- !,
@@ -1504,27 +1514,27 @@ rok_portray_clause1((Pred)) :- !,
 %
 % List Clauses.
 %
-'list clauses'((A,B), L, R, D) :- !,
-	'list clauses'(A, L, 1, D), !,
-	'list clauses'(B, 1, R, D).
-'list clauses'(true, _L, 2, _D) :- !,
-	put(0'.
+list_w_clauses((A,B), L, R, D) :- !,
+	list_w_clauses(A, L, 1, D), !,
+	list_w_clauses(B, 1, R, D).
+list_w_clauses(true, _L, 2, _D) :- !,
+	put(0'. %'
         ), nl.
         
-'list clauses'((A;B), L, R, D) :- !,
-	'list magic'(fail, L, D),
-	'list magic'((A;B), 0, 2, D),
-	'list magic'(R, '.
+list_w_clauses((A;B), L, R, D) :- !,
+	list_w_magic(fail, L, D),
+	list_w_magic((A;B), 0, 2, D),
+	list_w_magic(R, '.
 '
 ).
 
-'list clauses'((A->B), L, R, D) :- !,
-	'list clauses'(A, L, 5, D), !,
-	'list clauses'(B, 5, R, D).
-'list clauses'(Goal, L, R, D) :-
-	'list magic'(Goal, L, D),
+list_w_clauses((A->B), L, R, D) :- !,
+	list_w_clauses(A, L, 5, D), !,
+	list_w_clauses(B, 5, R, D).
+list_w_clauses(Goal, L, R, D) :-
+	list_w_magic(Goal, L, D),
 	portable_writeq(Goal),
-	'list magic'(R, '.
+	list_w_magic(R, '.
 '
 ).
 
@@ -1535,25 +1545,24 @@ rok_portray_clause1((Pred)) :- !,
 %
 % List Magic.
 %
-'list magic'(!,    0, _D) :- !,
+list_w_magic(!,    0, _D) :- !,
 	write(' :- ').
-'list magic'(!,    1, _D) :- !,
+list_w_magic(!,    1, _D) :- !,
 	write(',  ').
-'list magic'(_Goal, 0, D) :- !,
+list_w_magic(_Goal, 0, D) :- !,
 	write(' :- '),
 	nl, tab(D).
-'list magic'(_Goal, 1, D) :- !,
-	put(0',
-        ),
+list_w_magic(_Goal, 1, D) :- !,
+	put(','),
 	nl, tab(D).
-'list magic'(_Goal, 3, _D) :- !,
+list_w_magic(_Goal, 3, _D) :- !,
 	write('(   ').
-'list magic'(_Goal, 4, _D) :- !,
+list_w_magic(_Goal, 4, _D) :- !,
 	write(';   ').
-'list magic'(_Goal, 5, D) :- !,
+list_w_magic(_Goal, 5, D) :- !,
 	write(' ->'),
 	nl, tab(D).
-'list magic'(_Goal, Key, D) :-
+list_w_magic(_Goal, Key, D) :-
 	atom(Key),
 	write(':- '), write(Key),
 	nl, tab(D).
@@ -1566,8 +1575,8 @@ rok_portray_clause1((Pred)) :- !,
 %
 % List Magic.
 %
-'list magic'(2, C) :- !, write(C).
-'list magic'(_, _).
+list_w_magic(2, C) :- !, write(C).
+list_w_magic(_, _).
 
 
 
@@ -1577,15 +1586,15 @@ rok_portray_clause1((Pred)) :- !,
 %
 % List Magic.
 %
-'list magic'((A;B), L, R, D) :- !,
-	'list magic'(A, L, 1, D), !,
-	'list magic'(B, 1, R, D).
-'list magic'(Conj,  L, R, D) :-
+list_w_magic((A;B), L, R, D) :- !,
+	list_w_magic(A, L, 1, D), !,
+	list_w_magic(B, 1, R, D).
+list_w_magic(Conj,  L, R, D) :-
 	E is D+8,
 	M is L+3,
-	'list clauses'(Conj, M, 1, E),
+	list_w_clauses(Conj, M, 1, E),
 	nl, tab(D),
-	'list magic'(R, ')').
+	list_w_magic(R, ')').
 
 
 /*	Test code for rok_portray_clause.
@@ -1679,7 +1688,9 @@ pkif :-
 
 
 
-x123:- locally_tl(print_mode(html),xlisting_inner(i2tml_hbr,end_of_file,[])).
+
+x123:- locally_tl(print_mode(html),xlisting_inner_web(end_of_file)).
+x124:- locally_tl(print_mode(html),xlisting_inner_web(tHumanHead)).
 
 
 %% param_matches( ?ARG1, ?ARG2) is det.
@@ -1715,7 +1726,9 @@ show_select22(Name,Pred,Options):-
 %
 % Show Select Secondary Helper.
 %
-show_select1(Name,Pred):- block_format(show_select11(Name,Pred)).
+show_select1(Name,Pred):- 
+  block_format(show_select11(Name,Pred)).
+
 show_select11(Name,Pred):-
  Call=..[Pred,Value],
  ( param_default_value(Name,D); param_default_value(Pred,D)),!,
@@ -1752,7 +1765,7 @@ search4term:- must_run((
   get_param_sess(term,Term,"tHumanHead"),
   get_param_sess(find,SObj,Term),
   cvt_param_to_term(SObj,Obj),
-  call_for_terms(make_page_pretext_obj(Obj)))),!.
+  call_for_terms(do_xlisting_html(Obj)))),!.
 
 
 
@@ -1797,10 +1810,10 @@ edit1term:-
 edit1term:- 
  must_run((
              reset_assertion_display,
-             get_param_sess(term,String,""),get_param_sess(find,Word,""),term_to_pretty_string(Word,SWord),
-                save_in_session(find,Word),
+   get_param_sess(term,String,""),get_param_sess(find,Word,""),term_to_pretty_string(Word,SWord),
+   save_in_session(find,Word),
    show_edit_term(true,String,SWord))),!,
- show_iframe(search4term,find,SWord).
+ nop(show_iframe(search4term,find,SWord)).
 
 
 
@@ -1918,7 +1931,8 @@ as </font><font color="#008080">[ ]</font><font color="#C0C0C0"> for temples, </
 %
 % Show Edit Term Secondary Helper.
 %
-show_edit_term1(Call,String,'=>'(P,Q)):-!,show_edit_term1(Call,String,(P;Q;'=>'(P,Q))),!.
+
+%show_edit_term1(Call,String,'=>'(P,Q)):-!,show_edit_term1(Call,String,(P;Q;'=>'(P,Q))),!.
 show_edit_term1(Call,String,SWord):- 
  write_begin_html('edit1term',_BASE,URL),!,
    bformat('<br/><p>
@@ -2231,12 +2245,12 @@ section_close(Type):- shown_subtype(Type)->(retractall(shown_subtype(Type)),(is_
             is_cgi_stream/0,
             is_context/2,
             is_goog_bot/0,
-            'list clauses'/4,
-            'list magic'/2,
-            'list magic'/3,
-            'list magic'/4,
+            list_w_clauses/4,
+            list_w_magic/2,
+            list_w_magic/3,
+            list_w_magic/4,
             logic_lang_name/2,
-            make_page_pretext_obj/1,
+            do_xlisting_html/1,
             make_quotable/2,
             make_session/1,
             maybe_paren/5,
@@ -2466,7 +2480,7 @@ pp_i2tml_0('$spft'(MZ,P,F,T)):- atom(T),!,  pp_i2tml_1(((MZ:P):-  T:'t-deduced',
 pp_i2tml_0('$spft'(MZ,P,F,T)):- atom(F),!,  pp_i2tml_1(((MZ:P):-  F:'f-deduced',T)). 
 pp_i2tml_0('$spft'(MZ,P,F,T)):- !, pp_i2tml_1((MZ:P:- ( 'deduced-from'=F,  (rule_why = T)))).
 pp_i2tml_0('$nt'(Trigger,Test,Body)) :- !, pp_i2tml_1(proplst(['n-trigger'=Trigger , bformat=Test  ,  (body = (Body))])).
-pp_i2tml_0('$pt'(MZ,Trigger,Body)):-      pp_i2tml_1(proplst(['p-trigger'=Trigger , ( body = Body)])).
+pp_i2tml_0('$pt'(_MZ,Trigger,Body)):-      pp_i2tml_1(proplst(['p-trigger'=Trigger , ( body = Body)])).
 pp_i2tml_0('$bt'(Trigger,Body)):-      pp_i2tml_1(proplst(['b-trigger'=Trigger ,  ( body = Body)])).
 
 pp_i2tml_0(proplst([N=V|Val])):- is_list(Val),!, pp_i2tml_1(N:-([clause=V|Val])).
@@ -2664,7 +2678,7 @@ call_for_terms(Call):-
         write_begin_html('search4term',Base,_),
         show_search_form(Obj,Base),
         bformat('<pre>',[]),        
-        locally_tl(print_mode(html),with_search_filters(catch(ignore(Call),E,dmsg(E)))),
+        locally_tl(print_mode(html),with_search_filters(catch(ignore(nop(Call)),E,dmsg(E)))),
         bformat('</pre>',[]),
         show_pcall_footer,
         write_end_html)),!.
@@ -2699,25 +2713,31 @@ with_search_filters0(C):-call(C).
 
 
 
-%% make_page_pretext_obj( ?ARG1) is det.
+%% do_xlisting_html( ?ARG1) is det.
 %
 % Make Page Pretext Obj.
 %
 
-% make_page_pretext_obj(Obj):- atom(Obj),atom_to_term(Obj,Term,Bindings),nonvar(Term),Term\=@=Obj,!,must_run(make_page_pretext_obj(Term)).
+% do_xlisting_html(Obj):- atom(Obj),atom_to_term(Obj,Term,Bindings),nonvar(Term),Term\=@=Obj,!,must_run(do_xlisting_html(Term)).
 
-make_page_pretext_obj(Obj):- 
+do_xlisting_html(Obj):-
  must_run((
-  % catch(mmake,_,true),
+  catch(mmake,_,true),
   % forall(no_repeats(M:F/A,(f_to_mfa(Pred/A,M,F,A))),ignore(logOnFailure((this_listing(M:F/A),flush_output_safe)))),
   % forall(no_repeats(M:F/A,(f_to_mfa(Pred/A,M,F,A))),ignore(logOnFailure((reply_object_sub_page(M:F/A),flush_output_safe)))),
   % ignore((fail,catch(mpred_listing(Pred),_,true))),
-  quietly(call_with_time_limit(300,ignore(catch(xlisting_inner(i2tml_hbr,Obj,[]),E,wdmsg(E))))),
+  xlisting_inner_web(Obj),
   pp_i2tml_saved_done(Obj))),!.
 
-make_page_pretext_obj(Obj):- writeq(make_page_pretext_obj(Obj)),!.
+do_xlisting_html(Obj):- writeq(do_xlisting_html(Obj)),!.
 
 
+xlisting_inner_web(Obj):- 
+  catch(call_with_time_limit(3,
+    ignore(catch(xlisting_inner_web(i2tml_hbr,Obj,[]),E,wdmsg(E)))
+    ),_,bformat('~q.',timeout_do_xlisting_html(Obj))).
+
+xlisting_inner_web(X,Obj,Z):- xlisting_inner(X,Obj,Z).
 
 % :- prolog_xref:assert_default_options(register_called(all)).
 
@@ -2824,12 +2844,32 @@ current_line_position(Out,LP):-stream_property(Out,position( Y)),stream_position
 test_tmw:- locally_tl(print_mode(html),
  (rok_portray_clause(a(LP)),
   rok_portray_clause((a(LP):-b([1,2,3,4]))),
-  nl,nl,call_u(wid(_,_,KIF)),
+  nl,nl,
+    wid_kif(KIF),
   KIF='=>'(_,_),nl,nl,print(KIF),listing(print_request/1))),!.
-test_tmw2:- locally_tl(print_mode(html),(print((a(_LP):-b([1,2,3,4]))),nl,nl,wid(_,_,KIF),KIF='=>'(_,_),nl,nl,print(KIF),listing(print_request/1))),!.
+test_tmw2:- locally_tl(print_mode(html),
+  (print((a(_LP):-b([1,2,3,4]))),nl,nl,
+    wid_kif(KIF),
+   KIF='=>'(_,_),nl,nl,print(KIF),listing(print_request/1))),!.
+
+wid_kif(KIF):- call_u(wid(_,_,KIF)),!.
+wid_kif(_).
 
 
+cccc:- ignore(retract((swish_html_output:make_safe_html(Module:HTML0,
+                                 M,
+                                 Module:HTML) :-
+    !,
+    (   Module==M
+    ->  true
+    ;   permission_error(cross_module_call, M, Module:HTML)
+    ),
+    make_safe_html(HTML0, M, HTML)))).
 
+
+%html(Spec, A, B):- swish_html_output:html(Spec, A, B), !.
+%html(Spec, A, B):- html_write:html(Spec, A, B).
+  
 % II = 56+TTT, ((show_call(why,(url_encode(II,EE),var_property(TTT,name(NNN)),url_decode(EE,OO))))),writeq(OO).
 
 
@@ -3100,7 +3140,7 @@ xlisting_web_file.
 %:- nb_setval(defaultAssertMt,[]).
 
 % :- ensure_sigma(6767).
-:- must( \+ pfc_lib:is_pfc_file0).
+%:- must( \+ pfc_lib:is_pfc_file0).
 :- ensure_loaded('xlisting_web.pfc').
 :- must( \+ is_pfc_file).
 
@@ -3111,6 +3151,8 @@ xlisting_web_file.
 
 :- set_prolog_flag(hide_xpce_library_directory,false).
 :- retract(t_l:no_cycstrings).
+
+:- add_import_module(baseKB,xlisting_web,end).
 
 :- during_net_boot(register_logicmoo_browser).
 :- set_fileAssertMt(baseKB).

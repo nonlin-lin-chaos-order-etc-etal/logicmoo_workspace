@@ -96,7 +96,7 @@ sanify_thread(ID):-
 % TELNET REPL + READER
 % ===========================================================
 start_mud_telnet :-  app_argv1('--nonet'),!.
-start_mud_telnet:- dumpST,
+start_mud_telnet:- 
   logicmoo_base_port(Base),
   WebPort is Base, % + 1000,
   whenever(run_network,start_mud_telnet(WebPort)).

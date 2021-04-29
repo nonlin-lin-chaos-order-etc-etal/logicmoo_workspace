@@ -32,7 +32,7 @@
             get_search_ref/2,
             get_search_ref0/2,
             get_search_ref_tl/2,
-            is_listing_hidden_00/1,
+            is_listing_hidden_00/2,
             is_listing_hidden/1,
             m_clause/4,
             m_clause0/4,
@@ -139,7 +139,7 @@
         get_search_ref/2,
         get_search_ref0/2,
         get_search_ref_tl/2,        
-        is_listing_hidden_00/1,
+        is_listing_hidden_00/2,
         is_listing_hidden/1,
         m_clause/4,
         m_clause0/4,
@@ -665,9 +665,9 @@ save_search_ref_tl(Ref,Atomic):-nb_setval(Atomic,[Ref]).
 %
 % Shared Hide Data.
 %
-baseKB:shared_hide_data(lmcache:varname_info/4):- !,is_listing_hidden(hideMeta).
-baseKB:shared_hide_data(lmcache:_):- is_listing_hidden(hideMeta).
-baseKB:shared_hide_data(wid):- is_listing_hidden(hideMeta).
+baseKB:shared_hide_data(lmcache:varname_info/4):- !,is_listing_hidden(metaInfo).
+baseKB:shared_hide_data(lmcache:_):- is_listing_hidden(metaInfo).
+baseKB:shared_hide_data(wid):- is_listing_hidden(metaInfo).
 
 
 %= 	 	 
@@ -676,30 +676,34 @@ baseKB:shared_hide_data(wid):- is_listing_hidden(hideMeta).
 %
 % Listing Filter.
 %
-is_listing_hidden(P):-quietly(is_listing_hidden_00(P)).
+is_listing_hidden(MP):- \+ \+ quietly((strip_module(MP,M,P),is_listing_hidden_00(M,P))).
 
 :- export(is_listing_hidden/1).
 :- baseKB:import(is_listing_hidden/1).
 
 %= 	 	 
 
-%% is_listing_hidden_00( :TermP) is semidet.
+%% is_listing_hidden_00(_, :TermP) is semidet.
 %
 % Hide Data Primary Helper.
 %
-is_listing_hidden_00(_):- !, fail.
-is_listing_hidden_00(P):-var(P),!,fail.
-is_listing_hidden_00(~(_)):-!,fail.
-is_listing_hidden_00(hideMeta):-is_listing_hidden(showAll),!,fail.
-is_listing_hidden_00(P):-t_l:tl_hide_data(P),!.
-is_listing_hidden_00(P):-baseKB:shared_hide_data(P),!.
-is_listing_hidden_00(_/_):-!,fail.
-is_listing_hidden_00(rnc):-!,fail.
-is_listing_hidden_00(P):- compound(P),functor(P,F,A), (is_listing_hidden_00(F/A);is_listing_hidden_00(F)).
-is_listing_hidden_00('$spft'):- is_listing_hidden(hideMeta),!.
-% %%% is_listing_hidden_00(P):- predicate_property(P,number_of_clauses(N)),N > 50000,\+ is_listing_hidden(showAll), \+ is_listing_hidden(showHUGE),!.
-is_listing_hidden_00(M:P):- atom(M),(is_listing_hidden(M);is_listing_hidden_00(P)).
 
+% is_listing_hidden_00(_,_):- !, fail.
+is_listing_hidden_00(_,M:P):- atom(M),is_listing_hidden_00(M,P).
+is_listing_hidden_00(_,P):-var(P),!,fail.
+is_listing_hidden_00(_,~(_)):-!,fail.
+is_listing_hidden_00(_,metaInfo):- is_listing_hidden(showAll),!,fail.
+is_listing_hidden_00(_,P):-t_l:tl_hide_data(P),!.
+is_listing_hidden_00(_,P):-baseKB:shared_hide_data(P),!.
+is_listing_hidden_00(_,_/_):-!,fail.
+is_listing_hidden_00(M,P):- is_meta_info_pred(M:P),!,is_listing_hidden(metaInfo).
+is_listing_hidden_00(M,F/A):- compound_name_arity(P,F,A), predicate_property(M:P,number_of_clauses(N)),N>100,is_listing_hidden(largePreds).
+is_listing_hidden_00(M,P):- compound(P),functor(P,F,A), (is_listing_hidden_00(M,F/A);is_listing_hidden_00(M,F)).
+is_listing_hidden_00(_,'$spft'):- is_listing_hidden(metaInfo),!.
+% %%% is_listing_hidden_00(_,P):- predicate_property(P,number_of_clauses(N)),N > 50000,\+ is_listing_hidden(showAll), \+ is_listing_hidden(showHUGE),!.
+
+is_meta_info_pred(rnc).
+is_meta_info_pred(_):- fail.
 
 :- meta_predicate unify_listing(:).
 
@@ -792,13 +796,17 @@ xlisting:- xlisting([]).
 :- create_prolog_flag(retry_undefined,default,[type(term),keep(true)]).
 
 %= 	 	 
+:- thread_local(etmp:last_s_l/2).
 
 %% xlisting( ?Match) is semidet.
 %
 % Xlisting.
 %
 xlisting(Match):-
-  retractall(etmp:last_s_l(_,_)), retractall(lmcache:completely_expanded(_,_)),retractall(t_l:no_xlisting(Match)),xlisting_0(Match).
+  retractall(etmp:last_s_l(_,_)), 
+  retractall(lmcache:completely_expanded(_,_)),
+  retractall(t_l:no_xlisting(_)),
+  xlisting_0(Match).
 
 xlisting_0(Match):- \+ \+ t_l:no_xlisting(Match),!.
 xlisting_0([]):- '$current_source_module'(M),!,listing(M:_),'$current_typein_module'(TM),(TM==M->true;listing(TM:_)),!.
@@ -905,7 +913,7 @@ xlisting_inner(Printer,Match,SkipPI):-
  must_det_l((
    get_matcher_code(Match,H,B,MATCHER),!,
    PRINT = must(ignore((once(call(Printer,H,B,Ref))))),   
-   PREDZ = ( (synth_clause_for(H,B,Ref,Size,SYNTH)), \+member(H,SkipPI)),
+   PREDZ = ( (synth_clause_for(H,B,Ref,Size,SYNTH)), \+member(H,SkipPI), \+is_listing_hidden(H)),
    forall(PREDZ,
      must(( 
       (is_listing_hidden(wholePreds),Size<100) 
@@ -1020,7 +1028,7 @@ synth_clause_for(G,true,0,222, SYNTH):- G=M:H, xlisting_config:xlisting_always(G
    %SYNTH = on_x_fail(G).
 
 synth_clause_for(G,true,0,244,SYNTH):-  bookeepingPredicateXRef(G), 
-  quietly(( \+ is_listing_hidden(hideMeta))), SYNTH=on_x_fail(G).
+  quietly(( \+ is_listing_hidden(metaInfo))), SYNTH=on_x_fail(G).
 
 synth_clause_for(G,B,Ref,Size,SYNTH):- cur_predicate(_,G), (((quietly(( \+ bookeepingPredicateXRef(G), \+ sourceTextPredicate(G), 
                                                                 \+ is_listing_hidden(G))))), 
@@ -1065,13 +1073,13 @@ synth_clause_ref(_:no_xlisting(_),_B,_Ref, _Size, _CALL):-!,fail.
 synth_clause_ref(_:in_prolog_listing(_),_B,_Ref, _Size, _CALL):-!,fail.
 synth_clause_ref(_:varname_info(_,_,_,_),_B,_Ref,_Size, _CALL):- \+ is_listing_hidden(showAll),!,fail.
 
-synth_clause_ref(M:H,info(B),Ref, 250, SYNTH):- \+ is_listing_hidden(hideMeta), 
+synth_clause_ref(M:H,'$info'(B),Ref, 250, SYNTH):- \+ is_listing_hidden(metaInfo), 
   SYNTH= (findall(PP,predicate_property(M:H,PP),PPL),Ref=0,
   %CPPL=..['$'|PPL],
   CPPL=PPL,
   B=M:('$predicate_property'(H,CPPL))).
 synth_clause_ref(MHG,B,Ref, 213, SYNTH):- predicateUsesCall(MHG),synth_in_listing(MHG), !, 
-  SYNTH= (on_x_fail(MHG),Ref=0,B=predicateUsedCall).
+  SYNTH= (on_x_fail(MHG),Ref=0,B='$info'(predicateUsedCall)).
 
 synth_clause_ref(M:H,B,Ref, 200, SYNTH):-     
     xlisting_config:xlisting_always(M:H),!, SYNTH= m_clause(M,H,B,Ref).
@@ -1130,7 +1138,7 @@ term_matches_hb(_,Var,_):-var(Var),!.
 term_matches_hb(_,[],_):-!.
 term_matches_hb(D,_,_):- D<0,!,fail.
 
-term_matches_hb(D,noinfo,H):- !, \+ term_matches_hb(D,unify(info(_)),H).
+term_matches_hb(D,noinfo,H):- !, \+ term_matches_hb(D,unify('$info'(_)),H).
 
 term_matches_hb(D,head(P),HB):-!,expand_to_hb(HB,H,_),strip_module(H,_,H0), !, term_matches_hb(D,P,H0).
 term_matches_hb(D,body(P),HB):-!,expand_to_hb(HB,_,B), term_matches_hb(D,P,B).
@@ -1469,7 +1477,7 @@ portray_hbr(H,B,R):-
 portray_phbr(_PW,M: P, M:pp(PPL),_):- (atom(P);compound(P)),format('~N~n'),
        in_cmt(writeq(P=PPL)),!,format('~N~n').
 
-portray_phbr(PW,M:P,info(M:'$predicate_property'(P,Props)),_):- (atom(P);compound(P)),
+portray_phbr(PW,M:P,'$info'(M:'$predicate_property'(P,Props)),_):- (atom(P);compound(P)),
        % functor(P,F,A), NEWH = pp(M:F/A,Props),
        pprint_ecp_cmt([hfg(black)],portray_hb1(PW,'$predicate_property'(P),Props)),!.
 
@@ -1800,5 +1808,5 @@ prolog_listing:list_clauses(Pred, Context):- prolog_listing_list_clauses(Pred, C
 
 :- endif.
 
-%:- fixup_exports.
+:- fixup_exports.
 

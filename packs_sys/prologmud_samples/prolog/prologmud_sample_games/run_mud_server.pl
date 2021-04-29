@@ -469,6 +469,8 @@ load_rest3:- keep_user_module(load_rest3_now).
 load_rest3_now:-
   call_safely(
   [
+   use_module(library(xlisting/xlisting_web)),
+   register_logicmoo_browser,
    set_modules_baseKB,
    add_hist(try_zebra),
    add_hist(start_all),
@@ -591,6 +593,16 @@ start_all :- keep_user_module((start_network, start_rest)).
 %:- noguitracer, tnodebug.
 :- endif.
 
+
+:- abolish(check:cross_module_call,2),  
+   asserta((check:cross_module_call(_Callee, _Context):- fail)).
+:- abolish(error:permission_error,3),  
+   asserta((
+    error:permission_error(Operation, PermissionType, Culprit) :-
+    wdmsg((throw(error(permission_error(Operation,
+                                 PermissionType,
+                                 Culprit),
+                _)))))).
 
 :- set_prolog_flag(debug,true).
 :- set_prolog_flag(access_level,system).
