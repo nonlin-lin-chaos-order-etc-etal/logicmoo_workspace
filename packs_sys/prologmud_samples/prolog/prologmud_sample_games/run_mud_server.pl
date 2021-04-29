@@ -602,9 +602,9 @@ start_all :- keep_user_module((start_network, start_rest)).
 :- endif.
 
 
-:- abolish(check:cross_module_call,2),  
+un_used:- abolish(check:cross_module_call,2),  
    asserta((check:cross_module_call(_Callee, _Context):- fail)).
-:- abolish(error:permission_error,3),  
+un_used:- abolish(error:permission_error,3),  
    asserta((
     error:permission_error(Operation, PermissionType, Culprit) :-
     wdmsg((throw(error(permission_error(Operation,

@@ -95,7 +95,7 @@
             pp_item_html_now/2,
             pp_now/0,
             print_request/1,
-            prover_name/2,
+            %prover_name/2,
             
             reply_object_sub_page/1,
             reset_assertion_display/0,
@@ -174,7 +174,7 @@
 
 :- dynamic user:library_directory/1.
 :- multifile user:library_directory/1.
-hide_xpce_library_directory:- 
+hide_xpce_library_directory:- fail,
   user:library_directory(X),
   atom(X),
   atom_concat(_,'xpce/prolog/lib/',X),!,
@@ -182,13 +182,13 @@ hide_xpce_library_directory:-
   assert((user:library_directory(X):- \+ current_prolog_flag(hide_xpce_library_directory,true))).
 hide_xpce_library_directory.
 
-:- hide_xpce_library_directory.
+%:- hide_xpce_library_directory.
 :- set_prolog_flag(hide_xpce_library_directory,true).
 
 %:- ensure_loaded(library(logicmoo_swilib)).
 :- system:use_module(library(http/thread_httpd)).
 :- system:use_module(thread_httpd:library(http/http_dispatch)).
-%:- system:use_module(swi(library/http/html_write)).
+%:- use_module(library(http/http_dispatch))
 :- system:use_module(swi(library/http/html_head)).
 :- system:use_module(library(http/http_dispatch)).
 :- system:use_module(library(http/http_path)).
@@ -256,11 +256,11 @@ hide_xpce_library_directory.
 :- system:use_module(cliopatria(cliopatria)).
 :- else.
 cp_menu:cp_menu(X,X).
-cp_menu:cp_menu.
+%cp_menu:cp_menu.
 :- endif.
 
-:- kb_global(baseKB:param_default_value/2).
-:- kb_global(baseKB:mtExact/1).
+%:- kb_global(baseKB:param_default_value/2).
+%:- kb_global(baseKB:mtExact/1).
 
 :- meta_predicate 
         edit1term(*),
@@ -371,10 +371,10 @@ register_logicmoo_browser:-
 % Hook To [user:file_search_path/2] For Module Mpred_www.
 % File Search Path.
 %
-:- prolog_load_context(directory,Here),atom_concat(Here,'/pixmapx',NewDir),asserta((user:file_search_path(pixmapx,NewDir))).
-% user:file_search_path(pixmapx, logicmoo('mpred_online/pixmapx')).
+:- prolog_load_context(directory,Here),atom_concat(Here,'/pixmaps',NewDir),asserta_new((user:file_search_path(pixmapx,NewDir))).
+%user:file_search_path(pixmapx, logicmoo('mpred_online/pixmapx')).
 
-:- during_boot(http_handler(pixmapx(.), http_server_files:serve_files_in_directory(pixmapx), [prefix])).
+:- http_handler(pixmapx(.), http_server_files:serve_files_in_directory(pixmapx), [prefix]).
 
 :- meta_predicate
 	handler_logicmoo_cyclone(+).
@@ -665,7 +665,7 @@ handler_logicmoo_cyclone(Request):-
 :- multifile(cp_menu:menu_item/2).
 :- dynamic(cp_menu:menu_item/2).
 :- asserta(cp_menu:menu_item(500=places/handler_logicmoo_cyclone,	'LogicMOO')).
-:- asserta(cp_menu:menu_item(500=swish/handler_logicmoo_cyclone,	'LogicMOO')).
+:- asserta(cp_menu:menu_item(500=swish/handler_logicmoo_cyclone,	'LogicMooSH')).
 
 
 %% write_begin_html( ?ARG1, ?ARG2, ?ARG3) is det.
@@ -702,8 +702,8 @@ body {
      html_head:output_html(html_requires(plain)),     
      bformat('<title>~w for ~w</title>
       <meta http-equiv="X-Frame-Options" content="ALLOWAll">
-      <link rel="stylesheet" type="text/css" href="/css/cliopatria.css">
-      <link rel="stylesheet" type="text/css" href="/css/menu.css">
+      <link rel="stylesheet" type="text/css" href="/swish/css/cliopatria.css">
+      <link rel="stylesheet" type="text/css" href="/swish/css/menu.css">
       <script type="text/javascript" src="/js/jquery-2.1.3.min.js"></script>
       <script type="text/javascript" src="/js/cliopatria.js"></script>
       <link rel="stylesheet" type="text/css" href="/www/yui/2.7.0/build/autocomplete/assets/skins/sam/autocomplete.css">
@@ -711,9 +711,9 @@ body {
       <script type="text/javascript" src="/www/yui/2.7.0/build/datasource/datasource.js"></script>
       <script type="text/javascript" src="/www/yui/2.7.0/build/autocomplete/autocomplete.js"></script></head>',
    [BASE,URI]),
-     bformat('<body class="yui-skin-sam">',[]),flush_output_safe)),!,
-  with_output_to(string(SMenu),output_html(cp_menu:cp_menu)),
-  output_html(div([id('cp-menu'), class(menu)], SMenu)).     
+     bformat('<body class="yui-skin-sam cliopatria">',[]),flush_output_safe)),!,
+  %cp_menu:cp_menu(X,[]),%with_output_to(string(SMenu),output_html(X)),
+  output_html(div([id('cp-menu'), class(menu)], \cp_menu)).     
 
    
 test_rok:- test_rok(test_rok).
@@ -732,10 +732,10 @@ dasm:print_clause_plain(Term) :-
 test_rok(W) :- handler_logicmoo_cyclone([path_info(search4term), protocol(http), peer(ip(127, 0, 0, 1)), 
   In = user_input,
   Out = user_put,
-  format(atom(S4T),'/logicmoo/search4term?find=~w',[W]),
+  format(atom(S4T),'/swish/logicmoo/search4term?find=~w',[W]),
   pool(client('httpd@3020', http_dispatch, In, Out)),
     input(In), method(get), request_uri(S4T),
-     path('/logicmoo/search4term'), search([find=W]), 
+     path('/swish/logicmoo/search4term'), search([find=W]), 
      http_version(1-1), host('127.0.0.1'), port(3020), cache_control('max-age=0'), 
      upgrade_insecure_requests('1'), user_agent('Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3393.4 Safari/537.36'),
      accept([media(text/html, [], 1.0, []), media(application/'xhtml+xml', [], 1.0, []), 
@@ -1708,9 +1708,10 @@ param_matches(A,B):-A=B,!.
 %
 % Show Select Extended Helper.
 %
+:- meta_predicate(show_select2(+,:,+)).
 show_select2(Name,Pred,Options):- block_format(show_select22(Name,Pred,Options)).
 show_select22(Name,Pred,Options):-  
-    Call=..[Pred,ID,Value],
+    append_termlist(Pred,[ID,Value],Call),
     must_run(param_default_value(Name,D); param_default_value(Pred,D)),!,
     get_param_sess(Name,UValue,D),
     format('<select name="~w">',[Name]),
@@ -1876,7 +1877,9 @@ output_telnet_console2(Port):- HttpPort is Port +100,
 
 
 output_html(Var):- var(Var),!,term_to_atom(Var,Atom),output_html(pre([Atom])).
-%output_html(html(HTML)):- !,output_html(HTML). %output_html(HTML):- atomic(HTML),!,write_html(HTML). %output_html(HTML):- is_list(HTML),send_tokens(HTML).
+%output_html(html(HTML)):- !,output_html(HTML). 
+output_html(HTML):- atomic(HTML),!,write_html(HTML). 
+%output_html(HTML):- is_list(HTML),send_tokens(HTML).
 output_html(HTML):- phrase(html(HTML), Tokens,[]),!,send_tokens(Tokens).
 
 remove_if_last(Tokens,TokensRight,TokensLeft):-append(TokensLeft,TokensRight,Tokens),!.
@@ -1964,7 +1967,7 @@ show_edit_term1(Call,String,SWord):-
             </tr>
             <tr>
                   <td align="right" width="99"><b>Search:&nbsp;</b></td>
-                  <td align="left" valign="top" width="276"><input type="text" size="27" name="find" value="~w">&nbsp;<input type="submit" value="Overlap" name="xref">&nbsp;</td>
+                  <td align="left" valign="top" width="276"><input type="text" size="27" name="find" value="~@">&nbsp;<input type="submit" value="Overlap" name="xref">&nbsp;</td>
                   <td align="left" valign="top" width="144">~@&nbsp;<input type="submit" value="NatLg" name="ShowEnglish"></td>
                   <td align="left" valign="top" height="26" width="139">~@</td>
              </tr>
@@ -1973,7 +1976,7 @@ show_edit_term1(Call,String,SWord):-
           <td valign="bottom" width="9" rowspan="2"></td>
           <td height="121" rowspan="2" width="163">
           <span class="navlinks">
-          <b>[&nbsp;<a href="/">Home</a>&nbsp;|&nbsp;              
+          <b>[&nbsp;<a href="../">Home</a>&nbsp;|&nbsp;              
           <a href="~w&Graph=true">Grap2h</a>]</b></span><p>
           <b>Response&nbsp;Language&nbsp;<br></b>~@<p>
                         <input type="checkbox" name="sExprs" value="1" checked>S-Exprs&nbsp;
@@ -1985,15 +1988,15 @@ show_edit_term1(Call,String,SWord):-
 			<td width="4">&nbsp;</td>
 		</tr>
   </form></table><hr>'
-  ,[show_select2(prover,prover_name,[]),
+  ,[show_select2(prover, xlisting_web:prover_name,[]),
     String,
     action_menu_applied('action_above',"Item",""),
     show_select2('context',is_context,[]),
     show_select2(flang,logic_lang_name,[]),
-    SWord,
-    %show_select2('POS',partOfSpeech,[]),
+    write(SWord),
+    write(''), %show_select2('POS',partOfSpeech,[])), 
     show_select1('humanLang',human_language),
-    URL,
+    URL,  
     show_select2(olang,logic_lang_name,[])]),!,   
     bformat('<pre>',[]),
     on_x_debug(Call),!,
@@ -2281,7 +2284,7 @@ section_close(Type):- shown_subtype(Type)->(retractall(shown_subtype(Type)),(is_
             pp_item_html_now/2,
             pp_now/0,
             print_request/1,
-            prover_name/2,
+            %prover_name/2,
             put_string/1,
             put_string/2,
             reply_object_sub_page/1,
@@ -2678,7 +2681,7 @@ call_for_terms(Call):-
         write_begin_html('search4term',Base,_),
         show_search_form(Obj,Base),
         bformat('<pre>',[]),        
-        locally_tl(print_mode(html),with_search_filters(catch(ignore(nop(Call)),E,dmsg(E)))),
+        locally_tl(print_mode(html),with_search_filters(catch(ignore((Call)),E,dmsg(E)))),
         bformat('</pre>',[]),
         show_pcall_footer,
         write_end_html)),!.
@@ -3141,8 +3144,10 @@ xlisting_web_file.
 
 % :- ensure_sigma(6767).
 %:- must( \+ pfc_lib:is_pfc_file0).
-:- ensure_loaded('xlisting_web.pfc').
-:- must( \+ is_pfc_file).
+%:- ensure_loaded('xlisting_web.pfc').
+%:- must( \+ is_pfc_file).
+
+:- baseKB:import(xlisting_web:prover_name/2).
 
 :- fixup_exports.
 
@@ -3152,10 +3157,9 @@ xlisting_web_file.
 :- set_prolog_flag(hide_xpce_library_directory,false).
 :- retract(t_l:no_cycstrings).
 
-:- add_import_module(baseKB,xlisting_web,end).
+%:- add_import_module(baseKB,xlisting_web,end).
 
 :- during_net_boot(register_logicmoo_browser).
-:- set_fileAssertMt(baseKB).
-
+%:- set_fileAssertMt(baseKB).
 
 

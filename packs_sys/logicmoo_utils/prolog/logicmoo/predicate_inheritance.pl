@@ -411,6 +411,8 @@ never_move(is_pfc_file,_):- dumpST,break.
 system:do_inherit_above(Mt,_):- t_l:exact_kb(Mt),!,fail.
 %system:do_inherit_above(user,G):- !, fail, baseKB:call(G).
 
+system:do_inherit_above(_Mt,_QueryIn):- !, fail.
+
 system:do_inherit_above(Mt,QueryIn):- 
    functor(QueryIn,F,A),\+ never_move(F,A),
    predicate_property(QueryIn,number_of_clauses(N)),
@@ -438,6 +440,7 @@ system:do_call_inherited(MtAbove,Query):-
    \+ current_predicate(_,MtAbove:Query),
    functor(Query,F,A) -> create_predicate_inheritance(do_call_inherited(MtAbove,Query),MtAbove,F,A) -> fail.
 
+system:do_call_inherited(_Mt,_QueryIn):- !, fail.
 system:do_call_inherited(MtAbove,Query):- !, on_x_debug(MtAbove:Query).
 system:do_call_inherited(MtAbove,Query):- on_x_debug(call(call,ireq(MtAbove:Query))).
   

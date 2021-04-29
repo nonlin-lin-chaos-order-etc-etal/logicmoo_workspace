@@ -654,6 +654,7 @@ apply_term(T,LST,HEAD):- (LST==[] -> HEAD= T ; (HEAD= T -> LST=[] )).
 %
 % Append Termlist.
 %
+append_termlist(M:Call,EList,Out):- nonvar(M),!,append_termlist(Call,EList,CallE),M:CallE=Out.
 append_termlist(Call,EList,CallE):- var(Call),must(is_list(EList)),!,must((append([t,Call],EList,ListE), CallE=..ListE)).
 append_termlist(Call,EList,CallE):-must(is_list(EList)),!,must((Call=..LeftSide, append(LeftSide,EList,ListE), CallE=..ListE)).
 

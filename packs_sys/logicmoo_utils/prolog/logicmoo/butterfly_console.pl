@@ -28,6 +28,8 @@
 :- thread_local(t_l:in_block_format/0).
 :- dynamic(lmcache:is_butterfly_thread/2).
 
+:- use_module(library(pengines)).
+
 set_is_butterfly_console(TF):- thread_self(X), retractall(lmcache:is_butterfly_thread(X,_)),
   asserta(lmcache:is_butterfly_thread(X,TF)),!, (TF==true->pre_style;true).
 

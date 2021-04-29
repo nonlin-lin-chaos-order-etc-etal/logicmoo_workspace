@@ -35,7 +35,7 @@ combo_default_value(Pred,Arity,_Value)==> {kb_shared(Pred/Arity)}.
 %
 % Human Language.
 %
-
+:- kb_global(baseKB:human_language/1).
 human_language("AlbanianLanguage").
 human_language("ArabicLanguage").
 human_language("BasqueLanguage").
@@ -77,7 +77,8 @@ param_default_value(find,'tHumanHead').
      'context'='BaseKB',
      'flang'='CLIF','find'='tHumanHead','xref'='Overlap','POS'='N',
      'humanLang'='EnglishLanguage','olang'='CLIF','sExprs'='1',
-     'webDebug'='1','displayStart'='0','displayMax'='100000']),xlisting_web:ain(param_default_value(N,V))).
+     'webDebug'='1','displayStart'='0','displayMax'='100000']),
+  xlisting_web:ain(param_default_value(N,V))).
 
 
 combo_default_value(logic_lang_name,2,'CLIF').
@@ -100,7 +101,8 @@ combo_default_value(prover_name,2,'proverPTTP').
 %
 % Prover Name.
 %
-prover_name(proverCyc,"CycL (LogicMOO)").
+:- kb_global(prover_name/2).
+==> prover_name(proverCyc,"CycL (LogicMOO)").
 prover_name(proverPFC,"PFC").
 prover_name(proverPTTP,"PTTP (LogicMOO)").
 prover_name(proverDOLCE,"DOLCE (LogicMOO)").
