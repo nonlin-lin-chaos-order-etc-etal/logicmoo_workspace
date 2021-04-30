@@ -51,20 +51,22 @@
 	    swish_js//0,
 	    swish_css//0
 	  ]).
+
+
 :- use_module(library(http/http_open)).
 :- use_module(library(http/http_dispatch)).
 :-if(\+ prolog_load_context(reloading,true)).
 :- use_module(library(http/http_parameters)).
 :- use_module(library(http/http_header)).
 :- else.
-:- use_module(library(http/http_parameters),except([is_meta/1])).
-:- use_module(library(http/http_header),except([connection/2])).
+%:- use_module(library(http/http_parameters),except([is_meta/1])).
+%:- use_module(library(http/http_header),except([connection/2])).
 :-endif.
 :- use_module(library(http/html_write)).
 :-if(\+ prolog_load_context(reloading,true)).
 :- use_module(library(http/js_write)).
 :- else.
-:- use_module(library(http/js_write),except([ws/2])).
+%:- use_module(library(http/js_write),except([ws/2])).
 :-endif.
 :- use_module(library(http/json)).
 :- use_module(library(http/http_json)).
@@ -83,13 +85,14 @@
 :-if(\+ prolog_load_context(reloading,true)).
 :- use_module(config).
 :- else.
-:- use_module(config,except([authenticate/2])).
+%:- use_module(config,except([authenticate/2])).
 :-endif.
 :- use_module(help).
 :- use_module(search).
 :- use_module(chat).
 :- use_module(authenticate).
 :- use_module(pep).
+
 
 /** <module> Provide the SWISH application as Prolog HTML component
 
@@ -359,12 +362,20 @@ swish_page(Options) -->
 	swish_navbar(Options),
 	swish_content(Options).
 
+:- multifile
+	cp_menu:menu_item/2,
+	cp_menu:menu_popup_order/2.
+:- dynamic
+	cp_menu:menu_item/2,
+	cp_menu:menu_popup_order/2.
+
 %%	swish_navbar(+Options)//
 %
 %	Generate the swish navigation bar.
 
-swish_navbar(Options) -->
+swish_navbar(Options) -->    
 	swish_resources,
+  html(div([id('cp-menu'), class(menu)], \cp_menu)),!,
 	html(div([id('navbarhelp'),style('height:40px;margin: 10px 5px;text-align:center')], %;line-height: 40px')],
         [span([style('color:darkblue')],['TRILL']),
 	     span([style('color:maroon')],[' on ']),

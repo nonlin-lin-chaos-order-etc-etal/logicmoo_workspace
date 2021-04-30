@@ -1,5 +1,4 @@
 _HiStOrY_V2_
-make.
 mu:srv_mu.\040
 mmake,\012autodoc_test.\040
 mmake.
@@ -99,3 +98,4 @@ mmake,\012autodoc_test.\040
 swi_ide.\040
 mmake.
 write_html(html(\134cp_menu:cp_menu)).
+mmake.
