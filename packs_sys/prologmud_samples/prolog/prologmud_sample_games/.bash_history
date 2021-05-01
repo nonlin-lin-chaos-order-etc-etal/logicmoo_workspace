@@ -704,3 +704,17 @@ ps axfmake.
 ls
 swipl
 screen -r
+ssh logicmoo.org 
+cd /opt/logicmoo_workspace/
+ls
+git status
+git commit -am packs_web/swish/lib/page.pl
+vim Patch/rootfs/usr/local/lib/swipl/library/ssl.pl 
+vim docker/rootfs/usr/local/lib/swipl/library/ssl.pl 
+screen 0r
+screen -r
+screen -rd
+ps axf
+exit
+cat /opt/logicmoo_workspace/packs_web/swish/examples/logicmoo/fibonacci.chr
+mmake.

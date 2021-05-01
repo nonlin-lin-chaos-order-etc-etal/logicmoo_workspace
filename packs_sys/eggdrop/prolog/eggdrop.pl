@@ -667,8 +667,7 @@ tg_name_text(StringIn, Name, Value) :-
         name_value_split(String, "> ", NameA, Value),
         filter_tg_name(NameA, Name).
 
-filter_tg_name(StringIn, Name):- replace_in_string("[d]","",StringIn,String),StringIn\==String,!,filter_tg_name(String, Name).
-filter_tg_name(StringIn, Name):- replace_in_string("[m]","",StringIn,String),StringIn\==String,!,filter_tg_name(String, Name).
+filter_tg_name(StringIn, Name):- arg(_,v("<",">"," ","[m]","[d]"),R),replace_in_string(R,"",StringIn,String),StringIn\==String,!,filter_tg_name(String, Name).
 filter_tg_name(NameString, Name):- filter_chars(is_printing_alpha_char,NameString, Name).
 
 filter_chars(How,NameString, Name):- get_text_restore_pred(NameString,DataPred),!,
@@ -686,6 +685,13 @@ is_printing_alpha_char(X):- char_type(X,digit),!.
 %
 % Irc Event.
 %
+
+ircEvent(Channel,_Agent,say(W)):-
+   name_value_split(W, '> ', Ctx, Call),
+   atom_contains(Ctx,'<'),
+   filter_tg_name(Ctx, Name),
+   locally(t_l:session_prefix(Name),
+     ircEvent(Channel,Name,say(Call))),!.
 
 ircEvent(Channel,User,Method):-  my_wdmsg((ircEventNow(Channel,User,Method))),fail.
 ircEvent(Channel,Agent,Event) :- format(codes(Codes),"~w",[ircEvent(Channel,Agent,Event)]),
@@ -766,7 +772,6 @@ ircEventUsed(Channel,Agent,ctcp(ACTION,W)):- notrace(maybe_chat_command(Channel,
 
 % Call -> call_for_results
 ircEventUsed(Channel,Agent,call(CALL,Vs)):- irc_filtered_call(Channel,Agent,CALL,Vs).
-
 
 ircEventUsed_as_call(Channel,Agent,say(W)):-
    name_value_split(W, ': ', Ctx, Call),

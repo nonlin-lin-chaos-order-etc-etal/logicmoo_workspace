@@ -232,19 +232,24 @@ define(["jquery", "config", "modal"],
               modal.animate({scrollTop: target.position().top}, 2000);
               if (true) return;            
             } else {
+			  if (href == "/swish/" || href == "/swish") {
+                  ev.stopPropagation();
+				  window.open(href, '_blank');
+                  return;
+			  }
               accept();
+			  if (href.startsWith("/help")||href.startsWith("/file")||href.startsWith("/opt")) {
+				  href = "/swish" + href;
+			  }
               if (href.startsWith("/swish/")) {
                 $(ev.target).closest(".swish").swish('playURL', {url: href});
                 return;
               }
-
-              if (href.startsWith("/")) {
-                debugger;
-                href = "/swish" + href;
-                $(ev.target).closest(".swish").swish('playURL', {url: href});
-                return;
-              }
-              if (href.startsWith(":")) {
+			  if(!href.startsWith("/") && !href.startsWith(":")) {
+				 window.open(href, '_blank');
+				 return;
+			  }
+	          if (href.startsWith(":")||href.startsWith("/oauth")||href.indexOf("help")>1) {
                 href = windowOrigin + href;
                 done = true;
                 ev.preventDefault();

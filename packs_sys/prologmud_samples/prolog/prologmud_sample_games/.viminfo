@@ -11,17 +11,19 @@
 # hlsearch on (H) or off (h):
 ~h
 # Last Search Pattern:
-~MSle0~/dumpST
+~MSle0~/DMILES
 
 # Command Line History (newest to oldest):
 :wq!
-|2,0,1619689891,,"wq!"
+|2,0,1619769771,,"wq!"
 :q!
 |2,0,1619689631,,"q!"
 :3584
 |2,0,1619475684,,"3584"
 
 # Search String History (newest to oldest):
+?/DMILES
+|2,1,1619769762,47,"DMILES"
 ?/dumpST
 |2,1,1619689887,47,"dumpST"
 ?/jvm
@@ -62,40 +64,100 @@
 |3,0,36,0,1,0,1619689142,"/"
 
 # File marks:
-'0  103  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,48,103,0,1619689891,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
-'1  235  5  ~/StartMUD.sh
-|4,49,235,5,1619689855,"~/StartMUD.sh"
-'2  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
-|4,50,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
-'3  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,51,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
-'4  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,52,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
-'5  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,53,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
-'6  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,54,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
-'7  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,55,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
-'8  13  0  /opt/logicmoo_workspace/Patch/README.md
-|4,56,13,0,1619523730,"/opt/logicmoo_workspace/Patch/README.md"
-'9  581  14  /opt/logicmoo_workspace/swipl-devel/src/os/pl-file.c
-|4,57,581,14,1619523712,"/opt/logicmoo_workspace/swipl-devel/src/os/pl-file.c"
+'0  357  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/ssl.pl
+|4,48,357,0,1619769771,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/ssl.pl"
+'1  354  2  /opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl
+|4,49,354,2,1619769743,"/opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl"
+'2  103  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
+|4,50,103,0,1619689891,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
+'3  235  5  ~/StartMUD.sh
+|4,51,235,5,1619689855,"~/StartMUD.sh"
+'4  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,52,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+'5  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,53,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+'6  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,54,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+'7  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,55,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+'8  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
+|4,56,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
+'9  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
+|4,57,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
 
 # Jumplist (newest first):
+-'  357  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/ssl.pl
+|4,39,357,0,1619769771,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/ssl.pl"
+-'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/ssl.pl
+|4,39,1,0,1619769762,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/ssl.pl"
+-'  354  2  /opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl
+|4,39,354,2,1619769743,"/opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl"
+-'  354  2  /opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl
+|4,39,354,2,1619769743,"/opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl"
+-'  1  0  /opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl
+|4,39,1,0,1619769734,"/opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl"
+-'  1  0  /opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl
+|4,39,1,0,1619769734,"/opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl"
 -'  103  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
 |4,39,103,0,1619689891,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
+-'  103  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
+|4,39,103,0,1619689891,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
+-'  103  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
+|4,39,103,0,1619689891,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
+-'  103  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
+|4,39,103,0,1619689891,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
+-'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
+|4,39,1,0,1619689887,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
+-'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
+|4,39,1,0,1619689887,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
+-'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
+|4,39,1,0,1619689887,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
 -'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
 |4,39,1,0,1619689887,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
 -'  235  5  ~/StartMUD.sh
 |4,39,235,5,1619689855,"~/StartMUD.sh"
 -'  235  5  ~/StartMUD.sh
 |4,39,235,5,1619689855,"~/StartMUD.sh"
+-'  235  5  ~/StartMUD.sh
+|4,39,235,5,1619689855,"~/StartMUD.sh"
+-'  235  5  ~/StartMUD.sh
+|4,39,235,5,1619689855,"~/StartMUD.sh"
+-'  235  5  ~/StartMUD.sh
+|4,39,235,5,1619689855,"~/StartMUD.sh"
+-'  235  5  ~/StartMUD.sh
+|4,39,235,5,1619689855,"~/StartMUD.sh"
+-'  235  5  ~/StartMUD.sh
+|4,39,235,5,1619689855,"~/StartMUD.sh"
+-'  235  5  ~/StartMUD.sh
+|4,39,235,5,1619689855,"~/StartMUD.sh"
 -'  22  0  ~/StartMUD.sh
 |4,39,22,0,1619689833,"~/StartMUD.sh"
 -'  22  0  ~/StartMUD.sh
 |4,39,22,0,1619689833,"~/StartMUD.sh"
+-'  22  0  ~/StartMUD.sh
+|4,39,22,0,1619689833,"~/StartMUD.sh"
+-'  22  0  ~/StartMUD.sh
+|4,39,22,0,1619689833,"~/StartMUD.sh"
+-'  22  0  ~/StartMUD.sh
+|4,39,22,0,1619689833,"~/StartMUD.sh"
+-'  22  0  ~/StartMUD.sh
+|4,39,22,0,1619689833,"~/StartMUD.sh"
+-'  22  0  ~/StartMUD.sh
+|4,39,22,0,1619689833,"~/StartMUD.sh"
+-'  22  0  ~/StartMUD.sh
+|4,39,22,0,1619689833,"~/StartMUD.sh"
+-'  1  0  ~/StartMUD.sh
+|4,39,1,0,1619689825,"~/StartMUD.sh"
+-'  1  0  ~/StartMUD.sh
+|4,39,1,0,1619689825,"~/StartMUD.sh"
+-'  1  0  ~/StartMUD.sh
+|4,39,1,0,1619689825,"~/StartMUD.sh"
+-'  1  0  ~/StartMUD.sh
+|4,39,1,0,1619689825,"~/StartMUD.sh"
+-'  1  0  ~/StartMUD.sh
+|4,39,1,0,1619689825,"~/StartMUD.sh"
+-'  1  0  ~/StartMUD.sh
+|4,39,1,0,1619689825,"~/StartMUD.sh"
 -'  1  0  ~/StartMUD.sh
 |4,39,1,0,1619689825,"~/StartMUD.sh"
 -'  1  0  ~/StartMUD.sh
@@ -108,6 +170,54 @@
 |4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
 -'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
 |4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  64  22  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,64,22,1619689631,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
+-'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
+|4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
 -'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
 |4,39,1,0,1619689596,"/opt/logicmoo_workspace/logicmoo_env.sh"
 -'  1  0  /opt/logicmoo_workspace/logicmoo_env.sh
@@ -132,160 +242,64 @@
 |4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
 -'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
 |4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689149,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689149,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689149,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689149,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689149,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689149,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689149,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689149,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  2  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,2,0,1619689146,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689139,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689139,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689139,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689139,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689139,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689139,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689139,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  1  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
-|4,39,1,0,1619689139,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  104  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,104,0,1619687589,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  1  0  /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
-|4,39,1,0,1619687567,"/opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
--'  56  0  /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl
-|4,39,56,0,1619687474,"/opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
+-'  133  0  /opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl
+|4,39,133,0,1619689171,"/opt/logicmoo_workspace/packs_sys/prologmud/prolog/prologmud/mud_loader.pl"
 
 # History of marks within files (newest to oldest):
+
+> /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/ssl.pl
+	*	1619769770	0
+	"	357	0
+	^	357	0
+	.	356	2
+	+	345	1
+	+	356	2
+
+> /opt/logicmoo_workspace/Patch/rootfs/usr/local/lib/swipl/library/ssl.pl
+	*	1619769742	0
+	"	354	2
 
 > /opt/logicmoo_workspace/docker/rootfs/usr/local/lib/swipl/library/jpl.pl
 	*	1619689890	0

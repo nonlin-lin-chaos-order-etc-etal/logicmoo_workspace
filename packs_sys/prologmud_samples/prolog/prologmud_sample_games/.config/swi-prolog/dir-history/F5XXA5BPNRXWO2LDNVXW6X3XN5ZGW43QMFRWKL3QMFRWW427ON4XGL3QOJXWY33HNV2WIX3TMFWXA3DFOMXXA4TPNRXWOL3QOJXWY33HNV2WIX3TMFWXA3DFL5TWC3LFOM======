@@ -1,11 +1,4 @@
 _HiStOrY_V2_
-mu:srv_mu.\040
-mmake,\012autodoc_test.\040
-mmake.
-mu:srv_mu.\040
-mmake,\012autodoc_test.\040
-swi_ide.\040
-swi_ide.
 mmake.
 mu:srv_mu.\040
 mmake,\012autodoc_test.\040
@@ -98,4 +91,11 @@ mmake,\012autodoc_test.\040
 swi_ide.\040
 mmake.
 write_html(html(\134cp_menu:cp_menu)).
+mmake.
+shell.
+mmake.
+lisitng(oauth2:server_attribute(google,_,_)).
+listing(oauth2:server_attribute(google,_,_)).
+mmake.
+threads.
 mmake.

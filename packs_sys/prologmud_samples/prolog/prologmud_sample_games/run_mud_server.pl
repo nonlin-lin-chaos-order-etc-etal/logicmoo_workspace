@@ -424,6 +424,10 @@ load_before_compile_now:-
    % ignore(( exists_directory('/tmp/tempDir') -> cd('/tmp/tempDir'))),
     use_module(library(logicmoo_webui)),
     webui_load_swish_and_clio,
+    webui_start_swish_and_clio,
+  use_module(library(pfc_lib)),
+  use_module(library(xlisting/xlisting_web)),
+  register_logicmoo_browser,
     load_nomic_mu,
     baseKB:ensure_loaded(library(logicmoo_cg)),
     baseKB:ensure_loaded(library(logicmoo_ec)),
@@ -431,8 +435,7 @@ load_before_compile_now:-
     baseKB:ensure_loaded(library(logicmoo_clif)),
     baseKB:ensure_loaded(library('logicmoo/common_logic/common_logic_sumo.pfc')),   
     %system:reexport(pldata(kb_0988)),
-    ensure_loaded(pldata(kb_0988)),    
-    baseKB:ensure_loaded(library(logicmoo_mud)),
+    ensure_loaded(pldata(kb_0988)),        
     baseKB:ensure_loaded(library(narsese)),   
     use_module(library(instant_prolog_docs)),
     add_hist(start_network). 
@@ -465,6 +468,7 @@ load_rest_now:-
   call_safely(
   [
    nodebug,   
+   baseKB:ensure_loaded(library(logicmoo_mud)),
    add_history((mmake, autodoc_test)),
    load_rest2]),
    !.
@@ -477,8 +481,6 @@ load_rest3:- keep_user_module(load_rest3_now).
 load_rest3_now:-
   call_safely(
   [
-   use_module(library(xlisting/xlisting_web)),
-   register_logicmoo_browser,
    set_modules_baseKB,
    add_hist(try_zebra),
    add_hist(start_all),

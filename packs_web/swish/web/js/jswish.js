@@ -658,18 +658,22 @@ define(["jquery",
               var ex = data[i];
               var title;
               var options;
-              if (ex.type == "group") {
+			  
+              if (ex.type == "group" || ex.type == "submenu") {
+				  debugger;
                 title = ex.title || ex.file || ex.href;
                 options = {};
                 options.action = null;
                 options.type = "submenu";
                 options.items = ["a", "b", "c"];
-                options.typeIcon = "json";
+				if(ex.items !== undefined) {
+				   options.items = ex.items;
+				}
+                options.typeIcon = "folder";
                 $("#navbar").navbar('appendDropdown', dropdown, title, options);
                 continue;
                 /*
-                <li>
-                  <a class="trigger left-caret"><span class="dropdown-icon glyphicon glyphicon-paperclip"></span>Open recent</a>
+                <li><a class="trigger left-caret"><span class="dropdown-icon glyphicon glyphicon-paperclip"></span>Open recent</a>
                   <ul class="dropdown-menu sub-menu" style="display: block;">
                       <li><a><span class="dropdown-icon type-icon swinb"></span>Hangout.swinb</a></li>
                       <li><a><span class="dropdown-icon type-icon pl"></span>fooo.pl</a></li>
@@ -694,19 +698,21 @@ define(["jquery",
                   continue;
                   */
                 } else {
+				   // debugger;
                   title = ex.title;
                   options = that.swish('openExampleFunction', ex);
                   if (name)
                     options.typeIcon = name.split('.').pop();
                 }
               }
+			  if(ex.typeIcon !== undefined) {
+				 options.typeIcon = ex.typeIcon;
+			  }
               $("#navbar").navbar('extendDropdown', dropdown, title, options);
-
-
             }
           },
           error: function(jqXHR1) {
-            // modal.ajaxError(jqXHR1);
+             modal.ajaxError(jqXHR1);
           }
         });
         return this;
