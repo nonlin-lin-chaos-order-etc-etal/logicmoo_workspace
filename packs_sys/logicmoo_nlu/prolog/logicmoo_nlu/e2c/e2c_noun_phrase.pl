@@ -83,7 +83,7 @@ adjective1(X, MProps) --> named_var_match(contains('ADJ'), Var, iza(X, Var), MPr
 adjective1(X, MProps)  -->  {nop( \+ dcg_peek(verb1(_V)))}, theText1(Adj), {nop(Adj \== liked), adj_lf(X, Adj, MProps)}.
 
  adj_lf(X, Adj, ISA) :-
-   ((   (parser_chat80:adj_db( Adj, _), RAdj=Adj);
+   ((   (if_defined(parser_chat80:adj_db( Adj, _)), RAdj=Adj);
          clex_iface:clex_adj(Adj, RAdj, _);
          talkdb:talk_db(_, RAdj, Adj);
         (talkdb:talk_db(adj, Adj), RAdj=Adj))),

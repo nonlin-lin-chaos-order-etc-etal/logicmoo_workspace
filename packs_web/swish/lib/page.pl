@@ -373,10 +373,8 @@ swish_page(Options) -->
 %
 %	Generate the swish navigation bar.
 
-swish_navbar(Options) -->    
-	swish_resources,
-  html(div([id('cp-menu'), class(menu)], \cp_menu)),!,
-	html(div([id('navbarhelp'),style('height:40px;margin: 10px 5px;text-align:center')], %;line-height: 40px')],
+cplint_header -->
+  	html(div([id('navbarhelp'),style('height:40px;margin: 10px 5px;text-align:center')], %;line-height: 40px')],
         [span([style('color:darkblue')],['TRILL']),
 	     span([style('color:maroon')],[' on ']),
 	     span([style('color:maroon')],['cplint on ']),
@@ -384,59 +382,60 @@ swish_navbar(Options) -->
         span([style('color:maroon')],['SH']),
         ' is a web application for probabilistic logic programming',
         ' with a Javascript-enabled browser.',
-		' which embeds the tableau reasoners TRILL, TRILL',
-		span([style('vertical-align:super;font-size:smaller')],['P']),
-		' and TORNADO.',
-		&(nbsp), &(nbsp), &(nbsp),
-		a([id('about')],['About']),
-		&(nbsp), &(nbsp), &(nbsp),
-		a([href('/help/about.html'),target('_blank')],['about.html']),
-		&(nbsp), &(nbsp), &(nbsp),
-		a([href('http://friguzzi.github.io/cplint/'),target('_blank')],['cplint Help']),
-		&(nbsp), &(nbsp), &(nbsp),
-		a([href('/help/help-trill.html'),target('_blank')],['Trill Help']),
-		&(nbsp), &(nbsp), &(nbsp),
-		a([href('http://arnaudfadja.github.io/phil/'),target('_blank')],['PHIL-Help']),
-		&(nbsp), &(nbsp), &(nbsp),
-		a([href('/help/credits.html'),target('_blank')],['Credits']),
-		&(nbsp), &(nbsp),
-		a([href('https://edu.swi-prolog.org/'),target('_blank')],['Online course']),
-		&(nbsp), &(nbsp),
-        a([id('dismisslink'),href('')],['Dismiss']),
-p(['Updated: ',
-a([href('/e/bag_mpe.pl')],['MPE']),', ',
-a([href('/e/bag_game_mpe.pl')],['MPE']),', ',
-a([href('/e/eruption_mpe.pl')],['MPE']),', ',
-a([href('/e/bag_1.pl')],['MAP']),', ',
-a([href('/e/bag_game_vit.pl')],['Viterbi']),', ',
-a([href('/e/eruption_vit.pl')],['Viterbi']),', ',
-a([href('/e/phil_examples.swinb')],['PHIL examples']),', ',
-a([href('/e/diabetes.swinb')],['diabetes']),', ',
-a([href('/e/fruit.swinb')],['fruit selling']),', ',
-a([href('/e/ship.swinb')],['fire on a ship']),', ',
-a([href('/e/decision_theory.swinb')],['DTProbLog']),', ',
-a([href('http://ml.unife.it/plp-book/'),target('_blank')],["book"])
-])
-       ]))
-        ,
-
-		html(nav([ class([navbar, 'navbar-default']),
+      		' which embeds the tableau reasoners TRILL, TRILL',
+      		span([style('vertical-align:super;font-size:smaller')],['P']),
+      		' and TORNADO.',
+      		&(nbsp), &(nbsp), &(nbsp),
+      		a([id('about')],['About']),
+      		&(nbsp), &(nbsp), &(nbsp),
+      		a([href('/help/about.html'),target('_blank')],['about.html']),
+      		&(nbsp), &(nbsp), &(nbsp),
+      		a([href('http://friguzzi.github.io/cplint/'),target('_blank')],['cplint Help']),
+      		&(nbsp), &(nbsp), &(nbsp),
+      		a([href('/help/help-trill.html'),target('_blank')],['Trill Help']),
+      		&(nbsp), &(nbsp), &(nbsp),
+      		a([href('http://arnaudfadja.github.io/phil/'),target('_blank')],['PHIL-Help']),
+      		&(nbsp), &(nbsp), &(nbsp),
+      		a([href('/help/credits.html'),target('_blank')],['Credits']),
+      		&(nbsp), &(nbsp),
+      		a([href('https://edu.swi-prolog.org/'),target('_blank')],['Online course']),
+      		&(nbsp), &(nbsp),
+              a([id('dismisslink'),href('')],['Dismiss']),
+      p(['Updated: ',
+      a([href('/e/bag_mpe.pl')],['MPE']),', ',
+      a([href('/e/bag_game_mpe.pl')],['MPE']),', ',
+      a([href('/e/eruption_mpe.pl')],['MPE']),', ',
+      a([href('/e/bag_1.pl')],['MAP']),', ',
+      a([href('/e/bag_game_vit.pl')],['Viterbi']),', ',
+      a([href('/e/eruption_vit.pl')],['Viterbi']),', ',
+      a([href('/e/phil_examples.swinb')],['PHIL examples']),', ',
+      a([href('/e/diabetes.swinb')],['diabetes']),', ',
+      a([href('/e/fruit.swinb')],['fruit selling']),', ',
+      a([href('/e/ship.swinb')],['fire on a ship']),', ',
+      a([href('/e/decision_theory.swinb')],['DTProbLog']),', ',
+      a([href('http://ml.unife.it/plp-book/'),target('_blank')],["book"])
+      ])
+   ])).
+        
+ 
+swish_navbar(Options) -->    
+	swish_resources,  
+  % cplint_header,
+  html(nav([ class([navbar, 'navbar-default']),
 		   role(navigation)
 		 ],
-		 [ div(class('navbar-header'),
-		       [ \collapsed_button,
-			 \swish_logos(Options)
-		       ]),
-		   div([ class([collapse, 'navbar-collapse']),
-			 id(navbar)
-		       ],
-		       [ ul([class([nav, 'navbar-nav', menubar])], []),
-			 ul([class([nav, 'navbar-nav', 'navbar-right'])],
-			    [ li(\notifications(Options)),
-			      li(\search_box(Options)),
-			      \local_li_login_button(Options),
-			      li(\broadcast_bell(Options)),
-			      li(\updates(Options))
+     
+     [ 
+      % div(class('navbar-header'), [ \collapsed_button, \swish_logos(Options) ]),
+ 		  div([ class([collapse, 'navbar-collapse']),  id(navbar) ], 
+      [ ul([class([nav, 'navbar-nav', 'menubar'])], []),
+        ul([class([nav, 'navbar-nav', 'navbar-right'])],
+			    [ div([id('cp-menu'), class(menu)], \cp_menu),
+            li(\ notifications(Options)),
+			      li(\ search_box(Options)),
+			      \ local_li_login_button(Options),
+			      li(\ broadcast_bell(Options)),
+			      li(\ updates(Options))
 			    ])
 		       ])
 		 ])).
@@ -499,7 +498,7 @@ swish_title(_Options) -->
 swish_logos(Options) -->
 	swish_config:logo(Options), !.
 swish_logos(Options) -->
-	pengine_logo(Options),
+	% pengine_logo(Options),
 	swish_logo(Options).
 
 %!	swish_config:logo(+Options)// is semidet.
@@ -571,10 +570,10 @@ swish_content(Options) -->
 
 swish_config_hash(Options) -->
 	{ swish_config_hash(Hash, Options) },
-	js_script({|javascript(Hash)||
+	js_script(\ ['
 		   window.swish = window.swish||{};
-		   window.swish.config_hash = Hash;
-		   |}).
+		   window.swish.config_hash = ', \ js_expression(Hash), ';
+		   ']).
 
 
 %!	swish_options(+Options)//
@@ -584,11 +583,13 @@ swish_config_hash(Options) -->
 %	The options are set per session.
 
 swish_options(Options) -->
-	js_script({|javascript||
+  js_script(\ ['\n\t\t   window.swish = window.swish||{};\n\t\t   window.swish.option = window.swish.option||{};\n\t\t  ']),
+	/*js_script({|javascript||
 		   window.swish = window.swish||{};
 		   window.swish.option = window.swish.option||{};
-		  |}),
+		  |}),*/
 	swish_options([show_beware, preserve_state], Options).
+
 
 swish_options([], _) --> [].
 swish_options([H|T], Options) -->
@@ -600,9 +601,13 @@ swish_option(Name, Options) -->
 	  option(Opt, Options),
 	  JSVal = @(Val)
 	}, !,
-	js_script({|javascript(Name, JSVal)||
+  js_script(\ ['\n\t\t   window.swish.option[', \ js_expression(Name), '] = ', \ js_expression(JSVal), ';\n\t\t   ']).
+	/*js_script({|javascript(Name, JSVal)||
 		   window.swish.option[Name] = JSVal;
 		   |}).
+*/
+
+
 swish_option(_, _) -->
 	[].
 
@@ -842,11 +847,19 @@ include_swish_js -->
 		    ], [])),
 		    filesystems_res.
 
+/*
 rjs_timeout('swish-min') --> !,
 	js_script({|javascript||
 // Override RequireJS timeout, until main file is loaded.
 window.require = { waitSeconds: 0 };
 		  |}).
+*/
+rjs_timeout('swish-min') --> !,
+  js_script(\ ['
+// Override RequireJS timeout, until main file is loaded.
+window.require = { waitSeconds: 0 };
+     ']).
+
 rjs_timeout(_) --> [].
 
 

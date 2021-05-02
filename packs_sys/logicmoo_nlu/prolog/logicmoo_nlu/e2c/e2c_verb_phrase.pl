@@ -288,8 +288,8 @@ adverb1(X, MProps)  -->      theText1(Adv), {adv_lf(X, Adv, MProps)}.
 
 adv_lf(X, Adv, ISA) :- is_really_adv(Adv, RAdv), into_isa3(X, advFn(RAdv), ISA).
 
-is_really_adv(Adv):- parser_chat80:comp_adv_db(Adv).
-is_really_adv(Adv):- parser_chat80:sup_adv_db(Adv).
+is_really_adv(Adv):- if_defined(parser_chat80:comp_adv_db(Adv)).
+is_really_adv(Adv):- if_defined(parser_chat80:sup_adv_db(Adv)).
 is_really_adv(Adv):- talkdb:talk_db(adv, Adv).
 %is_really_adv(Adv):- parser_chat80:adverb_db(Adv).
 

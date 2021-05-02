@@ -29,7 +29,10 @@ prolog_pprint_tree(Term):-  prolog_pprint(Term), !.
 
 :- export(prolog_pprint/2).
 prolog_pprint(Term):- prolog_pprint(Term, []).
-prolog_pprint(Term, Options):-
+prolog_pprint(Term, Options):- ground(Term),
+   \+ \+ (mort((portray_vars:pretty_numbervars(Term, Term2),
+     prolog_pprint_0(Term2, Options)))), !.
+prolog_pprint(Term, Options):- \+ ground(Term),
    \+ \+ (mort((portray_vars:pretty_numbervars(Term, Term2),
      prolog_pprint_0(Term2, Options)))), !.
 
@@ -37,12 +40,10 @@ prolog_pprint(Term, Options):-
 % prolog_pprint_0(Term, Options):- Options ==[], pprint_ecp_cmt(blue, Term), !.
 
 % prolog_pprint_0(Term, Options):- memberchk(portray(true), Options), \+ is_list(Term), \+ memberchk(portray_goal(_), Options), print_tree(Term, Options), !.
-prolog_pprint_0(Term, Options):-    \+ memberchk(right_margin(_), Options), !, prolog_pprint_0(Term, [right_margin(0)|Options]).
-prolog_pprint_0(Term, Options):-    \+ memberchk(portray(_), Options), !, prolog_pprint_0(Term, [portray(true)|Options]).
+prolog_pprint_0(Term, Options):- \+ memberchk(right_margin(_), Options), !, prolog_pprint_0(Term, [right_margin(0)|Options]).
+prolog_pprint_0(Term, Options):- \+ memberchk(portray(_), Options), !, prolog_pprint_0(Term, [portray(true)|Options]).
 prolog_pprint_0(Term, Options):- 
-  mort(prolog_pretty_print:print_term(Term, [output(current_output)|Options])).
-
-:- meta_predicate with_op_cleanup(*,*,*,0).
+  mort((guess_pretty(Term),prolog_pretty_print:print_term(Term, [output(current_output)|Options]))).
 
 
 str_repl(F,R,Tab,O):- if_string_repl(Tab,F,R,O),!.
@@ -91,22 +92,26 @@ trim_stop(S,O):- sub_string(S, N, 1, 0, Last),
   (Last = "." -> sub_string(S, 0, N, 1, O); 
      ((Last="\n";Last="\r";Last=" ") -> (sub_string(S, 0, N, 1, Before),trim_stop(Before,O)) ; S=O)).
 
-clause_to_string_et(T,S):-
- guess_varnames(T),
+get_print_opts(_Term, PrintOpts):- 
  get_varname_list(Vs), 
- print_et_to_string(T,S0,
-    [portrayed(true),portray(true),partial(false),% spacing(next_argument),
+ PrintOpts = 
+[portrayed(true),
+ portray(true),partial(false),
+     %spacing(next_argument),
+     character_escapes(true),
      variable_names(Vs),
-     nl(false),fullstop(false),singletons(false)]),!,
+     %numbervars(true),
+     %singletons(false),
+     nl(false),fullstop(false)].
+
+clause_to_string_et(T,S):-
+ get_print_opts(T,PrintOpts),
+ print_et_to_string(T,S0,PrintOpts),!,
  trim_stop(S0,S),!.
 
-clause_to_string(T,S):- 
- get_varname_list(Vs),
- with_output_to(string(S0), 
-  prolog_listing:portray_clause(current_output,T,
-    [portrayed(false),variable_names(Vs),partial(true),nl(false),
-     % spacing(next_argument),
-     fullstop(false),singletons(false)])),!,
+clause_to_string(T,S):-  
+ get_print_opts(T,PrintOpts),
+ with_output_to(string(S0), prolog_listing:portray_clause(current_output,T,PrintOpts)),
  trim_stop(S0,S).
 
 :- export(compound_gt/2).
@@ -173,26 +178,37 @@ print_e_to_string(T, _Ops, S):-  is_list(T), print_et_to_string(T,S,[right_margi
 print_e_to_string(T, _Ops, S):-  must(print_et_to_string(T,S,[])).
 
 print_et_to_string(T,S,Options):-
+  get_varname_list(Vs),
   ttyflush,
-   Old = [numbervars(true),
+   Old = [%numbervars(true),
+                  variable_names(Vs),
                   quoted(true),
                   ignore_ops(false),
                   no_lists(false),
                   %spacing(next_argument),
                   portray(false)],
-   swi_option:merge_options(Options,Old,WriteOpts),
-   PrintOpts = [output(current_output)|Options],
-                                 
-  sformat(S, '~@',
-    [(prolog_pretty_print:print_term(T, 
+   swi_option:merge_options(Old,Options,WriteOpts),
+   PrintOpts = [output(current_output)|Options],                                
+  sformat(S, '~@', [(plpp(T,Vs,WriteOpts,PrintOpts), ttyflush)]).
+
+plpp(T,Vs,WriteOpts,PrintOpts):- 
+ term_replace_vs(Vs,T,TT),
+   prolog_pretty_print:print_term(TT, 
              [   %left_margin(1),
                  %operators(true),
                  %tab_width(2),
                  %max_length(120),
                  %indent_arguments(auto),                  
-                 write_options(WriteOpts)|PrintOpts]),
-      ttyflush)]).
+                 write_options([variable_names(Vs)|WriteOpts]),variable_names(Vs)|PrintOpts]).
 
+term_replace_vs(Vs,T,TT):- var(T),get_var_name(T,VN,Vs),TT='$VAR'(VN),!.
+term_replace_vs(_Vs,T,TT):- (ground(T); \+ compound(T)),!,TT=T.
+term_replace_vs(Vs,T,TT):- compound_name_arguments(T,F,A),maplist(term_replace_vs(Vs),A,AA),compound_name_arguments(TT,F,AA),!.
+
+get_var_name(T,VN,Vs):- member(N=V,Vs),V==T,!,VN=N.
+get_var_name(T,VN,_Vs):- get_var_name(T,VN),!.
+get_var_name(T,VN,_Vs):- term_to_atom(T,VN).
+   
 to_ansi(A,B):- to_ansi0(A,B),!.
 to_ansi0(e,[bold,fg(yellow)]).
 to_ansi0(ec,[bold,fg(green)]).
@@ -257,14 +273,14 @@ ec_portray_hook(Term):-
   ec_portray(N, Term),
   flag('$ec_portray',_, N)).
 
-ec_portray(_,Var):- var(Var),!,fail. % format('~p',[Var]),!.
-ec_portray(_,'$VAR'(Atomic)):-  atom(Atomic), name(Atomic,[C|_]), !,
-   (code_type(C,prolog_var_start)->write(Atomic);writeq('$VAR'(Atomic))).
-ec_portray(_,Term):- notrace(is_list(Term)),!,Term\==[], fail, notrace(catch(text_to_string(Term,Str),_,fail)),!,format('"~s"',[Str]).
-ec_portray(_,Term):- compound(Term),compound_name_arity(Term, F, 0), !,ansi_format([bold,hfg(red)],'~q()',[F]),!.
-ec_portray(N,Term):- N < 3, 
+ec_portray(_,Var):- var(Var), !, get_var_name(Var,Name), format('~w',[Name]),!.
+ec_portray(_,'$VAR'(Atomic)):-  atom(Atomic), name(Atomic,[C|_]), !, (code_type(C,prolog_var_start)->write(Atomic);writeq('$VAR'(Atomic))).
+%ec_portray(_,Term):- notrace(is_list(Term)),!,Term\==[], fail, notrace(catch(text_to_string(Term,Str),_,fail)),!,format('"~s"',[Str]).
+%ec_portray(_,Term):- compound(Term),compound_name_arity(Term, F, 0), !,ansi_format([bold,hfg(red)],'~q()',[F]),!.
+ec_portray(N,Term):- N < 1, 
   % ttyflush,
   ttyflush,
+  %display(doing(Term)),
   catch(pprint_ec_no_newline(white, Term),_,fail),!.
 
 
@@ -501,13 +517,14 @@ portray_with_vars(A):- get_portrayal_vars(Vs),
 
 :- thread_local(pretty_tl:in_pretty/0).
 
-prolog_pretty_print(A,Options):- 
+prolog_pretty_print_term(A,Options):- 
   prolog_pretty_print:print_term(A, [portray(true), output(current_output)|Options]).
 
 simple_write_term(A,Options):- fail, is_list(A), \+ pretty_tl:in_pretty, !,
   setup_call_cleanup(asserta(pretty_tl:in_pretty,Ref),
-    prolog_pretty_print(A,Options),
+    prolog_pretty_print_term(A,Options),
     erase(Ref)).
+
 simple_write_term(A,Options):-  write_term(A,Options),!.
 %simple_write_term(A,Options):-  write_term(A,[portray_goal(prolog_pretty_print:print_term)|Options]).
 

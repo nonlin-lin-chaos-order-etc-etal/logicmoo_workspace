@@ -1324,7 +1324,6 @@ define(["jquery", "form", "config", "preferences", "modal",
         tabLabel: function(id, label, close, type) {
           var close_button;
           var chat;
-
           if (close) {
             close_button = glyphicon("remove", "xclose");
             $(close_button).attr("title", "Close tab");
@@ -1412,7 +1411,8 @@ define(["jquery", "form", "config", "preferences", "modal",
          */
         title: function(title, type) {
           var a = this.tabbed('anchor');
-
+		  var slashed = title.split('/');
+		  title = slashed[slashed.length-1];
           if (a) {
             a.find(".tab-title").text(title);
             if (type) {

@@ -64,8 +64,12 @@ p_n_atom(Cmpd,UPO):- p_n_atom1(Cmpd,UP),toProperCamelAtom(UP,UPO),!.
 p_n_atom1(Cmpd,UP):- number(Cmpd),!,format(atom(UP),"_Num~w_",[Cmpd]).
 p_n_atom1(Cmpd,UP):- string(Cmpd),atom_subst(Cmpd," ","_",String),!,p_n_atom1(String,UP).
 p_n_atom1(Cmpd,UP):- Cmpd=='', UP='',!.
-p_n_atom1(Cmpd,UP):- compound(Cmpd), sub_term(Atom,Cmpd),atomic(Atom), \+ number(Atom), Atom\==[], catch(p_n_atom0(Atom,UP),_,fail), !.
-p_n_atom1(Cmpd,UP):- compound(Cmpd), compound_name_arity(Cmpd,Atom,_), catch(p_n_atom0(Atom,UP),_,fail), !.
+p_n_atom1(Var,UP):- var(Var),get_var_name(Var,UP),!.
+p_n_atom1(Var,UP):- var(Var),term_to_atom(Var,Atom),p_n_atom0(Atom,UP),!.
+p_n_atom1(List,UP):- is_list(List),maplist(p_n_atom,List,UPL),atomic_list_concat(UPL,UP),!.
+p_n_atom1(Cmpd,UP):- compound(Cmpd), compound_name_arguments(Cmpd,F,Args),!,p_n_atom1([F|Args],UP).
+%p_n_atom1(Cmpd,UP):- compound(Cmpd), sub_term(Atom,Cmpd),atomic(Atom), \+ number(Atom), Atom\==[], catch(p_n_atom0(Atom,UP),_,fail), !.
+%p_n_atom1(Cmpd,UP):- compound(Cmpd), compound_name_arity(Cmpd,Atom,_), catch(p_n_atom0(Atom,UP),_,fail), !.
 % p_n_atom1(Cmpd,UP):- compound(Cmpd), sub_term(Atom,Cmpd),nonvar(Atom),\+ number(Atom), Atom\==[], catch(p_n_atom0(Atom,UP),_,fail),!.
 p_n_atom1(Cmpd,UP):- term_to_atom(Cmpd,Atom),p_n_atom0(Atom,UP),!.
 
@@ -223,7 +227,7 @@ to_var_or_name(L,LL):- \+ atom(L),!,format(atom(LL),"~w",[L]).
 % to_var_or_name(F,''):- is_letterless(F),!.
 to_var_or_name(L,L).
 
-is_letterless(F):- atom(F), downcase_atom(F,C),upcase_atom(F,C).
+is_letterless(F):- (atom(F);string(F)), downcase_atom(F,C),upcase_atom(F,C1),!,C==C1.
 
 to_var_or_name_2('','').
 to_var_or_name_2('[|]','ListDot').
@@ -443,9 +447,14 @@ is_comparison(OP):- atom_concat(_,'=',OP).
 is_comparison(OP):- atom_concat('cg_',_,OP).
 
 contains_atom_ci(A1,A2):- upcase_atom(A1,U1),upcase_atom(A2,U2),contains_atom(U1,U2).
-append_varname(R,_Var):- is_letterless(R),!. % ignore
-append_varname(R,Var):- get_var_name(Var,Prev), ignore(( \+ contains_atom_ci(Prev,R),\+ contains_atom_ci(R,Prev),atomic_list_concat([Prev,'_',R],RS),add_var_to_env_now(RS,Var))),!.
-append_varname(R,Var):- add_var_to_env_now(R,Var).
+
+append_varname(R,Var):- ignore((p_n_atom(R,RR),append_varname1(RR,Var))),!.
+append_varname1(R,_Var):- is_letterless(R),!. % ignore
+append_varname1(R,Var):- get_var_name(Var,Prev),!,
+  ignore(( \+ contains_atom_ci(Prev,R), atomic_list_concat([Prev,'_',R],RS),
+  % writeln(add_var_to_env_now(RS,Var)),
+  add_var_to_env_now(RS,Var))),!.
+append_varname1(R,Var):- add_var_to_env_now(R,Var).
 
 trump_pretty(WRT):- \+ compound(WRT), fail.
 trump_pretty(w(R,T)):- is_list(T), atomic(R), term_variables(T,Vs),Vs\==[],maplist(append_varname(R),Vs),!.
@@ -480,9 +489,9 @@ reduce_fname(M,N):- atom_codes(M,[C|R]), \+ code_type(C,alpha), atom_codes(N0,R)
 reduce_fname(M,N):- atom_codes(M,Codes), append(R,[C],Codes), \+ code_type(C,alnum), atom_codes(N0,R),reduce_fname(N0,N).
 
 reduce_fname(L,R):- reduce_single_letter(L,LL), reduce_fname(LL,R).
-reduce_fname(M,N):-atom_concat(N0,'pred',M),reduce_fname(N0,N).
-reduce_fname(M,N):-atom_concat('trans',N0,M),reduce_fname(N0,N).
-reduce_fname(M,N):-atom_concat('symmetric',N0,M),reduce_fname(N0,N).
+reduce_fname(M,N):-atom_concat(N0,'_pred',M),reduce_fname(N0,N).
+reduce_fname(M,N):-atom_concat('trans_',N0,M),reduce_fname(N0,N).
+reduce_fname(M,N):-atom_concat('symmetric_',N0,M),reduce_fname(N0,N).
 reduce_fname(L,R):- atom_concat_some_left('v',LL,L),name(LL,[UC,LC|_]),char_type(UC,upper),char_type(LC,lower),reduce_fname(LL,R).
 reduce_fname(L,R):- atom_concat_some_left('Cl_',LL,L),reduce_fname(LL,R).
 reduce_fname(L,R):- atom_concat_some_left('U_',LL,L),reduce_fname(LL,R).
@@ -545,7 +554,7 @@ pretty_three(H):-
 pretty_final(H):- pretty_enough(H),!.
 
 % pretty_final(H):- trump_pretty(H),!.
-pretty_final([H | B]):- pretty_final(H),pretty_final(B),may_debug_var_weak('CAR',H),may_debug_var_weak('CDR',B).
+%pretty_final([H | B]):- pretty_final(H),pretty_final(B),may_debug_var_weak('CAR',H),may_debug_var_weak('CDR',B).
 pretty_final(H):- compound_name_arity(H,F,A),compound_name_arguments(H,F,[P1|ARGS]), pretty_final(H,F,A,P1,ARGS).
 
 pretty_final(H,F,A,P1,ARGS):- atom_codes_w_blobs(F,[_,49|Rest]),atom_codes_w_blobs(F0,Rest),!,pretty_final(H,F0,A,P1,ARGS).

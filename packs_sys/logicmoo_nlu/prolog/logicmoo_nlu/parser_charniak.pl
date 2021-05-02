@@ -53,13 +53,13 @@ read_lines(StringIn, Out, AllCodes) :-
   atomics_to_string([StringIn,'\n',Lines],AllCodes).
 
 
-charniak_pos(Text,PosW2s,Info+LExpr):-
+charniak_pos(Text,PosW2s,Info,LExpr):-
   charniak_lparse(Text,LExpr),
   with_reset_segs(lxpr_to_segs(LExpr,Segs)),flatten(Segs,SegsF),
-  writeq(charniak_pos=SegsF),
-  apply:partition(\=(w(_,_)), SegsF, Info, PosW2s).
+  %writeq(charniak_pos=SegsF),
+  apply:partition(\=(w(_,_)), SegsF, Info, PosW2s),!.
 
-charniak_pos(Text,SegsF):- charniak_pos(Text,SegsF,_LExpr).
+charniak_pos(Text,PosW2s):- charniak_pos(Text,PosW2s0,_Info,_LExpr),guess_pretty1(PosW2s0),!,PosW2s=PosW2s0.
 
 %can_be_partof('Obj',W):-!, member(W,['Situation','Event']).
 %can_be_partof(W,W):-!,fail.
@@ -80,36 +80,37 @@ lxpr_to_segs([[WORD]|MORE],[POS|POSS]):- is_pos(WORD,POS),lxpr_to_segs(MORE,POSS
 lxpr_to_segs([P|MORE],Out):- atom(P),maplist(lxpr_to_segs,MORE,MORES),add_p_to_words(P,MORES,Out).
 lxpr_to_segs([H|T],POS):- lxpr_to_segs(H,POSH),lxpr_to_segs(T,POST), !, append(POSH,POST,POS).
 
-%add_p_to_words1(_,[],[]):-!.
+%add_p_to_words1(_Var,_,[],[]):-!.
 add_p_to_words(NP,MORES,Out):- atom(NP), marked_segs(Segs), member(NP-Type,Segs),flag(NP,N,N+1), NPN=..[NP,Var],
   add_var_to_env_now(Type,Var),
-  add_p_to_words1(NPN,MORES,Out0),
+  add_p_to_words1(Var,NPN,MORES,Out0),
   Out=[isa(Var,Type)|Out0].
-add_p_to_words(NPN,MORES,Out):-add_p_to_words1(NPN,MORES,Out).
-%add_p_to_words1(_,[],[]):-!.
-%add_p_to_words1(P,[H|T],[HH|TT]):- !, add_p_to_words1(P,H,HH),add_p_to_words1(P,T,TT).
-% add_p_to_words1(P,I,O):- add_p_to_words1(P,I,O).
-%add_p_to_words1(S,H,H):- member(S,['S','S1234']),!.
+add_p_to_words(NPN,MORES,Out):-add_p_to_words1(_Var,NPN,MORES,Out).
+%add_p_to_words1(_Var,_,[],[]):-!.
+%add_p_to_words1(_Var,P,[H|T],[HH|TT]):- !, add_p_to_words1(_Var,P,H,HH),add_p_to_words1(_Var,P,T,TT).
+% add_p_to_words1(_Var,P,I,O):- add_p_to_words1(_Var,P,I,O).
+%add_p_to_words1(_Var,S,H,H):- member(S,['S','S1234']),!.
 
-%add_p_to_words1(P,I,O):- compound(P),I=w(Word,_), arg(_,P,Var),var(Var),append_varname(Word,Var),!, add_p_to_words1(P,I,O).
+%add_p_to_words1(_Var,P,I,O):- compound(P),I=w(Word,_), arg(_,P,Var),var(Var),append_varname(Word,Var),!, add_p_to_words1(_Var,P,I,O).
 
-% add_p_to_words1(P,I,O):- add_p_to_words1(P,I,O).
-add_p_to_words1(P,w(S,[Pos]),w(S,[Pos,P])):-!.
-% add_p_to_words1(P,isa(X,Y),w(S,[Pos,P])):-!.
-add_p_to_words1(P,w(S,[Pos,P2]),w(S,[Pos,P2,P])):- P2\=='NP',!.
-add_p_to_words1(P,w(S,List),w(S,List)):- last(List,P), P='VP'(_),!.
-add_p_to_words1(P,w(S,Pos),w(S,PosP)):- append(Pos,[P],PosP),!.
-add_p_to_words1(_,[],[]):- !.
-add_p_to_words1(P,[H|T],[HH|TT]):- !, add_p_to_words1(P,H,HH),add_p_to_words1(P,T,TT).
-add_p_to_words1(Cmp,isa(X,Type1),[isa(X,Type1),partOf(X,Var)]):- compound(Cmp), functor(Cmp,Mark,_),
+% add_p_to_words1(_Var,P,I,O):- add_p_to_words1(_Var,P,I,O).
+add_p_to_words1(Var,P,w(S,[Pos]),w(S,[Pos,P])):-append_varname(S,Var),!.
+% add_p_to_words1(_Var,P,isa(X,Y),w(S,[Pos,P])):-!.
+add_p_to_words1(_Var,P,w(S,[Pos,P2]),w(S,[Pos,P2,P])):- P2\=='NP',!.
+add_p_to_words1(_Var,P,w(S,List),w(S,List)):- last(List,P), P='VP'(_),!.
+add_p_to_words1(Var,P,w(S,Pos),w(S,PosP)):- append(Pos,[P],PosP),!,append_varname(S,Var),!.
+add_p_to_words1(_Var,_,[],[]):- !.
+add_p_to_words1(Var,P,[H|T],[HH|TT]):- !, add_p_to_words1(Var,P,H,HH),add_p_to_words1(Var,P,T,TT).
+
+add_p_to_words1(_OVar,Cmp,isa(X,Type1),[isa(X,Type1),partOf(X,Var)]):- compound(Cmp), functor(Cmp,Mark,_),
   marked_seg_type(Mark,Type2),
   can_be_partof(Type1,Type2),
   arg(1,Cmp,Var),var(Var),!.
-add_p_to_words1(_,H,H):- member(H,[partOf(_,_),isa(_,_)]),!.
-add_p_to_words1(P,H,H):-
-  pprint_ecp_cmt(yellow,add_p_to_words1(P,H)),
+add_p_to_words1(_Var,_,H,H):- member(H,[partOf(_,_),isa(_,_)]),!.
+add_p_to_words1(Var,P,H,H):-
+  pprint_ecp_cmt(yellow,add_p_to_words1(Var,P,H)),
   !.
-%add_p_to_words1(P,[Atom|T],TT):- atom(Atom),trace,add_p_to_words1(P,T,TT).
+%add_p_to_words1(_Var,P,[Atom|T],TT):- atom(Atom),trace,add_p_to_words1(_Var,P,T,TT).
 %lxpr_to_segs([WORD],[POS]):- is_pos(WORD,POS),!. 
 
 is_pos([Pos,[quote,Head]],Out):-!,is_pos([Pos,Head],Out).

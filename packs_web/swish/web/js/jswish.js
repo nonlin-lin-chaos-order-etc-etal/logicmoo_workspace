@@ -192,10 +192,6 @@ define(["jquery",
           $("body").swish('populateExamples', navbar, dropdown);
         },
 
-        "PFC": function(navbar, dropdown) {
-          $("body").swish('populateExtendedExamples', navbar, dropdown,
-            config.http.locations.swish_extended_examples + "/pfc");
-        },
         "Logicmoo": function(navbar, dropdown) {
           $("body").swish('populateExtendedExamples', navbar, dropdown,
             config.http.locations.swish_extended_examples + "/logicmoo");
@@ -208,7 +204,10 @@ define(["jquery",
           $("body").swish('populateExtendedExamples', navbar, dropdown,
             config.http.locations.swish_extended_examples + "/lps_corner");
         },
-
+        "PFC": function(navbar, dropdown) {
+          $("body").swish('populateExtendedExamples', navbar, dropdown,
+            config.http.locations.swish_extended_examples + "/pfc");
+        },
         "Aleph": function(navbar, dropdown) {
           $("body").swish('populateExtendedExamples', navbar, dropdown,
             config.http.locations.swish_extended_examples + "/aleph");
@@ -308,7 +307,7 @@ define(["jquery",
         setupPanes();
         setupResize();
         setupUnload();
-        aboutLink();
+        // aboutLink();
         // $("#search").search();
 
         options = options || {};
@@ -1019,6 +1018,7 @@ define(["jquery",
      */
     function swishLogo() {
       $(".swish-logo")
+ /*
         .append($.el.b($.el.span({
             style: "color:darkblue"
           }, "LOGIC"),
@@ -1043,6 +1043,7 @@ define(["jquery",
           $.el.span({
             style: "color:maroon"
           }, " + PFC")))
+*/
         .css("margin-left", "30px")
         .css("font-size", "24px")
         .addClass("navbar-brand");

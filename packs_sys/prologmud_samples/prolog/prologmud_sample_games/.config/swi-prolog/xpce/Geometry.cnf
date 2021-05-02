@@ -1,5 +1,5 @@
 /*  XPCE configuration file for "persistent_frame"
-    Saved Thu Apr 29 10:01:37 2021 by root
+    Saved Sun May  2 15:42:48 2021 by root
 */
 
 configversion(1).
@@ -11,7 +11,7 @@ configversion(1).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 /* (X-)geometry for persistent frames */
-history/geometry/prolog_thread_monitor = '502x257+34+57'.
+history/geometry/prolog_thread_monitor = '502x257+50+119'.
 history/geometry/prolog_debugger = '1920x1147--54--3'.
 history/geometry/prolog_debug_monitor = '885x403+1097-802'.
 

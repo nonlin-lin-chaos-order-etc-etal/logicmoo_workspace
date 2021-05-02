@@ -718,3 +718,27 @@ ps axf
 exit
 cat /opt/logicmoo_workspace/packs_web/swish/examples/logicmoo/fibonacci.chr
 mmake.
+ls
+df
+g
+fg
+ps axf
+ps axf
+/opt/logicmoo_workspace/StartLogicmoo.sh
+fg
+fg
+kill -9 
+kill -9 %1
+kill -9 %1
+kill -9 %1
+/opt/logicmoo_workspace/StartLogicmoo.sh
+/opt/logicmoo_workspace/StartLogicmoo.sh
+/opt/logicmoo_workspace/StartLogicmoo.sh
+killall -9 swipl
+killall -9 xterm
+killall -9 xterm
+/opt/logicmoo_workspace/StartLogicmoo.sh
+kill -9 %1
+kill -9 %1
+kill -9 %1
+fg

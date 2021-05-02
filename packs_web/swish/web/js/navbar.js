@@ -299,7 +299,7 @@ define(["jquery", "preferences", "form", "laconic"],
             var submenu = $.el.ul({
               class: "dropdown-menu sub-menu"
             });
-            debugger;
+            // debugger;
             dropdown.append($.el.li($.el.a({
                   class: "trigger right-caret"
                 },

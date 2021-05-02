@@ -108,7 +108,7 @@ list_extended_example(_GetPostPut, Example, _Request) :-
 	atom_concat('/opt/logicmoo_workspace/packs_web/swish/examples/',Example,Dir),
         dir_to_pattern(Dir,Pattern),
 	expand_file_name(Pattern, Files),
-  wdmsg(Example=Files),
+  % wdmsg(Example=Files),
 	convlist(ex_file_json(HREF), Files, Menu),
 	reply_json(Menu).
 
@@ -365,6 +365,7 @@ in_ex_list(Examples, Ex) :-
 ex_file_json(HREF0, Path, json{type:"unknown", file:File, href:HREF, title:Title, group:Group}) :-
   exists_file(Path),
 	file_base_name(Path, File),
+  File \== is_dir, File \== 'index.json',
 	file_name_extension(Base, _, File),
 	file_name_to_title(Base, Title),
 	file_group(File,OneDir), format(atom(Group),'~w',[OneDir]),
