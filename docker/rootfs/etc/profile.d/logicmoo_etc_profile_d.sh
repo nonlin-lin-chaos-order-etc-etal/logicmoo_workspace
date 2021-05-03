@@ -1,4 +1,8 @@
 #!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+   return 0 2>/dev/null
+   exit 0
+fi
 
 
 #start_oo_redir {
@@ -28,7 +32,7 @@ else
 fi
 
 
-
+echo WHOAMI=`whoami`
 echo source $LOGICMOO_WS/logicmoo_env.sh
 source $LOGICMOO_WS/logicmoo_env.sh
 

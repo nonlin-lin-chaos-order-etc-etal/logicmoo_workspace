@@ -236,7 +236,7 @@ doSpawn_modal(Modality,ClassFact):- ClassFact=..[Funct|InstADeclB],
 %
 doSpawn_f_args(Modality,Funct,List):-
  must_det((
-   convertSpawnArgs(Funct,1,List,NewList),
+   convertSpawnArgs(Funct,1,List,NewList),!,
    Later =.. [Funct|NewList],
    fully_expand(clause(assert,doSpawn),t(Modality,Later),TO),
    add_on_start(TO))),!. 

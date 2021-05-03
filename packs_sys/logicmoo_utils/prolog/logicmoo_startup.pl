@@ -37,6 +37,8 @@
 :- dynamic   user:file_search_path/2.
 :- multifile user:file_search_path/2.
 
+:- expects_dialect(swi).
+
 :- autoload(library(lists),[member/2,append/3]).
 :- autoload(library(debug),[debug/3]).
 

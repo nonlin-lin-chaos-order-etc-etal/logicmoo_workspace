@@ -252,13 +252,6 @@ name_variable(_, _).
 :- nodebug(logicmoo(varnames)).
 
 
-
-%%	variable_name(+Var, -Name) is semidet.
-%
-%	True if Var has been assigned Name.
-
-variable_name(Var, Name) :- must(var(Var)),(get_attr(Var, vn, Name);var_property(Var,name(Name));get_attr(Var, varnames, Name)),!.
-
 variable_name_or_ref(Var, Name) :- get_var_name(Var, Name),!.
 variable_name_or_ref(Var, Name) :- format(atom(Name),'~q',[Var]).
 
@@ -278,31 +271,15 @@ vn:project_attributes(QueryVars, ResidualVars):- fail,dmsg(vn:proj_attrs(vn,Quer
 %
 vn:attribute_goals(Var) --> {get_var_name(Var,  Name)},!,[name_variable(Var,  Name)],!.
 
-get_var_name(V,N):-quietly(get_var_name0(V,N)),!.
+numbervars_using_vs(T,TT,Vs):- numbervars_using_vs_(Vs,T,TT).
 
-get_var_name0(Var,Name):- nonvar(Name),!,must(get_var_name0(Var, NameO)),!,Name=NameO.
-get_var_name0(Var,Name):- nonvar(Var),!,get_var_name1(Var,Name),!.
-get_var_name0(Var,Name):- var_property(Var,name(Name)),!.
-get_var_name0(Var,Name):- get_attr(Var, vn, Name),!.
-get_var_name0(Var,Name):- nb_current('$variable_names', Vs),varname_of(Vs,Var,Name),!.
-get_var_name0(Var,Name):- get_attr(Var, varnames, Name),!.
-get_var_name0(Var,Name):- nb_current('$old_variable_names', Vs),varname_of(Vs,Var,Name),!.
-get_var_name0(Var,Name):- get_varname_list(Vs),varname_of(Vs,Var,Name),!.
-% get_var_name0(Var,Name):- attvar(Var),get_varname_list(Vs),format(atom(Name),'~W',[Var, [variable_names(Vs)]]).
+numbervars_using_vs_(Vs,T,TT):- var(T),get_var_name(T,VN,Vs),TT='$VAR'(VN),!.
+numbervars_using_vs_(_Vs,T,TT):- (ground(T); \+ compound(T)),!,TT=T.
+numbervars_using_vs_(Vs,T,TT):- compound_name_arguments(T,F,A),maplist(numbervars_using_vs_(Vs),A,AA),compound_name_arguments(TT,F,AA),!.
 
-varname_of(Vs,Var,Name):- member(NV,Vs), (compound(NV) -> (NV=(N=V),atomic(N), V==Var,!,N=Name) ; (!,fail)).
-
-get_var_name1('$VAR'(Name),Name):- atom(Name),!.
-get_var_name1('$VAR'(Int),Name):- integer(Int),format(atom(A),"~w",['$VAR'(Int)]),!,A=Name.
-get_var_name1('$VAR'(Var),Name):- (var(Var)->get_var_name0(Var,Name);Name=Var),!.
-get_var_name1('$VAR'(Att3),Name):- !, get_var_name1(Att3,Name).
-get_var_name1('aVar'(Att3),Name):- !, get_var_name1(Att3,Name).
-get_var_name1('aVar'(Name,Att3),Value):- !, get_var_name1('$VAR'(Name),Value); get_var_name1('aVar'(Att3),Value).
-get_var_name1(att(vn,Name,_),Name):- !.
-get_var_name1(att(_,_,Rest),Name):- Rest\==[],get_var_name1(Rest,Name).
-get_var_name1(Var,Name):- get_attr(Var, vn, Name),!. % ground(Name),!.
-get_var_name1(Var,Name):- catch(call(call,oo_get_attr(Var, vn, Name)),_,fail),!. % ground(Name),!.
-get_var_name1(Var,Name):- nb_current('$variable_names', Vs),varname_of(Vs,Var,Name),!.
+get_var_name(T,VN,Vs):- member(N=V,Vs),V==T,!,VN=N.
+get_var_name(T,VN,_Vs):- get_var_name(T,VN),!.
+get_var_name(T,VN,_Vs):- term_to_atom(T,VN).
 
 
 

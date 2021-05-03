@@ -78,7 +78,7 @@ update_children(Spatially, PrepNew, Parent, [Item|Tail], Timestamp, M0, M2) :-
 
 add_children(_Spatial, _PrepNew, _NewParent, [], _Timestamp, M0, M0):- !.
 add_children(Spatially, PrepNew, NewParent, [Item|Tail], Timestamp, M0, M2) :-
- dshow_call(must_mw1(add_child(Spatially, PrepNew, NewParent, Item, Timestamp, M0, M1))),
+ must_mw1(add_child(Spatially, PrepNew, NewParent, Item, Timestamp, M0, M1)),
  add_children(Spatially, PrepNew, NewParent, Tail, Timestamp, M1, M2),
  must_mw1(member(h(Spatially, PrepNew, Item, NewParent), M2)),!.
 

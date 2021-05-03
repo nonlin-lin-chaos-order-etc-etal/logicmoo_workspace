@@ -107,12 +107,12 @@ get_print_opts(_Term, PrintOpts):-
 clause_to_string_et(T,S):-
  get_print_opts(T,PrintOpts),
  print_et_to_string(T,S0,PrintOpts),!,
- trim_stop(S0,S),!.
+ notrace(trim_stop(S0,S)),!.
 
 clause_to_string(T,S):-  
  get_print_opts(T,PrintOpts),
  with_output_to(string(S0), prolog_listing:portray_clause(current_output,T,PrintOpts)),
- trim_stop(S0,S).
+ notrace(trim_stop(S0,S)).
 
 :- export(compound_gt/2).
 compound_gt(P,GT):- notrace((compound(P), compound_name_arity(P, _, N), N > GT)).
@@ -179,35 +179,27 @@ print_e_to_string(T, _Ops, S):-  must(print_et_to_string(T,S,[])).
 
 print_et_to_string(T,S,Options):-
   get_varname_list(Vs),
+  numbervars_using_vs(T,TT,Vs),
   ttyflush,
    Old = [%numbervars(true),
-                  variable_names(Vs),
                   quoted(true),
                   ignore_ops(false),
                   no_lists(false),
                   %spacing(next_argument),
                   portray(false)],
-   swi_option:merge_options(Old,Options,WriteOpts),
+   notrace(swi_option:merge_options(Old,Options,WriteOpts)),
    PrintOpts = [output(current_output)|Options],                                
-  sformat(S, '~@', [(plpp(T,Vs,WriteOpts,PrintOpts), ttyflush)]).
+  sformat(S, '~@', [(plpp(TT,WriteOpts,PrintOpts), ttyflush)]).
 
-plpp(T,Vs,WriteOpts,PrintOpts):- 
- term_replace_vs(Vs,T,TT),
+plpp(TT,WriteOpts,PrintOpts):- 
    prolog_pretty_print:print_term(TT, 
              [   %left_margin(1),
                  %operators(true),
                  %tab_width(2),
                  %max_length(120),
                  %indent_arguments(auto),                  
-                 write_options([variable_names(Vs)|WriteOpts]),variable_names(Vs)|PrintOpts]).
+                 write_options(WriteOpts)|PrintOpts]).
 
-term_replace_vs(Vs,T,TT):- var(T),get_var_name(T,VN,Vs),TT='$VAR'(VN),!.
-term_replace_vs(_Vs,T,TT):- (ground(T); \+ compound(T)),!,TT=T.
-term_replace_vs(Vs,T,TT):- compound_name_arguments(T,F,A),maplist(term_replace_vs(Vs),A,AA),compound_name_arguments(TT,F,AA),!.
-
-get_var_name(T,VN,Vs):- member(N=V,Vs),V==T,!,VN=N.
-get_var_name(T,VN,_Vs):- get_var_name(T,VN),!.
-get_var_name(T,VN,_Vs):- term_to_atom(T,VN).
    
 to_ansi(A,B):- to_ansi0(A,B),!.
 to_ansi0(e,[bold,fg(yellow)]).
@@ -255,7 +247,6 @@ pprint_ec_and_f(C, P, AndF):-
   echo_format(AndF))), !,
   ttyflush.
 
-user:portray(Term):- \+ current_prolog_flag(debug,true), \+ tracing, ec_portray_hook(Term).
 
 /*
 without_ec_portray_hook(Goal):-
@@ -268,21 +259,42 @@ without_ec_portray_hook(Goal):-
    setup_call_cleanup(flag('$ec_portray', N, N+1000), 
      Goal, flag('$ec_portray',_, N)).
 
+pc_portray(Term):- notrace(tracing),!,ec_portray_hook(Term).
+pc_portray(Term):- \+ current_prolog_flag(debug,true), \+ tracing, ec_portray_hook(Term).
+
 ec_portray_hook(Term):- 
  setup_call_cleanup(flag('$ec_portray', N, N+1), 
   ec_portray(N, Term),
   flag('$ec_portray',_, N)).
 
-ec_portray(_,Var):- var(Var), !, get_var_name(Var,Name), format('~w',[Name]),!.
-ec_portray(_,'$VAR'(Atomic)):-  atom(Atomic), name(Atomic,[C|_]), !, (code_type(C,prolog_var_start)->write(Atomic);writeq('$VAR'(Atomic))).
-%ec_portray(_,Term):- notrace(is_list(Term)),!,Term\==[], fail, notrace(catch(text_to_string(Term,Str),_,fail)),!,format('"~s"',[Str]).
+ec_portray(_,Var):- var(Var), !, get_var_name(Var,Name), ansi_format(fg(green),'~w',[Name]),!.
+ec_portray(_,'$VAR'(Atomic)):-  atom(Atomic), name(Atomic,[C|_]), !, 
+  (code_type(C,prolog_var_start)->
+     ansi_format(fg(yellow),'~w',[Atomic]);
+     ansi_format(fg(red),'~q',['$VAR'(Atomic)])).
+
+ec_portray(_,Term):- atom(Term),!, ansi_format(hfg(blue),'~q',[Term]).
+ec_portray(_,Term):- \+ compound(Term),!, ansi_format(hfg(cyan),'~q',[Term]).
+
+ec_portray(_,Term):- notrace(is_list(Term)),!,Term\==[], fail, notrace(catch(text_to_string(Term,Str),_,fail)),!,format('"~s"',[Str]).
+% ec_portray(_,Term):- \+  !, fail.
+ec_portray(_,Term):- compound(Term), compound_name_arity(Term,F,A), uses_op(F,A), !, fail.
 %ec_portray(_,Term):- compound(Term),compound_name_arity(Term, F, 0), !,ansi_format([bold,hfg(red)],'~q()',[F]),!.
 ec_portray(N,Term):- N < 1, 
   % ttyflush,
   ttyflush,
+  fail,
+  ec_portray_now(Term).
   %display(doing(Term)),
-  catch(pprint_ec_no_newline(white, Term),_,fail),!.
 
+ec_portray_now(Term):- catch(pprint_ec_no_newline(green, Term),_,fail),!.
+
+uses_op(F,A):- functor([_|_],F,A).
+uses_op(F,A):- current_op(_,XFY,F),once((name(XFY,[_|Len]),length(Len,L))),L=A.
+
+pprint_ec_no_newline(_C, P):-
+  print_e_to_string(P, S),
+  format('~s', [S]),!.
 
 pprint_ec_no_newline(C, P):-
   print_e_to_string(P, S),
@@ -778,8 +790,6 @@ pt_args( FS, Final,[A|As],Tab) :- !,  write(', '), prefix_spaces(Tab),
 is_arity_lt1(A) :- \+ compound(A),!.
 is_arity_lt1(A) :- compound_name_arity(A,_,0),!.
 is_arity_lt1(A) :- functor(A,'$VAR',_),!.
-is_arity_lt1(A) :- functor(A,'-',_),!.
-is_arity_lt1(A) :- functor(A,'+',_),!.
 is_arity_lt1(V) :- is_dict(V), !, fail.
 is_arity_lt1(S) :- is_charlist(S),!.
 is_arity_lt1(S) :- is_codelist(S),!.
@@ -796,6 +806,7 @@ as_is(Q) :- is_quoted_pt(Q).
    
 as_is(not(A)) :- !,as_is(A).
 as_is(A) :- A=..[_|S], maplist(is_arity_lt1,S),length(S,SL),SL<5, !.
+as_is(A) :- compound_name_arguments(A,PlusMinus,List),member(PlusMinus,[(+),(-)]),maplist(as_is,List).
 as_is(A) :- A=..[_,B|S], fail, as_is(B), maplist(is_arity_lt1,S), !.
 % as_is(F):- simple_arg(F), !.
 
@@ -828,6 +839,7 @@ write_simple_each([A0|Left]):-  format(', '), write_simple(A0), write_simple_eac
 
 :- system:use_module(library(logicmoo_startup)).
 
+user:portray(Term):- pc_portray(Term),!.
 
 end_of_file.
 

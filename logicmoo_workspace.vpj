@@ -12958,6 +12958,17 @@
 				<F N="packs_usr/PythonPengines/setup.cfg"/>
 				<F N="packs_usr/PythonPengines/setup.py"/>
 			</Folder>
+			<Folder Name="SBCG">
+				<F N="packs_usr/SBCG/g.fit"/>
+				<F N="packs_usr/SBCG/g.mas"/>
+				<F N="packs_usr/SBCG/g.plp"/>
+				<F N="packs_usr/SBCG/g.sig"/>
+				<F N="packs_usr/SBCG/g.tpl"/>
+				<F N="packs_usr/SBCG/LICENSE"/>
+				<F N="packs_usr/SBCG/profit-swi.pl"/>
+				<F N="packs_usr/SBCG/profit.pl"/>
+				<F N="packs_usr/SBCG/README.md"/>
+			</Folder>
 			<Folder Name="sbcl">
 				<Folder Name="contrib">
 					<Folder Name="asdf">

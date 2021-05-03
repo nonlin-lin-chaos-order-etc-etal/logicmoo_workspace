@@ -16,7 +16,7 @@
 
 :- set_module(class(library)).
 
-:- use_module(util_varnames,[get_var_name/2]).
+%:- use_module(util_varnames,[get_var_name/2]).
 
 
 %% lock_vars( :TermVar) is semidet.

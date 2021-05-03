@@ -91,14 +91,16 @@ add_p_to_words(NPN,MORES,Out):-add_p_to_words1(_Var,NPN,MORES,Out).
 % add_p_to_words1(_Var,P,I,O):- add_p_to_words1(_Var,P,I,O).
 %add_p_to_words1(_Var,S,H,H):- member(S,['S','S1234']),!.
 
-%add_p_to_words1(_Var,P,I,O):- compound(P),I=w(Word,_), arg(_,P,Var),var(Var),append_varname(Word,Var),!, add_p_to_words1(_Var,P,I,O).
+%add_p_to_words1(_Var,P,I,O):- compound(P),I=w(Word,_), arg(_,P,Var),var(Var),append_varname_h(Word,Var),!, add_p_to_words1(_Var,P,I,O).
+
+append_varname_h(_,_).
 
 % add_p_to_words1(_Var,P,I,O):- add_p_to_words1(_Var,P,I,O).
-add_p_to_words1(Var,P,w(S,[Pos]),w(S,[Pos,P])):-append_varname(S,Var),!.
+add_p_to_words1(Var,P,w(S,[Pos]),w(S,[Pos,P])):-append_varname_h(S,Var),!.
 % add_p_to_words1(_Var,P,isa(X,Y),w(S,[Pos,P])):-!.
 add_p_to_words1(_Var,P,w(S,[Pos,P2]),w(S,[Pos,P2,P])):- P2\=='NP',!.
 add_p_to_words1(_Var,P,w(S,List),w(S,List)):- last(List,P), P='VP'(_),!.
-add_p_to_words1(Var,P,w(S,Pos),w(S,PosP)):- append(Pos,[P],PosP),!,append_varname(S,Var),!.
+add_p_to_words1(Var,P,w(S,Pos),w(S,PosP)):- append(Pos,[P],PosP),!,append_varname_h(S,Var),!.
 add_p_to_words1(_Var,_,[],[]):- !.
 add_p_to_words1(Var,P,[H|T],[HH|TT]):- !, add_p_to_words1(Var,P,H,HH),add_p_to_words1(Var,P,T,TT).
 

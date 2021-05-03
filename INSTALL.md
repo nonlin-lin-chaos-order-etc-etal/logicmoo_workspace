@@ -12,10 +12,10 @@ set +e
 
 if [[ $EUID -ne 0 ]]; then
    echo "#* "
-   echo -e "\e[1;31mERROR This script ${BASH_SOURCE[0]} must be run as root. \e[0m"
+   echo -e "\e[1;31mWARNING: This script ${BASH_SOURCE[0]} should be run as root. \e[0m"
    echo "#* "
-   return 1 2>/dev/null
-   exit 1
+   return 0 2>/dev/null
+   exit 0
 fi
 
 

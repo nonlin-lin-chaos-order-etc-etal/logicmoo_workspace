@@ -8,7 +8,7 @@
   toProperCamelAtom/2,
   simpler_textname/2,simpler_textname/3]).
 :- set_module(class(library)).
-:- use_module(util_varnames,[get_var_name/2]).
+%:- use_module(util_varnames,[get_var_name/2]).
 
 :- use_module(library(occurs)).
 :- use_module(library(gensym)).
@@ -270,13 +270,14 @@ atom_trim_suffix(Root,Suffix,Result):- atom_concat_w_blobs(Result,Suffix,Root) -
 shrink_naut_vars(I,I).
 
 pretty_numbervars(Term, TermO):-
-  shrink_naut_vars(Term,Term1),
-  (pretty_enough(Term1) 
+  notrace((shrink_naut_vars(Term,Term1),
+  (ground(Term1) 
     -> TermO = Term1 ;
-  (guess_pretty(Term1),
-   source_variables_lwv(Term1,Vs),
+  ( guess_pretty(Term1),
+    source_variables_lwv(Term1,Vs),
+   %term_variables(Term1+Vs,TVs),
    copy_term(Term+Vs,TermO+Vs2, _),
-   implode_varnames_pred(to_var_dollar, Vs2))),!.
+   implode_varnames_pred(to_var_dollar, Vs2))))),!.
 
 
 ground_variables_as_atoms(_Pred,[],_Vars):-!.
@@ -740,10 +741,11 @@ to_descriptive_name_xti(_For,X,X).
 :- dynamic(user:portray/1).
 :- discontiguous(user:portray/1).
 
-user:portray(Term):- fail,
+user:portray(Term):- % fail,
   \+ ground(Term),
   pretty_numbervars(Term,PrettyVarTerm),
   Term \=@= PrettyVarTerm,
-  prolog_pretty_print:print_term(PrettyVarTerm, [output(current_output)]).
+  print(PrettyVarTerm),!.
+  %prolog_pretty_print:print_term(PrettyVarTerm, [output(current_output)]),!.
 
 :- nb_setval('$variable_names',[]).

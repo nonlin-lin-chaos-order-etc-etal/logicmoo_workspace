@@ -154,12 +154,25 @@ dmsg000/1,
         with_output_to_stream(?, 0),
         with_show_dmsg(?, 0).
 
+:- expects_dialect(swi).
+
+:- use_module(library(lists)).
+/*lists:selectchk(Elem, List, Rest) :-
+    select(Elem, List, Rest0),
+    (!),
+    Rest=Rest0.*/
+%:- lists:export(selectchk/3).
+:- use_module(library(option)).
+
 :- autoload(library(apply),[maplist/2]).
 :- autoload(library(occurs),[sub_term/2]).
 :- autoload(library(memfile),[memory_file_to_atom/2]).
 :- autoload(library(debug),[debug/3]).
 :- autoload(library(error),[must_be/2]).
-:- autoload(library(lists),[member/2,append/3,nth1/3]).
+:- autoload(library(lists),[member/2,nth1/3]).
+:- autoload(library(lists),[append/3]).
+%:- autoload(library(lists),[selectchk/3]).
+
 :- autoload(library(listing),[portray_clause/3]).
 
 wldmsg_0(_CM,ops):- !.
@@ -884,13 +897,52 @@ portray_clause_w_vars(Msg,Vs,Options):- portray_clause_w_vars(current_output,Msg
 %
 portray_clause_w_vars(Msg,Options):- source_variables_lwv(Msg,Vs),portray_clause_w_vars(current_output,Msg,Vs,Options).
 
-grab_varnames(Msg,Vs2):- term_attvars(Msg,AttVars),grab_varnames2(AttVars,Vs2).
+grab_varnames(Msg,Vs2):- term_attvars(Msg,AttVars),
+  %term_variables(Msg,Vars), 
+  %append(AttVars,Vars,AllVars),
+  sort(AttVars,AllVarS),
+  grab_varnames2(AllVarS,Vs2).
 
 grab_varnames2([],[]):-!.
 grab_varnames2([AttV|AttVS],Vs2):-
     grab_varnames2(AttVS,VsMid),!,
-     (get_attr(AttV,vn,Name) -> Vs2 = [Name=AttV|VsMid] ; VsMid=       Vs2),!.
-   
+     (get_attr(AttV, vn, Name) -> Vs2 = [Name=AttV|VsMid] ; VsMid=       Vs2),!.
+
+get_var_name_or_fake(T,VN):- get_var_name(T,VN),!.
+get_var_name_or_fake(T,VN):- term_to_atom(T,VN).
+
+get_var_name(V,N):- notrace(get_var_name0(V,N)),!.
+:- export(get_var_name/2).
+%%	variable_name(+Var, -Name) is semidet.
+%
+%	True if Var has been assigned Name.
+
+variable_name(Var, Name) :- must(var(Var)),(get_attr(Var, vn, Name);var_property(Var,name(Name));get_attr(Var, varnames, Name)),!.
+
+get_var_name0(Var,Name):- nonvar(Name),!,must(get_var_name0(Var, NameO)),!,Name=NameO.
+get_var_name0(Var,Name):- nonvar(Var),!,get_var_name1(Var,Name),!.
+get_var_name0(Var,Name):- var_property(Var,name(Name)),!.
+get_var_name0(Var,Name):- get_attr(Var, vn, Name),!.
+get_var_name0(Var,Name):- nb_current('$variable_names', Vs),varname_of(Vs,Var,Name),!.
+get_var_name0(Var,Name):- get_attr(Var, varnames, Name),!.
+get_var_name0(Var,Name):- nb_current('$old_variable_names', Vs),varname_of(Vs,Var,Name),!.
+get_var_name0(Var,Name):- get_varname_list(Vs),varname_of(Vs,Var,Name),!.
+% get_var_name0(Var,Name):- attvar(Var),get_varname_list(Vs),format(atom(Name),'~W',[Var, [variable_names(Vs)]]).
+
+varname_of(Vs,Var,Name):- member(NV,Vs), (compound(NV) -> (NV=(N=V),atomic(N), V==Var,!,N=Name) ; (!,fail)).
+
+get_var_name1('$VAR'(Name),Name):- atom(Name),!.
+get_var_name1('$VAR'(Int),Name):- integer(Int),format(atom(A),"~w",['$VAR'(Int)]),!,A=Name.
+get_var_name1('$VAR'(Var),Name):- (var(Var)->get_var_name0(Var,Name);Name=Var),!.
+get_var_name1('$VAR'(Att3),Name):- !, get_var_name1(Att3,Name).
+get_var_name1('aVar'(Att3),Name):- !, get_var_name1(Att3,Name).
+get_var_name1('aVar'(Name,Att3),Value):- !, get_var_name1('$VAR'(Name),Value); get_var_name1('aVar'(Att3),Value).
+get_var_name1(att(vn,Name,_),Name):- !.
+get_var_name1(att(_,_,Rest),Name):- Rest\==[],get_var_name1(Rest,Name).
+get_var_name1(Var,Name):- get_attr(Var, vn, Name),!. % ground(Name),!.
+get_var_name1(Var,Name):- catch(call(call,oo_get_attr(Var, vn, Name)),_,fail),!. % ground(Name),!.
+get_var_name1(Var,Name):- nb_current('$variable_names', Vs),varname_of(Vs,Var,Name),!.
+
 
 dzotrace(G):- notrace(G),!.
 dzotrace(G):- call(G).
@@ -906,7 +958,7 @@ source_variables_lwv(Msg,AllS):-
    grab_varnames(Msg,Vs2),
    dzotrace(catch((parent_goal('$toplevel':'$execute_goal2'(_, Vs3),_);Vs3=[]),_,Vs3=[])),
    ignore(Vs3=[]),
-   append(Vs3,Vs2,Vs32),append(Vs32,Vs1,All),!,list_to_set(All,AllS).
+   append([Vs3,Vs2,Vs1],All),!,list_to_set(All,AllS).
    % set_varname_list( AllS).
 
 
