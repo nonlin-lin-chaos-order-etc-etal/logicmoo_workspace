@@ -28,6 +28,13 @@
 
 :- set_module(class(library)).
 
+:- if(exists_source(library(logicmoo_web_long_message))).
+:- use_module(library(logicmoo_web_long_message)).
+:- endif.
+
+maybe_http_port(Port):-
+ thread_propery(_,alias(Alias)),atom_concat('httpd@',X,Alias),atom_concat(APort,'_1',X),atom_number(APort,Port).
+
 :- dynamic(lmconf:irc_bot_nick/1).
 lmconf:irc_bot_nick("PrologMUD").
 reg_egg_builtin(PIs):- % baseKB:ain(prologBuiltin(PIs)),
@@ -1131,12 +1138,14 @@ irc_really_call(Channel,Agent,CALL, Vs):-
        (b_setval('$variable_names',Vs), b_setval('$term',CALL),
                     use_agent_module(Agent)),
              (nop((stream_property(X,alias(current_output)),set_stream(X,alias(user_output)))),
-                AgentModule:catch((CALL),E,
+                catch(emlmp(AgentModule:CALL),E,
                  (((my_wdmsg(E),say(Agent,[Channel,': ',E])),!,fail)))),
                     save_agent_module(Agent)))),
    !.
 
 
+emlmp(Goal):- current_predicate(maybe_long_message_printer/2),!,maybe_long_message_printer(4, Goal).
+emlmp(Goal):- call(Goal).
 
 %% cit is det.
 %
@@ -1286,13 +1295,13 @@ write_v(V):- writeq(V).
 write_varvalues2([]):-!,flush_all_output.
 write_varvalues2(Vs):-
    flush_all_output,
-   write('% '),
+   write(' % '),
    write_varvalues3(Vs),
    copy_term(Vs,Vs,Goals),
    write_goals(Goals),!,
    flush_all_output.
 
-writeqln(G):-writeq(G),write(' ').
+writeqln(G):-writeq(G),write(' '),nl.
 
 write_goals([]):-!.
 write_goals(List):- write('\n%    Residual Goals: '),write_goals0(List),!,write(' ').

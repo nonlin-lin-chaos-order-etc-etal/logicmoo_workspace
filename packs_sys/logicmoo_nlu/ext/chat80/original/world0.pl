@@ -31,7 +31,7 @@
 % Interface.
 % ---------
 
-database80(aggregate(X,Y,Z)) :- aggregate(X,Y,Z).
+database80(aggregate80(X,Y,Z)) :- aggregate80(X,Y,Z).
 database80(one_of(X,Y)) :- one_of(X,Y).
 database80(ratio(X,Y,Z)) :- ratio(X,Y,Z).
 database80(card(X,Y)) :- card(X,Y).
@@ -141,7 +141,7 @@ measure_pred(Spatial,Area,Where,Total) :- \+ c_r_l_l_s_cap_m(Where,_,_,_,_,_,_,_
                %database80(ti(country, Country)), 
                database80(trans_pred(Spatial,contains,Where,Country))),
                Setof),
-         database80(aggregate(total, Setof, Total)).
+         database80(aggregate80(total, Setof, Total)).
 
 
 count_pred(Spatial,Heads,C,Total):- is_list(C),maplist(count_pred(Spatial,Heads),C,Setof), u_total(Setof, Total).

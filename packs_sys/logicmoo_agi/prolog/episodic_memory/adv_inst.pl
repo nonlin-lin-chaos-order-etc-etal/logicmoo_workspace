@@ -152,7 +152,7 @@ create_objprop(_Why, Object, inherit(perceptq, t), S0, S1):- !,
 create_objprop(_Why, Object, inherit(memorizer, t), S0, S0):- declared(memories(Object, _), S0), !.
 create_objprop(_Why, Self, inherit(memorizer, t), S0, S2):- !, clock_time(Now),
  redeclare(memories(Self, [
-  propOf(memories, Self),
+  spropOf(memories, Self),
  structure_label(mem(Self)),
  timestamp(0, Now),
  current_goals(Agent, []),

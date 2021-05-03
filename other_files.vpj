@@ -67,11 +67,6 @@
 		</Folder>
 	</CustomFolders>
 	<Files AutoFolders="DirectoryView">
-		<Folder Name="bin">
-			<F N="bin/git-mv-with-history"/>
-			<F N="bin/git-submodules.sh"/>
-			<F N="bin/pandoc_xm"/>
-		</Folder>
 		<Folder Name="V:/">
 			<Folder Name="opt">
 				<Folder Name="logicmoo_workspace">
@@ -179,7 +174,6 @@
 								</Folder>
 							</Folder>
 							<Folder Name="prolog">
-								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/prolog/is_dir"/>
 								<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/prolog/logicmoo_pldata.pl"/>
 							</Folder>
 							<F N="V:/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/pack.pl"/>
@@ -216,14 +210,6 @@
 								<F N="docker/rootfs/etc/letsencrypt/live/logicmoo.org/fullchain.pem"/>
 								<F N="docker/rootfs/etc/letsencrypt/live/logicmoo.org/privkey.pem"/>
 							</Folder>
-							<Folder Name="logicmoo.org-0001">
-								<F N="docker/rootfs/etc/letsencrypt/live/logicmoo.org-0001/fullchain.pem"/>
-								<F N="docker/rootfs/etc/letsencrypt/live/logicmoo.org-0001/privkey.pem"/>
-							</Folder>
-							<Folder Name="logicmoo.org-0002">
-								<F N="docker/rootfs/etc/letsencrypt/live/logicmoo.org-0002/fullchain.pem"/>
-								<F N="docker/rootfs/etc/letsencrypt/live/logicmoo.org-0002/privkey.pem"/>
-							</Folder>
 							<F N="docker/rootfs/etc/letsencrypt/live/options-ssl-apache.conf"/>
 							<F N="docker/rootfs/etc/letsencrypt/live/README"/>
 						</Folder>
@@ -239,471 +225,8 @@
 					</Folder>
 					<Folder Name="supervisor">
 						<Folder Name="conf.d">
-							<F N="docker/rootfs/etc/supervisor/conf.d/supervisord.conf.bak"/>
 							<F N="docker/rootfs/etc/supervisor/conf.d/supervisord.conf.j2"/>
 							<F N="docker/rootfs/etc/supervisor/conf.d/supervisord_logicmoo.conf"/>
-						</Folder>
-					</Folder>
-				</Folder>
-				<Folder Name="usr">
-					<Folder Name="local">
-						<Folder Name="bin">
-							<F N="docker/rootfs/usr/local/bin/chromium-browser-sound.sh"/>
-							<F N="docker/rootfs/usr/local/bin/xvfb.sh"/>
-						</Folder>
-						<Folder Name="lib">
-							<Folder Name="web">
-								<Folder Name="backend">
-									<Folder Name="config">
-										<F N="docker/rootfs/usr/local/lib/web/backend/config/__init__.py"/>
-									</Folder>
-									<Folder Name="log">
-										<F N="docker/rootfs/usr/local/lib/web/backend/log/__init__.py"/>
-										<F N="docker/rootfs/usr/local/lib/web/backend/log/config.py"/>
-									</Folder>
-									<Folder Name="vnc">
-										<F N="docker/rootfs/usr/local/lib/web/backend/vnc/__init__.py"/>
-										<F N="docker/rootfs/usr/local/lib/web/backend/vnc/app.py"/>
-										<F N="docker/rootfs/usr/local/lib/web/backend/vnc/log.py"/>
-										<F N="docker/rootfs/usr/local/lib/web/backend/vnc/response.py"/>
-										<F N="docker/rootfs/usr/local/lib/web/backend/vnc/state.py"/>
-										<F N="docker/rootfs/usr/local/lib/web/backend/vnc/util.py"/>
-									</Folder>
-									<F N="docker/rootfs/usr/local/lib/web/backend/requirements.txt"/>
-									<F N="docker/rootfs/usr/local/lib/web/backend/run.py"/>
-								</Folder>
-							</Folder>
-						</Folder>
-						<Folder Name="share">
-							<Folder Name="doro-lxde-wallpapers">
-								<F N="docker/rootfs/usr/local/share/doro-lxde-wallpapers/bg1.jpg"/>
-								<F N="docker/rootfs/usr/local/share/doro-lxde-wallpapers/bg2.jpg"/>
-								<F N="docker/rootfs/usr/local/share/doro-lxde-wallpapers/bg3.jpg"/>
-								<F N="docker/rootfs/usr/local/share/doro-lxde-wallpapers/bg4.jpg"/>
-								<F N="docker/rootfs/usr/local/share/doro-lxde-wallpapers/desktop-items-0.conf"/>
-							</Folder>
-						</Folder>
-					</Folder>
-					<Folder Name="share">
-						<Folder Name="applications">
-							<F N="docker/rootfs/usr/share/applications/chromium-browser-sound.desktop"/>
-						</Folder>
-					</Folder>
-				</Folder>
-				<Folder Name="var">
-					<Folder Name="www">
-						<Folder Name="html">
-							<Folder Name="doc2">
-								<F N="docker/rootfs/var/www/html/doc2/example-bash.sh"/>
-								<F N="docker/rootfs/var/www/html/doc2/logicmoocanc.php"/>
-								<F N="docker/rootfs/var/www/html/doc2/logicmoocanc.sh"/>
-							</Folder>
-							<Folder Name="docs">
-								<F N="docker/rootfs/var/www/html/docs/Adder-853-IMG_2832-5.jpg"/>
-								<F N="docker/rootfs/var/www/html/docs/Automated JCIDS -- Semantically Informed Dynamic Engineering of Capabilities and Requirements (SIDECAR).pdf"/>
-								<F N="docker/rootfs/var/www/html/docs/BenthemCh2 (3 files merged).pdf"/>
-								<F N="docker/rootfs/var/www/html/docs/BenthemCh2.pdf"/>
-								<F N="docker/rootfs/var/www/html/docs/c2.jpg"/>
-								<F N="docker/rootfs/var/www/html/docs/calc10.jpg"/>
-								<F N="docker/rootfs/var/www/html/docs/cartoon_08.png"/>
-								<F N="docker/rootfs/var/www/html/docs/cilog_swi.pl"/>
-								<F N="docker/rootfs/var/www/html/docs/DARPA-CyN-D2.ppt"/>
-								<F N="docker/rootfs/var/www/html/docs/DavidWhitten-ContextsInMedicalDecisionMaking.ppt"/>
-								<F N="docker/rootfs/var/www/html/docs/daydreamer.png"/>
-								<F N="docker/rootfs/var/www/html/docs/Formalizing context.pdf"/>
-								<F N="docker/rootfs/var/www/html/docs/IKLmitre.doc"/>
-								<F N="docker/rootfs/var/www/html/docs/index_settings.xml"/>
-								<F N="docker/rootfs/var/www/html/docs/JackRing-ClarifyingRelationshipsAmongOntologiesContextAndSystemRealizationAndEfficacy_20171011.pptx"/>
-								<F N="docker/rootfs/var/www/html/docs/kittydesk.jpg"/>
-								<F N="docker/rootfs/var/www/html/docs/lenat1986cyc.pdf"/>
-								<F N="docker/rootfs/var/www/html/docs/mqsd.pdf"/>
-								<F N="docker/rootfs/var/www/html/docs/OpenCyc Commonsense AI Tutorial.PPT"/>
-								<F N="docker/rootfs/var/www/html/docs/qVcUW4B.png"/>
-								<F N="docker/rootfs/var/www/html/docs/r1mi1vm.png"/>
-								<F N="docker/rootfs/var/www/html/docs/rcyc.png"/>
-								<F N="docker/rootfs/var/www/html/docs/Simpson1994.pdf.html"/>
-								<F N="docker/rootfs/var/www/html/docs/swiprologbot.prolog.phps"/>
-								<F N="docker/rootfs/var/www/html/docs/swiprologbot.prolog.phps.html"/>
-								<F N="docker/rootfs/var/www/html/docs/tcdef.png"/>
-								<F N="docker/rootfs/var/www/html/docs/tolm.rtf"/>
-								<F N="docker/rootfs/var/www/html/docs/vBRnote04.pdf"/>
-							</Folder>
-							<Folder Name="ef">
-								<Folder Name="files">
-									<Folder Name="temp">
-										<F N="docker/rootfs/var/www/html/ef/files/temp/log.txt"/>
-									</Folder>
-									<F N="docker/rootfs/var/www/html/ef/files/foo.pl"/>
-									<F N="docker/rootfs/var/www/html/ef/files/NewFile.txt"/>
-									<F N="docker/rootfs/var/www/html/ef/files/NewFile.txt.tar.txt"/>
-								</Folder>
-								<Folder Name="img">
-									<F N="docker/rootfs/var/www/html/ef/img/edit_aceeditor.png"/>
-									<F N="docker/rootfs/var/www/html/ef/img/edit_ckeditor.png"/>
-									<F N="docker/rootfs/var/www/html/ef/img/edit_codemirror.png"/>
-									<F N="docker/rootfs/var/www/html/ef/img/edit_creativecloud.png"/>
-									<F N="docker/rootfs/var/www/html/ef/img/edit_pixlreditor.png"/>
-									<F N="docker/rootfs/var/www/html/ef/img/edit_pixlrexpress.png"/>
-									<F N="docker/rootfs/var/www/html/ef/img/edit_tinymce.png"/>
-								</Folder>
-								<Folder Name="js">
-									<Folder Name="extras">
-										<F N="docker/rootfs/var/www/html/ef/js/extras/encoding-japanese.min.js"/>
-									</Folder>
-									<Folder Name="i18n">
-										<F N="docker/rootfs/var/www/html/ef/js/i18n/elfinder.jp.js"/>
-									</Folder>
-									<Folder Name="ui">
-										<F N="docker/rootfs/var/www/html/ef/js/ui/mkdirbutton.js"/>
-									</Folder>
-									<F N="docker/rootfs/var/www/html/ef/js/elFinder.js"/>
-								</Folder>
-								<Folder Name="php">
-									<Folder Name="libs">
-										<F N="docker/rootfs/var/www/html/ef/php/libs/GdBmp.php"/>
-									</Folder>
-									<Folder Name="plugins">
-										<Folder Name="AutoResize">
-											<F N="docker/rootfs/var/www/html/ef/php/plugins/AutoResize/plugin.php"/>
-										</Folder>
-										<Folder Name="AutoRotate">
-											<F N="docker/rootfs/var/www/html/ef/php/plugins/AutoRotate/plugin.php"/>
-										</Folder>
-										<Folder Name="Normalizer">
-											<F N="docker/rootfs/var/www/html/ef/php/plugins/Normalizer/plugin.php"/>
-										</Folder>
-										<Folder Name="Sanitizer">
-											<F N="docker/rootfs/var/www/html/ef/php/plugins/Sanitizer/plugin.php"/>
-										</Folder>
-										<Folder Name="Watermark">
-											<F N="docker/rootfs/var/www/html/ef/php/plugins/Watermark/plugin.php"/>
-										</Folder>
-									</Folder>
-									<F N="docker/rootfs/var/www/html/ef/php/autoload.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/cm.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/composer.json"/>
-									<F N="docker/rootfs/var/www/html/ef/php/composer.lock"/>
-									<F N="docker/rootfs/var/www/html/ef/php/connector.minimal - Copy.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/connector.minimal.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/connector.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinder.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderConnector.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderFlysystemGoogleDriveNetmount.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderPlugin.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderSession.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderVolumeBox.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderVolumeDriver.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderVolumeDropbox.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderVolumeDropbox2.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderVolumeFTP.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderVolumeGoogleDrive.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderVolumeGroup.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderVolumeLocalFileSystem.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderVolumeMySQL.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/elFinderVolumeOneDrive.class.php"/>
-									<F N="docker/rootfs/var/www/html/ef/php/MySQLStorage.sql"/>
-								</Folder>
-								<F N="docker/rootfs/var/www/html/ef/composer.json"/>
-								<F N="docker/rootfs/var/www/html/ef/elfinder.ckeditor5.html"/>
-								<F N="docker/rootfs/var/www/html/ef/elfinder.html.orig"/>
-								<F N="docker/rootfs/var/www/html/ef/elfinder.swish.html"/>
-							</Folder>
-							<Folder Name="efCloserMine">
-								<Folder Name="js">
-									<F N="docker/rootfs/var/www/html/efCloserMine/js/elFinder.js"/>
-								</Folder>
-								<Folder Name="php">
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/autoload.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinder.class.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderConnector.class.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderFlysystemGoogleDriveNetmount.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderPlugin.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderSession.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderVolumeBox.class.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderVolumeDriver.class.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderVolumeDropbox2.class.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderVolumeFTP.class.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderVolumeGoogleDrive.class.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderVolumeGroup.class.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderVolumeLocalFileSystem.class.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderVolumeMySQL.class.php"/>
-									<F N="docker/rootfs/var/www/html/efCloserMine/php/elFinderVolumeOneDrive.class.php"/>
-								</Folder>
-								<F N="docker/rootfs/var/www/html/efCloserMine/composer.json"/>
-							</Folder>
-							<Folder Name="icons">
-								<Folder Name="small">
-									<F N="docker/rootfs/var/www/html/icons/small/back.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/back.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/binary.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/binary.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/binhex.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/binhex.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/blank.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/blank.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/broken.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/broken.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/burst.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/burst.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/comp1.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/comp1.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/comp2.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/comp2.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/compressed.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/compressed.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/continued.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/continued.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/doc.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/doc.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/folder.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/folder.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/folder2.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/folder2.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/forward.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/forward.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/generic.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/generic.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/generic2.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/generic2.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/generic3.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/generic3.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/image.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/image.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/image2.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/image2.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/index.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/index.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/key.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/key.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/movie.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/movie.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/patch.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/patch.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/ps.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/ps.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/rainbow.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/rainbow.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/sound.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/sound.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/sound2.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/sound2.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/tar.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/tar.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/text.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/text.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/transfer.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/transfer.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/unknown.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/unknown.png"/>
-									<F N="docker/rootfs/var/www/html/icons/small/uu.gif"/>
-									<F N="docker/rootfs/var/www/html/icons/small/uu.png"/>
-								</Folder>
-								<F N="docker/rootfs/var/www/html/icons/a.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/a.png"/>
-								<F N="docker/rootfs/var/www/html/icons/alert.black.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/alert.black.png"/>
-								<F N="docker/rootfs/var/www/html/icons/alert.red.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/alert.red.png"/>
-								<F N="docker/rootfs/var/www/html/icons/apache_pb.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/apache_pb.png"/>
-								<F N="docker/rootfs/var/www/html/icons/apache_pb.svg"/>
-								<F N="docker/rootfs/var/www/html/icons/apache_pb2.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/apache_pb2.png"/>
-								<F N="docker/rootfs/var/www/html/icons/back.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/back.png"/>
-								<F N="docker/rootfs/var/www/html/icons/ball.gray.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/ball.gray.png"/>
-								<F N="docker/rootfs/var/www/html/icons/ball.red.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/ball.red.png"/>
-								<F N="docker/rootfs/var/www/html/icons/binary.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/binary.png"/>
-								<F N="docker/rootfs/var/www/html/icons/binhex.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/binhex.png"/>
-								<F N="docker/rootfs/var/www/html/icons/blank.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/blank.png"/>
-								<F N="docker/rootfs/var/www/html/icons/bomb.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/bomb.png"/>
-								<F N="docker/rootfs/var/www/html/icons/box1.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/box1.png"/>
-								<F N="docker/rootfs/var/www/html/icons/box2.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/box2.png"/>
-								<F N="docker/rootfs/var/www/html/icons/broken.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/broken.png"/>
-								<F N="docker/rootfs/var/www/html/icons/burst.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/burst.png"/>
-								<F N="docker/rootfs/var/www/html/icons/c.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/c.png"/>
-								<F N="docker/rootfs/var/www/html/icons/comp.blue.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/comp.blue.png"/>
-								<F N="docker/rootfs/var/www/html/icons/comp.gray.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/comp.gray.png"/>
-								<F N="docker/rootfs/var/www/html/icons/compressed.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/compressed.png"/>
-								<F N="docker/rootfs/var/www/html/icons/continued.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/continued.png"/>
-								<F N="docker/rootfs/var/www/html/icons/dir.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/dir.png"/>
-								<F N="docker/rootfs/var/www/html/icons/diskimg.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/diskimg.png"/>
-								<F N="docker/rootfs/var/www/html/icons/down.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/down.png"/>
-								<F N="docker/rootfs/var/www/html/icons/dvi.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/dvi.png"/>
-								<F N="docker/rootfs/var/www/html/icons/f.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/f.png"/>
-								<F N="docker/rootfs/var/www/html/icons/folder.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/folder.open.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/folder.open.png"/>
-								<F N="docker/rootfs/var/www/html/icons/folder.png"/>
-								<F N="docker/rootfs/var/www/html/icons/folder.sec.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/folder.sec.png"/>
-								<F N="docker/rootfs/var/www/html/icons/forward.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/forward.png"/>
-								<F N="docker/rootfs/var/www/html/icons/generic.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/generic.png"/>
-								<F N="docker/rootfs/var/www/html/icons/generic.red.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/generic.red.png"/>
-								<F N="docker/rootfs/var/www/html/icons/generic.sec.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/generic.sec.png"/>
-								<F N="docker/rootfs/var/www/html/icons/hand.right.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/hand.right.png"/>
-								<F N="docker/rootfs/var/www/html/icons/hand.up.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/hand.up.png"/>
-								<F N="docker/rootfs/var/www/html/icons/icon.sheet.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/icon.sheet.png"/>
-								<F N="docker/rootfs/var/www/html/icons/image1.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/image1.png"/>
-								<F N="docker/rootfs/var/www/html/icons/image2.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/image2.png"/>
-								<F N="docker/rootfs/var/www/html/icons/image3.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/image3.png"/>
-								<F N="docker/rootfs/var/www/html/icons/index.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/index.png"/>
-								<F N="docker/rootfs/var/www/html/icons/layout.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/layout.png"/>
-								<F N="docker/rootfs/var/www/html/icons/left.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/left.png"/>
-								<F N="docker/rootfs/var/www/html/icons/link.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/link.png"/>
-								<F N="docker/rootfs/var/www/html/icons/movie.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/movie.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odb-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odb.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odc-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odc.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odf-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odf.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odg-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odg.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odi-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odi.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odm-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odm.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odp-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odp.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6ods-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6ods.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odt-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6odt.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6otc-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6otc.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6otf-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6otf.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6otg-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6otg.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6oth-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6oth.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6oti-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6oti.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6otp-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6otp.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6ots-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6ots.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6ott-20x22.png"/>
-								<F N="docker/rootfs/var/www/html/icons/odf6ott.png"/>
-								<F N="docker/rootfs/var/www/html/icons/openlogo-75.png"/>
-								<F N="docker/rootfs/var/www/html/icons/p.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/p.png"/>
-								<F N="docker/rootfs/var/www/html/icons/patch.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/patch.png"/>
-								<F N="docker/rootfs/var/www/html/icons/pdf.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/pdf.png"/>
-								<F N="docker/rootfs/var/www/html/icons/pie0.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/pie0.png"/>
-								<F N="docker/rootfs/var/www/html/icons/pie1.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/pie1.png"/>
-								<F N="docker/rootfs/var/www/html/icons/pie2.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/pie2.png"/>
-								<F N="docker/rootfs/var/www/html/icons/pie3.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/pie3.png"/>
-								<F N="docker/rootfs/var/www/html/icons/pie4.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/pie4.png"/>
-								<F N="docker/rootfs/var/www/html/icons/pie5.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/pie5.png"/>
-								<F N="docker/rootfs/var/www/html/icons/pie6.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/pie6.png"/>
-								<F N="docker/rootfs/var/www/html/icons/pie7.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/pie7.png"/>
-								<F N="docker/rootfs/var/www/html/icons/pie8.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/pie8.png"/>
-								<F N="docker/rootfs/var/www/html/icons/portal.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/portal.png"/>
-								<F N="docker/rootfs/var/www/html/icons/ps.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/ps.png"/>
-								<F N="docker/rootfs/var/www/html/icons/quill.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/quill.png"/>
-								<F N="docker/rootfs/var/www/html/icons/README"/>
-								<F N="docker/rootfs/var/www/html/icons/README.html"/>
-								<F N="docker/rootfs/var/www/html/icons/right.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/right.png"/>
-								<F N="docker/rootfs/var/www/html/icons/screw1.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/screw1.png"/>
-								<F N="docker/rootfs/var/www/html/icons/screw2.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/screw2.png"/>
-								<F N="docker/rootfs/var/www/html/icons/script.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/script.png"/>
-								<F N="docker/rootfs/var/www/html/icons/sound1.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/sound1.png"/>
-								<F N="docker/rootfs/var/www/html/icons/sound2.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/sound2.png"/>
-								<F N="docker/rootfs/var/www/html/icons/sphere1.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/sphere1.png"/>
-								<F N="docker/rootfs/var/www/html/icons/sphere2.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/sphere2.png"/>
-								<F N="docker/rootfs/var/www/html/icons/svg.png"/>
-								<F N="docker/rootfs/var/www/html/icons/tar.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/tar.png"/>
-								<F N="docker/rootfs/var/www/html/icons/tex.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/tex.png"/>
-								<F N="docker/rootfs/var/www/html/icons/text.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/text.png"/>
-								<F N="docker/rootfs/var/www/html/icons/transfer.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/transfer.png"/>
-								<F N="docker/rootfs/var/www/html/icons/ubuntu-logo.png"/>
-								<F N="docker/rootfs/var/www/html/icons/unknown.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/unknown.png"/>
-								<F N="docker/rootfs/var/www/html/icons/up.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/up.png"/>
-								<F N="docker/rootfs/var/www/html/icons/uu.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/uu.png"/>
-								<F N="docker/rootfs/var/www/html/icons/uuencoded.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/uuencoded.png"/>
-								<F N="docker/rootfs/var/www/html/icons/world1.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/world1.png"/>
-								<F N="docker/rootfs/var/www/html/icons/world2.gif"/>
-								<F N="docker/rootfs/var/www/html/icons/world2.png"/>
-								<F N="docker/rootfs/var/www/html/icons/xml.png"/>
-							</Folder>
-							<F N="docker/rootfs/var/www/html/hindex.html"/>
-							<F N="docker/rootfs/var/www/html/hindex.php"/>
-							<F N="docker/rootfs/var/www/html/htaccess_tester.php"/>
-							<F N="docker/rootfs/var/www/html/index.html"/>
-							<F N="docker/rootfs/var/www/html/index.nginx-debian.html"/>
-							<F N="docker/rootfs/var/www/html/main.html"/>
-							<F N="docker/rootfs/var/www/html/miarka_inconsistency.pdf"/>
-							<F N="docker/rootfs/var/www/html/privacy.html"/>
-							<F N="docker/rootfs/var/www/html/README.md"/>
-							<F N="docker/rootfs/var/www/html/World Models.html"/>
 						</Folder>
 					</Folder>
 				</Folder>
@@ -712,1053 +235,6 @@
 			<F N="docker/dmiles-make-docker.sh"/>
 			<F N="docker/Dockerfile"/>
 			<F N="docker/make-docker.sh"/>
-			<F N="docker/supervisord.conf.old"/>
-		</Folder>
-		<Folder Name="/etc">
-			<Folder Name="apache2">
-				<Folder Name="conf-available">
-					<F N="/etc/apache2/conf-available/apache2-doc.conf"/>
-					<F N="/etc/apache2/conf-available/charset.conf"/>
-					<F N="/etc/apache2/conf-available/cliopatria_swish.conf"/>
-					<F N="/etc/apache2/conf-available/dotclear.conf"/>
-					<F N="/etc/apache2/conf-available/hoogle.conf"/>
-					<F N="/etc/apache2/conf-available/javascript-common.conf"/>
-					<F N="/etc/apache2/conf-available/libapache2-mod-netcgi-apache.conf"/>
-					<F N="/etc/apache2/conf-available/localized-error-pages.conf"/>
-					<F N="/etc/apache2/conf-available/loolwsd.conf"/>
-					<F N="/etc/apache2/conf-available/other-vhosts-access-log.conf"/>
-					<F N="/etc/apache2/conf-available/php7.0-cgi.conf"/>
-					<F N="/etc/apache2/conf-available/php7.0-fpm.conf"/>
-					<F N="/etc/apache2/conf-available/php7.2-fpm.conf"/>
-					<F N="/etc/apache2/conf-available/security.conf"/>
-					<F N="/etc/apache2/conf-available/serve-cgi-bin.conf"/>
-					<F N="/etc/apache2/conf-available/servername.conf"/>
-					<F N="/etc/apache2/conf-available/shib.conf"/>
-					<F N="/etc/apache2/conf-available/ssl-params.conf"/>
-				</Folder>
-				<Folder Name="conf-enabled">
-					<F N="/etc/apache2/conf-enabled/charset.conf"/>
-					<F N="/etc/apache2/conf-enabled/localized-error-pages.conf"/>
-					<F N="/etc/apache2/conf-enabled/other-vhosts-access-log.conf"/>
-					<F N="/etc/apache2/conf-enabled/security.conf"/>
-					<F N="/etc/apache2/conf-enabled/serve-cgi-bin.conf"/>
-				</Folder>
-				<Folder Name="mods-available">
-					<F N="/etc/apache2/mods-available/actions.conf"/>
-					<F N="/etc/apache2/mods-available/alias.conf"/>
-					<F N="/etc/apache2/mods-available/auth_openidc.conf"/>
-					<F N="/etc/apache2/mods-available/autoindex.conf"/>
-					<F N="/etc/apache2/mods-available/cache_disk.conf"/>
-					<F N="/etc/apache2/mods-available/cgid.conf"/>
-					<F N="/etc/apache2/mods-available/dav_fs.conf"/>
-					<F N="/etc/apache2/mods-available/dav_svn.conf"/>
-					<F N="/etc/apache2/mods-available/deflate.conf"/>
-					<F N="/etc/apache2/mods-available/dir.conf"/>
-					<F N="/etc/apache2/mods-available/dnssd.conf"/>
-					<F N="/etc/apache2/mods-available/fastcgi.conf"/>
-					<F N="/etc/apache2/mods-available/fcgid.conf"/>
-					<F N="/etc/apache2/mods-available/info.conf"/>
-					<F N="/etc/apache2/mods-available/ldap.conf"/>
-					<F N="/etc/apache2/mods-available/log_slow.conf"/>
-					<F N="/etc/apache2/mods-available/lookup_identity.conf"/>
-					<F N="/etc/apache2/mods-available/mime.conf"/>
-					<F N="/etc/apache2/mods-available/mime_magic.conf"/>
-					<F N="/etc/apache2/mods-available/mod_mono.conf"/>
-					<F N="/etc/apache2/mods-available/mod_mono_auto.conf"/>
-					<F N="/etc/apache2/mods-available/mpm_event.conf"/>
-					<F N="/etc/apache2/mods-available/mpm_prefork.conf"/>
-					<F N="/etc/apache2/mods-available/mpm_worker.conf"/>
-					<F N="/etc/apache2/mods-available/musicindex.conf"/>
-					<F N="/etc/apache2/mods-available/negotiation.conf"/>
-					<F N="/etc/apache2/mods-available/neko.conf"/>
-					<F N="/etc/apache2/mods-available/nss.conf"/>
-					<F N="/etc/apache2/mods-available/passenger.conf"/>
-					<F N="/etc/apache2/mods-available/php7.0.conf"/>
-					<F N="/etc/apache2/mods-available/php7.2.conf"/>
-					<F N="/etc/apache2/mods-available/php7.3.conf"/>
-					<F N="/etc/apache2/mods-available/php7.4.conf"/>
-					<F N="/etc/apache2/mods-available/proxy.conf"/>
-					<F N="/etc/apache2/mods-available/proxy_balancer.conf"/>
-					<F N="/etc/apache2/mods-available/proxy_ftp.conf"/>
-					<F N="/etc/apache2/mods-available/proxy_html.conf"/>
-					<F N="/etc/apache2/mods-available/reqtimeout.conf"/>
-					<F N="/etc/apache2/mods-available/security2.conf"/>
-					<F N="/etc/apache2/mods-available/setenvif.conf"/>
-					<F N="/etc/apache2/mods-available/ssl.conf"/>
-					<F N="/etc/apache2/mods-available/status.conf"/>
-					<F N="/etc/apache2/mods-available/userdir.conf"/>
-				</Folder>
-				<Folder Name="mods-enabled">
-					<F N="/etc/apache2/mods-enabled/alias.conf"/>
-					<F N="/etc/apache2/mods-enabled/autoindex.conf"/>
-					<F N="/etc/apache2/mods-enabled/deflate.conf"/>
-					<F N="/etc/apache2/mods-enabled/dir.conf"/>
-					<F N="/etc/apache2/mods-enabled/mime.conf"/>
-					<F N="/etc/apache2/mods-enabled/mpm_prefork.conf"/>
-					<F N="/etc/apache2/mods-enabled/negotiation.conf"/>
-					<F N="/etc/apache2/mods-enabled/php7.4.conf"/>
-					<F N="/etc/apache2/mods-enabled/proxy.conf"/>
-					<F N="/etc/apache2/mods-enabled/proxy_balancer.conf"/>
-					<F N="/etc/apache2/mods-enabled/proxy_ftp.conf"/>
-					<F N="/etc/apache2/mods-enabled/proxy_html.conf"/>
-					<F N="/etc/apache2/mods-enabled/reqtimeout.conf"/>
-					<F N="/etc/apache2/mods-enabled/setenvif.conf"/>
-					<F N="/etc/apache2/mods-enabled/ssl.conf"/>
-					<F N="/etc/apache2/mods-enabled/status.conf"/>
-				</Folder>
-				<Folder Name="sites-available">
-					<F N="/etc/apache2/sites-available/000-default-le-ssl.conf"/>
-					<F N="/etc/apache2/sites-available/000-default.conf"/>
-					<F N="/etc/apache2/sites-available/default-ssl.conf"/>
-					<F N="/etc/apache2/sites-available/logicmoo-https.conf"/>
-					<F N="/etc/apache2/sites-available/wordpress.conf"/>
-				</Folder>
-				<Folder Name="sites-enabled">
-					<F N="/etc/apache2/sites-enabled/000-default-le-ssl.conf"/>
-					<F N="/etc/apache2/sites-enabled/000-default.conf"/>
-					<F N="/etc/apache2/sites-enabled/000-default.conf2"/>
-					<F N="/etc/apache2/sites-enabled/000-logicmoo.conf"/>
-				</Folder>
-				<F N="/etc/apache2/apache2.conf"/>
-				<F N="/etc/apache2/envvars"/>
-				<F N="/etc/apache2/magic"/>
-				<F N="/etc/apache2/ports.conf"/>
-			</Folder>
-		</Folder>
-		<Folder Name="lib">
-			<Folder Name="swipl">
-				<Folder Name="boot">
-					<F N="lib/swipl/boot/apply.pl"/>
-					<F N="lib/swipl/boot/attvar.pl"/>
-					<F N="lib/swipl/boot/autoload.pl"/>
-					<F N="lib/swipl/boot/bags.pl"/>
-					<F N="lib/swipl/boot/dcg.pl"/>
-					<F N="lib/swipl/boot/dicts.pl"/>
-					<F N="lib/swipl/boot/dwim.pl"/>
-					<F N="lib/swipl/boot/engines.pl"/>
-					<F N="lib/swipl/boot/expand.pl"/>
-					<F N="lib/swipl/boot/gc.pl"/>
-					<F N="lib/swipl/boot/history.pl"/>
-					<F N="lib/swipl/boot/init.pl"/>
-					<F N="lib/swipl/boot/iri.pl"/>
-					<F N="lib/swipl/boot/license.pl"/>
-					<F N="lib/swipl/boot/load.pl"/>
-					<F N="lib/swipl/boot/messages.pl"/>
-					<F N="lib/swipl/boot/packs.pl"/>
-					<F N="lib/swipl/boot/predopts.pl"/>
-					<F N="lib/swipl/boot/qlf.pl"/>
-					<F N="lib/swipl/boot/rc.pl"/>
-					<F N="lib/swipl/boot/syspred.pl"/>
-					<F N="lib/swipl/boot/tabling.pl"/>
-					<F N="lib/swipl/boot/toplevel.pl"/>
-					<F N="lib/swipl/boot/topvars.pl"/>
-				</Folder>
-				<Folder Name="customize">
-					<F N="lib/swipl/customize/init.pl"/>
-				</Folder>
-				<Folder Name="demo">
-					<F N="lib/swipl/demo/likes.pl"/>
-				</Folder>
-				<Folder Name="doc">
-					<Folder Name="packages">
-						<Folder Name="examples">
-							<Folder Name="chr">
-								<F N="lib/swipl/doc/packages/examples/chr/bool.chr"/>
-								<F N="lib/swipl/doc/packages/examples/chr/chrdif.chr"/>
-								<F N="lib/swipl/doc/packages/examples/chr/chrfreeze.chr"/>
-								<F N="lib/swipl/doc/packages/examples/chr/family.chr"/>
-								<F N="lib/swipl/doc/packages/examples/chr/fib.chr"/>
-								<F N="lib/swipl/doc/packages/examples/chr/fibonacci.chr"/>
-								<F N="lib/swipl/doc/packages/examples/chr/gcd.chr"/>
-								<F N="lib/swipl/doc/packages/examples/chr/leq.chr"/>
-								<F N="lib/swipl/doc/packages/examples/chr/listdom.chr"/>
-								<F N="lib/swipl/doc/packages/examples/chr/primes.chr"/>
-							</Folder>
-							<Folder Name="cpp">
-								<F N="lib/swipl/doc/packages/examples/cpp/likes.pl"/>
-								<F N="lib/swipl/doc/packages/examples/cpp/test.pl"/>
-							</Folder>
-							<Folder Name="cql">
-								<F N="lib/swipl/doc/packages/examples/cql/cql_demo.pl"/>
-							</Folder>
-							<Folder Name="http">
-								<Folder Name="pwp">
-									<F N="lib/swipl/doc/packages/examples/http/pwp/pwpdb.pl"/>
-								</Folder>
-								<F N="lib/swipl/doc/packages/examples/http/calc.pl"/>
-								<F N="lib/swipl/doc/packages/examples/http/demo_body.pl"/>
-								<F N="lib/swipl/doc/packages/examples/http/demo_client.pl"/>
-								<F N="lib/swipl/doc/packages/examples/http/demo_daemon.pl"/>
-								<F N="lib/swipl/doc/packages/examples/http/demo_files.pl"/>
-								<F N="lib/swipl/doc/packages/examples/http/demo_hello.pl"/>
-								<F N="lib/swipl/doc/packages/examples/http/demo_login.pl"/>
-								<F N="lib/swipl/doc/packages/examples/http/demo_openid.pl"/>
-								<F N="lib/swipl/doc/packages/examples/http/demo_pwp.pl"/>
-								<F N="lib/swipl/doc/packages/examples/http/demo_rest.pl"/>
-								<F N="lib/swipl/doc/packages/examples/http/demo_threads.pl"/>
-							</Folder>
-							<Folder Name="inclpr">
-								<F N="lib/swipl/doc/packages/examples/inclpr/benchmarks.pl"/>
-							</Folder>
-							<Folder Name="jpl">
-								<Folder Name="java">
-									<Folder Name="db">
-										<F N="lib/swipl/doc/packages/examples/jpl/java/db/db.pl"/>
-									</Folder>
-									<Folder Name="factorial">
-										<F N="lib/swipl/doc/packages/examples/jpl/java/factorial/fact.pl"/>
-									</Folder>
-									<Folder Name="family">
-										<F N="lib/swipl/doc/packages/examples/jpl/java/family/family.pl"/>
-									</Folder>
-									<Folder Name="test">
-										<F N="lib/swipl/doc/packages/examples/jpl/java/test/test.pl"/>
-									</Folder>
-									<Folder Name="testGC">
-										<F N="lib/swipl/doc/packages/examples/jpl/java/testGC/test.pl"/>
-									</Folder>
-									<Folder Name="thread">
-										<F N="lib/swipl/doc/packages/examples/jpl/java/thread/program.pl"/>
-									</Folder>
-									<Folder Name="time">
-										<F N="lib/swipl/doc/packages/examples/jpl/java/time/time.pl"/>
-									</Folder>
-									<Folder Name="zahed">
-										<F N="lib/swipl/doc/packages/examples/jpl/java/zahed/run.sh"/>
-										<F N="lib/swipl/doc/packages/examples/jpl/java/zahed/zahed.pl"/>
-									</Folder>
-								</Folder>
-								<Folder Name="prolog">
-									<F N="lib/swipl/doc/packages/examples/jpl/prolog/jpl_colour_choose_demo.pl"/>
-									<F N="lib/swipl/doc/packages/examples/jpl/prolog/jpl_jlist_demo.pl"/>
-									<F N="lib/swipl/doc/packages/examples/jpl/prolog/jpl_table_demo.pl"/>
-									<F N="lib/swipl/doc/packages/examples/jpl/prolog/jpl_text_entry_demo.pl"/>
-									<F N="lib/swipl/doc/packages/examples/jpl/prolog/jpl_versions_demo.pl"/>
-								</Folder>
-							</Folder>
-							<Folder Name="pengines">
-								<F N="lib/swipl/doc/packages/examples/pengines/client.pl"/>
-								<F N="lib/swipl/doc/packages/examples/pengines/server.pl"/>
-							</Folder>
-							<Folder Name="pldoc">
-								<F N="lib/swipl/doc/packages/examples/pldoc/man_server.pl"/>
-							</Folder>
-							<Folder Name="plunit">
-								<F N="lib/swipl/doc/packages/examples/plunit/read.pl"/>
-								<F N="lib/swipl/doc/packages/examples/plunit/simple.pl"/>
-							</Folder>
-							<Folder Name="protobufs">
-								<F N="lib/swipl/doc/packages/examples/protobufs/vector_demo.pl"/>
-							</Folder>
-							<Folder Name="redis">
-								<F N="lib/swipl/doc/packages/examples/redis/common.pl"/>
-								<F N="lib/swipl/doc/packages/examples/redis/prime-node.pl"/>
-								<F N="lib/swipl/doc/packages/examples/redis/primes.pl"/>
-							</Folder>
-							<Folder Name="ssl">
-								<F N="lib/swipl/doc/packages/examples/ssl/client.pl"/>
-								<F N="lib/swipl/doc/packages/examples/ssl/https.pl"/>
-								<F N="lib/swipl/doc/packages/examples/ssl/server.pl"/>
-							</Folder>
-						</Folder>
-					</Folder>
-				</Folder>
-				<Folder Name="library">
-					<Folder Name="chr">
-						<F N="lib/swipl/library/chr/a_star.pl"/>
-						<F N="lib/swipl/library/chr/binomialheap.pl"/>
-						<F N="lib/swipl/library/chr/builtins.pl"/>
-						<F N="lib/swipl/library/chr/chr_compiler_errors.pl"/>
-						<F N="lib/swipl/library/chr/chr_compiler_options.pl"/>
-						<F N="lib/swipl/library/chr/chr_compiler_utility.pl"/>
-						<F N="lib/swipl/library/chr/chr_debug.pl"/>
-						<F N="lib/swipl/library/chr/chr_hashtable_store.pl"/>
-						<F N="lib/swipl/library/chr/chr_integertable_store.pl"/>
-						<F N="lib/swipl/library/chr/chr_messages.pl"/>
-						<F N="lib/swipl/library/chr/chr_op.pl"/>
-						<F N="lib/swipl/library/chr/chr_runtime.pl"/>
-						<F N="lib/swipl/library/chr/chr_translate.pl"/>
-						<F N="lib/swipl/library/chr/clean_code.pl"/>
-						<F N="lib/swipl/library/chr/find.pl"/>
-						<F N="lib/swipl/library/chr/guard_entailment.pl"/>
-						<F N="lib/swipl/library/chr/listmap.pl"/>
-						<F N="lib/swipl/library/chr/pairlist.pl"/>
-					</Folder>
-					<Folder Name="clp">
-						<Folder Name="clpq">
-							<F N="lib/swipl/library/clp/clpq/bb_q.pl"/>
-							<F N="lib/swipl/library/clp/clpq/bv_q.pl"/>
-							<F N="lib/swipl/library/clp/clpq/fourmotz_q.pl"/>
-							<F N="lib/swipl/library/clp/clpq/ineq_q.pl"/>
-							<F N="lib/swipl/library/clp/clpq/itf_q.pl"/>
-							<F N="lib/swipl/library/clp/clpq/nf_q.pl"/>
-							<F N="lib/swipl/library/clp/clpq/store_q.pl"/>
-						</Folder>
-						<Folder Name="clpqr">
-							<F N="lib/swipl/library/clp/clpqr/class.pl"/>
-							<F N="lib/swipl/library/clp/clpqr/dump.pl"/>
-							<F N="lib/swipl/library/clp/clpqr/geler.pl"/>
-							<F N="lib/swipl/library/clp/clpqr/highlight.pl"/>
-							<F N="lib/swipl/library/clp/clpqr/itf.pl"/>
-							<F N="lib/swipl/library/clp/clpqr/ordering.pl"/>
-							<F N="lib/swipl/library/clp/clpqr/project.pl"/>
-							<F N="lib/swipl/library/clp/clpqr/redund.pl"/>
-						</Folder>
-						<Folder Name="clpr">
-							<F N="lib/swipl/library/clp/clpr/bb_r.pl"/>
-							<F N="lib/swipl/library/clp/clpr/bv_r.pl"/>
-							<F N="lib/swipl/library/clp/clpr/fourmotz_r.pl"/>
-							<F N="lib/swipl/library/clp/clpr/ineq_r.pl"/>
-							<F N="lib/swipl/library/clp/clpr/itf_r.pl"/>
-							<F N="lib/swipl/library/clp/clpr/nf_r.pl"/>
-							<F N="lib/swipl/library/clp/clpr/store_r.pl"/>
-						</Folder>
-						<Folder Name="inclpr">
-							<F N="lib/swipl/library/clp/inclpr/inclpr_consistency.pl"/>
-							<F N="lib/swipl/library/clp/inclpr/inclpr_core.pl"/>
-							<F N="lib/swipl/library/clp/inclpr/inclpr_interval_arithmetic.pl"/>
-							<F N="lib/swipl/library/clp/inclpr/inclpr_inversion.pl"/>
-							<F N="lib/swipl/library/clp/inclpr/inclpr_natural_interval_extension.pl"/>
-							<F N="lib/swipl/library/clp/inclpr/inclpr_newton.pl"/>
-							<F N="lib/swipl/library/clp/inclpr/inclpr_ordering.pl"/>
-							<F N="lib/swipl/library/clp/inclpr/inclpr_symbolic_processing.pl"/>
-						</Folder>
-						<F N="lib/swipl/library/clp/bounds.pl"/>
-						<F N="lib/swipl/library/clp/clp_distinct.pl"/>
-						<F N="lib/swipl/library/clp/clp_events.pl"/>
-						<F N="lib/swipl/library/clp/clpb.pl"/>
-						<F N="lib/swipl/library/clp/clpfd.pl"/>
-						<F N="lib/swipl/library/clp/clpq.pl"/>
-						<F N="lib/swipl/library/clp/clpr.pl"/>
-						<F N="lib/swipl/library/clp/inclpr.pl"/>
-						<F N="lib/swipl/library/clp/INDEX.pl"/>
-						<F N="lib/swipl/library/clp/simplex.pl"/>
-					</Folder>
-					<Folder Name="cql">
-						<F N="lib/swipl/library/cql/cql.pl"/>
-						<F N="lib/swipl/library/cql/cql_autoschema.pl"/>
-						<F N="lib/swipl/library/cql/cql_database.pl"/>
-						<F N="lib/swipl/library/cql/cql_hooks.pl"/>
-						<F N="lib/swipl/library/cql/INDEX.pl"/>
-						<F N="lib/swipl/library/cql/sql_keywords.pl"/>
-						<F N="lib/swipl/library/cql/sql_parser.pl"/>
-						<F N="lib/swipl/library/cql/sql_tokenizer.pl"/>
-						<F N="lib/swipl/library/cql/sql_write.pl"/>
-					</Folder>
-					<Folder Name="dcg">
-						<F N="lib/swipl/library/dcg/basics.pl"/>
-						<F N="lib/swipl/library/dcg/high_order.pl"/>
-						<F N="lib/swipl/library/dcg/INDEX.pl"/>
-					</Folder>
-					<Folder Name="dialect">
-						<Folder Name="eclipse">
-							<F N="lib/swipl/library/dialect/eclipse/test_util_iso.pl"/>
-						</Folder>
-						<Folder Name="hprolog">
-							<F N="lib/swipl/library/dialect/hprolog/format.pl"/>
-						</Folder>
-						<Folder Name="iso">
-							<F N="lib/swipl/library/dialect/iso/iso_predicates.pl"/>
-						</Folder>
-						<Folder Name="sicstus">
-							<F N="lib/swipl/library/dialect/sicstus/arrays.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus/block.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus/lists.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus/ordsets.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus/sockets.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus/swipl-lfr.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus/system.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus/terms.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus/timeout.pl"/>
-						</Folder>
-						<Folder Name="sicstus4">
-							<F N="lib/swipl/library/dialect/sicstus4/lists.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus4/ordsets.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus4/sets.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus4/sockets.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus4/system.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus4/terms.pl"/>
-							<F N="lib/swipl/library/dialect/sicstus4/timeout.pl"/>
-						</Folder>
-						<Folder Name="swi">
-							<F N="lib/swipl/library/dialect/swi/syspred_options.pl"/>
-						</Folder>
-						<Folder Name="xsb">
-							<F N="lib/swipl/library/dialect/xsb/basics.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/consult.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/curr_sym.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/error_handler.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/gensym.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/gpp.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/increval.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/intern.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/lists.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/machine.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/ordsets.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/setof.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/source.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/standard.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/storage.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/string.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/thread.pl"/>
-							<F N="lib/swipl/library/dialect/xsb/timed_call.pl"/>
-						</Folder>
-						<F N="lib/swipl/library/dialect/bim.pl"/>
-						<F N="lib/swipl/library/dialect/commons.pl"/>
-						<F N="lib/swipl/library/dialect/hprolog.pl"/>
-						<F N="lib/swipl/library/dialect/ifprolog.pl"/>
-						<F N="lib/swipl/library/dialect/sicstus.pl"/>
-						<F N="lib/swipl/library/dialect/sicstus4.pl"/>
-						<F N="lib/swipl/library/dialect/xsb.pl"/>
-						<F N="lib/swipl/library/dialect/yap.pl"/>
-					</Folder>
-					<Folder Name="http">
-						<F N="lib/swipl/library/http/ax.pl"/>
-						<F N="lib/swipl/library/http/dcg_basics.pl"/>
-						<F N="lib/swipl/library/http/html_head.pl"/>
-						<F N="lib/swipl/library/http/html_quasiquotations.pl"/>
-						<F N="lib/swipl/library/http/html_write.pl"/>
-						<F N="lib/swipl/library/http/http_authenticate.pl"/>
-						<F N="lib/swipl/library/http/http_client.pl"/>
-						<F N="lib/swipl/library/http/http_cookie.pl"/>
-						<F N="lib/swipl/library/http/http_cors.pl"/>
-						<F N="lib/swipl/library/http/http_digest.pl"/>
-						<F N="lib/swipl/library/http/http_dirindex.pl"/>
-						<F N="lib/swipl/library/http/http_dispatch.pl"/>
-						<F N="lib/swipl/library/http/http_dyn_workers.pl"/>
-						<F N="lib/swipl/library/http/http_error.pl"/>
-						<F N="lib/swipl/library/http/http_exception.pl"/>
-						<F N="lib/swipl/library/http/http_files.pl"/>
-						<F N="lib/swipl/library/http/http_header.pl"/>
-						<F N="lib/swipl/library/http/http_hook.pl"/>
-						<F N="lib/swipl/library/http/http_host.pl"/>
-						<F N="lib/swipl/library/http/http_json.pl"/>
-						<F N="lib/swipl/library/http/http_load.pl"/>
-						<F N="lib/swipl/library/http/http_log.pl"/>
-						<F N="lib/swipl/library/http/http_multipart_plugin.pl"/>
-						<F N="lib/swipl/library/http/http_open.pl"/>
-						<F N="lib/swipl/library/http/http_openid.pl"/>
-						<F N="lib/swipl/library/http/http_parameters.pl"/>
-						<F N="lib/swipl/library/http/http_path.pl"/>
-						<F N="lib/swipl/library/http/http_proxy.pl"/>
-						<F N="lib/swipl/library/http/http_pwp.pl"/>
-						<F N="lib/swipl/library/http/http_redis_plugin.pl"/>
-						<F N="lib/swipl/library/http/http_server.pl"/>
-						<F N="lib/swipl/library/http/http_server_files.pl"/>
-						<F N="lib/swipl/library/http/http_session.pl"/>
-						<F N="lib/swipl/library/http/http_sgml_plugin.pl"/>
-						<F N="lib/swipl/library/http/http_ssl_plugin.pl"/>
-						<F N="lib/swipl/library/http/http_stream.pl"/>
-						<F N="lib/swipl/library/http/http_unix_daemon.pl"/>
-						<F N="lib/swipl/library/http/http_wrapper.pl"/>
-						<F N="lib/swipl/library/http/hub.pl"/>
-						<F N="lib/swipl/library/http/INDEX.pl"/>
-						<F N="lib/swipl/library/http/jquery.pl"/>
-						<F N="lib/swipl/library/http/js_grammar.pl"/>
-						<F N="lib/swipl/library/http/js_write.pl"/>
-						<F N="lib/swipl/library/http/json.pl"/>
-						<F N="lib/swipl/library/http/json_convert.pl"/>
-						<F N="lib/swipl/library/http/mimepack.pl"/>
-						<F N="lib/swipl/library/http/mimetype.pl"/>
-						<F N="lib/swipl/library/http/term_html.pl"/>
-						<F N="lib/swipl/library/http/thread_httpd.pl"/>
-						<F N="lib/swipl/library/http/websocket.pl"/>
-						<F N="lib/swipl/library/http/yadis.pl"/>
-					</Folder>
-					<Folder Name="iri_scheme">
-						<F N="lib/swipl/library/iri_scheme/file.pl"/>
-					</Folder>
-					<Folder Name="latex2html">
-						<F N="lib/swipl/library/latex2html/latex2html.pl"/>
-						<F N="lib/swipl/library/latex2html/sty_pldoc.pl"/>
-						<F N="lib/swipl/library/latex2html/sty_xpce.pl"/>
-					</Folder>
-					<Folder Name="lynx">
-						<F N="lib/swipl/library/lynx/format.pl"/>
-						<F N="lib/swipl/library/lynx/html_style.pl"/>
-						<F N="lib/swipl/library/lynx/html_text.pl"/>
-						<F N="lib/swipl/library/lynx/INDEX.pl"/>
-						<F N="lib/swipl/library/lynx/pldoc_style.pl"/>
-					</Folder>
-					<Folder Name="pldoc">
-						<F N="lib/swipl/library/pldoc/doc_access.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_colour.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_html.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_htmlsrc.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_index.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_library.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_man.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_modes.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_pack.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_process.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_register.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_search.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_util.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_wiki.pl"/>
-						<F N="lib/swipl/library/pldoc/doc_words.pl"/>
-						<F N="lib/swipl/library/pldoc/hooks.pl"/>
-						<F N="lib/swipl/library/pldoc/man_index.pl"/>
-					</Folder>
-					<Folder Name="semweb">
-						<F N="lib/swipl/library/semweb/INDEX.pl"/>
-						<F N="lib/swipl/library/semweb/rdf11.pl"/>
-						<F N="lib/swipl/library/semweb/rdf11_containers.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_cache.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_compare.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_db.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_edit.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_http_plugin.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_library.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_litindex.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_ntriples.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_persistency.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_portray.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_prefixes.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_sandbox.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_turtle.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_turtle_write.pl"/>
-						<F N="lib/swipl/library/semweb/rdf_zlib_plugin.pl"/>
-						<F N="lib/swipl/library/semweb/rdfa.pl"/>
-						<F N="lib/swipl/library/semweb/rdfs.pl"/>
-						<F N="lib/swipl/library/semweb/sparql_client.pl"/>
-						<F N="lib/swipl/library/semweb/turtle.pl"/>
-					</Folder>
-					<Folder Name="theme">
-						<F N="lib/swipl/library/theme/auto.pl"/>
-						<F N="lib/swipl/library/theme/dark.pl"/>
-					</Folder>
-					<Folder Name="tipc">
-						<F N="lib/swipl/library/tipc/INDEX.pl"/>
-						<F N="lib/swipl/library/tipc/tipc.pl"/>
-						<F N="lib/swipl/library/tipc/tipc_broadcast.pl"/>
-						<F N="lib/swipl/library/tipc/tipc_linda.pl"/>
-						<F N="lib/swipl/library/tipc/tipc_paxos.pl"/>
-					</Folder>
-					<Folder Name="unicode">
-						<F N="lib/swipl/library/unicode/blocks.pl"/>
-						<F N="lib/swipl/library/unicode/INDEX.pl"/>
-						<F N="lib/swipl/library/unicode/unicode_data.pl"/>
-					</Folder>
-					<F N="lib/swipl/library/aggregate.pl"/>
-					<F N="lib/swipl/library/ansi_term.pl"/>
-					<F N="lib/swipl/library/apply.pl"/>
-					<F N="lib/swipl/library/apply_macros.pl"/>
-					<F N="lib/swipl/library/archive.pl"/>
-					<F N="lib/swipl/library/arithmetic.pl"/>
-					<F N="lib/swipl/library/assoc.pl"/>
-					<F N="lib/swipl/library/atom.pl"/>
-					<F N="lib/swipl/library/backcomp.pl"/>
-					<F N="lib/swipl/library/base32.pl"/>
-					<F N="lib/swipl/library/base64.pl"/>
-					<F N="lib/swipl/library/bdb.pl"/>
-					<F N="lib/swipl/library/broadcast.pl"/>
-					<F N="lib/swipl/library/c14n2.pl"/>
-					<F N="lib/swipl/library/cgi.pl"/>
-					<F N="lib/swipl/library/charsio.pl"/>
-					<F N="lib/swipl/library/check.pl"/>
-					<F N="lib/swipl/library/check_installation.pl"/>
-					<F N="lib/swipl/library/checklast.pl"/>
-					<F N="lib/swipl/library/checkselect.pl"/>
-					<F N="lib/swipl/library/chr.pl"/>
-					<F N="lib/swipl/library/codesio.pl"/>
-					<F N="lib/swipl/library/coinduction.pl"/>
-					<F N="lib/swipl/library/console_input.pl"/>
-					<F N="lib/swipl/library/crypt.pl"/>
-					<F N="lib/swipl/library/crypto.pl"/>
-					<F N="lib/swipl/library/csv.pl"/>
-					<F N="lib/swipl/library/ctypes.pl"/>
-					<F N="lib/swipl/library/date.pl"/>
-					<F N="lib/swipl/library/debug.pl"/>
-					<F N="lib/swipl/library/dialect.pl"/>
-					<F N="lib/swipl/library/dicts.pl"/>
-					<F N="lib/swipl/library/dif.pl"/>
-					<F N="lib/swipl/library/doc_files.pl"/>
-					<F N="lib/swipl/library/doc_http.pl"/>
-					<F N="lib/swipl/library/doc_latex.pl"/>
-					<F N="lib/swipl/library/double_metaphone.pl"/>
-					<F N="lib/swipl/library/edinburgh.pl"/>
-					<F N="lib/swipl/library/edit.pl"/>
-					<F N="lib/swipl/library/editline.pl"/>
-					<F N="lib/swipl/library/error.pl"/>
-					<F N="lib/swipl/library/explain.pl"/>
-					<F N="lib/swipl/library/fastrw.pl"/>
-					<F N="lib/swipl/library/files.pl"/>
-					<F N="lib/swipl/library/filesex.pl"/>
-					<F N="lib/swipl/library/gensym.pl"/>
-					<F N="lib/swipl/library/git.pl"/>
-					<F N="lib/swipl/library/hash_stream.pl"/>
-					<F N="lib/swipl/library/hashtable.pl"/>
-					<F N="lib/swipl/library/heaps.pl"/>
-					<F N="lib/swipl/library/help.pl"/>
-					<F N="lib/swipl/library/hotfix.pl"/>
-					<F N="lib/swipl/library/INDEX.pl"/>
-					<F N="lib/swipl/library/intercept.pl"/>
-					<F N="lib/swipl/library/iostream.pl"/>
-					<F N="lib/swipl/library/iso_639.pl"/>
-					<F N="lib/swipl/library/isub.pl"/>
-					<F N="lib/swipl/library/jpl.pl"/>
-					<F N="lib/swipl/library/lazy_lists.pl"/>
-					<F N="lib/swipl/library/listing.pl"/>
-					<F N="lib/swipl/library/lists.pl"/>
-					<F N="lib/swipl/library/main.pl"/>
-					<F N="lib/swipl/library/make.pl"/>
-					<F N="lib/swipl/library/mallocinfo.pl"/>
-					<F N="lib/swipl/library/md5.pl"/>
-					<F N="lib/swipl/library/memfile.pl"/>
-					<F N="lib/swipl/library/modules.pl"/>
-					<F N="lib/swipl/library/nb_rbtrees.pl"/>
-					<F N="lib/swipl/library/nb_set.pl"/>
-					<F N="lib/swipl/library/obfuscate.pl"/>
-					<F N="lib/swipl/library/occurs.pl"/>
-					<F N="lib/swipl/library/odbc.pl"/>
-					<F N="lib/swipl/library/operators.pl"/>
-					<F N="lib/swipl/library/option.pl"/>
-					<F N="lib/swipl/library/optparse.pl"/>
-					<F N="lib/swipl/library/ordsets.pl"/>
-					<F N="lib/swipl/library/oset.pl"/>
-					<F N="lib/swipl/library/pairs.pl"/>
-					<F N="lib/swipl/library/paxos.pl"/>
-					<F N="lib/swipl/library/pcre.pl"/>
-					<F N="lib/swipl/library/pdt_console.pl"/>
-					<F N="lib/swipl/library/pengines.pl"/>
-					<F N="lib/swipl/library/pengines_io.pl"/>
-					<F N="lib/swipl/library/pengines_sandbox.pl"/>
-					<F N="lib/swipl/library/persistency.pl"/>
-					<F N="lib/swipl/library/pio.pl"/>
-					<F N="lib/swipl/library/pldoc.pl"/>
-					<F N="lib/swipl/library/plunit.pl"/>
-					<F N="lib/swipl/library/porter_stem.pl"/>
-					<F N="lib/swipl/library/portray_text.pl"/>
-					<F N="lib/swipl/library/pprint.pl"/>
-					<F N="lib/swipl/library/predicate_options.pl"/>
-					<F N="lib/swipl/library/process.pl"/>
-					<F N="lib/swipl/library/prolog_autoload.pl"/>
-					<F N="lib/swipl/library/prolog_breakpoints.pl"/>
-					<F N="lib/swipl/library/prolog_clause.pl"/>
-					<F N="lib/swipl/library/prolog_code.pl"/>
-					<F N="lib/swipl/library/prolog_codewalk.pl"/>
-					<F N="lib/swipl/library/prolog_colour.pl"/>
-					<F N="lib/swipl/library/prolog_config.pl"/>
-					<F N="lib/swipl/library/prolog_deps.pl"/>
-					<F N="lib/swipl/library/prolog_format.pl"/>
-					<F N="lib/swipl/library/prolog_history.pl"/>
-					<F N="lib/swipl/library/prolog_install.pl"/>
-					<F N="lib/swipl/library/prolog_jiti.pl"/>
-					<F N="lib/swipl/library/prolog_metainference.pl"/>
-					<F N="lib/swipl/library/prolog_pack.pl"/>
-					<F N="lib/swipl/library/prolog_server.pl"/>
-					<F N="lib/swipl/library/prolog_source.pl"/>
-					<F N="lib/swipl/library/prolog_stack.pl"/>
-					<F N="lib/swipl/library/prolog_stream.pl"/>
-					<F N="lib/swipl/library/prolog_trace.pl"/>
-					<F N="lib/swipl/library/prolog_wrap.pl"/>
-					<F N="lib/swipl/library/prolog_xref.pl"/>
-					<F N="lib/swipl/library/protobufs.pl"/>
-					<F N="lib/swipl/library/pure_input.pl"/>
-					<F N="lib/swipl/library/pwp.pl"/>
-					<F N="lib/swipl/library/qpforeign.pl"/>
-					<F N="lib/swipl/library/qsave.pl"/>
-					<F N="lib/swipl/library/quasi_quotations.pl"/>
-					<F N="lib/swipl/library/quintus.pl"/>
-					<F N="lib/swipl/library/random.pl"/>
-					<F N="lib/swipl/library/rbtrees.pl"/>
-					<F N="lib/swipl/library/rdf.pl"/>
-					<F N="lib/swipl/library/rdf_diagram.pl"/>
-					<F N="lib/swipl/library/rdf_parser.pl"/>
-					<F N="lib/swipl/library/rdf_triple.pl"/>
-					<F N="lib/swipl/library/rdf_write.pl"/>
-					<F N="lib/swipl/library/readline.pl"/>
-					<F N="lib/swipl/library/readln.pl"/>
-					<F N="lib/swipl/library/readutil.pl"/>
-					<F N="lib/swipl/library/record.pl"/>
-					<F N="lib/swipl/library/redis.pl"/>
-					<F N="lib/swipl/library/redis_streams.pl"/>
-					<F N="lib/swipl/library/rewrite_term.pl"/>
-					<F N="lib/swipl/library/rlimit.pl"/>
-					<F N="lib/swipl/library/saml.pl"/>
-					<F N="lib/swipl/library/sandbox.pl"/>
-					<F N="lib/swipl/library/settings.pl"/>
-					<F N="lib/swipl/library/sgml.pl"/>
-					<F N="lib/swipl/library/sgml_write.pl"/>
-					<F N="lib/swipl/library/sha.pl"/>
-					<F N="lib/swipl/library/shell.pl"/>
-					<F N="lib/swipl/library/shlib.pl"/>
-					<F N="lib/swipl/library/snowball.pl"/>
-					<F N="lib/swipl/library/socket.pl"/>
-					<F N="lib/swipl/library/solution_sequences.pl"/>
-					<F N="lib/swipl/library/sort.pl"/>
-					<F N="lib/swipl/library/ssl.pl"/>
-					<F N="lib/swipl/library/statistics.pl"/>
-					<F N="lib/swipl/library/streaminfo.pl"/>
-					<F N="lib/swipl/library/streampool.pl"/>
-					<F N="lib/swipl/library/strings.pl"/>
-					<F N="lib/swipl/library/syslog.pl"/>
-					<F N="lib/swipl/library/system.pl"/>
-					<F N="lib/swipl/library/table.pl"/>
-					<F N="lib/swipl/library/table_util.pl"/>
-					<F N="lib/swipl/library/tables.pl"/>
-					<F N="lib/swipl/library/tabling.pl"/>
-					<F N="lib/swipl/library/term_to_json.pl"/>
-					<F N="lib/swipl/library/terms.pl"/>
-					<F N="lib/swipl/library/test_cover.pl"/>
-					<F N="lib/swipl/library/test_wizard.pl"/>
-					<F N="lib/swipl/library/thread.pl"/>
-					<F N="lib/swipl/library/thread_pool.pl"/>
-					<F N="lib/swipl/library/threadutil.pl"/>
-					<F N="lib/swipl/library/time.pl"/>
-					<F N="lib/swipl/library/tty.pl"/>
-					<F N="lib/swipl/library/udp_broadcast.pl"/>
-					<F N="lib/swipl/library/ugraphs.pl"/>
-					<F N="lib/swipl/library/uid.pl"/>
-					<F N="lib/swipl/library/unicode.pl"/>
-					<F N="lib/swipl/library/unix.pl"/>
-					<F N="lib/swipl/library/uri.pl"/>
-					<F N="lib/swipl/library/url.pl"/>
-					<F N="lib/swipl/library/utf8.pl"/>
-					<F N="lib/swipl/library/uuid.pl"/>
-					<F N="lib/swipl/library/varnumbers.pl"/>
-					<F N="lib/swipl/library/vm.pl"/>
-					<F N="lib/swipl/library/wfs.pl"/>
-					<F N="lib/swipl/library/when.pl"/>
-					<F N="lib/swipl/library/win_menu.pl"/>
-					<F N="lib/swipl/library/writef.pl"/>
-					<F N="lib/swipl/library/www_browser.pl"/>
-					<F N="lib/swipl/library/xmldsig.pl"/>
-					<F N="lib/swipl/library/xmlenc.pl"/>
-					<F N="lib/swipl/library/xpath.pl"/>
-					<F N="lib/swipl/library/xsdp_types.pl"/>
-					<F N="lib/swipl/library/yall.pl"/>
-					<F N="lib/swipl/library/yaml.pl"/>
-					<F N="lib/swipl/library/zip.pl"/>
-					<F N="lib/swipl/library/zlib.pl"/>
-				</Folder>
-				<Folder Name="xpce">
-					<Folder Name="prolog">
-						<Folder Name="boot">
-							<F N="lib/swipl/xpce/prolog/boot/pce_autoload.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_editor.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_error.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_expand.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_expansion.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_global.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_goal_expansion.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_keybinding.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_pl.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_portray.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_principal.pl"/>
-							<F N="lib/swipl/xpce/prolog/boot/pce_realise.pl"/>
-						</Folder>
-						<Folder Name="contrib">
-							<Folder Name="rubik">
-								<F N="lib/swipl/xpce/prolog/contrib/rubik/maplist.pl"/>
-								<F N="lib/swipl/xpce/prolog/contrib/rubik/rubik.pl"/>
-								<F N="lib/swipl/xpce/prolog/contrib/rubik/rubikpce.pl"/>
-							</Folder>
-							<F N="lib/swipl/xpce/prolog/contrib/contrib.pl"/>
-						</Folder>
-						<Folder Name="demo">
-							<F N="lib/swipl/xpce/prolog/demo/chess.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/colour.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/constraint.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/cursor.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/event_hierarchy.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/fontviewer.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/ftplog.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/graph.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/hsvcolour.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/imageviewer.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/ispell.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/juggler.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/kangaroo.pl"/>
-							<F N="lib/swipl/xpce/prolog/demo/pce_demo.pl"/>
-						</Folder>
-						<Folder Name="lib">
-							<Folder Name="compatibility">
-								<F N="lib/swipl/xpce/prolog/lib/compatibility/bitmap.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/compatibility/event_speak.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/compatibility/frozen.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/compatibility/global.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/compatibility/resource.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/compatibility/send.pl"/>
-							</Folder>
-							<Folder Name="dialog">
-								<F N="lib/swipl/xpce/prolog/lib/dialog/attribute.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/behaviour.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/dialog.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/font.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/generate.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/image_item.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/label.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/layout.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/load.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/menuitem.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/meta.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/pretty_print.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/prompter.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/proto.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/dialog/util.pl"/>
-							</Folder>
-							<Folder Name="doc">
-								<F N="lib/swipl/xpce/prolog/lib/doc/browser.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/emit.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/form.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/html.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/layout.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/load.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/objects.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/sp_errors.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/t2.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/table.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/test.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/url_fetch.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/util.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/vfont.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/window.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/xml_browse.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/doc/xml_hierarchy.pl"/>
-							</Folder>
-							<Folder Name="draw">
-								<F N="lib/swipl/xpce/prolog/lib/draw/align.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/draw/attribute.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/draw/canvas.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/draw/config.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/draw/draw.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/draw/exportpl.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/draw/gesture.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/draw/importpl.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/draw/menu.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/draw/shapes.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/draw/undo.pl"/>
-							</Folder>
-							<Folder Name="emacs">
-								<F N="lib/swipl/xpce/prolog/lib/emacs/annotate_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/application.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/bookmarks.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/buffer.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/buffer_menu.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/c_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/chr_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/cmake_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/cpp_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/dde_server.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/emacs.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/emacs_chrome_server.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/find.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/fundamental_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/gdb.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/help.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/help_buffer.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/history.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/hit_list.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/html_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/java_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/javascript_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/language_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/latex_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/logtalk_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/man_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/outline_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/prolog_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/prompt.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/rdf_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/script_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/server.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/sgml_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/shell.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/swi_prolog.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/text_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/turtle_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/window.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/xsb_mode.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/emacs/yaml_mode.pl"/>
-							</Folder>
-							<Folder Name="english">
-								<F N="lib/swipl/xpce/prolog/lib/english/pce_messages.pl"/>
-							</Folder>
-							<Folder Name="http">
-								<F N="lib/swipl/xpce/prolog/lib/http/html_hierarchy.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/http/html_refman.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/http/html_write.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/http/http_image.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/http/http_man.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/http/httpd.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/http/run.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/http/xref.pl"/>
-							</Folder>
-							<Folder Name="man">
-								<F N="lib/swipl/xpce/prolog/lib/man/behaviour_item.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/classmap.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/man_index.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/p_card.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/p_data.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/pce_op.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/showevent.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/util.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_card.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_class.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_editor.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_error.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_global.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_group.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_hierarchy.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_inherit.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_inspector.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_instance.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_manual.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_module.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_search.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_select.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_statistics.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_summary.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_tile.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_topic.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/man/v_visual.pl"/>
-							</Folder>
-							<Folder Name="math">
-								<F N="lib/swipl/xpce/prolog/lib/math/expandmath.pl"/>
-							</Folder>
-							<Folder Name="plot">
-								<F N="lib/swipl/xpce/prolog/lib/plot/axis.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/plot/barchart.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/plot/demo.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/plot/plotter.pl"/>
-							</Folder>
-							<Folder Name="swi">
-								<F N="lib/swipl/xpce/prolog/lib/swi/pce_debug_monitor.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/swi/pce_profile.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/swi/swi_console.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/swi/thread_monitor.pl"/>
-							</Folder>
-							<Folder Name="trace">
-								<F N="lib/swipl/xpce/prolog/lib/trace/browse.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/browse_xref.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/clause.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/emacs_debug_modes.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/exceptions.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/gui.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/pprint.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/query.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/settings.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/source.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/stack.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/status.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/test.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/trace.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/util.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/trace/viewterm.pl"/>
-							</Folder>
-							<Folder Name="xref">
-								<F N="lib/swipl/xpce/prolog/lib/xref/common.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/xref/mkcommon.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/xref/quintus.pl"/>
-								<F N="lib/swipl/xpce/prolog/lib/xref/sicstus.pl"/>
-							</Folder>
-							<F N="lib/swipl/xpce/prolog/lib/area.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/autowin.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/CLASSINDEX.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/dragdict.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/dragdrop.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/draw_extend.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/edit_dialog.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/emacs_extend.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/emacs_tags.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/file_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/find_file.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/find_file_dialog.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/getpass.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/gradient.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/gui_tracer.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/help_message.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/http_client.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/hyper.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/imageops.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/INDEX.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/isocomp.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/keybinding.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/make_dialog.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/MKINDEX.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/password_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_arm.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_arrow_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_class_index.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_colour_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_config.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_configeditor.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_cxx_headers.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_debug.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_dispatch.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_drag_and_drop.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_drag_and_drop_dict_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_edit.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_editable_text.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_emacs.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_float_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_font_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_grapher.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_graphical_browser.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_help_file.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_helper.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_history.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_identifier_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_image.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_image_browser.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_image_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_loadcxx.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_main.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_manual.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_meta.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_objects.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_postscript.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_progress.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_prolog_xref.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_prompter.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_regex_compat.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_renew.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_report.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_require.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_select_set_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_selection.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_server.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_set_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_shell.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_style_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_tagged_connection.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_template.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_tick_box.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_toc.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_type.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_unclip.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_util.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pce_xref.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/pcedraw.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/persistent_frame.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/portray_object.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/print_graphics.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/print_text.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/prolog_predicate.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/prolog_predicate_item.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/qrecompile.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/scaledbitmap.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/scan_arguments.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/sp_fcompile.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/splash_screen.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/stayup_popup.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/swi_compatibility.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/swi_edit.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/swi_hooks.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/swi_ide.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/swi_preferences.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/tabbed_window.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/tabular.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/toc_filesystem.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/toolbar.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/url_image.pl"/>
-							<F N="lib/swipl/xpce/prolog/lib/Xserver.pl"/>
-						</Folder>
-					</Folder>
-				</Folder>
-			</Folder>
 		</Folder>
 		<Folder Name="packs_sys">
 			<Folder Name="logicmoo_agi">
@@ -1773,9 +249,586 @@
 						<F N="packs_sys/logicmoo_agi/prolog/abduction/domain_cake.pl"/>
 						<F N="packs_sys/logicmoo_agi/prolog/abduction/domain_party.pl"/>
 						<F N="packs_sys/logicmoo_agi/prolog/abduction/domain_wumpus.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/abduction/is_dir"/>
 						<F N="packs_sys/logicmoo_agi/prolog/abduction/knowledgeBaseCGI.pl"/>
 						<F N="packs_sys/logicmoo_agi/prolog/abduction/pknows_mindi.pl"/>
 					</Folder>
+					<Folder Name="agi_lib">
+						<F N="packs_sys/logicmoo_agi/prolog/agi_lib/agent.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/agi_lib/doc_print.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/agi_lib/is_dir"/>
+						<F N="packs_sys/logicmoo_agi/prolog/agi_lib/pipeline.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/agi_lib/README.md"/>
+					</Folder>
+					<Folder Name="episodic_memory">
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv12.pro"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_action.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_agent.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_axiom.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_behaviour_tree.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_control.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_data.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_debug.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_edit.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_eng2cmd.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_eng2cmd_frame.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_eng2txt.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_examine.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_floyd.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_functors.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_help.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_implies.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_inst.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_io.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_io_key.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_log2eng.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_main.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_model.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_percept.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_physics.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_plan.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_plugins.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_portray.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_props.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_quasiquote.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_state.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_state_db.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_telnet.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_unused.pro"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/adv_util.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/gdbinit"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/IFMUD.md"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/index.html"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/input.log"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/is_dir"/>
+						<F N="packs_sys/logicmoo_agi/prolog/episodic_memory/README.md"/>
+					</Folder>
+					<Folder Name="libnlu">
+						<F N="packs_sys/logicmoo_agi/prolog/libnlu/adv_eng2cmd_dcg.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/libnlu/adv_test.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/libnlu/is_dir"/>
+					</Folder>
+					<Folder Name="MIndiGolog">
+						<Folder Name="listings">
+							<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/listings/is_dir"/>
+							<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/listings/makeSalad_output_congolog.txt"/>
+							<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/listings/makeSalad_output_congolog_timer.txt"/>
+							<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/listings/makeSalad_output_mindigolog.txt"/>
+							<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/listings/makeSalad_output_mindigolog_timer.txt"/>
+						</Folder>
+						<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/domain.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/is_dir"/>
+						<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/main.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/mindigolog.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/program.pl"/>
+						<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/README.txt"/>
+						<F N="packs_sys/logicmoo_agi/prolog/MIndiGolog/sitcalc.pl"/>
+					</Folder>
+					<F N="packs_sys/logicmoo_agi/prolog/is_dir"/>
+					<F N="packs_sys/logicmoo_agi/prolog/logicmoo_agi.pl"/>
+				</Folder>
+			</Folder>
+			<Folder Name="logicmoo_base">
+				<Folder Name="prolog">
+					<Folder Name="logicmoo">
+						<Folder Name="common_logic">
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_boxlog.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_compiler.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_convert.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_exists.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_kb_hooks.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_loader.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_modal.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_reordering.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_sanity.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_skolem.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_snark.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_theorist.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_utils.pl"/>
+						</Folder>
+						<Folder Name="motel">
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/motel/examples.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/motel/mpred_motel.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/motel/test_motel_examples_63.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/motel/test_motel_examples_76.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/motel/testMotel.pl"/>
+						</Folder>
+						<Folder Name="pdt_server">
+							<Folder Name="PDT Examples">
+								<Folder Name="CTeditorTests">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/CTeditorTests/atoms-numbers-strings.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/CTeditorTests/function_terms.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/CTeditorTests/quotes.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/CTeditorTests/singletons.pl"/>
+								</Folder>
+								<Folder Name="editor">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/editor/qots.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/editor/was.pl"/>
+								</Folder>
+								<Folder Name="graphical_views_tests">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/graphical_views_tests/mutually_recursive_files_1.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/graphical_views_tests/mutually_recursive_files_2.pl"/>
+								</Folder>
+								<Folder Name="load_message_tracking">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/load_message_tracking/dumm.pl"/>
+								</Folder>
+								<Folder Name="transparent">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/transparent/load.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/transparent/m1.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/transparent/m11.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/transparent/m2.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Examples/transparent/m3.pl"/>
+								</Folder>
+							</Folder>
+							<Folder Name="PDT Tutorial">
+								<Folder Name="analysis">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/analysis/analysis_example.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/analysis/load.pl"/>
+								</Folder>
+								<Folder Name="callgraph">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/callgraph/call_graph_examples.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/callgraph/load.pl"/>
+								</Folder>
+								<Folder Name="completion">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/completion/completion_demo.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/completion/load.pl"/>
+								</Folder>
+								<Folder Name="metainference">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/metainference/meta_inference_examples.pl"/>
+								</Folder>
+								<Folder Name="outline">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/outline/load.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/outline/outline_demo.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/outline/outline_demo_multifile_contribution.pl"/>
+								</Folder>
+								<Folder Name="search">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/search/load.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/search/other_module.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/search/search_demo.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/search/search_demo_sub.pl"/>
+								</Folder>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PDT Tutorial/load.pl"/>
+							</Folder>
+							<Folder Name="pdt.analysis">
+								<Folder Name="pl">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.analysis/pl/load.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.analysis/pl/prolog_analysis_api.pl"/>
+								</Folder>
+							</Folder>
+							<Folder Name="pdt.builder">
+								<Folder Name="example_files">
+									<Folder Name="meta_finder_examples">
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/example_files/meta_finder_examples/alp_examples.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/example_files/meta_finder_examples/simple.pl"/>
+									</Folder>
+								</Folder>
+								<Folder Name="outdated_prolog_sources">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/outdated_prolog_sources/crossref.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/outdated_prolog_sources/crossref_old.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/outdated_prolog_sources/pdt_xref_experimental_old.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/outdated_prolog_sources/prolog_file_reader.pl"/>
+								</Folder>
+								<Folder Name="prolog-src">
+									<Folder Name="analyzer">
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/analyzer/condor.graph.cycle.scc.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/analyzer/dead_predicate_finder.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/analyzer/edge_counter.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/analyzer/loading_roots_finder.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/analyzer/meta_pred_toplevel.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/analyzer/metafile_referencer.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/analyzer/metapred_finder.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/analyzer/term_based_metapred_finder.pl"/>
+									</Folder>
+									<Folder Name="util">
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/util/ctc_admin_copy.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/util/directive_finder.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/util/walking_prolog_files.pl"/>
+									</Folder>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/cross_reference_builder.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/directive_handler.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/literal_parser.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/load_builder.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/load_graph.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/modules_and_visibility.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/new_pef_builder.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/parse_util.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/pdt_factbase.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/predicates.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.builder/prolog-src/preparser.pl"/>
+								</Folder>
+							</Folder>
+							<Folder Name="pdt.common">
+								<Folder Name="pl">
+									<Folder Name="callgraph">
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/callgraph/call_graph_examples.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/callgraph/call_graph_test.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/callgraph/load.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/callgraph/pdt_call_analysis.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/callgraph/pdt_call_graph.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/callgraph/pdt_call_hierarchy.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/callgraph/pdt_prolog_codewalk.pl"/>
+									</Folder>
+									<Folder Name="lgt">
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/lgt/loader.pl"/>
+									</Folder>
+									<Folder Name="metainference">
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/metainference/load.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/metainference/meta_inference_examples.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/metainference/meta_inference_test.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/metainference/pdt_meta_specification.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/metainference/pdt_prolog_metainference.pl"/>
+									</Folder>
+									<Folder Name="xref">
+										<Folder Name="testcase">
+											<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/xref/testcase/other.pl"/>
+											<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/xref/testcase/sub.pl"/>
+											<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/xref/testcase/super.pl"/>
+											<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/xref/testcase/super2.pl"/>
+										</Folder>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/xref/pdt_xref.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/xref/resolve_call.pl"/>
+									</Folder>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/load.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/pdt_common_reload_hook.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/pdt_entry_points.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/pdt_manual_entry.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/pdt_search.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/pdt_search_WORK_IN_PROGRESS.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/properties.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.common/pl/source_files.pl"/>
+								</Folder>
+							</Folder>
+							<Folder Name="pdt.connector">
+								<Folder Name="org">
+									<Folder Name="cs3">
+										<Folder Name="prolog">
+											<Folder Name="connector">
+												<Folder Name="internal">
+													<Folder Name="process">
+														<Folder Name="socket">
+															<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.connector/org/cs3/prolog/connector/internal/process/socket/consult_server.pl"/>
+														</Folder>
+													</Folder>
+												</Folder>
+												<Folder Name="process">
+													<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.connector/org/cs3/prolog/connector/process/process_observe.pl"/>
+												</Folder>
+											</Folder>
+										</Folder>
+									</Folder>
+								</Folder>
+								<Folder Name="pl">
+									<Folder Name="lgt">
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.connector/pl/lgt/loader.pl"/>
+									</Folder>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.connector/pl/load.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.connector/pl/pdt_reload.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.connector/pl/split_file_path.pl"/>
+								</Folder>
+							</Folder>
+							<Folder Name="pdt.console">
+								<Folder Name="pl">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.console/pl/loader.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.console/pl/pdt_console_server.pl"/>
+								</Folder>
+							</Folder>
+							<Folder Name="pdt.editor">
+								<Folder Name="org">
+									<Folder Name="cs3">
+										<Folder Name="pdt">
+											<Folder Name="editor">
+												<Folder Name="internal">
+													<Folder Name="views">
+														<Folder Name="testdata">
+															<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/org/cs3/pdt/editor/internal/views/testdata/testdata_00.pl"/>
+															<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/org/cs3/pdt/editor/internal/views/testdata/testdata_01.pl"/>
+															<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/org/cs3/pdt/editor/internal/views/testdata/testdata_02.pl"/>
+														</Folder>
+													</Folder>
+												</Folder>
+											</Folder>
+										</Folder>
+									</Folder>
+								</Folder>
+								<Folder Name="pl">
+									<Folder Name="editor">
+										<Folder Name="lgt">
+											<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/pl/editor/lgt/loader.pl"/>
+										</Folder>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/pl/editor/load.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/pl/editor/pdt_editor_breakpoints.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/pl/editor/pdt_editor_edit_hook.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/pl/editor/pdt_editor_files.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/pl/editor/pdt_editor_highlighting.pl"/>
+									</Folder>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/pl/load.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/pl/pdt_smells.pl"/>
+								</Folder>
+								<Folder Name="src">
+									<Folder Name="org">
+										<Folder Name="cs3">
+											<Folder Name="pdt">
+												<Folder Name="editor">
+													<Folder Name="internal">
+														<Folder Name="views">
+															<Folder Name="testdata">
+																<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/src/org/cs3/pdt/editor/internal/views/testdata/testdata_00.pl"/>
+																<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/src/org/cs3/pdt/editor/internal/views/testdata/testdata_01.pl"/>
+																<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.editor/src/org/cs3/pdt/editor/internal/views/testdata/testdata_02.pl"/>
+															</Folder>
+														</Folder>
+													</Folder>
+												</Folder>
+											</Folder>
+										</Folder>
+									</Folder>
+								</Folder>
+							</Folder>
+							<Folder Name="pdt.graphicalviews">
+								<Folder Name="pl">
+									<Folder Name="lgt">
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.graphicalviews/pl/lgt/loader.pl"/>
+									</Folder>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.graphicalviews/pl/graphML_api.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.graphicalviews/pl/load.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.graphicalviews/pl/pl_ast_to_abba.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.graphicalviews/pl/pl_to_graphML.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/pdt.graphicalviews/pl/util_for_graphML.pl"/>
+								</Folder>
+							</Folder>
+							<Folder Name="prolog.connector">
+								<Folder Name="org">
+									<Folder Name="cs3">
+										<Folder Name="prolog">
+											<Folder Name="connector">
+												<Folder Name="internal">
+													<Folder Name="process">
+														<Folder Name="socket">
+															<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.connector/org/cs3/prolog/connector/internal/process/socket/consult_server.pl"/>
+														</Folder>
+													</Folder>
+												</Folder>
+												<Folder Name="process">
+													<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.connector/org/cs3/prolog/connector/process/process_observe.pl"/>
+												</Folder>
+											</Folder>
+										</Folder>
+									</Folder>
+								</Folder>
+								<Folder Name="src">
+									<Folder Name="org">
+										<Folder Name="cs3">
+											<Folder Name="prolog">
+												<Folder Name="connector">
+													<Folder Name="internal">
+														<Folder Name="process">
+															<Folder Name="socket">
+																<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.connector/src/org/cs3/prolog/connector/internal/process/socket/consult_server.pl"/>
+															</Folder>
+														</Folder>
+													</Folder>
+													<Folder Name="process">
+														<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.connector/src/org/cs3/prolog/connector/process/process_observe.pl"/>
+													</Folder>
+												</Folder>
+											</Folder>
+										</Folder>
+									</Folder>
+								</Folder>
+							</Folder>
+							<Folder Name="prolog.library">
+								<Folder Name="pl">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/_load.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/compatibility.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/compatiblitySWI.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/contains.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/count.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/database.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/database_cache.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/files.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/general.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/junitadapter.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/listing.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/lists.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/logging.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/parse_term_from_atom.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/pdt_support.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/run_n_times.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/time.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/utils4modules - all backup.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/utils4modules-backup.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/utils4modules.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/utils4modules_visibility.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/prolog.library/pl/utils4modules_visibility_WORK_IN_PROGRESS.pl"/>
+								</Folder>
+							</Folder>
+							<Folder Name="PrologBenchmarkTool">
+								<Folder Name="example">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PrologBenchmarkTool/example/example_load_file.pl"/>
+								</Folder>
+								<Folder Name="resources">
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/PrologBenchmarkTool/resources/benchmark.pl"/>
+								</Folder>
+							</Folder>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/consult_server.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/process_observe.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pdt_server/socketProcessXXX.tmp.pl"/>
+						</Folder>
+						<Folder Name="pfc">
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pfc/autoexec.pfc.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pfc/system_basic.pfc.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pfc/system_common.pfc.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pfc/system_constraints.pfc.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pfc/system_domains.pfc.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pfc/system_genls.pfc.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pfc/system_if_missing.pfc.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pfc/user_relationAllExists.pfc.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pfc/user_transitiveViaArg.pfc.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pfc/user_type_barriers.pfc.pl"/>
+						</Folder>
+						<Folder Name="plarkc">
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/plarkc/logicmoo_i_cyc_kb.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/plarkc/logicmoo_i_cyc_rewriting.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/plarkc/logicmoo_u_cyc_kb_tinykb.pl"/>
+						</Folder>
+						<Folder Name="pttp">
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pttp/dbase_i_mpred_pttp.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pttp/dbase_i_mpred_pttp_compile_dalit.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pttp/dbase_i_mpred_pttp_compile_stickel_orig.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pttp/dbase_i_mpred_pttp_compile_tabling.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pttp/dbase_i_mpred_pttp_precompiled.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pttp/dbase_i_mpred_pttp_statics.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pttp/dbase_i_mpred_pttp_testing.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/pttp/dbase_i_mpred_pttp_unused.pl"/>
+						</Folder>
+						<Folder Name="tptp">
+							<Folder Name="infra">
+								<Folder Name="lib">
+									<Folder Name="documents">
+										<Folder Name="doc">
+											<Folder Name="planner">
+												<Folder Name="examples">
+													<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/lib/documents/doc/planner/examples/examples.pl"/>
+												</Folder>
+											</Folder>
+										</Folder>
+									</Folder>
+								</Folder>
+								<Folder Name="src">
+									<Folder Name="swilib">
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/swilib/err.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/swilib/fromonto.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/swilib/graphs.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/swilib/pretty.pl"/>
+										<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/swilib/term_support.pl"/>
+									</Folder>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/config.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/dotgraph.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/graphs_util.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/httpserver.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/indexing.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/infra_main.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/knowledgebase.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/load.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/load_just_planner.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/mime_types.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/mimic.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/mimicops.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/obj_compiler.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/obj_inverse.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/obj_rdf.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/obj_rdfxml.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/obj_task.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/pages_browser.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/pages_planner.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/pages_proxy.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/pages_queries.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/pages_util.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/patched_rdf.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/patched_rdf_parser.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/patched_rdf_triple.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/patched_uri.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/planner_cm.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/planner_convert.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/planner_cs_linear.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/planner_cs_simple.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/planner_dotgraph.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/planner_run.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/queries.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/rdf_convert.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/rdf_dotgraph.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/rdf_read.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/rdf_writer.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/rdfs_dtd.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/solution_dotgraph.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/task_plan.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/textutil.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/uris.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/webget.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/webproxy.pl"/>
+									<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/infra/src/xml_writer.pl"/>
+								</Folder>
+							</Folder>
+							<Folder Name="leancop">
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/leancop/def_mm.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/leancop/leancop21.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/leancop/leancop21_sic.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/leancop/leancop21_swi.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/leancop/leancop_main.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/leancop/leancop_proof.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/leancop/leancop_tptp2.pl"/>
+							</Folder>
+							<Folder Name="pdl-tableau">
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/caching.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/inf_closure.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/inf_closure_atomic.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/inf_closure_x_free.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/no_caching.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/no_output.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/normalise.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/output.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/pdl_dGM.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/pdl_dGM_bcs.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/pdl_dGM_fcs.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/pdl_dGM_nd.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/pdl_tableau.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/pdlProver.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/problems.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/prover.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/settings.pl"/>
+								<F N="packs_sys/logicmoo_base/prolog/logicmoo/tptp/pdl-tableau/testing.pl"/>
+							</Folder>
+						</Folder>
+						<Folder Name="typesystem">
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_agenda.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_hooks.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_props.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_storage.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_stubs.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_type_args.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_type_constraints.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_type_isa.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_type_naming.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_type_wff.pl"/>
+							<F N="packs_sys/logicmoo_base/prolog/logicmoo/typesystem/mpred_userkb.pl"/>
+						</Folder>
+					</Folder>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_clif.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_cyc_exec.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_cycqlf.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_i7.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_motel.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_pdt.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_plarkc.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_pttp.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_repl.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_sumo.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_swilib.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_tptp.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_typesystem.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_user.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_xpce.pl"/>
+					<F N="packs_sys/logicmoo_base/prolog/logicmoo_xray.pl"/>
 				</Folder>
 			</Folder>
 			<Folder Name="logicmoo_cg">
@@ -3567,12 +2620,117 @@
 			</Folder>
 			<Folder Name="logicmoo_nlu">
 				<Folder Name="ext">
-					<Folder Name="pldata">
-						<Folder Name="plkb0988">
-							<F N="packs_sys/logicmoo_nlu/ext/pldata/plkb0988/plkb0988_iface.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/pldata/plkb0988/plkb0988_kb.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/pldata/plkb0988/plkb0988_kb_supp.pl"/>
+					<Folder Name="chat80">
+						<Folder Name="current">
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/aggreg.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/clone.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/demo"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/lex.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/load.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/log"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/newdict.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/newdict_regress.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/newdict_shared.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/newtop.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/portray.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/ptree.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/qplan.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/readin.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/README.TXT"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/scopes.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/slots.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/talkr.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/world0.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/xgproc.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/current/xgrun.pl"/>
 						</Folder>
+						<Folder Name="original">
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/aggreg.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/chat.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/chat80.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/chatops.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/clone.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/demo"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/lex.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/load.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/log"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/log.old"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/newdict.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/newg.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/newtop.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/newtop.pl.bak"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/ptree.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/qplan.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/read_atoms_lc.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/readin.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/README.TXT"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/scopes.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/slots.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/slots.pl.bak"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/talkr.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/talkr.pl.bak"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/templa.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/test_ext.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/world0.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/world1.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/xgproc.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/xgrun.pl"/>
+						</Folder>
+						<Folder Name="previous">
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/aggreg.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/chat.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/chattop.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/clone.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/clotab.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/demo"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/lex.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/log"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/newdic.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/portray.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/ptree.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/qplan.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/readin.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/README.TXT"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/scopes.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/slots.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/talkr.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/world0.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/xgproc.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/previous/xgrun.pl"/>
+						</Folder>
+						<Folder Name="regressed">
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/regressed/clone.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/regressed/newdict.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/regressed/slots.pl"/>
+						</Folder>
+						<Folder Name="target">
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/aggreg.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/clone.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/clotab.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/demo"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/lex.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/load.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/log"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/newdict.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/newdict_regress.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/newdict_shared.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/newtop.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/newtop.pl.bak"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/portray.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/ptree.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/qplan.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/readin.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/README.TXT"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/scopes.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/slots.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/slots.pl.bak"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/talkr.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/world0.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/xgproc.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/target/xgrun.pl"/>
+						</Folder>
+					</Folder>
+					<Folder Name="pldata">
 						<Folder Name="plkb7166">
 							<F N="packs_sys/logicmoo_nlu/ext/pldata/plkb7166/kb7166.pl"/>
 						</Folder>
@@ -3611,6 +2769,231 @@
 						<F N="packs_sys/logicmoo_nlu/ext/pldata/wn_frames.pl"/>
 						<F N="packs_sys/logicmoo_nlu/ext/pldata/wn_iface.pl"/>
 					</Folder>
+				</Folder>
+				<Folder Name="prolog">
+					<Folder Name="config_nomicmu">
+						<Folder Name="example_bt">
+							<Folder Name="doc">
+								<Folder Name="d">
+									<Folder Name="20200312">
+										<Folder Name="www.cdc.gov">
+											<Folder Name="coronavirus">
+												<Folder Name="2019-ncov">
+													<Folder Name="downloads">
+														<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/d/20200312/www.cdc.gov/coronavirus/2019-ncov/downloads/COVID-19_CAREKit_ENG.pdf"/>
+														<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/d/20200312/www.cdc.gov/coronavirus/2019-ncov/downloads/COVID-19_CAREKit_ENG.txt"/>
+														<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/d/20200312/www.cdc.gov/coronavirus/2019-ncov/downloads/COVID-19_CAREKit_ENG.txt.nlu.pl"/>
+														<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/d/20200312/www.cdc.gov/coronavirus/2019-ncov/downloads/is_dir"/>
+													</Folder>
+													<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/d/20200312/www.cdc.gov/coronavirus/2019-ncov/is_dir"/>
+												</Folder>
+												<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/d/20200312/www.cdc.gov/coronavirus/is_dir"/>
+											</Folder>
+											<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/d/20200312/www.cdc.gov/is_dir"/>
+										</Folder>
+										<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/d/20200312/is_dir"/>
+									</Folder>
+									<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/d/is_dir"/>
+								</Folder>
+								<Folder Name="research">
+									<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/research/is_dir"/>
+									<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/research/to.do"/>
+								</Folder>
+								<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/doc/is_dir"/>
+							</Folder>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/chores.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/coronavirus.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/coronavirus_part_1.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/coronavirus_sample_data.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/coronavirus_simplified.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/exercise.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/food_pantries.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/groceries.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/incoming.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/is_dir"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/movement_discipline.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/paperwork.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/sickness.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/example_bt/social.pl"/>
+						</Folder>
+						<Folder Name="plugins">
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/plugins/adv_flp_api.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/plugins/adv_pengines.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/plugins/example_area1.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/plugins/example_more_nl.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/plugins/example_new_command.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/plugins/example_plan_domain.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/plugins/is_dir"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/plugins/load_example_bt.pl"/>
+						</Folder>
+						<F N="packs_sys/logicmoo_nlu/prolog/config_nomicmu/is_dir"/>
+					</Folder>
+					<Folder Name="logicmoo_nlu">
+						<Folder Name="e2c">
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_clausify.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_commands.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_fracas.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_fwd_chaining.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_noun_phrase.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_parts_of_speech.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_quantifiers.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_rephrasing.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_saved.txt"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_sentence.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_utility.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/e2c_verb_phrase.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/is_dir"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/logicmoo_cyc_nl_sem.pl"/>
+							<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/e2c/logicmoo_nl_sem_dcgRedress.pl"/>
+						</Folder>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/is_dir"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_ape.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_bratko.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_candc.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_charniak.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_chart89.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_chat80.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_chat80_regress.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_CURT.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_e2c.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_E2fC.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_frames.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_jpaine.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_lexical.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_lexical_gen.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_pldata.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_ProNTo.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_regulus.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_sharing.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_SIRIDUS.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_stanford.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_stanford_legacy_jpl.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_SUPPLE.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_tests.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_tokenize.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/README.md"/>
+					</Folder>
+					<F N="packs_sys/logicmoo_nlu/prolog/is_dir"/>
+					<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu.pl"/>
+					<F N="packs_sys/logicmoo_nlu/prolog/nomic_mu.pl"/>
+				</Folder>
+			</Folder>
+			<Folder Name="logicmoo_utils">
+				<Folder Name="prolog">
+					<Folder Name="body_reordering">
+						<F N="packs_sys/logicmoo_utils/prolog/body_reordering/INDEX.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/body_reordering/logicmoo_util_autocut.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/body_reordering/logicmoo_util_body_nauts.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/body_reordering/logicmoo_util_body_reorder.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/body_reordering/logicmoo_util_body_textstr.pl"/>
+					</Folder>
+					<Folder Name="cpviz">
+						<F N="packs_sys/logicmoo_utils/prolog/cpviz/structures.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/cpviz/visualize_tree.pl"/>
+					</Folder>
+					<Folder Name="debuggery">
+						<F N="packs_sys/logicmoo_utils/prolog/debuggery/bugger.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/debuggery/dmsg.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/debuggery/dumpst.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/debuggery/first.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/debuggery/frames.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/debuggery/rtrace.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/debuggery/sanity_tests.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/debuggery/ucatch.pl"/>
+					</Folder>
+					<Folder Name="lm_utils">
+						<F N="packs_sys/logicmoo_utils/prolog/lm_utils/each_call_cleanup.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/lm_utils/hook_hybrid.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/lm_utils/listing_vars.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/lm_utils/logicmoo_util_common.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/lm_utils/logicmoo_util_strings.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/lm_utils/loop_check.pl"/>
+					</Folder>
+					<Folder Name="logicmoo">
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/attvar_reader.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/attvar_serializer.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/butterfly_console.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/call_from_module.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/call_reorder.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/clause_attvars.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/dcg_meta.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/dcg_must.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/each_call.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/filestreams.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/filesystem.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/lockable_vars.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/misc_terms.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/nb_set_term.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/no_loops.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/no_repeats.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/old_loop_check.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/portray_vars.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/predicate_inheritance.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/pretty_clauses.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/redo_locally.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/subclause_expansion.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/toplevel_variable_names.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_bb_env.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_bb_frame.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_bb_gvar.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_ctx_frame.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_dlist.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_dra.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_engines.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_strings.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_structs.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_varnames.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/virtualize_source.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/with_no_x.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/xml_reader.pl"/>
+					</Folder>
+					<Folder Name="multivar">
+						<Folder Name="t">
+							<F N="packs_sys/logicmoo_utils/prolog/multivar/t/sanity_tests.pl"/>
+						</Folder>
+						<F N="packs_sys/logicmoo_utils/prolog/multivar/answer_sources.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/multivar/neg.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/multivar/stlc.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/multivar/subvar_inherit.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/multivar/vhar.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/multivar/vprox.pl"/>
+					</Folder>
+					<Folder Name="xlisting">
+						<Folder Name="swish_lib">
+							<Folder Name="render">
+								<F N="packs_sys/logicmoo_utils/prolog/xlisting/swish_lib/render/html.pl"/>
+							</Folder>
+						</Folder>
+						<F N="packs_sys/logicmoo_utils/prolog/xlisting/mpred_pldoc_util.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/xlisting/mpred_rdf.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/xlisting/xlisting_console.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/xlisting/xlisting_web.pfc.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/xlisting/xlisting_web.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/xlisting/xlisting_web_sanity_tests.pl"/>
+					</Folder>
+					<F N="packs_sys/logicmoo_utils/prolog/assert_db_local.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/each_call_cleanup.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/file_scope.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/hook_database.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/hook_hybrid.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/INDEX.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/listing_vars.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/logicmoo_common.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/logicmoo_lib.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/logicmoo_packs.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/logicmoo_startup.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/logicmoo_util_common.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/logicmoo_util_strings.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/logicmoo_utils.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/logicmoo_utils_all.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/loop_check.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/multimodal_dcg.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/multivar.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/must_sanity.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/must_trace.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/script_files.pl"/>
+					<F N="packs_sys/logicmoo_utils/prolog/xlisting.pl"/>
 				</Folder>
 			</Folder>
 			<Folder Name="pfc">
@@ -4010,7 +3393,6 @@
 						<Folder Name="Bench">
 							<Folder Name="aspclp">
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/aspclp/block.pl"/>
-								<F N="packs_sys/pfc/t/tabling-tests/Bench/aspclp/color.pldata"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/aspclp/hamilton.pl"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/aspclp/hamming.pl"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/aspclp/knapsack.pl"/>
@@ -4059,7 +3441,6 @@
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/clpfd/zebra.pl"/>
 							</Folder>
 							<Folder Name="prolog">
-								<F N="packs_sys/pfc/t/tabling-tests/Bench/prolog/asm.pldata"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/prolog/boyer.pl"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/prolog/browse.pl"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/prolog/chat_parser.pl"/>
@@ -4091,16 +3472,9 @@
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/prolog/zebra.pl"/>
 							</Folder>
 							<Folder Name="tabling">
-								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/atr2.pldata"/>
-								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/cs_o.pldata"/>
-								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/cs_r.pldata"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/disj.pl"/>
-								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/edge.pldata"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/gabriel.pl"/>
-								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/kalah.pldata"/>
-								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/peep.pldata"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/pg.pl"/>
-								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/read.pldata"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/run.pl"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/sg_edge.pl"/>
 								<F N="packs_sys/pfc/t/tabling-tests/Bench/tabling/sgm.pl"/>
@@ -4345,7 +3719,6 @@
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/concomp.P"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/concomp_old"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/correct.P"/>
-							<F N="packs_sys/pfc/t/tabling-tests/table_tests/cycle.Pldata"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/dipti.P"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/dipti_old"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/edge_dag.P"/>
@@ -4357,7 +3730,6 @@
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/float.P"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/float1.P"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/float_old"/>
-							<F N="packs_sys/pfc/t/tabling-tests/table_tests/flora1.Pldata"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/flora1_old"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/get_resid.P"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/get_resid_old"/>
@@ -4367,7 +3739,6 @@
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/ins_old"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/internt.P"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/internt_old"/>
-							<F N="packs_sys/pfc/t/tabling-tests/table_tests/kalah_ox.Pldata"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/lists.P"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/lrbug.P"/>
 							<F N="packs_sys/pfc/t/tabling-tests/table_tests/lrbug_old"/>
@@ -4494,8 +3865,6 @@
 						<F N="packs_sys/pfc/t/tabling_benchmarks/50pDblFstLoop-swi.pl"/>
 						<F N="packs_sys/pfc/t/tabling_benchmarks/50pDoubleFirst-swi.pl"/>
 						<F N="packs_sys/pfc/t/tabling_benchmarks/750fib-swi.pl"/>
-						<F N="packs_sys/pfc/t/tabling_benchmarks/bintree18-swi.pldata"/>
-						<F N="packs_sys/pfc/t/tabling_benchmarks/mondial-swi.pldata"/>
 						<F N="packs_sys/pfc/t/tabling_benchmarks/procps.pl"/>
 						<F N="packs_sys/pfc/t/tabling_benchmarks/pyramid500-swi.pl"/>
 						<F N="packs_sys/pfc/t/tabling_benchmarks/README.md"/>
@@ -4554,24 +3923,186 @@
 				<F N="packs_sys/pfc/pack.pl"/>
 				<F N="packs_sys/pfc/README.md"/>
 			</Folder>
-		</Folder>
-		<Folder Name="packs_web">
-			<Folder Name="logicmoo_webui">
-				<Folder Name="etc">
-					<Folder Name="apache2">
-						<Folder Name="conf-available">
-							<F N="packs_web/logicmoo_webui/etc/apache2/conf-available/cliopatria_swish.conf"/>
-							<F N="packs_web/logicmoo_webui/etc/apache2/conf-available/doc_root.conf"/>
-							<F N="packs_web/logicmoo_webui/etc/apache2/conf-available/doc_root_ssl.conf"/>
+			<Folder Name="prologmud">
+				<Folder Name="prolog">
+					<Folder Name="prologmud">
+						<Folder Name="actions">
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/actions_conf.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/actions_db.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/any.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/as_agent.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/attack.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/chat.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/climb.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/create.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/drink.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/drop.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/eat.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/get_set.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/help.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/inventory.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/kiss.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/logon.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/look.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/move.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/planner.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/push.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/put_at.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/scansrc.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/showdebug.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/sit.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/stats.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/take.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/teleport.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/use.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/actions/where.pfc.pl"/>
 						</Folder>
-						<Folder Name="sites-enabled">
-							<F N="packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-default-le-ssl.conf"/>
-							<F N="packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-default.conf"/>
-							<F N="packs_web/logicmoo_webui/etc/apache2/sites-enabled/000-logicmoo.conf"/>
+						<Folder Name="mobs">
+							<Folder Name="affordance">
+								<F N="packs_sys/prologmud/prolog/prologmud/mobs/affordance/improve.pfc.pl"/>
+								<F N="packs_sys/prologmud/prolog/prologmud/mobs/affordance/simbots.pfc.pl"/>
+							</Folder>
+							<F N="packs_sys/prologmud/prolog/prologmud/mobs/explorer.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/mobs/mobs_conf.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/mobs/monster.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/mobs/pddl_agent.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/mobs/predator.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/mobs/prey.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/mobs/vacuum.pfc.pl"/>
+						</Folder>
+						<Folder Name="objs">
+							<F N="packs_sys/prologmud/prolog/prologmud/objs/basic_objs.pfc.pl"/>
+						</Folder>
+						<Folder Name="parsing">
+							<F N="packs_sys/prologmud/prolog/prologmud/parsing/parser_imperative.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/parsing/simple_decl_parser.pl"/>
+						</Folder>
+						<Folder Name="server">
+							<F N="packs_sys/prologmud/prolog/prologmud/server/mud_http_hmud.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/server/mud_irc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/server/mud_telnet.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/server/mud_testing.pl"/>
+						</Folder>
+						<Folder Name="vworld">
+							<F N="packs_sys/prologmud/prolog/prologmud/vworld/world.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/vworld/world_2d.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/vworld/world_agent.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/vworld/world_effects.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/vworld/world_events.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/vworld/world_npc.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/vworld/world_text.pfc.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud/vworld/world_text_output.pfc.pl"/>
+						</Folder>
+						<F N="packs_sys/prologmud/prolog/prologmud/mud_builtin.pfc.pl"/>
+						<F N="packs_sys/prologmud/prolog/prologmud/mud_footer.pl"/>
+						<F N="packs_sys/prologmud/prolog/prologmud/mud_header.pl"/>
+						<F N="packs_sys/prologmud/prolog/prologmud/mud_loader.pl"/>
+						<F N="packs_sys/prologmud/prolog/prologmud/mud_startup.pl"/>
+					</Folder>
+					<Folder Name="prologmud_web">
+						<Folder Name="src_webui">
+							<Folder Name="http">
+								<F N="packs_sys/prologmud/prolog/prologmud_web/src_webui/http/user_page.pl"/>
+							</Folder>
+							<Folder Name="model">
+								<F N="packs_sys/prologmud/prolog/prologmud_web/src_webui/model/substance.pl"/>
+							</Folder>
+							<Folder Name="mudconsole">
+								<F N="packs_sys/prologmud/prolog/prologmud_web/src_webui/mudconsole/mudconsole.pl"/>
+								<F N="packs_sys/prologmud/prolog/prologmud_web/src_webui/mudconsole/mudconsolestart.pl"/>
+							</Folder>
+							<F N="packs_sys/prologmud/prolog/prologmud_web/src_webui/cliopatria_binding.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud_web/src_webui/launchcliopatria.pl"/>
+							<F N="packs_sys/prologmud/prolog/prologmud_web/src_webui/testwebconsole.pl"/>
 						</Folder>
 					</Folder>
+					<F N="packs_sys/prologmud/prolog/logicmoo_mud.pl"/>
 				</Folder>
 			</Folder>
+			<Folder Name="prologmud_samples">
+				<Folder Name="prolog">
+					<Folder Name="prologmud_sample_games">
+						<Folder Name="attic">
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/attic/daemon.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/attic/remote_swish.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/attic/server.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/attic/test_release.pl"/>
+						</Folder>
+						<Folder Name="btepisode">
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/btepisode/npc.pl"/>
+						</Folder>
+						<Folder Name="config-enabled-swish">
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/auth_google.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/auth_http.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/auth_stackoverflow.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/auth_unity.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/data.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/debug.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/email.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/hdt.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/logging.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/notifications.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/r_serve.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/rlimit.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/rpc.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/config-enabled-swish/user_profile.pl"/>
+						</Folder>
+						<Folder Name="src_game_nani">
+							<Folder Name="web">
+								<Folder Name="prolog">
+									<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_nani/web/prolog/mud_specific.pl"/>
+								</Folder>
+							</Folder>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_nani/a_nani_household.pfc.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_nani/andrew_ke.pfc.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_nani/annie_ke.pfc.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_nani/dmiles_ke.pfc.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_nani/jess_ke.pfc.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_nani/justin_ke.pfc.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_nani/meredith_ke.pfc.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_nani/objs_misc_household.pfc.pl"/>
+						</Folder>
+						<Folder Name="src_game_sims">
+							<Folder Name="web">
+								<Folder Name="prolog">
+									<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_sims/web/prolog/mud_specific.pl"/>
+								</Folder>
+							</Folder>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_sims/objs_misc_household.pfc.pl"/>
+						</Folder>
+						<Folder Name="src_game_startrek">
+							<Folder Name="holodeck">
+								<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_startrek/holodeck/maze.map.pfc.pl"/>
+								<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_startrek/holodeck/objs_misc_household.pfc.pl"/>
+								<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_startrek/holodeck/objs_misc_monster.pfc.pl"/>
+								<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_startrek/holodeck/predator.map.pfc.pl"/>
+								<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_startrek/holodeck/rooms_conf.pl"/>
+								<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_startrek/holodeck/vacuum.map.pfc.pl"/>
+							</Folder>
+							<Folder Name="mobs">
+								<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_startrek/mobs/federation.pl"/>
+							</Folder>
+							<Folder Name="web">
+								<Folder Name="prolog">
+									<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_startrek/web/prolog/mud_specific.pl"/>
+								</Folder>
+							</Folder>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_startrek/startrek.all.pfc.pl"/>
+						</Folder>
+						<Folder Name="src_game_wumpus">
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_wumpus/maze.map.pfc.pl"/>
+							<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/src_game_wumpus/objs_misc_monster.pfc.pl"/>
+						</Folder>
+						<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/compile_mud_server.pl"/>
+						<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/init_mud_server.pl"/>
+						<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/run-clio.pl"/>
+						<F N="packs_sys/prologmud_samples/prolog/prologmud_sample_games/run_mud_server.pl"/>
+					</Folder>
+					<F N="packs_sys/prologmud_samples/prolog/prologmud_samples.pl"/>
+				</Folder>
+			</Folder>
+		</Folder>
+		<Folder Name="packs_web">
 			<Folder Name="swish">
 				<Folder Name="lib">
 					<Folder Name="data">
@@ -4848,14 +4379,11 @@
 		<F N="buildenvmingw32.sh"/>
 		<F N="buildenvmingw64.sh"/>
 		<F N="cookies.txt"/>
-		<F N="dmiles-attvar.patch"/>
-		<F N="dmiles-ssl.patch"/>
 		<F N="docker-compose.yml"/>
 		<F N="Dockerfile"/>
 		<F N="INSTALL-DEPS.md"/>
 		<F N="INSTALL-EGGDROP.md"/>
 		<F N="INSTALL-PACKS.md"/>
-		<F N="INSTALL-SUBMODULES.md"/>
 		<F N="INSTALL-SWI.md"/>
 		<F N="INSTALL.md"/>
 		<F N="Jenkinsfile"/>

@@ -14148,17 +14148,8 @@
 									<Folder Name="temp">
 										<F N="packs_web/logicmoo_webui/var/www/html/ef/files/temp/is_dir"/>
 									</Folder>
-									<F N="packs_web/logicmoo_webui/var/www/html/ef/files/.gitignore"/>
 									<F N="packs_web/logicmoo_webui/var/www/html/ef/files/foo.pl"/>
 									<F N="packs_web/logicmoo_webui/var/www/html/ef/files/is_dir"/>
-								</Folder>
-								<Folder Name="files-was">
-									<Folder Name="temp">
-										<F N="packs_web/logicmoo_webui/var/www/html/ef/files-was/temp/is_dir"/>
-									</Folder>
-									<F N="packs_web/logicmoo_webui/var/www/html/ef/files-was/.gitignore"/>
-									<F N="packs_web/logicmoo_webui/var/www/html/ef/files-was/foo.pl"/>
-									<F N="packs_web/logicmoo_webui/var/www/html/ef/files-was/is_dir"/>
 								</Folder>
 								<Folder Name="img">
 									<Folder Name="src">
@@ -14514,7 +14505,6 @@
 								<Folder Name="sounds">
 									<F N="packs_web/logicmoo_webui/var/www/html/ef/sounds/is_dir"/>
 								</Folder>
-								<F N="packs_web/logicmoo_webui/var/www/html/ef/.gitignore"/>
 								<F N="packs_web/logicmoo_webui/var/www/html/ef/is_dir"/>
 								<F N="packs_web/logicmoo_webui/var/www/html/ef/LICENSE.md"/>
 								<F N="packs_web/logicmoo_webui/var/www/html/ef/README.md"/>
@@ -14633,7 +14623,6 @@
 						<F N="packs_web/swish/examples/aleph/index.json"/>
 						<F N="packs_web/swish/examples/aleph/interactive_animals.pl"/>
 						<F N="packs_web/swish/examples/aleph/interactive_mem.pl"/>
-						<F N="packs_web/swish/examples/aleph/is_dir"/>
 						<F N="packs_web/swish/examples/aleph/modes.pl"/>
 						<F N="packs_web/swish/examples/aleph/numbers_guess.pl"/>
 						<F N="packs_web/swish/examples/aleph/numbers_ineq.pl"/>
@@ -14729,7 +14718,6 @@
 						<F N="packs_web/swish/examples/inference/inference_examples_R.swinb"/>
 						<F N="packs_web/swish/examples/inference/iris.pl"/>
 						<F N="packs_web/swish/examples/inference/iris_c3.pl"/>
-						<F N="packs_web/swish/examples/inference/is_dir"/>
 						<F N="packs_web/swish/examples/inference/jail.pl"/>
 						<F N="packs_web/swish/examples/inference/jail.swinb"/>
 						<F N="packs_web/swish/examples/inference/kalman_filter.pl"/>
@@ -14832,7 +14820,6 @@
 						<F N="packs_web/swish/examples/learning/exauc_R.pl"/>
 						<F N="packs_web/swish/examples/learning/hmmlearn.pl"/>
 						<F N="packs_web/swish/examples/learning/index.json"/>
-						<F N="packs_web/swish/examples/learning/is_dir"/>
 						<F N="packs_web/swish/examples/learning/learn_effect_axioms.pl"/>
 						<F N="packs_web/swish/examples/learning/learning_examples.swinb"/>
 						<F N="packs_web/swish/examples/learning/mach.pl"/>
@@ -14848,18 +14835,11 @@
 						<F N="packs_web/swish/examples/lemur/bongard.pl"/>
 						<F N="packs_web/swish/examples/lemur/bongardkeys.pl"/>
 						<F N="packs_web/swish/examples/lemur/index.json"/>
-						<F N="packs_web/swish/examples/lemur/is_dir"/>
 						<F N="packs_web/swish/examples/lemur/lemur_examples.swinb"/>
 						<F N="packs_web/swish/examples/lemur/mach.pl"/>
 						<F N="packs_web/swish/examples/lemur/registration.pl"/>
 					</Folder>
 					<Folder Name="logicmoo">
-						<F N="packs_web/swish/examples/logicmoo/animals.pl"/>
-						<F N="packs_web/swish/examples/logicmoo/fibonacci.chr"/>
-						<F N="packs_web/swish/examples/logicmoo/ftc-pddl.lisp"/>
-						<F N="packs_web/swish/examples/logicmoo/ftc.pddl"/>
-						<F N="packs_web/swish/examples/logicmoo/graphviz.html"/>
-						<F N="packs_web/swish/examples/logicmoo/is_dir"/>
 						<F N="packs_web/swish/examples/logicmoo/logicmoo_begin.swinb"/>
 						<F N="packs_web/swish/examples/logicmoo/logicmoo_examples.swinb"/>
 						<F N="packs_web/swish/examples/logicmoo/logicmoo_tutorial_01.swinb"/>
@@ -14872,7 +14852,6 @@
 						<F N="packs_web/swish/examples/logicmoo/reactome_pengine.swinb"/>
 					</Folder>
 					<Folder Name="logtalk">
-						<F N="packs_web/swish/examples/logtalk/is_dir"/>
 						<F N="packs_web/swish/examples/logtalk/tester-sample.lgt"/>
 						<F N="packs_web/swish/examples/logtalk/tests.lgt"/>
 					</Folder>
@@ -14880,7 +14859,6 @@
 						<F N="packs_web/swish/examples/phil/bongard.pl"/>
 						<F N="packs_web/swish/examples/phil/bongardkeys.pl"/>
 						<F N="packs_web/swish/examples/phil/index.json"/>
-						<F N="packs_web/swish/examples/phil/is_dir"/>
 						<F N="packs_web/swish/examples/phil/muta.pl"/>
 						<F N="packs_web/swish/examples/phil/phil_examples.swinb"/>
 						<F N="packs_web/swish/examples/phil/pyrimidine.pl"/>
@@ -14889,7 +14867,6 @@
 						<F N="packs_web/swish/examples/phil/uwcsekeys.pl"/>
 					</Folder>
 					<Folder Name="prologmud">
-						<F N="packs_web/swish/examples/prologmud/is_dir"/>
 						<F N="packs_web/swish/examples/prologmud/logicmoo_mud.swinb"/>
 						<F N="packs_web/swish/examples/prologmud/nomicmu_mud.swinb"/>
 						<F N="packs_web/swish/examples/prologmud/prologmud_examples.swinb"/>
@@ -14904,7 +14881,6 @@
 						<F N="packs_web/swish/examples/trill/DBPedia.pl"/>
 						<F N="packs_web/swish/examples/trill/examples_trill.swinb"/>
 						<F N="packs_web/swish/examples/trill/index.json"/>
-						<F N="packs_web/swish/examples/trill/is_dir"/>
 						<F N="packs_web/swish/examples/trill/johnEmployee.pl"/>
 						<F N="packs_web/swish/examples/trill/people+pets.owl"/>
 						<F N="packs_web/swish/examples/trill/peoplePets.pl"/>
@@ -14937,7 +14913,6 @@
 					<F N="packs_web/swish/examples/index.json"/>
 					<F N="packs_web/swish/examples/io.pl"/>
 					<F N="packs_web/swish/examples/iris.swinb"/>
-					<F N="packs_web/swish/examples/is_dir"/>
 					<F N="packs_web/swish/examples/japanese.pl"/>
 					<F N="packs_web/swish/examples/jquery.swinb"/>
 					<F N="packs_web/swish/examples/kb.pl"/>
@@ -15867,301 +15842,6 @@
 						<F N="packs_web/swish/web/js/utils.js"/>
 						<F N="packs_web/swish/web/js/version.js"/>
 					</Folder>
-					<Folder Name="node_modules">
-						<Folder Name="ace">
-							<Folder Name="build">
-								<Folder Name="demo">
-									<Folder Name="kitchen-sink">
-										<Folder Name="docs">
-											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/.gitignore"/>
-											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/Dockerfile"/>
-											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/eiffel.e"/>
-											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/lisp.lisp"/>
-											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/luapage.lp"/>
-											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/markdown.md"/>
-											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/perl.pl"/>
-											<F N="packs_web/swish/web/node_modules/ace/build/demo/kitchen-sink/docs/sh.sh"/>
-										</Folder>
-									</Folder>
-								</Folder>
-								<Folder Name="src">
-									<Folder Name="snippets">
-										<F N="packs_web/swish/web/node_modules/ace/build/src/snippets/dockerfile.js"/>
-									</Folder>
-								</Folder>
-								<Folder Name="src-min">
-									<Folder Name="snippets">
-										<F N="packs_web/swish/web/node_modules/ace/build/src-min/snippets/dockerfile.js"/>
-									</Folder>
-								</Folder>
-								<Folder Name="src-min-noconflict">
-									<Folder Name="snippets">
-										<F N="packs_web/swish/web/node_modules/ace/build/src-min-noconflict/snippets/dockerfile.js"/>
-									</Folder>
-								</Folder>
-								<Folder Name="src-noconflict">
-									<Folder Name="snippets">
-										<F N="packs_web/swish/web/node_modules/ace/build/src-noconflict/snippets/dockerfile.js"/>
-									</Folder>
-								</Folder>
-								<F N="packs_web/swish/web/node_modules/ace/build/CODE_OF_CONDUCT.md"/>
-								<F N="packs_web/swish/web/node_modules/ace/build/CONTRIBUTING.md"/>
-								<F N="packs_web/swish/web/node_modules/ace/build/README.md"/>
-							</Folder>
-						</Folder>
-						<Folder Name="bootstrap">
-							<Folder Name="grunt">
-								<F N="packs_web/swish/web/node_modules/bootstrap/grunt/.stylelintrc"/>
-							</Folder>
-							<Folder Name="js">
-								<Folder Name="tests">
-									<F N="packs_web/swish/web/node_modules/bootstrap/js/tests/README.md"/>
-								</Folder>
-							</Folder>
-							<Folder Name="nuget">
-								<F N="packs_web/swish/web/node_modules/bootstrap/nuget/bootstrap.less.nuspec"/>
-								<F N="packs_web/swish/web/node_modules/bootstrap/nuget/bootstrap.nuspec"/>
-							</Folder>
-							<F N="packs_web/swish/web/node_modules/bootstrap/.editorconfig"/>
-							<F N="packs_web/swish/web/node_modules/bootstrap/.gitattributes"/>
-							<F N="packs_web/swish/web/node_modules/bootstrap/CHANGELOG.md"/>
-							<F N="packs_web/swish/web/node_modules/bootstrap/CONTRIBUTING.md"/>
-							<F N="packs_web/swish/web/node_modules/bootstrap/ISSUE_TEMPLATE.md"/>
-							<F N="packs_web/swish/web/node_modules/bootstrap/README.md"/>
-						</Folder>
-						<Folder Name="c3">
-							<Folder Name="node_modules">
-								<Folder Name="d3">
-									<F N="packs_web/swish/web/node_modules/c3/node_modules/d3/CHANGES.md"/>
-									<F N="packs_web/swish/web/node_modules/c3/node_modules/d3/README.md"/>
-								</Folder>
-							</Folder>
-							<F N="packs_web/swish/web/node_modules/c3/.editorconfig"/>
-							<F N="packs_web/swish/web/node_modules/c3/CONTRIBUTING.md"/>
-							<F N="packs_web/swish/web/node_modules/c3/MAINTAINANCE.md"/>
-							<F N="packs_web/swish/web/node_modules/c3/README.md"/>
-						</Folder>
-						<Folder Name="codemirror">
-							<Folder Name="component-tools">
-								<F N="packs_web/swish/web/node_modules/codemirror/component-tools/build.sh"/>
-							</Folder>
-							<Folder Name="mode">
-								<Folder Name="dockerfile">
-									<F N="packs_web/swish/web/node_modules/codemirror/mode/dockerfile/dockerfile.js"/>
-								</Folder>
-							</Folder>
-							<F N="packs_web/swish/web/node_modules/codemirror/CHANGELOG.md"/>
-							<F N="packs_web/swish/web/node_modules/codemirror/CONTRIBUTING.md"/>
-							<F N="packs_web/swish/web/node_modules/codemirror/README.md"/>
-						</Folder>
-						<Folder Name="commander">
-							<F N="packs_web/swish/web/node_modules/commander/CHANGELOG.md"/>
-							<F N="packs_web/swish/web/node_modules/commander/Readme.md"/>
-						</Folder>
-						<Folder Name="d3">
-							<F N="packs_web/swish/web/node_modules/d3/README.md"/>
-						</Folder>
-						<Folder Name="d3-array">
-							<F N="packs_web/swish/web/node_modules/d3-array/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/d3-array/README.md"/>
-						</Folder>
-						<Folder Name="d3-axis">
-							<F N="packs_web/swish/web/node_modules/d3-axis/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/d3-axis/README.md"/>
-						</Folder>
-						<Folder Name="d3-brush">
-							<F N="packs_web/swish/web/node_modules/d3-brush/README.md"/>
-						</Folder>
-						<Folder Name="d3-chord">
-							<F N="packs_web/swish/web/node_modules/d3-chord/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/d3-chord/README.md"/>
-						</Folder>
-						<Folder Name="d3-collection">
-							<F N="packs_web/swish/web/node_modules/d3-collection/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/d3-collection/README.md"/>
-						</Folder>
-						<Folder Name="d3-color">
-							<F N="packs_web/swish/web/node_modules/d3-color/README.md"/>
-						</Folder>
-						<Folder Name="d3-contour">
-							<F N="packs_web/swish/web/node_modules/d3-contour/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/d3-contour/README.md"/>
-						</Folder>
-						<Folder Name="d3-dispatch">
-							<F N="packs_web/swish/web/node_modules/d3-dispatch/README.md"/>
-						</Folder>
-						<Folder Name="d3-drag">
-							<F N="packs_web/swish/web/node_modules/d3-drag/README.md"/>
-						</Folder>
-						<Folder Name="d3-dsv">
-							<F N="packs_web/swish/web/node_modules/d3-dsv/README.md"/>
-						</Folder>
-						<Folder Name="d3-ease">
-							<F N="packs_web/swish/web/node_modules/d3-ease/README.md"/>
-						</Folder>
-						<Folder Name="d3-fetch">
-							<F N="packs_web/swish/web/node_modules/d3-fetch/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/d3-fetch/README.md"/>
-						</Folder>
-						<Folder Name="d3-force">
-							<F N="packs_web/swish/web/node_modules/d3-force/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/d3-force/README.md"/>
-						</Folder>
-						<Folder Name="d3-format">
-							<F N="packs_web/swish/web/node_modules/d3-format/README.md"/>
-						</Folder>
-						<Folder Name="d3-geo">
-							<F N="packs_web/swish/web/node_modules/d3-geo/README.md"/>
-						</Folder>
-						<Folder Name="d3-hierarchy">
-							<F N="packs_web/swish/web/node_modules/d3-hierarchy/README.md"/>
-						</Folder>
-						<Folder Name="d3-interpolate">
-							<F N="packs_web/swish/web/node_modules/d3-interpolate/README.md"/>
-						</Folder>
-						<Folder Name="d3-path">
-							<F N="packs_web/swish/web/node_modules/d3-path/README.md"/>
-						</Folder>
-						<Folder Name="d3-polygon">
-							<F N="packs_web/swish/web/node_modules/d3-polygon/README.md"/>
-						</Folder>
-						<Folder Name="d3-quadtree">
-							<F N="packs_web/swish/web/node_modules/d3-quadtree/README.md"/>
-						</Folder>
-						<Folder Name="d3-random">
-							<F N="packs_web/swish/web/node_modules/d3-random/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/d3-random/README.md"/>
-						</Folder>
-						<Folder Name="d3-scale">
-							<F N="packs_web/swish/web/node_modules/d3-scale/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/d3-scale/README.md"/>
-						</Folder>
-						<Folder Name="d3-scale-chromatic">
-							<F N="packs_web/swish/web/node_modules/d3-scale-chromatic/README.md"/>
-						</Folder>
-						<Folder Name="d3-selection">
-							<F N="packs_web/swish/web/node_modules/d3-selection/README.md"/>
-						</Folder>
-						<Folder Name="d3-shape">
-							<F N="packs_web/swish/web/node_modules/d3-shape/README.md"/>
-						</Folder>
-						<Folder Name="d3-time">
-							<F N="packs_web/swish/web/node_modules/d3-time/README.md"/>
-						</Folder>
-						<Folder Name="d3-time-format">
-							<F N="packs_web/swish/web/node_modules/d3-time-format/README.md"/>
-						</Folder>
-						<Folder Name="d3-timer">
-							<F N="packs_web/swish/web/node_modules/d3-timer/README.md"/>
-						</Folder>
-						<Folder Name="d3-transition">
-							<F N="packs_web/swish/web/node_modules/d3-transition/README.md"/>
-						</Folder>
-						<Folder Name="d3-voronoi">
-							<F N="packs_web/swish/web/node_modules/d3-voronoi/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/d3-voronoi/README.md"/>
-						</Folder>
-						<Folder Name="d3-zoom">
-							<F N="packs_web/swish/web/node_modules/d3-zoom/README.md"/>
-						</Folder>
-						<Folder Name="iconv-lite">
-							<F N="packs_web/swish/web/node_modules/iconv-lite/Changelog.md"/>
-							<F N="packs_web/swish/web/node_modules/iconv-lite/README.md"/>
-						</Folder>
-						<Folder Name="jquery">
-							<Folder Name="src">
-								<Folder Name="core">
-									<F N="packs_web/swish/web/node_modules/jquery/src/core/ready-no-deferred.js"/>
-									<F N="packs_web/swish/web/node_modules/jquery/src/core/ready.js"/>
-									<F N="packs_web/swish/web/node_modules/jquery/src/core/readyException.js"/>
-								</Folder>
-								<F N="packs_web/swish/web/node_modules/jquery/src/.eslintrc.json"/>
-							</Folder>
-							<F N="packs_web/swish/web/node_modules/jquery/README.md"/>
-						</Folder>
-						<Folder Name="jquery.splitter">
-							<Folder Name="js">
-								<F N="packs_web/swish/web/node_modules/jquery.splitter/js/.patched"/>
-							</Folder>
-							<F N="packs_web/swish/web/node_modules/jquery.splitter/README.md"/>
-						</Folder>
-						<Folder Name="js-sha1">
-							<F N="packs_web/swish/web/node_modules/js-sha1/.covignore"/>
-							<F N="packs_web/swish/web/node_modules/js-sha1/.npmignore"/>
-							<F N="packs_web/swish/web/node_modules/js-sha1/CHANGELOG.md"/>
-							<F N="packs_web/swish/web/node_modules/js-sha1/README.md"/>
-						</Folder>
-						<Folder Name="laconic">
-							<F N="packs_web/swish/web/node_modules/laconic/README"/>
-						</Folder>
-						<Folder Name="monaco-editor">
-							<F N="packs_web/swish/web/node_modules/monaco-editor/README.md"/>
-						</Folder>
-						<Folder Name="opencollective-postinstall">
-							<F N="packs_web/swish/web/node_modules/opencollective-postinstall/README.md"/>
-						</Folder>
-						<Folder Name="printthis">
-							<F N="packs_web/swish/web/node_modules/printthis/CODE_OF_CONDUCT.md"/>
-							<F N="packs_web/swish/web/node_modules/printthis/README.md"/>
-						</Folder>
-						<Folder Name="requirejs">
-							<F N="packs_web/swish/web/node_modules/requirejs/README.md"/>
-						</Folder>
-						<Folder Name="rw">
-							<Folder Name="lib">
-								<Folder Name="rw">
-									<F N="packs_web/swish/web/node_modules/rw/lib/rw/read-file-sync.js"/>
-									<F N="packs_web/swish/web/node_modules/rw/lib/rw/read-file.js"/>
-								</Folder>
-							</Folder>
-							<F N="packs_web/swish/web/node_modules/rw/.eslintrc"/>
-							<F N="packs_web/swish/web/node_modules/rw/.npmignore"/>
-							<F N="packs_web/swish/web/node_modules/rw/README.md"/>
-						</Folder>
-						<Folder Name="safer-buffer">
-							<F N="packs_web/swish/web/node_modules/safer-buffer/Porting-Buffer.md"/>
-							<F N="packs_web/swish/web/node_modules/safer-buffer/Readme.md"/>
-						</Folder>
-						<Folder Name="sparkline">
-							<Folder Name="dist">
-								<F N="packs_web/swish/web/node_modules/sparkline/dist/.gitignore"/>
-							</Folder>
-							<F N="packs_web/swish/web/node_modules/sparkline/README.md"/>
-						</Folder>
-						<Folder Name="svg-pan-zoom">
-							<F N="packs_web/swish/web/node_modules/svg-pan-zoom/.editorconfig"/>
-							<F N="packs_web/swish/web/node_modules/svg-pan-zoom/.eslintrc.json"/>
-							<F N="packs_web/swish/web/node_modules/svg-pan-zoom/ISSUE_TEMPLATE.md"/>
-							<F N="packs_web/swish/web/node_modules/svg-pan-zoom/README.md"/>
-						</Folder>
-						<Folder Name="tagmanager">
-							<Folder Name="node_modules">
-								<Folder Name="jquery">
-									<Folder Name="src">
-										<Folder Name="core">
-											<F N="packs_web/swish/web/node_modules/tagmanager/node_modules/jquery/src/core/ready.js"/>
-										</Folder>
-									</Folder>
-									<F N="packs_web/swish/web/node_modules/tagmanager/node_modules/jquery/README.md"/>
-								</Folder>
-							</Folder>
-							<F N="packs_web/swish/web/node_modules/tagmanager/CHANGELOG.md"/>
-							<F N="packs_web/swish/web/node_modules/tagmanager/README.md"/>
-						</Folder>
-						<Folder Name="typeahead.js">
-							<Folder Name="doc">
-								<Folder Name="migration">
-									<F N="packs_web/swish/web/node_modules/typeahead.js/doc/migration/0.10.0.md"/>
-								</Folder>
-								<F N="packs_web/swish/web/node_modules/typeahead.js/doc/bloodhound.md"/>
-								<F N="packs_web/swish/web/node_modules/typeahead.js/doc/jquery_typeahead.md"/>
-							</Folder>
-							<F N="packs_web/swish/web/node_modules/typeahead.js/CHANGELOG.md"/>
-							<F N="packs_web/swish/web/node_modules/typeahead.js/CONTRIBUTING.md"/>
-							<F N="packs_web/swish/web/node_modules/typeahead.js/README.md"/>
-						</Folder>
-						<F N="packs_web/swish/web/node_modules/README.md"/>
-					</Folder>
 					<Folder Name="patches">
 						<F N="packs_web/swish/web/patches/is_dir"/>
 						<F N="packs_web/swish/web/patches/jsplitter.patch"/>
@@ -16283,7 +15963,6 @@
 			<F N="Patch/dmiles-save-reference-error.patch"/>
 			<F N="Patch/dmiles-ssl.patch"/>
 			<F N="Patch/is_dir"/>
-			<F N="Patch/README.md"/>
 		</Folder>
 		<Folder Name="swipl-devel">
 			<Folder Name="bench">

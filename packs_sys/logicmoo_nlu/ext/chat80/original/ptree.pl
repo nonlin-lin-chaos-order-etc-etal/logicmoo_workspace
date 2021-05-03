@@ -30,7 +30,7 @@
 
 print_tree80(T) :- pprint_ecp_cmt(yellow,T),!.
 print_tree80(T) :-
-   numbervars(T,3,_),
+   numbervars80(T,3,_),
    pt_old(T,0), nl, fail.
 print_tree80(_).
 
@@ -55,5 +55,5 @@ as_is_old(A) :- \+ compound(A), !.
 as_is_old('$VAR'(_)) :- !.
 as_is_old('_'(_)) :- !.
 as_is_old(X) :-
-   quote(X).
+   quote80(X).
 

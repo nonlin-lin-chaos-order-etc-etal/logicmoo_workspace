@@ -23,6 +23,7 @@
   write_trans/4,
   parse_sexpr/2]).
 
+:- use_module(library(logicmoo/dcg_must)).
 :- use_module(library(logicmoo/dcg_meta)).
 :- use_module(library(logicmoo_common)).
 :- use_module(library(backcomp)).

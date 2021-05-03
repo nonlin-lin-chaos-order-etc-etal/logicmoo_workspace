@@ -4,7 +4,7 @@
   test_charniak_parse2/0,
   test_charniak/1,
   charniak_stream/2,
-  charniak_pos/2,charniak_lparse/2,charniak_parse/2]).
+  charniak_pos/2,text_to_charniak/2,charniak_parse/2]).
 
 :- set_module(class(library)).
 :- set_module(base(system)).
@@ -52,12 +52,16 @@ read_lines(StringIn, Out, AllCodes) :-
   read_lines(Line2, Out, Lines),
   atomics_to_string([StringIn,'\n',Lines],AllCodes).
 
+charniak_to_segs(LExpr,SegsF):- with_reset_segs(lxpr_to_segs(LExpr,Segs)),flatten(Segs,SegsF),!.
 
 charniak_pos(Text,PosW2s,Info,LExpr):-
-  charniak_lparse(Text,LExpr),
-  with_reset_segs(lxpr_to_segs(LExpr,Segs)),flatten(Segs,SegsF),
+  text_to_charniak(Text,LExpr),
+  charniak_to_segs(LExpr,SegsF),
+  charniak_segs_to_w2(SegsF,Info,PosW2s),!.
+  
   %writeq(charniak_pos=SegsF),
-  apply:partition(\=(w(_,_)), SegsF, Info, PosW2s),!.
+charniak_segs_to_w2(SegsF,Info,PosW2s):-
+    apply:partition(\=(w(_,_)), SegsF, Info, PosW2s),!.
 
 charniak_pos(Text,PosW2s):- charniak_pos(Text,PosW2s0,_Info,_LExpr),guess_pretty1(PosW2s0),!,PosW2s=PosW2s0.
 
@@ -120,51 +124,8 @@ is_pos(['DT',Head],w(DC,[dt])):- maplist(atom,[Head]),downcase_atom(Head,DC),!.
 is_pos([Pos,Head],w(Head,[DC])):- maplist(atom,[Pos,Head]),downcase_atom(Pos,DC),!.
 is_pos([Word],Out):-!,is_pos(Word,Out).
 
-term_depth(C,TD):-notrace(term_depth0(C,TD)).
-term_depth0(C,1):-var(C),!.
-term_depth0(C,0):-not(compound(C)),!.
-term_depth0(C,TDO):-is_list(C),!,findall(D,(member(T,C),term_depth0(T,D)),DL), max_list([0|DL],TD),TDO is TD+1,!.
-term_depth0(C,TDO):-C=..[_|LIST],findall(D,(member(T,LIST),term_depth0(T,D)),DL), max_list([0|DL],TD),TDO is TD+1,!.
 
-
-is_sane(C):-must((term_depth(C,D),D<100)).
-is_sane_nv(C):-must((nonvar(C),term_depth(C,D),D<100)).
-
-:-meta_predicate(deepen_local_0(+,0)).
-deepen_local_0(Local, Call):-
-  ( \+ retract(Local) -> setup_call_cleanup(true, one_must(Call,locally(Local,Call)), ignore(retract(Local)))  ; 
-     (setup_call_cleanup(true, 
-       one_must(Call,locally(Local,Call)), 
-        asserta(Local)))).
-
-
-:- share_mp(deepen_pos/1).
-:- export(deepen_pos/1).
-:-meta_predicate(deepen_pos(0)).
-% temp hack
-deepen_pos(Call):- !, call(Call).
-deepen_pos(Call):- deepen_pos_0(Call) *->  true ; locally(t_l:useAltPOS,deepen_pos_0(Call)).
-
-:- share_mp(deepen_pos_0/1).
-:-meta_predicate(deepen_pos_0(0)).
-deepen_pos_0(Call):- deepen_local_0(t_l:usePlTalk,Call).
-
-/*
-deepen_pos_0(Call):-
-  ( \+ retract(t_l:usePlTalk) -> setup_call_cleanup(true, one_must(Call,locally(t_l:usePlTalk,Call)), ignore(retract(t_l:usePlTalk)))  ; 
-     (setup_call_cleanup(true, 
-       one_must(Call,locally(t_l:usePlTalk,Call)), 
-        asserta(t_l:usePlTalk)))).
-*/
-
-
-call_until_failed([H,(!)|T]):- !,call_until_failed([(H,!)|T]).
-call_until_failed([H|T]):- !,
-  call(H)*->(call_until_failed(T),!);fmt(failed(H)).
-call_until_failed([]).
-
-
-charniak_lparse(Text,LExpr):-
+text_to_charniak(Text,LExpr):-
   charniak_parse(Text, String),
   lxpr_to_list(String, LExpr).
 

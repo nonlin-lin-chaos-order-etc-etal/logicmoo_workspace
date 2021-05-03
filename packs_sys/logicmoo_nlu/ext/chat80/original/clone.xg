@@ -56,9 +56,9 @@ variable_q(X,Agmt,compl,VCase) ...
    context_pron(Prep,Noun),
    {is_trace82(Set,Mask), is_verb_case(VCase)}.
 variable_q(X,_,compl,VCase) ...
-      pred(adj,value(Adj,wh(X)),Mask) --->
+      pred(adj,value80(Adj,wh(X)),Mask) --->
    theText1(how),
-   adj(quant,Adj),
+   adj(quantV,Adj),
    {is_empty_bits(Mask), is_verb_case(VCase)}.
 
 whq(X,Agmt,NP,undef) --->
@@ -195,12 +195,12 @@ determiner(Det,Number,Def) ---> det(Det,Number,Def).
 determiner(Det,Number,Def) ---> quant_phrase(Det,Number,Def).
 
 % Measure is X
-quant_phrase(quant(Op,Quant),Number,Def) --->
-   quant(Op,Def),
+quant_phrase(quantV(Op,Quant),Number,Def) --->
+   quantV(Op,Def),
    number(Quant,Number).
 
 % Measure is more / less than
-quant(Op,indef) --->
+quantV(Op,indef) --->
    neg_adv(Op0,Op),
    comp_adv(Op0),
    theText1(than).
@@ -210,8 +210,8 @@ quant_opt(Op,indef) --->
    theText1(at),
    sup_adv(Adv),
    {sup_op(Adv,Op)}.
-quant(the,def) ---> [the].
-quant(same,indef) ---> noText.
+quantV(the,def) ---> [the].
+quantV(same,indef) ---> noText.
 
 neg_adv(Adv,not+Adv) ---> [not].
 neg_adv(Adv,Adv) ---> noText.
@@ -265,7 +265,7 @@ pre_adj(Adj) --->  sup_phrase(Adj).
 sup_phrase(sup(most,Adj)) ---> sup_adj(Adj).
 sup_phrase(sup(Op,Adj)) --->
    sup_adv(Adv),
-   adj(quant,Adj).
+   adj(quantV,Adj).
 
 comp_phrase(comp(Comp,Adj,Arg),Mask) --->
    comp(Comp,Adj),
@@ -275,7 +275,7 @@ comp_phrase(comp(Comp,Adj,Arg),Mask) --->
 % Measure is Numerically More
 comp(Comp,Adj) --->
    comp_adv(Comp),
-   adj(quant,Adj),
+   adj(quantV,Adj),
    theText1(than).
 
 % Measure is NON-Numerically More
@@ -286,7 +286,7 @@ comp(more,Adj) --->
 % Measure is same = "as big as"  ?
 comp(same,Adj) --->
    theText1(as),
-   adj(quant,Adj),
+   adj(quantV,Adj),
    theText1(as).
 
 /* Prepositional Phrase */

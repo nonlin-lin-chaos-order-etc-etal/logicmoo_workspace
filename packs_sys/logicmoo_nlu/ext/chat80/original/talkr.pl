@@ -21,16 +21,16 @@
 
 /* Simplifying and executing the logical form of a NL query. */
 
-:-public write_tree/1, answer/1.
+:-public write_tree/1, answer80/1.
 :-op(500,xfy,--).
 
 write_tree(T):-
-   numbervars(T,0,_),
+   numbervars80(T,0,_),
    wt(T,0),
    fail.
 write_tree(_).
 
-wt(T,_L) :- as_is_old(T),write(T),!.
+wt(T,_L) :- as_is_old(T),fmt(T),!.
 wt((P:-Q),L) :- !, L1 is L+3,
    write(P), tab(1), write((:-)), nl,
    tab(L1), wt(Q,L1).
@@ -40,12 +40,12 @@ wt((P,Q),L) :- !, L1 is L-2,
 wt({P},L) :- complex(P), !, L1 is L+2,
    put("{"), tab(1), wt(P,L1), tab(1), put("}").
 wt(E,L) :- decomp(E,H,P), !, L1 is L+2,
-   header(H), nl,
+   header80(H), nl,
    tab(L1), wt(P,L1).
 wt(E,_) :- write(E).
 
-header([]).
-header([X|H]) :- write(X), tab(1), header(H).
+header80([]).
+header80([X|H]) :- reply(X), tab(1), header80(H).
 
 decomp(setof(X,P,S),[S,=,setof,X],P).
 decomp(\+(P),[\+],P) :- complex(P).
@@ -64,12 +64,17 @@ complex(\+P) :- complex(P).
 
 % Query execution.
 
-respond([]) :- write('Nothing satisfies your question.'), nl.
+respond(true) :- reply('Yes.').
+respond(false) :- reply('No.').
+respond([]) :- reply('Nothing satisfies your question.'), nl.
 respond([A|L]) :- reply(A), replies(L).
 
-answer((answer([]):-E)) :- !, holds(E,B), yesno(B).
-answer((answer([X]):-E)) :- !, seto(X,E,S), respond(S).
-answer((answer(X):-E)) :- seto(X,E,S), respond(S).
+answer80(S1):- answer802(S1,S),respond(S).
+
+answer802((answer80([]):-E),[B]) :- !, holds_truthvalue(E,B).
+answer802((answer80([X]):-E),S) :- !, seto(X,E,S).
+answer802((answer80(X):-E),S) :- seto(X,E,S).
+
 
 seto(X,E,S) :-
 %	portray_clause(({X} :- E)),
@@ -80,20 +85,19 @@ seto(X,E,S) :-
 	;   S = []
 	).
 
-holds(E,True) :-
+
+
+holds_truthvalue(E,True) :-
 	phrase(satisfy80(E, G), _),
 	(   pprint_ecp_cmt(yellow,G),
       call(G)
 	->  True = true
 	;   True = false
 	).
-
-yesno(true) :- write('Yes.').
-yesno(false) :- write('No.').
-
-replies([]) :- write('.').
-replies([A]) :- write(' and '), reply(A), write('.').
-replies([A|X]) :- write(', '), reply(A), replies(X).
+	
+replies([]) :- reply('.').
+replies([A]) :- reply(' and '), reply(A), reply('.').
+replies([A|X]) :- reply(', '), reply(A), replies(X).
 
 reply(N--U) :- !, write(N), write(' '), write(U).
 reply(X) :- write(X).

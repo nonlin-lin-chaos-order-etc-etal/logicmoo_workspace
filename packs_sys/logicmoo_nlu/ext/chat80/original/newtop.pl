@@ -25,17 +25,48 @@
 :- ensure_loaded('/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_tokenize').
 
 
+words_to_w2(U,W2):- words_to_w22(U,W2),!.
+
+words_to_w22(U,W2):-var(U),must(W2=U).
+words_to_w22([],W2):- !, must(W2=[]).
+words_to_w22([W|WL],[W2|W2L]):- !, w_to_w2(W,W2),words_to_w2(WL,W2L).
+words_to_w22(U,W2):- convert_to_atoms_list(U,List),!,words_to_w2(List,W2).
+%words_to_w2(U,W2):- compound(U),must(W2=U).
+
+
+:-thread_local t_l:old_text/0.
+
+t_l:old_text.
+% TODO dont use open marker use []
+use_open_marker.
+
+
+w_to_w2(W,W):-t_l:old_text,!.
+w_to_w2(Var,Var):-var(Var),!.
+w_to_w2(w(Txt,Props),w(Txt,Props)):-!.
+% w_to_w2([Prop,Txt],w(Txt,[Prop])):-!.
+w_to_w2(w(X),w(X,[])):-!.
+w_to_w2(S,w(A,open)):-use_open_marker,atomic(S),atom_string(A,S),!.
+w_to_w2(S,w(S,open)):-use_open_marker,!.
+w_to_w2(S,w(A,[])):-atomic(S),atom_string(A,S),!.
+w_to_w2(U,w(U,[])):-compound(U),!.
+w_to_w2(X,w(X,[])):-!.
+
+w2_to_w(w(Txt,_),Txt):-!.
+w2_to_w(Txt,Txt).
+
 /*
 theTextC(W1,_CYCPOS,Y=W1) ---> {t_l:old_text,!},[W1],{W1=Y}.
 %theTextC(W1,_CYCPOS,Y=W1) ---> {!},[w(W1,_)],{W1=Y}.
 theTextC(A,_,F=A,B,C,D,E) :- !,terminal(w(A, _), B, C, D, E),A=F,is_sane_nv(A).
 theTextC(W1,_CYCPOS,WHY) ---> {t_l:old_text,!},[W1],WHY.
-% theTextC(W1,CYCPOS,WHY) ---> {trace_or_throw(memoize_pos_to_lex80(WHY,CYCPOS,W2,W1))},[W2],{memoize_pos_to_lex80(WHY,CYCPOS,W2,W1)}.
+% theTextC(W1,CYCPOS,WHY) ---> {trace_or_throw(memoize_pos_to_db(WHY,CYCPOS,W2,W1))},[W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
 */
+
 
 % Chat-80 : A small subset of English for database querying.
 
-:-public hi80/0, hi80/1, quote/1.
+:-public hi80/0, hi80/1, quote80/1.
 
 :- op(400,xfy,&).
 :- op(200,xfx,--).
@@ -72,7 +103,7 @@ ed( [ is, the, united_kingdom, in, europe, ? ] ,mini).
 /* ----------------------------------------------------------------------
 	Standard question set
 	This is the standard chat question set, originally put together
-	by David and Fernando and use in their papers. Quintus uses this
+	by David and Fernando and use in their papers. Quintus uses80 this
 	set as a standard for performance comparisons.
    ---------------------------------------------------------------------- */
 
@@ -345,14 +376,14 @@ show_format( '~t~w~10+ |~t~w~12+~t~w~10+~t~w~10+~t~w~10+~t~w~10+' ).
 
 
 
-% Version of answer/1 from TALKR which returns answer
-answer((answer([]):-E),[B]) :- !, holds(E,B).
-answer((answer([X]):-E),S) :- !, seto(X,E,S).
-answer((answer(X):-E),S) :- seto(X,E,S).
+% Version of answer80/1 from TALKR which returns answer80
+answer80((answer80([]):-E),[B]) :- !, holds_truthvalue(E,B).
+answer80((answer80([X]):-E),S) :- !, seto(X,E,S).
+answer80((answer80(X):-E),S) :- seto(X,E,S).
 
 check_answer(_Sentence,A,B,true) :- close_answer(A,B),!.
-check_answer(Sentence,A,B,'wrong answer'):-
-  pprint_ecp_cmt(red,check_answer(Sentence,A,B,'wrong answer')),
+check_answer(Sentence,A,B,'wrong answer80'):-
+  pprint_ecp_cmt(red,check_answer(Sentence,A,B,'wrong answer80')),
   tracing ~= on,
   once(process(debug,Sentence)).
 
@@ -375,6 +406,7 @@ runtime_entry(start) :-
    format(user,'~nChat Demonstration Program~n~n',[]),
    hi80.
 
+:-share_mp(hi80/0).
 hi80 :-
 %   tracing ~= on,
 %   tell('hi_out.txt'),
@@ -400,64 +432,44 @@ hi2 :-
 %   ,told.
   .
 
-hi80(File) :-
+:-share_mp(hi80/1).
+hi80(File):-
    repeat,
-      ask(File,P),
+      ask80(File,P),
       control80(P), !,
-      end(File).
+      end80(File).
 
-ask(user,P) :- !,
+ask80(user,P) :- !,
    write('Question: '),
    ttyflush,
    read_in(P).
    %originally: read_in(P).
-ask(File,P) :-
+ask80(File,P) :-
    seeing(Old),
    see(File),
    read_in(P),
    nl,
    % pprint_ecp_cmt(yellow,read_in(P)),
-   doing(P,0),
+   doing80(P,0),
    nl,
    see(Old).
 
-   /*
-% added by John Pool
-read_in2( L) :-
-  readatoms( A),
-  atoms_to_lower( A, L).
 
-atoms_to_lower( [A|As], [L|Ls]) :-
-  !,
-  atom_string( A, S),
-  Low is lowcase( S),
-  atom_string( L0, Low),
-  getnum( L0, L),
-  atoms_to_lower( As, Ls).
-atoms_to_lower( [], []).
+print_test(X):- doing80(X ,0).
 
-getnum( A, nb(A)) :-
-  integer( A),
-  !.
-getnum( A, A).
-%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
+doing80([],_) :- !,nl.
+doing80([X|L],N0) :-
+   out80(X),
+   advance80(X,N0,N),
+   doing80(L,N),!.
 
-print_test(X):- doing(X ,0).
+out80(nb(X)) :- !,
+   reply(X).
+out80(A) :-
+   reply(A).
 
-doing([],_) :- !.
-doing([X|L],N0) :-
-   out1(X),
-   advance(X,N0,N),
-   doing(L,N).
-
-out1(nb(X)) :- !,
-   write(X).
-out1(A) :-
-   write(A).
-
-advance(X,N0,N) :-
-   uses(X,K),
+advance80(X,N0,N) :-
+   uses80(X,K),
    M is N0+K,
  ( M>72, !,
      nl,
@@ -465,22 +477,24 @@ advance(X,N0,N) :-
      N is M+1,
       put(" ")).
 
-uses(nb(X),N) :- !,
-   chars(X,N).
-uses(X,N) :-
-   chars(X,N).
+uses80(nb(X),N) :- !,
+   chars80(X,N).
+uses80(X,N) :-
+   chars80(X,N).
 
-chars(X,N) :- atomic(X), !,
+chars80(X,N) :- atomic(X), !,
    name(X,L),
    length(L,N).
-chars(_,2).
+chars80(_,2).
 
-end(user) :- !.
-end(F) :- seeing(F) -> seen ; true. % close(F).
+end80(user) :- !.
+end80(F) :- 
+ seeing(F) -> seen ; true. % close(F).
 
 chat80_test(L):- ignore(control80(L)).
 test_chat80(L):- ignore(control80(L)).
 
+:-share_mp(control80/1).
 control80(L):- check_words(L,S)-> L\==S, !, control80(S).
 control80([bye,'.']) :- !,
    nl, nl,
@@ -507,6 +521,22 @@ control80(U) :-
    process(normal, U),
    fail.
 
+:- share_mp(trace_chat80/1).
+trace_chat80(U):-
+ locally(t_l:tracing80,
+           locally(t_l:chat80_interactive,
+            locally_hide(t_l:useOnlyExternalDBs,
+             locally_hide(thglobal:use_cyc_database,
+              ignore(control80(U)))))).
+
+:- share_mp(test_chat80/1).
+test_chat80(U):-
+ locally(t_l:tracing80_nop,
+           locally(t_l:chat80_interactive_nop,
+            locally_hide(t_l:useOnlyExternalDBs,
+             locally_hide(thglobal:use_cyc_database,
+              ignore(control80(U)))))).
+
 process5(How,Sentence,CorrectAnswer,Status,Times) :-
 	process4(How,Sentence,Answer,Times),
 	!,
@@ -520,7 +550,7 @@ process(normal,U) :-
    write('I don''t understand! '+U), nl,fail.
 process(_,_).
 
-eng_to_logic(U,S):- sentence80(E,U,[],[],[]), parsed_to_logic(E,S).
+eng_to_logic(U,S):- sentence80(E,U,[],[],[]), sent_to_prelogic(E,S).
 
 process4(How,Sentence,Answer,Times) :-
    Times = [ParseTime,SemTime,TimePlan,TimeAns,TotalTime],
@@ -528,16 +558,18 @@ process4(How,Sentence,Answer,Times) :-
    runtime(StartParse),  
  ((sentence80(E,U,[],[],[]),
    notrace((runtime(StopParse),
+
+
     ParseTime is StopParse - StartParse,
     report(How,E,'Parse',ParseTime,tree),
     % !, %%%%%%%%%%%%%%%% added by JPO but breaks "london"
     runtime(StartSem))),
    must_or_rtrace(i_sentence(E,E1)),
    report(How,E1,'i_sentence',ParseTime,cmt),
-   clausify(E1,E2),
-   report(How,E2,'clausify',ParseTime,cmt),
-   simplify(E2,E3),
-   simplify(E3,S))),
+   clausify80(E1,E2),
+   report(How,E2,'clausify80',ParseTime,cmt),
+   simplify80(E2,E3),
+   simplify80(E3,S))),
    runtime(StopSem),
    SemTime is StopSem - StartSem,
    report(How,S,'Semantics',SemTime,expr),
@@ -549,13 +581,14 @@ process4(How,Sentence,Answer,Times) :-
    TimePlan is StopPlan - StartPlan,
    (S\=@=S1->(S1R=S1,report(How,S1R,'Planning',TimePlan,expr));(_S1R=same)),
    runtime(StartAns),
-   answer(S1,Answer), !,
+   results80(S1,Answer), !,
    runtime(StopAns),
    TimeAns is StopAns - StartAns,
    TotalTime is ParseTime+SemTime+TimePlan+TimeAns,
    report(How,U,'Question',TotalTime,print_test),
    ignore((How\==test, report(always,Answer,'Reply',TimeAns,respond))))),!.
    
+results80(S1,Results):- nonvar(S1),findall(Res,deepen_pos((answer802(S1,Res),Res\=[])),Results).
 
 report(none,_,_,_,_):- !.
 report(test,_,_,_,_):- !.
@@ -592,30 +625,30 @@ report_item0(P,Item) :-
 runtime(MSec) :-
    statistics(runtime,[MSec,_]).
 
-quote(A&R) :-
+quote80(A&R) :-
    atom(A), !,
    quote_amp(R).
-quote(_-_).
-quote(_--_).
-quote(_+_).
-quote(verb(_,_,_,_,_)).
-quote(wh(_)).
-quote(name(_)).
-quote(nameOf(_)).
-quote(prep(_)).
-quote(det(_)).
-quote(quant(_,_)).
-quote(int_det(_)).
+quote80(_-_).
+quote80(_--_).
+quote80(_+_).
+quote80(verb(_,_,_,_,_)).
+quote80(wh(_)).
+quote80(name(_)).
+quote80(nameOf(_)).
+quote80(prep(_)).
+quote80(det(_)).
+quote80(quantV(_,_)).
+quote80(int_det(_)).
 
-quote_amp('$VAR'(_)) :- !.
+quote_amp(F):- compound(F), compound_name_arity(F,'$VAR',1),!.
 quote_amp(R) :-
-   quote(R).
+   quote80(R).
 
-parsed_to_logic(S0,S) :-
+sent_to_prelogic(S0,S) :-
    i_sentence(S0,S1),
-   clausify(S1,S2),
-   simplify(S2,S3),
-   simplify(S3,S).
+   clausify80(S1,S2),
+   simplify80(S2,S3),
+   simplify80(S3,S).
 
 reduce1(P,Q):- \+ compound(P), Q=P.
 reduce1((P,Q),Q):- P ==Q,!.
@@ -627,33 +660,35 @@ reduce1(P,Q):- compound_name_arguments(P,F,A),
    maplist(reduce1,A,AA), 
    compound_name_arguments(Q,F,AA).
 
-simplify(C,(P:-R)) :- !,
+simplify80(C,C0):-var(C),dmsg(var_simplify(C,C0)),!,fail.
+simplify80(C,(P:-R)) :- !,
    unequalise(C,(P:-Q)),
-   simplify(Q,R,true).
-
-simplify(setof(X,P0,S),R,R0) :- !,
-   simplify(P0,P,true),
+   simplify80(Q,R,true).
+simplify80(C,C0,C1):-var(C),dmsg(var_simplify(C,C0,C1)),fail.
+simplify80(C,C,R):-var(C),!,R=C.
+simplify80(setof(X,P0,S),R,R0) :- !,
+   simplify80(P0,P,true),
    revand(R0,setof(X,P,S),R).
 
-simplify(P,R,R0):-
+simplify80(P,R,R0):-
   reduce1(P,Q)-> P\==Q, !,
-  simplify(Q,R,R0).
+  simplify80(Q,R,R0).
 
-simplify((P,Q),R,R0) :-
-   simplify(Q,R1,R0),
-   simplify(P,R,R1).
-simplify(true,R,R) :- !.
-simplify(X^P0,R,R0) :- !,
-   simplify(P0,P,true),
+simplify80((P,Q),R,R0) :-
+   simplify80(Q,R1,R0),
+   simplify80(P,R,R1).
+simplify80(true,R,R) :- !.
+simplify80(X^P0,R,R0) :- !,
+   simplify80(P0,P,true),
    revand(R0,X^P,R).
-simplify(numberof(X,P0,Y),R,R0) :- !,
-   simplify(P0,P,true),
+simplify80(numberof(X,P0,Y),R,R0) :- !,
+   simplify80(P0,P,true),
    revand(R0,numberof(X,P,Y),R).
-simplify(\+P0,R,R0) :- !,
-   simplify(P0,P1,true),
+simplify80(\+P0,R,R0) :- !,
+   simplify80(P0,P1,true),
    simplify_not(P1,P),
    revand(R0,P,R).
-simplify(P,R,R0) :-
+simplify80(P,R,R0) :-
    revand(R0,P,R).
 
 simplify_not(P,\+P):- var(P),!.
@@ -665,12 +700,15 @@ revand(P,true,P) :- !.
 revand(P,Q,(Q,P)).
 
 unequalise(C0,C) :-
-   numbervars(C0,1,N),
+   numbervars80(C0,1,N),
    functor(V,v,N),
    functor(M,v,N),
-   inv_map(C0,V,M,C).
+   inv_map_enter(C0,V,M,C).
 
-inv_map(A,_,_,A) :- \+ compound(A), !.
+inv_map_enter(C0,V,M,C):- catch(inv_map(C0,V,M,C),too_deep(Why),(dmsg(Why),dtrace(inv_map(C0,V,M,C)))).
+
+inv_map(Var,V,M,T) :- stack_depth(X), X> 400, throw(too_deep(inv_map(Var,V,M,T))).
+inv_map(Var,V,M,T) :- stack_check(500), var(Var),dmsg(var_inv_map(Var,V,M,T)),!,Var==T.
 inv_map('$VAR'(I),V,_,X) :- !,
    arg(I,V,X).
 inv_map(A=B,V,M,T) :- !,
@@ -678,6 +716,7 @@ inv_map(A=B,V,M,T) :- !,
 inv_map(X^P0,V,M,P) :- !,
    inv_map(P0,V,M,P1),
    exquant(X,V,M,P1,P).
+inv_map(A,_,_,A) :- atomic(A), !.
 inv_map(T,V,M,R) :-
    functor(T,F,K),
    functor(R,F,K),

@@ -168,13 +168,15 @@ load_web_package_dirs:-
 %:- system:use_module(library(swi_compatibility)). %% autoloading swi_ide:auto_call/1 from /usr/lib/swipl/xpce/prolog/lib/swi_compatibility
 :- endif.
 
-sandbox:safe_primitive(dumpst:dumpST()).
+sandbox:safe_primitive(dumpst:dumpST).
 sandbox:safe_meta_predicate(system:notrace/1).
 
 :- if(\+ prolog_load_context(reloading,true)).
 :- use_module(library(sandbox)).
 :- use_module(library(pengines_sandbox)).
 :- endif.
+
+:- use_module(library(logicmoo_web_long_message)).
 
 inoxf(Goal):- ignore(notrace(on_x_fail(Goal))).
 
@@ -196,10 +198,9 @@ webui_start_swish_and_clio:-
    webui_load_swish_and_clio,
    broadcast:broadcast(http(pre_server_start)),
    cp_server:cp_server([]),
+   set_long_message_server('https://logicmoo.org'),
    broadcast:broadcast(http(post_server_start)),
    swish:start_swish_stat_collector]),!.
-
-
 
 :- initialization(webui_start_swish_and_clio,restore).
 :- initialization(webui_start_swish_and_clio,program).

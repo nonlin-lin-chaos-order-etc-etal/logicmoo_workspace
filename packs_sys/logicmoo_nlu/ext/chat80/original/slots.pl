@@ -28,9 +28,9 @@
 :- dynamic(standard/4).
 :- dynamic(ditrans_db/13).
 
-i_sentence(q(S),question([],P)) :-
+i_sentence(q(S),question80([],P)) :-
    i_s(S,P,[],0).
-i_sentence(whq(X,S),question([X],P)) :-
+i_sentence(whq(X,S),question80([X],P)) :-
    i_s(S,P,[],0).
 i_sentence(imp(U,Ve,s(_,Verb,VArgs,VMods)),imp(U,Ve,V,Args)) :-
    i_verb(Verb,V,_,active,posP,Slots0,[],transparent),
@@ -38,14 +38,14 @@ i_sentence(imp(U,Ve,s(_,Verb,VArgs,VMods)),imp(U,Ve,V,Args)) :-
    append(Up,VMods,Mods),
    i_verb_mods(Mods,_,[],Slots,Args0,Up,+0).
 
-i_np(there,Y,quant(voidQ,_X,'`' true,'`' true,[],Y),[],_,_,XA,XA).
+i_np(there,Y,quantV(voidQ,_X,'`' true,'`' true,[],Y),[],_,_,XA,XA).
 i_np(NP,Y,Q,Up,Id0,Index,XA0,XA) :-
    i_np_head(NP,Y,Q,Det,Det0,X,Pred,QMods,Slots0,Id0),
    held_arg(XA0,XA,Slots0,Slots,Id0,Id),
    i_np_rest(NP,Det,Det0,X,Pred,QMods,Slots,Up,Id,Index).
 
 i_np_head(np(_,Kernel,_),Y,
-      quant(Det,T,Head,Pred0,QMods,Y),
+      quantV(Det,T,Head,Pred0,QMods,Y),
       Det,Det0,X,Pred,QMods,Slots,_Id) :-
    i_np_head0(Kernel,X,T,Det0,Head,Pred0,Pred,Slots),
    Type-_=Y, Type-_=T.
@@ -65,7 +65,7 @@ i_np_head0(np_head(int_det(V),Adjs,Noun),
       Type-X,Type-X,Det,'`' true,Pred,Pred,
       [slot(prep(of),Type,X,_,comparator_LF)]) :-
    comparator_LF(Noun,Type,V,Adjs,Det).
-i_np_head0(np_head(quant(Op0,N),Adjs,Noun),
+i_np_head0(np_head(quantV(Op0,N),Adjs,Noun),
       Type-X,Type-X,voidQ,'`' P,Pred,Pred,[]) :-
    measure_LF(Noun,Type,Adjs,Units),
    conversion(N,Op0,Type,V,Op),
@@ -86,7 +86,7 @@ i_np_mods(Mods,_,[Slot|Slots],'`' true,QMods,Mods,Id,_) :-
    i_voids([Slot|Slots],QMods,Id).
 
 i_voids([],[],_).
-i_voids([Slot|Slots],[quant(voidQ,X,'`' true,'`' true,[],_)|QMods],Id) :-
+i_voids([Slot|Slots],[quantV(voidQ,X,'`' true,'`' true,[],_)|QMods],Id) :-
    nominal_slot(Slot,X,-Id), !,
    i_voids(Slots,QMods,+Id).
 i_voids([_|Slots],QMods,Id) :-
@@ -150,13 +150,13 @@ i_adj(sup(Op0,adj(Adj)),Type-X,Type-V,_,
    i_sup_op(Op,F),
    attribute_LF(Adj,Type,X,_,Y,P).
 i_adj(adj(Adj),TypeX-X,T,T,_,
-      Head,Head,quant(voidQ,TypeX-Y,'`' P,'`' Q&Pred,[],_),Pred) :-
+      Head,Head,quantV(voidQ,TypeX-Y,'`' P,'`' Q&Pred,[],_),Pred) :-
    attribute_LF(Adj,TypeX,X,_,Y,P),
    standard(Adj,TypeX,Y,Q).
 
 i_s(s(Subj,Verb,VArgs,VMods),Pred,Up,Id) :-
    i_verb(Verb,P,Tense,Voice,Neg,Slots0,XA0,Meta),
-   i_subj(Voice,Subj,Slots0,Slots1,QSubj,SUp,-(-Id)),
+   i_subj(Voice,Subj,Slots0,Slots1,QSubj,SUp,'-'('-'(Id))),
    append(SUp,VArgs,TArgs),
    i_verb_args(TArgs,XA0,XA,Slots1,Slots,Args0,Args,Up0,+(-Id)),
    append(Up0,VMods,Mods),
@@ -170,15 +170,15 @@ i_verb(verb(Root,Voice,Tense,_Aspect,Neg),
 
 reshape_pred(transparent,S,N,P,A,pred(S,N,P,A)).
 reshape_pred(have,Subj,Neg,Verb0,
-      [quant(Det,X,Head0,Pred,QArgs,Y)|MRest],
-      pred(Subj,Neg,Verb,[quant(Det,X,Head,Pred,QArgs,Y)|MRest])) :-
+      [quantV(Det,X,Head0,Pred,QArgs,Y)|MRest],
+      pred(Subj,Neg,Verb,[quantV(Det,X,Head,Pred,QArgs,Y)|MRest])) :-
    have_pred(Head0,Verb0,Head,Verb).
 
 have_pred('`' Head,Verb,'`' true,(Head,Verb)).
 have_pred(Head,Verb,Head,Verb) :-
    meta_head(Head).
 
-meta_head(apply(_,_)).
+meta_head(apply80(_,_)).
 meta_head(aggr(_,_,_,_,_)).
 
 i_neg(posP,identityQ).
@@ -234,7 +234,7 @@ i_pred(conj(Conj,Left,Right),X,
    i_pred(Right,X,RQMods,[],Up,+Id).
 i_pred(AP,T,['`' Head&Pred|As],As,[],_) :-
    i_adj(AP,T,_,_,Head,true,Pred,'`' true).
-i_pred(value(adj(Adj),wh(TypeY-Y)),Type-X,['`' H|As],As,[],_) :-
+i_pred(value80(adj(Adj),wh(TypeY-Y)),Type-X,['`' H|As],As,[],_) :-
    attribute_LF(Adj,Type,X,TypeY,Y,H).
 i_pred(comp(Op0,adj(Adj),NP),X,[P1 & P2 & '`' P3,Q|As],As,Up,Id) :-
    i_np(NP,Y,Q,Up,Id,unit,[],[]),
@@ -255,7 +255,7 @@ i_adjoin(Prep,X,Y,[],[],P) :-
 
 i_measure(Type-X,Adj,Type,X,'`' true) :-
    units(Adj,Type).
-i_measure(TypeX-X,Adj,TypeY,Y,quant(voidQ,TypeY-Y,'`' P,'`' true,[],_)) :-
+i_measure(TypeX-X,Adj,TypeY,Y,quantV(voidQ,TypeY-Y,'`' P,'`' true,[],_)) :-
    attribute_LF(Adj,TypeX,X,TypeY,Y,P).
 
 i_verb_mods(Mods,_,XA,Slots0,Args0,Up,Id) :-
@@ -299,8 +299,8 @@ noun_template(Noun,TypeV,V,aggr(F,V,[],'`' true,'`' true),
    aggr_noun(Noun,TypeV,TypeS,F).
 noun_template(Noun,Type,X,'`' P,Slots) :-
    thing_LF_access(Noun,Type,X,P,Slots,_).
-noun_template(Noun,TypeV,V,apply(F,P),
-      [slot(prep(Of),TypeX,X,_,apply)]) :-
+noun_template(Noun,TypeV,V,apply80(F,P),
+      [slot(prep(Of),TypeX,X,_,apply80)]) :-
    meta_noun_LF(Noun,Of,TypeV,V,TypeX,X,P,F).
 
 verb_template(have,Y=Z,
@@ -343,12 +343,12 @@ deepen_case(X,X).
 
 index_slot(index,I,I).
 index_slot(free,_,unit).
-index_slot(apply,_,apply).
+index_slot(apply80,_,apply80).
 index_slot(comparator_LF,_,comparator_LF).
 
 index_args(det(the(pl)),unit,I,set(I),index(I)) :- !.
 index_args(int_det(X),index(I),_,int_det(I,X),unit) :- !.
-index_args(generic,apply,_,lambda,unit) :-!.
+index_args(generic,apply80,_,lambda,unit) :-!.
 index_args(D,comparator_LF,_,identityQ,unit) :-
  ( indexable_arg(D); D=generic), !.
 index_args(D,unit,_,D,unit) :- !.

@@ -54,7 +54,7 @@
 
 %!  test_chat
 %
-%   Run default demo suite, showing timing  and   warn  if the answer is
+%   Run default demo suite, showing timing  and   warn  if the answer80 is
 %   incorrect.
 
 %!  rtest_chats(+Times)
@@ -90,8 +90,8 @@ chat_parse(Question, Tree) :-
 
 chat_semantics(Tree, Query) :-
     i_sentence(Tree,QT),
-    clausify(QT,UE),
-    simplify(UE,Query).
+    clausify80(QT,UE),
+    simplify80(UE,Query).
 
 %!  chat_optimize(+QueryIn, -Query)
 %
@@ -105,7 +105,7 @@ chat_optimize(QueryIn, Query) :-
 %   Find answers for the Query.
 
 chat_answer(Query, Answer) :-
-    answer(Query, Answer).
+    answer80(Query, Answer).
 
 %!  chat_print_tree(+Tree)
 %
@@ -117,7 +117,7 @@ chat_print_tree(Tree) :-
 %!  chat_example(?Nr, ?Sentence, ?Correct)
 %
 %   True when Nr is the (integer) Id of the tokenized Sentence and
-%   Correct is the correct answer.
+%   Correct is the correct answer80.
 
 chat_example(Nr, Sentence, Correct) :-
     ed(Nr, Sentence, Correct).

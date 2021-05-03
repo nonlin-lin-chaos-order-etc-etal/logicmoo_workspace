@@ -1989,7 +1989,7 @@ nd_costs(=<,99,51,51).
 nd_costs(>,99,51,51).
 nd_costs(>=,99,51,51).
 nd_costs(african,19,26).
-nd_costs(aggregate,103,3,100,51).
+nd_costs(aggregate80,103,3,100,51).
 nd_costs(american,19,26).
 nd_costs(measure_value,7,7,22,22,51).
 nd_costs(measure_unit,8,51,51).
@@ -2065,7 +2065,7 @@ nd_costs(rises,16,16,22).
 nd_costs(cp(south,of),40,22,22).
 nd_costs(cp(west,of),40,22,22).
 
-nd_costs(aggregate,103,3,100,51).
+nd_costs(aggregate80,103,3,100,51).
 nd_costs(flows,19,16,22,22).
 nd_costs(ratio,99,51,51,3).
 */

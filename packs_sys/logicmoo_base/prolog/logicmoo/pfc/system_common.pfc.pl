@@ -176,14 +176,15 @@ ttExpressionType(C)==> \+ completelyAssertedCollection(C).
 rtArgsVerbatum(onSpawn).
 
 onSpawn(When==>State)/nonvar(State) ==> ( When ==> onSpawn(State)).
-onSpawn(State)/mpred_literal(State) ==> {doSpawn(State)}.
+onSpawn(State)/mpred_literal(State) ==> {addSpawn(State)}.
 
 
 %:-ain(((ttModuleType(ModType),isa(Thing,ModType),isLoaded(Thing), \+ ttExpressionType(ModType) ==> isLoadedType(ModType)))).
 %==>(((onSpawn(Idea)==> ((isLoadedType(tSourceData),isRuntime) ==> {ain_expanded(Idea,())})))).
 
-onStart(Idea)/definitional(Idea) ==> Idea.
+onAlways(Idea)==>Idea.
 
+onStart(Idea)/definitional(Idea) ==> onAlways(Idea).
 ((onStart(Idea)/ ( \+ definitional(Idea))) ==> 
   (isRuntime ==> {get_startup_uu(UU),ain_expanded(Idea,UU)})).
 

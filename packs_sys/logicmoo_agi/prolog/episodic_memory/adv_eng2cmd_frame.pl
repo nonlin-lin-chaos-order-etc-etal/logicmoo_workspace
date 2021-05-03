@@ -149,7 +149,9 @@ eng2flogic_test([some, love, we, gave, to, sally]).
 eng2flogic_test([to, sally, we, gave, some, love]).
 
 
-run_end2cmd_tests:- make,
+baseKB:feature_test:-test_eng2flogic.
+
+test_eng2flogic:- 
   forall(eng2flogic_test(English), eng2flogic(English)).
 
 

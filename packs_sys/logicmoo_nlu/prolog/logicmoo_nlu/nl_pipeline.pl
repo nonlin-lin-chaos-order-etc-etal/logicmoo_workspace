@@ -261,24 +261,27 @@ get_pipeline_nvlist(TID, AllNameValues):-
           ((no_repeats(Name, tl:pipeline_value(TID, Name, _)),
                       findall(Value, tl:pipeline_value(TID, Name, Value), Values))), AllNameValues).
 
+get_pipeline_value_or(Name,Pairs,Value,Else):- (member(N=V,Pairs),Name=N)->Value=V;Value=Else.
 
 %% run_pipeline( +StartingNameValues:list, +WaitingOnNVs:list, -AllNameValues:list )
 %
 %  Run a pipeline to yeild NameValues list
 %
-run_pipeline(Text):- run_pipeline(Text, [aceKif(p)=_, lf=_, clause=_, qplan=_, results80=_], O), show_kvs(O).
+run_pipeline(Text):- run_pipeline(Text, [aceKif(p)=_, lf=_, clause=_, qplan=_, charniak_w2=_, results80=_], O), show_kvs(O).
 
-pipeline_input(X=Text, [X=Text]):-!.
-pipeline_input([X=Text|More], [X=Text|More]):-!.
-pipeline_input(Text, [input=Text]):-!.
+pipeline_begin(X=Value, [X=Value]):- nonvar(Value), !.
+pipeline_begin(NVPairs,Flat):- is_list(NVPairs), flatten(NVPairs,Flat),member(_=Value,Flat),nonvar(Value),!.
+pipeline_begin(Text, [input=Text]):-!.
 
 run_pipeline(StartingNameValues0, WaitingOnNVs0, RAllNameValuesOut):-
     setup_call_cleanup(
       notrace(
-        (pipeline_input(StartingNameValues0, StartingNameValues),
+        (pipeline_begin(StartingNameValues0, StartingNameValues),
          flatten([WaitingOnNVs0], WaitingOnNVs),
-         gensym(iPipeline, TID), clear_pipeline(TID), init_pipeline(TID),
-         set_pipeline_nvlist(TID, StartingNameValues),
+         get_pipeline_value_or(tid,StartingNameValues,TID, _),
+         (var(TID)->gensym(iPipeline, TID);true),
+         clear_pipeline(TID), init_pipeline(TID),
+         set_pipeline_nvlist(TID, [tid=TID|StartingNameValues]),
          % show_pipeline(TID),
          dmsg(start(run_pipeline_id(TID, WaitingOnNVs))))),
 
@@ -461,6 +464,9 @@ remove_punctuation(W2, W2).
 % TODO - grovel the API
 :-  load_parser_interface(parser_charniak).
 % ================================================================================================
+:- install_converter(parser_charniak:text_to_charniak(+text80, -charniak)).
+:- install_converter(parser_charniak:charniak_to_segs(+charniak,-charniak_segs)).
+:- install_converter(parser_charniak:charniak_segs_to_w2(+charniak_segs,-charniak_info,-charniak_w2)).
 
 
 % ================================================================================================

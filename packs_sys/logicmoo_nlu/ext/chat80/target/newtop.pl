@@ -8,18 +8,63 @@
 |		California 94025, USA;					  |
 |									  |
 |	Fernando Pereira,						  |
-|		Dept. of Archi80tecture, University of Edinburgh,		  |
+|               Dept. of Architecture, University of Edinburgh,           |
 |		20 Chambers St., Edinburgh EH1 1JZ, Scotland		  |
 |									  |
-|	Thi80s program may be used, copied, altered or included in other	  |
+|       This program may be used, copied, altered or included in other    |
 |	programs only for academic purposes and provided that the	  |
-|	authorshi80p of the initial program is aknowledged.		  |
+|       authorship of the initial program is aknowledged.                 |
 |	Use for commercial purposes without the previous written 	  |
 |	agreement of the authors is forbidden.				  |
 |_________________________________________________________________________|
 
 */
 
+
+words_to_w2(U,W2):- words_to_w22(U,W2),!.
+
+words_to_w22(U,W2):-var(U),must(W2=U).
+words_to_w22([],W2):- !, must(W2=[]).
+words_to_w22([W|WL],[W2|W2L]):- !, w_to_w2(W,W2),words_to_w2(WL,W2L).
+words_to_w22(U,W2):- convert_to_atoms_list(U,List),!,words_to_w2(List,W2).
+%words_to_w2(U,W2):- compound(U),must(W2=U).
+
+
+:-thread_local t_l:old_text/0.
+
+t_l:old_text.
+% TODO dont use open marker use []
+use_open_marker.
+
+
+w_to_w2(W,W):-t_l:old_text,!.
+w_to_w2(Var,Var):-var(Var),!.
+w_to_w2(w(Txt,Props),w(Txt,Props)):-!.
+% w_to_w2([Prop,Txt],w(Txt,[Prop])):-!.
+w_to_w2(w(X),w(X,[])):-!.
+w_to_w2(S,w(A,open)):-use_open_marker,atomic(S),atom_string(A,S),!.
+w_to_w2(S,w(S,open)):-use_open_marker,!.
+w_to_w2(S,w(A,[])):-atomic(S),atom_string(A,S),!.
+w_to_w2(U,w(U,[])):-compound(U),!.
+w_to_w2(X,w(X,[])):-!.
+
+w2_to_w(w(Txt,_),Txt):-!.
+w2_to_w(Txt,Txt).
+
+%theTextC(W1,CYCPOS,Y=W1)  ---> {t_l:old_text,!},[W1],{W1=Y}.
+theTextC(A,_,F=A,B,C,D,E) :- t_l:old_text, !,terminal(A, B, C, D, E),A=F, is_sane_nv(A).
+theTextC(A,_,F=A,B,C,D,E) :- !,terminal(w(A, _), B, C, D, E),A=F,is_sane_nv(A).
+%theTextC(W1,CYCPOS,Y=W1)  ---> {!},[w(W1,_)],{W1=Y}.
+%theTextC(W1,CYCPOS,WHY) ---> [W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
+theTextC(H,F,E,A,B,C,D) :- fail, is_sane(C), terminal(G, A, B, C, D),memoize_pos_to_db(E, F, G, H),is_sane_nv(H).
+
+/*
+theTextC(W1,_CYCPOS,Y=W1) ---> {t_l:old_text,!},[W1],{W1=Y}.
+%theTextC(W1,_CYCPOS,Y=W1) ---> {!},[w(W1,_)],{W1=Y}.
+theTextC(A,_,F=A,B,C,D,E) :- !,terminal(w(A, _), B, C, D, E),A=F,is_sane_nv(A).
+theTextC(W1,_CYCPOS,WHY) ---> {t_l:old_text,!},[W1],WHY.
+% theTextC(W1,CYCPOS,WHY) ---> {trace_or_throw(memoize_pos_to_db(WHY,CYCPOS,W2,W1))},[W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
+*/
 
 
 % Chat-80 : A small subset of English for database querying.
@@ -178,51 +223,6 @@ p2(Term):- p3(''), p4(Term), p3('').
 p1:-dfmt('~n% ---------------------------------------------------------------------------------------------------~n',[]).
 p4(Term):-dfmt('~n%                       ~q~n',[Term]).
 
-words_to_w2(U,W2):- words_to_w22(U,W2),!.
-
-words_to_w22(U,W2):-var(U),must(W2=U).
-words_to_w22([],W2):- !, must(W2=[]).
-words_to_w22([W|WL],[W2|W2L]):- !, w_to_w2(W,W2),words_to_w2(WL,W2L).
-words_to_w22(U,W2):- convert_to_atoms_list(U,List),!,words_to_w2(List,W2).
-%words_to_w2(U,W2):- compound(U),must(W2=U).
-
-
-:-thread_local t_l:old_text/0.
-
-t_l:old_text.
-% TODO dont use open marker use []
-use_open_marker.
-
-
-w_to_w2(W,W):-t_l:old_text,!.
-w_to_w2(Var,Var):-var(Var),!.
-w_to_w2(w(Txt,Props),w(Txt,Props)):-!.
-% w_to_w2([Prop,Txt],w(Txt,[Prop])):-!.
-w_to_w2(w(X),w(X,[])):-!.
-w_to_w2(S,w(A,open)):-use_open_marker,atomic(S),atom_string(A,S),!.
-w_to_w2(S,w(S,open)):-use_open_marker,!.
-w_to_w2(S,w(A,[])):-atomic(S),atom_string(A,S),!.
-w_to_w2(U,w(U,[])):-compound(U),!.
-w_to_w2(X,w(X,[])):-!.
-
-w2_to_w(w(Txt,_),Txt):-!.
-w2_to_w(Txt,Txt).
-
-%theTextC(W1,CYCPOS,Y=W1)  ---> {t_l:old_text,!},[W1],{W1=Y}.
-theTextC(A,_,F=A,B,C,D,E) :- t_l:old_text, !,terminal(A, B, C, D, E),A=F, is_sane_nv(A).
-theTextC(A,_,F=A,B,C,D,E) :- !,terminal(w(A, _), B, C, D, E),A=F,is_sane_nv(A).
-%theTextC(W1,CYCPOS,Y=W1)  ---> {!},[w(W1,_)],{W1=Y}.
-%theTextC(W1,CYCPOS,WHY) ---> [W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
-theTextC(H,F,E,A,B,C,D) :- fail, is_sane(C), terminal(G, A, B, C, D),memoize_pos_to_db(E, F, G, H),is_sane_nv(H).
-
-/*
-theTextC(W1,_CYCPOS,Y=W1) ---> {t_l:old_text,!},[W1],{W1=Y}.
-%theTextC(W1,_CYCPOS,Y=W1) ---> {!},[w(W1,_)],{W1=Y}.
-theTextC(A,_,F=A,B,C,D,E) :- !,terminal(w(A, _), B, C, D, E),A=F,is_sane_nv(A).
-theTextC(W1,_CYCPOS,WHY) ---> {t_l:old_text,!},[W1],WHY.
-% theTextC(W1,CYCPOS,WHY) ---> {trace_or_throw(memoize_pos_to_db(WHY,CYCPOS,W2,W1))},[W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
-*/
-
 term_depth(C,TD):-notrace(term_depth0(C,TD)).
 term_depth0(C,1):-var(C),!.
 term_depth0(C,0):-not(compound(C)),!.
@@ -363,7 +363,7 @@ quote80(det(_)).
 quote80(quantV(_,_)).
 quote80(int_det(_)).
 
-quote_amp(F):- compound(F), functor(F,'$VAR',1),!.
+quote_amp(F):- compound(F), compound_name_arity(F,'$VAR',1),!.
 quote_amp(R) :-
    quote80(R).
 
@@ -405,6 +405,7 @@ simplify80(\+P0,R,R0) :- !,
 simplify80(P,R,R0) :-
    revand(R0,P,R).
 
+simplify_not(P,\+P):- var(P),!.
 simplify_not(\+P,P) :- !.
 simplify_not(P,\+P).
 
@@ -448,7 +449,8 @@ drop_eq('$VAR'(I),'$VAR'(J),V,M,true) :- !,
       irev(I,J,K,L), 
       arg(K,M,L),
       arg(K,V,X),
-      arg(L,V,X);
+      arg(L,V,X)
+      ;
    true).
 drop_eq('$VAR'(I),T,V,M,true) :- !,
    arg(I,V,T),

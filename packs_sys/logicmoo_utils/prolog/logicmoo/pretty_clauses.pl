@@ -111,8 +111,14 @@ clause_to_string_et(T,S):-
 
 clause_to_string(T,S):-  
  get_print_opts(T,PrintOpts),
+ print_et_to_string(T,S0,PrintOpts),!,
+ notrace(trim_stop(S0,S)),!.
+/*
+clause_to_string(T,S):-  
+ get_print_opts(T,PrintOpts),
  with_output_to(string(S0), prolog_listing:portray_clause(current_output,T,PrintOpts)),
  notrace(trim_stop(S0,S)).
+*/
 
 :- export(compound_gt/2).
 compound_gt(P,GT):- notrace((compound(P), compound_name_arity(P, _, N), N > GT)).
@@ -839,6 +845,7 @@ write_simple_each([A0|Left]):-  format(', '), write_simple(A0), write_simple_eac
 
 :- system:use_module(library(logicmoo_startup)).
 
+user:portray(Term):- Term==[], !, ansi_format(hfg(blue),'~q',[[]]).
 user:portray(Term):- pc_portray(Term),!.
 
 end_of_file.

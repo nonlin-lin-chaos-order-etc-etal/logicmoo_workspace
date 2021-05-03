@@ -25,13 +25,13 @@
 :- module(qplan,[qplan/2]).
 
 qplan((P:-Q),(P1:-Q1)) :- qplan(P,Q,P1,Q1), !.
-qplan(P,Q):- simplify(P,Q),!.
+qplan(P,Q):- simplify80(P,Q),!.
 
 
 qplan(X0,P0,X,P) :-
-   numbervars(X0,0,I),
+   numbervars80(X0,0,I),
    variables(X0,0,Vg),
-   numbervars(P0,I,N),
+   numbervars80(P0,I,N),
    mark(P0,L,0,Vl),
    schedule(L,Vg,P1),
    quantificate(Vl,0,P1,P2),

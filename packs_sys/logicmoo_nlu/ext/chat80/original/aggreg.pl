@@ -21,13 +21,13 @@
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-:- public aggregate/3, one_of/2, ratio/3, card/2.
+:- public aggregate80/3, one_of/2, ratio/3, card/2.
 
 
-aggregate(Fn,Set,Val) :-
+aggregate80(Fn,Set,Val) :-
    dimensioned(Set), !,
    u_aggr(Fn,Set,Val).
-aggregate(Fn,Set,Val) :-
+aggregate80(Fn,Set,Val) :-
    i_aggr(Fn,Set,Val).
 
 i_aggr(average,Set,Val) :-

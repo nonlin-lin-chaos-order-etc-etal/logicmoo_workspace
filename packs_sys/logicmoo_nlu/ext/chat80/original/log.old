@@ -81,13 +81,13 @@ whq
 
 
 Semantics: 0.0170898sec.
-answer([B]) :-
+answer80([B]) :-
    river(B)
  & exists B 
      true
 
 Planning: 0.0sec.
-answer([B]) :-
+answer80([B]) :-
    river(B)
  & exists B 
      true
@@ -116,11 +116,11 @@ q
 
 
 Semantics: 0.0170898sec.
-answer([]) :-
+answer80([]) :-
    borders(afghanistan,china)
 
 Planning: 0.0170898sec.
-answer([]) :-
+answer80([]) :-
    {borders(afghanistan,china)}
 Yes.
 
@@ -157,11 +157,11 @@ whq
 
 
 Semantics: 0.032959sec.
-answer([B]) :-
+answer80([B]) :-
    capital(upper_volta,B)
 
 Planning: 0.0sec.
-answer([B]) :-
+answer80([B]) :-
    capital(upper_volta,B)
 ouagadougou.
 
@@ -202,23 +202,23 @@ whq
 
 
 Semantics: 0.0341797sec.
-answer([B]) :-
+answer80([B]) :-
    exists C 
      exists D 
        D = setof E:F 
          country(F)
        & area(F,E)
-     & aggregate(max,D,C)
+     & aggregate80(max,D,C)
    & place(B)
    & in(C,B)
 
 Planning: 0.0339356sec.
-answer([B]) :-
+answer80([B]) :-
    exists C D 
      D = setof E:F 
        country(F)
      & area(F,E)
-   & aggregate(max,D,C)
+   & aggregate80(max,D,C)
    & in(C,B)
    & {place(B)}
 asia and northern_asia.
@@ -249,12 +249,12 @@ whq
 
 
 Semantics: 0.032959sec.
-answer([B]) :-
+answer80([B]) :-
    country(B)
  & european(B)
 
 Planning: 0.0170898sec.
-answer([B]) :-
+answer80([B]) :-
    european(B)
  & {country(B)}
 albania, andorra, austria, belgium, bulgaria, cyprus, czechoslovakia, denmark, east_germany, eire, finland, france, greece, hungary, iceland, italy, liechtenstein, luxembourg, malta, monaco, netherlands, norway, poland, portugal, romania, san_marino, spain, sweden, switzerland, united_kingdom, west_germany and yugoslavia.
@@ -295,12 +295,12 @@ whq
 
 
 Semantics: 0.0161133sec.
-answer([B]) :-
+answer80([B]) :-
    country(B)
  & capital(B,london)
 
 Planning: 0.032959sec.
-answer([B]) :-
+answer80([B]) :-
    capital(B,london)
  & {country(B)}
 united_kingdom.
@@ -338,22 +338,22 @@ whq
 
 
 Semantics: 0.0339356sec.
-answer([B]) :-
+answer80([B]) :-
    exists C 
      C = setof D:E 
        country(E)
      & area(E,D)
      & african(E)
-   & aggregate(max,C,B)
+   & aggregate80(max,C,B)
 
 Planning: 0.0500488sec.
-answer([B]) :-
+answer80([B]) :-
    exists C 
      C = setof D:E 
        african(E)
      & {country(E)}
      & area(E,D)
-   & aggregate(max,C,B)
+   & aggregate80(max,C,B)
 sudan.
 
 Reply: 0.300049sec.
@@ -380,7 +380,7 @@ whq
       verb(be,active,pres+fin,[],pos)
       arg
          pred
-         value
+         value80
             adj
                large
             wh(B)
@@ -389,24 +389,24 @@ whq
 
 
 Semantics: 0.0500488sec.
-answer([B]) :-
+answer80([B]) :-
    exists C 
      exists D 
        D = setof E:F 
          country(F)
        & area(F,E)
        & american(F)
-     & aggregate(min,D,C)
+     & aggregate80(min,D,C)
    & area(C,B)
 
 Planning: 0.032959sec.
-answer([B]) :-
+answer80([B]) :-
    exists C D 
      D = setof E:F 
        american(F)
      & {country(F)}
      & area(F,E)
-   & aggregate(min,D,C)
+   & aggregate80(min,D,C)
    & area(C,B)
 0 ksqmiles.
 
@@ -480,7 +480,7 @@ whq
 
 
 Semantics: 0.100098sec.
-answer([B]) :-
+answer80([B]) :-
    ocean(B)
  & exists C 
      country(C)
@@ -492,7 +492,7 @@ answer([B]) :-
    & borders(B,D)
 
 Planning: 0.0500488sec.
-answer([B]) :-
+answer80([B]) :-
    exists C D 
      ocean(B)
    & { borders(B,C)
@@ -554,7 +554,7 @@ whq
 
 
 Semantics: 0.0830078sec.
-answer([B]) :-
+answer80([B]) :-
    B = setof [C]:D 
      country(C)
    & borders(C,baltic)
@@ -562,7 +562,7 @@ answer([B]) :-
        capital(C,E)
 
 Planning: 0.0168457sec.
-answer([B]) :-
+answer80([B]) :-
    B = setof [C]:D 
      country(C)
    & borders(C,baltic)
@@ -593,7 +593,7 @@ whq
          np
             3+plu
             np_head
-               quant(same,nb(2))
+               quantV(same,nb(2))
                []
                sea
             []
@@ -601,14 +601,14 @@ whq
 
 
 Semantics: 0.0168457sec.
-answer([B]) :-
+answer80([B]) :-
    country(B)
  & 2 = numberof C 
      sea(C)
    & borders(C,B)
 
 Planning: 0.0500488sec.
-answer([B]) :-
+answer80([B]) :-
    2 = numberof C 
      sea(C)
    & borders(C,B)
@@ -635,7 +635,7 @@ whq
          np
             3+plu
             np_head
-               quant(same,wh(B))
+               quantV(same,wh(B))
                []
                country
             []
@@ -643,13 +643,13 @@ whq
 
 
 Semantics: 0.0168457sec.
-answer([B]) :-
+answer80([B]) :-
    B = numberof C 
      country(C)
    & flows(danube,C)
 
 Planning: 0.0158691sec.
-answer([B]) :-
+answer80([B]) :-
    B = numberof C 
      flows(danube,C)
    & {country(C)}
@@ -730,24 +730,24 @@ whq
 
 
 Semantics: 0.132813sec.
-answer([B]) :-
+answer80([B]) :-
    exists C 
      C = setof D:[E] 
        area(E,D)
      & country(E)
      & southof(E,equator)
      & \+in(E,australasia)
-   & aggregate(total,C,B)
+   & aggregate80(total,C,B)
 
 Planning: 0.0830078sec.
-answer([B]) :-
+answer80([B]) :-
    exists C 
      C = setof D:[E] 
        southof(E,equator)
      & area(E,D)
      & {country(E)}
      & {\+in(E,australasia)}
-   & aggregate(total,C,B)
+   & aggregate80(total,C,B)
 10228 ksqmiles.
 
 Reply: 0.25sec.
@@ -795,24 +795,24 @@ whq
 
 
 Semantics: 0.0671387sec.
-answer([B,C]) :-
+answer80([B,C]) :-
    continent(B)
  & exists D 
      D = setof E:[F] 
        area(F,E)
      & country(F)
      & in(F,B)
-   & aggregate(average,D,C)
+   & aggregate80(average,D,C)
 
 Planning: 0.0500488sec.
-answer([B,C]) :-
+answer80([B,C]) :-
    continent(B)
  & exists D 
      D = setof E:[F] 
        area(F,E)
      & country(F)
      & in(F,B)
-   & aggregate(average,D,C)
+   & aggregate80(average,D,C)
 [africa,233.583--ksqmiles], [america,496.322--ksqmiles], [asia,485.23--ksqmiles], [australasia,543.5--ksqmiles] and [europe,58.3125--ksqmiles].
 
 Reply: 2.88403sec.
@@ -829,7 +829,7 @@ q
          np
             3+sin
             np_head
-               quant(more,nb(1))
+               quantV(more,nb(1))
                []
                country
             prep_phrase
@@ -846,7 +846,7 @@ q
 
 
 Semantics: 0.0339356sec.
-answer([]) :-
+answer80([]) :-
    \+ 
      exists B 
        continent(B)
@@ -858,7 +858,7 @@ answer([]) :-
          & C>1
 
 Planning: 0.032959sec.
-answer([]) :-
+answer80([]) :-
    \+ 
      exists B 
        continent(B)
@@ -911,7 +911,7 @@ q
 
 
 Semantics: 0.032959sec.
-answer([]) :-
+answer80([]) :-
    exists B 
      ocean(B)
    & \+ 
@@ -920,7 +920,7 @@ answer([]) :-
        & borders(B,C)
 
 Planning: 0.032959sec.
-answer([]) :-
+answer80([]) :-
    exists B 
      { ocean(B)
      & { \+ 
@@ -981,7 +981,7 @@ whq
 
 
 Semantics: 0.0830078sec.
-answer([B]) :-
+answer80([B]) :-
    B = setof C 
      country(C)
    & exists D 
@@ -989,7 +989,7 @@ answer([B]) :-
      & flows(D,C,black_sea)
 
 Planning: 0.0158691sec.
-answer([B]) :-
+answer80([B]) :-
    B = setof C 
      exists D 
        flows(D,C,black_sea)
@@ -1042,7 +1042,7 @@ whq
                      np
                         3+plu
                         np_head
-                           quant(more,nb(2))
+                           quantV(more,nb(2))
                            []
                            city
                         rel
@@ -1067,7 +1067,7 @@ whq
                                  np
                                     3+sin
                                     np_head
-                                       quant(same,nb(1))
+                                       quantV(same,nb(1))
                                        []
                                        million
                                     []
@@ -1078,7 +1078,7 @@ whq
 
 
 Semantics: 0.0998535sec.
-answer([B]) :-
+answer80([B]) :-
    B = setof C 
      continent(C)
    & \+ 
@@ -1095,7 +1095,7 @@ answer([B]) :-
          & E>2
 
 Planning: 0.0500488sec.
-answer([B]) :-
+answer80([B]) :-
    B = setof C 
      continent(C)
    & \+ 
@@ -1208,7 +1208,7 @@ whq
 
 
 Semantics: 0.116943sec.
-answer([B]) :-
+answer80([B]) :-
    country(B)
  & borders(B,mediterranean)
  & exists C 
@@ -1224,7 +1224,7 @@ answer([B]) :-
    & borders(B,C)
 
 Planning: 0.0830078sec.
-answer([B]) :-
+answer80([B]) :-
    exists C D E F 
      population(india,F)
    & borders(B,mediterranean)
@@ -1276,7 +1276,7 @@ whq
                      np
                         3+plu
                         np_head
-                           quant(same,nb(10))
+                           quantV(same,nb(10))
                            []
                            million
                         []
@@ -1286,14 +1286,14 @@ whq
 
 
 Semantics: 0.0671387sec.
-answer([B]) :-
+answer80([B]) :-
    country(B)
  & exists C 
      exceeds(C,10--million)
    & population(B,C)
 
 Planning: 0.0158691sec.
-answer([B]) :-
+answer80([B]) :-
    exists C 
      country(B)
    & { population(B,C)
@@ -1338,7 +1338,7 @@ whq
                         np
                            3+plu
                            np_head
-                              quant(same,nb(10))
+                              quantV(same,nb(10))
                               []
                               million
                            []
@@ -1355,7 +1355,7 @@ whq
 
 
 Semantics: 0.0998535sec.
-answer([B]) :-
+answer80([B]) :-
    exists C 
      population(B,C)
    & exceeds(C,10--million)
@@ -1363,7 +1363,7 @@ answer([B]) :-
  & borders(B,atlantic)
 
 Planning: 0.0158691sec.
-answer([B]) :-
+answer80([B]) :-
    exists C 
      borders(B,atlantic)
    & { population(B,C)
@@ -1410,7 +1410,7 @@ whq
 
 
 Semantics: 0.032959sec.
-answer([B,C]) :-
+answer80([B,C]) :-
    ocean(B)
  & exists D 
      D = setof E 
@@ -1424,7 +1424,7 @@ answer([B,C]) :-
        & ratio(F,H,C)
 
 Planning: 0.032959sec.
-answer([B,C]) :-
+answer80([B,C]) :-
    ocean(B)
  & exists D 
      D = setof E 
@@ -1466,12 +1466,12 @@ whq
 
 
 Semantics: 0.032959sec.
-answer([B]) :-
+answer80([B]) :-
    country(B)
  & in(B,europe)
 
 Planning: 0.0sec.
-answer([B]) :-
+answer80([B]) :-
    in(B,europe)
  & {country(B)}
 albania, andorra, austria, belgium, bulgaria, cyprus, czechoslovakia, denmark, east_germany, eire, finland, france, greece, hungary, iceland, italy, liechtenstein, luxembourg, malta, monaco, netherlands, norway, poland, portugal, romania, san_marino, spain, sweden, switzerland, united_kingdom, west_germany and yugoslavia.

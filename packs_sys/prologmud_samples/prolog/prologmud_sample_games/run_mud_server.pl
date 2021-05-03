@@ -407,7 +407,10 @@ load_before_compile_now:-
    %set_prolog_flag(verbose_file_search,true), 
    use_module(library(sandbox)),
 
-   use_module(library(logicmoo_lps)),      
+    use_module(library(logicmoo_webui)),
+    webui_load_swish_and_clio,
+    webui_start_swish_and_clio,
+    use_module(library(logicmoo_lps)),      
    %use_module(library(logicmoo_lps)),
    %set_prolog_flag(verbose_file_search,false),
    
@@ -422,17 +425,15 @@ load_before_compile_now:-
    */
    % ignore(( \+ exists_directory('/tmp/tempDir/') -> catch(shell('./PreStartMUD.sh'),_,true))),
    % ignore(( exists_directory('/tmp/tempDir') -> cd('/tmp/tempDir'))),
-    use_module(library(logicmoo_webui)),
-    webui_load_swish_and_clio,
-    webui_start_swish_and_clio,
-  use_module(library(pfc_lib)),
-  use_module(library(xlisting/xlisting_web)),
-  register_logicmoo_browser,
+    use_module(library(pfc_lib)),
+    baseKB:ensure_loaded(library(logicmoo_mud)),
+    baseKB:ensure_loaded(library(logicmoo_clif)),    
+    use_module(library(xlisting/xlisting_web)),
+    register_logicmoo_browser,
     load_nomic_mu,
     baseKB:ensure_loaded(library(logicmoo_cg)),
     baseKB:ensure_loaded(library(logicmoo_ec)),
     baseKB:ensure_loaded(library(logicmoo_nlu)),    
-    baseKB:ensure_loaded(library(logicmoo_clif)),
     baseKB:ensure_loaded(library('logicmoo/common_logic/common_logic_sumo.pfc')),   
     %system:reexport(pldata(kb_0988)),
     ensure_loaded(pldata(kb_0988)),        
@@ -468,7 +469,6 @@ load_rest_now:-
   call_safely(
   [
    nodebug,   
-   baseKB:ensure_loaded(library(logicmoo_mud)),
    add_history((mmake, autodoc_test)),
    load_rest2]),
    !.
