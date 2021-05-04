@@ -28,19 +28,19 @@ ag_number(N,pl) :- N>1.
 chk_word(Word):- word(Word).
 word(Word) :- '`' (Word).
 word(Word) :- conj(Word).
-word(Word) :- adverb(Word).
+word(Word) :- adverb_db(Word).
 word(Word) :- sup_adj(Word,_).
 word(Word) :- rel_adj(Word,_).
-word(Word) :- adj(Word,_).
+word(Word) :- adj_db(Word,_).
 word(Word) :- name_LF(Word).
 word(Word) :- terminator(Word,_).
-word(Word) :- pers_pron(Word,_,_,_,_).
-word(Word) :- poss_pron(Word,_,_,_).
+word(Word) :- pers_pron_db(Word,_,_,_,_).
+word(Word) :- poss_pron_db(Word,_,_,_).
 word(Word) :- rel_pron(Word,_).
 word(Word) :- verb_form_lex80(Word,_,_,_).
 word(Word) :- noun_form(Word,_,_).
 word(Word) :- prep(Word).
-word(Word) :- quantifier_pron(Word,_,_).
+word(Word) :- quantifier_pron_db(Word,_,_).
 word(Word) :- number(Word,_,_).
 word(Word) :- det(Word,_,_,_).
 word(Word) :- int_art(Word,_,_,_).
@@ -99,26 +99,26 @@ number(W,I,Nb) :-
         tr_number(W,I),
         ag_number(I,Nb).
 
-pers_pron(he,masc,3,sg,subj).
-pers_pron(her,fem,3,sg,compl(_)).
-pers_pron(him,masc,3,sg,compl(_)).
-pers_pron(i,_,1,sg,subj).
-pers_pron(it,neut,3,sg,_).
-pers_pron(me,_,1,sg,compl(_)).
-pers_pron(she,fem,3,sg,subj).
-pers_pron(them,_,3,pl,compl(_)).
-pers_pron(them,_,3,pl,subj).
-pers_pron(us,_,1,pl,compl(_)).
-pers_pron(we,_,1,pl,subj).
-pers_pron(you,_,2,_,_).
+pers_pron_db(he,masc,3,sg,subj).
+pers_pron_db(her,fem,3,sg,compl(_)).
+pers_pron_db(him,masc,3,sg,compl(_)).
+pers_pron_db(i,_,1,sg,subj).
+pers_pron_db(it,neut,3,sg,_).
+pers_pron_db(me,_,1,sg,compl(_)).
+pers_pron_db(she,fem,3,sg,subj).
+pers_pron_db(them,_,3,pl,compl(_)).
+pers_pron_db(them,_,3,pl,subj).
+pers_pron_db(us,_,1,pl,compl(_)).
+pers_pron_db(we,_,1,pl,subj).
+pers_pron_db(you,_,2,_,_).
 
-poss_pron(her,fem,3,sg).
-poss_pron(his,masc,3,sg).
-poss_pron(its,neut,3,sg).
-poss_pron(my,_,1,sg).
-poss_pron(our,_,1,pl).
-poss_pron(their,_,3,pl).
-poss_pron(your,_,2,_).
+poss_pron_db(her,fem,3,sg).
+poss_pron_db(his,masc,3,sg).
+poss_pron_db(its,neut,3,sg).
+poss_pron_db(my,_,1,sg).
+poss_pron_db(our,_,1,pl).
+poss_pron_db(their,_,3,pl).
+poss_pron_db(your,_,2,_).
 
 prep(as).
 prep(at).
@@ -132,17 +132,17 @@ prep(through).
 prep(to).
 prep(with).
 
-quantifier_pron(anybody,any,person).
-quantifier_pron(anyone,any,person).
-quantifier_pron(anything,any,thing).
-quantifier_pron(everybody,every,person).
-quantifier_pron(everyone,every,person).
-quantifier_pron(everything,every,thing).
-quantifier_pron(nobody,no,person).
-quantifier_pron(nothing,no,thing).
-quantifier_pron(somebody,some,person).
-quantifier_pron(someone,some,person).
-quantifier_pron(something,some,thing).
+quantifier_pron_db(anybody,any,person).
+quantifier_pron_db(anyone,any,person).
+quantifier_pron_db(anything,any,thing).
+quantifier_pron_db(everybody,every,person).
+quantifier_pron_db(everyone,every,person).
+quantifier_pron_db(everything,every,thing).
+quantifier_pron_db(nobody,no,person).
+quantifier_pron_db(nothing,no,thing).
+quantifier_pron_db(somebody,some,person).
+quantifier_pron_db(someone,some,person).
+quantifier_pron_db(something,some,thing).
 
 regular_past(had,have).
 
@@ -262,24 +262,24 @@ verb_type_lex80(rise,main+iv).
 % =================================================================
 % Specialised Dictionary
 
-adj(African,restr):- agentitive_trans_lex80(_,_,African).
-adj(Baltic,restr):- agentitive_symmetric_type(_,Baltic).
-%adj(american,restr).
-%adj(asian,restr).
-%adj(european,restr).
-adj(average,restr).
-adj(big,quantV).
-adj(great,quantV).
-adj(great,quantV).
-adj(large,quantV).
-adj(maximum,restr).
-adj(minimum,restr).
-adj(new,quantV).
-adj(old,quantV).
-adj(small,quantV).
-adj(total,restr).
-adverb(tomorrow).
-adverb(yesterday).
+adj_db(African,restr):- agentitive_trans_lex80(_,_,African).
+adj_db(Baltic,restr):- agentitive_symmetric_type(_,Baltic).
+%adj_db(american,restr).
+%adj_db(asian,restr).
+%adj_db(european,restr).
+adj_db(average,restr).
+adj_db(big,quantV).
+adj_db(great,quantV).
+adj_db(great,quantV).
+adj_db(large,quantV).
+adj_db(maximum,restr).
+adj_db(minimum,restr).
+adj_db(new,quantV).
+adj_db(old,quantV).
+adj_db(small,quantV).
+adj_db(total,restr).
+adverb_db(tomorrow).
+adverb_db(yesterday).
 
 loc_pred(of,east,prep(cp(east,of))).
 loc_pred(of,north,prep(cp(north,of))).
@@ -355,3 +355,8 @@ sup_adj(newest,new).
 sup_adj(oldest,old).
 sup_adj(smallest,small).
 
+comp_adv_db(less).
+comp_adv_db(more).
+
+sup_adv_db(least).
+sup_adv_db(most).

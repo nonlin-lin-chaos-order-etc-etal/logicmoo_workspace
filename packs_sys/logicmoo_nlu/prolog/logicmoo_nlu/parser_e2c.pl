@@ -315,8 +315,8 @@ e2c_0(Words):-
 
 
 :-export(e2c/2).
-e2c(Sentence, Options):- callable(Options), set_e2c_options(Options), !, e2c(Sentence).
-e2c(Sentence, Reply):- e2c(Sentence, [], Reply).
+e2c(Sentence, Options):- callable(Options), set_e2c_options(Options), !, e2c(Sentence),!.
+e2c(Sentence, Reply):- e2c(Sentence, [], Reply),!.
 :-export(e2c/3).
 e2c(Sentence, Options, Reply):-
  quietly(to_wordlist_atoms(Sentence, WL)), !,
@@ -332,10 +332,10 @@ e2c_0(Sentence, Reply) :-
    % must_or_rtrace
    % set_prolog_flag(debugger_write_options, [quoted(true), portray(false), max_depth(50), attributes(portray)]),
    e2c_parse0(Sentence, LF), % deepen_pos?
-   e2c_clausify_and_reply(LF, Reply).
+   e2c_clausify_and_reply(LF, Reply),!.
 
 e2c_0(Sentence,
-   error('FAILED!!!!! small bug'(Sentence))):- ansifmt(red, rtrace(e2c_0(Sentence))).
+   error('FAILED!!!!! small bug'(Sentence))):- nop(ansifmt(red, rtrace(e2c_0(Sentence)))).
 
 
 :- assert_if_new(baseKB:mpred_prop(parser_e2c, e2c_parse, 2, prologOnly)).
@@ -343,7 +343,7 @@ e2c_0(Sentence,
 e2c_parse(Sentence, LF):- cwc,
   quietly(to_wordlist_atoms(Sentence, WL)), !,
   e2c_parse0(WL, LF),
-  del_e2c_attributes(LF).
+  del_e2c_attributes(LF),!.
 
 :- assert_if_new(baseKB:mpred_prop(parser_e2c, e2c_parse0, 2, prologOnly)).
 

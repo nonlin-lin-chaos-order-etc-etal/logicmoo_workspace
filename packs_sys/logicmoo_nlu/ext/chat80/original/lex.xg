@@ -78,7 +78,7 @@ det(generic,_,generic) ---> [].
 
 adj(Type,adj(Adj)) --->
    [Adj],
-   {adj(Adj,Type)}.
+   {adj_db(Adj,Type)}.
 
 prep(prep(Prep)) --->
    [Prep],
@@ -92,11 +92,12 @@ sup_adj(adj(Adj)) --->
    [SAdj],
    {sup_adj(SAdj,Adj)}.
 
-comp_adv(less) ---> [less].
-comp_adv(more) ---> [more].
+comp_adv(W) ---> [W],{comp_adv_db(W)}.
 
-sup_adv(least) ---> [least].
-sup_adv(most) ---> [most].
+
+
+sup_adv(W) ---> [W],{sup_adv_db(W)}.
+
 
 rel_pron(Case) --->
    [W],
@@ -120,21 +121,21 @@ int_pron(Case) --->
    [Pron],
    {int_pron(Pron,Case)}.
 
-adverb(adv(Adv)) --->
-   [Adv],
-   {adverb(Adv)}.
-
-poss_pron(pronoun(Gender),Person+Number) --->
+adverb(adv(W)) --->
    [W],
-   {poss_pron(W,Gender,Person,Number)}.
+   {adverb_db(W)}.
 
-pers_pron(pronoun(Gender),Person+Number,Case) --->
+poss_pron_db(pronoun(Gender),Person+Number) --->
    [W],
-   {pers_pron(W,Gender,Person,Number,Case)}.
+   {poss_pron_db(W,Gender,Person,Number)}.
 
-quantifier_pron(Det,Noun) --->
+pers_pron_db(pronoun(Gender),Person+Number,Case) --->
    [W],
-   {quantifier_pron(W,Det,Noun)}.
+   {pers_pron_db(W,Gender,Person,Number,Case)}.
+
+quantifier_pron_db(Det,Noun) --->
+   [W],
+   {quantifier_pron_db(W,Det,Noun)}.
 
 context_pron(prep(in),place) ---> [where].
 context_pron(prep(at),time) ---> [when].

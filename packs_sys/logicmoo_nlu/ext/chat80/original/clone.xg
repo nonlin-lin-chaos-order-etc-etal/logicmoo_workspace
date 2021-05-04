@@ -131,7 +131,7 @@ subj(Subj,Agmt,_) --->
 
 np(np(Agmt,Pronoun,[]),Agmt,NPCase,def,_,Set,Nil) --->
    {is_pp(Set)},
-   pers_pron(Pronoun,Agmt,Case),
+   pers_pron_db(Pronoun,Agmt,Case),
    {is_empty_bits(Nil), is_to_role_case(Case,decl,NPCase)}.
 np(np(Agmt,Kernel,Mods),Agmt,Case,Def,Role,Set,Mask) --->
    {is_pp(Set)},
@@ -165,9 +165,9 @@ np_head0(np_head(Det,Adjs,Head),3+Number,Def+common) --->
    adjs_opt(Adjs),
    noun(Head,Number).
 np_head0(Pronoun,Agmt,def+proper), gen_marker --->
-   poss_pron(Pronoun,Agmt).
+   poss_pron_db(Pronoun,Agmt).
 np_head0(np_head(Det,[],Noun),3+sg,indef+common) --->
-   quantifier_pron(Det,Noun).
+   quantifier_pron_db(Det,Noun).
 
 /* Possessive construction */
 

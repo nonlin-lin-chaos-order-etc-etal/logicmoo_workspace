@@ -452,7 +452,7 @@ contains_atom_ci(A1,A2):- upcase_atom(A1,U1),upcase_atom(A2,U2),contains_atom(U1
 append_varname(R,Var):- ignore((p_n_atom(R,RR),append_varname1(RR,Var))),!.
 append_varname1(R,_Var):- is_letterless(R),!. % ignore
 append_varname1(R,Var):- get_var_name(Var,Prev),!,
-  ignore(( \+ contains_atom_ci(Prev,R), atomic_list_concat([Prev,'_',R],RS),
+  ignore(( \+ contains_atom_ci(Prev,R), \+ contains_atom_ci(R,Prev), atomic_list_concat([Prev,'_',R],RS),
   % writeln(add_var_to_env_now(RS,Var)),
   add_var_to_env_now(RS,Var))),!.
 append_varname1(R,Var):- add_var_to_env_now(R,Var).

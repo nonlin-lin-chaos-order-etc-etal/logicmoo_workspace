@@ -9,6 +9,23 @@
   print_long_message/1,
   print_long_web_message/1]).
 
+:- /*system:*/use_module(library(http/thread_httpd)).
+:- /*system:*/use_module(thread_httpd:library(http/http_dispatch)).
+%:- use_module(library(http/http_dispatch))
+:- /*system:*/use_module(swi(library/http/html_head)).
+:- /*system:*/use_module(library(http/http_dispatch)).
+:- /*system:*/use_module(library(http/http_path)).
+:- /*system:*/use_module(library(http/http_log)).
+:- /*system:*/use_module(library(http/http_client)).
+:- /*system:*/use_module(library(http/http_server_files)).
+:- /*system:*/use_module(library(http/http_parameters)).
+
+:- /*system:*/use_module(library(uri)).
+:- /*system:*/use_module(library(http/http_openid)).
+:- /*system:*/use_module(library(http/http_host)).
+:- use_module(library(http/html_write)).
+:- /*system:*/use_module(library(http/http_error)).
+
 :- http_handler(root(swish/long_message),long_web_message,[chunked,methods([get,post,put])]).
 
 :- dynamic(wlm:long_message_server/1).
@@ -70,7 +87,7 @@ print_long_web_message(ID):-
   with_output_to(string(S),print_long_message(ID)),
     phrase(html([
      %a([class(id), href(HREF)],HREF),
-     pre(S)]), Tokens),
+     html([head(''),body(pre(S))])]), Tokens),
      print_html(Tokens).
 
 
@@ -130,3 +147,4 @@ maybe_long_message_printer(Max,Goal):-
 maybe_long_message_printer(Goal):-
   maybe_long_message_printer(4, Goal).
 
+system:mlmp(G):- maybe_long_message_printer(0,G).

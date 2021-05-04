@@ -524,16 +524,18 @@ lex_info(String):-
 
 :- export(lex_info/3).
 lex_info(Kind, String, Out):-
+ must_det_l((
  into_text100_atoms(String, Words), % maplist(into_dm, Words, Todo),
- into_acetext(Words, Ace), cvt_to_real_string(Ace, SAce),
- nop(call_corenlp(SAce,[],Todo)),
- maplist(print_reply_colored,Todo), print_reply_colored("==============================================================="),
+ into_acetext(Words, Ace), cvt_to_real_string(Ace, _SAce),
+ %nop(call_corenlp(SAce,[],Todo)),
+ %maplist(print_reply_colored,Todo), print_reply_colored("==============================================================="),
  Level = 0,
+ ignore((Todo=[])),
  findall(sentence(N,WS,Info),member(sentence(N,WS,Info),Todo),Sents),
  maplist(remove_broken_corefs(Sents),Todo,NewTodo),
  lex_info(Kind, Level, NewTodo, [text80(Words)], Datum),
  % maplist(lex_winfo(Kind, Level, Words), Words, Datums),append(Datums, Datum),
- filter_mmw(Datum, Out), !.
+ filter_mmw(Datum, Out))), !.
 
 lex_winfo(Kind, Level, Words, String, Datum):-
  cvt_to_atom(String, AString),

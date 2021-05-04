@@ -117,7 +117,7 @@ intrans_LF(rise,SpatialRiver,X,path_pred(begins,river,X,Y),
 
 /* Adjectives */
 
-restriction_LF(African,Spatial&_,X,ti(African,X)):- adj(African,restr), spatial(Spatial).
+restriction_LF(African,Spatial&_,X,ti(African,X)):- adj_db(African,restr), spatial(Spatial).
 %restriction_LF(american,Spatial&_,X,ti(american,X)).
 %restriction_LF(asian,Spatial&_,X,ti(asian,X)).
 %restriction_LF(european,Spatial&_,X,ti(european,X)).

@@ -3,7 +3,7 @@
 % =================================================================
 
 :- ensure_loaded(e2c_quantifiers).
-
+:- ensure_loaded(library(body_reordering/logicmoo_util_body_reorder)).
 % what the product is
 noun_phrase9(SO, X, LF, Out) --> theText1(what), noun_phrase(SO, Y, LF, LF0),
   theText1(is), conjoin_lf(LF0 , what_is(Y, X), Out).
@@ -240,7 +240,7 @@ proper_noun(Entity) --> quietly((w2txt(PN), {pn_lf(PN, Entity)})).
    was_propercase(Name):- atomic(Name), atom_length(Name, L), L>1, toPropercase(Name, PC), !, PC==Name.
 
     pn_dict(Name):- was_propercase(Name), !.
-    pn_dict(Name):- parser_chat80:name_template_db(Name, _).
+    pn_dict(Name):- parser_chat80:name_template_LF(Name, _).
 
 
     %pn_dict(Name):- atom(Name), downcase_atom(Name, Down),

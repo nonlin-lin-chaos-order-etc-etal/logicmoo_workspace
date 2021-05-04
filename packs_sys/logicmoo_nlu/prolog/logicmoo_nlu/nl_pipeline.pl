@@ -464,7 +464,7 @@ remove_punctuation(W2, W2).
 % TODO - grovel the API
 :-  load_parser_interface(parser_charniak).
 % ================================================================================================
-:- install_converter(parser_charniak:text_to_charniak(+text80, -charniak)).
+:- install_converter(parser_charniak:text_to_charniak(+acetext, -charniak)).
 :- install_converter(parser_charniak:charniak_to_segs(+charniak,-charniak_segs)).
 :- install_converter(parser_charniak:charniak_segs_to_w2(+charniak_segs,-charniak_info,-charniak_w2)).
 
@@ -515,7 +515,8 @@ eng_to_bratko(Sentence, LF, Type, Clause, FreeVars) :-
 :-  if(load_parser_interface(parser_e2c)).
 % ================================================================================================
 
-:- install_converter(parser_e2c, e2c_parse(+chat80, -lf_b)).
+:- install_converter(parser_e2c, e2c_parse(+acetext, -lf_b)).
+%:- install_converter(parser_e2c:e2c(+acetext, -lf_b)).
 :- install_converter(parser_e2c, e2c_clausify(+lf_b, -clause_b)).
 :- install_converter(parser_e2c, e2c_reply(+clause_b, -reply_b)).
 
