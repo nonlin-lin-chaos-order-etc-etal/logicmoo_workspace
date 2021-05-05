@@ -45,11 +45,23 @@ call_corenlp(English, Options):-
 call_corenlp(English, OptionsIn, OutS):-
   % DefaultOpts = [tokenize, ssplit, pos, lemma, ner, coref, dcoref, depparse,  mwt, natlog ,relation, openie ],
   %DefaultOpts = [ quote, tokenize, ssplit, pos, lemma, depparse, natlog, coref, dcoref,  ner, relation, udfeats ],
-  _DefaultOpts = [  quote, tokenize, ssplit, pos, depparse, ner, parse, coref,
-   %relation,
+  DefaultOpts = [  quote, tokenize, ssplit, pos, depparse, ner, parse, coref,mwt,natlog,udfeats,
+   relation,lemma, %upos, %xpos, 
+   %feats,
+   docdate,
+   entitylink,
+   %entitymentions,
    openie,
+   %truecase,
+   sentiment,
+   kbp,
+   gender,
+   cleanxml,
+   %morpha,
+   %time,
+   %sutime,
    dcoref],
-  DefaultOpts = [ quote, tokenize, ssplit, pos, depparse, lemma, ner,parse,dcoref,coref, relation],
+  % DefaultOpts = [ quote, tokenize, ssplit, pos, depparse, lemma, ner,parse,dcoref,coref, relation],
   % kbp,  % sentiment,
   ignore('.\nSome quick brown foxes jumped over the lazy dog after we sang a song. X is Y .  Pee implies Queue.'=English),
   ignore(OptionsIn=DefaultOpts), % depparse, lemma
@@ -79,10 +91,20 @@ call_corenlp(English, OptionsIn, OutS):-
 
 is_loc_name(paragraph).
 is_loc_name(index).
-parse_reply(Ctx, List, Out):- is_list(List),select(N=V,List,NewList), is_loc_name(N),!,parse_reply([N=V|Ctx], NewList, Out).
-parse_reply(Ctx, List, Out):- is_list(List),!, maplist(parse_reply(Ctx),List, Out).
+
+
 %parse_reply(_Ctx, InnerCtx=json(List), InnerCtx=List).
 parse_reply(Ctx, InnerCtx=json(List), Out):- !,  parse_reply([InnerCtx|Ctx], List, Out).
+
+parse_reply(Ctx, List, Out):- 
+   parse_reply_sub_replace(Ctx, List, Sub, NewSub),
+   % ignore((NewSub=='$',wdmsg(parse_reply_replace(_Ctx, Sub, NewSub)))),
+   nonvar(Sub),nonvar(NewSub), Sub\==NewSub,
+   subst(List, Sub, NewSub, NewList), 
+   List\==NewList, !, 
+   parse_reply(Ctx, NewList, Out).
+
+/*
 parse_reply(Ctx, List, Out):- 
    sub_term(Sub, List), nonvar(Sub), 
    parse_reply_replace(Ctx, Sub, NewSub),
@@ -91,27 +113,68 @@ parse_reply(Ctx, List, Out):-
    subst(List, Sub, NewSub, NewList), 
    List\==NewList, !, 
    parse_reply(Ctx, NewList, Out).
+*/
 %parse_reply(Ctx, [], Ctx=[]):- !.
-%parse_reply([reply], List, Out):- flatten([List], Out),!.
+parse_reply(Ctx, List, Out):- flatten([List], Mid), 
+  List \== Mid, fail, !,
+  parse_reply(Ctx, Mid, Out).
+  
 %parse_reply(Ctx, List, Ctx=j(Out)):- flatten([List], Out),!.
+
+%parse_reply(Ctx, List, Out):- is_list(List),select(N=V,List,NewList), is_loc_name(N),!,parse_reply([N=V|Ctx], NewList, Out).
+%parse_reply(Ctx, List, Out):- is_list(List),!, maplist(parse_reply(Ctx),List, Out).
 parse_reply(_Ctx, List, Out):- flatten([List], Out),!.
+
 
 label_tokens(_Index, TokensLabeled, TokensLabeled):-!.
 label_tokens(Index, json(Tokens), TokensLabeled):- !, label_tokens(Index, Tokens, TokensLabeled), !.
 label_tokens(Index, Tokens, TokensLabeled):- append_term(Tokens, Index, TokensLabeled), !.
 
- 
+
+
+% parse_reply_sub_replace(_Ctx, List, JSON, J):- compound(List), sub_term(JSON,List),compound(JSON),JSON=json(J).
+parse_reply_sub_replace(Ctx, List, Sub, NewSub):-
+  sub_term(Sub, List), compound(Sub),
+  parse_reply_replace(Ctx, Sub, NewSub).
+
+:- discontiguous parse_reply_replace/3.
+
+parse_reply_replace(Ctx, List, Out):- is_list(List), once(flatten(List,Flat)),List\==Flat,!,parse_reply_replace(Ctx, Flat, Out).
+parse_reply_replace(_Ctx, List, NewList):- is_list(List),
+ select(coref(N,Seg,Traits),List,NewList),
+ member(sentence(N,_,Values),NewList),
+ Span=span(Attrs),
+ %trace,
+ member(Span,Values),
+ member(Seg,Attrs),
+ merge_nb_values(Span,Traits),!.
+
+parse_reply_replace(_Ctx, List, NewList):- is_list(List),
+ select(coref(N,seg(X,X),Traits),List,NewList),
+ member(sentence(N,Words,_Values),NewList),
+ member(w(_S,Attrs),Words),
+ member(loc(X),Attrs),
+ merge_nb_values(Attrs,Traits),!.
+
+
 parse_reply_replace(_Ctx, Sub, Replace):- is_list(Sub), 
   subtract_eq(Sub, ['$'], Replace),
   Replace\==Sub.
 
-parse_reply_replace(_Ctx, sentence(N,[_W2],_), '$'):- number(N).
+%parse_reply_replace(_Ctx, sentence(N,[_W2],_), '$'):- number(N).
 parse_reply_replace(_Ctx, sentence(N,[W2|_],_), '$'):- number(N), arg(1,W2,'--------').
 
 parse_reply_replace(_Ctx, sentences=W, W):-!, nonvar(W).
 parse_reply_replace(_Ctx, corefs=W, W):- !,nonvar(W).
 parse_reply_replace(_Ctx, Number=[Coref|More], [Coref|More]):- atom_number(Number,_), compound(Coref),functor(Coref,coref,_).
 %parse_reply_replace(_Ctx, _=[Coref|More], [Coref|More]):- compound(Coref),functor(Coref,coref,_).
+
+into_value_lex_value(A,V):- \+ atom(A) -> A=V ;  atom_to_term(A,V,Vs),maplist(call,Vs).
+
+parse_reply_replace(_Ctx, Sub, '$'):- ground(Sub), 
+  member(Sub, [entitymentions=[], speaker='PER0', openie=[], ner='O']).
+
+parse_reply_replace(_Ctx, NER=Value, Pred):- atom(NER),member(NER,[normalizedNER,ner,repm]),Pred=..[NER,TValue],into_value_lex_value(Value,TValue).
 
 parse_reply_replace(_Ctx, Remove=Rest, '$'):- nonvar(Rest),
   member(Remove, [
@@ -128,11 +191,10 @@ parse_reply_replace(_Ctx, isRepresentativeMention=TF, TF).
 parse_reply_replace(_Ctx, _= json(SL), '$'):- member(_=json(Sub),SL), is_list(Sub), member(_ = V, Sub), atomic(V), atom_contains(V, '---'), !.
 parse_reply_replace(_Ctx, _=json(Sub), '$'):- is_list(Sub), member(_ = V, Sub), atomic(V), atom_contains(V, '---'), !.
 
-parse_reply_replace(_Ctx, Sub, '$'):- ground(Sub), 
-  member(Sub, [entitymentions=[], speaker='PER0', openie=[], ner='O']).
 
-parse_reply_replace(_Ctx, Parse=Rest, Parse=SegsF):- Rest\==[], atomic(Rest), atom_concat('(',_,Rest),atom_concat(_,')',Rest),  
-  lxpr_to_list(Rest, LExpr),!,
+parse_reply_replace(_Ctx, Parse=Rest, Parse=SegsF):- 
+  Rest\==[], atomic(Rest), atom_concat('(',_,Rest),atom_concat(_,')',Rest),  
+  lxpr_to_list(Rest, LExpr),
   charniak_to_parsed(LExpr,SegsF),!.
 
 parse_reply_replace(_Ctx, Sub, Replace):- 
@@ -168,12 +230,49 @@ parse_reply_replace(_Ctx, Sub, Replace):-
  SIm1 is SI-0,
  EIm1 is EI-1,
  Replace =  
-  coref(SentIDMinus1, seg(SIm1,EIm1), [Type, txt(WordStrings), '#'(Index),SINGULAR, NEUTRAL, INANIMATE,em=TF|Attributes]).
+  coref(SentIDMinus1, seg(SIm1,EIm1), ['#'(Index), txt(WordStrings),
+    % headIndex(HI),   
+    Type, SINGULAR, NEUTRAL, INANIMATE,repm=TF|Attributes]).
+       
+parse_reply_replace(_Ctx, Sub, Replace):- 
+ members([id=Index, startIndex=SI, endIndex=EI, % headIndex=HI, 
+   text=Text, sentNum=SentID], Sub, Attributes), !,
+ into_text100_atoms(Text,Words),maplist(my_cvt_to_real_string,Words,WordStrings),
+ SentIDMinus1 is SentID-1,
+ SIm1 is SI-0,
+ EIm1 is EI-1,
+ Replace =  
+  coref(SentIDMinus1,seg(SIm1,EIm1),[txt(WordStrings), '#'(Index)|Attributes]).
                                                                                 
 parse_reply_replace(_Ctx, sentence(_,TokList,_), '$'):- ground(TokList),  
    member(tok(_, 'SYM', '--------', _, _),TokList), !.
 
 parse_reply_replace(_Ctx, json(Replace), Replace):- nonvar(Replace),!.
+
+parse_reply_replace(_Ctx, sentence(N,Words,Values), sentence(N,NewWords,NValues)):-
+ select(parse=Stuff,Values,NPValues),is_list(Stuff),
+ ((
+  %trace,
+  apply:partition(\=(w(_,_)), Stuff, Info, NWords),
+  %length(NWords,Len),
+  merge_words(Words,NWords,NewWords),
+  sort_words(Info,InfoS),
+  %maplist(label_words_with_segs(NewWords),InfoS),
+  append([NPValues,InfoS],NValues))).
+
+label_words_with_segs(Words,span(Seg)):- member(seg(S,E),Seg),maplist(maybe_add_seg(S,E),Words).
+
+maybe_add_seg(S,E,Word):- ignore((find_subterm(Word,loc(X)),between(S,E,X),nb_set_add1(Word,span(S,E)))).
+
+merge_words([w(S,Attribs)|Words],NWords,[w(S,NAttribs)|NewWords]):-
+  member(loc(X),Attribs),select(w(S,Attribs2),NWords,Rest),member(loc(X),Attribs2),
+  merge_lists(Attribs,Attribs2,NAttribs),
+  merge_words(Words,Rest,NewWords).
+merge_words([],S,S).
+
+merge_lists([],R,R):-!.
+merge_lists(A,B,Set):-append(A,B,L),list_to_set(L,Set).
+
 
 my_cvt_to_real_string(Text,Out):- any_to_string(Text,Out).
 
@@ -195,6 +294,10 @@ sentence_reply(Number, Toks, SExpr, In, In):-
   print_reply_colored(Number=SExpr),
   print_reply_colored(Number=Toks), !.
 */
+sort_words(List,Sorted):- predsort(by_word_loc,List,Sorted).
+by_word_loc(R,A,B):-into_loc_sort(A,AK),into_loc_sort(B,BK),compare(RK,AK,BK), (RK == (=) -> compare(R,A,B) ; R = RK).
+into_loc_sort(seg(List),Key):- member(seg(S,E),List),member(lnks(L),List),member(size(W),List),RS is 100-W, Key = seg(S,RS,L,E),!.
+into_loc_sort(A,Key):- A=..[_|AA], findnsols(2,T, ((sub_term(T,AA),compound(T),arg(1,T,N),number(N));T=AA),Key).
 
 baseKB:regression_test:- test_corenlp(1,X),!,call_corenlp(X).
 baseKB:sanity_test:- make, forall(test_corenlp(1,X),call_corenlp(X)).
@@ -218,7 +321,7 @@ test_corenlp2:-
 test_corenlp:- forall(test_corenlp(X),call_corenlp(X)).
 
 test_corenlp(N):- number(N),!, forall(test_corenlp(N,X),call_corenlp(X)). 
-test_corenlp(X):- test_corenlp(_,X).
+test_corenlp(X):- test_corenlp(_,X),nop(lex_info(X)).
 
 test_corenlp(_,X):- nonvar(X), !, once(call_corenlp(X)).
 

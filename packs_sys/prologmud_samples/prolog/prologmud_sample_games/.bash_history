@@ -805,3 +805,173 @@ supervisorctl reload
 fg
 ps axf
 ps axf
+wget --post-data 'the quick brown fox jumped over the lazy dog' 'localhost:9000/?properties={"annotators": "tokenize,ssplit,pos", "outputFormat": "json"}' -O -
+wget --post-data 'the quick brown fox jumped over the lazy dog' 'localhost:4090/?properties={"annotators": "tokenize,ssplit,pos", "outputFormat": "json"}' -O -
+screen -re
+screen -r
+git stauts
+git status
+git add  ../../../../docker/rootfs/etc/butterfly/
+git commit -am parser_stangord is working
+git commit -am "parser_stanford is working"
+git status
+cd ../../../../packs_xtra/logicmoo_pldata 
+git stauts
+git status
+rm  deps/hs_*.log
+git stauts
+git status
+cd ..
+git commit -am "parser_stanford is working"
+cd ../packs_sys/prologmud_samples/prolog/prologmud_sample_games/
+cd ,,
+cd ..
+cd ..
+cd ..
+find -name ".gitignore"
+vi /opt/logicmoo_workspace/packs_sys/.gitignore 
+vi /opt/logicmoo_workspace/packs_sys/.gitignore 
+git status
+cat  prologmud_samples/prolog/prologmud_sample_games/.viminfo
+cat  prologmud_samples/prolog/prologmud_sample_games/.vim/.netrwhist 
+cp .gitignore prologmud_samples/prolog/prologmud_sample_games/
+cd prologmud_samples/prolog/prologmud_sample_games/
+vi .gitignore 
+git status
+vi .gitignore 
+git status
+git revert ../../../.gitignore
+git checkout  ../../../.gitignore
+git status
+cat .viminfo 
+rm .viminfo 
+git status
+vi .gitignore 
+git status
+rm .viminfo
+git commit -am .viminfo
+git status
+git push
+ls
+cd /
+/opt/logicmoo_workspace/StartLogicmoo.sh
+/opt/logicmoo_workspace/StartLogicmoo.sh
+cls
+/opt/logicmoo_workspace/StartLogicmoo.sh
+/opt/logicmoo_workspace/StartLogicmoo.sh
+git diff /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_stanford.pl
+/opt/logicmoo_workspace/StartLogicmoo.sh
+/opt/logicmoo_workspace/StartLogicmoo.sh
+/opt/logicmoo_workspace/StartLogicmoo.sh
+/opt/logicmoo_workspace/StartLogicmoo.sh
+exit
+ls
+swipl
+cat  /opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/deps/hs_err_pid27757.log
+ java -XX:+PrintFlagsFinal -version | grep -Ei "maxheapsize|maxram"
+ java -XX:+PrintFlagsFinal -version | grep -Ei "maxheapsize|maxram" --help
+ java -XX:+PrintFlagsFinal -version | grep -Ei "maxheapsize|maxram" 
+su - 
+vi PrintMaxX,xXms.java
+javac ./PrintXmxXms.java
+ java -cp . PrintXmxXms
+mv PrintMaxX,xXms.java PrintMaxXPrintMaxX
+mv PrintMaxXPrintMaxX ./PrintXmxXms.java
+javac ./PrintXmxXms.java 
+vi ./PrintXmxXms.java 
+javac ./PrintXmxXms.java 
+vi ./PrintXmxXms.java 
+javac ./PrintXmxXms.java 
+vi ./PrintXmxXms.java 
+javac ./PrintXmxXms.java 
+free -m
+free -mh
+exit
+swipl
+/opt/logicmoo_workspace/StartLogicmoo.sh
+kill -9 %1
+kill -9 %1
+/opt/logicmoo_workspace/StartLogicmoo.sh
+cd ~prologmud_server/
+swipl
+swipl
+swipl
+swipl
+fg
+fg
+kill %1
+kill %1
+kill -9 %1
+kill -9 %1
+swipl
+wget http://nlp.stanford.edu/software/stanford-english-kbp-corenlp-2017-06-09-models.jar
+mv stanford-english-kbp-corenlp-2017-06-09-models.jar /opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/deps/
+ls
+wget http://downloads.gate.ac.uk/twitie/twitie-tagger.zip 
+wget http://downloads.gate.ac.uk/twitter/twitter_bootstrap_corpus.tar.gz
+wget http://downloads.gate.ac.uk/twitie/twitie-tagger.zip
+wget https://gate.ac.uk/sale/ranlp2013/twitter_pos/corpusdiff.py
+ls
+mv *.zip /opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/deps/
+mv twit* /opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/deps/
+ls
+lsmv corpusdiff.py /opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/deps/
+mv corpusdiff.py /opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/deps/
+cd /opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/deps/
+ls
+rm twitie-tagger.zip.1 
+unzip twitie-tagger.zip 
+unzip  stanford-english-kbp-corenlp-2017-06-09-models.jar
+ls
+unzip  stanford-english-kbp-corenlp-2017-06-09-models.jar
+ls
+unzip  stanford-corenlp-4.2.0-models-english-kbp.jar
+unzip  twitter_bootstrap_corpus.tar.gz
+tar xfvz twitter_bootstrap_corpus.tar.gz
+tar xfvz twitter_bootstrap_corpus.tar.gz 
+ls
+cat bootstrap_corpus_readme 
+cat corpusdiff.py 
+du - h
+du -h 
+du -h  . 
+ls -h .
+ls -h . -l
+unzip stanford-english-kbp-corenlp-2017-06-09-models.jar
+ps axf
+kill -9 java
+killall -9 java
+vi logging.properties
+vi log4j.properties
+ls
+cd ..
+ls
+cd /opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/stanford/
+ls
+cat LogicmooStanford.sh 
+vi LogicmooStanford.sh 
+killall -9 java
+vi LogicmooStanford.sh 
+killall -9 java
+cd deps
+wget https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/2.0.0-alpha1/slf4j-simple-2.0.0-alpha1.jar
+cat slf4j-simple-2.0.0-alpha1.jar 
+killall -9 java
+wget https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/1.6.2/slf4j-simple-1.6.2.jar
+killall -9 java
+su - prologmud_server 
+su - prologmud_server 
+vi ../LogicmooStanford.sh 
+ls
+vi ../LogicmooStanford.sh 
+cd ..
+vi LogicmooStanford.sh 
+killall -9 java
+killall -9 java
+su -  prologmud_server 
+free -h
+ps axf
+free
+free -h
+shutdown -r now
+exit

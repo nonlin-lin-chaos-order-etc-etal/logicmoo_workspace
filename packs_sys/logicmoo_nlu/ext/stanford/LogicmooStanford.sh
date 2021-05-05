@@ -13,14 +13,14 @@ if [[ ! -f deps/stanford-corenlp-4.2.0-models.jar ]]; then
 )
 fi
 
-apt remove adoptopenjdk-8-hotspot
+#apt remove adoptopenjdk-8-hotspot
 
 
 #export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -preload -status_port 4091 -timeout 15000 $@"
 
 #export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -timeout 15000 -uriContext /stanford"
 
-export OPTS="edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -timeout 15000"
+export OPTS="-Xmx9G -Xms6G -Djava.util.logging.config.file=./logging.properties edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 4090 -timeout 15000"
 
 cd deps
 cd $(readlink $PWD)
@@ -28,8 +28,8 @@ git lfs checkout .
 
 # -annotators tokenize,quote,ssplit,pos,lemma,ner,truecase,parse,hcoref,relation
 echo cd `pwd`
-echo java -mx4g -cp "*" $OPTS
-java -mx4g -cp "*" $OPTS
+echo java -cp "*" $OPTS
+java -cp "*" $OPTS
 
 sleep 2
 # curl --data "How are you today?" 'http://localhost:4090/stanford/?properties={%22annotators%22%3A%22tokenize%2Cssplit%2Cpos%2Cdepparse%22%2C%22outputFormat%22%3A%22conllu%22}'

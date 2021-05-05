@@ -79,11 +79,11 @@ can_be_partof(_,_).
 
 
 marked_segs(['VP'-'Situation',
-  %'ADVP'-'Adv',
+  'ADVP'-'Adv',
   'PP'-'Prep',
   'VP'-'VPhrase',
-  'ROOT'-'Root','SBAR'-'Thing','NP'-'Obj','word'-'W','S'-'Situation','S1'-'Event']).
-marked_seg_type(Mark,Type):- marked_segs(S),member(Mark-Type,S).
+  'ROOT'-'Root','SBAR'-'Thing','NP'-'Obj','NP-TMP'-'NP-TMP','word'-'W','S'-'Situation','S1'-'Event','NML'-'NML','ADJP'-'tCol','FRAG'-'FRAG']).
+%marked_seg_type(Mark,Type):- marked_segs(S),member(Mark-Type,S).
 with_reset_segs(G):- marked_segs(Segs), with_reset_segs(Segs,G).
 with_reset_segs([],G):-!,call(G).
 with_reset_segs([NP-_Type|S],G):- setup_call_cleanup(flag(NP,Was,1),with_reset_segs(S,G), flag(NP,_,Was)).
@@ -136,11 +136,11 @@ lxpr_to_segs(I,I).
 %add_p_to_words(_Var,_,[],[]):-!.
 % create_coref('S',MORES,MORES):- !.
 create_coref('ROOT',MORES,MORES):- !.
-create_coref(NP,MORES,Out):- atom(NP), marked_segs(Segs),member(NP-Type,Segs),
+create_coref(NP,MORES,Out):- atom(NP), % marked_segs(Segs),%member(NP-Type,Segs),
   %flag(NP,N,N+1), 
-  %flag('ROOT',N,N+1), 
-  NPN=span(sentNum,seg(start,end),Var,[NP,Type]),
-  add_var_to_env_now(Type,Var),
+  flag('ROOT',N,N+100), 
+  NPN=span([seg(start,end),size(0),lnks(0),'#'(N),xvar(Var),phrase(NP)/*,isa(Type)*/]),
+  add_var_to_env_now(NP,Var),
   add_p_to_words(Var,NPN,MORES,Out0),
   Out=[NPN|Out0].
 create_coref(NPN,MORES,Out):-add_p_to_words(_Var,NPN,MORES,Out).
@@ -148,15 +148,18 @@ create_coref(NPN,MORES,Out):-add_p_to_words(_Var,NPN,MORES,Out).
 %append_varname_h(_,_).
 append_varname_h(X,Y):- append_varname(X,Y).
 
-add_loc_to_span(PosL,P):- ignore(((member(loc(X),PosL),find_seg(P,Seg),Seg=seg(SW,_),add_loc_to_seg(X,SW,Seg)))),!.
-add_loc_to_seg(X,SW,Seg):- SW=start,nb_setarg(1,Seg,X),!,nb_setarg(2,Seg,X).
-add_loc_to_seg(X, _,Seg):- nb_setarg(2,Seg,X).
 
-find_seg(P,Seg):- compound(P), sub_term(Seg,P),compound(Seg),Seg=seg(_,_).
+add_loc_to_span(PosL,P):- find_subterm(PosL,loc(X)), find_subterm(P,seg(SW,_),Seg),add_loc_to_span3(X,SW,Seg),!.
 
-resize_span(P):- ignore((find_seg(P,seg(S,E)),number(S),number(E),Size is E - S + 1, nb_setarg(1,P,Size))).
+add_loc_to_span3(X,SW,Seg):- SW=start,nb_setarg(1,Seg,X),!,nb_setarg(2,Seg,X).
+add_loc_to_span3(X,_,Seg):- nb_setarg(2,Seg,X).
 
-span_var_type(SPAN2,X,Type):- compound(SPAN2), SPAN2 = span(_,_,X,[Type|_]).
+
+:- use_module(library(editline)).
+:- add_history((call(make),call(test_corenlp1))).
+
+
+resize_span(P):- ignore((find_subterm(P,seg(S,E)),number(S),number(E),Z is E - S + 1,find_subterm(P,size(_),Size),nb_setarg(1,Size,Z))).
 
 add_p_to_words(_Var,_,[],[]):- !.
 add_p_to_words(Var,P,[[w(H,L)]|T],[HH|TT]):- add_p_to_word(Var,P,w(H,L),HH),add_p_to_words(Var,P,T,TT).
@@ -167,34 +170,27 @@ add_p_to_words(Var,P,H,H):-
   pprint_ecp_cmt(yellow,add_p_to_words(Var,P,H)),
   !.
 
-add_p_to_word(_OVar,SPAN2,SPAN1,OUT):-
-  span_var_type(SPAN1,X,Type1),
-  span_var_type(SPAN2,Y,Type2),
-  can_be_partof(Type1,Type2),
-  nop(X\==Y),
-  OUT=SPAN1,!.
-  %[SPAN1,partOf(X,Y)]
-
-add_p_to_word(_Var,_,H,H):- member(H,[partOf(_,_),span(_,_,_,_)]),!.
-add_p_to_word(Var,P,w(S,PosL),w(S,PosPO)):- 
- must_or_rtrace((
-  add_loc_to_span(PosL,P),
-  (compound(P)->(arg(1,P,SN),arg(3,P,CV),arg(4,P,Traits));(SN= (#),Traits=[P],CV=cv)),  
-  resize_span(P),
-  %(SN==sentNum->(flag('ROOT',C,C+1),setarg(1,P,#(C)));true),
-   ( \+ member(traits(1,_,_),PosL) ->  append(PosL,[traits(1,Var,Traits)],PosP) ; append(PosL,[],PosP)),
-  (( \+ member(traits(2,_,_),PosL), member(traits(1,_,_),PosL)) ->  append(PosP,[traits(2,Var,Traits)],PosPO0) ; append(PosP,[],PosPO0)),
-  (( \+ member(traits(3,_,_),PosL), member(traits(2,_,_),PosL)) ->  append(PosPO0,[traits(3,Var,Traits)],PosPO) ; append(PosPO0,[],PosPO)),
-  append_varname_h(S,Var))),!.
-
+add_p_to_word(Var,P,Child,OUT):-  
+  find_subterm(P,phrase(Type)),
+  find_subterm(P,'#'(ID)),
+  ignore(add_loc_to_span(Child,P)),
+  resize_span(P),  
+  ignore((find_subterm(Child,txt(S)),append_varname_h(S,Var))),
+  ignore(( \+ find_subterm(Child,link(_,Type,_,_)), 
+      find_subterm(Child,lnks(OldN),Holder), 
+      N is OldN + 1,  
+      nb_setarg(1,Holder,N), 
+      nb_set_add(Child,link(N,Type,/*'#'*/(ID),Var)))),
+  OUT=Child,!.
+  %[Child,partOf(X,Y)]
 
 
 %add_p_to_words(_Var,P,[Atom|T],TT):- atom(Atom),trace,add_p_to_words(_Var,P,T,TT).
 %lxpr_to_segs([WORD],[POS]):- is_pos(WORD,POS),!. 
 
 is_pos([Pos,[quote,Head]],Out):-!,is_pos([Pos,Head],Out).
-is_pos(['DT',Head],w(WD,[pos(dt),loc(X)])):- maplist(atom,[Head]),downcase_atom(Head,WD),!,flag(word,X,X+1).
-is_pos([Pos, Head],w(WD,[pos(DC),loc(X)])):- maplist(atom,[Pos,Head]),downcase_atom(Head,WD),downcase_atom(Pos,DC),!,flag(word,X,X+1).
+is_pos(['DT',Head],w(WD,[pos(dt),loc(X),lnks(0),txt(SHead)])):- maplist(atom,[Head]),any_to_string(Head,SHead),downcase_atom(Head,WD),!,flag(word,X,X+1).
+is_pos([Pos, Head],w(WD,[pos(DC),loc(X),lnks(0),txt(SHead)])):- maplist(atom,[Pos,Head]),any_to_string(Head,SHead),downcase_atom(Head,WD),downcase_atom(Pos,DC),!,flag(word,X,X+1).
 is_pos([Word],Out):-!,is_pos(Word,Out).
 
 

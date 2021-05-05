@@ -681,6 +681,9 @@ pipeline_file_loading:-
   assert(pipeline_file_loaded),!,
   (Loaded=false-> break ; true).
 
+:- use_module(library(editline)).
+:- add_history((call(make),call(pipeline_file_loading))).
+
 :- fixup_exports.
 
 % :- pipeline_file_loading.
