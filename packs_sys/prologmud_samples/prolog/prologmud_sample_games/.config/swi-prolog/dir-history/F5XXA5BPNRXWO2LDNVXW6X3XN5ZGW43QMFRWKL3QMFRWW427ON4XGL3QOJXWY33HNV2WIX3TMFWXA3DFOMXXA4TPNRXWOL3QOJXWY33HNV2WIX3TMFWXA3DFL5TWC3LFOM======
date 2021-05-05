@@ -3,6 +3,8 @@ mmake,autodoc_test.\040
 swi_ide.\040
 mmake,autodoc_test.\040
 swi_ide.\040
+mmake,autodoc_test.\040
+swi_ide.\040
 mmake,autodoc_test.
 run_pipeline("she\040can\040see\040you.").
 run_pipeline("she\040sees\040you.").
@@ -20,3 +22,5 @@ run_pipeline("she\040can\040see\040you.").
 mmake.
 run_pipeline("she\040can\040see\040you.").
 mmake.
+run_pipeline("she\040can\040see\040you.").
+srv_mu.

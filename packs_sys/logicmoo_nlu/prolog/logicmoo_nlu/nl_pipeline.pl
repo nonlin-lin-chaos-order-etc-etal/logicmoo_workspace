@@ -9,7 +9,7 @@
 % Revised At:   $Date: 2002/06/06 15:43:15 $
 % ===================================================================
 
-:- module(parser_all, []).
+:- module(parser_all, [pipeline_file_loaded/0]).
 
 :- use_module(library(pfc_lib)).
 
@@ -102,11 +102,12 @@
 install_converter(M:XY):- !, install_converter(M, XY).
 install_converter(XY):- strip_module(XY, M, CNV), install_converter(M, CNV).
 
+:-share_mp(install_converter/2).
 install_converter(M, XY):- pi_splits(XY, X, Y), !, install_converter(M, X), install_converter(M, Y).
 install_converter(M, XY):- pi_p(XY, PI), !, install_converter(M, PI).
 install_converter(M, CNV):-
   strip_module(CNV, _OM, CNVLST),
-  functor(CNVLST, F, A),
+  functor(CNVLST, F, A),  
   '@'(export(M:F/A), M),
   '@'(import(M:F/A), parser_all),
   '@'(import(M:F/A), baseKB),
@@ -452,8 +453,8 @@ remove_punctuation(W2, W2).
 :- install_converter(parser_chat80:qplan(+simplify80, -qplan80)).
 :- install_converter(parser_chat80:results80(+qplan80, -results80)).
 
-:-kb_global(partOfSpeech/3).
-:-kb_global(determinerStrings/2).
+:-shared_parser_data(baseKB:partOfSpeech/3).
+:-shared_parser_data(baseKB:determinerStrings/2).
 
 
 :-asserta((type(SET):- call_u(tSet(SET)))).
@@ -611,7 +612,7 @@ with_el_holds_enabled_4_nl(Goal):-locally_hide(el_holds_DISABLED_KB, Goal).
 %:-  load_parser_interface(parser_fwd).
 % ================================================================================================
 
-:- dmsg(parser_all_complete).
+% :- dmsg(parser_all_complete).
 
 
 baseKB:sanity_test:- run_pipeline(input='A person who loves all animals is loved by someone.', [aceKif(p)=_], O), show_kvs(O).
@@ -647,10 +648,11 @@ baseKB:regression_test:- gripe_time(5, test_chat80_sanity).
 :- ignore((Z = ('`'), user:current_op(X, Y, Z), dmsg(call((writeq(:-(op(X, Y, Z))), nl, fail))))).
 % :- halt(666).
 
-baseKB:feature_test:- run_pipeline("what countries are there in europe ?").
+baseKB:sanity_test:- run_pipeline("what countries are there in europe ?").
 baseKB:feature_test:- run_pipeline("What countries are there in europe ?").
-baseKB:feature_test:- run_pipeline("What countries are there in north_america ?").
+baseKB:regression_test:- run_pipeline("What countries are there in north_america ?").
 baseKB:feature_test:- run_pipeline("What countries are there in north america ?").
+
 baseKB:feature_test(must_test_80):-
   forall(must_test_80(U, R, O),
     (ignore(\+ \+ process_run_diff(report, U, R, O)),
@@ -658,22 +660,31 @@ baseKB:feature_test(must_test_80):-
 
 baseKB:list_tests:- dmsg(call((
    listing(feature_test),
-   listing(sanity_test),
-   listing(regression_test),
    listing(chat80/3),
    listing(chat80/1),
    listing(chat80/2),
    listing(test_e2c/1),
-   listing(test_e2c/2)))).
+   listing(test_e2c/2),
+   listing(regression_test),
+   listing(sanity_test),
+   !))).
 
-:- fixup_exports.
-
-:- if((current_prolog_flag(runtime_debug, D), D>2)).
-:- list_tests,threads.
-:- endif.
 
 %:- must_test_80.
 %:- test_chat80_regressions.
+:- dynamic(pipeline_file_loaded/0).
 
+pipeline_file_loading:- 
+  show_pipeline,
+  baseKB:list_tests,
+  (pipeline_file_loaded->Loaded=true;Loaded=false),
+  assert(pipeline_file_loaded),!,
+  (Loaded=false-> break ; true).
 
+:- fixup_exports.
+
+% :- pipeline_file_loading.
+:- initialization(pipeline_file_loading, after_load).
+
+%:- break.
 

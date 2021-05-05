@@ -492,7 +492,6 @@ end80(F) :-
  seeing(F) -> seen ; true. % close(F).
 
 chat80_test(L):- ignore(control80(L)).
-test_chat80(L):- ignore(control80(L)).
 
 :-share_mp(control80/1).
 control80(L):- check_words(L,S)-> L\==S, !, control80(S).
@@ -530,6 +529,7 @@ trace_chat80(U):-
               ignore(control80(U)))))).
 
 :- share_mp(test_chat80/1).
+%test_chat80(L):- ignore(control80(L)).
 test_chat80(U):-
  locally(t_l:tracing80_nop,
            locally(t_l:chat80_interactive_nop,

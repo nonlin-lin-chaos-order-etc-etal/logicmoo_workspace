@@ -458,7 +458,7 @@ append_varname1(R,Var):- get_var_name(Var,Prev),!,
 append_varname1(R,Var):- add_var_to_env_now(R,Var).
 
 trump_pretty(WRT):- \+ compound(WRT), fail.
-trump_pretty(w(R,T)):- is_list(T), atomic(R), term_variables(T,Vs),Vs\==[],maplist(append_varname(R),Vs),!.
+%trump_pretty(w(R,T)):- is_list(T), atomic(R), term_variables(T,Vs),Vs\==[],maplist(append_varname(R),Vs),!.
 trump_pretty(isa(V,R)):- var(V), atomic(R), append_varname(R,V).
 
 pretty_two(H):- pretty_enough(H),!.

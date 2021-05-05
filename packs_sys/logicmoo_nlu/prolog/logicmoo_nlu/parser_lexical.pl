@@ -526,9 +526,9 @@ lex_info(String):-
 lex_info(Kind, String, Out):-
  must_det_l((
  into_text100_atoms(String, Words), % maplist(into_dm, Words, Todo),
- into_acetext(Words, Ace), cvt_to_real_string(Ace, _SAce),
- %nop(call_corenlp(SAce,[],Todo)),
- %maplist(print_reply_colored,Todo), print_reply_colored("==============================================================="),
+ into_acetext(Words, Ace), cvt_to_real_string(Ace, SAce),
+ call_corenlp(SAce,[],Todo),
+ maplist(print_reply_colored,Todo), print_reply_colored("==============================================================="),
  Level = 0,
  ignore((Todo=[])),
  findall(sentence(N,WS,Info),member(sentence(N,WS,Info),Todo),Sents),

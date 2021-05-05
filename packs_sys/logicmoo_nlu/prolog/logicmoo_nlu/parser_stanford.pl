@@ -14,7 +14,10 @@
             call_corenlp/2, 
             call_corenlp/3,
             test_corenlp/0,
+            test_corenlp1/0,
+            test_corenlp2/0,
             test_corenlp/1,
+            test_corenlp/2,
          into_text100_atoms/2
 
          ]).
@@ -35,35 +38,50 @@ call_corenlp(English):- call_corenlp(English, _Options).
 
 call_corenlp(English, Options):-
   call_corenlp(English, Options, OutF),!,
-  maplist(print_reply_colored, OutF).
+  maplist(print_reply_colored, OutF),!,
+%  ttyflush,format('~N?- call_corenlp(~p, ~p).~n',[English, Options]),ttyflush,!.
+  ttyflush,format('~N?- ~p.~n',[call_corenlp(English, Options)]),ttyflush,!.
 
 call_corenlp(English, OptionsIn, OutS):-
   % DefaultOpts = [tokenize, ssplit, pos, lemma, ner, coref, dcoref, depparse,  mwt, natlog ,relation, openie ],
-  DefaultOpts = [ quote, tokenize, ssplit, pos, lemma, depparse, natlog, coref, dcoref,  ner, relation, udfeats ],
+  %DefaultOpts = [ quote, tokenize, ssplit, pos, lemma, depparse, natlog, coref, dcoref,  ner, relation, udfeats ],
+  _DefaultOpts = [  quote, tokenize, ssplit, pos, depparse, ner, parse, coref,
+   %relation,
+   openie,
+   dcoref],
+  DefaultOpts = [ quote, tokenize, ssplit, pos, depparse, lemma, ner,parse,dcoref,coref, relation],
   % kbp,  % sentiment,
   ignore('.\nSome quick brown foxes jumped over the lazy dog after we sang a song. X is Y .  Pee implies Queue.'=English),
   ignore(OptionsIn=DefaultOpts), % depparse, lemma
-  atomic_list_concat(['\n.\n',English,"\n.\n"], PostData),
+  into_acetext(English,ACEEnglish),
+  atomic_list_concat(['.\n',ACEEnglish,'\n.\n'], PostData),
   (OptionsIn==[]->Options=DefaultOpts;Options=OptionsIn),
-  atomic_list_concat(Options, '%2C', OptionsStr),
+  atomic_list_concat(Options, ',', OptionsStr),
   %format(atom(For), '"annotators":"~w", "outputFormat":"json"', [OptionsStr]),
   % format(atom(For), '{"outputFormat":"json"}', []),
   % http_open([host(localhost), port(3090), post([PostData]), path(''), search([properties=For])], In, []),
-  %uri_encoded(query_value, For, Encoded), 
-  atomic_list_concat(['http://localhost:4090/?properties={%22annotators%22%3A%22', OptionsStr,'%22%2C%22outputFormat%22%3A%22json%22}'], URL),
-  wdmsg(uRL=URL),
-  http_post(URL, [PostData], json(Reply), []),
-  %maplist(print_reply_colored,Reply), print_reply_colored("==============================================================="),
-  % maplist(wdmsg, Reply),
-  must_or_rtrace(parse_reply([reply], Reply, Out)),
+  atomic_list_concat(['{"annotators":"', OptionsStr,'","outputFormat":"json"}'],For),
+  uri_encoded(query_value, For, Encoded), 
+  atomic_list_concat(['http://localhost:4090/?properties=',Encoded], URL),
+  wdmsg(uRL=http_post(URL, [PostData], json(Reply), [])),
+  http_post(URL, [PostData], json(Reply), []),!,
+  maplist(print_reply_colored,Reply), 
+ wdmsg("==============================================================="),
+  ttyflush,
+  (((parse_reply([reply], Reply, Out)),!,
   flatten([Out], OutF),
   sort(OutF, OutR),
-  reverse(OutR, OutS),
+  reverse(OutR, OutS))),
+  ttyflush,
   !.
 % http://localhost:4090/stanford/?properties={%22annotators%22%3A%22quote,tokenize,ssplit,pos,lemma,depparse,natlog,coref,dcoref,nmat%22%3A%22json%22}
 % http://localhost:4090/stanford/?properties={%22annotators%22%3A%22tokenize%2Cssplit%2Cpos%2Cdepparse%22%2C%22outputFormat%22%3A%22conllu%22}
 
+is_loc_name(paragraph).
+is_loc_name(index).
+parse_reply(Ctx, List, Out):- is_list(List),select(N=V,List,NewList), is_loc_name(N),!,parse_reply([N=V|Ctx], NewList, Out).
 parse_reply(Ctx, List, Out):- is_list(List),!, maplist(parse_reply(Ctx),List, Out).
+%parse_reply(_Ctx, InnerCtx=json(List), InnerCtx=List).
 parse_reply(Ctx, InnerCtx=json(List), Out):- !,  parse_reply([InnerCtx|Ctx], List, Out).
 parse_reply(Ctx, List, Out):- 
    sub_term(Sub, List), nonvar(Sub), 
@@ -87,8 +105,9 @@ parse_reply_replace(_Ctx, Sub, Replace):- is_list(Sub),
   subtract_eq(Sub, ['$'], Replace),
   Replace\==Sub.
 
-parse_reply_replace(_Ctx, sentence(N,[tok(1,'.','.',".",[])],[]), '$'):- number(N).
-parse_reply_replace(_Ctx, openie=W, W):-!, nonvar(W).
+parse_reply_replace(_Ctx, sentence(N,[_W2],_), '$'):- number(N).
+parse_reply_replace(_Ctx, sentence(N,[W2|_],_), '$'):- number(N), arg(1,W2,'--------').
+
 parse_reply_replace(_Ctx, sentences=W, W):-!, nonvar(W).
 parse_reply_replace(_Ctx, corefs=W, W):- !,nonvar(W).
 parse_reply_replace(_Ctx, Number=[Coref|More], [Coref|More]):- atom_number(Number,_), compound(Coref),functor(Coref,coref,_).
@@ -102,28 +121,40 @@ parse_reply_replace(_Ctx, Remove=Rest, '$'):- nonvar(Rest),
    entitymentions,
    headIndex,
    position,
-   parse, 
+   %parse, 
    characterOffsetBegin, characterOffsetEnd, before, after]).
 parse_reply_replace(_Ctx, isRepresentativeMention=TF, TF).
+
+parse_reply_replace(_Ctx, _= json(SL), '$'):- member(_=json(Sub),SL), is_list(Sub), member(_ = V, Sub), atomic(V), atom_contains(V, '---'), !.
+parse_reply_replace(_Ctx, _=json(Sub), '$'):- is_list(Sub), member(_ = V, Sub), atomic(V), atom_contains(V, '---'), !.
+
 parse_reply_replace(_Ctx, Sub, '$'):- ground(Sub), 
   member(Sub, [entitymentions=[], speaker='PER0', openie=[], ner='O']).
+
+parse_reply_replace(_Ctx, Parse=Rest, Parse=SegsF):- Rest\==[], atomic(Rest), atom_concat('(',_,Rest),atom_concat(_,')',Rest),  
+  lxpr_to_list(Rest, LExpr),!,
+  charniak_to_parsed(LExpr,SegsF),!.
 
 parse_reply_replace(_Ctx, Sub, Replace):- 
  members([index=Index, originalText=String, word=String, 
     lemma=Root, pos=Pos], Sub, Attributes), !,
- cvt_to_real_string(String,AString),
- Replace = tok(Index, Pos, Root, AString, Attributes).
+ my_cvt_to_real_string(String,AString),
+ w_to_w2(AString,w(W,_)),
+ downcase_atom(Pos,PosD),
+ downcase_atom(W,WD),
+ Replace = w(WD,[pos(PosD), root(Root),loc(Index), txt(AString)| Attributes]).
 
 parse_reply_replace(_Ctx, Sub, Replace):- 
   members([index=SentID, tokens=Tokens], Sub, Attributes), !,
   maplist(label_tokens(SentID), Tokens, TokensLabeled),
   parse_reply([sentence(SentID)],Attributes,NewAttributes),
   flatten(NewAttributes,NewAttributesF),
-  Replace = sentence(SentID, TokensLabeled, NewAttributesF).
+  maybe_add_to_toks(TokensLabeled, NewAttributesF,TokensLabeledR, NewAttributesFR),
+  Replace = sentence(SentID, TokensLabeledR, NewAttributesFR).
 
 parse_reply_replace(_Ctx, Sub, Replace):- 
   members([relationSpan=[R1,R2],relation=Relation,subjectSpan=[S1,S2],subject=S,objectSpan=[O1,O2],object=O], Sub, Attributes), !,
-  Replace = sro([rel(Relation,R1,R2),subj(S,S1,S2),obj(O,O1,O2)|Attributes]).
+  Replace = sro([subj(S,S1,S2),rel(Relation,R1,R2),obj(O,O1,O2)|Attributes]).
 
 parse_reply_replace(_Ctx, Sub, Replace):- 
   members([relationSpan=RelationSpan,relation=Relation], Sub, Attributes), !,
@@ -132,20 +163,21 @@ parse_reply_replace(_Ctx, Sub, Replace):-
 parse_reply_replace(_Ctx, Sub, Replace):- 
  members([id=Index, text=Text, type=Type, startIndex=SI, endIndex=EI, % headIndex=HI,
     sentNum=SentID, number=SINGULAR, gender=NEUTRAL, animacy=INANIMATE, isRepresentativeMention=TF], Sub, Attributes), !,
- into_text100_atoms(Text,Words),maplist(cvt_to_real_string,Words,WordStrings),
+ into_text100_atoms(Text,Words),maplist(my_cvt_to_real_string,Words,WordStrings),
  SentIDMinus1 is SentID-1,
  SIm1 is SI-0,
  EIm1 is EI-1,
  Replace =  
-  coref(SentIDMinus1, seg(SIm1-EIm1), '#'(Index), WordStrings,
-    % headIndex(HI),   
-    Type, SINGULAR, NEUTRAL, INANIMATE,Index,[[]],[em=TF|Attributes]).
+  coref(SentIDMinus1, seg(SIm1,EIm1), [Type, txt(WordStrings), '#'(Index),SINGULAR, NEUTRAL, INANIMATE,em=TF|Attributes]).
                                                                                 
 parse_reply_replace(_Ctx, sentence(_,TokList,_), '$'):- ground(TokList),  
    member(tok(_, 'SYM', '--------', _, _),TokList), !.
 
 parse_reply_replace(_Ctx, json(Replace), Replace):- nonvar(Replace),!.
- 
+
+my_cvt_to_real_string(Text,Out):- any_to_string(Text,Out).
+
+maybe_add_to_toks(TokensLabeled, NewAttributesF,TokensLabeled, NewAttributesF).
 into_text100_atoms(Text,Words):- into_text80_atoms(Text,Words).
 
 members([], List, List):-!.
@@ -164,15 +196,40 @@ sentence_reply(Number, Toks, SExpr, In, In):-
   print_reply_colored(Number=Toks), !.
 */
 
+baseKB:regression_test:- test_corenlp(1,X),!,call_corenlp(X).
+baseKB:sanity_test:- make, forall(test_corenlp(1,X),call_corenlp(X)).
+baseKB:feature_test:- test_corenlp.
 
+test_corenlp1:- 
+  %Txt = "Rydell used his straw to stir the foam and ice remaining at the bottom of his tall plastic cup, as though he were hoping to find a secret prize.",
+  Txt = "The Norwegian dude lives happily in the first house.",
+  test_corenlp(Txt),
+  ttyflush,writeln(('\n test_corenlp1.')),!.
+test_corenlp2:- 
+  Txt = "Rydell used his straw to stir the foam and ice remaining at the bottom of his tall plastic cup, as though he were hoping to find a secret prize.",
+  %Txt = "The Norwegian dude lives happily in the first house.",
+  test_corenlp(Txt),
+  ttyflush,writeln(('\n test_corenlp2.')),!.
 
+ test_corenlp:- 
+  Txt = "Rydell was a big quiet Tennessean with a sad shy grin, cheap sunglasses, and a walkie-talkie screwed permanently into one ear.",
+  test_corenlp(Txt),
+  ttyflush,writeln(('\n test_corenlp.')),!.
 test_corenlp:- forall(test_corenlp(X),call_corenlp(X)).
 
-test_corenlp(X):- nonvar(X),once(call_corenlp(X)).
+test_corenlp(N):- number(N),!, forall(test_corenlp(N,X),call_corenlp(X)). 
+test_corenlp(X):- test_corenlp(_,X).
 
-test_corenlp(".\nThe Norwegian lives in the first house.\n.").
-test_corenlp("Rydell used his straw to stir the foam and ice remaining at the bottom of his tall plastic cup, as though he were hoping to find a secret prize.").
-test_corenlp(
+test_corenlp(_,X):- nonvar(X), !, once(call_corenlp(X)).
+
+test_corenlp(1,".\nThe Norwegian lives in the first house.\n.").
+
+test_corenlp(1,"Rydell used his straw to stir the foam and ice remaining at the bottom of his tall plastic cup, as though he were hoping to find a secret prize.").
+
+
+test_corenlp(2,Each):- test_corenlp(3,Atom),atomic_list_concat(List,'\n',Atom), member(Each,List).
+
+test_corenlp(3,
 'There are 5 houses with five different owners.
  These five owners drink a certain type of beverage, smoke a certain brand of cigar and keep a certain pet.
  No owners have the same pet, smoke the same brand of cigar or drink the same beverage.
@@ -187,8 +244,7 @@ test_corenlp(
  "You look like the cat that swallowed the canary, " he said, giving her a puzzled look.').
 
 
-test_corenlp(
-".
+test_corenlp(3,".
 The Brit lives in the red house.
 The Swede keeps dogs as pets.
 The Dane drinks tea.
@@ -204,8 +260,6 @@ The owner who smokes Bluemasters drinks beer.
 The German smokes Prince.
 The Norwegian lives next to the blue house.
 The owner who smokes Blends lives next to the one who drinks water.").
-
-
 
 
 end_of_file.
@@ -259,3 +313,4 @@ total 487312
 [main] INFO CoreNLP - StanfordCoreNLPServer listening at /0.0.0.0:3090
 
 */
+

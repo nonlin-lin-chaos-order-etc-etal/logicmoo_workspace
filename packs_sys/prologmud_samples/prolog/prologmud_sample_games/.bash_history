@@ -742,3 +742,66 @@ kill -9 %1
 kill -9 %1
 kill -9 %1
 fg
+supervisorctl restart
+supervisorctl restart butterfly_4123
+vi /etc/supervisor/conf.d/supervisord_logicmoo.conf       
+butterfly
+butterfly --help
+butterfly
+butterfly --help
+butterfly.server.py --help
+vi   /etc/butterfly/butterfly.conf
+mkdir /opt/logicmoo_workspace/docker/rootfs/etc/butterfly/
+cp /etc/butterfly/butterfly.conf /opt/logicmoo_workspace/docker/rootfs/etc/butterfly/
+vi /etc/butterfly/
+cp -a /etc/butterfly/ /opt/logicmoo_workspace/docker/rootfs/etc/butterfly/
+cp -a /etc/butterfly/* /opt/logicmoo_workspace/docker/rootfs/etc/butterfly/
+rm /opt/logicmoo_workspace/docker/rootfs/etc/butterfly/butterfly/ -rf
+ls /opt/logicmoo_workspace/docker/rootfs/etc/butterfly/
+rm /etc/butterfly/ -rf
+ln -s /opt/logicmoo_workspace/docker/rootfs/etc/butterfly /etc/
+ls /etc/
+vi /etc/butterfly/butterfly.conf 
+butterfly.server.py --help
+supervisorctl restart butterfly_4123
+supervisorctl restart butterfly_4123
+supervisorctl restart butterfly_4123
+supervisorctl restart butterfly_4123
+supervisorctl reload
+supervisorctl restart butterfly_4123
+supervisorctl --help
+supervisorctl refresh
+supervisorctl -h
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+supervisorctl update
+ps axf
+supervisorctl update
+supervisorctl update
+supervisorctl restart
+supervisorctl reload
+supervisorctl update
+supervisorctl reload
+/opt/logicmoo_workspace/StartLogicmoo.sh
+fg
+ps axf
+ps axf
