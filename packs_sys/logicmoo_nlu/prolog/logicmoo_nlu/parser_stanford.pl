@@ -37,12 +37,6 @@ baseKB:sanity_test:- test_corenlp.
 text_to_corenlp(Text,LExpr):-
   call_corenlp(Text,_, LExpr).
   
-
-call_charniak(Text):- 
-  charniak_pos(Text,W),
-  nop(pprint_ecp_cmt(green,W)),
-  %pprint_ecp_cmt(yellow,LExpr),
-  !.
 call_corenlp(English):- call_corenlp(English, _Options).
 
 call_corenlp(English, Options):-
@@ -109,9 +103,10 @@ parse_reply_sub_replace(Ctx, List, Sub, NewSub):-
 
 parse_reply_replace(Ctx, List, Out):- is_list(List), once(flatten(List,Flat)),List\==Flat,!,parse_reply_replace(Ctx, Flat, Out).
 
-unuseable_word(W2):- arg(1,W2,Atom),arg(_,v('---','16202'),OneOf), atom_concat(OneOf,_,Atom).
-unuseable_word(w('.',List)):- nonvar(List),member(loc(1),List).
-unuseable_words(List):- member(W2,List), compound(W2), unuseable_words(W2).
+unuseable_word(w('.',List)):- nonvar(List),!,member(loc(1),List).
+unuseable_word(W2):- compound(W2),arg(1,W2,Atom),!,unuseable_word(Atom).
+unuseable_word(Atom):- atomic(Atom),!,arg(_,v('---','162'),OneOf), atom_concat(OneOf,_,Atom).
+unuseable_words(List):- member(W2,List), compound(W2), unuseable_word(W2).
 
 parse_reply_replace(_Ctx, Sub, Replace):- is_list(Sub), 
   subtract_eq(Sub, ['$'], Replace),
@@ -151,7 +146,7 @@ into_value_lex_value(A,V):- \+ atom(A) -> A=V ;  atom_to_term(A,V,Vs),maplist(ca
 parse_reply_replace(_Ctx, Sub, '$'):- ground(Sub), 
   member(Sub, [entitymentions=[], speaker='PER0', openie=[], truecase='O', ner='O', entitylink='O']).
 
-parse_reply_replace(_Ctx, NER=Value, Pred):- atom(NER),member(NER,[normalizedNER,ner,repm]),Pred=..[NER,TValue],into_value_lex_value(Value,TValue).
+parse_reply_replace(_Ctx, NER=Value, Pred):- atom(NER),member(NER,[normalizedNER,ner,paragraph,openie,kbp,truecase,entitylink,repm]),Pred=..[NER,TValue],into_value_lex_value(Value,TValue).
 
 parse_reply_replace(_Ctx, Remove=Rest, '$'):- nonvar(Rest),
   member(Remove, [
@@ -161,6 +156,7 @@ parse_reply_replace(_Ctx, Remove=Rest, '$'):- nonvar(Rest),
    entitymentions,
    sentimentTree,
    headIndex,
+   truecaseText,
    position,
    %parse, 
    characterOffsetBegin, characterOffsetEnd, before, after]).
@@ -208,22 +204,15 @@ parse_reply_replace(_Ctx, Sub, Replace):-
  SIm1 is SI-0,
  EIm1 is EI-1,
  Replace =  
-  coref(SentIDMinus1, seg(SIm1,EIm1), ['#'(Index), txt(WordStrings),
-    % headIndex(HI),   
-    Type, SINGULAR, NEUTRAL, INANIMATE,repm=TF|Attributes]).
-       
-parse_reply_replace(_Ctx, Sub, Replace):- 
- members([id=Index, startIndex=SI, endIndex=EI, % headIndex=HI, 
-   text=Text, sentNum=SentID], Sub, Attributes), !,
- into_text100_atoms(Text,Words),maplist(my_cvt_to_real_string,Words,WordStrings),
- SentIDMinus1 is SentID-1,
- SIm1 is SI-0,
- EIm1 is EI-1,
- Replace =  
-  coref(SentIDMinus1,seg(SIm1,EIm1),[txt(WordStrings), '#'(Index)|Attributes]).
+  coref(SentIDMinus1, seg(SIm1,EIm1), ['#'(Index), txt(WordStrings),  
+    type(Type), numb(SINGULAR), gender(NEUTRAL), animacy(INANIMATE),repm(TF)|Attributes]).       
                                                                                 
 parse_reply_replace(_Ctx, sentence(_,TokList,_), '$'):- ground(TokList),  
    member(tok(_, 'SYM', '--------', _, _),TokList), !.
+parse_reply_replace(_Ctx, coref(_,_,TokList), '$'):- 
+   unuseable_words(TokList), !.
+parse_reply_replace(_Ctx, sentence(_,TokList,_), '$'):- 
+   unuseable_words(TokList), !.
 
 parse_reply_replace(_Ctx, json(Replace), Replace):- nonvar(Replace),!.
 

@@ -138,8 +138,9 @@ lxpr_to_segs(I,I).
 create_coref('ROOT',MORES,MORES):- !.
 create_coref(NP,MORES,Out):- atom(NP), % marked_segs(Segs),%member(NP-Type,Segs),
   %flag(NP,N,N+1), 
-  flag('ROOT',N,N+100), 
-  NPN=span([seg(start,end),size(0),lnks(0),'#'(N),xvar(Var),phrase(NP)/*,isa(Type)*/]),
+  flag(NP,N,N+1),
+  atomic_list_concat([NP,'#',N],NPNRef),
+  NPN=span([seg(start,end),size(0),lnks(0),'#'(NPNRef),xvar(Var),phrase(NP)/*,isa(Type)*/]),
   add_var_to_env_now(NP,Var),
   add_p_to_words(Var,NPN,MORES,Out0),
   Out=[NPN|Out0].
@@ -199,9 +200,9 @@ text_to_charniak(Text,LExpr):-
   lxpr_to_list(String, LExpr).
 
 call_charniak(Text):- 
+  format('~N?- ~p.~n',[call_charniak(Text)]),
   charniak_pos(Text,W),
-  nop(pprint_ecp_cmt(green,W)),
-  %pprint_ecp_cmt(yellow,LExpr),
+  print_tree(W),
   !.
 
 lxpr_to_list(String, LExpr):- any_to_codelist(String,Codes), c2s(LExpr0,Codes,_) ,fix_c2s(LExpr0,LExpr).
@@ -222,23 +223,34 @@ baseKB:regression_test:- test_charniak(1,X),!,call_charniak(X).
 baseKB:sanity_test:- make, forall(test_charniak(1,X),call_charniak(X)).
 baseKB:feature_test:- test_charniak.
 
+test_charniak1:- 
+  %Txt = "Rydell used his straw to stir the foam and ice remaining at the bottom of his tall plastic cup, as though he were hoping to find a secret prize.",
+  Txt = "The Norwegian dude lives happily in the first house.",
+  test_charniak(Txt),
+  ttyflush,writeln(('\n test_charniak1.')),!.
+test_charniak2:- 
+  Txt = "Rydell used his straw to stir the foam and ice remaining at the bottom of his tall plastic cup, as though he were hoping to find a secret prize.",
+  %Txt = "The Norwegian dude lives happily in the first house.",
+  test_charniak(Txt),
+  ttyflush,writeln(('\n test_charniak2.')),!.
+
+ test_charniak:- 
+  Txt = "Rydell was a big quiet Tennessean with a sad shy grin, cheap sunglasses, and a walkie-talkie screwed permanently into one ear.",
+  test_charniak(Txt),
+  ttyflush,writeln(('\n test_charniak.')),!.
 test_charniak:- forall(test_charniak(X),call_charniak(X)).
 
 test_charniak(N):- number(N),!, forall(test_charniak(N,X),call_charniak(X)). 
-test_charniak(X):- test_charniak(_,X).
+test_charniak(X):- test_charniak(_,X),nop(lex_info(X)).
 
-test_charniak(_,X):- nonvar(X),!, once(call_charniak(X)).
+test_charniak(_,X):- nonvar(X), !, once(call_charniak(X)).
 
 test_charniak(1,".\nThe Norwegian lives in the first house.\n.").
 
 test_charniak(1,"Rydell used his straw to stir the foam and ice remaining at the bottom of his tall plastic cup, as though he were hoping to find a secret prize.").
 
-                                
-test_charniak(2,Each):- test_charniak(3,Atom),atomic_list_concat(List,'\n',Atom), member(Each,List).
 
-% lisp_read(string('(S1 (S (NP (DT The) (JJ Norwegian)) (VP (VBZ lives) (PP (IN in) (NP (DT the) (JJ first) (NN house)))) ( "." "." )))'),X)
-test_charniak(2,'A book called, "A little tribute to Gibson".').
-test_charniak(2,'"You look like the cat that swallowed the canary, " he said, giving her a puzzled look.').
+test_charniak(2,Each):- test_charniak(3,Atom),atomic_list_concat(List,'\n',Atom), member(Each,List).
 
 test_charniak(3,
 'There are 5 houses with five different owners.
@@ -271,10 +283,6 @@ The owner who smokes Bluemasters drinks beer.
 The German smokes Prince.
 The Norwegian lives next to the blue house.
 The owner who smokes Blends lives next to the one who drinks water.").
-
-
-
-
 
 :- fixup_exports.
 
