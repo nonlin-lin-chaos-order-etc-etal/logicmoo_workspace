@@ -975,3 +975,5 @@ free
 free -h
 shutdown -r now
 exit
+free
+free -h

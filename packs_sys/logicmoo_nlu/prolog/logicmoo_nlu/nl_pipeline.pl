@@ -529,7 +529,15 @@ eng_to_bratko(Sentence, LF, Type, Clause, FreeVars) :-
 % ================================================================================================
 load_parser_stanford:-  load_parser_interface(parser_stanford).
 % ================================================================================================
+
+:- install_converter(parser_stanford:text_to_corenlp(+acetext, -corenlp)).
+:- install_converter(parser_stanford:corenlp_to_segs(+corenlp,-corenlp_segs)).
+:- install_converter(parser_stanford:corenlp_segs_to_w2(+corenlp_segs,-corenlp_info,-corenlp_w2)).
+
+
+
 % :- get_pos_tagger(I), jpl_set(I, is_DEBUG, '@'(false)).
+
 
 :- reexport(library('logicmoo/common_logic/common_logic_snark.pl')).
 

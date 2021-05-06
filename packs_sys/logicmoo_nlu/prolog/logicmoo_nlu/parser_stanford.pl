@@ -34,58 +34,39 @@ baseKB:sanity_test:- test_corenlp.
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
+text_to_corenlp(Text,LExpr):-
+  call_corenlp(Text,_, LExpr).
+  
+
+call_charniak(Text):- 
+  charniak_pos(Text,W),
+  nop(pprint_ecp_cmt(green,W)),
+  %pprint_ecp_cmt(yellow,LExpr),
+  !.
 call_corenlp(English):- call_corenlp(English, _Options).
 
 call_corenlp(English, Options):-
   call_corenlp(English, Options, OutF),!,
-  maplist(print_reply_colored, OutF),!,
-%  ttyflush,format('~N?- call_corenlp(~p, ~p).~n',[English, Options]),ttyflush,!.
-  ttyflush,format('~N?- ~p.~n',[call_corenlp(English, Options)]),ttyflush,!.
+  ttyflush, print_tree(OutF),!, ttyflush, 
+  format('~N?- ~p.~n',[call_corenlp(English, Options)]),ttyflush,!.
 
-call_corenlp(English, OptionsIn, OutS):-
-  % DefaultOpts = [tokenize, ssplit, pos, lemma, ner, coref, dcoref, depparse,  mwt, natlog ,relation, openie ],
-  %DefaultOpts = [ quote, tokenize, ssplit, pos, lemma, depparse, natlog, coref, dcoref,  ner, relation, udfeats ],
+call_corenlp(English, OptionsIn, Out):-
   DefaultOpts = [  quote, tokenize, ssplit, pos, depparse, ner, parse, coref,mwt,natlog,udfeats,
-   relation,lemma, %upos, %xpos, 
-   %feats,
-   docdate,
-   entitylink,
-   %entitymentions,
-   openie,
-   %truecase,
-   sentiment,
-   kbp,
-   gender,
-   cleanxml,
-   %morpha,
-   %time,
-   %sutime,
-   dcoref],
-  % DefaultOpts = [ quote, tokenize, ssplit, pos, depparse, lemma, ner,parse,dcoref,coref, relation],
-  % kbp,  % sentiment,
+   relation,lemma, docdate, entitylink, openie, truecase, kbp, gender, cleanxml,
+   %entitymentions, %sentiment,
+   dcoref], ignore(OptionsIn=DefaultOpts),
   ignore('.\nSome quick brown foxes jumped over the lazy dog after we sang a song. X is Y .  Pee implies Queue.'=English),
-  ignore(OptionsIn=DefaultOpts), % depparse, lemma
   into_acetext(English,ACEEnglish),
-  atomic_list_concat(['.\n',ACEEnglish,'\n.\n'], PostData),
+  atomic_list_concat(['.\n',ACEEnglish,'\n.'], PostData),
   (OptionsIn==[]->Options=DefaultOpts;Options=OptionsIn),
   atomic_list_concat(Options, ',', OptionsStr),
-  %format(atom(For), '"annotators":"~w", "outputFormat":"json"', [OptionsStr]),
-  % format(atom(For), '{"outputFormat":"json"}', []),
-  % http_open([host(localhost), port(3090), post([PostData]), path(''), search([properties=For])], In, []),
   atomic_list_concat(['{"annotators":"', OptionsStr,'","outputFormat":"json"}'],For),
   uri_encoded(query_value, For, Encoded), 
   atomic_list_concat(['http://localhost:4090/?properties=',Encoded], URL),
-  wdmsg(uRL=http_post(URL, [PostData], json(Reply), [])),
+ % wdmsg(uRL=http_post(URL, [PostData], json(Reply), [])),
   http_post(URL, [PostData], json(Reply), []),!,
-  maplist(print_reply_colored,Reply), 
- wdmsg("==============================================================="),
-  ttyflush,
-  (((parse_reply([reply], Reply, Out)),!,
-  flatten([Out], OutF),
-  sort(OutF, OutR),
-  reverse(OutR, OutS))),
-  ttyflush,
-  !.
+  ttyflush,!,
+  parse_reply([reply], Reply, Out),!.
 % http://localhost:4090/stanford/?properties={%22annotators%22%3A%22quote,tokenize,ssplit,pos,lemma,depparse,natlog,coref,dcoref,nmat%22%3A%22json%22}
 % http://localhost:4090/stanford/?properties={%22annotators%22%3A%22tokenize%2Cssplit%2Cpos%2Cdepparse%22%2C%22outputFormat%22%3A%22conllu%22}
 
@@ -103,24 +84,11 @@ parse_reply(Ctx, List, Out):-
    subst(List, Sub, NewSub, NewList), 
    List\==NewList, !, 
    parse_reply(Ctx, NewList, Out).
-
-/*
-parse_reply(Ctx, List, Out):- 
-   sub_term(Sub, List), nonvar(Sub), 
-   parse_reply_replace(Ctx, Sub, NewSub),
-   % ignore((NewSub=='$',wdmsg(parse_reply_replace(_Ctx, Sub, NewSub)))),
-   nonvar(NewSub), Sub\==NewSub,
-   subst(List, Sub, NewSub, NewList), 
-   List\==NewList, !, 
-   parse_reply(Ctx, NewList, Out).
-*/
 %parse_reply(Ctx, [], Ctx=[]):- !.
 parse_reply(Ctx, List, Out):- flatten([List], Mid), 
   List \== Mid, fail, !,
   parse_reply(Ctx, Mid, Out).
   
-%parse_reply(Ctx, List, Ctx=j(Out)):- flatten([List], Out),!.
-
 %parse_reply(Ctx, List, Out):- is_list(List),select(N=V,List,NewList), is_loc_name(N),!,parse_reply([N=V|Ctx], NewList, Out).
 %parse_reply(Ctx, List, Out):- is_list(List),!, maplist(parse_reply(Ctx),List, Out).
 parse_reply(_Ctx, List, Out):- flatten([List], Out),!.
@@ -140,6 +108,15 @@ parse_reply_sub_replace(Ctx, List, Sub, NewSub):-
 :- discontiguous parse_reply_replace/3.
 
 parse_reply_replace(Ctx, List, Out):- is_list(List), once(flatten(List,Flat)),List\==Flat,!,parse_reply_replace(Ctx, Flat, Out).
+
+unuseable_word(W2):- arg(1,W2,Atom),arg(_,v('---','16202'),OneOf), atom_concat(OneOf,_,Atom).
+unuseable_word(w('.',List)):- nonvar(List),member(loc(1),List).
+unuseable_words(List):- member(W2,List), compound(W2), unuseable_words(W2).
+
+parse_reply_replace(_Ctx, Sub, Replace):- is_list(Sub), 
+  subtract_eq(Sub, ['$'], Replace),
+  Replace\==Sub,!.
+
 parse_reply_replace(_Ctx, List, NewList):- is_list(List),
  select(coref(N,Seg,Traits),List,NewList),
  member(sentence(N,_,Values),NewList),
@@ -172,7 +149,7 @@ parse_reply_replace(_Ctx, Number=[Coref|More], [Coref|More]):- atom_number(Numbe
 into_value_lex_value(A,V):- \+ atom(A) -> A=V ;  atom_to_term(A,V,Vs),maplist(call,Vs).
 
 parse_reply_replace(_Ctx, Sub, '$'):- ground(Sub), 
-  member(Sub, [entitymentions=[], speaker='PER0', openie=[], ner='O']).
+  member(Sub, [entitymentions=[], speaker='PER0', openie=[], truecase='O', ner='O', entitylink='O']).
 
 parse_reply_replace(_Ctx, NER=Value, Pred):- atom(NER),member(NER,[normalizedNER,ner,repm]),Pred=..[NER,TValue],into_value_lex_value(Value,TValue).
 
@@ -182,6 +159,7 @@ parse_reply_replace(_Ctx, Remove=Rest, '$'):- nonvar(Rest),
    enhancedDependencies,                                      
    enhancedPlusPlusDependencies,
    entitymentions,
+   sentimentTree,
    headIndex,
    position,
    %parse, 

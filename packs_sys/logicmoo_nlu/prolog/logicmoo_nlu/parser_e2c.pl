@@ -365,6 +365,10 @@ e2c_parse3(Sentence, Reply):- notrace(into_text80(Sentence, U)), !,
   once((rewrite_result(_SF, verb, _VF, Res, Reply))).
 */
 
+%:- e2c("Whenever someone enters the lobby they can see two books sitting on a lone shelf that is out of reach.")
+%:- e2c("Whenever someone enters the lobby they can see two books sitting on a lone shelf that are out of reach.")
+
+
 :- assert_if_new(baseKB:mpred_prop(parser_e2c, e2c_reply, 2, prologOnly)).
 
 % e2c_reply a question
