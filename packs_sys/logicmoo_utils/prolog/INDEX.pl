@@ -133,6 +133,8 @@ index((locally), 2, logicmoo_common, logicmoo_common).
 index((logicmoo_webbot), 0, logicmoo_lib, logicmoo_lib).
 index((setup_logicmoo_operators), 0, logicmoo_lib, logicmoo_lib).
 index((rescan_pack_autoload_packages), 0, logicmoo_packages, logicmoo_packs).
+index((test_pengines), 0, logicmoo_remote, logicmoo_remote).
+index((pengine_server), 0, logicmoo_remote, logicmoo_remote).
 index((maybe_notrace), 1, logicmoo_startup, logicmoo_startup).
 index((absolute_startup_script), 1, logicmoo_startup, logicmoo_startup).
 index((before_boot), 1, logicmoo_startup, logicmoo_startup).

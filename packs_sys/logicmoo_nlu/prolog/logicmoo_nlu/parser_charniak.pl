@@ -2,7 +2,7 @@
   test_charniak/0,
   test_charniak/1,
   test_charniak/2,
-  call_charniak/1,
+  test_charniak/1,
   test_charniak_parse1/0,
   test_charniak_parse2/0,  
   charniak_stream/2,
@@ -199,11 +199,6 @@ text_to_charniak(Text,LExpr):-
   charniak_parse(Text, String),
   lxpr_to_list(String, LExpr).
 
-call_charniak(Text):- 
-  format('~N?- ~p.~n',[call_charniak(Text)]),
-  charniak_pos(Text,W),
-  print_tree(W),
-  !.
 
 lxpr_to_list(String, LExpr):- any_to_codelist(String,Codes), c2s(LExpr0,Codes,_) ,fix_c2s(LExpr0,LExpr).
 
@@ -219,8 +214,8 @@ c2s_list([]) --> `)`, !.
 c2s_list([Car|Cdr]) --> c2s(Car), !, c2s_list(Cdr),!.
 
 
-baseKB:regression_test:- test_charniak(1,X),!,call_charniak(X).
-baseKB:sanity_test:- make, forall(test_charniak(1,X),call_charniak(X)).
+baseKB:regression_test:- test_charniak(1,X),!,test_charniak(X).
+baseKB:sanity_test:- make, forall(test_charniak(1,X),test_charniak(X)).
 baseKB:feature_test:- test_charniak.
 
 test_charniak1:- 
@@ -238,12 +233,18 @@ test_charniak2:-
   Txt = "Rydell was a big quiet Tennessean with a sad shy grin, cheap sunglasses, and a walkie-talkie screwed permanently into one ear.",
   test_charniak(Txt),
   ttyflush,writeln(('\n test_charniak.')),!.
-test_charniak:- forall(test_charniak(X),call_charniak(X)).
+test_charniak:- forall(test_charniak(X),test_charniak(X)).
 
-test_charniak(N):- number(N),!, forall(test_charniak(N,X),call_charniak(X)). 
+test_1charniak(Text):- 
+  format('~N?- ~p.~n',[test_charniak(Text)]),
+  charniak_pos(Text,W),
+  print_tree(W),
+  !.
+
+test_charniak(N):- number(N),!, forall(test_charniak(N,X),test_1charniak(X)). 
 test_charniak(X):- test_charniak(_,X),nop(lex_info(X)).
 
-test_charniak(_,X):- nonvar(X), !, once(call_charniak(X)).
+test_charniak(_,X):- nonvar(X), !, once(test_1charniak(X)).
 
 test_charniak(1,".\nThe Norwegian lives in the first house.\n.").
 

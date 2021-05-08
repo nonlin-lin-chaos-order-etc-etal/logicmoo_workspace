@@ -10,9 +10,9 @@
 % ===================================================================
 
 :-module(parser_stanford,[
-            call_corenlp/1, 
-            call_corenlp/2, 
-            call_corenlp/3,
+
+         text_to_corenlp/3,
+         text_to_corenlp/2,
             test_corenlp/0,
             test_corenlp1/0,
             test_corenlp2/0,
@@ -34,17 +34,13 @@ baseKB:sanity_test:- test_corenlp.
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
-text_to_corenlp(Text,LExpr):-
-  call_corenlp(Text,_, LExpr).
-  
-call_corenlp(English):- call_corenlp(English, _Options).
+corenlp_to_w2(LExpr,W2s):-
+  setof(W2,(sub_term(W2,LExpr),compound(W2),W2=w(_,_)),W2s).
 
-call_corenlp(English, Options):-
-  call_corenlp(English, Options, OutF),!,
-  ttyflush, print_tree(OutF),!, ttyflush, 
-  format('~N?- ~p.~n',[call_corenlp(English, Options)]),ttyflush,!.
+text_to_corenlp(Text,CoreNLP):-
+  text_to_corenlp(Text,_Options, CoreNLP).
 
-call_corenlp(English, OptionsIn, Out):-
+text_to_corenlp(English, OptionsIn, Out):-
   DefaultOpts = [  quote, tokenize, ssplit, pos, depparse, ner, parse, coref,mwt,natlog,udfeats,
    relation,lemma, docdate, entitylink, openie, truecase, kbp, gender, cleanxml,
    %entitymentions, %sentiment,
@@ -119,14 +115,14 @@ parse_reply_replace(_Ctx, List, NewList):- is_list(List),
  %trace,
  member(Span,Values),
  member(Seg,Attrs),
- merge_nb_values(Span,Traits),!.
+ merge_nb_values(Span,[corefed|Traits]),!.
 
 parse_reply_replace(_Ctx, List, NewList):- is_list(List),
  select(coref(N,seg(X,X),Traits),List,NewList),
  member(sentence(N,Words,_Values),NewList),
  member(w(_S,Attrs),Words),
  member(loc(X),Attrs),
- merge_nb_values(Attrs,Traits),!.
+ merge_nb_values(Attrs,[corefed|Traits]),!.
 
 
 parse_reply_replace(_Ctx, Sub, Replace):- is_list(Sub), 
@@ -261,13 +257,14 @@ sentence_reply(Number, Toks, SExpr, In, In):-
   print_reply_colored(Number=SExpr),
   print_reply_colored(Number=Toks), !.
 */
+:- export(sort_words/2).
 sort_words(List,Sorted):- predsort(by_word_loc,List,Sorted).
 by_word_loc(R,A,B):-into_loc_sort(A,AK),into_loc_sort(B,BK),compare(RK,AK,BK), (RK == (=) -> compare(R,A,B) ; R = RK).
 into_loc_sort(seg(List),Key):- member(seg(S,E),List),member(lnks(L),List),member(size(W),List),RS is 100-W, Key = seg(S,RS,L,E),!.
 into_loc_sort(A,Key):- A=..[_|AA], findnsols(2,T, ((sub_term(T,AA),compound(T),arg(1,T,N),number(N));T=AA),Key).
 
-baseKB:regression_test:- test_corenlp(1,X),!,call_corenlp(X).
-baseKB:sanity_test:- make, forall(test_corenlp(1,X),call_corenlp(X)).
+baseKB:regression_test:- test_corenlp(1,X),!,test_corenlp(X).
+baseKB:sanity_test:- make, forall(test_corenlp(1,X),test_corenlp(X)).
 baseKB:feature_test:- test_corenlp.
 
 test_corenlp1:- 
@@ -285,12 +282,16 @@ test_corenlp2:-
   Txt = "Rydell was a big quiet Tennessean with a sad shy grin, cheap sunglasses, and a walkie-talkie screwed permanently into one ear.",
   test_corenlp(Txt),
   ttyflush,writeln(('\n test_corenlp.')),!.
-test_corenlp:- forall(test_corenlp(X),call_corenlp(X)).
+test_corenlp:- forall(test_corenlp(X),test_1corenlp(X)).
 
-test_corenlp(N):- number(N),!, forall(test_corenlp(N,X),call_corenlp(X)). 
-test_corenlp(X):- test_corenlp(_,X),nop(lex_info(X)).
 
-test_corenlp(_,X):- nonvar(X), !, once(call_corenlp(X)).
+test_corenlp(N):- number(N),!, forall(test_corenlp(N,X),test_corenlp(X)). 
+test_corenlp(English):- test_corenlp(English, _Options).
+
+test_corenlp(English, Options):- \+ number(English), nonvar(English),
+  text_to_corenlp(English, Options, OutF),!,
+  ttyflush, print_tree(OutF),!, ttyflush, 
+  format('~N?- ~p.~n',[test_corenlp(English, Options)]),ttyflush,!.
 
 test_corenlp(1,".\nThe Norwegian lives in the first house.\n.").
 

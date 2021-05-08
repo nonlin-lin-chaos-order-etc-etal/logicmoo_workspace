@@ -741,8 +741,9 @@ to_descriptive_name_xti(_For,X,X).
 :- dynamic(user:portray/1).
 :- discontiguous(user:portray/1).
 
-user:portray(Term):- % fail,
-  \+ ground(Term),
+user:portray(Term):-
+  notrace(\+ tracing), % fail,
+  \+ ground(Term),  
   pretty_numbervars(Term,PrettyVarTerm),
   Term \=@= PrettyVarTerm,
   print(PrettyVarTerm),!.

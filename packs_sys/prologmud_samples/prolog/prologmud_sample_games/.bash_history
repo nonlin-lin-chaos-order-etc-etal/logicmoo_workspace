@@ -977,3 +977,14 @@ shutdown -r now
 exit
 free
 free -h
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+cd /opt/logicmoo_workspace/
+git status

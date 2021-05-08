@@ -545,6 +545,12 @@ lex_winfo(Kind, Level, Words, String, Datum):-
 
 didnt_do(Todo, skipped(Todo)).
 
+:- export(combined_w2/3).
+combined_w2(W1,W2,W12SS):- append(W1,W2,W12),combined_w2_i(W12,W12S),sort_words(W12S,W12SS),!.
+
+combined_w2_i(I,O):- select(w(D,E1),I,M), member(loc(X),E1), member(w(D,E2),M),member(loc(X),E2),
+   nb_set_add(E2,E1),nb_set_add(E1,E2),!,combined_w2_i(M,O).
+combined_w2_i(I,I).
 
 remove_broken_corefs(Sents,coref(Sent,_, _, _,_,_,_,_,_,_,_),[]):- \+ member(sentence(Sent,_,_),Sents),!.
 remove_broken_corefs(_Sents,sentence(N,Words,Info),sent(N,Words,Info)).

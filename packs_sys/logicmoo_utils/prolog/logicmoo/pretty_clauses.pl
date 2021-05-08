@@ -265,8 +265,10 @@ without_ec_portray_hook(Goal):-
    setup_call_cleanup(flag('$ec_portray', N, N+1000), 
      Goal, flag('$ec_portray',_, N)).
 
+pc_portray(Term):- \+ ground(Term),!, fail.  % lets pretty_numbervars/2 take over and call this 
+pc_portray(Term):- Term==[], !, ansi_format(hfg(blue),'~q',[[]]).
 pc_portray(Term):- notrace(tracing),!,ec_portray_hook(Term).
-pc_portray(Term):- \+ current_prolog_flag(debug,true), \+ tracing, ec_portray_hook(Term).
+pc_portray(Term):- \+ current_prolog_flag(debug,true), \+ tracing,!, ec_portray_hook(Term).
 
 ec_portray_hook(Term):- 
  setup_call_cleanup(flag('$ec_portray', N, N+1), 
@@ -416,7 +418,12 @@ maybe_o_s_l.
 output_line_count(L):- nb_current('$ec_output_stream',Outs),is_stream(Outs),on_x_fail(line_count(Outs,L)), !.
 output_line_count(L):- line_count(current_output,L).
 
-output_line_position(L):- line_position(current_output,L).
+with_current_line_position(Goal):-
+  setup_call_cleanup(current_output_line_position(L),
+     Goal,
+     prefix_spaces(L)).
+
+current_output_line_position(L):- line_position(current_output,L).
 
 %:- dynamic(ec_reader:last_output_lc/3).
 :- thread_local(ec_reader:last_output_lc/3).
@@ -548,43 +555,53 @@ simple_write_term(A,Options):-  write_term(A,Options),!.
 
 get_portrayal_vars(Vs):- nb_current('$variable_names',Vs)-> true ; Vs=[].
 
-print_as_tree(Term):- print_tree(Term).
+
+print_write_options(Options):- pretty_tl:write_opts_local(Options), !.
+print_write_options(Options):- current_prolog_flag(print_write_options,Options).
+
+print_as_tree(Term):- print_write_options(Options), print_tree(Term, Options).
 print_tree(Term) :- print_tree_with_final(Term,'').
 print_tree(Term, Options) :- select(fullstop(true),Options,OptionsNew),!,print_tree_final_options(Term, '.', OptionsNew).
 print_tree(Term, Options) :- print_tree_final_options(Term, '', Options).
 
 
-print_tree_loop(Term,Options):- \+ pretty_tl:in_pretty,
+print_tree_loop(Term,Options):- \+ pretty_tl:in_pretty,!,
   setup_call_cleanup(asserta(pretty_tl:in_pretty,Ref),
     print_tree(Term,Options),
     erase(Ref)).
-print_tree_loop(Term, Options):- write_term(Term, Options).
+print_tree_loop(Term, Options):- with_current_line_position(write_term(Term, Options)).
 
 
-print_tree_with_final(Term, Final):- print_tree_final_options(Term, Final, []).
+print_tree_with_final(Term, Final):- 
+   print_write_options(Options),
+   print_tree_final_options(Term, Final, Options).
 
+print_tree_final_options(Term, Final, Options) :- \+ ground(Term), pretty_numbervars(Term, Term2),ground(Term2),!,print_tree_final_options(Term2, Final, Options).
 print_tree_final_options(Term, Final, Options) :-
-   (\+ memberchk(variable_names(_),Options) -> guess_pretty(Term) ; true),
-   output_line_position(Tab), 
-   print_final_tree_options_tab(Final,Term,Options,Tab),   
-   nop(((output_line_position(Now), Now==Tab -> true) ; (nl,format('~t~*|', [Tab])))),
-   !.
+   %(\+ memberchk(variable_names(_),Options) -> guess_pretty(Term) ; true),
+   current_output_line_position(Tab), 
+   print_final_tree_options_tab(Final,Term,Options,Tab),!.
 
 :- thread_local(pretty_tl:write_opts_local/1).
 
 % print_tree0(Final,Term) :- as_is(Term),line_position(current_output,0),prefix_spaces(1),format('~N~p',[Term]),!.
-print_final_tree_options_tab(Final,Term0, Options,Tab):- 
+print_final_tree_options_tab(Final,Term0,Options,Tab):- 
   duplicate_nat(Term0,Term),
-  setup_call_cleanup(asserta(pretty_tl:write_opts_local(Options),Ref),
-    print_final_term_tab(Final,Term,Tab),erase(Ref)).
+  notrace(swi_option:merge_options([fullstop(false)],Options,NewOptions)),
+  current_prolog_flag(print_write_options,OldOptions),
+  setup_call_cleanup(set_prolog_flag(print_write_options,NewOptions),
+   setup_call_cleanup(asserta(pretty_tl:write_opts_local(NewOptions),Ref),
+    with_current_line_position(print_final_term_tab(Final,Term,Tab)),erase(Ref)),
+     set_prolog_flag(print_write_options,OldOptions)).
+    
 
 % print_final_term_tab(Final,Term,Tab):-  list_contains_sub_list(Term), prefix_spaces(Tab), mu_prolog_pprint(Tab,Term,[]), write(Final).
 print_final_term_tab(Final,Term,Tab):- \+ as_is(Term), pt0([],Final, Term, Tab),!.
 print_final_term_tab(Final,Term,Tab):-  prefix_spaces(Tab), format('~@~w',[portray_with_vars(Term),Final]),!.
 
 prefix_spaces(Tab):- \+ integer(Tab), recalc_tab(Tab,   NewTab),!,prefix_spaces(NewTab).
-prefix_spaces(Tab):- output_line_position(Now), Now > Tab, !,nl,  format('~t~*|', [Tab]).
-prefix_spaces(Tab):- output_line_position(Now), Need is Tab - Now, format('~t~*|', [Need]).
+prefix_spaces(Tab):- current_output_line_position(Now), Now > Tab, !,nl,  format('~t~*|', [Tab]).
+prefix_spaces(Tab):- current_output_line_position(Now), Need is Tab - Now, format('~t~*|', [Need]).
 
 format_functor(F):- upcase_atom(F,U), ((F==U,current_op(_,_,F)) -> format("'~w'",[F]) ; format("~q",[F])).
 
@@ -597,7 +614,7 @@ write_using_pprint_recurse(Term):- compound(Term),!, \+ (arg(_,Term,T), \+ atomi
 
 pair_to_colon(P,C):- P=..[_,K,V],C=..[':',K,V],!.
 
-mu_prolog_pprint(Term,Options):- output_line_position(Tab), mu_prolog_pprint(Tab,Term,Options).
+mu_prolog_pprint(Term,Options):- current_output_line_position(Tab), mu_prolog_pprint(Tab,Term,Options).
 mu_prolog_pprint(Tab,Term,Options):- mu:prolog_pprint(Term,[left_margin(Tab)|Options]).
 
 is_simple_list(Term):- is_list(Term),!, \+ (member(T,Term), \+ atomic(T)).
@@ -619,10 +636,10 @@ inperent([F|_],TTs,Term,Ts):- fail, \+ is_list_functor(F),
 
 
 recalc_tab(Tab,     _):- number(Tab), !, fail.
-recalc_tab(now+N, Tab):- output_line_position(Now), Tab is N+Now.
-recalc_tab(now-N, Tab):- output_line_position(Now), Tab is N-Now.
+recalc_tab(now+N, Tab):- current_output_line_position(Now), Tab is N+Now.
+recalc_tab(now-N, Tab):- current_output_line_position(Now), Tab is N-Now.
 recalc_tab(TabC,  Tab):- compound(TabC), Tab is TabC.
-recalc_tab(now,   Tab):- output_line_position(Tab).
+recalc_tab(now,   Tab):- current_output_line_position(Tab).
 
 pt0(FS,Final,Term,Tab) :-   prefix_spaces(Tab), !, pt1(FS,Final,Term,Tab).
 
@@ -780,7 +797,7 @@ pt_args( FS, Final,[A|R],Tab) :- R==[], write(', '), prefix_spaces(Tab), pt0(FS,
 pt_args( FS, Final,[A0,A|As],Tab) :- 
    splice_off([A0,A|As],[_,L1|Left],Rest), !, 
    write(', '), write_simple(A0), write_simple_each([L1|Left]), 
-   output_line_position(New), 
+   current_output_line_position(New), 
    
    %write(', '), nl, 
    % length(Left,LL), Avr is Tab + 2*LL,
@@ -845,7 +862,6 @@ write_simple_each([A0|Left]):-  format(', '), write_simple(A0), write_simple_eac
 
 :- system:use_module(library(logicmoo_startup)).
 
-user:portray(Term):- Term==[], !, ansi_format(hfg(blue),'~q',[[]]).
 user:portray(Term):- pc_portray(Term),!.
 
 end_of_file.

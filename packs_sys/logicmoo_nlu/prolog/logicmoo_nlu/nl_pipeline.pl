@@ -34,7 +34,6 @@
 :- (abolish(apply_macros:expand_apply, 4), assert((apply_macros:expand_apply(_In, _, _, _):- fail))).
 :- (abolish(apply_macros:expand_apply, 2), assert((apply_macros:expand_apply(_In, _):- fail))).
 
-
 :- use_module(library(logicmoo_utils)).
 
 %:- use_module(library(logicmoo_lib)).
@@ -45,10 +44,10 @@
 %:- use_module(library(logicmoo_nlu)).
 %:- ensure_loaded(library(wamcl_runtime)).
 
-% :- dynamic(baseKB:installed_converter/2).
+%:- dynamic(baseKB:installed_converter/4).
 %:- rtrace.
-:- shared_parser_data(baseKB:installed_converter/2).
-:- export(baseKB:installed_converter/2).
+:- shared_parser_data(baseKB:installed_converter/4).
+:- export(baseKB:installed_converter/4).
 
 :- shared_parser_data(talkdb:talk_db/2).
 :- shared_parser_data(talkdb:talk_db/3).
@@ -78,6 +77,8 @@
 
 
 
+trace_pipeline(_).
+
 % ==============================================================================
 %
 % APE: Converter Pipeline
@@ -102,6 +103,8 @@
 install_converter(M:XY):- !, install_converter(M, XY).
 install_converter(XY):- strip_module(XY, M, CNV), install_converter(M, CNV).
 
+ainz_installed_converter(M, CNVLST, Ins,Out):- ainz(installed_converter(M, CNVLST, Ins,Out)).
+
 :-share_mp(install_converter/2).
 install_converter(M, XY):- pi_splits(XY, X, Y), !, install_converter(M, X), install_converter(M, Y).
 install_converter(M, XY):- pi_p(XY, PI), !, install_converter(M, PI).
@@ -112,11 +115,14 @@ install_converter(M, CNV):-
   '@'(import(M:F/A), parser_all),
   '@'(import(M:F/A), baseKB),
   catch(system:import(M:F/A),_,true),
-  nop(dmsg(installed_converter(M, CNVLST))),
-  must(ainz(installed_converter(M, CNVLST))).
-%install_converter(M, CNV):-strip_module(CNV, M, CNVLST), functor(CNVLST, F, A), '@'(export(M:F/A), M), must(assertz_new(installed_converter(M, CNVLST))).
+  trace_pipeline(dmsg(installed_converter(M, CNVLST))),
+  get_in_outs(CNVLST,Ins,Outs),
+  must_maplist(ainz_installed_converter(M, CNVLST, Ins),Outs).
+%install_converter(M, CNV):-strip_module(CNV, M, CNVLST), functor(CNVLST, F, A), '@'(export(M:F/A), M), must(assertz_new(installed_converter(M, CNVLST,Ins,Outs))).
 
-
+get_in_outs(CNVLST,Ins,Outs):-
+  findall(T,(sub_term(C,CNVLST),compound(C),(C= +(T))),Ins),
+  findall(T,(sub_term(C,CNVLST),compound(C),(C= -(T))),Outs),!.
 
 :-thread_local(pipeline_pass_fail/3).
 
@@ -126,11 +132,11 @@ install_converter(M, CNV):-
 %
 try_converter(TID, CNV):-
  strip_module(CNV, M, CNVLST), CNVLST=..[F|Args], !,
-  ignore(on_x_debug(((
+  (((((
      maplist(make_io_closure(TID), Args, IOArgs, CLOSURES),
      IOCNVLST=..[F|IOArgs], !,
-     deepen_pos('@'(IOCNVLST, M)),
-     must_maplist(must, CLOSURES), flag(TID, X, X+1))))).
+     deepen_pos(('@'((IOCNVLST), M))),
+     maplist(must_or_rtrace, CLOSURES), nop(flag(TID, X, X+1))))))).
 
 %% make_io_closure(+TID:key, +NameSpec, ?Value, -Closure).
 %
@@ -157,26 +163,26 @@ make_io_closure(TID, -Name , Value, set_pipeline_value(TID, Name, Value)):-!.
 
 make_io_closure(TID, NameType , Value, O):- trace_or_throw(make_io_closure(TID, NameType, Value, O)).
 
-:-thread_local(tl:pipeline_value/3).
+:-thread_local(tl:pipeline_value/5).
 
 %% get_pipeline_value(+TID:key, +Name:varspec, -Value:term, +Else:term ).
 %
 % Get a variable in the Transaction ID or else a default
 %
 get_pipeline_value(TID, Name, Value, Else):-var(Name), !, trace_or_throw(var_get_pipeline_value(TID, Name, Value, Else)).
-get_pipeline_value(TID, Name, Value, Else):- get_pipeline_val(TID, Name, Value0, Else), unnumbervars(Value0, Value).
+get_pipeline_value(TID, Name, Value, Else):- get_pipeline_val(TID, Name, Value, Else).
 
-get_pipeline_val(TID, Name:list, ValueOut, Else):- findall(V, tl:pipeline_value(TID, Name, V), Values), !, (Values==[]-> ValueOut=Else, ValueOut = Values).
-get_pipeline_val(TID, Name:set, ValueOut, Else):- findall(V, tl:pipeline_value(TID, Name, V), Values), !, (Values==[]-> ValueOut=Else, ValueOut = Values).
+get_pipeline_val(TID, Name:list, ValueOut, Else):- findall(V, local_pipeline_value(TID, Name, V), Values), !, (Values==[]-> ValueOut=Else, ValueOut = Values).
+get_pipeline_val(TID, Name:set, ValueOut, Else):- findall(V, local_pipeline_value(TID, Name, V), Values), !, (Values==[]-> ValueOut=Else, ValueOut = Values).
 get_pipeline_val(TID, Name:unique, ValueOut, Else):- !, get_pipeline_val(TID, Name, ValueOut, Else).
-get_pipeline_val(TID, Name:reversed, ValueOut, Else):- findall(V, tl:pipeline_value(TID, Name, V), RBinders), reverse(RBinders, Values), !, (Values==[]-> ValueOut=Else, ValueOut = Values).
-get_pipeline_val(TID, Name:reversed_set, ValueOut, Else):- findall(V, tl:pipeline_value(TID, Name, V), RBinders), reverse(RBinders, Values), !, (Values==[]-> ValueOut=Else, ValueOut = Values).
+get_pipeline_val(TID, Name:reversed, ValueOut, Else):- findall(V, local_pipeline_value(TID, Name, V), RBinders), reverse(RBinders, Values), !, (Values==[]-> ValueOut=Else, ValueOut = Values).
+get_pipeline_val(TID, Name:reversed_set, ValueOut, Else):- findall(V, local_pipeline_value(TID, Name, V), RBinders), reverse(RBinders, Values), !, (Values==[]-> ValueOut=Else, ValueOut = Values).
 get_pipeline_val(TID, Name:Other, Value, Else):-!, trace_or_throw(unk_get_pipeline_val(TID, Name:Other, Value, Else)).
-get_pipeline_val(TID, Name, Value, _ ):- tl:pipeline_value(TID, Name, Value), !.
+get_pipeline_val(TID, Name, Value, _ ):- local_pipeline_value(TID, Name, Value), !.
 get_pipeline_val(TID, (N1;Name), ValueOut, Else):- get_pipeline_val(TID, N1, Value, missing),
    (Value==missing ->  get_pipeline_val(TID, Name, ValueOut, Else) ; ValueOut= Value), !.
-get_pipeline_val(TID, Name, Value, Else):- tl:pipeline_value(TID, Name, Value) -> true;  Value=Else.
-get_pipeline_val(TID, Name, Value, Else):- tl:pipeline_value(TID, '&'(Name , _), Value) -> true;  Value=Else.
+get_pipeline_val(TID, Name, Value, Else):- local_pipeline_value(TID, Name, Value) -> true;  Value=Else.
+get_pipeline_val(TID, Name, Value, Else):- local_pipeline_value(TID, '&'(Name , _), Value) -> true;  Value=Else.
 
 is_word_atomic(Value):-atomic(Value), !.
 is_word_atomic(Value):-functor(Value, w, 2).
@@ -191,47 +197,37 @@ is_worldlist_list([Value|_]):-!, is_word_atomic(Value), !.
 % Set a variable in the Transaction ID
 %
 
-set_pipeline_value(TID, Name, Value):- (var(Value) ; \+ ground(Name)), !, trace_or_throw(var_set_pipeline_value(TID, Name, Value)).
-set_pipeline_value(TID, '&'(N1, Name), Value):-!, set_pipeline_value(TID, N1, Value), set_pipeline_value(TID, Name, Value).
-set_pipeline_value(TID, Name:unique, V0):- !, set_unique_pipeline_value(TID, Name, V0).
-set_pipeline_value(TID, Name:set, Value):- is_single_value(Value), !, must(set_unique_pipeline_value(TID, Name, Value)).
-set_pipeline_value(TID, Name:set, Values):- must(( foreach(member_rev(V, Values), set_unique_pipeline_value(TID, Name, V)))).
-set_pipeline_value(TID, Name:list, Value):- is_single_value(Value), !, must(set_pipeline_value(TID, Name, Value)).
-set_pipeline_value(TID, Name:list, Values):- must(( foreach(member_rev(V, Values), set_pipeline_value(TID, Name, V)))).
-set_pipeline_value(TID, Name:reversed_set, RBinders):- reverse(RBinders, Values), set_pipeline_value(TID, Name:set, Values).
-set_pipeline_value(TID, Name:reversed, RBinders):- reverse(RBinders, Values), set_pipeline_value(TID, Name:list, Values).
-set_pipeline_value(TID, Name:Other, Value):-!, trace_or_throw(unknown_set_pipeline_value(TID, Name:Other, Value)).
+set_pipeline_value(ID,Name,Value):-
+ notrace( \+ \+ set_1pipeline_value(ID,Name,Value)).
+
+set_1pipeline_value(TID, Name, Value):- (var(Value) ; \+ ground(Name)), !, trace_or_throw(var_set_pipeline_value(TID, Name, Value)).
+set_1pipeline_value(TID, '&'(N1, Name), Value):-!, set_1pipeline_value(TID, N1, Value), set_1pipeline_value(TID, Name, Value).
+set_1pipeline_value(TID, Name:unique, V0):- !, set_unique_pipeline_value(TID, Name, V0).
+set_1pipeline_value(TID, Name:set, Value):- is_single_value(Value), !, must(set_unique_pipeline_value(TID, Name, Value)).
+set_1pipeline_value(TID, Name:set, Values):- must(( foreach(member_rev(V, Values), set_unique_pipeline_value(TID, Name, V)))).
+set_1pipeline_value(TID, Name:list, Value):- is_single_value(Value), !, must(set_1pipeline_value(TID, Name, Value)).
+set_1pipeline_value(TID, Name:list, Values):- must(( foreach(member_rev(V, Values), set_1pipeline_value(TID, Name, V)))).
+set_1pipeline_value(TID, Name:reversed_set, RBinders):- reverse(RBinders, Values), set_1pipeline_value(TID, Name:set, Values).
+set_1pipeline_value(TID, Name:reversed, RBinders):- reverse(RBinders, Values), set_1pipeline_value(TID, Name:list, Values).
+set_1pipeline_value(TID, Name:Other, Value):-!, trace_or_throw(unknown_set_pipeline_value(TID, Name:Other, Value)).
 % set_pipeline_value(TID, Name, Values):- \+ is_single_value(Values), !, must(( foreach(member_rev(V, Values), set_unique_pipeline_value(TID, Name, V)))).
-set_pipeline_value(TID, Name, V0):- set_unique_pipeline_value(TID, Name, V0).
+set_1pipeline_value(TID, Name, V):- set_1unique_pipeline_value(TID, Name, V).
 
 member_rev(V, Values):- reverse(Values, Rev), member(V, Rev).
 
-/*
-  ((copy_term(V, CV), clause(tl:pipeline_value(TID, Name, V), true, Ref),
-                    clause(tl:pipeline_value(TID, NameC, VC), true, Ref),
-                      (NameC:VC)=@=(Name:CV))
-*/
-
-set_unique_pipeline_value(TID, Name, V0):- clause_asserted(tl:pipeline_value(TID, Name, V0)), !.
-set_unique_pipeline_value(TID, Name, V0):- set_new_pipeline_value(TID, Name, V0).
-
-set_new_pipeline_value(TID, Name, V0):-
-   renumber_vars_from_0(Name, V0, V), %rename_vars
-   maybe_new_value_op(TID, Name, V),
-   show_call(asserta(tl:pipeline_value(TID, Name, V0))).
-
-maybe_new_value_op(TID, Name, V):-
-  \+ \+ ((copy_term(V, CV),
-            clause(tl:pipeline_value(TID, Name, V), true, Ref),
-            clause(tl:pipeline_value(TID, NameC, VC), true, Ref),
-            (NameC:VC)=@=(Name:CV)) -> true; flag(TID, OPs, 1+OPs)).
 
 renumber_vars_from_0(_, V, UV):- copy_term(V, UM, _), duplicate_term(UM, UV), !.
 renumber_vars_from_0(aceKif(_), V, UV):-V=UV, !.
 renumber_vars_from_0(_, V, UV):- unnumbervars(V, UV). % get_ape_results:rename_vars(UV, UV). %, ape_numbervars(UV, 0, _).
 
-
 renumber_vars_from_1(_, V, UV):- unnumbervars(V, UV). % get_ape_results:rename_vars(UV, UV). %, ape_numbervars(UV, 0, _).
+
+set_1unique_pipeline_value(TID, Name, V):- pretty_numbervars(V, VarNames), 
+    copy_term_nat(V,VV),renumber_vars_from_0(Name,VV,V0), 
+   (clause(tl:pipeline_value(TID, Name, _, V0, _), true) -> true;
+    (asserta(tl:pipeline_value(TID, Name, V, V0, VarNames)),flag(TID, OPs, 1+OPs))).
+
+
 
 system:ape_numbervars(DRSCopy, Zero, N):- numbervars(DRSCopy, Zero, N, [attvar(skip)]).
 
@@ -239,7 +235,7 @@ system:ape_numbervars(DRSCopy, Zero, N):- numbervars(DRSCopy, Zero, N, [attvar(s
 %
 %  Clean out the Transaction ID
 %
-clear_pipeline(TID):-retractall(tl:pipeline_value(TID, _, _)), retractall(pipeline_pass_fail(TID, _, _)).
+clear_pipeline(TID):-retractall(tl:pipeline_value(TID, _, _, _, _)), retractall(pipeline_pass_fail(TID, _, _)).
 
 
 %% init_pipeline(+TID:key)
@@ -252,59 +248,85 @@ init_pipeline(_ID).
 
 
 :- export(set_pipeline_nvlist/2).
-set_pipeline_nvlist(TID, StartingNameValues):-
-   forall(member(Name=Value, StartingNameValues),
-     show_call(set_pipeline_value(TID, Name, Value))).
+set_pipeline_nvlist(TID, Name=Value):- !, (nonvar(Value)-> set_pipeline_value(TID, Name, Value) ; true).
+set_pipeline_nvlist(TID, Have):-
+  maplist(set_pipeline_nvlist(TID),Have).
 
 :- export(get_pipeline_nvlist/2).
 get_pipeline_nvlist(TID, AllNameValues):-
         findall(Name=Values,
-          ((no_repeats(Name, tl:pipeline_value(TID, Name, _)),
-                      findall(Value, tl:pipeline_value(TID, Name, Value), Values))), AllNameValues).
+          ((no_repeats(Name, local_pipeline_value(TID, Name, _)),
+                      findall(Value, local_pipeline_value(TID, Name, Value), Values))), AllNameValues).
+
+local_pipeline_value(TID, Name, Value):- 
+   tl:pipeline_value(TID, Name, Value, _, _).
 
 get_pipeline_value_or(Name,Pairs,Value,Else):- (member(N=V,Pairs),Name=N)->Value=V;Value=Else.
 
-%% run_pipeline( +StartingNameValues:list, +WaitingOnNVs:list, -AllNameValues:list )
+default_pipeline_opts([aceKif(p)=_, lf=_, clause=_, combined_info=_, combined_w2=_, results80=_]).
+%default_pipeline_opts([text80=_]).
+
+%% run_pipeline( +Have:list, +NEEDs:list, -AllNameValues:list )
 %
 %  Run a pipeline to yeild NameValues list
 %
-run_pipeline(Text):- run_pipeline(Text, [aceKif(p)=_, lf=_, clause=_, qplan=_, charniak_w2=_, results80=_], O), show_kvs(O).
+run_pipeline(Text):- 
+  default_pipeline_opts(DefaultOpts),
+  run_pipeline(Text, DefaultOpts, O), 
+  show_kvs(O).
 
-pipeline_begin(X=Value, [X=Value]):- nonvar(Value), !.
-pipeline_begin(NVPairs,Flat):- is_list(NVPairs), flatten(NVPairs,Flat),member(_=Value,Flat),nonvar(Value),!.
-pipeline_begin(Text, [input=Text]):-!.
+ensure_pipline_spec(_Default,X=Value, [X=Value]):- nonvar(Value), !.
+ensure_pipline_spec(_Default,NVPairs,Flat):- is_list(NVPairs), flatten(NVPairs,Flat),member(_=Value,Flat),nonvar(Value),!.
+ensure_pipline_spec(Default,Text, [Default=Text]):-!.
 
-run_pipeline(StartingNameValues0, WaitingOnNVs0, RAllNameValuesOut):-
+run_pipeline(Text, O):- var(O),
+   default_pipeline_opts(DefaultOpts),
+   run_pipeline(Text, DefaultOpts, O),!.
+   
+run_pipeline(Text, NEEDs):- nonvar(NEEDs),
+  run_pipeline(Text, NEEDs, Out),!,
+  show_kvs(Out).
+
+
+run_pipeline(Have, NEEDs, Out):-
+  (ensure_pipline_spec(input,Have, NewHave)-> Have\==NewHave),!,
+  run_pipeline(NewHave, NEEDs, Out).
+
+run_pipeline(Have, NEEDs, Out):- 
+  (flatten([NEEDs], NewNEEDs)-> NEEDs\==NewNEEDs),!,
+  run_pipeline(Have, NewNEEDs, Out).
+
+run_pipeline(Have, NEEDs, Out):- member(tid=TID, Have),!,run_pipeline(TID,Have, NEEDs, Out).
+run_pipeline(Have, NEEDs, Out):- gensym(iPipeline, TID),!,run_pipeline(TID,[tid=TID|Have], NEEDs, Out).
+
+
+run_pipeline(TID, Have, NEEDs, Out):-
     setup_call_cleanup(
-      notrace(
-        (pipeline_begin(StartingNameValues0, StartingNameValues),
-         flatten([WaitingOnNVs0], WaitingOnNVs),
-         get_pipeline_value_or(tid,StartingNameValues,TID, _),
-         (var(TID)->gensym(iPipeline, TID);true),
-         clear_pipeline(TID), init_pipeline(TID),
-         set_pipeline_nvlist(TID, [tid=TID|StartingNameValues]),
-         % show_pipeline(TID),
-         dmsg(start(run_pipeline_id(TID, WaitingOnNVs))))),
+      once((
+         clear_pipeline(TID), init_pipeline(TID), set_pipeline_nvlist(TID, Have),         
+         trace_pipeline(dmsg(start(run_pipeline_id(TID, Have, NEEDs)))),
+         flag(TID,_,1),
+         trace_pipeline(show_pipeline(TID)))),
 
-      run_pipeline_id(TID, WaitingOnNVs, ExitWhy),
+      run_pipeline_id(TID, NEEDs, ExitWhy, Result),
 
-      notrace((dmsg(end(run_pipeline_id(TID, ExitWhy))),
+      notrace((trace_pipeline(dmsg(end(run_pipeline_id(TID, ExitWhy, Result)))),
          get_pipeline_nvlist(TID, AllNameValues),
+         (trace_pipeline(Result==true)->clear_pipeline(TID);true),
          %show_pipeline(TID),
          reverse(AllNameValues, RAllNameValues),
          %show_kvs(RAllNameValues),
-         mapnvs(WaitingOnNVs0, RAllNameValues, RAllNameValuesOut),
-         clear_pipeline(TID)))), !.
+         mapnvs(NEEDs, RAllNameValues, Out)))), !.
 
-mapnvs(WaitingOnNVs0, RAllNameValues, RAllNameValuesOut):-
-   forall(member(NV, WaitingOnNVs0),
+mapnvs(NEEDs, RAllNameValues, Out):-
+   forall(member(NV, NEEDs),
      ((NV=(N=V)), member(N=V, RAllNameValues),
-      nb_setarg(2, NV, V))), !, RAllNameValuesOut=WaitingOnNVs0.
+      nb_setarg(2, NV, V))), !, Out=NEEDs.
 mapnvs(_, O, O).
 
 show_kvs(O):- notrace(show_kvs0(O)), !.
 show_kvs0(V):- var(V), !, show_kvs0(var:-V).
-show_kvs0(K:-V):- !, portray_clause(current_output, K:-V).
+show_kvs0(K:-V):- !, print_tree_with_final(K:-V,'.').
 show_kvs0([H|List]):- !, show_kvs0(H), show_kvs0(List).
 show_kvs0(List):- is_list(List), !, maplist(show_kvs0, List).
 show_kvs0(K=V):- !, show_kvs0(K:-V).
@@ -319,50 +341,70 @@ show_kvs0(KV):- show_kvs0((kv:-KV)), !.
 text_pipeline(AceText, AllNameValues):-
   run_pipeline([input=AceText], [untildone=_], AllNameValues).
 
-%% run_pipeline_id( +TID:key, +WaitingOnNVs:list )
+%% run_pipeline_id( +TID:key, +NEEDs:list )
 %
-%  Runs Transaction ID until WaitingOnNVs is grounded
+%  Runs Transaction ID until NEEDs is grounded
 %
-run_pipeline_id(TID, WaitingOnNVs, ExitWhy):-
+run_pipeline_id(TID, NEEDs, ExitWhy, Result):-
   flag(TID, _, 1),
-  run_pipeline_id(TID, WaitingOnNVs, ExitWhy, 0).
+  trace_pipeline(show_pipeline(TID)),trace_pipeline(sleep(0.3)),
+  run_pipeline_id(TID, NEEDs, ExitWhy, 0, Result).
 
-run_pipeline_id(_TID, [] , complete , _N):- !.
-run_pipeline_id( TID, _WaitingOnNVs, error(Name, Err), _N):- tl:pipeline_value(TID, Name, error(Err)), !.
-run_pipeline_id( TID, _WaitingOnNVs, no_new_ops, _N):- flag(TID, 0, 0), !.
-run_pipeline_id(_TID, _WaitingOnNVs, overflow(N), N):- N> 20, !.
-run_pipeline_id( TID, _WaitingOnNVs, Err, _N):- tl:pipeline_value(TID, error, Err), !.
-run_pipeline_id( TID, WaitingOnNVs, ExitWhy, N):-
-   partition(is_bound_value(TID), WaitingOnNVs, _Bound, Unbound),
-   Unbound \== WaitingOnNVs, !,
-   run_pipeline_id(TID, Unbound, ExitWhy, N).
-run_pipeline_id( TID, WaitingOnNVs, ExitWhy, N):-
+run_pipeline_id(_TID, [] , complete , _N, true):- !.
+run_pipeline_id( TID, _NEEDs, error(Name, Err), _N, fail):- local_pipeline_value(TID, Name, error(Err)), !.
+run_pipeline_id( TID, _NEEDs, no_new_ops, _N, fail):- flag(TID, 0, 0), !.
+run_pipeline_id(_TID, _NEEDs, overflow(N), N, fail):- N> 20, !.
+run_pipeline_id( TID, _NEEDs, Err, _N, fail):- local_pipeline_value(TID, error, Err), !.
+run_pipeline_id( TID, NEEDs, ExitWhy, N, Result):-
+   partition(is_bound_value(TID), NEEDs, _Bound, Unbound),
+   Unbound \== NEEDs, !,
+   run_pipeline_id(TID, Unbound, ExitWhy, N, Result).
+run_pipeline_id(TID, NEEDs, ExitWhy, N, Result):-
     flag(TID, _, 0),
-    forall(choose_converter(TID, WaitingOnNVs, CNV), try_converter(TID, CNV)),
-    N2 is N +1,
-    run_pipeline_id(TID, WaitingOnNVs, ExitWhy, N2).
+    must_or_rtrace((findall(In=Value,local_pipeline_value(TID, In, Value),Have),Have\==[])),
+    forall(choose_converter(TID,Have, NEEDs, CNV, 5), 
+       (trace_pipeline(wdmsg(try_converter(TID, CNV))),ignore(show_failure(try_converter(TID, CNV))))),
+    N2 is N +1,!,
+    run_pipeline_id(TID, NEEDs, ExitWhy, N2, Result).
 
-is_bound_value(TID, Name=Value):- var(Value), !, tl:pipeline_value(TID, Name, Value).
+is_bound_value(TID, Name=Value):- var(Value), !, local_pipeline_value(TID, Name, Value).
 is_bound_value(_TID, _Name=Value):- !, assertion(nonvar(Value)).
-is_bound_value(TID, Name):- tl:pipeline_value(TID, Name, _Value).
+is_bound_value(TID, Name):- local_pipeline_value(TID, Name, _Value).
 
 
-choose_converter(TID, WaitingOnNVs, M:CNV):- fail, installed_converter(M, CNV),
-   \+ \+ ((sub_term(Sub, CNV), compound(Sub), member(N=_, WaitingOnNVs), (-N) ==Sub)),
-   \+ \+ ((sub_term(Sub, CNV), tl:pipeline_value(TID, N, _), N==Sub)), !.
+currently_supplies(TID,_NEEDs,In):- local_pipeline_value(TID, In, _Value),!.
+currently_supplies(_TID,NEEDs,In):- member(In=MaybeBound,NEEDs),nonvar(MaybeBound),!.
 
-choose_converter(TID, WaitingOnNVs, M:CNV):- !, installed_converter(M, CNV),
-   \+ \+ ((sub_term(Sub, CNV), atom(Sub), (tl:pipeline_value(TID, N, _);member(N=_, WaitingOnNVs)), N==Sub)).
 
-choose_converter(_TID, _WaitingOnNVs, M:CNV):- installed_converter(M, CNV).
+
+choose_converter(_TID,_Have,_NEEDs,_MCNV, MaxDepth):- MaxDepth<0, !, fail.
+choose_converter(TID,Have,NEEDs, MCNV, MaxDepth):- 
+   %copy_term_nat(NEEDs,NEEDsC),
+   trace_pipeline(show_kvs([have=Have,needed=NEEDs])),
+   ((( installed_converter(M, CNV, Ins, Missing),
+    \+ \+ member(Missing=_,NEEDs),
+    forall(member(In,Ins),member(In=_,Have))))
+   *-> ((MCNV= (M:CNV)),trace_pipeline(wdmsg(using_installed_converter(M, CNV, Ins, Missing))))
+   ; choose_transitive_converter(TID, Have, NEEDs, MCNV, MaxDepth)).
+
+choose_transitive_converter(TID, Have, NEEDs, MCNV, MaxDepth):- 
+  findall(In=_,
+   (installed_converter(_M, _CNV, Ins, Missing),
+    \+ \+ member(Missing=_,NEEDs),
+    member(In,Ins),\+ member(In=_,Have)), NeededL),
+ MaxDepthMinusOne is MaxDepth-1,
+ list_to_set(NeededL,Needed), Needed \== [],
+ choose_converter(TID, Have, Needed, MCNV, MaxDepthMinusOne).
+
+
 
 % show stat
 show_pipeline(TID):-
   wdmsg(show_pipeline(TID)),
-  forall(tl:pipeline_value(TID, Name, Value), wdmsg(tl:pipeline_value(TID, Name, Value))),
+  forall(local_pipeline_value(TID, Name, Value), wdmsg(local_pipeline_value(TID, Name, Value))),
   forall(pipeline_pass_fail(TID, Name, Value), wdmsg(pipeline_pass_fail(TID, Name, Value))).
 
-show_pipeline:-forall(installed_converter(M, CNV), wdmsg(installed_converter(M, CNV))).
+show_pipeline:-forall(installed_converter(M, CNV,_,_), wdmsg(installed_converter(M, CNV))).
 
 
 maybe_display(G):- dmsg(call(writeq(G))).
@@ -463,12 +505,29 @@ remove_punctuation(W2, W2).
 
 % ================================================================================================
 % TODO - grovel the API
-:-  load_parser_interface(parser_charniak).
+:-  if(load_parser_interface(parser_charniak)).
 % ================================================================================================
 :- install_converter(parser_charniak:text_to_charniak(+acetext, -charniak)).
 :- install_converter(parser_charniak:charniak_to_segs(+charniak,-charniak_segs)).
 :- install_converter(parser_charniak:charniak_segs_to_w2(+charniak_segs,-charniak_info,-charniak_w2)).
+:- endif.
 
+% ================================================================================================
+load_parser_stanford:-  load_parser_interface(parser_stanford).
+:- if(load_parser_stanford).
+% ================================================================================================
+
+:- install_converter(parser_stanford:text_to_corenlp(+acetext, -corenlp)).
+:- install_converter(parser_stanford:corenlp_to_w2(+corenlp, -corenlp_w2)).
+:- endif.
+
+% ================================================================================================
+% TODO - grovel the API
+:- if(load_parser_interface(parser_lexical)).
+% ================================================================================================
+
+:- install_converter(parser_lexical:combined_w2(+charniak_w2, +corenlp_w2, -combined_w2)).
+:- endif.
 
 % ================================================================================================
 % English2CycL:
@@ -513,7 +572,7 @@ eng_to_bratko(Sentence, LF, Type, Clause, FreeVars) :-
 :- endif.
 
 % ================================================================================================
-:-  if(load_parser_interface(parser_e2c)).
+:- if(load_parser_interface(parser_e2c)).
 % ================================================================================================
 
 :- install_converter(parser_e2c, e2c_parse(+acetext, -lf_b)).
@@ -525,14 +584,6 @@ eng_to_bratko(Sentence, LF, Type, Clause, FreeVars) :-
 
 :- endif.
 
-
-% ================================================================================================
-load_parser_stanford:-  load_parser_interface(parser_stanford).
-% ================================================================================================
-
-:- install_converter(parser_stanford:text_to_corenlp(+acetext, -corenlp)).
-:- install_converter(parser_stanford:corenlp_to_segs(+corenlp,-corenlp_segs)).
-:- install_converter(parser_stanford:corenlp_segs_to_w2(+corenlp_segs,-corenlp_info,-corenlp_w2)).
 
 
 
@@ -553,27 +604,26 @@ with_el_holds_enabled_4_nl(Goal):-locally_hide(el_holds_DISABLED_KB, Goal).
 :- dynamic is_cyckb_t_pred/2.
 :- dynamic is_cyckb_t_pred_rename/2.
 
-:- dmsg("Scanning el_assertions.pl for programatic definations (This may take 10-30 seconds)").
+do_el_assertions :- 
+   dmsg("Scanning el_assertions.pl for programatic definations (This may take 10-30 seconds)"),
 %:- ain(cyckb_t(A, _, _) ==> is_cyckb_t_pred(A, 2)).
-:- with_el_holds_enabled_4_nl(gripe_time(10, forall(cyckb_t(A, _, _) , assert_if_new(is_cyckb_t_pred(A, 2))))).
+   with_el_holds_enabled_4_nl(gripe_time(10, forall(cyckb_t(A, _, _) , assert_if_new(is_cyckb_t_pred(A, 2))))),
 %:- ain(cyckb_t(A, _, _, _ ) ==> is_cyckb_t_pred(A, 3)).
-:- with_el_holds_enabled_4_nl(gripe_time(2, forall(cyckb_t(A, _, _, _) , assert_if_new(is_cyckb_t_pred(A, 3))))).
+   with_el_holds_enabled_4_nl(gripe_time(2, forall(cyckb_t(A, _, _, _) , assert_if_new(is_cyckb_t_pred(A, 3))))),
 %:- ain(cyckb_t(A, _, _, _, _ ) ==> is_cyckb_t_pred(A, 4)).
-:- with_el_holds_enabled_4_nl(gripe_time(2, forall(cyckb_t(A, _, _, _ , _ ) , assert_if_new(is_cyckb_t_pred(A, 4))))).
+   with_el_holds_enabled_4_nl(gripe_time(2, forall(cyckb_t(A, _, _, _ , _ ) , assert_if_new(is_cyckb_t_pred(A, 4))))),
 %:- ain(cyckb_t(A, _, _, _, _, _ ) ==> is_cyckb_t_pred(A, 5)).
-:- with_el_holds_enabled_4_nl(gripe_time(2, forall(cyckb_t(A, _, _, _ , _, _ ) , assert_if_new(is_cyckb_t_pred(A, 5))))).
+   with_el_holds_enabled_4_nl(gripe_time(2, forall(cyckb_t(A, _, _, _ , _, _ ) , assert_if_new(is_cyckb_t_pred(A, 5))))),
 
-:- dmsg("Implementing programatic definations (This shoiuld take less than 2 seconds)").
+  dmsg("Implementing programatic definations (This shoiuld take less than 2 seconds)"),
 % :- ain((is_cyckb_t_pred(F, A) ==> {functor(H, F, A), H=..[F|ARGS], KB=..[cyckb_t, F|ARGS], assert_if_new((H:-KB))})).
-:- gripe_time(2, forall(is_cyckb_t_pred(F, A) , ignore((atom(F), functor(H, F, A), H=..[F|ARGS],
+  gripe_time(2, forall(is_cyckb_t_pred(F, A) , ignore((atom(F), functor(H, F, A), H=..[F|ARGS],
     KB=..[cyckb_t, F|ARGS],
        on_x_log_cont(assert_if_new((H:- \+ (t_l:el_holds_DISABLED_KB), KB))))))).
 
-% ================================================================================================
-
-% ================================================================================================
-% TODO - grovel the API
-:-  load_parser_interface(parser_lexical).
+:- if(prolog_load_context(reloading,false)).
+:- do_el_assertions.
+:- endif.
 % ================================================================================================
 
 
@@ -656,10 +706,12 @@ baseKB:regression_test:- gripe_time(5, test_chat80_sanity).
 :- ignore((Z = ('`'), user:current_op(X, Y, Z), dmsg(call((writeq(:-(op(X, Y, Z))), nl, fail))))).
 % :- halt(666).
 
+baseKB:sanity_test:- call(make),call(run_pipeline("The Norwegian dude lives happily in the first house.")).
 baseKB:sanity_test:- run_pipeline("what countries are there in europe ?").
-baseKB:feature_test:- run_pipeline("What countries are there in europe ?").
 baseKB:regression_test:- run_pipeline("What countries are there in north_america ?").
+baseKB:feature_test:- run_pipeline("What countries are there in europe ?").
 baseKB:feature_test:- run_pipeline("What countries are there in north america ?").
+
 
 baseKB:feature_test(must_test_80):-
   forall(must_test_80(U, R, O),
