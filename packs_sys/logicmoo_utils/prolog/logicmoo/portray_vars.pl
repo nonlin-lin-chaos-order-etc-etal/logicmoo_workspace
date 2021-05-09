@@ -267,10 +267,11 @@ prologcase_name0(String,ProposedName):-
 atom_trim_prefix(Root,Prefix,Result):- atom_concat_w_blobs(Prefix,Result,Root) -> true ; Result=Root.
 atom_trim_suffix(Root,Suffix,Result):- atom_concat_w_blobs(Result,Suffix,Root) -> true ; Result=Root.
 
-shrink_naut_vars(I,I).
+shrink_naut_vars(I,O):- duplicate_term(I,O).
 
+pretty_numbervars(Term, TermO):- current_prolog_flag(no_pretty,true),!,shrink_naut_vars(Term,TermO).
 pretty_numbervars(Term, TermO):-
-  notrace((shrink_naut_vars(Term,Term1),
+  quietly((shrink_naut_vars(Term,Term1),
   (ground(Term1) 
     -> TermO = Term1 ;
   ( guess_pretty(Term1),
@@ -737,16 +738,24 @@ to_case_breaks_trimed(Name,ListN,Sep,Text):- is_list(ListN),!,
 to_descriptive_name_xti(For,xti(Pefix,_),Desc):-!,to_descriptive_name_xti(For,Pefix,Desc).
 to_descriptive_name_xti(_For,X,X).
 
+portray_pretty_numbervars(Term):- 
+  notrace(\+ tracing), % fail,
+  \+ ground(Term),  
+  \+ current_prolog_flag(no_pretty,true),
+  pretty_numbervars(Term,PrettyVarTerm),
+  Term \=@= PrettyVarTerm,
+  setup_call_cleanup(
+   set_prolog_flag(no_pretty,true),
+   print(PrettyVarTerm),
+  set_prolog_flag(no_pretty,false)).
+  %prolog_pretty_print:print_term(PrettyVarTerm, [output(current_output)]),!.
+
 :- multifile(user:portray/1).
 :- dynamic(user:portray/1).
 :- discontiguous(user:portray/1).
 
-user:portray(Term):-
-  notrace(\+ tracing), % fail,
-  \+ ground(Term),  
-  pretty_numbervars(Term,PrettyVarTerm),
-  Term \=@= PrettyVarTerm,
-  print(PrettyVarTerm),!.
-  %prolog_pretty_print:print_term(PrettyVarTerm, [output(current_output)]),!.
+user:portray(Term):- 
+  portray_pretty_numbervars(Term),!.
+
 
 :- nb_setval('$variable_names',[]).

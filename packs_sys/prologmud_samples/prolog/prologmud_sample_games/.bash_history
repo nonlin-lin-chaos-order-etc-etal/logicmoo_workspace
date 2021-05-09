@@ -988,3 +988,46 @@ swipl
 swipl
 cd /opt/logicmoo_workspace/
 git status
+git commit -am "pipeline works"
+swipl
+./StartLogicmoo.sh 
+git status
+mv  packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.pl
+mv  packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.pl packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline_two.pl
+git checkout packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.pl
+./StartLogicmoo.sh 
+cls
+./StartLogicmoo.sh 
+kill -9 ipl
+kill -9 ipl
+kill -9 swipl
+kill -9 %1
+kill -9 %1
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+kill -9 %1
+kill -9 %1
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+kill -9 %1
+kill -9 %1
+./StartLogicmoo.sh 
+git status
+git checkout packs_sys/logicmoo_nlu/ext/chat80/original/lex.xg
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+git status
+git diff packs_sys/logicmoo_nlu/ext/chat80/original/clone.xg
+git diff packs_sys/logicmoo_nlu/ext/chat80/original/clone.xg
+git status
+git checkout packs_sys/logicmoo_nlu/ext/chat80/current/lex.xg
+git checkout packs_sys/logicmoo_nlu/ext/chat80/original/lex.xg
+./StartLogicmoo.sh 
+git checkout packs_sys/logicmoo_nlu/ext/chat80/original/lex.xg
+./StartLogicmoo.sh 
+git status
+mv  packs_sys/logicmoo_nlu/ext/chat80/original  packs_sys/logicmoo_nlu/ext/chat80/cripys
+git checkout packs_sys/logicmoo_nlu/ext/chat80/original 
+./StartLogicmoo.sh 
+git status
+git diff

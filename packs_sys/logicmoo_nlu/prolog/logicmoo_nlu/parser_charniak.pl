@@ -140,7 +140,7 @@ create_coref(NP,MORES,Out):- atom(NP), % marked_segs(Segs),%member(NP-Type,Segs)
   %flag(NP,N,N+1), 
   flag(NP,N,N+1),
   atomic_list_concat([NP,'#',N],NPNRef),
-  NPN=span([seg(start,end),size(0),lnks(0),'#'(NPNRef),xvar(Var),phrase(NP)/*,isa(Type)*/]),
+  NPN=span([seg(start,end),size(0),lnks(0),'#'(NPNRef),xvar(Var),txt([]),phrase(NP)/*,isa(Type)*/]),
   add_var_to_env_now(NP,Var),
   add_p_to_words(Var,NPN,MORES,Out0),
   Out=[NPN|Out0].
@@ -174,6 +174,7 @@ add_p_to_words(Var,P,H,H):-
 add_p_to_word(Var,P,Child,OUT):-  
   find_subterm(P,phrase(Type)),
   find_subterm(P,'#'(ID)),
+  find_subterm(P,txt(_),Txt),
   ignore(add_loc_to_span(Child,P)),
   resize_span(P),  
   ignore((find_subterm(Child,txt(S)),append_varname_h(S,Var))),
@@ -182,8 +183,11 @@ add_p_to_word(Var,P,Child,OUT):-
       N is OldN + 1,  
       nb_setarg(1,Holder,N), 
       nb_set_add(Child,link(N,Type,/*'#'*/(ID),Var)))),
-  OUT=Child,!.
+  OUT=Child,!,
+  ignore((Child= w(_,_),find_subterm(Child,txt(W)), nb_set_add1(Txt,W))).
   %[Child,partOf(X,Y)]
+
+ 
 
 
 %add_p_to_words(_Var,P,[Atom|T],TT):- atom(Atom),trace,add_p_to_words(_Var,P,T,TT).
@@ -195,7 +199,18 @@ is_pos([Pos, Head],w(WD,[pos(DC),loc(X),lnks(0),txt(SHead)])):- maplist(atom,[Po
 is_pos([Word],Out):-!,is_pos(Word,Out).
 
 
-text_to_charniak(Text,LExpr):-
+text_to_charniak_segs(Text,Segs):-
+  text_to_charniak_list(Text,LExpr),
+  charniak_to_segs(LExpr,Segs),!.
+
+text_to_charniak(Text,Sent):-
+   text_to_charniak_segs(Text,Segs),!,
+   charniak_segs_to_sentences(Segs,Sent),!.
+
+charniak_segs_to_sentences(Segs,sentence(1,W2,Info)):-
+  charniak_segs_to_w2(Segs,Info,W2).
+
+text_to_charniak_list(Text,LExpr):-
   charniak_parse(Text, String),
   lxpr_to_list(String, LExpr).
 

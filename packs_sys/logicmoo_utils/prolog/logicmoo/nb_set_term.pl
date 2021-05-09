@@ -44,7 +44,7 @@ merge_nb_values(Into,From):- compound(Into),
   compound_name_arguments(Into,FI,ArgI),
   FF=FI, !, 
   maplist(merge_nb_values_if_differnt(Into),ArgI,ArgF).
-merge_nb_values(Into,From):- nb_set_add1(Into,From).
+merge_nb_values(Into,From):- duplicate_term(From,F),nb_set_add1(Into,F).
 
 merge_nb_values_if_differnt(_,To,From):- To=@=From,!.
 merge_nb_values_if_differnt(_,To,From):- is_list(To),!,merge_nb_values(To,From).

@@ -340,10 +340,13 @@ e2c_0(Sentence,
 
 :- assert_if_new(baseKB:mpred_prop(parser_e2c, e2c_parse, 2, prologOnly)).
 
-e2c_parse(Sentence, LF):- cwc,
-  quietly(to_wordlist_atoms(Sentence, WL)), !,
-  e2c_parse0(WL, LF),
+e2c_parse(Sentence, LF):- cwc,  
+  text_to_corenlp(Sentence, WL), !,
+  corenlp_to_segs(WL,Segs),
+  e2c_parse0(Segs, LF),
   del_e2c_attributes(LF),!.
+
+e2c_parse(Sentence, unparsed(Sentence)).
 
 :- assert_if_new(baseKB:mpred_prop(parser_e2c, e2c_parse0, 2, prologOnly)).
 
@@ -352,10 +355,10 @@ e2c_parse0(WL, LF):-
   retractall(t_l:usePlTalk),
   retractall(t_l:useAltPOS), !,
   e2c_parse2(WL, LF).
-
 %e2c_parse2(WL, LF):- deepen_pos(utterance(_How, LF, WL, []))-> ! ; e2c_parse3(WL, LF).
 
-e2c_parse2(WL, LF):- no_repeats(LF, deepen_pos(utterance(_How, LF, WL, []))).
+e2c_parse2(WL, LF):- no_repeats(LF, deepen_pos(utterance(_How, LF, WL, []))),!.
+e2c_parse2(Sentence, unparsed(Sentence)).
 /*
 e2c_parse2(WL, LF):- fail, deepen_pos(e2c_parse3(WL, LF)).
 

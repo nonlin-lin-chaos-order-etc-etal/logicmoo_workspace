@@ -103,7 +103,7 @@ ed( [ is, the, united_kingdom, in, europe, ? ] ,mini).
 /* ----------------------------------------------------------------------
 	Standard question set
 	This is the standard chat question set, originally put together
-	by David and Fernando and use in their papers. Quintus uses80 this
+	by David and Fernando and use in their papers. Quintus uses this
 	set as a standard for performance comparisons.
    ---------------------------------------------------------------------- */
 
@@ -382,13 +382,15 @@ answer80((answer80([X]):-E),S) :- !, seto(X,E,S).
 answer80((answer80(X):-E),S) :- seto(X,E,S).
 
 check_answer(_Sentence,A,B,true) :- close_answer(A,B),!.
-check_answer(Sentence,A,B,'wrong answer80'):-
-  pprint_ecp_cmt(red,check_answer(Sentence,A,B,'wrong answer80')),
+check_answer(Sentence,A,B,'wrong answer'):-
+  pprint_ecp_cmt(red,check_answer(Sentence,A,B,'wrong answer')),
   tracing ~= on,
   once(process(debug,Sentence)).
 
 close_answer(A,A).
-close_answer(A,B):- number(A),number(B),!, X is integer(A*10),Y is integer(A*10),!, X=Y.
+close_answer(A,B):- number(A),number(B),!, X is integer(A*100),Y is integer(A*100),!, X=Y.
+close_answer([A],B):- !, close_answer(A,B).
+close_answer(A,[B]):- !, close_answer(A,B).
 close_answer(A,B):- is_list(A), sort(A,AA), A\==AA, !, close_answer(AA,B).
 close_answer(B,A):- is_list(A), sort(A,AA), A\==AA, !, close_answer(B,AA).
 close_answer(A,B):- 

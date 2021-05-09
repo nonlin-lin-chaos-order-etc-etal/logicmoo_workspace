@@ -34,8 +34,12 @@ baseKB:sanity_test:- test_corenlp.
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
+
 corenlp_to_w2(LExpr,W2s):-
-  setof(W2,(sub_term(W2,LExpr),compound(W2),W2=w(_,_)),W2s).
+  findall(W2,(sub_term(W2,LExpr),compound(W2),W2=w(_,_)),W2s).
+
+corenlp_to_segs(LExpr,W2s):-
+  findall(W2,(sub_term(W2,LExpr),compound(W2),(W2=w(_,_);compound_name_arity(W2,span,_))),W2s).
 
 text_to_corenlp(Text,CoreNLP):-
   text_to_corenlp(Text,_Options, CoreNLP).
