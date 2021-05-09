@@ -1056,3 +1056,32 @@ cp  packs_sys/logicmoo_nlu/ext/chat80/original  packs_sys/logicmoo_nlu/ext/chat8
 ./StartLogicmoo.sh 
 git status
 git diff
+git commit -am "no more nb/1"
+./StartLogicmoo.sh 
+kill -9 %1
+kill -9 %1
+./StartLogicmoo.sh 
+git status
+rm -rf   packs_sys/logicmoo_nlu/ext/chat80/original.new/
+rm -rf   packs_sys/logicmoo_nlu/ext/chat80/original.new/ packs_sys/logicmoo_nlu/ext/chat80/cripys/
+rm packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.new.pl
+rm packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.pl.bak 
+find -name "*.bak"
+find -name "*.bak" -delete 
+git status
+rm   packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_charniak.new.pl
+rm  packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline_two.pl
+rm   packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_stanford.new.pl
+rm   packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_stanford2.pl
+rm  packs_sys/prologmud_samples/prolog/prologmud_sample_games/PrintXmxXms.java
+rm   maybetest.pl
+git status
+git add   packs_sys/logicmoo_utils/prolog/logicmoo_remote.pl
+firefox    packs_web/logicmoo_webui/var/www/html/ef/files/.tmb/l1_bG9naWNtb28uaWNv1618953420.png
+sudo -u prologmud_server -- firefox    packs_web/logicmoo_webui/var/www/html/ef/files/.tmb/l1_bG9naWNtb28uaWNv1618953420.png
+gimp
+apt install gimp
+apt update
+apt install gimp
+git status
+git diff

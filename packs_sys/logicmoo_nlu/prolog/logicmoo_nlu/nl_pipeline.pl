@@ -597,7 +597,8 @@ remove_punctuation(W2, W2).
 
 %:- install_converter(parser_chat80:words_to_w2(+acetext_no_punct, -pos_sents_pre)).
 % :- install_converter(parser_chat80:into_text80(+(tokens), -text80)).
-:- install_converter(parser_chat80:sent_to_parsed(+text80, -parsed80)).
+:- install_converter(parser_chat80:into_w2_segs(+text80, -corenlp_segs)).
+:- install_converter(parser_chat80:sent_to_parsed(+corenlp_w2, -parsed80)).
 :- install_converter(parser_chat80:i_sentence(+parsed80, -sent80)).
 :- install_converter(parser_chat80:clausify_simplify80(+sent80, -clausify80)).
 %:- install_converter(parser_chat80:simplify80(+clausify80, -simplify80)).
@@ -630,6 +631,7 @@ load_parser_stanford:-  load_parser_interface(parser_stanford).
 
 :- install_converter(parser_stanford:text_to_corenlp(+acetext, -corenlp)).
 :- install_converter(parser_stanford:corenlp_to_w2(+corenlp, -corenlp_w2)).
+:- install_converter(parser_stanford:corenlp_to_segs(+corenlp, -corenlp_segs)).
 :- endif.
 
 % ================================================================================================

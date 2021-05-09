@@ -185,6 +185,20 @@ applications-graphics
 lxde-graphics.directory
 2
 0
+-gimp.desktop
+GNU Image Manipulation Program
+Create images and edit photographs
+gimp
+
+5
+Image Editor
+gimp-2.8 %U
+2
+0
+gimp-2.8
+
+Graphics;2DGraphics;RasterGraphics;GTK
+
 -libreoffice-draw.desktop
 LibreOffice Draw
 Create and edit drawings, flow charts and logos by using Draw.

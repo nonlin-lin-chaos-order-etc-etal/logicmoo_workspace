@@ -547,9 +547,20 @@ process(_,_).
 
 eng_to_logic(U,S):- sentence80(E,U,[],[],[]), sent_to_prelogic(E,S).
 
+span_or_word(S):- compound(S), (S = w(_,_); S=span(_)),!.
+
+into_w2_segs(Sentence,Sentence):- maplist(span_or_word,Sentence),!.
+into_w2_segs(Sent,U):-  any_to_string(Sent,Text80), into_w2_segs_pt2(Text80,U),!.
+into_w2_segs_pt2(Sentence,U):- catch(text_to_corenlp_segs(Sentence,U),E,(wdmsg(error(E,text_to_corenlp_segs(Sentence))), fail)),!.
+into_w2_segs_pt2(Sentence,U):- check_words(Sentence,U).
+
 process4(How,Sentence,Answer,Times) :-
    Times = [ParseTime,SemTime,TimePlan,TimeAns,TotalTime],
-   check_words(Sentence,U),
+   runtime(StartSeg),
+   into_w2_segs(Sentence,U),
+   runtime(StopSeg),
+   SegTime is StopSeg - StartSeg,
+   report(always,U,'segs',SegTime,tree),
    runtime(StartParse),  
  ((sentence80(E,U,[],[],[]),
    notrace((runtime(StopParse),
@@ -607,12 +618,11 @@ report_item0(expr,Item) :- !,
 
 %report_item0(_,Item) :- !, \+ \+ write_tree(Item), nl.
 
+report_item0(tree,Item) :- print_tree_with_final(Item,'.'),!.
 report_item0(tree,Item) :- \+ \+ print_tree80(Item),!, nl.
 
 report_item0(cmt,Item) :-
     pprint_ecp_cmt(yellow,Item),!.
-report_item0(tree,Item) :-
-   print_tree(Item),!.
 report_item0(P,Item) :-
    must_or_rtrace(call(P,Item)),!.
 
@@ -774,11 +784,13 @@ check_words([Word|Words],[RevWord|RevWords]) :-
    check_words(Words,RevWords).
 
 %:- mode check_word(+,-).
+check_word(Word,w(NewWord,open)):- \+ compound(Word), check_word0(Word,NewWord),!.
+check_word(X,X).
 
-check_word(Word,Word) :- number(Word),!.
-check_word(Word,Word) :- chk_word(Word), !.
-check_word(Word,Word):- compound(Word),!.
-check_word(Word,NewWord) :-
+check_word0(Word,Word) :- number(Word),!.
+check_word0(Word,Word) :- chk_word(Word), !.
+check_word0(Word,Word):- compound(Word),!.
+check_word0(Word,NewWord) :-
    % write('? '), write(Word), write(' -> (!. to abort) '), ttyflush, read(NewWord0), NewWord0 \== !,
    % check_word(NewWord0,NewWord)
    ignore(NewWord=Word),

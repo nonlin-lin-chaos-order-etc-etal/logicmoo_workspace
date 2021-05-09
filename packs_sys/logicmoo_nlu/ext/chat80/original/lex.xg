@@ -34,7 +34,7 @@ see newdict.pl
 theTextL(W1,_CYCPOS,Y=W1)  ---> {!},theText80(W1),{W1=Y}.
 theTextL(W1,_CYCPOS,WHY) ---> theText80(W1),{call(WHY)}.
 
-noText ---> skip_spans.
+noText ---> next_as_word, skip_spans.
 
 skip_spans ---> [span(NV)],{nonvar(NV),!},skip_spans.
 skip_spans ---> [].
@@ -43,13 +43,19 @@ the_text_unif(IC,W0):- atom(W0),!,downcase_atom(W0,DC),(var(IC)->IC=DC;downcase_
 the_text_unif(IC,W0):- var(W0),!,nonvar(IC),!,the_text_unif(W0,IC).
 the_text_unif(IC,W0):- parser_tokenize:any_nb_to_atom(W0,W1),!,downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC)).
 
-w001(Cmp)--->[Cmp],{assertion(nonvar(Cmp))}.
+w001(Cmp)---> next_as_word,{!},[Cmp],{assertion(nonvar(Cmp))}.
 
 w01(Text) ---> w001(A), {atomic(A),!,A=Text}.
 w01(Text) ---> w001(Cmp),{compound(Cmp),!,Cmp=w(Text,_)}.
-w01(Text) ---> w001(A), {Text=A}.
+%w01(Text) ---> w001(A), {Text=A}.
 
-w1(Text) ---> skip_spans,w01(Text),skip_spans. 
+w1(Text) ---> next_as_word,w01(Text).
+
+move_ahead_spans(S1,S2,G,G):- partition(\=(span(_)),S1,W,S),!,append(W,S,S2).
+
+next_as_word(S1,S2,G,G):- select(W2,S1,SM),W2=w(_,_),!,S2=[W2|SM].
+next_as_word(S1,S1,G,G).
+
 
 theText1(IC) ---> w1(W0),{assertion(nonvar(W0);nonvar(IC)),the_text_unif(IC,W0)}.
 %theText1(IC) ---> {t_l:old_text,!},[W0],{parser_tokenize:any_nb_to_atom(W0,W1),downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC))}.

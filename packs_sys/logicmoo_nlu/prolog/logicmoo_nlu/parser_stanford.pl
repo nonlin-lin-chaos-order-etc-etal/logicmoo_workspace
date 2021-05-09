@@ -18,6 +18,10 @@
             test_corenlp2/0,
             test_corenlp/1,
             test_corenlp/2,
+            corenlp_to_w2/2,
+            text_to_corenlp_segs/2,
+            corenlp_to_segs/2,
+
          into_text100_atoms/2
 
          ]).
@@ -38,8 +42,15 @@ baseKB:sanity_test:- test_corenlp.
 corenlp_to_w2(LExpr,W2s):-
   findall(W2,(sub_term(W2,LExpr),compound(W2),W2=w(_,_)),W2s).
 
-corenlp_to_segs(LExpr,W2s):-
-  findall(W2,(sub_term(W2,LExpr),compound(W2),(W2=w(_,_);compound_name_arity(W2,span,_))),W2s).
+corenlp_to_segs(LExpr,Segs):-
+  findall(W2,(sub_term(W2,LExpr),compound(W2),(W2=w(_,_);compound_name_arity(W2,span,_))),W2s),
+  sort_words(W2s,Segs).
+
+text_to_corenlp_segs(Text,SSegs):-
+  text_to_corenlp(Text,_Options, CoreNLP),!,
+  corenlp_to_segs(CoreNLP,Segs),!,
+  sort_words(Segs,SSegs),!.
+
 
 text_to_corenlp(Text,CoreNLP):-
   text_to_corenlp(Text,_Options, CoreNLP).
@@ -141,12 +152,15 @@ parse_reply_replace(_Ctx, corefs=W, W):- !,nonvar(W).
 parse_reply_replace(_Ctx, Number=[Coref|More], [Coref|More]):- atom_number(Number,_), compound(Coref),functor(Coref,coref,_).
 %parse_reply_replace(_Ctx, _=[Coref|More], [Coref|More]):- compound(Coref),functor(Coref,coref,_).
 
-into_value_lex_value(A,V):- \+ atom(A) -> A=V ;  atom_to_term(A,V,Vs),maplist(call,Vs).
+into_value_lex_value(A,V):- \+ atom(A),!, A=V.
+into_value_lex_value(A,V):- catch(atom_to_term(A,V,Vs),_,fail),maplist(call,Vs),!.
+into_value_lex_value(A,A).
 
 parse_reply_replace(_Ctx, Sub, '$'):- ground(Sub), 
   member(Sub, [entitymentions=[], speaker='PER0', openie=[], truecase='O', ner='O', entitylink='O']).
 
-parse_reply_replace(_Ctx, NER=Value, Pred):- atom(NER),member(NER,[normalizedNER,ner,paragraph,openie,kbp,truecase,entitylink,repm]),Pred=..[NER,TValue],into_value_lex_value(Value,TValue).
+parse_reply_replace(_Ctx, NER=Value, Pred):- atom(NER),
+  member(NER,[normalizedNER,ner,paragraph,openie,kbp,truecase,entitylink,repm]),Pred=..[NER,TValue],into_value_lex_value(Value,TValue).
 
 parse_reply_replace(_Ctx, Remove=Rest, '$'):- nonvar(Rest),
   member(Remove, [
@@ -261,11 +275,11 @@ sentence_reply(Number, Toks, SExpr, In, In):-
   print_reply_colored(Number=SExpr),
   print_reply_colored(Number=Toks), !.
 */
-:- export(sort_words/2).
 sort_words(List,Sorted):- predsort(by_word_loc,List,Sorted).
 by_word_loc(R,A,B):-into_loc_sort(A,AK),into_loc_sort(B,BK),compare(RK,AK,BK), (RK == (=) -> compare(R,A,B) ; R = RK).
-into_loc_sort(seg(List),Key):- member(seg(S,E),List),member(lnks(L),List),member(size(W),List),RS is 100-W, Key = seg(S,RS,L,E),!.
-into_loc_sort(A,Key):- A=..[_|AA], findnsols(2,T, ((sub_term(T,AA),compound(T),arg(1,T,N),number(N));T=AA),Key).
+into_loc_sort(span(List),Key):- member(seg(S,E),List),member(lnks(L),List),member(size(W),List),RS is 100-W, Key = [E,S,RS,L],!.
+into_loc_sort(w(_,List),Key):- member(loc(S),List), member(lnks(L),List), Key = [S,0,S,L],!.
+into_loc_sort(A,Key):- A=..[_|AA], findnsols(4,T, ((sub_term(T,AA),compound(T),arg(1,T,N),number(N));T=AA),Key).
 
 baseKB:regression_test:- test_corenlp(1,X),!,test_corenlp(X).
 baseKB:sanity_test:- make, forall(test_corenlp(1,X),test_corenlp(X)).

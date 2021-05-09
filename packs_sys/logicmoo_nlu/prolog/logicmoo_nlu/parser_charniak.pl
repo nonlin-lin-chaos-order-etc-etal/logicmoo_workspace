@@ -80,6 +80,7 @@ can_be_partof(_,_).
 
 marked_segs(['VP'-'Situation',
   'ADVP'-'Adv',
+  'SQ'-'SQ',
   'PP'-'Prep',
   'VP'-'VPhrase',
   'ROOT'-'Root','SBAR'-'Thing','NP'-'Obj','NP-TMP'-'NP-TMP','word'-'W','S'-'Situation','S1'-'Event','NML'-'NML','ADJP'-'tCol','FRAG'-'FRAG']).
@@ -140,7 +141,7 @@ create_coref(NP,MORES,Out):- atom(NP), % marked_segs(Segs),%member(NP-Type,Segs)
   %flag(NP,N,N+1), 
   flag(NP,N,N+1),
   atomic_list_concat([NP,'#',N],NPNRef),
-  NPN=span([seg(start,end),size(0),lnks(0),'#'(NPNRef),xvar(Var),txt([]),phrase(NP)/*,isa(Type)*/]),
+  NPN=span([seg(start,end),size(0),lnks(0),'#'(NPNRef),/*xvar(Var),*/ txt([]),phrase(NP)/*,isa(Type)*/]),
   add_var_to_env_now(NP,Var),
   add_p_to_words(Var,NPN,MORES,Out0),
   Out=[NPN|Out0].
@@ -171,18 +172,18 @@ add_p_to_words(Var,P,H,H):-
   pprint_ecp_cmt(yellow,add_p_to_words(Var,P,H)),
   !.
 
-add_p_to_word(Var,P,Child,OUT):-  
+add_p_to_word(_Var,P,Child,OUT):-  
   find_subterm(P,phrase(Type)),
   find_subterm(P,'#'(ID)),
   find_subterm(P,txt(_),Txt),
   ignore(add_loc_to_span(Child,P)),
   resize_span(P),  
-  ignore((find_subterm(Child,txt(S)),append_varname_h(S,Var))),
-  ignore(( \+ find_subterm(Child,link(_,Type,_,_)), 
+  %ignore((find_subterm(Child,txt(S)), append_varname_h(S,Var))),
+  ignore(( \+ find_subterm(Child,link(_,Type,_ /*,Var*/)), 
       find_subterm(Child,lnks(OldN),Holder), 
-      N is OldN + 1,  
+      N is OldN + 1,
       nb_setarg(1,Holder,N), 
-      nb_set_add(Child,link(N,Type,/*'#'*/(ID),Var)))),
+      nb_set_add(Child,link(N,Type,/*'#'*/(ID) /*,Var*/)))),
   OUT=Child,!,
   ignore((Child= w(_,_),find_subterm(Child,txt(W)), nb_set_add1(Txt,W))).
   %[Child,partOf(X,Y)]
