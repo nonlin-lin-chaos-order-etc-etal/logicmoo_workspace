@@ -36,7 +36,7 @@ words_to_w22(U,W2):- convert_to_atoms_list(U,List),!,words_to_w2(List,W2).
 
 :-thread_local t_l:old_text/0.
 
-t_l:old_text.
+t_l:old_text:- throw(t_l:old_text).
 % TODO dont use open marker use []
 use_open_marker.
 
@@ -662,6 +662,7 @@ reduce1(P,Q):- compound_name_arguments(P,F,A),
    maplist(reduce1,A,AA), 
    compound_name_arguments(Q,F,AA).
 
+clausify_simplify80(QT,Plan):- clausify80(QT,UE),once((simplify80(UE,Query),qplan(Query,Plan))).
 simplify80(C,C0):-var(C),dmsg(var_simplify(C,C0)),!,fail.
 simplify80(C,(P:-R)) :- !,
    unequalise(C,(P:-Q)),

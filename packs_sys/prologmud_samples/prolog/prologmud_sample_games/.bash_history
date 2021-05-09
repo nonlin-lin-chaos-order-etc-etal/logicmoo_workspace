@@ -1031,3 +1031,8 @@ git checkout packs_sys/logicmoo_nlu/ext/chat80/original
 ./StartLogicmoo.sh 
 git status
 git diff
+git commit -am "chat80 about to convert to e2c"
+./StartLogicmoo.sh 
+mv  packs_sys/logicmoo_nlu/ext/chat80/cripys/lex.new.xg  packs_sys/logicmoo_nlu/ext/chat80/cripys/lex.xg
+./StartLogicmoo.sh 
+git diff

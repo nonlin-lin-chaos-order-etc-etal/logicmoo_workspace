@@ -13,9 +13,9 @@
 :- export(sentence80/5).
 
 sentence80(_) ---> if_giveup_dcg,{!,fail}.
-sentence80(S) ---> question80(S), (terminator(?); []).
-sentence80(S) ---> imperative80(S), (terminator(!); []).
-sentence80(QS) ---> s80(S,_),([Punct];([],{Punct=missing})),{punct_to_sent_type(Punct,S,QS)}.
+sentence80(S) ---> question80(S), ((terminator('?'),{!}); noText).
+sentence80(S) ---> imperative80(S), ((terminator('!'),{!}); noText).
+sentence80(QS) ---> s80(S,_),(theText1(Punct);(noText,{Punct=missing})),{punct_to_sent_type(Punct,S,QS)}.
 
 
 punct_to_sent_type((.),S,decl(S)).
@@ -70,7 +70,7 @@ whq(X,3+No,np(3+No,wh(X),[]),Case) ---> int_pron(Case).
 int_det(X,3+Agmt) ---> whose(X,Agmt).
 int_det(X,3+Agmt) ---> int_art(X,Agmt).
 
-whose(X,Agmt), np_head0(wh(X),Agmt,proper), gen_marker ---> [whose].
+whose(X,Agmt), np_head0(wh(X),Agmt,proper), gen_marker ---> theText1(whose).
 
 question80(QCase,NPCase,S) --->
    {subj_question(QCase), is_to_role_case(subj,_,NPCase)},
@@ -122,7 +122,7 @@ s_vp(_Subj,Agmt,Type,Verb,Args,Mods,Mask) --->
    {minus_mask(SAll,Mask0,Set), plus_mask(SAll,Mask0,Mask1)},
    verb_mods(Mods,Set,Mask1,Mask).
 
-subj(there,Agmt,_+be) ---> [there].
+subj(there,Agmt,_+be) ---> theText1(there).
 subj(Subj,Agmt,_) --->
    {is_s_all(SAll), is_subj_case(Case)},
    np(Subj,Agmt,Case,_,subj,SAll,_).
@@ -210,10 +210,10 @@ quant_opt(Op,indef) --->
    theText1(at),
    sup_adv(Adv),
    {sup_op(Adv,Op)}.
-quantV(the,def) ---> [the].
+quantV(the,def) ---> theText1(the).
 quantV(same,indef) ---> noText.
 
-neg_adv(Adv,not+Adv) ---> [not].
+neg_adv(Adv,not+Adv) ---> theText1(not).
 neg_adv(Adv,Adv) ---> noText.
 
 sup_op(least,not+less).
@@ -446,7 +446,7 @@ verb_args(tv,active,[arg(dir,Dir)],_,Mask) --->
 verb_args(dv(_Prep),_,[arg(Case,NP)|X],_,Mask) --->
    verb_arg(np,NP,Mask0),
    object_opt(Case,X,Mask0,Mask).
-verb_args(be,_,[voidQ],Mask,Mask) ---> [there].
+verb_args(be,_,[voidQ],Mask,Mask) ---> theText1(there).
 verb_args(be,_,[arg(pred,P)],_,Mask) --->
    pred_conj(_,P,Mask).
 verb_args(be,_,[arg(dir,P)],_,Mask) ---> verb_arg(np,P,Mask).
