@@ -39,7 +39,7 @@ words([V|U]) --> word1(V),!,blanks,words(U).
 words([]) --> [].
 
 word1(U1) --> [K],{lc(K,K1)},!,alphanums(U2),{name(U1,[K1|U2])}.
-word1(nb(N)) --> [K],{digit(K)},!,digits(U),{name(N,[K|U])}.
+word1((N1)) --> [K],{digit(K);[K]=`-`},!,digits(U),{name(N,[K|U]),atom_number(N,N1)}.
 word1(V) --> [K],{name(V,[K])}.
 
 alphanums([K1|U]) --> [K],{alphanum(K,K1)},!,alphanums(U).
@@ -49,13 +49,14 @@ alphanum(95,95) :- !. % underscore
 alphanum(K,K1):-lc(K,K1).
 alphanum(K,K):-digit(K).
 
-digits([K|U]) --> [K],{digit(K)},!,digits(U).
+digits([K|U]) --> [K],{digit(K);[K]=`.`},!,digits(U).
 digits([]) --> [].
 
 blanks--> [K],{K=<32},!,blanks.
 blanks --> [].
 
 digit(K):-K>47,K<58.
+
 
 %lc(K,K1):-K>64,K<91,!,K1 is K\/8'40.
 lc(K,K1):-K>64,K<91,!,K1 is K+32.

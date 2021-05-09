@@ -1036,3 +1036,23 @@ git commit -am "chat80 about to convert to e2c"
 mv  packs_sys/logicmoo_nlu/ext/chat80/cripys/lex.new.xg  packs_sys/logicmoo_nlu/ext/chat80/cripys/lex.xg
 ./StartLogicmoo.sh 
 git diff
+git commit -am theText1
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+kill -9 %1
+kill -9 %1
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+kill -9 %1
+kill -9 %1
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+kill -9 %1
+kill -9 %1
+./StartLogicmoo.sh 
+cp  packs_sys/logicmoo_nlu/ext/chat80/original  packs_sys/logicmoo_nlu/ext/chat80/original.new -a
+./StartLogicmoo.sh 
+git status
+git diff

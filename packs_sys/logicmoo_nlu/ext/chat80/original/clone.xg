@@ -13,9 +13,9 @@
 :- export(sentence80/5).
 
 sentence80(_) ---> if_giveup_dcg,{!,fail}.
-sentence80(S) ---> question80(S), ((terminator('?'),{!}); noText).
-sentence80(S) ---> imperative80(S), ((terminator('!'),{!}); noText).
-sentence80(QS) ---> s80(S,_),(theText1(Punct);(noText,{Punct=missing})),{punct_to_sent_type(Punct,S,QS)}.
+sentence80(S) ---> question80(S), ((terminator('?'),{!}); noText),{!}.
+sentence80(S) ---> imperative80(S), ((terminator('!'),{!}); noText),{!}.
+sentence80(QS) ---> s80(S,_),(theText1(Punct);(noText,{Punct=missing})),{!,punct_to_sent_type(Punct,S,QS)},{!}.
 
 
 punct_to_sent_type((.),S,decl(S)).
@@ -181,7 +181,7 @@ possessive(Kernel0,Agmt0,_,[],Mods0,
 possessive(Kernel,Agmt,Type,PostMods,Mods,
            Kernel,Agmt,Type,PostMods,Mods) ---> noText.
 
-gen_case, [the] ---> gen_marker.
+gen_case, theText1(the) ---> gen_marker.
 
 
 gen_marker ---> theText1('\''), an_s.

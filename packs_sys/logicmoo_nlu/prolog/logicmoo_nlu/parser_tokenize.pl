@@ -39,9 +39,9 @@ into_text80_atoms(I,O):- nonvar(I),
 into_text80_strings(I,O):- into_text80_atoms(I,N),maplist(any_to_string,N,O),!.
 
 
-number_to_nb(nb(N),nb(N)):-!.
-number_to_nb(A,nb(N)):- atom(A),atom_number(A,N),!.
-number_to_nb(N,nb(N)):- number(N),!.
+%number_to_nb(nb(N),nb(N)):-!.
+%number_to_nb(A,nb(N)):- atom(A),atom_number(A,N),!.
+%number_to_nb(N,nb(N)):- number(N),!.
 number_to_nb(A,A).
 
 
@@ -154,7 +154,7 @@ into_control80([W,A,B|More],Out):- fail,
 into_control80(Out,Out):- !.
 
 
-any_nb_to_atom(nb(N),A):-!,any_to_atom(N,A),!.
+any_nb_to_atom(nb(N),A):- nonvar(N),!,any_to_atom(N,A),!.
 any_nb_to_atom(N,A):- any_to_atom(N,A).
 
 

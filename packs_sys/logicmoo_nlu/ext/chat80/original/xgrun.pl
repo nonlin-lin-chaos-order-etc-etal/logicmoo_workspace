@@ -47,3 +47,4 @@ phraseXG(P,A1,A2,A3,A4):-
    conc_gx(Args0,[A1,A2,A3,A4],Args),
    Q=..[F|Args], 
    call(Q).
+

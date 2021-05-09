@@ -16,7 +16,7 @@ into_split(np,'').
 
 into_args80('Event',_,A,Out):- atom(A),!, must(to_evt_name(A,Out)).
 into_args80(_Mode,_X, A, wazVar(A)):- var(A),!.
-into_args80(_Mode, X,quant(same,nb(N)),countOf(X,same,N)):-!.
+into_args80(_Mode, X,quant(same,(N)),countOf(X,same,N)):-!.
 into_args80( Mode,_X,A,Out):- atom(A),downcase_atom(A,A), toPropercase(A,APC),atom_concat(APC,Mode,Out),!.
 into_args80(_,_X,A,A).
 

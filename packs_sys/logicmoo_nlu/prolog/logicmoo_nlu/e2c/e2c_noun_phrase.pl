@@ -267,7 +267,7 @@ proper_noun(Entity) --> quietly((w2txt(PN), {pn_lf(PN, Entity)})).
 % person/unperson
 noun(SO, X, LF) --> maybe_negated_dcg(noun1(SO, X), LF).
 noun(SO, X, LF) --> pronoun(SO, X, true, LF).
-noun(_SO, X, LF) --> named_var_match(len(1), X, true, LF).
+ohnun(_SO, X, LF) --> named_var_match(len(1), X, true, LF).
 
 noun1(SO, X, LF) --> theText1(N), {N\==are, noun_lf(SO, X, N, LF)}, nvd(N, X).
 % noun1(SO, X, LF) --> named_var_match(Sub, SO, X, true, LF).

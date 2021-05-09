@@ -55,13 +55,6 @@ w_to_w2(X,w(X,[])):-!.
 w2_to_w(w(Txt,_),Txt):-!.
 w2_to_w(Txt,Txt).
 
-/*
-theTextC(W1,_CYCPOS,Y=W1) ---> {t_l:old_text,!},[W1],{W1=Y}.
-%theTextC(W1,_CYCPOS,Y=W1) ---> {!},[w(W1,_)],{W1=Y}.
-theTextC(A,_,F=A,B,C,D,E) :- !,terminal(w(A, _), B, C, D, E),A=F,is_sane_nv(A).
-theTextC(W1,_CYCPOS,WHY) ---> {t_l:old_text,!},[W1],WHY.
-% theTextC(W1,CYCPOS,WHY) ---> {trace_or_throw(memoize_pos_to_db(WHY,CYCPOS,W2,W1))},[W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
-*/
 
 
 % Chat-80 : A small subset of English for database querying.
@@ -76,7 +69,7 @@ theTextC(W1,_CYCPOS,WHY) ---> {t_l:old_text,!},[W1],WHY.
 /* Control loop */
 
 q1([what,are,the,continents,no,country,in,which,contains,more,than,
-    two,cities,whose,population,exceeds,nb(1),million,? ]).
+    two,cities,whose,population,exceeds,(1),million,? ]).
 
 q2([which,country,that,borders,the,mediterranean,borders,a,country,
     that,is,bordered,by,a,country,whose,population,exceeds,
@@ -89,9 +82,9 @@ q2([which,country,that,borders,the,mediterranean,borders,a,country,
 
 ed( [ does, america, contain, new_york, ? ] ,mini).
 ed( [ does, mexico, border, the, united_states, ? ] ,mini).
-ed( [ is, the, population, of, china, greater, than, nb(200), million, ? ] ,mini).
-ed( [ does, the, population, of, china, exceed, nb(1000), million, ? ] ,mini).
-ed( [ is, the, population, of, china, nb(840), million, ? ] ,mini).
+ed( [ is, the, population, of, china, greater, than, (200), million, ? ] ,mini).
+ed( [ does, the, population, of, china, exceed, (1000), million, ? ] ,mini).
+ed( [ is, the, population, of, china, (840), million, ? ] ,mini).
 ed( [ does, the, population, of, china, exceed, the, population, of,
       india, ? ] ,mini).
 ed( [ is, spain, bordered, by, the, pacific, ? ] ,mini).
@@ -197,7 +190,7 @@ ed( 17, [ what, are, the, countries, from, which, a, river, flows, into,
 		[[romania,soviet_union]]  ).
 
 ed( 18, [ what, are, the, continents, no, country, in, which, contains, more,
-	  than, two, cities, whose, population, exceeds, nb(1), million, ? ],
+	  than, two, cities, whose, population, exceeds, (1), million, ? ],
 
 		[[africa,antarctica,australasia]]  ).
 
@@ -207,7 +200,7 @@ ed( 19, [ which, country, bordering, the, mediterranean, borders, a, country,
 
 		[turkey]  ).
 
-ed( 20, [ which, countries, have, a, population, exceeding, nb(10),
+ed( 20, [ which, countries, have, a, population, exceeding, (10),
 	  million, ? ],
 
 		[afghanistan, algeria, argentina, australia, bangladesh,
@@ -220,7 +213,7 @@ ed( 20, [ which, countries, have, a, population, exceeding, nb(10),
 		thailand, turkey, uganda, united_kingdom, united_states, venezuela,
 		vietnam, west_germany, yugoslavia, zaire]  ).
 
-ed( 21, [ which, countries, with, a, population, exceeding, nb(10), million,
+ed( 21, [ which, countries, with, a, population, exceeding, (10), million,
 	  border, the, atlantic, ? ],
 
 		[argentina, brazil, canada, colombia, france, mexico,
@@ -465,7 +458,7 @@ doing80([X|L],N0) :-
    advance80(X,N0,N),
    doing80(L,N),!.
 
-out80(nb(X)) :- !,
+out80(nb(X)) :- nonvar(X), !,
    reply(X).
 out80(A) :-
    reply(A).
@@ -479,7 +472,7 @@ advance80(X,N0,N) :-
      N is M+1,
       put(" ")).
 
-uses80(nb(X),N) :- !,
+uses80(nb(X),N) :- nonvar(X), !,
    chars80(X,N).
 uses80(X,N) :-
    chars80(X,N).
@@ -782,7 +775,7 @@ check_words([Word|Words],[RevWord|RevWords]) :-
 
 %:- mode check_word(+,-).
 
-check_word(Word,nb(Word)) :- number(Word),!.
+check_word(Word,Word) :- number(Word),!.
 check_word(Word,Word) :- chk_word(Word), !.
 check_word(Word,Word):- compound(Word),!.
 check_word(Word,NewWord) :-

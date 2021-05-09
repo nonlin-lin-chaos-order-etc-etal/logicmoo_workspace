@@ -301,7 +301,7 @@ quant_op(less, X, Y, X<Y).
 quant_op(more, X, Y, X>Y).
 
 value80(wh(Type-X), Type, X).
-value80(nb(X), _, X).
+value80((X), _, X):- number(X).
 
 all_word(all).
 all_word(every).

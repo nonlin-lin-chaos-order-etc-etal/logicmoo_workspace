@@ -275,7 +275,7 @@ i_sup_op(least,min).
 i_sup_op(most,max).
 
 conversion(wh(Type-X),same,Type,X,identityQ).
-conversion(nb(N),Op,_,N,Op).
+conversion(N,Op,_,N,Op):- number(N).
 
 measure_op(identityQ,X,X,true).
 measure_op(same,X,Y,X=Y).

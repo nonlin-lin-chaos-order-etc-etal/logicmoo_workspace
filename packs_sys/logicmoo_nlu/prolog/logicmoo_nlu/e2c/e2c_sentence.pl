@@ -8,7 +8,7 @@
  char_type_sentence((!), act).
  char_type_sentence((!), tell).
 
-utterance(Type, LF, S, E):- var(Type), is_list(S), append(First, [ Char], S),
+utterance(Type, LF, S, E):-  var(Type), is_list(S), append(First, [ Char], S),
   \+ \+ char_type_sentence(Char, _), !,
   char_type_sentence(Char, Type), utterance(Type, LF, First, E).
 

@@ -41,7 +41,7 @@ word(Word) :- verb_form_lex80(Word,_,_,_).
 word(Word) :- noun_form(Word,_,_).
 word(Word) :- prep(Word).
 word(Word) :- quantifier_pron_db(Word,_,_).
-word(Word) :- number(Word,_,_).
+word(Word) :- number_lex(Word,_,_).
 word(Word) :- det(Word,_,_,_).
 word(Word) :- int_art(Word,_,_,_).
 word(Word) :- int_pron(Word,_).
@@ -95,7 +95,7 @@ noun_form(Sin,Sin,sg) :- noun_sin(Sin).
 noun_form(proportion,proportion,_).
 noun_form(percentage,percentage,_).
 
-number(W,I,Nb) :- 
+number_lex(W,I,Nb) :- 
         tr_number(W,I),
         ag_number(I,Nb).
 
@@ -180,7 +180,7 @@ terminator(?,?).
 tr_number(eight,8).
 tr_number(five,5).
 tr_number(four,4).
-tr_number(nb(I),I).
+tr_number(I,N):- atomic(I), atom_number(I,N),!.
 tr_number(nine,9).
 tr_number(one,1).
 tr_number(seven,7).

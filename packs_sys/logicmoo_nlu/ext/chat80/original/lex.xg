@@ -6,10 +6,18 @@
 %theTextC(W1,CYCPOS,Y=W1)  ---> {t_l:old_text,!},[W1],{W1=Y}.
 % % DEAD theTextC(A,_,F=A,B,C,D,E) :- t_l:old_text, !,terminal(A, B, C, D, E),A=F, is_sane_nv(A).
 % % DEAD theTextC(A,_,F=A,B,C,D,E) :- !,terminal(w(A, _), B, C, D, E),A=F,is_sane_nv(A).
-theTextC(A,_,F=A,B,C,D,E) :- !,terminal(W2A, B, C, D, E),w1(A,[W2A],[]),A=F,is_sane_nv(A).
+theTextC(A,_,F=A,B,C,D,E) :- throw(theTextC(A,_,F=A,B,C,D,E)), !,terminal(W2A, B, C, D, E),w1(A,[W2A],[]),A=F,is_sane_nv(A).
 %theTextC(W1,CYCPOS,Y=W1)  ---> {!},[w(W1,_)],{W1=Y}.
 %theTextC(W1,CYCPOS,WHY) ---> [W2],{memoize_pos_to_lex80(WHY,CYCPOS,W2,W1)}.
-%theTextC(H,F,E,A,B,C,D) :- fail, is_sane(C), terminal(G, A, B, C, D),memoize_pos_to_lex80(E, F, G, H),is_sane_nv(H).
+%theTextC(H,F,A,B,C,D) :- fail, is_sane(C), terminal(G, A, B, C, D),memoize_pos_to_lex80(E, F, G, H),is_sane_nv(H).
+/*
+theTextC(W1,_CYCPOS,Y=W1) ---> {t_l:old_text,!},[W1],{W1=Y}.
+%theTextC(W1,_CYCPOS,Y=W1) ---> {!},[w(W1,_)],{W1=Y}.
+theTextC(A,_,F=A,B,C,D,E) :- !,terminal(w(A, _), B, C, D, E),A=F,is_sane_nv(A).
+theTextC(W1,_CYCPOS,WHY) ---> {t_l:old_text,!},[W1],WHY.
+% theTextC(W1,CYCPOS,WHY) ---> {trace_or_throw(memoize_pos_to_db(WHY,CYCPOS,W2,W1))},[W2],{memoize_pos_to_db(WHY,CYCPOS,W2,W1)}.
+*/
+
 
 
 :-asserta(tlxgproc:do_xg_process_te).
@@ -26,56 +34,55 @@ see newdict.pl
 theTextL(W1,_CYCPOS,Y=W1)  ---> {!},theText80(W1),{W1=Y}.
 theTextL(W1,_CYCPOS,WHY) ---> theText80(W1),{call(WHY)}.
 
-noText ---> [].
+noText ---> skip_spans.
+
 skip_spans ---> [span(NV)],{nonvar(NV),!},skip_spans.
 skip_spans ---> [].
 
-the_text_unif(IC,W0):- var(W0),nonvar(IC),!,the_text_unif(W0,IC).
-the_text_unif(IC,W0):- parser_tokenize:any_nb_to_atom(W0,W1),downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC)).
+the_text_unif(IC,W0):- atom(W0),!,downcase_atom(W0,DC),(var(IC)->IC=DC;downcase_atom(IC,DC)).
+the_text_unif(IC,W0):- var(W0),!,nonvar(IC),!,the_text_unif(W0,IC).
+the_text_unif(IC,W0):- parser_tokenize:any_nb_to_atom(W0,W1),!,downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC)).
 
-w01(nb(N)) --->[nb(NN)],{nonvar(NN),!,N=NN}.
-w01(Txt) --->[Txt],{!},{must_be(atom,Txt),atom(Txt)}.
-w01(Txt)--->[w(Txt,List)],{nonvar(List),!}.
-%w1(Txt)---> skip_spans,{!,trace},w01(Txt),skip_spans. 
-w1(Txt)---> skip_spans,w01(Txt),skip_spans. 
+w001(Cmp)--->[Cmp],{assertion(nonvar(Cmp))}.
 
-the_text_unif(IC,W0):- var(W0),nonvar(IC),!,the_text_unif(W0,IC).
-the_text_unif(IC,W0):- parser_tokenize:any_nb_to_atom(W0,W1),downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC)).
+w01(Text) ---> w001(A), {atomic(A),!,A=Text}.
+w01(Text) ---> w001(Cmp),{compound(Cmp),!,Cmp=w(Text,_)}.
+w01(Text) ---> w001(A), {Text=A}.
 
-theText1(IC)---> w1(W0),{the_text_unif(IC,W0)}.
-%theText1(IC)---> {t_l:old_text,!},[W0],{parser_tokenize:any_nb_to_atom(W0,W1),downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC))}.
-%theText1(Txt)---> [w(Txt,_)].
+w1(Text) ---> skip_spans,w01(Text),skip_spans. 
 
-% OLD theText1(W1,_CYCPOS)--->{t_l:old_text,!},[W1], {nop((compatible_pos_lex80(CW,CYCPOS),cw_lex80(W1,CW)))}.
+theText1(IC) ---> w1(W0),{assertion(nonvar(W0);nonvar(IC)),the_text_unif(IC,W0)}.
+%theText1(IC) ---> {t_l:old_text,!},[W0],{parser_tokenize:any_nb_to_atom(W0,W1),downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC))}.
+%theText1(Text) ---> [w(Text,_)].
+
+% OLD theText1(W1,_CYCPOS) --->{t_l:old_text,!},[W1], {nop((compatible_pos_lex80(CW,CYCPOS),cw_lex80(W1,CW)))}.
 theText1(W1,_CYCPOS) ---> theText1(W1). %  {nop((compatible_pos_lex80(CW,CYCPOS),cw_lex80(W1,CW)))}.
 
-theText80(Text)---> {is_list(Text),!},theText_cl(Text).
-theText80([W1])---> theText1(W1).
-theText80([W1,W2])---> {!}, theText1(W1),theText1(W2).
-theText80(DCG)---> {!,nonvar(DCG)}, DCG.
+theText80(Text) ---> {is_list(Text),!},theText_cl(Text).
+theText80([W1]) ---> theText1(W1).
+theText80([W1,W2]) ---> {!}, theText1(W1),theText1(W2).
+theText80(DCG) ---> {!,nonvar(DCG)}, DCG.
 % theText80///1 cut above never gets past here
-theText80(Text)---> {Text=@=[_|_],!},theText_ol(Text).
-theText80(Text)---> {var(Text),dmsg(theText_DCG_VAR(Text)),!},theText_ol(Text).
-theText80(DCG)---> {dmsg(theText_DCG(DCG)),dtrace,nonvar(DCG)},DCG.
+theText80(Text) ---> {Text=@=[_|_],!},theText_ol(Text).
+theText80(Text) ---> {var(Text),dmsg(theText_DCG_VAR(Text)),!},theText_ol(Text).
+theText80(DCG) ---> {dmsg(theText_DCG(DCG)),dtrace,nonvar(DCG)},DCG.
 %:- share_mp(theText80//1).
 
 
-theText_ol([W1,W2,W3])---> theText1(W1),theText1(W2),theText1(W3).
-theText_ol([W1,W2])---> theText1(W1),theText1(W2).
-theText_ol([W1])---> theText1(W1).
+theText_ol([W1,W2,W3]) ---> theText1(W1),theText1(W2),theText1(W3).
+theText_ol([W1,W2]) ---> theText1(W1),theText1(W2).
+theText_ol([W1]) ---> theText1(W1).
 
 theText_cl([]) ---> {!},[].
-theText_cl([W1|WL])---> theText1(W1),{!},theText_cl(WL).
+theText_cl([W1|WL]) ---> theText1(W1),{!},theText_cl(WL).
 
 
-optText1(_,_,_)---> noText.
-optText1(W,POS,HOW)---> theTextC(W,POS,HOW).
+optText1(_,_,_) ---> noText.
+optText1(W,POS,HOW) ---> theTextC(W,POS,HOW).
 
-optText1(_,_)---> noText.
-optText1(W,POS)---> theText1(W,POS).
+optText1(_,_) ---> noText.
+optText1(W,POS) ---> theText1(W,POS).
 
-opt_the ---> optText1(the,'Determiner').
-%opt_the ---> optTextC(The,'Determiner',The=the).
 
 optText(_Text) ---> noText.
 optText(Text) ---> theText80(Text).
@@ -157,14 +164,16 @@ quantifier_pron_db(Det,Noun) --->
 context_pron(prep(in),place) ---> theText1(where).
 context_pron(prep(at),time) ---> theText1(when).
 
-number(nb(I),Number) --->
-   [W],
-   {number(W,I,Number)}.
+
+number(I,Number) ---> theText1(W), {!,number_lex(W,I,Number)}.
+
 
 terminator(Type) --->
-   [Term],
+   theText1(Term),
    {terminator(Term,Type)}.
 
+%opt_the ---> optText1(the,'Determiner').
+%opt_the ---> optTextC(The,'Determiner',The=the).
 opt_the ---> noText.
 opt_the ---> theText1(the).
 
