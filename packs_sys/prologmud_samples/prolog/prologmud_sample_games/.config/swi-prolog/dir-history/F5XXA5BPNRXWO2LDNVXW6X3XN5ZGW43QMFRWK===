@@ -4,3 +4,12 @@ use_module(library(qsave)),\012\040\040use_module(library(autoload)),\012\040\04
 use_module(library(qsave)),\012\040\040gensym(a,X),qsave_program(X).
 listing(html_write:html_meta).
 [run_mud_server].
+undo(write('i\040failed!')),!,fail.
+undo(write('i\040failed!')),!.
+).
+asserta(foo,X),undo(erase(X)),!,fail.
+undo(writeln('i\040failed!')),!,fail.
+undo((write('i\040failed!'),nl)),!,fail.
+undo((write(foo),\040nl)),\040!,\040(X=1;\040X=2).
+undo(writeln('done!')),\040!,\040(X=1;\040X=2).
+undo(writeln('done!')),\040\040(X=1;\040X=2).

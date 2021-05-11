@@ -30,14 +30,9 @@ the TextC(W1,CYCPOS,WHY) ---> [W2],{memoize_pos_to_lex80(WHY,CYCPOS,W2,W1)}.
 see newdict.pl
 */
 
-% theTextL(W1,_CYCPOS,Y=W1)  ---> {t_l:old_text,!},theText80(W1),{W1=Y}.
-theTextL(W1,_CYCPOS,Y=W1)  ---> {!},theText80(W1),{W1=Y}.
-theTextL(W1,_CYCPOS,WHY) ---> theText80(W1),{call(WHY)}.
-
-noText ---> next_as_word, skip_spans.
-
-skip_spans ---> [span(NV)],{nonvar(NV),!},skip_spans.
-skip_spans ---> [].
+% theTextL(W1,_CYCPOS,Y=W1)  ---> {t_l:old_text,!},theTextL80(W1),{W1=Y}.
+theTextL(W1,_CYCPOS,Y=W1)  ---> {!},theTextL80(W1),{W1=Y}.
+theTextL(W1,_CYCPOS,WHY) ---> theTextL80(W1),{call(WHY)}.
 
 the_text_unif(IC,W0):- atom(W0),!,downcase_atom(W0,DC),(var(IC)->IC=DC;downcase_atom(IC,DC)).
 the_text_unif(IC,W0):- var(W0),!,nonvar(IC),!,the_text_unif(W0,IC).
@@ -49,147 +44,154 @@ w01(Text) ---> w001(A), {atomic(A),!,A=Text}.
 w01(Text) ---> w001(Cmp),{compound(Cmp),!,Cmp=w(Text,_)}.
 %w01(Text) ---> w001(A), {Text=A}.
 
-w1(Text) ---> next_as_word,w01(Text).
+w1(Text) ---> consume_spans_hack,w01(Text),consume_spans_hack.
 
 move_ahead_spans(S1,S2,G,G):- partition(\=(span(_)),S1,W,S),!,append(W,S,S2).
 
-next_as_word(S1,S2,G,G):- select(W2,S1,SM),W2=w(_,_),!,S2=[W2|SM].
+next_as_word(S1,S2,G,G):- select(W2,S1,SM),compound(W2),W2=w(_,_),!,S2=[W2|SM].
 next_as_word(S1,S1,G,G).
 
+noText ---> next_as_word, consume_spans_hack.
 
-theText1(IC) ---> w1(W0),{assertion(nonvar(W0);nonvar(IC)),the_text_unif(IC,W0)}.
-%theText1(IC) ---> {t_l:old_text,!},[W0],{parser_tokenize:any_nb_to_atom(W0,W1),downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC))}.
-%theText1(Text) ---> [w(Text,_)].
+nomoreText(S1,S1,G,G):- is_list(S1), \+ (member(W2,S1), compound(W2),W2=w(_,_)).
 
-% OLD theText1(W1,_CYCPOS) --->{t_l:old_text,!},[W1], {nop((compatible_pos_lex80(CW,CYCPOS),cw_lex80(W1,CW)))}.
-theText1(W1,_CYCPOS) ---> theText1(W1). %  {nop((compatible_pos_lex80(CW,CYCPOS),cw_lex80(W1,CW)))}.
+consume_spans_hack ---> [span(NV)],{nonvar(NV),!},consume_spans_hack.
+consume_spans_hack ---> [].
 
-theText80(Text) ---> {is_list(Text),!},theText_cl(Text).
-theText80([W1]) ---> theText1(W1).
-theText80([W1,W2]) ---> {!}, theText1(W1),theText1(W2).
-theText80(DCG) ---> {!,nonvar(DCG)}, DCG.
-% theText80///1 cut above never gets past here
-theText80(Text) ---> {Text=@=[_|_],!},theText_ol(Text).
-theText80(Text) ---> {var(Text),dmsg(theText_DCG_VAR(Text)),!},theText_ol(Text).
-theText80(DCG) ---> {dmsg(theText_DCG(DCG)),dtrace,nonvar(DCG)},DCG.
-%:- share_mp(theText80//1).
+theText80(IC) ---> w1(W0),{assertion(nonvar(W0);nonvar(IC)),the_text_unif(IC,W0)}.
+%theText80(IC) ---> {t_l:old_text,!},[W0],{parser_tokenize:any_nb_to_atom(W0,W1),downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC))}.
+%theText80(Text) ---> [w(Text,_)].
+
+% OLD theText80(W1,_CYCPOS) --->{t_l:old_text,!},[W1], {nop((compatible_pos_lex80(CW,CYCPOS),cw_lex80(W1,CW)))}.
+theText80(W1,_CYCPOS) ---> theText80(W1). %  {nop((compatible_pos_lex80(CW,CYCPOS),cw_lex80(W1,CW)))}.
+
+theTextL80(Text) ---> {var(Text),dmsg(theText_DCG_VAR(Text)),!},theText_ol(Text).
+theTextL80(Text) ---> {is_list(Text),!},theText_cl(Text).
+theTextL80(DCG) ---> {!,nonvar(DCG)}, DCG.
+% theTextL80///1 cut above never gets past here
+theTextL80(Text) ---> {Text=@=[_|_],!},theText_ol(Text).
+theTextL80(DCG) ---> {dmsg(theText_DCG(DCG)),dtrace,nonvar(DCG)},DCG.
+%:- share_mp(theTextL80//1).
 
 
-theText_ol([W1,W2,W3]) ---> theText1(W1),theText1(W2),theText1(W3).
-theText_ol([W1,W2]) ---> theText1(W1),theText1(W2).
-theText_ol([W1]) ---> theText1(W1).
+theText_ol([W1,W2,W3]) ---> theText80(W1),theText80(W2),theText80(W3).
+theText_ol([W1,W2]) ---> theText80(W1),theText80(W2).
+theText_ol([W1]) ---> theText80(W1).
 
 theText_cl([]) ---> {!},[].
-theText_cl([W1|WL]) ---> theText1(W1),{!},theText_cl(WL).
+theText_cl([W1|WL]) ---> theText80(W1),{!},theText_cl(WL).
 
 
 optText1(_,_,_) ---> noText.
 optText1(W,POS,HOW) ---> theTextC(W,POS,HOW).
 
 optText1(_,_) ---> noText.
-optText1(W,POS) ---> theText1(W,POS).
+optText1(W,POS) ---> theText80(W,POS).
 
 
 optText(_Text) ---> noText.
-optText(Text) ---> theText80(Text).
+optText(Text) ---> theTextL80(Text).
 
-textOpt(Text) ---> theText80(Text).
+textOpt(Text) ---> theTextL80(Text).
 textOpt(_Text) ---> noText.
 
 
 noun(Noun,Agmt) --->
-   theText1(W),
+   theText80(W),
    {noun_form(W,Noun,Agmt)}.
 
 det(det(Det),Number,Def) --->
-   theText1(W),
+   theText80(W),
    {det(W,Number,Det,Def)}.
 det(generic,_,generic) ---> noText.
 
 adj(Type,adj(Adj)) --->
-   theText1(Adj),
+   theText80(Adj),
    {adj_db(Adj,Type)}.
 
 prep(prep(Prep)) --->
-   theText1(Prep),
+   theText80(Prep),
    {prep(Prep)}.
 
 rel_adj(adj(Adj)) --->
-   theText1(RAdj),
+   theText80(RAdj),
    {rel_adj(RAdj,Adj)}.
 
 sup_adj(adj(Adj)) --->
-   theText1(SAdj),
+   theText80(SAdj),
    {sup_adj(SAdj,Adj)}.
 
-comp_adv(W) ---> theText1(W),{comp_adv_db(W)}.
+comp_adv(W) ---> theText80(W),{comp_adv_db(W)}.
 
 
 
-sup_adv(W) ---> theText1(W),{sup_adv_db(W)}.
+sup_adv(W) ---> theText80(W),{sup_adv_db(W)}.
 
 
 rel_pron(Case) --->
-   theText1(W),
+   theText80(W),
    {rel_pron(W,Case)}.
 
 verb_form_lex80(Verb,Tense,Agmt,Role) --->
-   theText1(W),
+   theText80(W),
    {verb_form_lex80(W,Verb,Tense,Agmt)}.
 
 name_lex(Name) --->
    opt_the,
-   theText1(Name),
-   {name_LF(Name)}.
+   name_lex_txt(Name).
 
-int_art(X,pl,quantV(same,wh(X))) ---> theText1(how),theText1(many).
+name_lex_txt(Name) ---> theText80(Name), {name_LF(Name),!}.
+name_lex_txt(Name) ---> theTextL80([W1,'_',W2]),{!,atomic(W1),atomic(W2),atomic_list_concat([W1,'_',W2],Name),name_LF(Name)}.
+name_lex_txt(Name) ---> theTextL80([W1,W2]),{atomic(W1),atomic(W2),atomic_list_concat([W1,'_',W2],Name),name_LF(Name)}.
+
+int_art(X,pl,quantV(same,wh(X))) ---> theText80(how),theText80(many).
 int_art(X,Agmt,DX) --->
-   theText1(Art),
+   theText80(Art),
    {int_art(Art,X,Agmt,DX)}.
 
 int_pron(Case) --->
-   theText1(Pron),
+   theText80(Pron),
    {int_pron(Pron,Case)}.
 
 adverb(adv(W)) --->
-   theText1(W),
+   theText80(W),
    {adverb_db(W)}.
 
 poss_pron_db(pronoun(Gender),Person+Number) --->
-   theText1(W),
+   theText80(W),
    {poss_pron_db(W,Gender,Person,Number)}.
 
 pers_pron_db(pronoun(Gender),Person+Number,Case) --->
-   theText1(W),
+   theText80(W),
    {pers_pron_db(W,Gender,Person,Number,Case)}.
 
 quantifier_pron_db(Det,Noun) --->
-   theText1(W),
+   theText80(W),
    {quantifier_pron_db(W,Det,Noun)}.
 
-context_pron(prep(in),place) ---> theText1(where).
-context_pron(prep(at),time) ---> theText1(when).
+context_pron(prep(in),place) ---> theText80(where).
+context_pron(prep(at),time) ---> theText80(when).
 
 
-number(I,Number) ---> theText1(W), {!,number_lex(W,I,Number)}.
+number(I,Number) ---> theText80(W), {!,number_lex(W,I,Number)}.
 
 
 terminator(Type) --->
-   theText1(Term),
+   theText80(Term),
    {terminator(Term,Type)}.
 
 %opt_the ---> optText1(the,'Determiner').
 %opt_the ---> optTextC(The,'Determiner',The=the).
 opt_the ---> noText.
-opt_the ---> theText1(the).
+opt_the ---> theText80(the).
 
-conj(_,list,list) ---> theText1(',').
+conj(_,list,list) ---> theText80(',').
 conj(Conj,list,end) --->
-   theText1(Conj),
+   theText80(Conj),
    {conj(Conj)}.
 
 loc_pred(Of,P) --->
-   theText1(W),
+   theText80(W),
    {loc_pred(Of,W,P)}.
 
 :-retract(tlxgproc:do_xg_process_te).

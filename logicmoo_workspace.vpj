@@ -10831,6 +10831,7 @@
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_jpaine.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_lexical.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_lexical_gen.pl"/>
+						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_pipeline.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_pldata.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_ProNTo.pl"/>
 						<F N="packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_regulus.pl"/>
@@ -10923,6 +10924,7 @@
 						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/README.dcg.md"/>
 						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/redo_locally.pl"/>
 						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/subclause_expansion.pl"/>
+						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/test_tcf.pl"/>
 						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/toplevel_variable_names.pl"/>
 						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_bb_env.pl"/>
 						<F N="packs_sys/logicmoo_utils/prolog/logicmoo/util_bb_frame.pl"/>

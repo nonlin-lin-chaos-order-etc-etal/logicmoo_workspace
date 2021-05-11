@@ -342,7 +342,7 @@ ssl_upgrade_legacy_options(O1, O4) :-
     ssl_upgrade_legacy_options([cacerts([Term|CACerts])|O3], O4).
 
 % DMILES
-/*
+
 ssl_upgrade_legacy_options(A,A):- \+ current_prolog_flag(logicmoo_ssl, legacy), !.
 ssl_upgrade_legacy_options([Skip|Options], SSLOptions):- nonvar(Skip), ssl_skip(Skip),!, 
    ssl_upgrade_legacy_options(Options, SSLOptions).
@@ -353,7 +353,6 @@ ssl_upgrade_legacy_options([],[]).
 ssl_skip(header(content_type,_)).
 ssl_skip(header(expires,_)).
 ssl_option_upgrade(O1,O1):-!.
-*/
 
 
 %!  ssl_add_certificate_key(+SSL0, +Certificate, +Key, -SSL)

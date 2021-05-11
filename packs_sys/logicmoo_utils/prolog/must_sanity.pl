@@ -28,7 +28,7 @@
         must_det(*),
         nop(*),
         sanity(*),
-        must_or_rtrace(*),
+        %must_or_rtrace_mep(M,E,*),
         scce_orig(*,*,*).
 
 :- set_module(class(library)).
@@ -58,10 +58,54 @@
 must(Goal):- (Goal*->true;must_0(Goal)).
 must_0(Goal):- quietly(get_must(Goal,MGoal))-> call(MGoal).
 
-%must_or_rtrace((G1,G2)):- !, must_or_rtrace(G1),must_or_rtrace(G2).
-must_or_rtrace(G):- (catch(G,Err,(wdmsg(error_must_or_rtrace(Err,G)),ignore(rtrace(G)),throw(Err)))*->true;(wdmsg(failed_must_or_rtrace(i,G)),dumpST,wdmsg(failed_must_or_rtrace(i,G)),ftrace(G),wdmsg(failed_must_or_rtrace(i,G)),dtrace(G))).
-%must_or_rtrace(G):- get_must_l(G,Must),!,call(Must).
-%must_or_rtrace(G):- catch(G,Err,(dmsg(error_must_or_rtrace(Err)->G),ignore(rtrace(G)),throw(Err))) *->true; ftrace(G).
+:- meta_predicate(deterministic_tf(0,-)).
+deterministic_tf(G, F) :-
+   G,
+   deterministic(F),
+   otherwise. /* prevent tail recursion */
+
+:- meta_predicate(was_cut(+)).
+was_cut(Cut):- nonvar(Cut), strip_module(Cut,_,(!)).
+
+:- meta_predicate(mor_event(*)).
+
+handle_mor_event(e(M,E,Err,G)):- !, call_cleanup(handle_mor_event(e(Err,G)),wdmsg(mor_e(M,E,Err,G))).
+handle_mor_event(f(M,E,G)):- !, call_cleanup(handle_mor_event(f(G)),wdmsg(mor_f(M,E,G))).
+handle_mor_event(e(E,_)):- !, handle_mor_event(E). 
+handle_mor_event(e(Err,G)):- 
+   wdmsg(mor_e(Err,G)), dumpST,!, 
+   wdmsg(mor_e(Err,G)), ignore(rtrace(G)),
+   throw(Err).
+
+handle_mor_event(f(G)):-
+   wdmsg(f1(G)), dumpST,!,
+   wdmsg(f2(G)), ftrace(G),!,
+   wdmsg(failed_must_or_rtrace(i3,G)), dtrace(G).
+
+mor_event(E):- handle_mor_event(E).
+mor_event(E):- throw(E).
+
+:- meta_predicate(must_or_rtrace_mep(+,0,:)).
+must_or_rtrace_mep(M,E,(G1,Cut)):- was_cut(Cut),!,must_or_rtrace_mep(M,E,G1),!.
+must_or_rtrace_mep(M,E,(G1,Cut,G2)):- was_cut(Cut),!,must_or_rtrace_mep(M,E,G1),!,must_or_rtrace_mep(M,G1,G2).
+must_or_rtrace_mep(M,E,(G1,G2)):- !, (G1*->G2;throw(f(M,E,G1))).
+must_or_rtrace_mep(M,E,P):- predicate_property(P,number_of_clauses(_)),!,
+   findall(B,clause(P,B),Bs),!,(Bs==[]->throw(f(M,E,P));(mor_list_to_disj(fail,Bs,ORs),(ORs*->throw(f(M,E,P))))).
+must_or_rtrace_mep(M,E,G):- catch(G,Er,throw(e(M,E,Er,G)))*->true;throw(f(M,E,G)).
+
+mor_list_to_disj(_,[X],X):-!.
+mor_list_to_disj(L,[A|B],(A;BB)):- mor_list_to_disj(L,B,BB).
+mor_list_to_disj(End,[],End):-!.
+
+:- meta_predicate(must_or_rtrace(0)).
+must_or_rtrace((G1,Cut)):- was_cut(Cut),!,must_or_rtrace(G1),!.
+must_or_rtrace((G1,Cut,G2)):- was_cut(Cut),!,must_or_rtrace(G1),!,must_or_rtrace(G2).
+must_or_rtrace((G1,G2)):- !,( catch(G1,Ex,mor_event(e(Ex,G1)))*->must_or_rtrace(G2);mor_event(f(G1))).
+must_or_rtrace(G):- catch(G,Ex,mor_event(e(Ex,G)))*-> true; mor_event(f(G)).
+
+
+%must_or_rtrace_mep(M,E,G):- get_must_l(G,Must),!,call(Must).
+%must_or_rtrace_mep(M,E,G):- catch(G,Err,(dmsg(error_must_or_rtrace(Err)->G),ignore(rtrace(G)),throw(Err))) *->true; ftrace(G).
 
 %% get_must( ?Goal, ?CGoal) is semidet.
 %
@@ -209,7 +253,6 @@ mquietly(G):- call(G).
 
 mquietly_if(false,_):- !.
 mquietly_if(_,G):- mquietly(G).
-
 
 
 scce_orig(Setup,Goal,Cleanup):- 

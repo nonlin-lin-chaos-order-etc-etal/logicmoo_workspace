@@ -229,14 +229,18 @@ E-mail: <a class="url" href="mailto:J.Wielemaker@vu.nl">J.Wielemaker@vu.nl</a></
 <div class="abstract">
 <div class="abstract-title">Abstract</div> This article documents the 
 package HTTP, a series of libraries for accessing data on HTTP servers 
-as well as providing HTTP server capabilities from SWI-Prolog. Both 
-server and client are modular libraries. Further reading material is 
-available from the locations below.
+as well as providing HTTP server capabilities from SWI-Prolog (up to 
+HTTP 1.1). Both server and client are modular libraries. Further reading 
+material is available from the locations below.
 <ul class="compact">
 <li><a class="url" href="http://www.swi-prolog.org/howto/http/">HOWTO 
 collection</a>
-<li><a class="url" href="http://www.pathwayslms.com/swipltuts/html">Tutorial 
+<li><a class="url" href="https://github.com/Anniepoo/swiplwebtut/blob/master/web.adoc">Tutorial 
 by Anne Ogborn</a>
+<li><a class="url" href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">Wikipedia 
+entry on HTTP</a>
+<li><a class="url" href="https://en.wikipedia.org/wiki/Representational_state_transfer">Wikipedia 
+entry on REST</a>
 </ul>
 </div>
 
@@ -364,16 +368,18 @@ and tricks</span></a></div>
 
 <a id="sec:http-intro"></a>
 
-<p>The HTTP (HyperText Transfer Protocol) is the W3C standard protocol 
-for transferring information between a web-client (e.g., a browser) and 
-a web-server. The protocol is a simple <em>envelope</em> protocol where 
+<p>HTTP (Hypertext Transfer Protocol) is the W3C standard protocol for 
+transferring information between a web-client (e.g., a browser) and a 
+web-server. The protocol is a simple <em>envelope</em> protocol where 
 standard name/value pairs in the header are used to split the stream 
 into messages and communicate about the connection-status. Many 
-languages have client and or server libraries to deal with the HTTP 
-protocol, making it a suitable candidate for general purpose 
-client-server applications.
+languages have client and server libraries to deal with the HTTP 
+protocol, making this protocol an excellent candidate for building 
+client-server applications. In particular, HTTP is a natural fit for 
+networked systems built according to the principles of &ldquo;Representational 
+State Transfer'' (<em>REST</em>).
 
-<p>In this document we describe a modular infra-structure to access 
+<p>In this document we describe a modular infrastructure to access 
 web-servers from SWI-Prolog and turn Prolog into a web-server.
 
 <h3>Acknowledgements</h3>
@@ -382,19 +388,24 @@ web-servers from SWI-Prolog and turn Prolog into a web-server.
 
 <p>This work has been carried out under the following projects:
 <a class="url" href="http://hcs.science.uva.nl/projects/GARP/">GARP</a>,
-<a class="url" href="http://www.ins.cwi.nl/projects/MIA/">MIA</a>,
-<a class="url" href="http://hcs.science.uva.nl/projects/ibrow/home.html">IBROW</a>,
-<a class="url" href="http://kits.edte.utwente.nl/">KITS</a> and
+<a class="url" href="http://www.ins.cwi.nl/projects/MIA/">MIA</a> (dead 
+link),
+<a class="url" href="http://hcs.science.uva.nl/projects/ibrow/home.html">IBROW</a> 
+(dead link),
+<a class="url" href="http://kits.edte.utwente.nl/">KITS</a> (dead link) 
+and
 <a class="url" href="http://e-culture.multimedian.nl/">MultiMediaN</a> 
-The following people have pioneered parts of this library and 
-contributed with bug-report and suggestions for improvements: Anjo 
+(dead link).
+
+<p>The following people have pioneered parts of this library and 
+contributed with bug reports and suggestions for improvements: Anjo 
 Anjewierden, Bert Bredeweg, Wouter Jansweijer, Bob Wielinga, Jacco van 
 Ossenbruggen, Michiel Hildebrandt, Matt Lilley and Keri Harris.
 
-<p>Path wildcarts (see <a id="idx:httphandler3:1"></a><a class="pred" href="#http_handler/3">http_handler/3</a>) 
-have been modelled after the&lsquo;arouter` package by Raivo Laanemets. 
-Request rewriting has been added after discussion with Raivo Laanemets 
-and Anne Ogborn on the SWI-Prolog mailinglist.
+<p><em>Path wildcards</em> (see <a id="idx:httphandler3:1"></a><a class="pred" href="#http_handler/3">http_handler/3</a>) 
+have been modelled after the &ldquo;arouter'' add-on pack by Raivo 
+Laanemets. <em>Request rewriting</em> has been added after discussion 
+with Raivo Laanemets and Anne Ogborn on the SWI-Prolog mailinglist.
 
 <p><h2 id="sec:http-clients"><a id="sec:2"><span class="sec-nr">2</span> <span class="sec-title">The 
 HTTP client libraries</span></a></h2>
@@ -402,13 +413,18 @@ HTTP client libraries</span></a></h2>
 <a id="sec:http-clients"></a>
 
 <p>This package provides two client libraries for accessing HTTP 
-servers. The first, <code>library(http/http_open)</code> is a library 
-for opening a HTTP URL address as a Prolog stream. The general skeleton 
-for using this library is given below, where process/1 processes the 
-data from the HTTP server.<sup class="fn">1<span class="fn-text">One may 
-opt to use <a id="idx:cleanup2:2"></a><span class="pred-ext">cleanup/2</span> 
-intead of <a id="idx:setupcallcleanup3:3"></a><span class="pred-ext">setup_call_cleanup/3</span> 
-to allow for aborting while <a id="idx:httpopen3:4"></a><a class="pred" href="#http_open/3">http_open/3</a> 
+servers.
+
+<dl class="latex">
+<dt><b><code>library(http/http_open)</code></b></dt>
+<dd class="defbody">
+This library provides <a id="idx:httpopen3:2"></a><a class="pred" href="#http_open/3">http_open/3</a> 
+and friends. It is a library for opening an endpoint identified by an 
+HTTP URL as a Prolog stream. The general skeleton for using this library 
+is given below, where process/1 processes the data from the HTTP server.<sup class="fn">1<span class="fn-text">One 
+may opt to use <a id="idx:cleanup2:3"></a><span class="pred-ext">cleanup/2</span> 
+intead of <a id="idx:setupcallcleanup3:4"></a><span class="pred-ext">setup_call_cleanup/3</span> 
+to allow for aborting while <a id="idx:httpopen3:5"></a><a class="pred" href="#http_open/3">http_open/3</a> 
 is waiting for the connection.</span></sup>
 
 <pre class="code">
@@ -418,13 +434,17 @@ is waiting for the connection.</span></sup>
         close(In)).
 </pre>
 
-<p>The second, <code>library(http/http_client)</code> provides <a id="idx:httpget3:5"></a><a class="pred" href="#http_get/3">http_get/3</a> 
-and
-<a id="idx:httppost4:6"></a><a class="pred" href="#http_post/4">http_post/4</a>, 
-both of which process the reply using plugins to convert the data based 
-on the <code>Content-Type</code> of the reply. This library supports a 
-plugin infrastructure that can register hooks for converting additional 
-document types.
+</dd>
+<dt><b><code>library(http/http_client)</code></b></dt>
+<dd class="defbody">
+This library provides <a id="idx:httpget3:6"></a><a class="pred" href="#http_get/3">http_get/3</a> 
+and <a id="idx:httppost4:7"></a><a class="pred" href="#http_post/4">http_post/4</a> 
+and friends. These predicates process the reply using plugins to convert 
+the data based on the <code>Content-Type</code> of the reply. This 
+library supports a plugin infrastructure that can register hooks for 
+converting additional document types.
+</dd>
+</dl>
 
 <p><h3 id="sec:httpopen"><a id="sec:2.1"><span class="sec-nr">2.1</span> <span class="sec-title">library(http/http_open): 
 HTTP client library</span></a></h3>
@@ -443,7 +463,7 @@ header.
 </dl>
 
 <p>This library defines <a class="pred" href="#http_open/3">http_open/3</a>, 
-which opens a URL as a Prolog stream. The functionality of the library 
+which opens an URL as a Prolog stream. The functionality of the library 
 can be extended by loading two additional modules that act as plugins:
 
 <dl class="latex">
@@ -488,24 +508,27 @@ HTTP/1.1 instead of HTTP/1.0.
 </pre>
 
 <p>The example below fetches the modification time of a web-page. Note 
-that Modified is&rdquo; (the empty atom) if the web-server does not 
-provide a time-stamp for the resource. See also <span class="pred-ext">parse_time/2</span>.
+that
+<code>Modified</code> is <code>''</code> (the empty atom) if the 
+web-server does not provide a time-stamp for the resource. See also <span class="pred-ext">parse_time/2</span>.
 
 <pre class="code">
 modified(URL, Stamp) :-
-        http_open(URL, In,
-                  [ method(head),
-                    header(last_modified, Modified)
-                  ]),
-        close(In),
-        Modified \== '',
-        parse_time(Modified, Stamp).
+       http_open(URL, In,
+                 [ method(head),
+                   header(last_modified, Modified)
+                 ]),
+       close(In),
+       Modified \== '',
+       parse_time(Modified, Stamp).
 </pre>
 
 <p>Then next example uses Google search. It exploits <code>library(uri)</code> 
 to manage URIs, <code>library(sgml)</code> to load an HTML document and <code>library(xpath)</code> 
 to navigate the parsed HTML. Note that you may need to adjust the XPath 
-queries if the data returned by Google changes.
+queries if the data returned by Google changes (this example indeed no 
+longer works and currently fails at the first <span class="pred-ext">xpath/3</span> 
+call)
 
 <pre class="code">
 :- use_module(library(http/http_open)).
@@ -1144,7 +1167,7 @@ status page generation may be hooked to provide custom pages.</dd>
 This library associates the <em>path</em> of the HTTP request with a
 <em>handler</em> that services this particular path. It also manages 
 timeouts and may pass the execution of a request to a dedicated thread 
-with specified resource limits using <a id="idx:httpspawn2:7"></a><a class="pred" href="#http_spawn/2">http_spawn/2</a>. 
+with specified resource limits using <a id="idx:httpspawn2:8"></a><a class="pred" href="#http_spawn/2">http_spawn/2</a>. 
 The module supports plugable request rewrite handlers that may be used 
 to implement identification, authorization, input argument processing, 
 etc.</dd>
@@ -1249,7 +1272,7 @@ charset=UTF-8</code> to the end of the <code>Content-type</code> header.</dd>
 <dd>
 Causes the server to use <em>chunked</em> encoding if the client allows 
 for it. See also <a class="sec" href="#sec:4">section 4</a> and the
-<code>chunked</code> option in <a id="idx:httphandler3:8"></a><a class="pred" href="#http_handler/3">http_handler/3</a>.</dd>
+<code>chunked</code> option in <a id="idx:httphandler3:9"></a><a class="pred" href="#http_handler/3">http_handler/3</a>.</dd>
 <dt><b>Connection:&nbsp;close</b></dt>
 <dd>
 Causes the connection to be closed after the transfer. The default is to 
@@ -1261,7 +1284,7 @@ a
 <em>redirect</em> response to the given <var>URL</var>. The message body 
 must be empty. Handling this header is primarily intended for 
 compatibility with the CGI conventions. Prolog code should use
-<a id="idx:httpredirect3:9"></a><a class="pred" href="#http_redirect/3">http_redirect/3</a>.</dd>
+<a id="idx:httpredirect3:10"></a><a class="pred" href="#http_redirect/3">http_redirect/3</a>.</dd>
 <dt><b>Status:&nbsp;<var>Status</var></b></dt>
 <dd>
 This header can be combined with <code>Location</code>, where <var>Status</var> 
@@ -1282,11 +1305,11 @@ UTF-8 encoding. If the content type does not provide attributes, <code>; charset
 is added.
 <li>The content type contains <code>UTF-8</code> the stream is switched 
 to UTF-8 encoding.
-<li><a id="idx:httpmimetypeencoding2:10"></a><a class="pred" href="#http:mime_type_encoding/2">http:mime_type_encoding/2</a> 
+<li><a id="idx:httpmimetypeencoding2:11"></a><a class="pred" href="#http:mime_type_encoding/2">http:mime_type_encoding/2</a> 
 succeeds the returned encoding is used. The returned encoding must be 
-valid for <a id="idx:setstream2:11"></a><span class="pred-ext">set_stream/2</span>.
+valid for <a id="idx:setstream2:12"></a><span class="pred-ext">set_stream/2</span>.
 <li>If the content type matches a list of known encodings, this is used. 
-See <a id="idx:mimetypeencoding2:12"></a><span class="pred-ext">mime_type_encoding/2</span> 
+See <a id="idx:mimetypeencoding2:13"></a><span class="pred-ext">mime_type_encoding/2</span> 
 is <code>http_header</code>. The current list deals with JSON, Turtle 
 and SPARQL.
 <li>Otherwise the stream uses octed (binary) encoding.
@@ -1298,20 +1321,20 @@ special status codes</span></a></h4>
 <a id="sec:httpspecials"></a>
 
 <p>Besides returning a page by writing it to the current output stream, 
-the server goal can raise an exception using <a id="idx:throw1:13"></a><span class="pred-ext">throw/1</span> 
+the server goal can raise an exception using <a id="idx:throw1:14"></a><span class="pred-ext">throw/1</span> 
 to generate special pages such as <code>not_found</code>, <code>moved</code>, 
 etc. The defined exceptions are:
 
 <dl class="latex">
 <dt><strong>http_reply</strong>(<var>+Reply, +HdrExtra, +Context</var>)</dt>
 <dd class="defbody">
-Return a result page using <a id="idx:httpreply3:14"></a><a class="pred" href="#http_reply/3">http_reply/3</a>. 
-See <a id="idx:httpreply3:15"></a><a class="pred" href="#http_reply/3">http_reply/3</a> 
+Return a result page using <a id="idx:httpreply3:15"></a><a class="pred" href="#http_reply/3">http_reply/3</a>. 
+See <a id="idx:httpreply3:16"></a><a class="pred" href="#http_reply/3">http_reply/3</a> 
 for supported values for Reply and <a class="sec" href="#sec:3.10">section 
 3.10</a> for providing a custom error page.</dd>
 <dt><strong>http_reply</strong>(<var>+Reply, +HdrExtra</var>)</dt>
 <dd class="defbody">
-Return a result page using <a id="idx:httpreply3:16"></a><a class="pred" href="#http_reply/3">http_reply/3</a>. 
+Return a result page using <a id="idx:httpreply3:17"></a><a class="pred" href="#http_reply/3">http_reply/3</a>. 
 Equivalent to
 <code>http_reply(Reply, HdrExtra,[])</code>.</dd>
 <dt><strong>http_reply</strong>(<var>+Reply</var>)</dt>
@@ -2831,7 +2854,7 @@ supported for status 403 (<i>authentication required</i>). To do this,
 instead of throwing <code>http_reply(authorise(Term))</code> throw
 <code>http_reply(authorise(Term), [], Key)</code>, where <var>Key</var> 
 is an arbitrary term relating to the page you want to generate. You must 
-then also define a clause of the multifile predicate <a id="idx:httpstatuspagehook3:17"></a><a class="pred" href="#http:status_page_hook/3">http:status_page_hook/3</a>:
+then also define a clause of the multifile predicate <a id="idx:httpstatuspagehook3:18"></a><a class="pred" href="#http:status_page_hook/3">http:status_page_hook/3</a>:
 
 <dl class="latex">
 <dt class="pubdef"><a id="http:status_page_hook/3"><strong>http:status_page_hook</strong>(<var>+TermOrCode, 
@@ -3235,7 +3258,7 @@ builds on top of the low-level request representation described in
 ?Parameters</var>)</a></dt>
 <dd class="defbody">
 The predicate is passes the <var>Request</var> as provided to the 
-handler goal by <a id="idx:httpwrapper5:18"></a><a class="pred" href="#http_wrapper/5">http_wrapper/5</a> 
+handler goal by <a id="idx:httpwrapper5:19"></a><a class="pred" href="#http_wrapper/5">http_wrapper/5</a> 
 as well as a partially instantiated lists describing the requested 
 parameters and their types. Each parameter specification in <var>Parameters</var> 
 is a term of the format
@@ -3282,7 +3305,7 @@ Deprecated. Use <code>list(Type)</code>.
 
 <p>The type and conversion options are given below. The type-language 
 can be extended by providing clauses for the multifile hook
-<a id="idx:httpconvertparameter3:19"></a><span class="pred-ext">http:convert_parameter/3</span>.
+<a id="idx:httpconvertparameter3:20"></a><span class="pred-ext">http:convert_parameter/3</span>.
 
 <dl class="latex">
 <dt><strong><code>;</code></strong>(<var>Type1, Type2</var>)</dt>
@@ -3371,7 +3394,7 @@ reply(Request) :-
 <dt class="pubdef"><a id="http_parameters/3"><strong>http_parameters</strong>(<var>+Request, 
 ?Parameters, +Options</var>)</a></dt>
 <dd class="defbody">
-In addition to <a id="idx:httpparameters2:20"></a><a class="pred" href="#http_parameters/2">http_parameters/2</a>, 
+In addition to <a id="idx:httpparameters2:21"></a><a class="pred" href="#http_parameters/2">http_parameters/2</a>, 
 the following options are defined.
 
 <dl class="latex">
@@ -3383,7 +3406,7 @@ from the GET or POST request. All values are returned as atoms.</dd>
 <dd class="defbody">
 If a parameter specification lacks the parameter options, call
 <code>call(Goal, +ParamName, -Options)</code> to find the options. 
-Intended to share declarations over many calls to <a id="idx:httpparameters3:21"></a><a class="pred" href="#http_parameters/3">http_parameters/3</a>. 
+Intended to share declarations over many calls to <a id="idx:httpparameters3:22"></a><a class="pred" href="#http_parameters/3">http_parameters/3</a>. 
 Using this construct the above can be written as below.
 
 <pre class="code">
@@ -3414,7 +3437,7 @@ format</span></a></h3>
 <a id="sec:request"></a>
 
 <p>The body-code (see <a class="sec" href="#sec:3.1">section 3.1</a>) is 
-driven by a <var>Request</var>. This request is generated from <a id="idx:httpreadrequest2:22"></a><a class="pred" href="#http_read_request/2">http_read_request/2</a> 
+driven by a <var>Request</var>. This request is generated from <a id="idx:httpreadrequest2:23"></a><a class="pred" href="#http_read_request/2">http_read_request/2</a> 
 defined in
 <code>library(http/http_header)</code>.
 
@@ -3499,7 +3522,7 @@ or <code>secure</code>.
 </dl>
 
 <p>If the first line of the request is tagged with
-<code>HTTP/</code><var>Major</var>.<var>Minor</var>, <a id="idx:httpreadrequest2:23"></a><a class="pred" href="#http_read_request/2">http_read_request/2</a> 
+<code>HTTP/</code><var>Major</var>.<var>Minor</var>, <a id="idx:httpreadrequest2:24"></a><a class="pred" href="#http_read_request/2">http_read_request/2</a> 
 reads all input upto the first blank line. This header consists of
 <var>Name</var>:<var>Value</var> fields. Each such field appears as a 
 term
@@ -3542,9 +3565,9 @@ potentially large amounts of data to the server for processing.
 <p>The <var>Request</var> parameter above contains the term <code>method(post)</code>. 
 The data posted is left on the input stream that is available through 
 the term <code>input(Stream)</code> from the <var>Request</var> header. 
-This data can be read using <a id="idx:httpreaddata3:24"></a><a class="pred" href="#http_read_data/3">http_read_data/3</a> 
+This data can be read using <a id="idx:httpreaddata3:25"></a><a class="pred" href="#http_read_data/3">http_read_data/3</a> 
 from the HTTP client library. Here is a demo implementation simply 
-returning the parsed posted data as plain text (assuming <a id="idx:pp1:25"></a><span class="pred-ext">pp/1</span> 
+returning the parsed posted data as plain text (assuming <a id="idx:pp1:26"></a><span class="pred-ext">pp/1</span> 
 pretty-prints the data).
 
 <pre class="code">
@@ -3589,7 +3612,7 @@ generally faster and capable to handle multiple requests concurrently.
 
 <p>This server is harder to debug due to the involved threading, 
 although the GUI tracer provides reasonable support for multi-threaded 
-applications using the <a id="idx:tspy1:26"></a><span class="pred-ext">tspy/1</span> 
+applications using the <a id="idx:tspy1:27"></a><span class="pred-ext">tspy/1</span> 
 command. It can provide fast communication to multiple clients and can 
 be used for more demanding servers.
 
@@ -3641,7 +3664,7 @@ the <code>library(ssl)</code> library. See option <code>ssl(+SSLOptions)</code>
 below.
 
 <dl class="latex">
-<dt class="pubdef"><a id="http_server/3"><strong>http_server</strong>(<var>:Goal, 
+<dt class="pubdef"><a id="http_server/2"><strong>http_server</strong>(<var>:Goal, 
 +Options</var>)</a></dt>
 <dd class="defbody">
 Create the server. <var>Options</var> must provide the <code>port(?Port)</code> 
@@ -3658,7 +3681,7 @@ Address to bind to. <var>Address</var> is either a port (integer) or a
 term
 <var>Host</var>:<var>Port</var>. The port may be a variable, causing the 
 system to select a free port and unify the variable with the selected 
-port. See also <a id="idx:tcpbind2:27"></a><span class="pred-ext">tcp_bind/2</span>.</dd>
+port. See also <a id="idx:tcpbind2:28"></a><span class="pred-ext">tcp_bind/2</span>.</dd>
 <dt><strong>workers</strong>(<var>+N</var>)</dt>
 <dd class="defbody">
 Defines the number of worker threads in the pool. Default is to use
@@ -3668,7 +3691,7 @@ how much resources are required for processing a request. Too high
 numbers makes your system switch too often between threads or even swap 
 if there is not enough memory to keep all threads in memory, while a too 
 low number causes clients to wait unnecessary for other clients to 
-complete. See also <a id="idx:httpworkers2:28"></a><a class="pred" href="#http_workers/2">http_workers/2</a>.</dd>
+complete. See also <a id="idx:httpworkers2:29"></a><a class="pred" href="#http_workers/2">http_workers/2</a>.</dd>
 <dt><strong>timeout</strong>(<var>+SecondsOrInfinite</var>)</dt>
 <dd class="defbody">
 Determines the maximum period of inactivity handling a request. If no 
@@ -3705,7 +3728,7 @@ Use SSL (Secure Socket Layer) rather than plain TCP/IP. A server created
 this way is accessed using the <code>https://</code> protocol. SSL 
 allows for encrypted communication to avoid others from tapping the wire 
 as well as improved authentication of client and server. The <var>SSLOptions</var> 
-option list is passed to <a id="idx:sslcontext3:29"></a><span class="pred-ext">ssl_context/3</span>. 
+option list is passed to <a id="idx:sslcontext3:30"></a><span class="pred-ext">ssl_context/3</span>. 
 The port option of the main option list is forwarded to the SSL&nbsp;layer. 
 See the <code>library(ssl)</code> library for details.
 </dd>
@@ -3721,7 +3744,7 @@ True if <var>Property</var> is a property of the HTTP server running at
 <dl class="latex">
 <dt><strong>goal</strong>(<var>:Goal</var>)</dt>
 <dd class="defbody">
-Goal used to start the server. This is often <a id="idx:httpdispatch1:30"></a><a class="pred" href="#http_dispatch/1">http_dispatch/1</a>.
+Goal used to start the server. This is often <a id="idx:httpdispatch1:31"></a><a class="pred" href="#http_dispatch/1">http_dispatch/1</a>.
 </dd>
 <dt><strong>scheme</strong>(<var>-Scheme</var>)</dt>
 <dd class="defbody">
@@ -3729,7 +3752,7 @@ Scheme is one of <code>http</code> or <code>https</code>.
 </dd>
 <dt><strong>start_time</strong>(<var>-Time</var>)</dt>
 <dd class="defbody">
-Time-stamp when the server was created. See <a id="idx:formattime3:31"></a><span class="pred-ext">format_time/3</span> 
+Time-stamp when the server was created. See <a id="idx:formattime3:32"></a><span class="pred-ext">format_time/3</span> 
 for creating a human-readable representation.
 </dd>
 </dl>
@@ -3786,15 +3809,15 @@ statistics.</dd>
 <dd class="defbody">
 Continue handling this request in a new thread running <var>Goal</var>. 
 After
-<a id="idx:httpspawn2:32"></a><a class="pred" href="#http_spawn/2">http_spawn/2</a>, 
+<a id="idx:httpspawn2:33"></a><a class="pred" href="#http_spawn/2">http_spawn/2</a>, 
 the worker returns to the pool to process new requests. In its simplest 
 form, <var>Spec</var> is the name of a thread pool as defined by
-<a id="idx:threadpoolcreate3:33"></a><span class="pred-ext">thread_pool_create/3</span>. 
-Alternatively it is an option list, whose options are passed to <a id="idx:threadcreateinpool4:34"></a><span class="pred-ext">thread_create_in_pool/4</span> 
+<a id="idx:threadpoolcreate3:34"></a><span class="pred-ext">thread_pool_create/3</span>. 
+Alternatively it is an option list, whose options are passed to <a id="idx:threadcreateinpool4:35"></a><span class="pred-ext">thread_create_in_pool/4</span> 
 if <var>Spec</var> contains
-<code>pool(Pool)</code> or to <a id="idx:threadcreate3:35"></a><span class="pred-ext">thread_create/3</span> 
+<code>pool(Pool)</code> or to <a id="idx:threadcreate3:36"></a><span class="pred-ext">thread_create/3</span> 
 of the pool option is not present. If the dispatch module is used (see <a class="sec" href="#sec:3.2">section 
-3.2</a>), spawning is normally specified as an option to the <a id="idx:httphandler3:36"></a><a class="pred" href="#http_handler/3">http_handler/3</a> 
+3.2</a>), spawning is normally specified as an option to the <a id="idx:httphandler3:37"></a><a class="pred" href="#http_handler/3">http_handler/3</a> 
 registration.
 
 <p>We recomment the use of thread pools. They allow registration of a 
@@ -4083,8 +4106,8 @@ stopping the server.
 
 <p>Other options are converted by <span class="pred-ext">argv_options/3</span> 
 and passed to
-<span class="pred-ext">http_server/1</span>. For example, this allows 
-for:
+<a class="pred" href="#http_server/1">http_server/1</a>. For example, 
+this allows for:
 
 <dl class="latex">
 <dt><b>--workers=Count</b></dt>
@@ -4152,11 +4175,12 @@ request. This hook is executed
 <a id="sec:http-inetd"></a>
 
 <p>All modern Unix systems handle a large number of the services they 
-run through the super-server <em>inetd</em>. This program reads
-<code>/etc/inetd.conf</code> and opens server-sockets on all ports 
-defined in this file. As a request comes in it accepts it and starts the 
-associated server such that standard I/O refers to the socket. This 
-approach has several advantages:
+run through the super-server <em>inetd</em> or one of its descendants (<em>xinetd</em>, <em>systemd</em> 
+etc.) Such a program reads a configuration file (for example <code>/etc/inetd.conf</code>) 
+and opens server-sockets on all ports defined in this file. As a request 
+comes in it accepts it and starts the associated server such that 
+standard I/O is performed through the socket. This approach has several 
+advantages:
 
 <p>
 <ul class="latex">
@@ -4165,24 +4189,23 @@ Servers don't have to know about sockets and -operations.
 
 <p>
 <li><i>Centralised authorisation</i><br>
-Using <em>tcpwrappers</em> simple and effective firewalling of all 
-services is realised.
+Using <em>tcpwrappers</em> and similar tools, simple and effective 
+firewalling of all services can be realised.
 
 <p>
 <li><i>Automatic start and monitor</i><br>
 The inetd automatically starts the server&lsquo;just-in-time' and starts 
-additional servers or restarts a crashed server according to the 
-specifications.
+additional servers or restarts a crashed server according to its 
+configuration.
 </ul>
 
 <p>The very small generic script for handling inetd based connections is 
-in <code>inetd_httpd</code>, defining <a id="idx:httpserver1:37"></a><span class="pred-ext">http_server/1</span>:
+in <code>inetd_httpd</code>, defining <a id="idx:httpserver1:38"></a><a class="pred" href="#http_server/1">http_server/1</a>:
 
 <dl class="latex">
-<dt class="pubdef"><a id="http_server/2"><strong>http_server</strong>(<var>:Goal, 
-+Options</var>)</a></dt>
+<dt class="pubdef"><a id="http_server/1"><strong>http_server</strong>(<var>:Goal</var>)</a></dt>
 <dd class="defbody">
-Initialises and runs <a id="idx:httpwrapper5:38"></a><a class="pred" href="#http_wrapper/5">http_wrapper/5</a> 
+Initialises and runs <a id="idx:httpwrapper5:39"></a><a class="pred" href="#http_wrapper/5">http_wrapper/5</a> 
 in a loop until failure or end-of-file. This server does not support the <var>Port</var> 
 option as the port is specified with the <b>inetd</b> configuration. The 
 only supported option is <var>After</var>.
@@ -4305,7 +4328,7 @@ wrapper library</span></a></h3>
 This module realises the communication between the I/O streams and the 
 body described in <a class="sec" href="#sec:3.1">section 3.1</a>. The 
 interface is realised by
-<a id="idx:httpwrapper5:39"></a><a class="pred" href="#http_wrapper/5">http_wrapper/5</a>:
+<a id="idx:httpwrapper5:40"></a><a class="pred" href="#http_wrapper/5">http_wrapper/5</a>:
 
 <dl class="latex">
 <dt class="pubdef"><a id="http_wrapper/5"><strong>http_wrapper</strong>(<var>:Goal, 
@@ -4325,7 +4348,7 @@ executes successfully it generates a complete reply from the created
 output. Otherwise it generates an HTTP server error with additional 
 context information derived from the exception.
 
-<p><a id="idx:httpwrapper5:40"></a><a class="pred" href="#http_wrapper/5">http_wrapper/5</a> 
+<p><a id="idx:httpwrapper5:41"></a><a class="pred" href="#http_wrapper/5">http_wrapper/5</a> 
 supports the following options:
 
 <dl class="latex">
@@ -4335,7 +4358,7 @@ Return the executed request to the caller.</dd>
 <dt><strong>peer</strong>(<var>+Peer</var>)</dt>
 <dd class="defbody">
 Add peer(Peer) to the request header handed to <var>Goal</var>. The 
-format of <var>Peer</var> is defined by <a id="idx:tcpaccept3:41"></a><span class="pred-ext">tcp_accept/3</span> 
+format of <var>Peer</var> is defined by <a id="idx:tcpaccept3:42"></a><span class="pred-ext">tcp_accept/3</span> 
 from the clib package.
 </dd>
 </dl>
@@ -4365,15 +4388,15 @@ example below is from the session management library (see <a class="sec" href="#
 <dt class="pubdef"><a id="http_current_request/1"><strong>http_current_request</strong>(<var>-Request</var>)</a></dt>
 <dd class="defbody">
 Get access to the currently executing request. <var>Request</var> is the 
-same as handed to <var>Goal</var> of <a id="idx:httpwrapper5:42"></a><a class="pred" href="#http_wrapper/5">http_wrapper/5</a> <em>after</em> 
-applying rewrite rules as defined by <a id="idx:httprequestexpansion2:43"></a><a class="pred" href="#http:request_expansion/2">http:request_expansion/2</a>. 
+same as handed to <var>Goal</var> of <a id="idx:httpwrapper5:43"></a><a class="pred" href="#http_wrapper/5">http_wrapper/5</a> <em>after</em> 
+applying rewrite rules as defined by <a id="idx:httprequestexpansion2:44"></a><a class="pred" href="#http:request_expansion/2">http:request_expansion/2</a>. 
 Raises an existence error if there is no request in progress.</dd>
 <dt class="pubdef"><a id="http_relative_path/2"><strong>http_relative_path</strong>(<var>+AbsPath, 
 -RelPath</var>)</a></dt>
 <dd class="defbody">
 Convert an absolute path (without host, fragment or search) into a path 
 relative to the current page, defined as the path component from the 
-current request (see <a id="idx:httpcurrentrequest1:44"></a><a class="pred" href="#http_current_request/1">http_current_request/1</a>). 
+current request (see <a id="idx:httpcurrentrequest1:45"></a><a class="pred" href="#http_current_request/1">http_current_request/1</a>). 
 This call is intended to create reusable components returning relative 
 paths for easier support of reverse proxies.
 
@@ -5059,7 +5082,7 @@ library</span></a></h3>
 <a id="sec:htmlwrite"></a>
 
 <p>Producing output for the web in the form of an HTML document is a 
-requirement for many Prolog programs. Just using <a id="idx:format2:45"></a><span class="pred-ext">format/2</span> 
+requirement for many Prolog programs. Just using <a id="idx:format2:46"></a><span class="pred-ext">format/2</span> 
 is not satisfactory as it leads to poorly readable programs generating 
 poor HTML. This library is based on using DCG rules.
 
@@ -5072,14 +5095,14 @@ from Prolog data structures.
 <p>The normal way to use this library is through the DCG html//1. This 
 non-terminal provides the central translation from a structured term 
 with embedded calls to additional translation rules to a list of atoms 
-that can then be printed using <a id="idx:printhtml12:46"></a><a class="pred" href="#print_html/1">print_html/[1,2]</a>.
+that can then be printed using <a id="idx:printhtml12:47"></a><a class="pred" href="#print_html/1">print_html/[1,2]</a>.
 
 <dl class="latex">
 <dt class="pubdef"><a id="html//1"><strong>html</strong>(<var>:Spec</var>)</a><code>//</code></dt>
 <dd class="defbody">
 The DCG non-terminal html//1 is the main predicate of this library. It 
 translates the specification for an HTML page into a list of atoms that 
-can be written to a stream using <a id="idx:printhtml12:47"></a><a class="pred" href="#print_html/1">print_html/[1,2]</a>. 
+can be written to a stream using <a id="idx:printhtml12:48"></a><a class="pred" href="#print_html/1">print_html/[1,2]</a>. 
 The expansion rules of this predicate may be extended by defining the 
 multifile DCG html_write:expand//1. <var>Spec</var> is either a single 
 specification or a list of single specifications. Using nested lists is 
@@ -5093,7 +5116,7 @@ Atomic data is quoted using html_quoted//1.
 <p>
 <li><i><var>Fmt</var> - <var>Args</var></i><br>
 <var>Fmt</var> and <var>Args</var> are used as format-specification and 
-argument list to <a id="idx:format3:48"></a><span class="pred-ext">format/3</span>. 
+argument list to <a id="idx:format3:49"></a><span class="pred-ext">format/3</span>. 
 The result is quoted and added to the output list.
 
 <p>
@@ -5106,7 +5129,7 @@ is a list of the following terms:
 <ul class="latex">
 <li><i><var>Fmt</var> - <var>Args</var></i><br>
 <var>Fmt</var> and <var>Args</var> are used as format-specification and 
-argument list to <a id="idx:format3:49"></a><span class="pred-ext">format/3</span>. 
+argument list to <a id="idx:format3:50"></a><span class="pred-ext">format/3</span>. 
 The result is added to the output list.
 <li><i><var>Atomic</var></i><br>
 Atomic values are added directly to the output list.
@@ -5153,13 +5176,13 @@ attribute value but allows for a limited functional notation:
 <li><i><var>A</var> + <var>B</var></i><br>
 Concatenation of <var>A</var> and <var>B</var>
 <li><i><var>Format</var>-<var>Arguments</var></i><br>
-Use <a id="idx:format3:50"></a><span class="pred-ext">format/3</span> 
+Use <a id="idx:format3:51"></a><span class="pred-ext">format/3</span> 
 and emit the result as quoted value.
 <li><i><code>encode(Atom)</code></i><br>
-Use <a id="idx:uriencoded3:51"></a><span class="pred-ext">uri_encoded/3</span> 
+Use <a id="idx:uriencoded3:52"></a><span class="pred-ext">uri_encoded/3</span> 
 to create a valid URL query component.
 <li><i><code>location_by_id(ID)</code></i><br>
-HTTP location of the HTTP handler with given ID. See <a id="idx:httplocationbyid2:52"></a><a class="pred" href="#http_location_by_id/2">http_location_by_id/2</a>.
+HTTP location of the HTTP handler with given ID. See <a id="idx:httplocationbyid2:53"></a><a class="pred" href="#http_location_by_id/2">http_location_by_id/2</a>.
 <li><i><code><code>#</code>(ID)</code></i><br>
 Abbreviated for for <code>location_by_id(ID)</code>.
 <li><i><var>A</var> + <var>List</var></i><br>
@@ -5181,9 +5204,9 @@ multiple <code>class</code> attributes on an element. For example:
 </ul>
 
 <p>The example below generates a URL that references the predicate
-<a id="idx:setlang1:53"></a><span class="pred-ext">set_lang/1</span> in 
-the application with given parameters. The <a id="idx:httphandler3:54"></a><a class="pred" href="#http_handler/3">http_handler/3</a> 
-declaration binds <code>/setlang</code> to the predicate <a id="idx:setlang1:55"></a><span class="pred-ext">set_lang/1</span> 
+<a id="idx:setlang1:54"></a><span class="pred-ext">set_lang/1</span> in 
+the application with given parameters. The <a id="idx:httphandler3:55"></a><a class="pred" href="#http_handler/3">http_handler/3</a> 
+declaration binds <code>/setlang</code> to the predicate <a id="idx:setlang1:56"></a><span class="pred-ext">set_lang/1</span> 
 for which we provide a very simple implementation. The code between <code>...</code> 
 is part of an HTML page showing the english flag which, when pressed, 
 calls <code>set_lang(Request)</code> where <var>Request</var> contains 
@@ -5246,7 +5269,7 @@ page(Head, Body) --&gt;
 </dd>
 <dt class="pubdef"><a id="page//1"><strong>page</strong>(<var>:Contents</var>)</a><code>//</code></dt>
 <dd class="defbody">
-This version of the <a id="idx:page12:56"></a><span class="pred-ext">page/[1,2]</span> 
+This version of the <a id="idx:page12:57"></a><span class="pred-ext">page/[1,2]</span> 
 only gives you the SGML <code>DOCTYPE</code> and the <code>HTML</code> 
 element. <var>Contents</var> is used to generate both the head and body 
 of the page.</dd>
@@ -5286,7 +5309,7 @@ table(Rows) --&gt;
 </dd>
 <dt class="pubdef"><a id="html_end//1"><strong>html_end</strong>(<var>+End</var>)</a><code>//</code></dt>
 <dd class="defbody">
-End an element. See <a id="idx:htmlbegin1:57"></a><span class="pred-ext">html_begin/1</span> 
+End an element. See <a id="idx:htmlbegin1:58"></a><span class="pred-ext">html_begin/1</span> 
 for details.
 </dd>
 </dl>
@@ -5327,8 +5350,8 @@ reply(Request) :-
 
 <p>The header and footer of the page can be hooked using the 
 grammar-rules user:head//2 and user:body//2. The first argument passed 
-to these hooks is the <var>Style</var> argument of <a id="idx:replyhtmlpage3:58"></a><a class="pred" href="#reply_html_page/3">reply_html_page/3</a> 
-and the second is the 2nd (for head//2) or 3rd (for body//2) argument of <a id="idx:replyhtmlpage3:59"></a><a class="pred" href="#reply_html_page/3">reply_html_page/3</a>. 
+to these hooks is the <var>Style</var> argument of <a id="idx:replyhtmlpage3:59"></a><a class="pred" href="#reply_html_page/3">reply_html_page/3</a> 
+and the second is the 2nd (for head//2) or 3rd (for body//2) argument of <a id="idx:replyhtmlpage3:60"></a><a class="pred" href="#reply_html_page/3">reply_html_page/3</a>. 
 These hooks can be used to restyle the page, typically by embedding the 
 real body content in a <code>div</code>. E.g., the following code 
 provides a menu on top of each page of that is identified using the 
@@ -5358,7 +5381,7 @@ Print the token list to the specified output stream</dd>
 <dt class="pubdef"><a id="html_print_length/2"><strong>html_print_length</strong>(<var>+List, 
 -Length</var>)</a></dt>
 <dd class="defbody">
-When calling <a id="idx:htmlprint12:60"></a><span class="pred-ext">html_print/[1,2]</span> 
+When calling <a id="idx:htmlprint12:61"></a><span class="pred-ext">html_print/[1,2]</span> 
 on <var>List</var>, <var>Length</var> characters will be produced. 
 Knowing the length is needed to provide the <code>Content-length</code> 
 field of an HTTP reply-header.
@@ -5533,7 +5556,7 @@ layout</span></a></h4>
 <p>Though not strictly necessary, the library attempts to generate 
 reasonable layout in SGML output. It does this only by inserting 
 newlines before and after tags. It does this on the basis of the 
-multifile predicate <a id="idx:htmlwritelayout3:61"></a><a class="pred" href="#html_write:layout/3">html_write:layout/3</a>
+multifile predicate <a id="idx:htmlwritelayout3:62"></a><a class="pred" href="#html_write:layout/3">html_write:layout/3</a>
 
 <dl class="latex">
 <dt class="pubdef"><a id="html_write:layout/3"><strong>html_write:layout</strong>(<var>+Tag, 
@@ -5551,7 +5574,7 @@ interprets <var>Arg</var> in <code>Tag(Arg)</code> as a list of
 attributes rather than the content.
 
 <p>A tag that does not appear in this table is emitted without 
-additional layout. See also <a id="idx:printhtml12:62"></a><a class="pred" href="#print_html/1">print_html/[1,2]</a>. 
+additional layout. See also <a id="idx:printhtml12:63"></a><a class="pred" href="#print_html/1">print_html/[1,2]</a>. 
 Please consult the library source for examples.
 </dd>
 </dl>
@@ -5563,7 +5586,7 @@ for using the HTML write library</span></a></h4>
 
 <p>In the following example we will generate a table of Prolog 
 predicates we find from the SWI-Prolog help system based on a keyword. 
-The primary database is defined by the predicate <a id="idx:predicate5:63"></a><span class="pred-ext">predicate/5</span> 
+The primary database is defined by the predicate <a id="idx:predicate5:64"></a><span class="pred-ext">predicate/5</span> 
 We will make hyperlinks for the predicates pointing to their 
 documentation.
 
@@ -5637,10 +5660,10 @@ on the <code>library(http/html_write)</code> library</span></a></h4>
 <p>This library is the result of various attempts to reach at a more 
 satisfactory and Prolog-minded way to produce HTML text from a program. 
 We have been using Prolog for the generation of web pages in a number of 
-projects. Just using <a id="idx:format2:64"></a><span class="pred-ext">format/2</span> 
+projects. Just using <a id="idx:format2:65"></a><span class="pred-ext">format/2</span> 
 never was not a real option, generating error-prone HTML from clumsy 
 syntax. We started with a layer on top of
-<a id="idx:format2:65"></a><span class="pred-ext">format/2</span>, 
+<a id="idx:format2:66"></a><span class="pred-ext">format/2</span>, 
 keeping track of the current nesting and thus always capable of properly 
 closing the environment.
 
@@ -5649,7 +5672,7 @@ term-rewriting primitives. If generation fails for whatever reason it is
 easy to produce an alternative document (for example holding an error 
 message).
 
-<p>In a future version we will probably define a <a id="idx:goalexpansion2:66"></a><span class="pred-ext">goal_expansion/2</span> 
+<p>In a future version we will probably define a <a id="idx:goalexpansion2:67"></a><span class="pred-ext">goal_expansion/2</span> 
 to do compile-time optimisation of the library. Quotation of known text 
 and invocation of sub-rules using the <code>\</code><var>RuleSet</var> 
 and
@@ -6286,7 +6309,7 @@ encodings</span></a></h2>
 
 <a id="sec:transfer"></a>
 
-<p><a id="idx:chunkedencoding:67"></a><a id="idx:deflateencoding:68"></a>The 
+<p><a id="idx:chunkedencoding:68"></a><a id="idx:deflateencoding:69"></a>The 
 HTTP protocol provides for <em>transfer encodings</em>. These define 
 filters applied to the data described by the <code>Content-type</code>. 
 The two most popular transfer encodings are <code>chunked</code> and
@@ -6303,9 +6326,9 @@ and <code>library(zlib.pl)</code>.
 <p>There is an emerging hook interface dealing with transfer encodings. 
 The
 <code>library(http/http_chunked.pl)</code> provides a hook used by
-<code>library(http/http_open.pl)</code> to support chunked encoding in <a id="idx:httpopen3:69"></a><a class="pred" href="#http_open/3">http_open/3</a>. 
+<code>library(http/http_open.pl)</code> to support chunked encoding in <a id="idx:httpopen3:70"></a><a class="pred" href="#http_open/3">http_open/3</a>. 
 Note that both <code>http_open.pl</code> <em>and</em> <code>http_chunked.pl</code> 
-must be loaded for <a id="idx:httpopen3:70"></a><a class="pred" href="#http_open/3">http_open/3</a> 
+must be loaded for <a id="idx:httpopen3:71"></a><a class="pred" href="#http_open/3">http_open/3</a> 
 to support chunked encoding.
 
 <p><h3 id="sec:http-chunked"><a id="sec:4.1"><span class="sec-nr">4.1</span> <span class="sec-title">The <code>library(http/http_chunked)</code> 
@@ -7758,7 +7781,7 @@ If part of the query consists of filenames or directories, check them.
 This also applies to files you only read. Passing names as
 <code>/etc/passwd</code>, but also <code>../../../../../etc/passwd</code> 
 are tried by hackers to learn about the system they want to attack. So, 
-expand provided names using <a id="idx:absolutefilename23:71"></a><span class="pred-ext">absolute_file_name/[2,3]</span> 
+expand provided names using <a id="idx:absolutefilename23:72"></a><span class="pred-ext">absolute_file_name/[2,3]</span> 
 and verify they are inside a folder reserved for the server. Avoid 
 symbolic links from this subtree to the outside world. The example below 
 checks validity of filenames. The first call ensures proper canonisation 
@@ -7774,12 +7797,12 @@ check_file(File) :-
 
 <p>
 <li><i>Check scripts</i><br>
-Should input in any way activate external scripts using <a id="idx:shell1:72"></a><span class="pred-ext">shell/1</span> 
+Should input in any way activate external scripts using <a id="idx:shell1:73"></a><span class="pred-ext">shell/1</span> 
 or
 <code>open(pipe(Command), ...)</code>, verify the argument once more. 
 Use
-<a id="idx:processcreate3:73"></a><span class="pred-ext">process_create/3</span> 
-in preference over <a id="idx:shell1:74"></a><span class="pred-ext">shell/1</span> 
+<a id="idx:processcreate3:74"></a><span class="pred-ext">process_create/3</span> 
+in preference over <a id="idx:shell1:75"></a><span class="pred-ext">shell/1</span> 
 as this function avoids stringification of arguments (Unix) or ensures 
 proper quoting of arguments (Windows).
 
@@ -7829,7 +7852,7 @@ likely to lead to conflicts.
 <li><i>Debugging</i><br>
 Debugging multi-threaded applications is possible using the graphical 
 debugger. This implies requires that the xpce extension package must be 
-installed. Spy-points may be placed using <a id="idx:tspy1:75"></a><span class="pred-ext">tspy/1</span>.
+installed. Spy-points may be placed using <a id="idx:tspy1:76"></a><span class="pred-ext">tspy/1</span>.
 </ul>
 
 <p><h2 id="sec:http-status"><a id="sec:11"><span class="sec-nr">11</span> <span class="sec-title">Status</span></a></h2>
@@ -7851,48 +7874,48 @@ relevant. The XPCE based server is considered obsolete.
 <dt class="index-sep">?</dt>
 <dt>absolute_file_name/[2,3]</dt>
 <dd>
-<a class="idx" href="#idx:absolutefilename23:71">9</a></dd>
+<a class="idx" href="#idx:absolutefilename23:72">9</a></dd>
 <dt><a class="idx" href="#atom_json_dict/3">atom_json_dict/3</a></dt>
 <dt><a class="idx" href="#atom_json_term/3">atom_json_term/3</a></dt>
 <dt>chunked,encoding</dt>
 <dd>
-<a class="idx" href="#idx:chunkedencoding:67">4</a></dd>
+<a class="idx" href="#idx:chunkedencoding:68">4</a></dd>
 <dt>cleanup/2</dt>
 <dd>
-<a class="idx" href="#idx:cleanup2:2">2</a></dd>
+<a class="idx" href="#idx:cleanup2:3">2</a></dd>
 <dt><a class="idx" href="#cors_enable/0">cors_enable/0</a></dt>
 <dt><a class="idx" href="#cors_enable/2">cors_enable/2</a></dt>
 <dt><a class="idx" href="#current_hub/2">current_hub/2</a></dt>
 <dt><a class="idx" href="#current_json_object/3">current_json_object/3</a></dt>
 <dt>deflate,encoding</dt>
 <dd>
-<a class="idx" href="#idx:deflateencoding:68">4</a></dd>
+<a class="idx" href="#idx:deflateencoding:69">4</a></dd>
 <dt><a class="idx" href="#directory_index//2">directory_index//2</a></dt>
 <dt>format/2</dt>
 <dd>
-<a class="idx" href="#idx:format2:45">3.20</a> <a class="idx" href="#idx:format2:64">3.20.6</a> <a class="idx" href="#idx:format2:65">3.20.6</a></dd>
+<a class="idx" href="#idx:format2:46">3.20</a> <a class="idx" href="#idx:format2:65">3.20.6</a> <a class="idx" href="#idx:format2:66">3.20.6</a></dd>
 <dt>format/3</dt>
 <dd>
-<a class="idx" href="#idx:format3:48">3.20</a> <a class="idx" href="#idx:format3:49">3.20</a> <a class="idx" href="#idx:format3:50">3.20</a></dd>
+<a class="idx" href="#idx:format3:49">3.20</a> <a class="idx" href="#idx:format3:50">3.20</a> <a class="idx" href="#idx:format3:51">3.20</a></dd>
 <dt>format_time/3</dt>
 <dd>
-<a class="idx" href="#idx:formattime3:31">3.14.2</a></dd>
+<a class="idx" href="#idx:formattime3:32">3.14.2</a></dd>
 <dt>goal_expansion/2</dt>
 <dd>
-<a class="idx" href="#idx:goalexpansion2:66">3.20.6</a></dd>
+<a class="idx" href="#idx:goalexpansion2:67">3.20.6</a></dd>
 <dt><a class="idx" href="#hook/1">hook/1</a></dt>
 <dt><a class="idx" href="#hooked/0">hooked/0</a></dt>
 <dt><a class="idx" href="#html//1">html//1</a></dt>
 <dt><a class="idx" href="#html_begin//1">html_begin//1</a></dt>
 <dt>html_begin/1</dt>
 <dd>
-<a class="idx" href="#idx:htmlbegin1:57">3.20</a></dd>
+<a class="idx" href="#idx:htmlbegin1:58">3.20</a></dd>
 <dt><a class="idx" href="#html_current_resource/1">html_current_resource/1</a></dt>
 <dt><a class="idx" href="#html_end//1">html_end//1</a></dt>
 <dt><a class="idx" href="#html_post//2">html_post//2</a></dt>
 <dt>html_print/[1,2]</dt>
 <dd>
-<a class="idx" href="#idx:htmlprint12:60">3.20.1</a></dd>
+<a class="idx" href="#idx:htmlprint12:61">3.20.1</a></dd>
 <dt><a class="idx" href="#html_print_length/2">html_print_length/2</a></dt>
 <dt><a class="idx" href="#html_quoted//1">html_quoted//1</a></dt>
 <dt><a class="idx" href="#html_quoted_attribute//1">html_quoted_attribute//1</a></dt>
@@ -7903,31 +7926,31 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#html_write:expand//1">html_write:expand//1</a></dt>
 <dt><a class="idx" href="#html_write:layout/3">html_write:layout/3</a></dt>
 <dd>
-<a class="idx" href="#idx:htmlwritelayout3:61">3.20.4</a></dd>
+<a class="idx" href="#idx:htmlwritelayout3:62">3.20.4</a></dd>
 <dt><a class="idx" href="#http:///1">http:///1</a></dt>
 <dt><a class="idx" href="#http:authenticate/3">http:authenticate/3</a></dt>
 <dt><a class="idx" href="#http:authenticate_client/2">http:authenticate_client/2</a></dt>
 <dt>http:convert_parameter/3</dt>
 <dd>
-<a class="idx" href="#idx:httpconvertparameter3:19">3.12</a></dd>
+<a class="idx" href="#idx:httpconvertparameter3:20">3.12</a></dd>
 <dt><a class="idx" href="#http:disable_encoding_filter/1">http:disable_encoding_filter/1</a></dt>
 <dt><a class="idx" href="#http:location/3">http:location/3</a></dt>
 <dt><a class="idx" href="#http:mime_type_encoding/2">http:mime_type_encoding/2</a></dt>
 <dd>
-<a class="idx" href="#idx:httpmimetypeencoding2:10">3.1</a></dd>
+<a class="idx" href="#idx:httpmimetypeencoding2:11">3.1</a></dd>
 <dt><a class="idx" href="#http:mime_type_icon/2">http:mime_type_icon/2</a></dt>
 <dt><a class="idx" href="#http:open_options/2">http:open_options/2</a></dt>
 <dt><a class="idx" href="#http:post_data_hook/3">http:post_data_hook/3</a></dt>
 <dt><a class="idx" href="#http:request_expansion/2">http:request_expansion/2</a></dt>
 <dd>
-<a class="idx" href="#idx:httprequestexpansion2:43">3.15</a></dd>
+<a class="idx" href="#idx:httprequestexpansion2:44">3.15</a></dd>
 <dt><a class="idx" href="#http:schedule_workers/1">http:schedule_workers/1</a></dt>
 <dt><a class="idx" href="#http:serialize_reply/2">http:serialize_reply/2</a></dt>
 <dt><a class="idx" href="#http:sni_options/2">http:sni_options/2</a></dt>
 <dt><a class="idx" href="#http:status_page/3">http:status_page/3</a></dt>
 <dt><a class="idx" href="#http:status_page_hook/3">http:status_page_hook/3</a></dt>
 <dd>
-<a class="idx" href="#idx:httpstatuspagehook3:17">3.10</a></dd>
+<a class="idx" href="#idx:httpstatuspagehook3:18">3.10</a></dd>
 <dt><a class="idx" href="#http:update_cookies/3">http:update_cookies/3</a></dt>
 <dt><a class="idx" href="#http:write_cookies/3">http:write_cookies/3</a></dt>
 <dt><a class="idx" href="#http_404/2">http_404/2</a></dt>
@@ -7948,7 +7971,7 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#http_current_host/4">http_current_host/4</a></dt>
 <dt><a class="idx" href="#http_current_request/1">http_current_request/1</a></dt>
 <dd>
-<a class="idx" href="#idx:httpcurrentrequest1:44">3.15</a></dd>
+<a class="idx" href="#idx:httpcurrentrequest1:45">3.15</a></dd>
 <dt><a class="idx" href="#http_current_session/2">http_current_session/2</a></dt>
 <dt><a class="idx" href="#http_current_user/3">http_current_user/3</a></dt>
 <dt><a class="idx" href="#http_current_worker/2">http_current_worker/2</a></dt>
@@ -7962,41 +7985,41 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#http_disconnect/1">http_disconnect/1</a></dt>
 <dt><a class="idx" href="#http_dispatch/1">http_dispatch/1</a></dt>
 <dd>
-<a class="idx" href="#idx:httpdispatch1:30">3.14.2</a></dd>
+<a class="idx" href="#idx:httpdispatch1:31">3.14.2</a></dd>
 <dt><a class="idx" href="#http_get/3">http_get/3</a></dt>
 <dd>
-<a class="idx" href="#idx:httpget3:5">2</a></dd>
+<a class="idx" href="#idx:httpget3:6">2</a></dd>
 <dt><a class="idx" href="#http_handler/3">http_handler/3</a></dt>
 <dd>
-<a class="idx" href="#idx:httphandler3:1">1</a> <a class="idx" href="#idx:httphandler3:8">3.1</a> <a class="idx" href="#idx:httphandler3:36">3.14.2</a> <a class="idx" href="#idx:httphandler3:54">3.20</a></dd>
+<a class="idx" href="#idx:httphandler3:1">1</a> <a class="idx" href="#idx:httphandler3:9">3.1</a> <a class="idx" href="#idx:httphandler3:37">3.14.2</a> <a class="idx" href="#idx:httphandler3:55">3.20</a></dd>
 <dt><a class="idx" href="#http_in_session/1">http_in_session/1</a></dt>
 <dt><a class="idx" href="#http_join_headers/3">http_join_headers/3</a></dt>
 <dt><a class="idx" href="#http_link_to_id/3">http_link_to_id/3</a></dt>
 <dt><a class="idx" href="#http_location_by_id/2">http_location_by_id/2</a></dt>
 <dd>
-<a class="idx" href="#idx:httplocationbyid2:52">3.20</a></dd>
+<a class="idx" href="#idx:httplocationbyid2:53">3.20</a></dd>
 <dt><a class="idx" href="#http_log/2">http_log/2</a></dt>
 <dt><a class="idx" href="#http_log_close/1">http_log_close/1</a></dt>
 <dt><a class="idx" href="#http_log_stream/1">http_log_stream/1</a></dt>
 <dt><a class="idx" href="#http_logrotate/1">http_logrotate/1</a></dt>
 <dt><a class="idx" href="#http_open/3">http_open/3</a></dt>
 <dd>
-<a class="idx" href="#idx:httpopen3:4">2</a> <a class="idx" href="#idx:httpopen3:69">4</a> <a class="idx" href="#idx:httpopen3:70">4</a></dd>
+<a class="idx" href="#idx:httpopen3:2">2</a> <a class="idx" href="#idx:httpopen3:5">2</a> <a class="idx" href="#idx:httpopen3:70">4</a> <a class="idx" href="#idx:httpopen3:71">4</a></dd>
 <dt><a class="idx" href="#http_open_session/2">http_open_session/2</a></dt>
 <dt><a class="idx" href="#http_open_websocket/3">http_open_websocket/3</a></dt>
 <dt><a class="idx" href="#http_parameters/2">http_parameters/2</a></dt>
 <dd>
-<a class="idx" href="#idx:httpparameters2:20">3.12</a></dd>
+<a class="idx" href="#idx:httpparameters2:21">3.12</a></dd>
 <dt><a class="idx" href="#http_parameters/3">http_parameters/3</a></dt>
 <dd>
-<a class="idx" href="#idx:httpparameters3:21">3.12</a></dd>
+<a class="idx" href="#idx:httpparameters3:22">3.12</a></dd>
 <dt><a class="idx" href="#http_parse_digest_challenge/2">http_parse_digest_challenge/2</a></dt>
 <dt><a class="idx" href="#http_parse_header/2">http_parse_header/2</a></dt>
 <dt><a class="idx" href="#http_parse_header_value/3">http_parse_header_value/3</a></dt>
 <dt><a class="idx" href="#http_patch/4">http_patch/4</a></dt>
 <dt><a class="idx" href="#http_post/4">http_post/4</a></dt>
 <dd>
-<a class="idx" href="#idx:httppost4:6">2</a></dd>
+<a class="idx" href="#idx:httppost4:7">2</a></dd>
 <dt><a class="idx" href="#http_post_data/3">http_post_data/3</a></dt>
 <dt><a class="idx" href="#http_public_host/4">http_public_host/4</a></dt>
 <dt><a class="idx" href="#http_public_host_url/2">http_public_host_url/2</a></dt>
@@ -8004,7 +8027,7 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#http_put/4">http_put/4</a></dt>
 <dt><a class="idx" href="#http_read_data/3">http_read_data/3</a></dt>
 <dd>
-<a class="idx" href="#idx:httpreaddata3:24">3.13.1</a></dd>
+<a class="idx" href="#idx:httpreaddata3:25">3.13.1</a></dd>
 <dt><a class="idx" href="#http_read_header/2">http_read_header/2</a></dt>
 <dt><a class="idx" href="#http_read_json/2">http_read_json/2</a></dt>
 <dt><a class="idx" href="#http_read_json/3">http_read_json/3</a></dt>
@@ -8014,16 +8037,16 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#http_read_reply_header/2">http_read_reply_header/2</a></dt>
 <dt><a class="idx" href="#http_read_request/2">http_read_request/2</a></dt>
 <dd>
-<a class="idx" href="#idx:httpreadrequest2:22">3.13</a> <a class="idx" href="#idx:httpreadrequest2:23">3.13</a></dd>
+<a class="idx" href="#idx:httpreadrequest2:23">3.13</a> <a class="idx" href="#idx:httpreadrequest2:24">3.13</a></dd>
 <dt><a class="idx" href="#http_redirect/3">http_redirect/3</a></dt>
 <dd>
-<a class="idx" href="#idx:httpredirect3:9">3.1</a></dd>
+<a class="idx" href="#idx:httpredirect3:10">3.1</a></dd>
 <dt><a class="idx" href="#http_relative_path/2">http_relative_path/2</a></dt>
 <dt><a class="idx" href="#http_reload_with_parameters/3">http_reload_with_parameters/3</a></dt>
 <dt><a class="idx" href="#http_reply/2">http_reply/2</a></dt>
 <dt><a class="idx" href="#http_reply/3">http_reply/3</a></dt>
 <dd>
-<a class="idx" href="#idx:httpreply3:14">3.1.1</a> <a class="idx" href="#idx:httpreply3:15">3.1.1</a> <a class="idx" href="#idx:httpreply3:16">3.1.1</a></dd>
+<a class="idx" href="#idx:httpreply3:15">3.1.1</a> <a class="idx" href="#idx:httpreply3:16">3.1.1</a> <a class="idx" href="#idx:httpreply3:17">3.1.1</a></dd>
 <dt><a class="idx" href="#http_reply/4">http_reply/4</a></dt>
 <dt><a class="idx" href="#http_reply/5">http_reply/5</a></dt>
 <dt><a class="idx" href="#http_reply/6">http_reply/6</a></dt>
@@ -8034,11 +8057,10 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#http_request_expansion/2">http_request_expansion/2</a></dt>
 <dt><a class="idx" href="#http_safe_file/2">http_safe_file/2</a></dt>
 <dt><a class="idx" href="#http_schedule_logrotate/2">http_schedule_logrotate/2</a></dt>
-<dt>http_server/1</dt>
+<dt><a class="idx" href="#http_server/1">http_server/1</a></dt>
 <dd>
-<a class="idx" href="#idx:httpserver1:37">3.14.4</a></dd>
+<a class="idx" href="#idx:httpserver1:38">3.14.4</a></dd>
 <dt><a class="idx" href="#http_server/2">http_server/2</a></dt>
-<dt><a class="idx" href="#http_server/3">http_server/3</a></dt>
 <dt><a class="idx" href="#http_server_hook/1">http_server_hook/1</a></dt>
 <dt><a class="idx" href="#http_server_property/2">http_server_property/2</a></dt>
 <dt><a class="idx" href="#http_session_assert/1">http_session_assert/1</a></dt>
@@ -8060,7 +8082,7 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#http_set_session_options/1">http_set_session_options/1</a></dt>
 <dt><a class="idx" href="#http_spawn/2">http_spawn/2</a></dt>
 <dd>
-<a class="idx" href="#idx:httpspawn2:7">3</a> <a class="idx" href="#idx:httpspawn2:32">3.14.2</a></dd>
+<a class="idx" href="#idx:httpspawn2:8">3</a> <a class="idx" href="#idx:httpspawn2:33">3.14.2</a></dd>
 <dt><a class="idx" href="#http_status_reply/4">http_status_reply/4</a></dt>
 <dt><a class="idx" href="#http_status_reply/5">http_status_reply/5</a></dt>
 <dt><a class="idx" href="#http_status_reply/6">http_status_reply/6</a></dt>
@@ -8073,10 +8095,10 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#http_upgrade_to_websocket/3">http_upgrade_to_websocket/3</a></dt>
 <dt><a class="idx" href="#http_workers/2">http_workers/2</a></dt>
 <dd>
-<a class="idx" href="#idx:httpworkers2:28">3.14.2</a></dd>
+<a class="idx" href="#idx:httpworkers2:29">3.14.2</a></dd>
 <dt><a class="idx" href="#http_wrapper/5">http_wrapper/5</a></dt>
 <dd>
-<a class="idx" href="#idx:httpwrapper5:18">3.12</a> <a class="idx" href="#idx:httpwrapper5:38">3.14.4</a> <a class="idx" href="#idx:httpwrapper5:39">3.15</a> <a class="idx" href="#idx:httpwrapper5:40">3.15</a> <a class="idx" href="#idx:httpwrapper5:42">3.15</a></dd>
+<a class="idx" href="#idx:httpwrapper5:19">3.12</a> <a class="idx" href="#idx:httpwrapper5:39">3.14.4</a> <a class="idx" href="#idx:httpwrapper5:40">3.15</a> <a class="idx" href="#idx:httpwrapper5:41">3.15</a> <a class="idx" href="#idx:httpwrapper5:43">3.15</a></dd>
 <dt><a class="idx" href="#http_write_passwd_file/2">http_write_passwd_file/2</a></dt>
 <dt><a class="idx" href="#hub_add/3">hub_add/3</a></dt>
 <dt><a class="idx" href="#hub_broadcast/2">hub_broadcast/2</a></dt>
@@ -8112,7 +8134,7 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#mime_pack/3">mime_pack/3</a></dt>
 <dt>mime_type_encoding/2</dt>
 <dd>
-<a class="idx" href="#idx:mimetypeencoding2:12">3.1</a></dd>
+<a class="idx" href="#idx:mimetypeencoding2:13">3.1</a></dd>
 <dt><a class="idx" href="#nolog/1">nolog/1</a></dt>
 <dt><a class="idx" href="#nolog_post_content_type/1">nolog_post_content_type/1</a></dt>
 <dt><a class="idx" href="#openid_associate/3">openid_associate/3</a></dt>
@@ -8134,29 +8156,29 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#page//2">page//2</a></dt>
 <dt>page/[1,2]</dt>
 <dd>
-<a class="idx" href="#idx:page12:56">3.20</a></dd>
+<a class="idx" href="#idx:page12:57">3.20</a></dd>
 <dt><a class="idx" href="#password_field/1">password_field/1</a></dt>
 <dt><a class="idx" href="#post_data_encoded/2">post_data_encoded/2</a></dt>
 <dt>pp/1</dt>
 <dd>
-<a class="idx" href="#idx:pp1:25">3.13.1</a></dd>
+<a class="idx" href="#idx:pp1:26">3.13.1</a></dd>
 <dt>predicate/5</dt>
 <dd>
-<a class="idx" href="#idx:predicate5:63">3.20.5</a></dd>
+<a class="idx" href="#idx:predicate5:64">3.20.5</a></dd>
 <dt><a class="idx" href="#print_html/1">print_html/1</a></dt>
 <dt><a class="idx" href="#print_html/2">print_html/2</a></dt>
 <dt>print_html/[1,2]</dt>
 <dd>
-<a class="idx" href="#idx:printhtml12:46">3.20</a> <a class="idx" href="#idx:printhtml12:47">3.20</a> <a class="idx" href="#idx:printhtml12:62">3.20.4</a></dd>
+<a class="idx" href="#idx:printhtml12:47">3.20</a> <a class="idx" href="#idx:printhtml12:48">3.20</a> <a class="idx" href="#idx:printhtml12:63">3.20.4</a></dd>
 <dt>process_create/3</dt>
 <dd>
-<a class="idx" href="#idx:processcreate3:73">9</a></dd>
+<a class="idx" href="#idx:processcreate3:74">9</a></dd>
 <dt><a class="idx" href="#prolog_to_json/2">prolog_to_json/2</a></dt>
 <dt><a class="idx" href="#pwp_handler/2">pwp_handler/2</a></dt>
 <dt><a class="idx" href="#reply_html_page/2">reply_html_page/2</a></dt>
 <dt><a class="idx" href="#reply_html_page/3">reply_html_page/3</a></dt>
 <dd>
-<a class="idx" href="#idx:replyhtmlpage3:58">3.20.1</a> <a class="idx" href="#idx:replyhtmlpage3:59">3.20.1</a></dd>
+<a class="idx" href="#idx:replyhtmlpage3:59">3.20.1</a> <a class="idx" href="#idx:replyhtmlpage3:60">3.20.1</a></dd>
 <dt><a class="idx" href="#reply_json/1">reply_json/1</a></dt>
 <dt><a class="idx" href="#reply_json/2">reply_json/2</a></dt>
 <dt><a class="idx" href="#reply_json_dict/1">reply_json_dict/1</a></dt>
@@ -8164,43 +8186,43 @@ relevant. The XPCE based server is considered obsolete.
 <dt><a class="idx" href="#reply_pwp_page/3">reply_pwp_page/3</a></dt>
 <dt>set_lang/1</dt>
 <dd>
-<a class="idx" href="#idx:setlang1:53">3.20</a> <a class="idx" href="#idx:setlang1:55">3.20</a></dd>
+<a class="idx" href="#idx:setlang1:54">3.20</a> <a class="idx" href="#idx:setlang1:56">3.20</a></dd>
 <dt>set_stream/2</dt>
 <dd>
-<a class="idx" href="#idx:setstream2:11">3.1</a></dd>
+<a class="idx" href="#idx:setstream2:12">3.1</a></dd>
 <dt>setup_call_cleanup/3</dt>
 <dd>
-<a class="idx" href="#idx:setupcallcleanup3:3">2</a></dd>
+<a class="idx" href="#idx:setupcallcleanup3:4">2</a></dd>
 <dt>shell/1</dt>
 <dd>
-<a class="idx" href="#idx:shell1:72">9</a> <a class="idx" href="#idx:shell1:74">9</a></dd>
+<a class="idx" href="#idx:shell1:73">9</a> <a class="idx" href="#idx:shell1:75">9</a></dd>
 <dt>ssl_context/3</dt>
 <dd>
-<a class="idx" href="#idx:sslcontext3:29">3.14.2</a></dd>
+<a class="idx" href="#idx:sslcontext3:30">3.14.2</a></dd>
 <dt>tcp_accept/3</dt>
 <dd>
-<a class="idx" href="#idx:tcpaccept3:41">3.15</a></dd>
+<a class="idx" href="#idx:tcpaccept3:42">3.15</a></dd>
 <dt>tcp_bind/2</dt>
 <dd>
-<a class="idx" href="#idx:tcpbind2:27">3.14.2</a></dd>
+<a class="idx" href="#idx:tcpbind2:28">3.14.2</a></dd>
 <dt>thread_create/3</dt>
 <dd>
-<a class="idx" href="#idx:threadcreate3:35">3.14.2</a></dd>
+<a class="idx" href="#idx:threadcreate3:36">3.14.2</a></dd>
 <dt>thread_create_in_pool/4</dt>
 <dd>
-<a class="idx" href="#idx:threadcreateinpool4:34">3.14.2</a></dd>
+<a class="idx" href="#idx:threadcreateinpool4:35">3.14.2</a></dd>
 <dt>thread_pool_create/3</dt>
 <dd>
-<a class="idx" href="#idx:threadpoolcreate3:33">3.14.2</a></dd>
+<a class="idx" href="#idx:threadpoolcreate3:34">3.14.2</a></dd>
 <dt>throw/1</dt>
 <dd>
-<a class="idx" href="#idx:throw1:13">3.1.1</a></dd>
+<a class="idx" href="#idx:throw1:14">3.1.1</a></dd>
 <dt>tspy/1</dt>
 <dd>
-<a class="idx" href="#idx:tspy1:26">3.14</a> <a class="idx" href="#idx:tspy1:75">10</a></dd>
+<a class="idx" href="#idx:tspy1:27">3.14</a> <a class="idx" href="#idx:tspy1:76">10</a></dd>
 <dt>uri_encoded/3</dt>
 <dd>
-<a class="idx" href="#idx:uriencoded3:51">3.20</a></dd>
+<a class="idx" href="#idx:uriencoded3:52">3.20</a></dd>
 <dt><a class="idx" href="#ws_close/3">ws_close/3</a></dt>
 <dt><a class="idx" href="#ws_open/3">ws_open/3</a></dt>
 <dt><a class="idx" href="#ws_property/2">ws_property/2</a></dt>

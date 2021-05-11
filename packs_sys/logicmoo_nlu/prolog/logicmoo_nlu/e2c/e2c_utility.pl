@@ -20,7 +20,7 @@ dcg_push_w2(A, S, [B|S]):- t_to_w2(A,B).
 theText1(IC)-->notrace(theText11(IC)).
 
 w2txt(W0)--> [w(W0,_)],!.
-w2txt(W0)--> [W0],!.
+w2txt(W0)--> [W0],{!,atomic(W0)}.
 
 theText11(IC)--> {var(IC),!},w2txt(W0),notrace(({parser_tokenize:any_nb_to_atom(W0,W1), downcase_atom(W1,IC)})).
 theText11([])--> !, [].

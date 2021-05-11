@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>SWI-Prolog 8.3.22 Reference Manual: Section 12.2</title><link rel="home" href="index.html">
+<title>SWI-Prolog 8.3.24 Reference Manual: Section 12.2</title><link rel="home" href="index.html">
 <link rel="contents" href="Contents.html">
 <link rel="index" href="DocIndex.html">
 <link rel="summary" href="summary.html">
@@ -251,7 +251,7 @@ some operating systems, notably Unix systems using the BSD <code>a.out</code>
 executable format. As the number of Unix platforms supporting this 
 quickly gets smaller and this interface is difficult to port and slow, 
 it is no longer described in this manual. The best alternative would be 
-to use the <a id="idx:dld:2337">dld</a> package on machines that do not 
+to use the <a id="idx:dld:2364">dld</a> package on machines that do not 
 have shared libraries.</span></sup>
 
 <p><h3 id="sec:foreign-linking"><a id="sec:12.2.1"><span class="sec-nr">12.2.1</span> <span class="sec-title">What 
@@ -263,9 +263,9 @@ linking is provided?</span></a></h3>
 SWI-Prolog. Whether or not dynamic linking is supported can be deduced 
 from the Prolog flag <a class="flag" href="flags.html#flag:open_shared_object">open_shared_object</a> 
 (see
-<a id="idx:currentprologflag2:2338"></a><a class="pred" href="flags.html#current_prolog_flag/2">current_prolog_flag/2</a>). 
+<a id="idx:currentprologflag2:2365"></a><a class="pred" href="flags.html#current_prolog_flag/2">current_prolog_flag/2</a>). 
 If this Prolog flag yields <code>true</code>,
-<a id="idx:opensharedobject2:2339"></a><a class="pred" href="foreignlink.html#open_shared_object/2">open_shared_object/2</a> 
+<a id="idx:opensharedobject2:2366"></a><a class="pred" href="foreignlink.html#open_shared_object/2">open_shared_object/2</a> 
 and related predicates are defined. See
 <a class="sec" href="foreignlink.html#sec:12.2.3">section 12.2.3</a> for 
 a suitable high-level interface to these predicates.
@@ -284,8 +284,8 @@ linker may vary from system to system, though the utility program
 
 <p>Loading shared objects (DLL files on Windows) provides sharing and 
 protection and is generally the best choice. If a saved state is created 
-using <a id="idx:qsaveprogram12:2340"></a><a class="pred" href="saved-states.html#qsave_program/1">qsave_program/[1,2]</a>, 
-an <a id="idx:initialization1:2341"></a><a class="pred" href="consulting.html#initialization/1">initialization/1</a> 
+using <a id="idx:qsaveprogram12:2367"></a><a class="pred" href="saved-states.html#qsave_program/1">qsave_program/[1,2]</a>, 
+an <a id="idx:initialization1:2368"></a><a class="pred" href="consulting.html#initialization/1">initialization/1</a> 
 directive may be used to load the appropriate library at startup.
 
 <p>Note that the definition of the foreign predicates is the same, 
@@ -480,15 +480,15 @@ is advised to use the predicates from <a class="sec" href="foreignlink.html#sec:
 This file is attached to the current process, and
 <var>Handle</var> is unified with a handle to the library. Equivalent to
 <code>open_shared_object(File, Handle, [])</code>. See also
-<a id="idx:opensharedobject3:2342"></a><a class="pred" href="foreignlink.html#open_shared_object/3">open_shared_object/3</a> 
-and <a id="idx:loadforeignlibrary1:2343"></a><a class="pred" href="foreignlink.html#load_foreign_library/1">load_foreign_library/1</a>.
+<a id="idx:opensharedobject3:2369"></a><a class="pred" href="foreignlink.html#open_shared_object/3">open_shared_object/3</a> 
+and <a id="idx:loadforeignlibrary1:2370"></a><a class="pred" href="foreignlink.html#load_foreign_library/1">load_foreign_library/1</a>.
 
 <p>On errors, an exception <code>shared_object(Action, Message)</code> 
 is raised. <var>Message</var> is the return value from dlerror().</dd>
 <dt class="pubdef"><a id="open_shared_object/3"><strong>open_shared_object</strong>(<var>+File, 
 -Handle, +Options</var>)</a></dt>
 <dd class="defbody">
-As <a id="idx:opensharedobject2:2344"></a><a class="pred" href="foreignlink.html#open_shared_object/2">open_shared_object/2</a>, 
+As <a id="idx:opensharedobject2:2371"></a><a class="pred" href="foreignlink.html#open_shared_object/2">open_shared_object/2</a>, 
 but allows for additional flags to be passed.
 <var>Options</var> is a list of atoms. <code>now</code> implies the 
 symbols are resolved immediately rather than lazy (default). <code>global</code> 
@@ -510,70 +510,32 @@ function installs foreign language predicates using calls to
 </dd>
 </dl>
 
-<p><h3 id="sec:staticl"><a id="sec:12.2.5"><span class="sec-nr">12.2.5</span> <span class="sec-title">Static 
+<p><h3 id="sec:static-linking"><a id="sec:12.2.5"><span class="sec-nr">12.2.5</span> <span class="sec-title">Static 
 Linking</span></a></h3>
 
-<a id="sec:staticl"></a>
+<a id="sec:static-linking"></a>
 
-<p>Below is an outline of the file structure required for statically 
-linking SWI-Prolog with foreign extensions. <code>.../swipl</code> 
-refers to the SWI-Prolog home directory (see the Prolog flag <a class="flag" href="flags.html#flag:home">home</a>).
-<code>&lt;<var>arch</var>&gt;</code> refers to the architecture 
-identifier that may be obtained using the Prolog flag <a class="flag" href="flags.html#flag:arch">arch</a>.
+<p>Older versions of SWI-Prolog were shipped by default with a
+<em>static library</em>. In recent versions we no longer ship a static 
+library because practically every OS properly supports dynamic linking 
+without serious drawbacks and dynamic linking has several advantages. It 
+is on many platforms required to be able to load SWI-Prolog foreign 
+libraries (see <a id="idx:useforeignlibrary1:2372"></a><a class="pred" href="foreignlink.html#use_foreign_library/1">use_foreign_library/1</a>). 
+Only on ELF based systems such as Linux we can load foreign libraries <em>if</em> 
+the main executable is linked to export its global symbols (<b>gcc</b> <code>-rdynamic</code> 
+option). Another advantage of dynamic libraries is that the user does 
+not have to worry about libraries that this particular build of 
+SWI-Prolog requires such as <code>libgmp</code> as well as OS specific 
+libraries.
 
-<p><table class="latex frame-void center">
-<tr><td><code>.../swipl/runtime/&lt;<var>arch</var>&gt;/libswipl.a</code> </td><td>SWI-Library </td></tr>
-<tr><td><code>.../swipl/include/SWI-Prolog.h</code> </td><td>Include 
-file </td></tr>
-<tr><td><code>.../swipl/include/SWI-Stream.h</code> </td><td>Stream I/O 
-include file </td></tr>
-<tr><td><code>.../swipl/include/SWI-Exports</code> </td><td>Export 
-declarations (AIX only) </td></tr>
-<tr><td><code>.../swipl/include/stub.c</code> </td><td>Extension stub</td></tr>
-</table>
-
-<p>The definition of the foreign predicates is the same as for dynamic 
-linking. Unlike with dynamic linking, however, there is no 
-initialisation function. Instead, the file <code>.../swipl/include/stub.c</code> 
-may be copied to your project and modified to define the foreign 
-extensions. Below is <code>stub.c</code>, modified to link the lowercase 
-example described later in this chapter:
-
-<pre class="code">
-#include &lt;stdio.h&gt;
-#include &lt;SWI-Prolog.h&gt;
-
-extern foreign_t pl_lowercase(term, term);
-
-PL_extension predicates[] =
-{
-/*{ "name",      arity,  function,      PL_FA_&lt;flags&gt; },*/
-
-  { "lowercase", 2       pl_lowercase,  0 },
-  { NULL,        0,      NULL,          0 } /* terminating line */
-};
-
-
-int
-main(int argc, char **argv)
-{ PL_register_extensions(predicates);
-
-  if ( !PL_initialise(argc, argv) )
-    PL_halt(1);
-
-  PL_halt(PL_toplevel() ? 0 : 1);
-}
-</pre>
-
-<p>Now, a new executable may be created by compiling this file and 
-linking it to <code>libpl.a</code> from the runtime directory and the 
-libraries required by both the extensions and the SWI-Prolog kernel. 
-This may be done by hand, or by using the <b>swipl-ld</b> utility 
-described in
-<a class="sec" href="plld.html#sec:12.5">section 12.5</a>. If the 
-linking is performed by hand, the command line option <strong>--dump-runtime-variables</strong> 
-(see <a class="sec" href="cmdline.html#sec:2.4">section 2.4</a>) can be 
-used to obtain the required paths, libraries and linking options to link 
-the new executable.
+<p>If one really wants a static library, use the <b>CMake</b> flag
+<code>-DSWIPL_STATIC_LIB=ON</code> while configuring a build from 
+source. This causes building and installing <code>libswipl_static.a</code>. 
+Note the
+<code>_static</code> postfix to avoid a name conflict on Windows between 
+the
+<em>import library</em> and the <em>static library</em>.<sup class="fn">195<span class="fn-text">As 
+is, the Windows build is cross-compiled using MinGW which produces <code>libswipl_static.a</code>. 
+This file can, as far as we know, <em>not</em> be used by MSVC.</span></sup>.
 
 <p></body></html>

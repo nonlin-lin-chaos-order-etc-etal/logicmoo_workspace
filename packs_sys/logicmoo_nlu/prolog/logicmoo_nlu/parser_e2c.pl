@@ -301,8 +301,7 @@ e2c(Sentence):-
   % with_error_to_predicate(nop, make),
    mmake,
    setup_call_cleanup(
-   must(notrace((to_wordlist_atoms(Sentence, Words), fmt('?-'(e2c(Sentence)))))),
-   (call_residue_vars(must(e2c_0(Words)), Vs), del_e2c_attributes(Vs)),
+   (fmt('?-'(e2c(Sentence)),(call_residue_vars(must(e2c_0(Sentence)), Vs), del_e2c_attributes(Vs)))),
    true), !.
 :-system:import(e2c/1).
 
@@ -319,9 +318,9 @@ e2c(Sentence, Options):- callable(Options), set_e2c_options(Options), !, e2c(Sen
 e2c(Sentence, Reply):- e2c(Sentence, [], Reply),!.
 :-export(e2c/3).
 e2c(Sentence, Options, Reply):-
- quietly(to_wordlist_atoms(Sentence, WL)), !,
+ %quietly(to_wordlist_atoms(Sentence, WL)), !,
  set_e2c_options(Options),
- call_residue_vars(e2c_0(WL, Reply), Vs), !,
+ call_residue_vars(e2c_0(Sentence, Reply), Vs), !,
  del_e2c_attributes(Reply+Vs), !.
 :-system:import(e2c/2).
 
@@ -340,9 +339,8 @@ e2c_0(Sentence,
 
 :- assert_if_new(baseKB:mpred_prop(parser_e2c, e2c_parse, 2, prologOnly)).
 
-e2c_parse(Sentence, LF):- cwc,  
-  text_to_corenlp(Sentence, WL), !,
-  corenlp_to_segs(WL,Segs),
+e2c_parse(Sentence, LF):- %cwc,  
+  must_e2c_segs(Sentence,Segs),
   e2c_parse0(Segs, LF),
   del_e2c_attributes(LF),!.
 
@@ -350,24 +348,30 @@ e2c_parse(Sentence, unparsed(Sentence)).
 
 :- assert_if_new(baseKB:mpred_prop(parser_e2c, e2c_parse0, 2, prologOnly)).
 
-e2c_parse0(WL, LF):-
+e2c_parse0(Sentence, LF):-
   b_setval('$variable_names', []),
   retractall(t_l:usePlTalk),
   retractall(t_l:useAltPOS), !,
-  e2c_parse2(WL, LF).
-%e2c_parse2(WL, LF):- deepen_pos(utterance(_How, LF, WL, []))-> ! ; e2c_parse3(WL, LF).
+  must_e2c_segs(Sentence,Segs),
+  e2c_parse_segs(Segs, LF).
+%e2c_parse_segs(WL, LF):- deepen_pos(utterance(_How, LF, WL, []))-> ! ; e2c_parse3(WL, LF).
 
-e2c_parse2(WL, LF):- no_repeats(LF, deepen_pos(utterance(_How, LF, WL, []))),!.
-e2c_parse2(Sentence, unparsed(Sentence)).
+must_e2c_segs(Sentence,Segs):- must_or_rtrace(e2c_into_segs(Sentence,Segs)).
+e2c_into_segs(Sentence,Segs):- is_list(Sentence),maplist(span_or_word,Sentence),!,Segs=Sentence.
+e2c_into_segs(Sentence,Segs):- (corenlp_to_segs(Sentence,Segs)->Segs=[_|_]),!.
+e2c_into_segs(Sentence,Segs):- any_to_string(Sentence,S),notrace(text_to_corenlp_segs(S,Segs)),!.
+
+e2c_parse_segs(WL, LF):- no_repeats(LF, deepen_pos(utterance(_How, LF, WL, []))),!.
+e2c_parse_segs(Sentence, unparsed(Sentence)).
 /*
-e2c_parse2(WL, LF):- fail, deepen_pos(e2c_parse3(WL, LF)).
+e2c_parse_segs(WL, LF):- fail, deepen_pos(e2c_parse3(WL, LF)).
 
 
 e2c_parse3(Sentence, Reply):- notrace(into_text80(Sentence, U)), !,
   also_chat80(U, Res),
   once((rewrite_result(_SF, verb, _VF, Res, Reply))).
 */
-
+  
 %:- e2c("Whenever someone enters the lobby they can see two books sitting on a lone shelf that is out of reach.")
 %:- e2c("Whenever someone enters the lobby they can see two books sitting on a lone shelf that are out of reach.")
 

@@ -87,7 +87,7 @@ int_pron(which,undef).
 int_pron(who,subj).
 int_pron(whom,compl).
 
-name_LF(Name) :- name_template_LF(Name,_), !.
+name_LF(Name) :- name_template_LF(Name,_).
 
 noun_form(Plu,Sin,pl) :- noun_plu(Plu,Sin).
 noun_form(Sin,Sin,sg) :- noun_sin(Sin).

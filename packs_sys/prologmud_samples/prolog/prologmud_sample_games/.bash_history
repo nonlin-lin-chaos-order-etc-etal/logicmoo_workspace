@@ -1085,3 +1085,106 @@ apt update
 apt install gimp
 git status
 git diff
+git commit -am move_ahead_spans
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+kill -9 %1
+kill -9 %1
+./StartLogicmoo.sh 
+./INSTALL-SWI.md 
+rm -rf swipl-devel
+./INSTALL-SWI.md 
+swipl
+./StartLogicmoo.sh 
+swipl
+./StartLogicmoo.sh 
+vi  /opt/logicmoo_workspace/lib/swipl/library/sandbox.pl
+cp docker/rootfs/usr/local/lib/swipl/library/sandbox.pl Patch/rootfs/usr/local/lib/swipl/library/sandbox.pl
+./StartLogicmoo.sh 
+vi /opt/logicmoo_workspace/packs_sys/logicmoo_base/prolog/logicmoo/common_logic/common_logic_exists.pl 
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+./StartLogicmoo.sh 
+cls
+./StartLogicmoo.sh 
+cd ~prologmud_server/
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+kill -9 %1
+kill -9 %1
+swipl
+kill -9 %1
+kill -9 %1
+kill -9 %2
+kill -9 %2
+kill -9 %3
+kill -9 %3
+kill -9 %3
+kill -9 %4
+swipl
+swipl
+swipl
+kill -9 %1
+kill -9 %1
+swipl
+swipl
+swipl
+swipl
+swipl
+kill -9 %1
+kill -9 %1
+kill -9 %1
+kill -9 %2
+swipl
+kill -9 %2
+kill -9 %1
+kill -9 %1
+cls
+swipl
+swipl
+swipl
+swipl
+cls
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+kill -9 
+kill -9 %1
+kill -9 %1
+kill -9 %1
+swipl
+swipl
+swipl
+swipl
+cls
+swipl
+swipl
+swipl
+cls
+cls ; swipl
+git status
+rm  ../../../../packs_web/logicmoo_webui/var/www/html/ef/files/.tmb/l1_bG9naWNtb28uaWNv1618953420.png 
+git add .
+git status
+cd /opt/logicmoo_workspace/
+git add .
+git status
+git checkout docker/rootfs/usr/local/lib/swipl/lib/jpl.jar
+git master~1 checkout docker/rootfs/usr/local/lib/swipl/lib/jpl.jar
+git checkout master~1 docker/rootfs/usr/local/lib/swipl/lib/jpl.jar
+git checkout master~1 docker/rootfs/usr/local/lib/swipl/library/jpl.pl

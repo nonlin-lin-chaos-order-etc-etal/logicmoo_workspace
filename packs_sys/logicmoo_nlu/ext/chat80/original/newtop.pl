@@ -21,10 +21,18 @@
 
 */
 
+
 %:- ensure_loaded(readin).
 :- ensure_loaded('/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/prolog/logicmoo_nlu/parser_tokenize').
 
 
+:-thread_local t_l:old_text/0.
+
+t_l:old_text:- throw(t_l:old_text).
+% TODO dont use open marker use []
+use_open_marker.
+
+/*
 words_to_w2(U,W2):- words_to_w22(U,W2),!.
 
 words_to_w22(U,W2):-var(U),must(W2=U).
@@ -34,11 +42,6 @@ words_to_w22(U,W2):- convert_to_atoms_list(U,List),!,words_to_w2(List,W2).
 %words_to_w2(U,W2):- compound(U),must(W2=U).
 
 
-:-thread_local t_l:old_text/0.
-
-t_l:old_text:- throw(t_l:old_text).
-% TODO dont use open marker use []
-use_open_marker.
 
 
 w_to_w2(W,W):-t_l:old_text,!.
@@ -55,7 +58,7 @@ w_to_w2(X,w(X,[])):-!.
 w2_to_w(w(Txt,_),Txt):-!.
 w2_to_w(Txt,Txt).
 
-
+*/
 
 % Chat-80 : A small subset of English for database querying.
 
@@ -114,7 +117,7 @@ ed(  2, [ does, afghanistan, border, china, ? ],
 
 		[true]  ).
 
-ed(  3, [ what, is, the, capital, of, upper_volta, ? ],
+ed(  3, [ what, is, the, capital, of, upper, volta, ? ],
 
 		[ouagadougou]  ).
 
@@ -458,6 +461,8 @@ doing80([X|L],N0) :-
    advance80(X,N0,N),
    doing80(L,N),!.
 
+out80(w(X,_)) :- nonvar(X), !,
+   reply(X).
 out80(nb(X)) :- nonvar(X), !,
    reply(X).
 out80(A) :-
@@ -552,16 +557,17 @@ span_or_word(S):- compound(S), (S = w(_,_); S=span(_)),!.
 into_w2_segs(Sentence,Sentence):- maplist(span_or_word,Sentence),!.
 into_w2_segs(Sent,U):-  any_to_string(Sent,Text80), into_w2_segs_pt2(Text80,U),!.
 into_w2_segs_pt2(Sentence,U):- catch(text_to_corenlp_segs(Sentence,U),E,(wdmsg(error(E,text_to_corenlp_segs(Sentence))), fail)),!.
-into_w2_segs_pt2(Sentence,U):- check_words(Sentence,U).
+into_w2_segs_pt2(Sentence,U):- text_to_corenlp_segs(Sentence,U),!.
+%into_w2_segs_pt2(Sentence,U):- check_words(Sentence,U).
 
 process4(How,Sentence,Answer,Times) :-
    Times = [ParseTime,SemTime,TimePlan,TimeAns,TotalTime],
-   runtime(StartSeg),
+  quietly(( runtime(StartSeg),
    into_w2_segs(Sentence,U),
    runtime(StopSeg),
    SegTime is StopSeg - StartSeg,
-   report(always,U,'segs',SegTime,tree),
-   runtime(StartParse),  
+   report(How,U,'segs',SegTime,tree),
+   runtime(StartParse))),!,
  ((sentence80(E,U,[],[],[]),
    notrace((runtime(StopParse),
 
@@ -774,6 +780,7 @@ check_words(NonList,Out):-
  \+ is_list(NonList),
  into_text80_atoms(NonList,M),!,
  check_words(M,Out).
+check_words(X,X):-!.
 check_words([],[]).
 check_words([Word1,Word2|Words],RevWords) :- atomic(Word1),atomic(Word2),atomic_list_concat([Word1,'_',Word2],Word),chk_word(Word),!,
   check_words([Word|Words],RevWords).
@@ -784,7 +791,7 @@ check_words([Word|Words],[RevWord|RevWords]) :-
    check_words(Words,RevWords).
 
 %:- mode check_word(+,-).
-check_word(Word,w(NewWord,open)):- \+ compound(Word), check_word0(Word,NewWord),!.
+%check_word(Word,w(NewWord,open)):- \+ compound(Word), check_word0(Word,NewWord),!.
 check_word(X,X).
 
 check_word0(Word,Word) :- number(Word),!.

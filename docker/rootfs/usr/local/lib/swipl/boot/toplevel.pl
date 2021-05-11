@@ -743,10 +743,12 @@ setup_interactive :-
     ->  true
     ;   print_message(error, error(goal_failed('$compile'), _)),
         halt(1)
-    ).
+    ),
+    halt.                               % set exit code
 
 '$compile_' :-
     '$load_system_init_file',
+    catch(setup_colors, _, true),
     '$set_file_search_paths',
     init_debug_flags,
     '$run_initialization',

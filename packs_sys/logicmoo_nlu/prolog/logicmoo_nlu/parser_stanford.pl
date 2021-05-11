@@ -56,6 +56,7 @@ text_to_corenlp(Text,CoreNLP):-
   text_to_corenlp(Text,_Options, CoreNLP).
 
 text_to_corenlp(English, OptionsIn, Out):-
+ must_or_rtrace((
   DefaultOpts = [  quote, tokenize, ssplit, pos, depparse, ner, parse, coref,mwt,natlog,udfeats,
    relation,lemma, docdate, entitylink, openie, truecase, kbp, gender, cleanxml,
    %entitymentions, %sentiment,
@@ -67,11 +68,12 @@ text_to_corenlp(English, OptionsIn, Out):-
   atomic_list_concat(Options, ',', OptionsStr),
   atomic_list_concat(['{"annotators":"', OptionsStr,'","outputFormat":"json"}'],For),
   uri_encoded(query_value, For, Encoded), 
-  atomic_list_concat(['http://localhost:4090/?properties=',Encoded], URL),
+  atomic_list_concat(['http://localhost:4090/?properties=',Encoded], URL))),
  % wdmsg(uRL=http_post(URL, [PostData], json(Reply), [])),
-  http_post(URL, [PostData], json(Reply), []),!,
+  must_or_rtrace(http_post(URL, [PostData], json(Reply), [])),!,
   ttyflush,!,
-  parse_reply([reply], Reply, Out),!.
+  must_or_rtrace(parse_reply([reply], Reply, OOut)),!,
+  must_or_rtrace(OOut=Out),!.
 % http://localhost:4090/stanford/?properties={%22annotators%22%3A%22quote,tokenize,ssplit,pos,lemma,depparse,natlog,coref,dcoref,nmat%22%3A%22json%22}
 % http://localhost:4090/stanford/?properties={%22annotators%22%3A%22tokenize%2Cssplit%2Cpos%2Cdepparse%22%2C%22outputFormat%22%3A%22conllu%22}
 
@@ -189,7 +191,7 @@ parse_reply_replace(_Ctx, Sub, Replace):-
  members([index=Index, originalText=String, word=String, 
     lemma=Root, pos=Pos], Sub, Attributes), !,
  my_cvt_to_real_string(String,AString),
- w_to_w2(AString,w(W,_)),
+ atom_string(W,AString),
  downcase_atom(Pos,PosD),
  downcase_atom(W,WD),
  Replace = w(WD,[pos(PosD), root(Root),loc(Index), txt(AString)| Attributes]).

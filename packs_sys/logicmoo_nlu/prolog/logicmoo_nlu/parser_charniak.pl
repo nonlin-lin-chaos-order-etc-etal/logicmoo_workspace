@@ -79,6 +79,8 @@ can_be_partof(_,_).
 
 
 marked_segs(['VP'-'Situation',
+ 'WHNP'-'WHNP',
+ 'SBARQ'-'SBARQ',
   'ADVP'-'Adv',
   'SQ'-'SQ',
   'PP'-'Prep',
