@@ -1188,3 +1188,60 @@ git checkout docker/rootfs/usr/local/lib/swipl/lib/jpl.jar
 git master~1 checkout docker/rootfs/usr/local/lib/swipl/lib/jpl.jar
 git checkout master~1 docker/rootfs/usr/local/lib/swipl/lib/jpl.jar
 git checkout master~1 docker/rootfs/usr/local/lib/swipl/library/jpl.pl
+git status
+swipl
+apt update
+apt install libncurses.so.6
+apt install libncurses
+apt install libncurses
+apt install libcurses
+apt install libtinfo
+apt install libtinfo6
+apt install readline
+apt install libreadline
+apt update
+apt upgrade
+ apt-get install libncurses6
+cd swipl-devel/
+cd build/
+make
+cd ..
+cd ..
+./INSTALL-SWI.md 
+vi INSTALL-SWI.md 
+./INSTALL-SWI.md 
+./INSTALL-SWI.md 
+cd swipl-devel/packages/jpl/
+ls
+make
+cd ..
+cd ..
+cd build/packages/jpl/
+make
+cat Makefile 
+make help
+make all
+make .
+cmake
+cd ..
+cd ..
+cmake
+cmake .
+make
+cmake .
+apt install default-jdk
+cmake .
+make
+make -j 11
+make -j 11
+make
+cd ../..
+git status
+cd -
+make install
+git status
+cd ..
+cd ..
+git status
+swipl
+git status

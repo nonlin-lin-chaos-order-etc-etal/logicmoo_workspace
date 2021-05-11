@@ -13,3 +13,4 @@ undo((write('i\040failed!'),nl)),!,fail.
 undo((write(foo),\040nl)),\040!,\040(X=1;\040X=2).
 undo(writeln('done!')),\040!,\040(X=1;\040X=2).
 undo(writeln('done!')),\040\040(X=1;\040X=2).
+make.

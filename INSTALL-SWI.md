@@ -102,7 +102,7 @@ git status -s
 MAKE=ninja
 MAKE=make
 (cd swipl-devel
- \cp -a Patch/rootfs/usr/local/lib/swipl/* .
+ \cp -a ../Patch/rootfs/usr/local/lib/swipl/* .
  rm -rf build
  mkdir -p build
  cd build

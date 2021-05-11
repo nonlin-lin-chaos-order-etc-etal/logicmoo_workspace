@@ -3,9 +3,8 @@
     Author:        Jan Wielemaker
     E-mail:        J.Wielemaker@vu.nl
     WWW:           http://www.swi-prolog.org
-    Copyright (c)  2013-2021, VU University Amsterdam
+    Copyright (c)  2013-2020, VU University Amsterdam
                               CWI, Amsterdam
-                              SWI-Prolog Solutions b.v
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -278,7 +277,7 @@ known_module(M:_, _) :-
 known_module(_,_):- current_prolog_flag(no_sandbox, true), !, fail.    
 known_module(M:G, Parents) :-
     do_permission_error(call, sandboxed, M:G,
-                sandbox(M:G, Parents).
+                sandbox(M:G, Parents)).
 
 add_iso_parent(G, Parents, Parents) :-
     is_control(G),
@@ -1072,7 +1071,6 @@ safe_meta(system:setup_call_catcher_cleanup(0,0,*,0)).
 safe_meta('$attvar':call_residue_vars(0,*)).
 safe_meta('$syspreds':call_with_inference_limit(0,*,*)).
 safe_meta('$syspreds':call_with_depth_limit(0,*,*)).
-safe_meta('$syspreds':undo(0)).
 safe_meta(^(*,0)).
 safe_meta(\+(0)).
 safe_meta(call(0)).
