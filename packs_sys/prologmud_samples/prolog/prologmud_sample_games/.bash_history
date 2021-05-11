@@ -1245,3 +1245,12 @@ cd ..
 git status
 swipl
 git status
+git commit -am libjpl
+cd ..
+cd -
+cd ~prologmud_server/
+cls
+swipl
+cls
+git status
+git commit /e2c_utility.pl

@@ -19,12 +19,27 @@ dcg_push_w2(A, S, [B|S]):- t_to_w2(A,B).
 
 theText1(IC)-->notrace(theText11(IC)).
 
-w2txt(W0)--> [w(W0,_)],!.
-w2txt(W0)--> [W0],{!,atomic(W0)}.
+w2txt001(Cmp) --> next_as_word_e2c,{!},[Cmp],{assertion(nonvar(Cmp))}.
 
-theText11(IC)--> {var(IC),!},w2txt(W0),notrace(({parser_tokenize:any_nb_to_atom(W0,W1), downcase_atom(W1,IC)})).
+w2txt01(Text) --> w2txt001(A), {atomic(A),!,A=Text}.
+w2txt01(Text) --> w2txt001(Cmp),{compound(Cmp),!,Cmp=w(Text,_)}.
+%w01(Text) --> w001(A), {Text=A}.
+
+consume_spans_hack_e2c --> [span(NV)],{nonvar(NV),!},consume_spans_hack_e2c.
+consume_spans_hack_e2c --> [].
+
+move_ahead_spans_e2c(S1,S2):- partition(\=(span(_)),S1,W,S),!,append(W,S,S2).
+
+next_as_word_e2c(S1,S2):- select(W2,S1,SM),compound(W2),W2=w(_,_),!,S2=[W2|SM].
+next_as_word_e2c(S1,S1).
+
+w2txt(Text) --> consume_spans_hack_e2c,w2txt01(Text),consume_spans_hack_e2c.
+%w2txt(W0)--> [w(W0,_)],!.
+%w2txt(IC)--> [W0],{!,\+compound(W0),IC=W0}.
+
+theText11(IC)--> {var(IC),!},w2txt(W0),{notrace((assertion(nonvar(W0);nonvar(IC)),the_text_unif(IC,W0)))}.
 theText11([])--> !, [].
-theText11(IC)--> {atomic(IC),downcase_atom(IC,DC)},w2txt(W0),{parser_tokenize:any_nb_to_atom(W0,W1),(W1=DC;downcase_atom(W1,DC))},!.
+theText11(IC)--> {atomic(IC),!},w2txt(W0),{the_text_unif(IC,W0)},!.
 theText11([H|T])--> theText11(H),!,theText11(T).
 %theText1(Txt)--> [w(Txt,_)].
 
