@@ -109,7 +109,7 @@ try_converter(TID, CNV):-
   (((((
      maplist(make_io_closure(TID), Args, IOArgs, CLOSURES),
      IOCNVLST=..[F|IOArgs], !,
-     Goal = '@'((IOCNVLST), M),
+     (Goal = M:IOCNVLST),
      warn_failure(deepen_pos(catch(Goal,E,(wdmsg(Goal-->E),on_x_fail(rtrace(Goal)),fail)))),
      maplist(must_or_rtrace, CLOSURES), nop(flag(TID, X, X+1))))))).
 

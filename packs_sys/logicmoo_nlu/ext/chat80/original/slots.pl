@@ -30,6 +30,8 @@
 
 i_sentence(q(S),question80([],P)) :-
    i_s(S,P,[],0).
+i_sentence(decl(S),assertion80(P)) :-
+   i_s(S,P,[],0).
 i_sentence(whq(X,S),question80([X],P)) :-
    i_s(S,P,[],0).
 i_sentence(imp(U,Ve,s(_,Verb,VArgs,VMods)),imp(U,Ve,V,Args)) :-

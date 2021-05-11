@@ -189,6 +189,8 @@ tr_number(ten,10).
 tr_number(three,3).
 tr_number(two,2).
 
+
+
 verb_form_lex80(am,be,pres+fin,1+sg).
 verb_form_lex80(are,be,pres+fin,2+sg).
 verb_form_lex80(are,be,pres+fin,_+pl).
@@ -222,17 +224,18 @@ verb_form_lex80(risen,rise,past+part,_).
 verb_form_lex80(rises,rise,pres+fin,3+sg).
 verb_form_lex80(rose,rise,past+fin,_).
 
-verb_form_lex80(Verb,Verb,pres+fin,_+pl) :- Verb = V, verb_root(V).
+verb_form_lex(Are,Be,PresFin,NthPlOrSing):- verb_form_lex80(Are,Be,PresFin,NthPlOrSing).
+verb_form_lex(Verb,Verb,pres+fin,_+pl) :- Verb = V, verb_root(V).
 % ... because [which,countries,border,france,?] was not properly parsed (the singular form was)
-verb_form_lex80(Verb,Verb,inf,_) :-  Verb = V,  verb_root(V).
+verb_form_lex(Verb,Verb,inf,_) :-  Verb = V,  verb_root(V).
 % ... because [does,france,border,belgium,?] was not properly parsed
-verb_form_lex80(Verb,Inf,past+part,_) :- regular_past(Verb,Inf).
-% ... because [is,france,bordered,by,belgium,?] was not properly parsed. Deduced from verb_form_lex80(done,do,past+part,_) above.
-
-%verb_form_lex80(A,A,C,D) :-
+verb_form_lex(Verb,Inf,past+part,_) :- regular_past(Verb,Inf).
+% ... because [is,france,bordered,by,belgium,?] was not properly parsed. Deduced from verb_form_lex80(done,do,past+part,_) bellow.
+%verb_form_lex(A,A,C,D) :-
 %  writef("********************************** verb_form_db {0} failed", [[A,A,C,D]]).
 %  !,
 %  fail.
+
 
 verb_root(be).
 verb_root(do).

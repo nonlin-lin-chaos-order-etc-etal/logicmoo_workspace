@@ -463,6 +463,7 @@ doing80([X|L],N0) :-
 
 out80(w(X,_)) :- nonvar(X), !,
    reply(X).
+out80(span(X)) :- nonvar(X), !.
 out80(nb(X)) :- nonvar(X), !,
    reply(X).
 out80(A) :-

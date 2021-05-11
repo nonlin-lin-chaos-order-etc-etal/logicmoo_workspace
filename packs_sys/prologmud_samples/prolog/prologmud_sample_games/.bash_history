@@ -1254,3 +1254,127 @@ swipl
 cls
 git status
 git commit /e2c_utility.pl
+git commit -am e2c_utility.pl
+swipl
+cls ; swipl
+cls ; swipl
+fg
+cls ; swipl
+cls ; swipl
+cls
+who
+fg
+fg
+who
+which cls
+vi /opt/logicmoo_workspace/bin/cls
+vi /opt/logicmoo_workspace/bin/cls
+cls
+osascript 
+apt install osascript 
+vi /opt/logicmoo_workspace/bin/cls
+cls
+bind / eval "scrollback 0" "scrollback 15000"
+crollback 0
+crollback 0
+scrollback 0
+bind "scrollback 0" "scrollback 15000"
+scrollback 0
+vi /opt/logicmoo_workspace/bin/cls
+cls ; swipl
+kill -9 
+kill -9 
+kill -9 &1
+kill -9 &1
+kill -9 %1
+kill -9 %1
+kill -9 %1
+kill -9 %2
+vi ~/.screenrc 
+/opt/logicmoo_workspace/StartLogicmoo.sh
+git status
+git commit -am "adjusted units"
+git status
+/opt/logicmoo_workspace/StartLogicmoo.sh
+/opt/logicmoo_workspace/StartLogicmoo.sh
+cd ~prologmud_server/
+swipl
+swipl
+swipl
+git status
+vp  ../../../logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.pl
+cp ../../../logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.pl ../../../logicmoo_nlu/prolog/logicmoo_nlu/nl_pipeline.new.pl
+swipl
+swipl
+kill 09 %1
+kill 09 %1
+kill -9 %1
+kill -9 %1
+fg
+swipl
+swipl
+swipl
+swipl
+swipl
+kill -9 %1
+kill -9 %1
+swipl
+kill -9 %1
+kill -9 %1
+swipl
+swipl
+su -
+cp ~/.screenrc .
+/opt/logicmoo_workspace/StartLogicmoo.sh
+cls
+vi ~/.screenrc 
+vi ~/.screenrc 
+e3xit
+exit
+/opt/logicmoo_workspace/StartLogicmoo.sh
+/opt/logicmoo_workspace/StartLogicmoo.sh
+vi ~/.screenrc 
+vi ~/.bashrc 
+/opt/logicmoo_workspace/StartLogicmoo.sh
+cls
+printf '\e[2J\e[3J\e[H'
+printf '\e[2J\e[3J\e[H'
+printf '\033[2J\033[H\033[3J'
+cls
+cls
+vi `whichb cls`
+vi `which cls`
+cls
+vi `which cls`
+vi `which cls`
+rm \~
+ls
+cls
+cls
+vi `which cls`
+cls
+vi `which cls`
+vi `which cls`
+cls
+vi `which cls`
+vi `which cls`
+cls
+cls
+./StartLogicmoo.sh 
+screen -S LogicmooServer -X stuff $'\001:scrollback 0'
+screen -r
+screen -r
+exit
+/opt/logicmoo_workspace/StartLogicmoo.sh
+cls
+cls
+cat ~/.screenrc 
+vi `which csl`
+vi `which cls`
+cls
+cls
+vi `which cls`
+cls
+cls
+exitr
+exit

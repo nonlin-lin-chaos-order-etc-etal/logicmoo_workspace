@@ -139,6 +139,7 @@ print_e_to_string(T, Ops, S):- member(Infix,['<-']), member(Infix, Ops), !,
    subst(T,Infix,(':-'),T0), 
    clause_to_string(T0,S0), !,
    mid_pipe(S0,str_repl(':-',Infix),S).
+
 print_e_to_string(T, Ops, S):- Pos=['<-','->','<->',':-'],  
    member(Infix,Pos), select(Infix,Ops,Rest), member(Infix2, Pos),
     \+ member(Infix2,Rest), !, 
@@ -595,13 +596,23 @@ print_final_tree_options_tab(Final,Term0,Options,Tab):-
      set_prolog_flag(print_write_options,OldOptions)).
     
 
+print_tree_no_nl(Term):- 
+  print_tree(Term, [partial(true),
+     % spacing(next_argument),
+     character_escapes(true),fullstop(false),nl(false)]).
+
 % print_final_term_tab(Final,Term,Tab):-  list_contains_sub_list(Term), prefix_spaces(Tab), mu_prolog_pprint(Tab,Term,[]), write(Final).
 print_final_term_tab(Final,Term,Tab):- \+ as_is(Term), pt0([],Final, Term, Tab),!.
 print_final_term_tab(Final,Term,Tab):-  prefix_spaces(Tab), format('~@~w',[portray_with_vars(Term),Final]),!.
 
-prefix_spaces(Tab):- \+ integer(Tab), recalc_tab(Tab,   NewTab),!,prefix_spaces(NewTab).
-prefix_spaces(Tab):- current_output_line_position(Now), Now > Tab, !,nl,  format('~t~*|', [Tab]).
-prefix_spaces(Tab):- current_output_line_position(Now), Need is Tab - Now, format('~t~*|', [Need]).
+prefix_spaces(Tab):- notrace(prefix_spaces0(Tab)).
+prefix_spaces0(Tab):- \+ integer(Tab), recalc_tab(Tab,   NewTab),!,prefix_spaces(NewTab).
+prefix_spaces0(Tab):- current_output_line_position(Now), Now > Tab, !,nl,  print_spaces(Tab).
+prefix_spaces0(Tab):- current_output_line_position(Now), Need is Tab - Now,!, print_spaces(Need).
+
+print_spaces(N):- N<1, !.
+print_spaces(Need):- write(' '),M1 is Need -1,print_spaces(M1).
+%print_spaces(Need):- format('~t~*|', [Need]).
 
 format_functor(F):- upcase_atom(F,U), ((F==U,current_op(_,_,F)) -> format("'~w'",[F]) ; format("~q",[F])).
 
@@ -679,7 +690,6 @@ pt1(FS,Final,TTs,Tab) :-
 
 pt1(FS,Final,(NPV),Tab) :- NPV=..[P,N,V], is_colon_mark(P),pt1_package(FS,Final,P,N,V,Tab).
 
-
 pt1(FS,Final,T,Tab0) :- 
    T=..[F,A,As], 
    major_conj(F),
@@ -701,7 +711,6 @@ pt1(FS,Final,Term,Tab) :-
    atom_concat(Final, ' ) ', NewFinal),
    pt0([P|FS], NewFinal,V, Tab+ 3 ).
 */
-
 pt1(FS, Final,T,Tab) :- 
    T=..[F,A0,A|As], \+ major_conj(F), is_arity_lt1(A0), append(Left,[R|Rest],[A|As]), 
     (\+ is_arity_lt1(R) ; Rest==[]), !,   
@@ -709,8 +718,15 @@ pt1(FS, Final,T,Tab) :-
    write_simple(A0), write_simple_each(Left),
    pt_args([F|FS],LC2,[R|Rest],I0).
 
+pt1(FS, Final,T,Tab) :-
+   T=..[F,Term], !,   
+   current_output_line_position(L), 
+   must_or_rtrace(pt1_functor(FS,Final,F,Tab,_I0,LC2)),
+   %write(' '), 
+   Place is L+5,
+   pt1(FS,LC2,Term, Place). % ,print_tree_no_nl(Term),write(LC2).
 
-pt1(FS, Final,T,Tab) :- 
+pt1(FS, Final,T,Tab) :-  fail,
    T=..[F,A0], !,   
    must_or_rtrace(pt1_functor(FS,Final,F,Tab,_I0,LC2)),
    print_tree_with_final(A0,LC2).
@@ -729,6 +745,11 @@ pt1(_, Final,Term,Tab) :- fail, write_using_pprint_recurse(Term),
    write(Final).
 
 */
+pt1(_FS, Final,T,Tab) :- functor(T,F,A), uses_op(F,A),
+   fail, prefix_spaces(Tab), 
+   setup_call_cleanup(asserta((user:portray(X):- \+ as_is(X), \+ (compound(X), compound_name_arity(X,F,A)), X\=@=T, print_tree(X), !),Ref),
+    print(T),erase(Ref)),
+   format('~w',[Final]),!.
 
 pt1(FS,Final,T,Tab) :- !,
    T=..[F,A|As],   
@@ -738,7 +759,7 @@ pt1(FS,Final,T,Tab) :- !,
 
 pt1_functor(FS,Final,F,Tab,I0,LC2):-
    (((FS==F, major_conj(F) )
-       -> (I0 is Tab+1,LCO='~w' )
+       -> (I0 is Tab+0,LCO='~w' )
        ; (prefix_spaces(Tab), format_functor(F),format('(',[]), I0 is Tab+3, /*pt_nl,*/ LCO=')~w'))),
      format(atom(LC2),LCO,[Final]).
 
@@ -747,11 +768,10 @@ pt1_list(_FS,Final,[T|Ts],Tab) :- is_codelist([T|Ts]),
    format('`~s`~w',[[T|Ts],Final]).
 
 pt1_list(FS,Final,[T|Ts],Tab) :- !,
-  prefix_spaces(Tab),write('[ '),
-   I2 is Tab+2,
-   pt0(FS,'',T,I2),
-   format(atom(NLC),' ]~w',[Final]),   
-   pt_args([lf|FS],NLC,Ts,I2),!.
+  prefix_spaces(Tab),write('[  '),
+   I2 is Tab+3,
+   format(atom(NLC),'  ]~w',[Final]),   
+   pt0(FS,'',T,I2), pt_args([lf|FS],NLC,Ts,I2),!.
 
 
 is_colon_mark(':').
@@ -762,7 +782,7 @@ pt1_package(FS,Final,P,N,V,Tab) :- \+ compound(N), !,
    prefix_spaces(Tab), pt0([P|FS], P, N, Tab), pt0([P|FS], Final, V, now ).
 
 pt1_package(FS,Final,P,N,V,Tab) :- !, write(' ( ') ,
-   prefix_spaces(Tab), pt0([P|FS], ' ) ', N, Tab), write(P),nl,
+   prefix_spaces(Tab), pt0([P|FS], ' ) ', N, Tab), write(P),% nl,
    pt0([P|FS], Final, V, Tab+1 ).
 
 
@@ -794,7 +814,15 @@ pt_args( _, Final,[A],_Tab) :- number(A),  write(', '), write(A), write(Final),!
 pt_args( In, Final,Var,Tab):- Var\==[],  \+ is_list(Var), !, /* is_arity_lt1(Var), */ write(' | '), pt1(In,Final,Var,Tab).
 pt_args(_In, Final,[],_) :- !, write(Final).
 pt_args( FS, Final,[A|R],Tab) :- R==[], write(', '), prefix_spaces(Tab), pt0(FS,Final,A,Tab), !.
-pt_args( FS, Final,[A0,A|As],Tab) :- 
+
+pt_args( _FS, Final,List,Tab) :- ground(List),is_list(List),length(List,Len),Len>1, Len<6, maplist(is_arity_lt1,List), !,
+   write(', '), notrace(prefix_spaces(Tab)),write(' '), List=[A|R], write_simple(A), write_simple_each(R), write(Final),!.
+
+pt_args( FS, Final,RL,Tab) :- append(List,Right,RL), ground(List),is_list(List),length(List,Len),Len>1, Len<6, maplist(is_arity_lt1,List), !,
+   write(', '), notrace(prefix_spaces(Tab)),write(' '), List=[A|R], write_simple(A), write_simple_each(R),
+   pt_args( FS, Right,List,Tab), write(Final),!.
+
+pt_args( FS, Final,[A0,A|As],Tab) :- fail, 
    splice_off([A0,A|As],[_,L1|Left],Rest), !, 
    write(', '), write_simple(A0), write_simple_each([L1|Left]), 
    current_output_line_position(New), 

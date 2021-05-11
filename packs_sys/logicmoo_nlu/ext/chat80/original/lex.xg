@@ -132,9 +132,9 @@ rel_pron(Case) --->
    theText80(W),
    {rel_pron(W,Case)}.
 
-verb_form_lex80(Verb,Tense,Agmt,Role) --->
+verb_form80(Verb,Tense,Agmt,Role) --->
    theText80(W),
-   {verb_form_lex80(W,Verb,Tense,Agmt)}.
+   {verb_form_lex(W,Verb,Tense,Agmt)}.
 
 name_lex(Name) --->
    opt_the,
