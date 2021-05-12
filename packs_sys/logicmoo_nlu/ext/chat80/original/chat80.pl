@@ -34,7 +34,7 @@
             chat_example/3,                     % ?Nr, ?Sentence, ?Correct
             chat_print_tree/1,                  % +Tree
 
-            test_chat/0,
+            test_chat80/0,
 	    rtest_chats/1                       % +Times
 	  ]).
 :- require([ (mode)/1,
@@ -52,7 +52,7 @@
 /** <module> CHAT80 driver for SWI-Prolog
 */
 
-%!  test_chat
+%!  test_chat80
 %
 %   Run default demo suite, showing timing  and   warn  if the answer80 is
 %   incorrect.

@@ -84,6 +84,7 @@ q2([which,country,that,borders,the,mediterranean,borders,a,country,
    ---------------------------------------------------------------------- */
 
 ed( [ does, america, contain, new, york, ? ] ,mini).
+ed( [ is, new, york, in, america, ? ] ,mini).
 ed( [ does, mexico, border, the, united_states, ? ] ,mini).
 ed( [ is, the, population, of, china, greater, than, (200), million, ? ] ,mini).
 ed( [ does, the, population, of, china, exceed, (1000), million, ? ] ,mini).
@@ -331,19 +332,19 @@ inform1([H|T]) :- write(H), put(32), inform1(T).
 	Top level processing for verification and performance analysis
    ---------------------------------------------------------------------- */
 
-test_chat :- test_chat(_,off).
+test_chat80 :- test_chat80(_,off).
 
-test_chat(N):- test_chat(N, on).
+test_chat80(N):- test_chat80(N, on).
 
-test_chat(N, OnOff) :- (number(N);var(N)),!,
+test_chat80(N, OnOff) :- (number(N);var(N)),!,
 	(var(N)->show_title ;true),
 	ed(N,Sentence,CorrectAnswer),
-  test_chat(N, Sentence, OnOff, CorrectAnswer).
+  test_chat80(N, Sentence, OnOff, CorrectAnswer).
 
-test_chat(Sentence, OnOff) :-
-  test_chat(0, Sentence, OnOff, _CorrectAnswer).
+test_chat80(Sentence, OnOff) :-
+  test_chat80(0, Sentence, OnOff, _CorrectAnswer).
 
-test_chat(N, Sentence, OnOff, CorrectAnswer) :-
+test_chat80(N, Sentence, OnOff, CorrectAnswer) :-
     report_item0(print_test,Sentence),
 	  process5(test,Sentence,CorrectAnswer,Status,Times),
 	  show_results(N,Status,Times),
@@ -351,7 +352,7 @@ test_chat(N, Sentence, OnOff, CorrectAnswer) :-
     tracing ~= OnOff,
     process(normal,Sentence),
 	fail.
-test_chat(_,_).
+test_chat80(_,_,_,_).
 
 test :-
 	time(rtest_chats(30)).
@@ -538,7 +539,7 @@ control80([do,Main,demo,'.']) :- !,
    write('Executing main demo...'), nl,
    demo(Main), fail.
 control80([test,chat,'.']) :- !,
-   test_chat, fail.
+   test_chat80, fail.
 control80(U) :-   
    process(normal, U),
    fail.
@@ -641,7 +642,7 @@ report_item(_,_).
 report_item0(respond,Item) :- !,
    respond(Item), nl.
 report_item0(print_test,Item) :- !,
-   write('?- chat80_test("'),print_test(Item),write('").'), nl.
+   write('?- test_chat80("'),print_test(Item),write('").'), nl.
 report_item0(expr,Item) :- !,
    \+ \+ write_tree(Item), nl.
 
