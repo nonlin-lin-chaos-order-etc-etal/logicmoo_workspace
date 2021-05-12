@@ -22,7 +22,7 @@
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-:- dynamic(direct_ss/3).
+:- dynamic(direct_ss/4).
 
 symmetric_pred(Spatial,B,X,C):- nonvar(X),nonvar(C),!,symmetric_direct(Spatial,B,X,C),!.
 symmetric_pred(Spatial,B,X,C):- symmetric_direct(Spatial,B,X,C).

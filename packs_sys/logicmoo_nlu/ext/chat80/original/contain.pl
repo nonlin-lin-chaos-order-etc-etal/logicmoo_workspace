@@ -55,7 +55,15 @@ trans_rel_cache_create(P1,P2):-
 trans_pred(Spatial,Contain,X,Y) :- trans_rel(=,trans_direct(Spatial,Contain),X,Y).
 %contain(X,X).
 
+ti(region,R) :- continent_contains_region(_,R).
+ti(continent,X):- continent(X).
 
+continent(africa).
+continent(america).
+continent(antarctica).
+continent(asia).
+continent(australasia).
+continent(europe).
 
 :- multifile(trans_direct/4).
 :- dynamic(trans_direct/4).

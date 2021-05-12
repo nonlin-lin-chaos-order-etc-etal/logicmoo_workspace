@@ -24,6 +24,20 @@
 
 % Facts about countries.
 % ---------------------
+specific_pred(spatial,nation_capital,C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
+position_pred(spatial,latitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,L,_,_,_,_,_).
+position_pred(spatial,longitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,_,L,_,_,_,_).
+count_pred(spatial,population/*citizens*/,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
+measure_pred(spatial,area,C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is A0/1000.
+measure_pred(Spatial,Area,Where,Total) :- \+ c_r_l_l_s_cap_m(Where,_,_,_,_,_,_,_), 
+ % ti(continent,Where),
+ setof(Value:[Country],
+               []^(database80(measure_pred(Spatial, Area, Country, Value)), 
+               %database80(ti(country, Country)), 
+               database80(trans_pred(Spatial,contain,Where,Country))),
+               Setof),
+         database80(aggregate80(total, Setof, Total)).
+
 
 % c_r_l_l_s_cap_m(Country,Region,Latitude,Longitude,
 %         Area/1000,Area mod 1000,

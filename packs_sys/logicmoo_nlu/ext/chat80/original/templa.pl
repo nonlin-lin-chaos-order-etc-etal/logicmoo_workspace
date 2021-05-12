@@ -39,7 +39,7 @@ property_LF(capital,  SpatialCity,    X,Spatial&geo&country,Y,
 property_LF(area,     measure&area,    X,Spatial&_,Y,  measure_pred(Spatial,area,Y,X),[],_,_).
 property_LF(latitude, measure&position,X,Spatial&_,Y, position_pred(Spatial,latitude,Y,X),[],_,_).
 property_LF(longitude,measure&position,X,Spatial&_,Y, position_pred(Spatial,longitude,Y,X),[],_,_).
-property_LF(population, measure&heads, X,Spatial&_,Y,    count_pred(Spatial,heads,Y,X),[],_,_).
+property_LF(population, measure&population/*citizens*/, X,Spatial&_,Y,    count_pred(Spatial,population/*citizens*/,Y,X),[],_,_).
 
 % thing_LF(geo,Spatial&_,X,ti(geo,X),[],_):- spatial(Spatial).
 
@@ -50,7 +50,7 @@ thing_LF(nation,Path,X,LF,Slots,Other):- thing_LF(country,Path,X,LF,Slots,Other)
 thing_LF_access(area,measure&area,X,unit_format(area,X),[],_).
 thing_LF_access(latitude,measure&position,X,unit_format(latitude,X),[],_).
 thing_LF_access(longitude,measure&position,X,unit_format(longitude,X),[],_).
-thing_LF_access(population,measure&heads,X,unit_format(population,X),[],_).
+thing_LF_access(population,measure&population/*citizens*/,X,unit_format(population,X),[],_).
 thing_LF_access(continent,Spatial&geo&continent,X,ti(continent,X),[],_):- spatial(Spatial).
 
 thing_LF_access(Noun,Type2,X,P,Slots,_):-
@@ -85,7 +85,7 @@ meta_noun_LF(number,of,_,V,Spatial&_,X,P,numberof(X,P,V)):- spatial(Spatial).
 
 name_template_LF(X,Type2):- name_template_lf0(X,Type1), type_conversion(Type1,Type2).
 
-name_template_lf0(X,Spatial&circle) :-  t(circle_of_latitude,X), spatial(Spatial).
+name_template_lf0(X,Spatial&circle) :-  ti(circle_of_latitude,X), spatial(Spatial).
 name_template_lf0(X,SpatialCity) :- ti(city,X), spatial(Spatial), bfeature_path(Spatial,city,SpatialCity).
 name_template_lf0(X,Spatial&geo&continent) :- spatial(Spatial), ti(continent,X).
 name_template_lf0(X,Spatial&geo&country) :- spatial(Spatial), ti(country,X).
@@ -178,7 +178,7 @@ restriction_LF(African,Spatial&_,X,ti(African,X)):- adj_lex(African,restr), spat
 attribute_LF(large,Spatial&_,X,measure&area,Y,measure_pred(Spatial,area,X,Y)).
 attribute_LF(small,Spatial&_,X,measure&area,Y,measure_pred(Spatial,area,X,Y)).
 attribute_LF(great,measure&Type,X,measure&Type,Y,exceeds(X,Y)).
-attribute_LF(populous,Spatial&_,X,measure&heads,Y,count_pred(Spatial,heads,Y,X)).
+attribute_LF(populous,Spatial&_,X,measure&population/*citizens*/,Y,count_pred(Spatial,population/*citizens*/,Y,X)).
 
 aggr_adj(average,_,_,average).
 aggr_adj(total,_,_,total).
@@ -201,8 +201,8 @@ adjunction_LF(cp(south,of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(sout
 measure_LF(ksqmile,measure&area,[],ksqmiles).
 measure_LF(sqmile,measure&area,[],sqmiles).
 measure_LF(degree,measure&position,[],degrees).
-measure_LF(thousand,measure&heads,[],thousand).
-measure_LF(million,measure&heads,[],million).
+measure_LF(thousand,measure&population/*citizens*/,[],thousand).
+measure_LF(million,measure&population/*citizens*/,[],million).
 
 units(large,measure&_).
 units(small,measure&_).
