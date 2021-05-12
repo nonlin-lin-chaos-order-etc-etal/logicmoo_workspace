@@ -59,14 +59,12 @@
 % :- expects_dialect(pfc).
 :-op(600,xfy,--).
 
-%:- include(countries).
+:- include(countries).
 :- include(world0).     	% data base
-%:- include(rivers).
-%:- include(cities).
-%:- include(contain).
-%:- include(borders).
-:- include(world1).
-:- include(world_pathways).
+:- include(rivers).
+:- include(cities).
+:- include(contain).
+:- include(borders).
 
 %:- include(clotab).	% attachment tables
 :- include(newdict).	% syntactic dictionary

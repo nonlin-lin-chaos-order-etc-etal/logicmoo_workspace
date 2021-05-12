@@ -393,7 +393,6 @@
 										<F N="docker/rootfs/usr/local/lib/swipl/doc/Manual/defmodule.html"/>
 										<F N="docker/rootfs/usr/local/lib/swipl/doc/Manual/delcont.html"/>
 										<F N="docker/rootfs/usr/local/lib/swipl/doc/Manual/deployment-options.html"/>
-										<F N="docker/rootfs/usr/local/lib/swipl/doc/Manual/determinism.html"/>
 										<F N="docker/rootfs/usr/local/lib/swipl/doc/Manual/dialect-notes.html"/>
 										<F N="docker/rootfs/usr/local/lib/swipl/doc/Manual/dialect.html"/>
 										<F N="docker/rootfs/usr/local/lib/swipl/doc/Manual/dicts.html"/>
@@ -672,14 +671,6 @@
 												<F N="docker/rootfs/usr/local/lib/swipl/doc/packages/examples/plunit/read.pl"/>
 												<F N="docker/rootfs/usr/local/lib/swipl/doc/packages/examples/plunit/simple.pl"/>
 											</Folder>
-											<Folder Name="protobufs">
-												<F N="docker/rootfs/usr/local/lib/swipl/doc/packages/examples/protobufs/foo.cpp"/>
-												<F
-													N="docker/rootfs/usr/local/lib/swipl/doc/packages/examples/protobufs/Makefile"
-													Type="Makefile"/>
-												<F N="docker/rootfs/usr/local/lib/swipl/doc/packages/examples/protobufs/pb-vector.proto"/>
-												<F N="docker/rootfs/usr/local/lib/swipl/doc/packages/examples/protobufs/vector_demo.pl"/>
-											</Folder>
 											<Folder Name="redis">
 												<F N="docker/rootfs/usr/local/lib/swipl/doc/packages/examples/redis/common.pl"/>
 												<F N="docker/rootfs/usr/local/lib/swipl/doc/packages/examples/redis/prime-node.pl"/>
@@ -765,7 +756,6 @@
 								<Folder Name="lib">
 									<Folder Name="x86_64-linux">
 										<F N="docker/rootfs/usr/local/lib/swipl/lib/x86_64-linux/libswipl.so.8"/>
-										<F N="docker/rootfs/usr/local/lib/swipl/lib/x86_64-linux/libswipl.so.8.3.22"/>
 									</Folder>
 								</Folder>
 								<Folder Name="library">
@@ -899,7 +889,6 @@
 											<F N="docker/rootfs/usr/local/lib/swipl/library/dialect/xsb/error_handler.pl"/>
 											<F N="docker/rootfs/usr/local/lib/swipl/library/dialect/xsb/gensym.pl"/>
 											<F N="docker/rootfs/usr/local/lib/swipl/library/dialect/xsb/gpp.pl"/>
-											<F N="docker/rootfs/usr/local/lib/swipl/library/dialect/xsb/increval.pl"/>
 											<F N="docker/rootfs/usr/local/lib/swipl/library/dialect/xsb/intern.pl"/>
 											<F N="docker/rootfs/usr/local/lib/swipl/library/dialect/xsb/lists.pl"/>
 											<F N="docker/rootfs/usr/local/lib/swipl/library/dialect/xsb/machine.pl"/>
@@ -8307,10 +8296,14 @@
 						</Folder>
 						<Folder Name="original">
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/aggreg.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/borders.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/chat.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/chat80.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/chatops.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/cities.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/clone.xg"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/contain.pl"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/countries.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/demo"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/lex.xg"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/load.pl"/>
@@ -8324,14 +8317,13 @@
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/read_atoms_lc.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/readin.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/README.TXT"/>
+							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/rivers.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/scopes.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/slots.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/talkr.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/templa.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/test_ext.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/world0.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/world1.pl"/>
-							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/world_pathways.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/xgproc.pl"/>
 							<F N="packs_sys/logicmoo_nlu/ext/chat80/original/xgrun.pl"/>
 						</Folder>
@@ -16254,9 +16246,6 @@
 									<F N="swipl-devel/build/home/doc/packages/examples/plunit/read.pl"/>
 									<F N="swipl-devel/build/home/doc/packages/examples/plunit/simple.pl"/>
 								</Folder>
-								<Folder Name="protobufs">
-									<F N="swipl-devel/build/home/doc/packages/examples/protobufs/vector_demo.pl"/>
-								</Folder>
 								<Folder Name="redis">
 									<F N="swipl-devel/build/home/doc/packages/examples/redis/common.pl"/>
 									<F N="swipl-devel/build/home/doc/packages/examples/redis/prime-node.pl"/>
@@ -16398,7 +16387,6 @@
 								<F N="swipl-devel/build/home/library/dialect/xsb/error_handler.pl"/>
 								<F N="swipl-devel/build/home/library/dialect/xsb/gensym.pl"/>
 								<F N="swipl-devel/build/home/library/dialect/xsb/gpp.pl"/>
-								<F N="swipl-devel/build/home/library/dialect/xsb/increval.pl"/>
 								<F N="swipl-devel/build/home/library/dialect/xsb/intern.pl"/>
 								<F N="swipl-devel/build/home/library/dialect/xsb/lists.pl"/>
 								<F N="swipl-devel/build/home/library/dialect/xsb/machine.pl"/>
@@ -17236,7 +17224,6 @@
 						<F N="swipl-devel/library/dialect/xsb/error_handler.pl"/>
 						<F N="swipl-devel/library/dialect/xsb/gensym.pl"/>
 						<F N="swipl-devel/library/dialect/xsb/gpp.pl"/>
-						<F N="swipl-devel/library/dialect/xsb/increval.pl"/>
 						<F N="swipl-devel/library/dialect/xsb/intern.pl"/>
 						<F N="swipl-devel/library/dialect/xsb/lists.pl"/>
 						<F N="swipl-devel/library/dialect/xsb/machine.pl"/>
