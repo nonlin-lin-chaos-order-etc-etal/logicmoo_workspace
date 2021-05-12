@@ -33,12 +33,13 @@ i_sentence(q(S),question80([],P)) :-
 i_sentence(decl(S),assertion80(P)) :-
    i_s(S,P,[],0).
 i_sentence(whq(X,S),question80([X],P)) :-
-   i_s(S,P,[],0).
+   i_s(S,P,[],0),!.
 i_sentence(imp(U,Ve,s(_,Verb,VArgs,VMods)),imp(U,Ve,V,Args)) :-
    i_verb(Verb,V,_,active,posP,Slots0,[],transparent),
    i_verb_args(VArgs,[],[],Slots0,Slots,Args,Args0,Up,-0),
    append(Up,VMods,Mods),
    i_verb_mods(Mods,_,[],Slots,Args0,Up,+0).
+i_sentence(Dunno,dunno(Dunno)) :-!.
 
 i_np(there,Y,quantV(voidQ,_X,'`' true,'`' true,[],Y),[],_,_,XA,XA).
 i_np(NP,Y,Q,Up,Id0,Index,XA0,XA) :-
@@ -317,7 +318,7 @@ verb_template(have,Y=Z,
         held_arg(poss,-(-(-(+Id))),TypeS-S), have).
 verb_template(Verb,Pred,
       [slot(subj,TypeS,S,_,free)|Slots],[],transparent) :-
-   verb_type_lex80(Verb,_+Kind),
+   verb_type_lex(Verb,_+Kind),
    verb_kind(Kind,Verb,TypeS,S,Pred,Slots).
 
 verb_kind(be,_,TypeS,S,S=A,[slot(dir,TypeS,A,_,free)]).

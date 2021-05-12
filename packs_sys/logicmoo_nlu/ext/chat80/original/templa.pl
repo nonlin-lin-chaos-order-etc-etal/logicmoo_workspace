@@ -95,29 +95,79 @@ name_template_lf0(X,Spatial&geo&seamass) :- spatial(Spatial), ti(seamass,X).
 
 /* Verbs */
 
-  
+/*
+%verb_root_lex_80(border).
 trans_LF(border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
-trans_LF(contain,Spatial&_,X,Spatial&_,Y, trans_pred(Spatial,contains,X,Y),[],_,_).
+verb_type_lex_80(border,main+tv).
+%regular_past_lex_80(bordered,border).
+%regular_pres_lex_80(border).
+verb_form_lex_80(bordering,border,pres+part,_):- .
+verb_form_lex_80(borders,border,pres+fin,3+sg).
+verb_form_lex_80(border,border,pres+fin,_+pl). %:- verb_root_lex_80(border)
+% ... because [which,countries,border,france,?] was not properly parsed (the singular form was)
+verb_form_lex_80(border,border,inf,_). %:- verb_root_lex_80(border)
+% ... because [does,france,border,belgium,?] was not properly parsed
+verb_form_lex_80(bordered,border,past+part,_). % :- regular_past_lex_80(bordered,border).
+*/
 
+:- style_check(+singleton).
+
+trans_LF(Border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,Border,X,Y),[],_,_):- 
+   verb_type_lex(Border,main+tv),
+   symmetric_verb(Spatial, Border).
+
+symmetric_verb(Spatial,border):- spatial(Spatial).
+
+
+use_lexicon_80(_):- fail.
+
+:- import(talkdb:talk_db/6).
+%                         nonfinite,  pres+fin, past+fin,  pres+part    past+part,
+talkdb_talk_db(transitive, border,    borders,  bordered,  bordering,  bordered).
+talkdb_talk_db(  Transitive, Write,   Writes,   Wrote,     Writing,  Written):- use_lexicon_80(talkdb_verb),
+  talkdb:talk_db(Transitive, Write,   Writes,   Wrote,     Writing,  Written).
+
+verb_root_lex(Write):-            talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
+verb_type_lex(Write,main+tv):-    talkdb_talk_db( transitive,Write,_Writes,_Wrote,_Writing,_Written).
+regular_past_lex(Wrote,Write):-   talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
+regular_pres_lex(Write):-         talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
+verb_form_lex(Written,Write,past+part,_):-  talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing, Written).
+verb_form_lex(Writing,Write,pres+part,_):-  talkdb_talk_db(_Transitive,Write,_Writes,_Wrote, Writing,_Written).
+verb_form_lex(Writes,Write,pres+fin,3+sg):- talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
+verb_form_lex(Writes,Write,pres+fin,_):-    talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
+verb_form_lex( Wrote,Write,past+fin,_):-    talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
+
+
+:- import(clex_iface:clex_verb/4).
+clex_verb80(Looked,Look,VerbType,Form):- use_lexicon_80(clex_verb), clex_iface:clex_verb(Looked,Look,VerbType,Form).
+%regular_pres_lex(Look):- no_loop_check(verb_root_lex(Look)).
+%verb_form_lex(Looking,Look,pres+part,_):- (atom(Looking)->atom_concat(Look,'ing',Looking);var(Looking)),
+%  no_loop_check(verb_root_lex(Look)),atom(Look),atom_concat(Look,'ing',Looking).
+verb_root_lex(Look):- clex_verb80(_Formed,Look,_Iv,_Finsg).
+regular_past_lex(Looked,Look):- clex_verb80(Looked,Look,_Iv,prep_phrase).
+verb_form_lex(Looks,Look,pres+fin,3+sg):- clex_verb80(Looks,Look,_,finsg).
+verb_form_lex(LookPL,Look,pres+fin,3+pl):- clex_verb80(LookPL,Look,_,infpl).
+verb_type_lex(Look,main+ITDV):- clex_verb80(_Formed,Look,ITDV,_Finsg).
+trans_LF(Assign,feature&_,X,dbase_t(Assign,X,Y), [slot(prep(To),feature&_,Y,_,free)],_):- clex_verb80(_Assigned, Assign, dv(To),_).
+
+
+%trans_LF(Look,feature&_,X,dbase_t(Look,X,Y), [slot(prep(At),feature&_,Y,_,free)],_):- (tv_infpl(S,S);tv_finsg(S,S)), atomic_list_concat([Look,At],'-',S).
+
+
+trans_LF(contain,Spatial&_,X,Spatial&_,Y, trans_pred(Spatial,contain,X,Y),[],_,_).
 trans_LF(govern,SpatialCity,X,Spatial&geo&country,Y,specific_pred(Spatial,nation_capital,Y,X),[],_,_):-
   spatial(Spatial),
   bfeature_path(Spatial,city,SpatialCity).
 
 trans_LF(exceed,measure&Type,X,measure&Type,Y,exceeds(X,Y),[],_,_).
 
-intrans_LF(drain,SpatialRiver,X,path_pred(ends,river,X,Y), 
-   [slot(prep(into),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
-intrans_LF(flow,SpatialRiver,X,path_pred(thru,river,X,Y),
-   [slot(prep(through),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
-intrans_LF(flow,SpatialRiver,X,path_pred_s2(links,river,X,Y,Z),
-   [slot(prep(into),Spatial&_,Z,_,free),
-    slot(prep(from),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
-intrans_LF(rise,SpatialRiver,X,path_pred(begins,river,X,Y),
-   [slot(prep(in),Spatial&_,Y,_,free)],_):- bfeature_path(Spatial,river,SpatialRiver).
+
+
+
 
 /* Adjectives */
 
-restriction_LF(African,Spatial&_,X,ti(African,X)):- adj_db(African,restr), spatial(Spatial).
+restriction_LF(African,Spatial&_,X,ti(African,X)):- adj_lex(African,restr), spatial(Spatial).
 %restriction_LF(american,Spatial&_,X,ti(american,X)).
 %restriction_LF(asian,Spatial&_,X,ti(asian,X)).
 %restriction_LF(european,Spatial&_,X,ti(european,X)).
@@ -134,7 +184,7 @@ aggr_adj(maximum,_,_,maximum).
 
 /* Prepositions */
 
-adjunction_LF(in,Spatial&_-X,Spatial&_-Y,trans_pred(Spatial,contains,Y,X)).
+adjunction_LF(in,Spatial&_-X,Spatial&_-Y,trans_pred(Spatial,contain,Y,X)).
 adjunction_LF(cp(East,Of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(East,Of),X,Y)).
 /*
 adjunction_LF(cp(east,of),Spatial&_-X,Spatial&_-Y,ordering_pred(Spatial,cp(east,of),X,Y)).

@@ -998,15 +998,24 @@ make_historial(O,A):-
 
 %:- multifile prolog:history/2.
 
-add_history0(_):- notrace(app_argv('--nohistory')),!.
-add_history0(A):- current_input(S),
+default_history_file(File):- 
+   catch(prolog_history:dir_history_file('.', File), E,
+            (print_message(warning, E),fail)),!.
+ 
+:- set_prolog_flag(history, 5000).
+add_history0(_):- notrace(app_argv('--no-history')),!.
+add_history0(A):- 
+   prolog_history(enable), 
+   current_input(S),
    forall(retract('$history':'$history'(_,A)),true),
                   prolog:history(S,add(A)),
                   ignore((
                      stream_property(UI,file_no(0)),
                      ( \+ same_streams(S,UI)),
-                        ignore(retract('$history':'$history'(_,A))), 
-                        prolog:history(user_input,add(A)))),!.
+                        forall(retract('$history':'$history'(_,A)),true),
+                        prolog:history(user_input,add(A)))),!,
+   ignore((default_history_file(File),prolog:history(_, save(File)))).
+
 
 
 nb_linkval_current(N,V):-duplicate_term(V,VV),V=VV,nb_linkval(N,VV),nb_current(N,V).

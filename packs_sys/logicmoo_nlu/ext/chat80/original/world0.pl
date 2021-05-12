@@ -48,15 +48,15 @@ database80(measure_pred(Type,P,X,Y)) :- measure_pred(Type,P,X,Y). % area of
 database80(count_pred(Type,P,X,Y)) :- count_pred(Type,P,X,Y). % population of 
 database80(position_pred(Type,P,X,Y)) :- position_pred(Type,P,X,Y). % latitude of
 database80(ordering_pred(Type,P,X,Y)) :- ordering_pred(Type,P,X,Y). % south of
-database80(symmetric_pred(Type,P,X,Y)) :- symmetric_pred(Type,P,X,Y). % borders
+database80(symmetric_pred(Type,P,X,Y)) :- symmetric_pred(Type,P,X,Y). % border
 database80(specific_pred(Type,P,X,Y)) :- specific_pred(Type,P,X,Y). % capital 
-database80(trans_pred(Type,P,X,Y)) :- trans_pred(Type,P,X,Y). % contains 
+database80(trans_pred(Type,P,X,Y)) :- trans_pred(Type,P,X,Y). % contain 
 
 
-%database80(path_pred(begins,river,X,Y)) :- path_pred(begins,river,X,Y).
-%database80(path_pred(ends,river,X,Y)) :- path_pred(ends,river,X,Y).
-database80(path_pred(Part,ObjType,X,Y)) :- path_pred(Part,ObjType,X,Y).
-database80(path_pred_s2(links,ObjType,X,Y,Z)) :- path_pred_s2(links,ObjType,X,Y,Z).
+%database80(path_pred(begins(Flow),rises,river,X,Y)) :- path_pred(begins(Flow),rises,river,X,Y).
+%database80(path_pred(ends(Flow),drains,river,X,Y)) :- path_pred(ends(Flow),drains,river,X,Y).
+database80(path_pred(Part,Verb,ObjType,X,Y)) :- path_pred(Part,Verb,ObjType,X,Y).
+database80(path_pred_links(Flow,ObjType,X,Y,Z)) :- path_pred_links(Flow,ObjType,X,Y,Z).
 
 
 :-op(500,xfy,--).
@@ -100,11 +100,15 @@ unit_format(population,_X--thousand).
 ti(region,R) :- continent_contains_region(_,R).
 
 % if X is contained in africa then X is african.
-ti(An,X) :- agentitive_trans_lex80(Contains,Af,An), (trans_pred(spatial,Contains,Af,X);Af=X).
-agentitive_trans_lex80(contains,africa,african).
-agentitive_trans_lex80(contains,america,american).
-agentitive_trans_lex80(contains,asia,asian).
-agentitive_trans_lex80(contains,europe,european).
+ti(An,X) :- agentitive_trans(Contains,Af,An), (trans_pred(spatial,Contains,Af,X);Af=X).
+
+agentitive_trans(Contains,Af,An):- agentitive_trans_80(Contains,Af,An).
+
+agentitive_trans_80(contain,africa,african).
+agentitive_trans_80(contain,america,american).
+agentitive_trans_80(contain,asia,asian).
+agentitive_trans_80(contain,europe,european).
+
 
 
 
@@ -139,7 +143,7 @@ measure_pred(Spatial,Area,Where,Total) :- \+ c_r_l_l_s_cap_m(Where,_,_,_,_,_,_,_
  setof(Value:[Country],
                []^(database80(measure_pred(Spatial, Area, Country, Value)), 
                %database80(ti(country, Country)), 
-               database80(trans_pred(Spatial,contains,Where,Country))),
+               database80(trans_pred(Spatial,contain,Where,Country))),
                Setof),
          database80(aggregate80(total, Setof, Total)).
 
@@ -176,10 +180,13 @@ ti(sea,persian_gulf).
 ti(sea,red_sea).
 % @TODO ti(sea,caribian).
 
+:- style_check(+singleton).
+
 %ti(Sea,X) :- Sea\==seamass,Sea\==ocean,Sea\==sea, agentitive_symmetric_type(Borders,Sea), (symmetric_pred(spatial,Borders,Sea,X)).
-%agentitive_symmetric_type(borders,Baltic):- ti(seamass,Baltic).
+%agentitive_symmetric_type(border,Baltic):- ti(seamass,Baltic).
 % allows "baltic country" "pacific countries"   
-agentitive_symmetric_type(borders,seamass).
+agentitive_symmetric_type(border,seamass).
+
 ti(NewType,X) :- agentitive_symmetric_type(Pred,SuperType), fail,
   % dont loop
   NewType\==SuperType, NewType\==SuperType, 
@@ -190,21 +197,5 @@ ti(NewType,X) :- agentitive_symmetric_type(Pred,SuperType), fail,
   % dont find instances already of the super type
   \+ ti(SuperType,X).
 
-ti(Type,R) :- path_linkages(Type,R,_L).
 
 
-path_pred(begins,Type,R,C) :- path_linkages(Type,R,L), last_link(L,C).
-
-path_pred(ends,Type,R,S) :- path_linkages(Type,R,L), first_link(L,S).
-
-path_pred(thru,Type,R,C) :- path_pred_s2(links,Type,R,C,_).
-
-path_pred_s2(links,Type,R,C1,C2) :- path_linkages(Type,R,L), link_pairs(L,C2,C1).
-
-first_link([X|_],X).
-
-last_link([X],X).
-last_link([_|L],X) :- last_link(L,X).
-
-link_pairs([X1,X2|_],X1,X2).
-link_pairs([_|L],X1,X2) :- link_pairs(L,X1,X2).

@@ -249,6 +249,7 @@ chat80("What is a river?").
 chat80("What is a river that is in asia?").
 chat80("Which rivers are not in asia?").
 chat80("How many rivers are not in asia?" , 25).
+chat80("What is a river that is asian?").
 chat80("What is a river that is not happy?").
 chat80("How many rivers are in asia?", 16).
 chat80("How many asian countries have a population exceeding 10 million?", 20).

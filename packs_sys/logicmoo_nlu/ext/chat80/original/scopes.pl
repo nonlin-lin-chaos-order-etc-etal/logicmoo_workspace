@@ -23,11 +23,21 @@
 :- op(300, fx, '`'  ).
 
 
-clausify80(question80(V0, P),(answer80(V):-B)) :-
+clausify80(question80(V0, P),OUT) :- 
+  clausify80_qa(V0,P,V,B),!,
+  OUT = (answer80(V):-B).
+clausify80(P,OUT) :- 
+  clausify80_qa([],P,V,B),!,
+  OUT = (run80(V):-B).
+clausify80(P,clausify80(P)).
+ 
+clausify80_qa(V0,P,V,B):-
    quantify(P, Quants, [], R0),
    split_quants(question80(V0), Quants, HQuants, [], BQuants, []),
    chain_apply(BQuants, R0, R1),
    head_vars(HQuants, B, R1, V, V0).
+
+
 
 :- export(clausify80/2).
 :- system:import(clausify80/2).

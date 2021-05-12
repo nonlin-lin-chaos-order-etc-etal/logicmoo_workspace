@@ -115,7 +115,8 @@ noun_post_mod(SO, X, LF, Out) --> near_noun_mod(SO, X, LF, Out).
 
 :-add_e2c("every human programmer happily writes a not a program.", tell).
 
-pos_or_neg(-) --> theText1(not), plt, !, optionalText1('a'), optionalText1('an').
+pos_or_neg(-) --> theText1(not), % plt, !,
+                                 optionalText1('a'), optionalText1('an').
 pos_or_neg(-) --> theText1(not).
 pos_or_neg(-) --> theText1(non), optionalText1('-').
 pos_or_neg(-) --> theText1(Neg), {atomic(Neg), neg_to_pos(Neg, Pos)}, !, dcg_push_w2(Pos).

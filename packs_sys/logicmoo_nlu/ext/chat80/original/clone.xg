@@ -1,3 +1,4 @@
+
 :- op(1001,xfy, ('...' )).
 :- op(1200,xfx, ('--->')).
 
@@ -28,6 +29,7 @@ punct_to_sent_type(missing,S,decl(S)).
 
 question80(S)-->wh_question(S).
 question80(S)-->yn_question(S).
+
 
 
 /* Declarative sentence */
@@ -96,7 +98,7 @@ yn_question(q(S)) --->
 fronted_verb(QCase,NPCase) ...
       verb_form80(Root,Tense,Agmt,Role), neg_opt(_,Neg) --->
    verb_form80(Root,Tense,Agmt,_),
-   {verb_type_lex80(Root,aux+_),
+   {verb_type_lex(Root,aux+_),
     is_to_role_case(QCase,Role,NPCase)},
    neg_opt(_,Neg).
 
@@ -133,7 +135,7 @@ subj(Subj,Agmt,_) --->
 
 np(np(Agmt,Pronoun,[]),Agmt,NPCase,def,_,Set,Nil) --->
    {is_pp(Set)},
-   pers_pron_db(Pronoun,Agmt,Case),
+   pers_pron(Pronoun,Agmt,Case),
    {is_empty_bits(Nil), is_to_role_case(Case,decl,NPCase)}.
 np(np(Agmt,Kernel,Mods),Agmt,Case,Def,Role,Set,Mask) --->
    {is_pp(Set)},
@@ -161,15 +163,15 @@ np_compls(common,Agmt,Case,Mods,Set0,Mask) --->
 
 /* Nuclear noun phrase */
 
-np_head0(nameOf(Name),3+sg,def+proper) ---> name_lex(Name).
+np_head0(nameOf(Name),3+sg,def+proper) ---> name_xg(Name).
 np_head0(np_head(Det,Adjs,Head),3+Number,Def+common) --->
    determiner(Det,Number,Def),
    adjs_opt(Adjs),
    noun(Head,Number).
 np_head0(Pronoun,Agmt,def+proper), gen_marker --->
-   poss_pron_db(Pronoun,Agmt).
+   poss_pron(Pronoun,Agmt).
 np_head0(np_head(Det,[],Noun),3+sg,indef+common) --->
-   quantifier_pron_db(Det,Noun).
+   quantifier_pron(Det,Noun).
 
 /* Possessive construction */
 
@@ -391,23 +393,19 @@ reduced_wh(AgmtX,X),
 
 verb(verb(Root,Voice,Time+fin,Aspect,Neg),Agmt,Type,Voice) --->
    verb_form80(Root0,Time+fin,Agmt,Role),
-   {verb_type_lex80(Root0,Type0)},
+   {verb_type_lex(Root0,Type0)},
    neg_opt(Type0,Neg),
    rest_verb(Role,Root0,Root,Voice,Aspect),
-   {verb_type_lex80(Root,Type)}.
+   {verb_type_lex(Root,Type)}.
 
 neg_opt(aux+_,negP) ---> theText80(not).
 neg_opt(_,posP) ---> noText.
 
-rest_verb(aux,have,Root,Voice,[perf|Aspect]) --->
-   verb_form80(Root0,past+part,_,_),
-   have_vt(Root0,Root,Voice,Aspect).
-rest_verb(aux,be,Root,Voice,Aspect) --->
-   verb_form80(Root0,Tense0,_,_),
-   be_vt(Tense0,Root0,Root,Voice,Aspect).
-rest_verb(aux,do,Root,active,[]) --->
-   verb_form80(Root,inf,_,_).
+rest_verb(aux,have,Root,Voice,[perf|Aspect]) ---> verb_form80(Root0,past+part,_,_), have_vt(Root0,Root,Voice,Aspect).
+rest_verb(aux,be,Root,Voice,Aspect) ---> verb_form80(Root0,Tense0,_,_), be_vt(Tense0,Root0,Root,Voice,Aspect).
+rest_verb(aux,do(_Does),Root,active,[]) ---> verb_form80(Root,inf,_,_).
 rest_verb(main,Root,Root,active,[]) ---> noText.
+
 
 have_vt(be,Root,Voice,Aspect) --->
    verb_form80(Root0,Tense0,_,_),
@@ -420,13 +418,13 @@ be_vt(pres+part,Root0,Root,Voice,[prog]) --->
 
 passive_vt(be,Root,passive) --->
    verb_form80(Root,past+part,_,_),
-   {verb_type_lex80(Root,Type), passive_vt(Type)}.
+   {verb_type_lex(Root,Type), passive_vt(Type)}.
 passive_vt(Root,Root,active) ---> noText.
 
 participle_vt(verb(Root,Voice,inf,Aspect,Neg),Type,Voice) --->
    neg_opt(_,Neg),
    verb_form80(Root,Tense,_,_),
-   {participle_vt(Tense,Voice,Aspect), verb_type_lex80(Root,Type)}.
+   {participle_vt(Tense,Voice,Aspect), verb_type_lex(Root,Type)}.
 
 passive_vt(_+tv).
 passive_vt(_+dv(_Prep)).

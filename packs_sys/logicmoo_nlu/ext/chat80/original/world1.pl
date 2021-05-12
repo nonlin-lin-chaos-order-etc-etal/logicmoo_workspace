@@ -50,17 +50,17 @@ trans_rel_cache_create(P1,P2):-
   !.
   
 
-%contains(X,Y) :- trans_direct(contains,X,Y).
-%contains(X,Y) :- trans_direct(contains,X,W), contains(W,Y).
+%contain(X,Y) :- trans_direct(contain,X,Y).
+%contain(X,Y) :- trans_direct(contain,X,W), contain(W,Y).
 
 
-trans_pred(spatial,contains,X,Y) :- trans_rel(=,trans_direct(contains),X,Y).
-%contains(X,X).
+trans_pred(spatial,contain,X,Y) :- trans_rel(=,trans_direct(contain),X,Y).
+%contain(X,X).
 
-trans_direct(contains,Continent,Region):- continent_contains_region(Continent,Region).
-trans_direct(contains,Region,Country):- region_contains_country(Region,Country).
-trans_direct(contains,Country,CityOrRiver):- country_contains_thing(Country,CityOrRiver).
-trans_direct(contains,Country,River):- path_pred(thru,river,River,Country).
+trans_direct(contain,Continent,Region):- continent_contains_region(Continent,Region).
+trans_direct(contain,Region,Country):- region_contains_country(Region,Country).
+trans_direct(contain,Country,CityOrRiver):- country_contains_thing(Country,CityOrRiver).
+trans_direct(contain,Country,River):- path_pred(thru,flow,river,River,Country).
 
 
 
@@ -710,7 +710,7 @@ c_r_l_l_s_cap_m(zimbabwe,southern_africa,-20,-30,150333,5690000,salisbury,rhodes
 % ------------------
 madeup_city_country_popu(C,Nat,PopOut):- fail,
   ti(city,C), \+ clause(city_country_popu(C,_,_), true),
-  once((trans_direct(contains,Nat,C), 
+  once((trans_direct(contain,Nat,C), 
   c_r_l_l_s_cap_m(Nat,_,_,_,_,Pop,_,_))),  
   % estimate at least a quarter of country population
   A is integer(Pop/4000000), 
@@ -831,1059 +831,1059 @@ add_ss(B,X,C):- assertz(direct_ss(B, X,C)), !.
 % Facts about Europe.
 % ------------------
 
-:-add_ss(borders,albania,greece).
-:-add_ss(borders,albania,yugoslavia).
-:-add_ss(borders,albania,mediterranean).
+:-add_ss(border,albania,greece).
+:-add_ss(border,albania,yugoslavia).
+:-add_ss(border,albania,mediterranean).
 
-:-add_ss(borders,andorra,france).
-:-add_ss(borders,andorra,spain).
+:-add_ss(border,andorra,france).
+:-add_ss(border,andorra,spain).
 
-:-add_ss(borders,austria,czechoslovakia).
-:-add_ss(borders,austria,hungary).
-:-add_ss(borders,austria,italy).
-:-add_ss(borders,austria,liechtenstein).
-:-add_ss(borders,austria,switzerland).
-:-add_ss(borders,austria,west_germany).
-:-add_ss(borders,austria,yugoslavia).
+:-add_ss(border,austria,czechoslovakia).
+:-add_ss(border,austria,hungary).
+:-add_ss(border,austria,italy).
+:-add_ss(border,austria,liechtenstein).
+:-add_ss(border,austria,switzerland).
+:-add_ss(border,austria,west_germany).
+:-add_ss(border,austria,yugoslavia).
 
-:-add_ss(borders,belgium,france).
-:-add_ss(borders,belgium,luxembourg).
-:-add_ss(borders,belgium,netherlands).
-:-add_ss(borders,belgium,west_germany).
-:-add_ss(borders,belgium,atlantic).
+:-add_ss(border,belgium,france).
+:-add_ss(border,belgium,luxembourg).
+:-add_ss(border,belgium,netherlands).
+:-add_ss(border,belgium,west_germany).
+:-add_ss(border,belgium,atlantic).
 
-:-add_ss(borders,bulgaria,greece).
-:-add_ss(borders,bulgaria,romania).
-:-add_ss(borders,bulgaria,turkey).
-:-add_ss(borders,bulgaria,yugoslavia).
-:-add_ss(borders,bulgaria,black_sea).
+:-add_ss(border,bulgaria,greece).
+:-add_ss(border,bulgaria,romania).
+:-add_ss(border,bulgaria,turkey).
+:-add_ss(border,bulgaria,yugoslavia).
+:-add_ss(border,bulgaria,black_sea).
 
-:-add_ss(borders,cyprus,mediterranean).
+:-add_ss(border,cyprus,mediterranean).
 
-:-add_ss(borders,czechoslovakia,austria).
-:-add_ss(borders,czechoslovakia,east_germany).
-:-add_ss(borders,czechoslovakia,hungary).
-:-add_ss(borders,czechoslovakia,poland).
-:-add_ss(borders,czechoslovakia,soviet_union).
-:-add_ss(borders,czechoslovakia,west_germany).
+:-add_ss(border,czechoslovakia,austria).
+:-add_ss(border,czechoslovakia,east_germany).
+:-add_ss(border,czechoslovakia,hungary).
+:-add_ss(border,czechoslovakia,poland).
+:-add_ss(border,czechoslovakia,soviet_union).
+:-add_ss(border,czechoslovakia,west_germany).
 
-:-add_ss(borders,denmark,west_germany).
-:-add_ss(borders,denmark,atlantic).
-:-add_ss(borders,denmark,baltic).
+:-add_ss(border,denmark,west_germany).
+:-add_ss(border,denmark,atlantic).
+:-add_ss(border,denmark,baltic).
 
-:-add_ss(borders,eire,united_kingdom).
-:-add_ss(borders,eire,atlantic).
+:-add_ss(border,eire,united_kingdom).
+:-add_ss(border,eire,atlantic).
 
-:-add_ss(borders,finland,norway).
-:-add_ss(borders,finland,soviet_union).
-:-add_ss(borders,finland,sweden).
-:-add_ss(borders,finland,baltic).
+:-add_ss(border,finland,norway).
+:-add_ss(border,finland,soviet_union).
+:-add_ss(border,finland,sweden).
+:-add_ss(border,finland,baltic).
 
-:-add_ss(borders,france,andorra).
-:-add_ss(borders,france,belgium).
-:-add_ss(borders,france,italy).
-:-add_ss(borders,france,luxembourg).
-:-add_ss(borders,france,monaco).
-:-add_ss(borders,france,spain).
-:-add_ss(borders,france,switzerland).
-:-add_ss(borders,france,west_germany).
-:-add_ss(borders,france,atlantic).
-:-add_ss(borders,france,mediterranean).
+:-add_ss(border,france,andorra).
+:-add_ss(border,france,belgium).
+:-add_ss(border,france,italy).
+:-add_ss(border,france,luxembourg).
+:-add_ss(border,france,monaco).
+:-add_ss(border,france,spain).
+:-add_ss(border,france,switzerland).
+:-add_ss(border,france,west_germany).
+:-add_ss(border,france,atlantic).
+:-add_ss(border,france,mediterranean).
 
-:-add_ss(borders,east_germany,czechoslovakia).
-:-add_ss(borders,east_germany,poland).
-:-add_ss(borders,east_germany,west_germany).
-:-add_ss(borders,east_germany,baltic).
+:-add_ss(border,east_germany,czechoslovakia).
+:-add_ss(border,east_germany,poland).
+:-add_ss(border,east_germany,west_germany).
+:-add_ss(border,east_germany,baltic).
 
-:-add_ss(borders,greece,albania).
-:-add_ss(borders,greece,bulgaria).
-:-add_ss(borders,greece,turkey).
-:-add_ss(borders,greece,yugoslavia).
-:-add_ss(borders,greece,mediterranean).
+:-add_ss(border,greece,albania).
+:-add_ss(border,greece,bulgaria).
+:-add_ss(border,greece,turkey).
+:-add_ss(border,greece,yugoslavia).
+:-add_ss(border,greece,mediterranean).
 
-:-add_ss(borders,hungary,austria).
-:-add_ss(borders,hungary,czechoslovakia).
-:-add_ss(borders,hungary,romania).
-:-add_ss(borders,hungary,soviet_union).
-:-add_ss(borders,hungary,yugoslavia).
+:-add_ss(border,hungary,austria).
+:-add_ss(border,hungary,czechoslovakia).
+:-add_ss(border,hungary,romania).
+:-add_ss(border,hungary,soviet_union).
+:-add_ss(border,hungary,yugoslavia).
 
-:-add_ss(borders,iceland,atlantic).
+:-add_ss(border,iceland,atlantic).
 
-:-add_ss(borders,italy,austria).
-:-add_ss(borders,italy,france).
-:-add_ss(borders,italy,san_marino).
-:-add_ss(borders,italy,switzerland).
-:-add_ss(borders,italy,yugoslavia).
-:-add_ss(borders,italy,mediterranean).
+:-add_ss(border,italy,austria).
+:-add_ss(border,italy,france).
+:-add_ss(border,italy,san_marino).
+:-add_ss(border,italy,switzerland).
+:-add_ss(border,italy,yugoslavia).
+:-add_ss(border,italy,mediterranean).
 
-:-add_ss(borders,liechtenstein,austria).
-:-add_ss(borders,liechtenstein,switzerland).
+:-add_ss(border,liechtenstein,austria).
+:-add_ss(border,liechtenstein,switzerland).
 
-:-add_ss(borders,luxembourg,belgium).
-:-add_ss(borders,luxembourg,france).
-:-add_ss(borders,luxembourg,west_germany).
+:-add_ss(border,luxembourg,belgium).
+:-add_ss(border,luxembourg,france).
+:-add_ss(border,luxembourg,west_germany).
 
-:-add_ss(borders,malta,mediterranean).
+:-add_ss(border,malta,mediterranean).
 
-:-add_ss(borders,monaco,france).
-:-add_ss(borders,monaco,mediterranean).
+:-add_ss(border,monaco,france).
+:-add_ss(border,monaco,mediterranean).
 
-:-add_ss(borders,netherlands,belgium).
-:-add_ss(borders,netherlands,west_germany).
-:-add_ss(borders,netherlands,atlantic).
+:-add_ss(border,netherlands,belgium).
+:-add_ss(border,netherlands,west_germany).
+:-add_ss(border,netherlands,atlantic).
 
-:-add_ss(borders,norway,finland).
-:-add_ss(borders,norway,sweden).
-:-add_ss(borders,norway,soviet_union).
-:-add_ss(borders,norway,arctic_ocean).
-:-add_ss(borders,norway,atlantic).
+:-add_ss(border,norway,finland).
+:-add_ss(border,norway,sweden).
+:-add_ss(border,norway,soviet_union).
+:-add_ss(border,norway,arctic_ocean).
+:-add_ss(border,norway,atlantic).
 
-:-add_ss(borders,poland,czechoslovakia).
-:-add_ss(borders,poland,east_germany).
-:-add_ss(borders,poland,soviet_union).
-:-add_ss(borders,poland,baltic).
+:-add_ss(border,poland,czechoslovakia).
+:-add_ss(border,poland,east_germany).
+:-add_ss(border,poland,soviet_union).
+:-add_ss(border,poland,baltic).
 
-:-add_ss(borders,portugal,spain).
-:-add_ss(borders,portugal,atlantic).
+:-add_ss(border,portugal,spain).
+:-add_ss(border,portugal,atlantic).
 
-:-add_ss(borders,romania,bulgaria).
-:-add_ss(borders,romania,hungary).
-:-add_ss(borders,romania,soviet_union).
-:-add_ss(borders,romania,yugoslavia).
-:-add_ss(borders,romania,black_sea).
+:-add_ss(border,romania,bulgaria).
+:-add_ss(border,romania,hungary).
+:-add_ss(border,romania,soviet_union).
+:-add_ss(border,romania,yugoslavia).
+:-add_ss(border,romania,black_sea).
 
-:-add_ss(borders,san_marino,italy).
-:-add_ss(borders,san_marino,mediterranean).
+:-add_ss(border,san_marino,italy).
+:-add_ss(border,san_marino,mediterranean).
 
-:-add_ss(borders,spain,andorra).
-:-add_ss(borders,spain,france).
-:-add_ss(borders,spain,portugal).
-:-add_ss(borders,spain,atlantic).
-:-add_ss(borders,spain,mediterranean).
+:-add_ss(border,spain,andorra).
+:-add_ss(border,spain,france).
+:-add_ss(border,spain,portugal).
+:-add_ss(border,spain,atlantic).
+:-add_ss(border,spain,mediterranean).
 
-:-add_ss(borders,sweden,finland).
-:-add_ss(borders,sweden,norway).
-:-add_ss(borders,sweden,atlantic).
-:-add_ss(borders,sweden,baltic).
+:-add_ss(border,sweden,finland).
+:-add_ss(border,sweden,norway).
+:-add_ss(border,sweden,atlantic).
+:-add_ss(border,sweden,baltic).
 
-:-add_ss(borders,switzerland,austria).
-:-add_ss(borders,switzerland,france).
-:-add_ss(borders,switzerland,italy).
-:-add_ss(borders,switzerland,liechtenstein).
-:-add_ss(borders,switzerland,west_germany).
+:-add_ss(border,switzerland,austria).
+:-add_ss(border,switzerland,france).
+:-add_ss(border,switzerland,italy).
+:-add_ss(border,switzerland,liechtenstein).
+:-add_ss(border,switzerland,west_germany).
 
-:-add_ss(borders,west_germany,austria).
-:-add_ss(borders,west_germany,belgium).
-:-add_ss(borders,west_germany,czechoslovakia).
-:-add_ss(borders,west_germany,denmark).
-:-add_ss(borders,west_germany,east_germany).
-:-add_ss(borders,west_germany,france).
-:-add_ss(borders,west_germany,luxembourg).
-:-add_ss(borders,west_germany,netherlands).
-:-add_ss(borders,west_germany,switzerland).
-:-add_ss(borders,west_germany,atlantic).
-:-add_ss(borders,west_germany,baltic).
+:-add_ss(border,west_germany,austria).
+:-add_ss(border,west_germany,belgium).
+:-add_ss(border,west_germany,czechoslovakia).
+:-add_ss(border,west_germany,denmark).
+:-add_ss(border,west_germany,east_germany).
+:-add_ss(border,west_germany,france).
+:-add_ss(border,west_germany,luxembourg).
+:-add_ss(border,west_germany,netherlands).
+:-add_ss(border,west_germany,switzerland).
+:-add_ss(border,west_germany,atlantic).
+:-add_ss(border,west_germany,baltic).
 
-:-add_ss(borders,united_kingdom,eire).
-:-add_ss(borders,united_kingdom,atlantic).
+:-add_ss(border,united_kingdom,eire).
+:-add_ss(border,united_kingdom,atlantic).
 
-:-add_ss(borders,yugoslavia,albania).
-:-add_ss(borders,yugoslavia,austria).
-:-add_ss(borders,yugoslavia,bulgaria).
-:-add_ss(borders,yugoslavia,greece).
-:-add_ss(borders,yugoslavia,hungary).
-:-add_ss(borders,yugoslavia,italy).
-:-add_ss(borders,yugoslavia,romania).
-:-add_ss(borders,yugoslavia,mediterranean).
+:-add_ss(border,yugoslavia,albania).
+:-add_ss(border,yugoslavia,austria).
+:-add_ss(border,yugoslavia,bulgaria).
+:-add_ss(border,yugoslavia,greece).
+:-add_ss(border,yugoslavia,hungary).
+:-add_ss(border,yugoslavia,italy).
+:-add_ss(border,yugoslavia,romania).
+:-add_ss(border,yugoslavia,mediterranean).
 
 % Facts about Asia.
 % ----------------
 
-:-add_ss(borders,afghanistan,china).
-:-add_ss(borders,afghanistan,iran).
-:-add_ss(borders,afghanistan,pakistan).
-:-add_ss(borders,afghanistan,soviet_union).
+:-add_ss(border,afghanistan,china).
+:-add_ss(border,afghanistan,iran).
+:-add_ss(border,afghanistan,pakistan).
+:-add_ss(border,afghanistan,soviet_union).
 
-:-add_ss(borders,bahrain,persian_gulf).
+:-add_ss(border,bahrain,persian_gulf).
 
-:-add_ss(borders,bangladesh,burma).
-:-add_ss(borders,bangladesh,india).
-:-add_ss(borders,bangladesh,indian_ocean).
+:-add_ss(border,bangladesh,burma).
+:-add_ss(border,bangladesh,india).
+:-add_ss(border,bangladesh,indian_ocean).
 
-:-add_ss(borders,bhutan,china).
-:-add_ss(borders,bhutan,india).
+:-add_ss(border,bhutan,china).
+:-add_ss(border,bhutan,india).
 
-:-add_ss(borders,burma,bangladesh).
-:-add_ss(borders,burma,china).
-:-add_ss(borders,burma,india).
-:-add_ss(borders,burma,laos).
-:-add_ss(borders,burma,thailand).
-:-add_ss(borders,burma,indian_ocean).
+:-add_ss(border,burma,bangladesh).
+:-add_ss(border,burma,china).
+:-add_ss(border,burma,india).
+:-add_ss(border,burma,laos).
+:-add_ss(border,burma,thailand).
+:-add_ss(border,burma,indian_ocean).
 
-:-add_ss(borders,cambodia,laos).
-:-add_ss(borders,cambodia,thailand).
-:-add_ss(borders,cambodia,vietnam).
-:-add_ss(borders,cambodia,pacific).
+:-add_ss(border,cambodia,laos).
+:-add_ss(border,cambodia,thailand).
+:-add_ss(border,cambodia,vietnam).
+:-add_ss(border,cambodia,pacific).
 
-:-add_ss(borders,china,afghanistan).
-:-add_ss(borders,china,bhutan).
-:-add_ss(borders,china,burma).
-:-add_ss(borders,china,india).
-:-add_ss(borders,china,laos).
-:-add_ss(borders,china,mongolia).
-:-add_ss(borders,china,nepal).
-:-add_ss(borders,china,north_korea).
-:-add_ss(borders,china,pakistan).
-:-add_ss(borders,china,soviet_union).
-:-add_ss(borders,china,vietnam).
-:-add_ss(borders,china,pacific).
+:-add_ss(border,china,afghanistan).
+:-add_ss(border,china,bhutan).
+:-add_ss(border,china,burma).
+:-add_ss(border,china,india).
+:-add_ss(border,china,laos).
+:-add_ss(border,china,mongolia).
+:-add_ss(border,china,nepal).
+:-add_ss(border,china,north_korea).
+:-add_ss(border,china,pakistan).
+:-add_ss(border,china,soviet_union).
+:-add_ss(border,china,vietnam).
+:-add_ss(border,china,pacific).
 
-:-add_ss(borders,india,bangladesh).
-:-add_ss(borders,india,bhutan).
-:-add_ss(borders,india,burma).
-:-add_ss(borders,india,china).
-:-add_ss(borders,india,nepal).
-:-add_ss(borders,india,pakistan).
-:-add_ss(borders,india,indian_ocean).
+:-add_ss(border,india,bangladesh).
+:-add_ss(border,india,bhutan).
+:-add_ss(border,india,burma).
+:-add_ss(border,india,china).
+:-add_ss(border,india,nepal).
+:-add_ss(border,india,pakistan).
+:-add_ss(border,india,indian_ocean).
 
-:-add_ss(borders,indonesia,malaysia).
-:-add_ss(borders,indonesia,papua_new_guinea).
-:-add_ss(borders,indonesia,indian_ocean).
-:-add_ss(borders,indonesia,pacific).
+:-add_ss(border,indonesia,malaysia).
+:-add_ss(border,indonesia,papua_new_guinea).
+:-add_ss(border,indonesia,indian_ocean).
+:-add_ss(border,indonesia,pacific).
 
-:-add_ss(borders,iran,afghanistan).
-:-add_ss(borders,iran,iraq).
-:-add_ss(borders,iran,pakistan).
-:-add_ss(borders,iran,soviet_union).
-:-add_ss(borders,iran,turkey).
-:-add_ss(borders,iran,caspian_sea).
-:-add_ss(borders,iran,persian_gulf).
-:-add_ss(borders,iran,indian_ocean).
+:-add_ss(border,iran,afghanistan).
+:-add_ss(border,iran,iraq).
+:-add_ss(border,iran,pakistan).
+:-add_ss(border,iran,soviet_union).
+:-add_ss(border,iran,turkey).
+:-add_ss(border,iran,caspian_sea).
+:-add_ss(border,iran,persian_gulf).
+:-add_ss(border,iran,indian_ocean).
 
-:-add_ss(borders,iraq,iran).
-:-add_ss(borders,iraq,jordan).
-:-add_ss(borders,iraq,kuwait).
-:-add_ss(borders,iraq,saudi_arabia).
-:-add_ss(borders,iraq,syria).
-:-add_ss(borders,iraq,turkey).
-:-add_ss(borders,iraq,persian_gulf).
+:-add_ss(border,iraq,iran).
+:-add_ss(border,iraq,jordan).
+:-add_ss(border,iraq,kuwait).
+:-add_ss(border,iraq,saudi_arabia).
+:-add_ss(border,iraq,syria).
+:-add_ss(border,iraq,turkey).
+:-add_ss(border,iraq,persian_gulf).
 
-:-add_ss(borders,israel,egypt).
-:-add_ss(borders,israel,jordan).
-:-add_ss(borders,laos,burma).
-:-add_ss(borders,laos,cambodia).
-:-add_ss(borders,laos,china).
-:-add_ss(borders,laos,thailand).
-:-add_ss(borders,laos,vietnam).
+:-add_ss(border,israel,egypt).
+:-add_ss(border,israel,jordan).
+:-add_ss(border,laos,burma).
+:-add_ss(border,laos,cambodia).
+:-add_ss(border,laos,china).
+:-add_ss(border,laos,thailand).
+:-add_ss(border,laos,vietnam).
 
-:-add_ss(borders,israel,lebanon).
-:-add_ss(borders,israel,syria).
-:-add_ss(borders,israel,mediterranean).
-:-add_ss(borders,israel,red_sea).
+:-add_ss(border,israel,lebanon).
+:-add_ss(border,israel,syria).
+:-add_ss(border,israel,mediterranean).
+:-add_ss(border,israel,red_sea).
 
-:-add_ss(borders,japan,pacific).
+:-add_ss(border,japan,pacific).
 
-:-add_ss(borders,jordan,iraq).
-:-add_ss(borders,jordan,israel).
-:-add_ss(borders,jordan,saudi_arabia).
-:-add_ss(borders,jordan,syria).
-:-add_ss(borders,jordan,red_sea).
+:-add_ss(border,jordan,iraq).
+:-add_ss(border,jordan,israel).
+:-add_ss(border,jordan,saudi_arabia).
+:-add_ss(border,jordan,syria).
+:-add_ss(border,jordan,red_sea).
 
-:-add_ss(borders,kuwait,iraq).
-:-add_ss(borders,kuwait,saudi_arabia).
-:-add_ss(borders,kuwait,persian_gulf).
+:-add_ss(border,kuwait,iraq).
+:-add_ss(border,kuwait,saudi_arabia).
+:-add_ss(border,kuwait,persian_gulf).
 
-:-add_ss(borders,lebanon,israel).
-:-add_ss(borders,lebanon,syria).
-:-add_ss(borders,lebanon,mediterranean).
+:-add_ss(border,lebanon,israel).
+:-add_ss(border,lebanon,syria).
+:-add_ss(border,lebanon,mediterranean).
 
-:-add_ss(borders,malaysia,indonesia).
-:-add_ss(borders,malaysia,singapore).
-:-add_ss(borders,malaysia,thailand).
-:-add_ss(borders,malaysia,indian_ocean).
-:-add_ss(borders,malaysia,pacific).
+:-add_ss(border,malaysia,indonesia).
+:-add_ss(border,malaysia,singapore).
+:-add_ss(border,malaysia,thailand).
+:-add_ss(border,malaysia,indian_ocean).
+:-add_ss(border,malaysia,pacific).
 
-:-add_ss(borders,maldives,indian_ocean).
+:-add_ss(border,maldives,indian_ocean).
 
-:-add_ss(borders,mongolia,china).
-:-add_ss(borders,mongolia,soviet_union).
+:-add_ss(border,mongolia,china).
+:-add_ss(border,mongolia,soviet_union).
 
-:-add_ss(borders,nepal,china).
-:-add_ss(borders,nepal,india).
+:-add_ss(border,nepal,china).
+:-add_ss(border,nepal,india).
 
-:-add_ss(borders,north_korea,china).
-:-add_ss(borders,north_korea,south_korea).
-:-add_ss(borders,north_korea,soviet_union).
-:-add_ss(borders,north_korea,pacific).
+:-add_ss(border,north_korea,china).
+:-add_ss(border,north_korea,south_korea).
+:-add_ss(border,north_korea,soviet_union).
+:-add_ss(border,north_korea,pacific).
 
-:-add_ss(borders,oman,saudi_arabia).
-:-add_ss(borders,oman,united_arab_emirates).
-:-add_ss(borders,oman,south_yemen).
-:-add_ss(borders,oman,indian_ocean).
+:-add_ss(border,oman,saudi_arabia).
+:-add_ss(border,oman,united_arab_emirates).
+:-add_ss(border,oman,south_yemen).
+:-add_ss(border,oman,indian_ocean).
 
-:-add_ss(borders,pakistan,afghanistan).
-:-add_ss(borders,pakistan,china).
-:-add_ss(borders,pakistan,india).
-:-add_ss(borders,pakistan,iran).
-:-add_ss(borders,pakistan,indian_ocean).
+:-add_ss(border,pakistan,afghanistan).
+:-add_ss(border,pakistan,china).
+:-add_ss(border,pakistan,india).
+:-add_ss(border,pakistan,iran).
+:-add_ss(border,pakistan,indian_ocean).
 
-:-add_ss(borders,philippines,pacific).
+:-add_ss(border,philippines,pacific).
 
-:-add_ss(borders,qatar,saudi_arabia).
-:-add_ss(borders,qatar,united_arab_emirates).
-:-add_ss(borders,qatar,persian_gulf).
+:-add_ss(border,qatar,saudi_arabia).
+:-add_ss(border,qatar,united_arab_emirates).
+:-add_ss(border,qatar,persian_gulf).
 
-:-add_ss(borders,saudi_arabia,iraq).
-:-add_ss(borders,saudi_arabia,jordan).
-:-add_ss(borders,saudi_arabia,kuwait).
-:-add_ss(borders,saudi_arabia,oman).
-:-add_ss(borders,saudi_arabia,qatar).
-:-add_ss(borders,saudi_arabia,south_yemen).
-:-add_ss(borders,saudi_arabia,united_arab_emirates).
-:-add_ss(borders,saudi_arabia,yemen).
-:-add_ss(borders,saudi_arabia,persian_gulf).
-:-add_ss(borders,saudi_arabia,red_sea).
+:-add_ss(border,saudi_arabia,iraq).
+:-add_ss(border,saudi_arabia,jordan).
+:-add_ss(border,saudi_arabia,kuwait).
+:-add_ss(border,saudi_arabia,oman).
+:-add_ss(border,saudi_arabia,qatar).
+:-add_ss(border,saudi_arabia,south_yemen).
+:-add_ss(border,saudi_arabia,united_arab_emirates).
+:-add_ss(border,saudi_arabia,yemen).
+:-add_ss(border,saudi_arabia,persian_gulf).
+:-add_ss(border,saudi_arabia,red_sea).
 
-:-add_ss(borders,singapore,malaysia).
-:-add_ss(borders,singapore,pacific).
+:-add_ss(border,singapore,malaysia).
+:-add_ss(border,singapore,pacific).
 
-:-add_ss(borders,south_korea,north_korea).
-:-add_ss(borders,south_korea,pacific).
+:-add_ss(border,south_korea,north_korea).
+:-add_ss(border,south_korea,pacific).
 
-:-add_ss(borders,south_yemen,oman).
-:-add_ss(borders,south_yemen,saudi_arabia).
-:-add_ss(borders,south_yemen,yemen).
-:-add_ss(borders,south_yemen,indian_ocean).
+:-add_ss(border,south_yemen,oman).
+:-add_ss(border,south_yemen,saudi_arabia).
+:-add_ss(border,south_yemen,yemen).
+:-add_ss(border,south_yemen,indian_ocean).
 
-:-add_ss(borders,soviet_union,afghanistan).
-:-add_ss(borders,soviet_union,china).
-:-add_ss(borders,soviet_union,czechoslovakia).
-:-add_ss(borders,soviet_union,finland).
-:-add_ss(borders,soviet_union,hungary).
-:-add_ss(borders,soviet_union,iran).
-:-add_ss(borders,soviet_union,mongolia).
-:-add_ss(borders,soviet_union,north_korea).
-:-add_ss(borders,soviet_union,norway).
-:-add_ss(borders,soviet_union,poland).
-:-add_ss(borders,soviet_union,romania).
-:-add_ss(borders,soviet_union,turkey).
-:-add_ss(borders,soviet_union,arctic_ocean).
-:-add_ss(borders,soviet_union,baltic).
-:-add_ss(borders,soviet_union,black_sea).
-:-add_ss(borders,soviet_union,caspian_sea).
-:-add_ss(borders,soviet_union,pacific).
+:-add_ss(border,soviet_union,afghanistan).
+:-add_ss(border,soviet_union,china).
+:-add_ss(border,soviet_union,czechoslovakia).
+:-add_ss(border,soviet_union,finland).
+:-add_ss(border,soviet_union,hungary).
+:-add_ss(border,soviet_union,iran).
+:-add_ss(border,soviet_union,mongolia).
+:-add_ss(border,soviet_union,north_korea).
+:-add_ss(border,soviet_union,norway).
+:-add_ss(border,soviet_union,poland).
+:-add_ss(border,soviet_union,romania).
+:-add_ss(border,soviet_union,turkey).
+:-add_ss(border,soviet_union,arctic_ocean).
+:-add_ss(border,soviet_union,baltic).
+:-add_ss(border,soviet_union,black_sea).
+:-add_ss(border,soviet_union,caspian_sea).
+:-add_ss(border,soviet_union,pacific).
 
-:-add_ss(borders,sri_lanka,indian_ocean).
+:-add_ss(border,sri_lanka,indian_ocean).
 
-:-add_ss(borders,syria,iraq).
-:-add_ss(borders,syria,israel).
-:-add_ss(borders,syria,jordan).
-:-add_ss(borders,syria,lebanon).
-:-add_ss(borders,syria,turkey).
-:-add_ss(borders,syria,mediterranean).
+:-add_ss(border,syria,iraq).
+:-add_ss(border,syria,israel).
+:-add_ss(border,syria,jordan).
+:-add_ss(border,syria,lebanon).
+:-add_ss(border,syria,turkey).
+:-add_ss(border,syria,mediterranean).
 
-:-add_ss(borders,taiwan,pacific).
+:-add_ss(border,taiwan,pacific).
 
-:-add_ss(borders,thailand,burma).
-:-add_ss(borders,thailand,cambodia).
-:-add_ss(borders,thailand,laos).
-:-add_ss(borders,thailand,malaysia).
-:-add_ss(borders,thailand,indian_ocean).
-:-add_ss(borders,thailand,pacific).
+:-add_ss(border,thailand,burma).
+:-add_ss(border,thailand,cambodia).
+:-add_ss(border,thailand,laos).
+:-add_ss(border,thailand,malaysia).
+:-add_ss(border,thailand,indian_ocean).
+:-add_ss(border,thailand,pacific).
 
-:-add_ss(borders,turkey,bulgaria).
-:-add_ss(borders,turkey,greece).
-:-add_ss(borders,turkey,iran).
-:-add_ss(borders,turkey,iraq).
-:-add_ss(borders,turkey,soviet_union).
-:-add_ss(borders,turkey,syria).
-:-add_ss(borders,turkey,black_sea).
-:-add_ss(borders,turkey,mediterranean).
+:-add_ss(border,turkey,bulgaria).
+:-add_ss(border,turkey,greece).
+:-add_ss(border,turkey,iran).
+:-add_ss(border,turkey,iraq).
+:-add_ss(border,turkey,soviet_union).
+:-add_ss(border,turkey,syria).
+:-add_ss(border,turkey,black_sea).
+:-add_ss(border,turkey,mediterranean).
 
-:-add_ss(borders,united_arab_emirates,oman).
-:-add_ss(borders,united_arab_emirates,qatar).
-:-add_ss(borders,united_arab_emirates,saudi_arabia).
-:-add_ss(borders,united_arab_emirates,persian_gulf).
+:-add_ss(border,united_arab_emirates,oman).
+:-add_ss(border,united_arab_emirates,qatar).
+:-add_ss(border,united_arab_emirates,saudi_arabia).
+:-add_ss(border,united_arab_emirates,persian_gulf).
 
-:-add_ss(borders,vietnam,cambodia).
-:-add_ss(borders,vietnam,china).
-:-add_ss(borders,vietnam,laos).
-:-add_ss(borders,vietnam,pacific).
+:-add_ss(border,vietnam,cambodia).
+:-add_ss(border,vietnam,china).
+:-add_ss(border,vietnam,laos).
+:-add_ss(border,vietnam,pacific).
 
-:-add_ss(borders,yemen,south_yemen).
-:-add_ss(borders,yemen,saudi_arabia).
-:-add_ss(borders,yemen,red_sea).
+:-add_ss(border,yemen,south_yemen).
+:-add_ss(border,yemen,saudi_arabia).
+:-add_ss(border,yemen,red_sea).
 
 % Facts about Africa.
 % ------------------
 
-:-add_ss(borders,algeria,libya).
-:-add_ss(borders,algeria,mali).
-:-add_ss(borders,algeria,mauritania).
-:-add_ss(borders,algeria,morocco).
-:-add_ss(borders,algeria,niger).
-:-add_ss(borders,algeria,tunisia).
-:-add_ss(borders,algeria,mediterranean).
+:-add_ss(border,algeria,libya).
+:-add_ss(border,algeria,mali).
+:-add_ss(border,algeria,mauritania).
+:-add_ss(border,algeria,morocco).
+:-add_ss(border,algeria,niger).
+:-add_ss(border,algeria,tunisia).
+:-add_ss(border,algeria,mediterranean).
 
-:-add_ss(borders,angola,congo).
-:-add_ss(borders,angola,south_africa).
-:-add_ss(borders,angola,zaire).
-:-add_ss(borders,angola,zambia).
-:-add_ss(borders,angola,atlantic).
+:-add_ss(border,angola,congo).
+:-add_ss(border,angola,south_africa).
+:-add_ss(border,angola,zaire).
+:-add_ss(border,angola,zambia).
+:-add_ss(border,angola,atlantic).
 
-:-add_ss(borders,botswana,south_africa).
-:-add_ss(borders,botswana,zimbabwe).
+:-add_ss(border,botswana,south_africa).
+:-add_ss(border,botswana,zimbabwe).
 
-:-add_ss(borders,burundi,rwanda).
-:-add_ss(borders,burundi,tanzania).
-:-add_ss(borders,burundi,zaire).
+:-add_ss(border,burundi,rwanda).
+:-add_ss(border,burundi,tanzania).
+:-add_ss(border,burundi,zaire).
 
-:-add_ss(borders,cameroon,central_african_republic).
-:-add_ss(borders,cameroon,chad).
-:-add_ss(borders,cameroon,congo).
-:-add_ss(borders,cameroon,equatorial_guinea).
-:-add_ss(borders,cameroon,gabon).
-:-add_ss(borders,cameroon,nigeria).
-:-add_ss(borders,cameroon,atlantic).
+:-add_ss(border,cameroon,central_african_republic).
+:-add_ss(border,cameroon,chad).
+:-add_ss(border,cameroon,congo).
+:-add_ss(border,cameroon,equatorial_guinea).
+:-add_ss(border,cameroon,gabon).
+:-add_ss(border,cameroon,nigeria).
+:-add_ss(border,cameroon,atlantic).
 
-:-add_ss(borders,central_african_republic,cameroon).
-:-add_ss(borders,central_african_republic,chad).
-:-add_ss(borders,central_african_republic,congo).
-:-add_ss(borders,central_african_republic,sudan).
-:-add_ss(borders,central_african_republic,zaire).
+:-add_ss(border,central_african_republic,cameroon).
+:-add_ss(border,central_african_republic,chad).
+:-add_ss(border,central_african_republic,congo).
+:-add_ss(border,central_african_republic,sudan).
+:-add_ss(border,central_african_republic,zaire).
 
-:-add_ss(borders,chad,cameroon).
-:-add_ss(borders,chad,central_african_republic).
-:-add_ss(borders,chad,libya).
-:-add_ss(borders,chad,niger).
-:-add_ss(borders,chad,nigeria).
-:-add_ss(borders,chad,sudan).
+:-add_ss(border,chad,cameroon).
+:-add_ss(border,chad,central_african_republic).
+:-add_ss(border,chad,libya).
+:-add_ss(border,chad,niger).
+:-add_ss(border,chad,nigeria).
+:-add_ss(border,chad,sudan).
 
-:-add_ss(borders,congo,angola).
-:-add_ss(borders,congo,cameroon).
-:-add_ss(borders,congo,central_african_republic).
-:-add_ss(borders,congo,gabon).
-:-add_ss(borders,congo,zaire).
-:-add_ss(borders,congo,atlantic).
+:-add_ss(border,congo,angola).
+:-add_ss(border,congo,cameroon).
+:-add_ss(border,congo,central_african_republic).
+:-add_ss(border,congo,gabon).
+:-add_ss(border,congo,zaire).
+:-add_ss(border,congo,atlantic).
 
-:-add_ss(borders,dahomey,niger).
-:-add_ss(borders,dahomey,nigeria).
-:-add_ss(borders,dahomey,togo).
-:-add_ss(borders,dahomey,upper_volta).
-:-add_ss(borders,dahomey,atlantic).
+:-add_ss(border,dahomey,niger).
+:-add_ss(border,dahomey,nigeria).
+:-add_ss(border,dahomey,togo).
+:-add_ss(border,dahomey,upper_volta).
+:-add_ss(border,dahomey,atlantic).
 
-:-add_ss(borders,djibouti,ethiopia).
-:-add_ss(borders,djibouti,somalia).
-:-add_ss(borders,djibouti,indian_ocean).
+:-add_ss(border,djibouti,ethiopia).
+:-add_ss(border,djibouti,somalia).
+:-add_ss(border,djibouti,indian_ocean).
 
-:-add_ss(borders,egypt,israel).
-:-add_ss(borders,egypt,libya).
-:-add_ss(borders,egypt,sudan).
-:-add_ss(borders,egypt,mediterranean).
-:-add_ss(borders,egypt,red_sea).
+:-add_ss(border,egypt,israel).
+:-add_ss(border,egypt,libya).
+:-add_ss(border,egypt,sudan).
+:-add_ss(border,egypt,mediterranean).
+:-add_ss(border,egypt,red_sea).
 
-:-add_ss(borders,equatorial_guinea,cameroon).
-:-add_ss(borders,equatorial_guinea,gabon).
-:-add_ss(borders,equatorial_guinea,atlantic).
+:-add_ss(border,equatorial_guinea,cameroon).
+:-add_ss(border,equatorial_guinea,gabon).
+:-add_ss(border,equatorial_guinea,atlantic).
 
-:-add_ss(borders,ethiopia,djibouti).
-:-add_ss(borders,ethiopia,kenya).
-:-add_ss(borders,ethiopia,somalia).
-:-add_ss(borders,ethiopia,sudan).
-:-add_ss(borders,ethiopia,red_sea).
+:-add_ss(border,ethiopia,djibouti).
+:-add_ss(border,ethiopia,kenya).
+:-add_ss(border,ethiopia,somalia).
+:-add_ss(border,ethiopia,sudan).
+:-add_ss(border,ethiopia,red_sea).
 
-:-add_ss(borders,gabon,cameroon).
-:-add_ss(borders,gabon,congo).
-:-add_ss(borders,gabon,equatorial_guinea).
-:-add_ss(borders,gabon,atlantic).
+:-add_ss(border,gabon,cameroon).
+:-add_ss(border,gabon,congo).
+:-add_ss(border,gabon,equatorial_guinea).
+:-add_ss(border,gabon,atlantic).
 
-:-add_ss(borders,gambia,senegal).
-:-add_ss(borders,gambia,atlantic).
+:-add_ss(border,gambia,senegal).
+:-add_ss(border,gambia,atlantic).
 
-:-add_ss(borders,ghana,ivory_coast).
-:-add_ss(borders,ghana,togo).
-:-add_ss(borders,ghana,upper_volta).
-:-add_ss(borders,ghana,atlantic).
+:-add_ss(border,ghana,ivory_coast).
+:-add_ss(border,ghana,togo).
+:-add_ss(border,ghana,upper_volta).
+:-add_ss(border,ghana,atlantic).
 
-:-add_ss(borders,guinea,guinea_bissau).
-:-add_ss(borders,guinea,ivory_coast).
-:-add_ss(borders,guinea,liberia).
-:-add_ss(borders,guinea,mali).
-:-add_ss(borders,guinea,senegal).
-:-add_ss(borders,guinea,sierra_leone).
-:-add_ss(borders,guinea,atlantic).
+:-add_ss(border,guinea,guinea_bissau).
+:-add_ss(border,guinea,ivory_coast).
+:-add_ss(border,guinea,liberia).
+:-add_ss(border,guinea,mali).
+:-add_ss(border,guinea,senegal).
+:-add_ss(border,guinea,sierra_leone).
+:-add_ss(border,guinea,atlantic).
 
-:-add_ss(borders,guinea_bissau,guinea).
-:-add_ss(borders,guinea_bissau,senegal).
-:-add_ss(borders,guinea_bissau,atlantic).
+:-add_ss(border,guinea_bissau,guinea).
+:-add_ss(border,guinea_bissau,senegal).
+:-add_ss(border,guinea_bissau,atlantic).
 
-:-add_ss(borders,ivory_coast,ghana).
-:-add_ss(borders,ivory_coast,guinea).
-:-add_ss(borders,ivory_coast,liberia).
-:-add_ss(borders,ivory_coast,mali).
-:-add_ss(borders,ivory_coast,upper_volta).
-:-add_ss(borders,ivory_coast,atlantic).
+:-add_ss(border,ivory_coast,ghana).
+:-add_ss(border,ivory_coast,guinea).
+:-add_ss(border,ivory_coast,liberia).
+:-add_ss(border,ivory_coast,mali).
+:-add_ss(border,ivory_coast,upper_volta).
+:-add_ss(border,ivory_coast,atlantic).
 
-:-add_ss(borders,kenya,ethiopia).
-:-add_ss(borders,kenya,somalia).
-:-add_ss(borders,kenya,sudan).
-:-add_ss(borders,kenya,tanzania).
-:-add_ss(borders,kenya,uganda).
-:-add_ss(borders,kenya,indian_ocean).
+:-add_ss(border,kenya,ethiopia).
+:-add_ss(border,kenya,somalia).
+:-add_ss(border,kenya,sudan).
+:-add_ss(border,kenya,tanzania).
+:-add_ss(border,kenya,uganda).
+:-add_ss(border,kenya,indian_ocean).
 
-:-add_ss(borders,lesotho,south_africa).
+:-add_ss(border,lesotho,south_africa).
 
-:-add_ss(borders,liberia,ivory_coast).
-:-add_ss(borders,liberia,guinea).
-:-add_ss(borders,liberia,sierra_leone).
-:-add_ss(borders,liberia,atlantic).
+:-add_ss(border,liberia,ivory_coast).
+:-add_ss(border,liberia,guinea).
+:-add_ss(border,liberia,sierra_leone).
+:-add_ss(border,liberia,atlantic).
 
-:-add_ss(borders,libya,algeria).
-:-add_ss(borders,libya,chad).
-:-add_ss(borders,libya,egypt).
-:-add_ss(borders,libya,niger).
-:-add_ss(borders,libya,sudan).
-:-add_ss(borders,libya,tunisia).
-:-add_ss(borders,libya,mediterranean).
+:-add_ss(border,libya,algeria).
+:-add_ss(border,libya,chad).
+:-add_ss(border,libya,egypt).
+:-add_ss(border,libya,niger).
+:-add_ss(border,libya,sudan).
+:-add_ss(border,libya,tunisia).
+:-add_ss(border,libya,mediterranean).
 
-:-add_ss(borders,malagasy,indian_ocean).
+:-add_ss(border,malagasy,indian_ocean).
 
-:-add_ss(borders,malawi,mozambique).
-:-add_ss(borders,malawi,tanzania).
-:-add_ss(borders,malawi,zambia).
+:-add_ss(border,malawi,mozambique).
+:-add_ss(border,malawi,tanzania).
+:-add_ss(border,malawi,zambia).
 
-:-add_ss(borders,mali,algeria).
-:-add_ss(borders,mali,guinea).
-:-add_ss(borders,mali,ivory_coast).
-:-add_ss(borders,mali,mauritania).
-:-add_ss(borders,mali,niger).
-:-add_ss(borders,mali,senegal).
-:-add_ss(borders,mali,upper_volta).
+:-add_ss(border,mali,algeria).
+:-add_ss(border,mali,guinea).
+:-add_ss(border,mali,ivory_coast).
+:-add_ss(border,mali,mauritania).
+:-add_ss(border,mali,niger).
+:-add_ss(border,mali,senegal).
+:-add_ss(border,mali,upper_volta).
 
-:-add_ss(borders,mauritania,algeria).
-:-add_ss(borders,mauritania,mali).
-:-add_ss(borders,mauritania,morocco).
-:-add_ss(borders,mauritania,senegal).
-:-add_ss(borders,mauritania,atlantic).
+:-add_ss(border,mauritania,algeria).
+:-add_ss(border,mauritania,mali).
+:-add_ss(border,mauritania,morocco).
+:-add_ss(border,mauritania,senegal).
+:-add_ss(border,mauritania,atlantic).
 
-:-add_ss(borders,mauritius,indian_ocean).
+:-add_ss(border,mauritius,indian_ocean).
 
-:-add_ss(borders,morocco,algeria).
-:-add_ss(borders,morocco,mauritania).
-:-add_ss(borders,morocco,atlantic).
-:-add_ss(borders,morocco,mediterranean).
+:-add_ss(border,morocco,algeria).
+:-add_ss(border,morocco,mauritania).
+:-add_ss(border,morocco,atlantic).
+:-add_ss(border,morocco,mediterranean).
 
-:-add_ss(borders,mozambique,malawi).
-:-add_ss(borders,mozambique,south_africa).
-:-add_ss(borders,mozambique,swaziland).
-:-add_ss(borders,mozambique,tanzania).
-:-add_ss(borders,mozambique,zambia).
-:-add_ss(borders,mozambique,zimbabwe).
-:-add_ss(borders,mozambique,indian_ocean).
+:-add_ss(border,mozambique,malawi).
+:-add_ss(border,mozambique,south_africa).
+:-add_ss(border,mozambique,swaziland).
+:-add_ss(border,mozambique,tanzania).
+:-add_ss(border,mozambique,zambia).
+:-add_ss(border,mozambique,zimbabwe).
+:-add_ss(border,mozambique,indian_ocean).
 
-:-add_ss(borders,niger,algeria).
-:-add_ss(borders,niger,chad).
-:-add_ss(borders,niger,dahomey).
-:-add_ss(borders,niger,libya).
-:-add_ss(borders,niger,mali).
-:-add_ss(borders,niger,nigeria).
-:-add_ss(borders,niger,upper_volta).
+:-add_ss(border,niger,algeria).
+:-add_ss(border,niger,chad).
+:-add_ss(border,niger,dahomey).
+:-add_ss(border,niger,libya).
+:-add_ss(border,niger,mali).
+:-add_ss(border,niger,nigeria).
+:-add_ss(border,niger,upper_volta).
 
-:-add_ss(borders,nigeria,cameroon).
-:-add_ss(borders,nigeria,chad).
-:-add_ss(borders,nigeria,dahomey).
-:-add_ss(borders,nigeria,niger).
-:-add_ss(borders,nigeria,atlantic).
+:-add_ss(border,nigeria,cameroon).
+:-add_ss(border,nigeria,chad).
+:-add_ss(border,nigeria,dahomey).
+:-add_ss(border,nigeria,niger).
+:-add_ss(border,nigeria,atlantic).
 
-:-add_ss(borders,rwanda,burundi).
-:-add_ss(borders,rwanda,tanzania).
-:-add_ss(borders,rwanda,uganda).
-:-add_ss(borders,rwanda,zaire).
+:-add_ss(border,rwanda,burundi).
+:-add_ss(border,rwanda,tanzania).
+:-add_ss(border,rwanda,uganda).
+:-add_ss(border,rwanda,zaire).
 
-:-add_ss(borders,senegal,gambia).
-:-add_ss(borders,senegal,guinea).
-:-add_ss(borders,senegal,guinea_bissau).
-:-add_ss(borders,senegal,mali).
-:-add_ss(borders,senegal,mauritania).
-:-add_ss(borders,senegal,atlantic).
+:-add_ss(border,senegal,gambia).
+:-add_ss(border,senegal,guinea).
+:-add_ss(border,senegal,guinea_bissau).
+:-add_ss(border,senegal,mali).
+:-add_ss(border,senegal,mauritania).
+:-add_ss(border,senegal,atlantic).
 
-:-add_ss(borders,seychelles,indian_ocean).
+:-add_ss(border,seychelles,indian_ocean).
 
-:-add_ss(borders,sierra_leone,guinea).
-:-add_ss(borders,sierra_leone,liberia).
-:-add_ss(borders,sierra_leone,atlantic).
+:-add_ss(border,sierra_leone,guinea).
+:-add_ss(border,sierra_leone,liberia).
+:-add_ss(border,sierra_leone,atlantic).
 
-:-add_ss(borders,somalia,djibouti).
-:-add_ss(borders,somalia,ethiopia).
-:-add_ss(borders,somalia,kenya).
-:-add_ss(borders,somalia,indian_ocean).
+:-add_ss(border,somalia,djibouti).
+:-add_ss(border,somalia,ethiopia).
+:-add_ss(border,somalia,kenya).
+:-add_ss(border,somalia,indian_ocean).
 
-:-add_ss(borders,south_africa,angola).
-:-add_ss(borders,south_africa,botswana).
-:-add_ss(borders,south_africa,lesotho).
-:-add_ss(borders,south_africa,mozambique).
-:-add_ss(borders,south_africa,swaziland).
-:-add_ss(borders,south_africa,zambia).
-:-add_ss(borders,south_africa,zimbabwe).
-:-add_ss(borders,south_africa,atlantic).
-:-add_ss(borders,south_africa,indian_ocean).
+:-add_ss(border,south_africa,angola).
+:-add_ss(border,south_africa,botswana).
+:-add_ss(border,south_africa,lesotho).
+:-add_ss(border,south_africa,mozambique).
+:-add_ss(border,south_africa,swaziland).
+:-add_ss(border,south_africa,zambia).
+:-add_ss(border,south_africa,zimbabwe).
+:-add_ss(border,south_africa,atlantic).
+:-add_ss(border,south_africa,indian_ocean).
 
-:-add_ss(borders,sudan,chad).
-:-add_ss(borders,sudan,central_african_republic).
-:-add_ss(borders,sudan,egypt).
-:-add_ss(borders,sudan,ethiopia).
-:-add_ss(borders,sudan,kenya).
-:-add_ss(borders,sudan,libya).
-:-add_ss(borders,sudan,uganda).
-:-add_ss(borders,sudan,zaire).
-:-add_ss(borders,sudan,red_sea).
+:-add_ss(border,sudan,chad).
+:-add_ss(border,sudan,central_african_republic).
+:-add_ss(border,sudan,egypt).
+:-add_ss(border,sudan,ethiopia).
+:-add_ss(border,sudan,kenya).
+:-add_ss(border,sudan,libya).
+:-add_ss(border,sudan,uganda).
+:-add_ss(border,sudan,zaire).
+:-add_ss(border,sudan,red_sea).
 
-:-add_ss(borders,swaziland,mozambique).
-:-add_ss(borders,swaziland,south_africa).
+:-add_ss(border,swaziland,mozambique).
+:-add_ss(border,swaziland,south_africa).
 
-:-add_ss(borders,tanzania,burundi).
-:-add_ss(borders,tanzania,kenya).
-:-add_ss(borders,tanzania,malawi).
-:-add_ss(borders,tanzania,mozambique).
-:-add_ss(borders,tanzania,rwanda).
-:-add_ss(borders,tanzania,uganda).
-:-add_ss(borders,tanzania,zaire).
-:-add_ss(borders,tanzania,zambia).
-:-add_ss(borders,tanzania,indian_ocean).
+:-add_ss(border,tanzania,burundi).
+:-add_ss(border,tanzania,kenya).
+:-add_ss(border,tanzania,malawi).
+:-add_ss(border,tanzania,mozambique).
+:-add_ss(border,tanzania,rwanda).
+:-add_ss(border,tanzania,uganda).
+:-add_ss(border,tanzania,zaire).
+:-add_ss(border,tanzania,zambia).
+:-add_ss(border,tanzania,indian_ocean).
 
-:-add_ss(borders,togo,dahomey).
-:-add_ss(borders,togo,ghana).
-:-add_ss(borders,togo,upper_volta).
-:-add_ss(borders,togo,atlantic).
+:-add_ss(border,togo,dahomey).
+:-add_ss(border,togo,ghana).
+:-add_ss(border,togo,upper_volta).
+:-add_ss(border,togo,atlantic).
 
-:-add_ss(borders,tunisia,algeria).
-:-add_ss(borders,tunisia,libya).
-:-add_ss(borders,tunisia,mediterranean).
+:-add_ss(border,tunisia,algeria).
+:-add_ss(border,tunisia,libya).
+:-add_ss(border,tunisia,mediterranean).
 
-:-add_ss(borders,uganda,kenya).
-:-add_ss(borders,uganda,rwanda).
-:-add_ss(borders,uganda,sudan).
-:-add_ss(borders,uganda,tanzania).
-:-add_ss(borders,uganda,zaire).
+:-add_ss(border,uganda,kenya).
+:-add_ss(border,uganda,rwanda).
+:-add_ss(border,uganda,sudan).
+:-add_ss(border,uganda,tanzania).
+:-add_ss(border,uganda,zaire).
 
-:-add_ss(borders,upper_volta,dahomey).
-:-add_ss(borders,upper_volta,ghana).
-:-add_ss(borders,upper_volta,ivory_coast).
-:-add_ss(borders,upper_volta,mali).
-:-add_ss(borders,upper_volta,niger).
-:-add_ss(borders,upper_volta,togo).
+:-add_ss(border,upper_volta,dahomey).
+:-add_ss(border,upper_volta,ghana).
+:-add_ss(border,upper_volta,ivory_coast).
+:-add_ss(border,upper_volta,mali).
+:-add_ss(border,upper_volta,niger).
+:-add_ss(border,upper_volta,togo).
 
-:-add_ss(borders,zaire,angola).
-:-add_ss(borders,zaire,burundi).
-:-add_ss(borders,zaire,central_african_republic).
-:-add_ss(borders,zaire,congo).
-:-add_ss(borders,zaire,rwanda).
-:-add_ss(borders,zaire,sudan).
-:-add_ss(borders,zaire,tanzania).
-:-add_ss(borders,zaire,uganda).
-:-add_ss(borders,zaire,zambia).
-:-add_ss(borders,zaire,atlantic).
+:-add_ss(border,zaire,angola).
+:-add_ss(border,zaire,burundi).
+:-add_ss(border,zaire,central_african_republic).
+:-add_ss(border,zaire,congo).
+:-add_ss(border,zaire,rwanda).
+:-add_ss(border,zaire,sudan).
+:-add_ss(border,zaire,tanzania).
+:-add_ss(border,zaire,uganda).
+:-add_ss(border,zaire,zambia).
+:-add_ss(border,zaire,atlantic).
 
-:-add_ss(borders,zambia,angola).
-:-add_ss(borders,zambia,malawi).
-:-add_ss(borders,zambia,mozambique).
-:-add_ss(borders,zambia,south_africa).
-:-add_ss(borders,zambia,tanzania).
-:-add_ss(borders,zambia,zaire).
-:-add_ss(borders,zambia,zimbabwe).
+:-add_ss(border,zambia,angola).
+:-add_ss(border,zambia,malawi).
+:-add_ss(border,zambia,mozambique).
+:-add_ss(border,zambia,south_africa).
+:-add_ss(border,zambia,tanzania).
+:-add_ss(border,zambia,zaire).
+:-add_ss(border,zambia,zimbabwe).
 
-:-add_ss(borders,zimbabwe,botswana).
-:-add_ss(borders,zimbabwe,mozambique).
-:-add_ss(borders,zimbabwe,south_africa).
-:-add_ss(borders,zimbabwe,zambia).
+:-add_ss(border,zimbabwe,botswana).
+:-add_ss(border,zimbabwe,mozambique).
+:-add_ss(border,zimbabwe,south_africa).
+:-add_ss(border,zimbabwe,zambia).
 
 
 % Facts about America.
 % -------------------
 
-:-add_ss(borders,argentina,bolivia).
-:-add_ss(borders,argentina,brazil).
-:-add_ss(borders,argentina,chile).
-:-add_ss(borders,argentina,paraguay).
-:-add_ss(borders,argentina,uruguay).
-:-add_ss(borders,argentina,atlantic).
+:-add_ss(border,argentina,bolivia).
+:-add_ss(border,argentina,brazil).
+:-add_ss(border,argentina,chile).
+:-add_ss(border,argentina,paraguay).
+:-add_ss(border,argentina,uruguay).
+:-add_ss(border,argentina,atlantic).
 
-:-add_ss(borders,bahamas,atlantic).
+:-add_ss(border,bahamas,atlantic).
 
-:-add_ss(borders,barbados,atlantic).
+:-add_ss(border,barbados,atlantic).
 
-:-add_ss(borders,belize,guatemala).
-:-add_ss(borders,belize,mexico).
-:-add_ss(borders,belize,atlantic).
+:-add_ss(border,belize,guatemala).
+:-add_ss(border,belize,mexico).
+:-add_ss(border,belize,atlantic).
 
-:-add_ss(borders,bolivia,argentina).
-:-add_ss(borders,bolivia,brazil).
-:-add_ss(borders,bolivia,chile).
-:-add_ss(borders,bolivia,paraguay).
-:-add_ss(borders,bolivia,peru).
+:-add_ss(border,bolivia,argentina).
+:-add_ss(border,bolivia,brazil).
+:-add_ss(border,bolivia,chile).
+:-add_ss(border,bolivia,paraguay).
+:-add_ss(border,bolivia,peru).
 
-:-add_ss(borders,brazil,argentina).
-:-add_ss(borders,brazil,bolivia).
-:-add_ss(borders,brazil,colombia).
-:-add_ss(borders,brazil,french_guiana).
-:-add_ss(borders,brazil,guyana).
-:-add_ss(borders,brazil,paraguay).
-:-add_ss(borders,brazil,peru).
-:-add_ss(borders,brazil,surinam).
-:-add_ss(borders,brazil,uruguay).
-:-add_ss(borders,brazil,venezuela).
-:-add_ss(borders,brazil,atlantic).
+:-add_ss(border,brazil,argentina).
+:-add_ss(border,brazil,bolivia).
+:-add_ss(border,brazil,colombia).
+:-add_ss(border,brazil,french_guiana).
+:-add_ss(border,brazil,guyana).
+:-add_ss(border,brazil,paraguay).
+:-add_ss(border,brazil,peru).
+:-add_ss(border,brazil,surinam).
+:-add_ss(border,brazil,uruguay).
+:-add_ss(border,brazil,venezuela).
+:-add_ss(border,brazil,atlantic).
 
-:-add_ss(borders,canada,united_states).
-:-add_ss(borders,canada,arctic_ocean).
-:-add_ss(borders,canada,atlantic).
-:-add_ss(borders,canada,pacific).
+:-add_ss(border,canada,united_states).
+:-add_ss(border,canada,arctic_ocean).
+:-add_ss(border,canada,atlantic).
+:-add_ss(border,canada,pacific).
 
-:-add_ss(borders,chile,argentina).
-:-add_ss(borders,chile,bolivia).
-:-add_ss(borders,chile,peru).
-:-add_ss(borders,chile,pacific).
+:-add_ss(border,chile,argentina).
+:-add_ss(border,chile,bolivia).
+:-add_ss(border,chile,peru).
+:-add_ss(border,chile,pacific).
 
-:-add_ss(borders,colombia,brazil).
-:-add_ss(borders,colombia,ecuador).
-:-add_ss(borders,colombia,panama).
-:-add_ss(borders,colombia,peru).
-:-add_ss(borders,colombia,venezuela).
-:-add_ss(borders,colombia,atlantic).
-:-add_ss(borders,colombia,pacific).
+:-add_ss(border,colombia,brazil).
+:-add_ss(border,colombia,ecuador).
+:-add_ss(border,colombia,panama).
+:-add_ss(border,colombia,peru).
+:-add_ss(border,colombia,venezuela).
+:-add_ss(border,colombia,atlantic).
+:-add_ss(border,colombia,pacific).
 
-:-add_ss(borders,costa_rica,nicaragua).
-:-add_ss(borders,costa_rica,panama).
-:-add_ss(borders,costa_rica,atlantic).
-:-add_ss(borders,costa_rica,pacific).
+:-add_ss(border,costa_rica,nicaragua).
+:-add_ss(border,costa_rica,panama).
+:-add_ss(border,costa_rica,atlantic).
+:-add_ss(border,costa_rica,pacific).
 
-:-add_ss(borders,cuba,atlantic).
+:-add_ss(border,cuba,atlantic).
 
-:-add_ss(borders,dominican_republic,haiti).
-:-add_ss(borders,dominican_republic,atlantic).
+:-add_ss(border,dominican_republic,haiti).
+:-add_ss(border,dominican_republic,atlantic).
 
-:-add_ss(borders,ecuador,colombia).
-:-add_ss(borders,ecuador,peru).
-:-add_ss(borders,ecuador,pacific).
+:-add_ss(border,ecuador,colombia).
+:-add_ss(border,ecuador,peru).
+:-add_ss(border,ecuador,pacific).
 
-:-add_ss(borders,el_salvador,guatemala).
-:-add_ss(borders,el_salvador,honduras).
-:-add_ss(borders,el_salvador,pacific).
+:-add_ss(border,el_salvador,guatemala).
+:-add_ss(border,el_salvador,honduras).
+:-add_ss(border,el_salvador,pacific).
 
-:-add_ss(borders,french_guiana,brazil).
-:-add_ss(borders,french_guiana,surinam).
+:-add_ss(border,french_guiana,brazil).
+:-add_ss(border,french_guiana,surinam).
 
-:-add_ss(borders,greenland,arctic_ocean).
-:-add_ss(borders,greenland,atlantic).
+:-add_ss(border,greenland,arctic_ocean).
+:-add_ss(border,greenland,atlantic).
 
-:-add_ss(borders,grenada,atlantic).
+:-add_ss(border,grenada,atlantic).
 
-:-add_ss(borders,guatemala,belize).
-:-add_ss(borders,guatemala,el_salvador).
-:-add_ss(borders,guatemala,honduras).
-:-add_ss(borders,guatemala,mexico).
-:-add_ss(borders,guatemala,atlantic).
-:-add_ss(borders,guatemala,pacific).
+:-add_ss(border,guatemala,belize).
+:-add_ss(border,guatemala,el_salvador).
+:-add_ss(border,guatemala,honduras).
+:-add_ss(border,guatemala,mexico).
+:-add_ss(border,guatemala,atlantic).
+:-add_ss(border,guatemala,pacific).
 
-:-add_ss(borders,guyana,brazil).
-:-add_ss(borders,guyana,surinam).
-:-add_ss(borders,guyana,venezuela).
-:-add_ss(borders,guyana,atlantic).
+:-add_ss(border,guyana,brazil).
+:-add_ss(border,guyana,surinam).
+:-add_ss(border,guyana,venezuela).
+:-add_ss(border,guyana,atlantic).
 
-:-add_ss(borders,haiti,dominican_republic).
-:-add_ss(borders,haiti,atlantic).
+:-add_ss(border,haiti,dominican_republic).
+:-add_ss(border,haiti,atlantic).
 
-:-add_ss(borders,honduras,el_salvador).
-:-add_ss(borders,honduras,guatemala).
-:-add_ss(borders,honduras,nicaragua).
-:-add_ss(borders,honduras,atlantic).
-:-add_ss(borders,honduras,pacific).
+:-add_ss(border,honduras,el_salvador).
+:-add_ss(border,honduras,guatemala).
+:-add_ss(border,honduras,nicaragua).
+:-add_ss(border,honduras,atlantic).
+:-add_ss(border,honduras,pacific).
 
-:-add_ss(borders,jamaica,atlantic).
+:-add_ss(border,jamaica,atlantic).
 
-:-add_ss(borders,mexico,belize).
-:-add_ss(borders,mexico,guatemala).
-:-add_ss(borders,mexico,united_states).
-:-add_ss(borders,mexico,atlantic).
-:-add_ss(borders,mexico,pacific).
+:-add_ss(border,mexico,belize).
+:-add_ss(border,mexico,guatemala).
+:-add_ss(border,mexico,united_states).
+:-add_ss(border,mexico,atlantic).
+:-add_ss(border,mexico,pacific).
 
-:-add_ss(borders,nicaragua,costa_rica).
-:-add_ss(borders,nicaragua,honduras).
-:-add_ss(borders,nicaragua,atlantic).
-:-add_ss(borders,nicaragua,pacific).
+:-add_ss(border,nicaragua,costa_rica).
+:-add_ss(border,nicaragua,honduras).
+:-add_ss(border,nicaragua,atlantic).
+:-add_ss(border,nicaragua,pacific).
 
-:-add_ss(borders,panama,colombia).
-:-add_ss(borders,panama,costa_rica).
-:-add_ss(borders,panama,atlantic).
-:-add_ss(borders,panama,pacific).
+:-add_ss(border,panama,colombia).
+:-add_ss(border,panama,costa_rica).
+:-add_ss(border,panama,atlantic).
+:-add_ss(border,panama,pacific).
 
-:-add_ss(borders,paraguay,argentina).
-:-add_ss(borders,paraguay,bolivia).
-:-add_ss(borders,paraguay,brazil).
+:-add_ss(border,paraguay,argentina).
+:-add_ss(border,paraguay,bolivia).
+:-add_ss(border,paraguay,brazil).
 
-:-add_ss(borders,peru,bolivia).
-:-add_ss(borders,peru,brazil).
-:-add_ss(borders,peru,chile).
-:-add_ss(borders,peru,colombia).
-:-add_ss(borders,peru,ecuador).
-:-add_ss(borders,peru,pacific).
+:-add_ss(border,peru,bolivia).
+:-add_ss(border,peru,brazil).
+:-add_ss(border,peru,chile).
+:-add_ss(border,peru,colombia).
+:-add_ss(border,peru,ecuador).
+:-add_ss(border,peru,pacific).
 
-:-add_ss(borders,surinam,brazil).
-:-add_ss(borders,surinam,french_guiana).
-:-add_ss(borders,surinam,guyana).
+:-add_ss(border,surinam,brazil).
+:-add_ss(border,surinam,french_guiana).
+:-add_ss(border,surinam,guyana).
 
-:-add_ss(borders,trinidad_and_tobago,atlantic).
+:-add_ss(border,trinidad_and_tobago,atlantic).
 
-:-add_ss(borders,united_states,canada).
-:-add_ss(borders,united_states,mexico).
-:-add_ss(borders,united_states,arctic_ocean).
-:-add_ss(borders,united_states,atlantic).
-:-add_ss(borders,united_states,pacific).
+:-add_ss(border,united_states,canada).
+:-add_ss(border,united_states,mexico).
+:-add_ss(border,united_states,arctic_ocean).
+:-add_ss(border,united_states,atlantic).
+:-add_ss(border,united_states,pacific).
 
-:-add_ss(borders,uruguay,argentina).
-:-add_ss(borders,uruguay,brazil).
-:-add_ss(borders,uruguay,atlantic).
+:-add_ss(border,uruguay,argentina).
+:-add_ss(border,uruguay,brazil).
+:-add_ss(border,uruguay,atlantic).
 
-:-add_ss(borders,venezuela,brazil).
-:-add_ss(borders,venezuela,colombia).
-:-add_ss(borders,venezuela,guyana).
-:-add_ss(borders,venezuela,atlantic).
+:-add_ss(border,venezuela,brazil).
+:-add_ss(border,venezuela,colombia).
+:-add_ss(border,venezuela,guyana).
+:-add_ss(border,venezuela,atlantic).
 
 % Facts about Australasia.
 % -----------------------
 
-:-add_ss(borders,australia,indian_ocean).
-:-add_ss(borders,australia,pacific).
+:-add_ss(border,australia,indian_ocean).
+:-add_ss(border,australia,pacific).
 
-:-add_ss(borders,fiji,pacific).
+:-add_ss(border,fiji,pacific).
 
-:-add_ss(borders,new_zealand,pacific).
+:-add_ss(border,new_zealand,pacific).
 
-:-add_ss(borders,papua_new_guinea,indonesia).
-:-add_ss(borders,papua_new_guinea,pacific).
+:-add_ss(border,papua_new_guinea,indonesia).
+:-add_ss(border,papua_new_guinea,pacific).
 
-:-add_ss(borders,tonga,pacific).
+:-add_ss(border,tonga,pacific).
 
-:-add_ss(borders,western_samoa,pacific).
+:-add_ss(border,western_samoa,pacific).
 
-:-add_ss(borders,antarctica,southern_ocean).
+:-add_ss(border,antarctica,southern_ocean).
 
 % Facts about oceans and seas.
 % ---------------------------
 
-:-add_ss(borders,arctic_ocean,atlantic).
-:-add_ss(borders,arctic_ocean,pacific).
+:-add_ss(border,arctic_ocean,atlantic).
+:-add_ss(border,arctic_ocean,pacific).
 
-:-add_ss(borders,atlantic,arctic_ocean).
-:-add_ss(borders,atlantic,indian_ocean).
-:-add_ss(borders,atlantic,pacific).
-:-add_ss(borders,atlantic,southern_ocean).
-:-add_ss(borders,atlantic,baltic).
-:-add_ss(borders,atlantic,mediterranean).
+:-add_ss(border,atlantic,arctic_ocean).
+:-add_ss(border,atlantic,indian_ocean).
+:-add_ss(border,atlantic,pacific).
+:-add_ss(border,atlantic,southern_ocean).
+:-add_ss(border,atlantic,baltic).
+:-add_ss(border,atlantic,mediterranean).
 
-:-add_ss(borders,indian_ocean,atlantic).
-:-add_ss(borders,indian_ocean,pacific).
-:-add_ss(borders,indian_ocean,southern_ocean).
-:-add_ss(borders,indian_ocean,persian_gulf).
-:-add_ss(borders,indian_ocean,red_sea).
+:-add_ss(border,indian_ocean,atlantic).
+:-add_ss(border,indian_ocean,pacific).
+:-add_ss(border,indian_ocean,southern_ocean).
+:-add_ss(border,indian_ocean,persian_gulf).
+:-add_ss(border,indian_ocean,red_sea).
 
-:-add_ss(borders,pacific,arctic_ocean).
-:-add_ss(borders,pacific,atlantic).
-:-add_ss(borders,pacific,indian_ocean).
-:-add_ss(borders,pacific,southern_ocean).
+:-add_ss(border,pacific,arctic_ocean).
+:-add_ss(border,pacific,atlantic).
+:-add_ss(border,pacific,indian_ocean).
+:-add_ss(border,pacific,southern_ocean).
 
-:-add_ss(borders,southern_ocean,atlantic).
-:-add_ss(borders,southern_ocean,indian_ocean).
-:-add_ss(borders,southern_ocean,pacific).
+:-add_ss(border,southern_ocean,atlantic).
+:-add_ss(border,southern_ocean,indian_ocean).
+:-add_ss(border,southern_ocean,pacific).
 
-:-add_ss(borders,baltic,atlantic).
+:-add_ss(border,baltic,atlantic).
 
-:-add_ss(borders,black_sea,mediterranean).
+:-add_ss(border,black_sea,mediterranean).
 
-:-add_ss(borders,mediterranean,atlantic).
-:-add_ss(borders,mediterranean,black_sea).
+:-add_ss(border,mediterranean,atlantic).
+:-add_ss(border,mediterranean,black_sea).
 
-:-add_ss(borders,persian_gulf,indian_ocean).
+:-add_ss(border,persian_gulf,indian_ocean).
 
-:-add_ss(borders,red_sea,indian_ocean).
+:-add_ss(border,red_sea,indian_ocean).
 
 % Countries bordering each ocean and sea.
 % --------------------------------------
 
-:-add_ss(borders,arctic_ocean,norway).
-:-add_ss(borders,arctic_ocean,soviet_union).
-:-add_ss(borders,arctic_ocean,canada).
-:-add_ss(borders,arctic_ocean,greenland).
-:-add_ss(borders,arctic_ocean,united_states).
+:-add_ss(border,arctic_ocean,norway).
+:-add_ss(border,arctic_ocean,soviet_union).
+:-add_ss(border,arctic_ocean,canada).
+:-add_ss(border,arctic_ocean,greenland).
+:-add_ss(border,arctic_ocean,united_states).
 
-:-add_ss(borders,atlantic,belgium).
-:-add_ss(borders,atlantic,denmark).
-:-add_ss(borders,atlantic,eire).
-:-add_ss(borders,atlantic,france).
-:-add_ss(borders,atlantic,iceland).
-:-add_ss(borders,atlantic,netherlands).
-:-add_ss(borders,atlantic,norway).
-:-add_ss(borders,atlantic,portugal).
-:-add_ss(borders,atlantic,spain).
-:-add_ss(borders,atlantic,sweden).
-:-add_ss(borders,atlantic,west_germany).
-:-add_ss(borders,atlantic,united_kingdom).
-:-add_ss(borders,atlantic,angola).
-:-add_ss(borders,atlantic,cameroon).
-:-add_ss(borders,atlantic,congo).
-:-add_ss(borders,atlantic,dahomey).
-:-add_ss(borders,atlantic,equatorial_guinea).
-:-add_ss(borders,atlantic,gabon).
-:-add_ss(borders,atlantic,gambia).
-:-add_ss(borders,atlantic,ghana).
-:-add_ss(borders,atlantic,guinea).
-:-add_ss(borders,atlantic,guinea_bissau).
-:-add_ss(borders,atlantic,ivory_coast).
-:-add_ss(borders,atlantic,liberia).
-:-add_ss(borders,atlantic,mauritania).
-:-add_ss(borders,atlantic,morocco).
-:-add_ss(borders,atlantic,nigeria).
-:-add_ss(borders,atlantic,senegal).
-:-add_ss(borders,atlantic,sierra_leone).
-:-add_ss(borders,atlantic,south_africa).
-:-add_ss(borders,atlantic,togo).
-:-add_ss(borders,atlantic,zaire).
-:-add_ss(borders,atlantic,argentina).
-:-add_ss(borders,atlantic,bahamas).
-:-add_ss(borders,atlantic,barbados).
-:-add_ss(borders,atlantic,belize).
-:-add_ss(borders,atlantic,brazil).
-:-add_ss(borders,atlantic,canada).
-:-add_ss(borders,atlantic,colombia).
-:-add_ss(borders,atlantic,costa_rica).
-:-add_ss(borders,atlantic,cuba).
-:-add_ss(borders,atlantic,dominican_republic).
-:-add_ss(borders,atlantic,french_guiana).
-:-add_ss(borders,atlantic,greenland).
-:-add_ss(borders,atlantic,grenada).
-:-add_ss(borders,atlantic,guatemala).
-:-add_ss(borders,atlantic,guyana).
-:-add_ss(borders,atlantic,haiti).
-:-add_ss(borders,atlantic,honduras).
-:-add_ss(borders,atlantic,jamaica).
-:-add_ss(borders,atlantic,mexico).
-:-add_ss(borders,atlantic,nicaragua).
-:-add_ss(borders,atlantic,panama).
-:-add_ss(borders,atlantic,surinam).
-:-add_ss(borders,atlantic,trinidad_and_tobago).
-:-add_ss(borders,atlantic,united_states).
-:-add_ss(borders,atlantic,uruguay).
-:-add_ss(borders,atlantic,venezuela).
+:-add_ss(border,atlantic,belgium).
+:-add_ss(border,atlantic,denmark).
+:-add_ss(border,atlantic,eire).
+:-add_ss(border,atlantic,france).
+:-add_ss(border,atlantic,iceland).
+:-add_ss(border,atlantic,netherlands).
+:-add_ss(border,atlantic,norway).
+:-add_ss(border,atlantic,portugal).
+:-add_ss(border,atlantic,spain).
+:-add_ss(border,atlantic,sweden).
+:-add_ss(border,atlantic,west_germany).
+:-add_ss(border,atlantic,united_kingdom).
+:-add_ss(border,atlantic,angola).
+:-add_ss(border,atlantic,cameroon).
+:-add_ss(border,atlantic,congo).
+:-add_ss(border,atlantic,dahomey).
+:-add_ss(border,atlantic,equatorial_guinea).
+:-add_ss(border,atlantic,gabon).
+:-add_ss(border,atlantic,gambia).
+:-add_ss(border,atlantic,ghana).
+:-add_ss(border,atlantic,guinea).
+:-add_ss(border,atlantic,guinea_bissau).
+:-add_ss(border,atlantic,ivory_coast).
+:-add_ss(border,atlantic,liberia).
+:-add_ss(border,atlantic,mauritania).
+:-add_ss(border,atlantic,morocco).
+:-add_ss(border,atlantic,nigeria).
+:-add_ss(border,atlantic,senegal).
+:-add_ss(border,atlantic,sierra_leone).
+:-add_ss(border,atlantic,south_africa).
+:-add_ss(border,atlantic,togo).
+:-add_ss(border,atlantic,zaire).
+:-add_ss(border,atlantic,argentina).
+:-add_ss(border,atlantic,bahamas).
+:-add_ss(border,atlantic,barbados).
+:-add_ss(border,atlantic,belize).
+:-add_ss(border,atlantic,brazil).
+:-add_ss(border,atlantic,canada).
+:-add_ss(border,atlantic,colombia).
+:-add_ss(border,atlantic,costa_rica).
+:-add_ss(border,atlantic,cuba).
+:-add_ss(border,atlantic,dominican_republic).
+:-add_ss(border,atlantic,french_guiana).
+:-add_ss(border,atlantic,greenland).
+:-add_ss(border,atlantic,grenada).
+:-add_ss(border,atlantic,guatemala).
+:-add_ss(border,atlantic,guyana).
+:-add_ss(border,atlantic,haiti).
+:-add_ss(border,atlantic,honduras).
+:-add_ss(border,atlantic,jamaica).
+:-add_ss(border,atlantic,mexico).
+:-add_ss(border,atlantic,nicaragua).
+:-add_ss(border,atlantic,panama).
+:-add_ss(border,atlantic,surinam).
+:-add_ss(border,atlantic,trinidad_and_tobago).
+:-add_ss(border,atlantic,united_states).
+:-add_ss(border,atlantic,uruguay).
+:-add_ss(border,atlantic,venezuela).
 
-:-add_ss(borders,indian_ocean,bangladesh).
-:-add_ss(borders,indian_ocean,burma).
-:-add_ss(borders,indian_ocean,india).
-:-add_ss(borders,indian_ocean,indonesia).
-:-add_ss(borders,indian_ocean,iran).
-:-add_ss(borders,indian_ocean,malaysia).
-:-add_ss(borders,indian_ocean,maldives).
-:-add_ss(borders,indian_ocean,oman).
-:-add_ss(borders,indian_ocean,pakistan).
-:-add_ss(borders,indian_ocean,south_yemen).
-:-add_ss(borders,indian_ocean,sri_lanka).
-:-add_ss(borders,indian_ocean,thailand).
-:-add_ss(borders,indian_ocean,djibouti).
-:-add_ss(borders,indian_ocean,kenya).
-:-add_ss(borders,indian_ocean,malagasy).
-:-add_ss(borders,indian_ocean,mauritius).
-:-add_ss(borders,indian_ocean,mozambique).
-:-add_ss(borders,indian_ocean,seychelles).
-:-add_ss(borders,indian_ocean,somalia).
-:-add_ss(borders,indian_ocean,south_africa).
-:-add_ss(borders,indian_ocean,tanzania).
-:-add_ss(borders,indian_ocean,australia).
+:-add_ss(border,indian_ocean,bangladesh).
+:-add_ss(border,indian_ocean,burma).
+:-add_ss(border,indian_ocean,india).
+:-add_ss(border,indian_ocean,indonesia).
+:-add_ss(border,indian_ocean,iran).
+:-add_ss(border,indian_ocean,malaysia).
+:-add_ss(border,indian_ocean,maldives).
+:-add_ss(border,indian_ocean,oman).
+:-add_ss(border,indian_ocean,pakistan).
+:-add_ss(border,indian_ocean,south_yemen).
+:-add_ss(border,indian_ocean,sri_lanka).
+:-add_ss(border,indian_ocean,thailand).
+:-add_ss(border,indian_ocean,djibouti).
+:-add_ss(border,indian_ocean,kenya).
+:-add_ss(border,indian_ocean,malagasy).
+:-add_ss(border,indian_ocean,mauritius).
+:-add_ss(border,indian_ocean,mozambique).
+:-add_ss(border,indian_ocean,seychelles).
+:-add_ss(border,indian_ocean,somalia).
+:-add_ss(border,indian_ocean,south_africa).
+:-add_ss(border,indian_ocean,tanzania).
+:-add_ss(border,indian_ocean,australia).
 
-:-add_ss(borders,pacific,cambodia).
-:-add_ss(borders,pacific,china).
-:-add_ss(borders,pacific,indonesia).
-:-add_ss(borders,pacific,japan).
-:-add_ss(borders,pacific,malaysia).
-:-add_ss(borders,pacific,north_korea).
-:-add_ss(borders,pacific,philippines).
-:-add_ss(borders,pacific,singapore).
-:-add_ss(borders,pacific,south_korea).
-:-add_ss(borders,pacific,soviet_union).
-:-add_ss(borders,pacific,taiwan).
-:-add_ss(borders,pacific,thailand).
-:-add_ss(borders,pacific,vietnam).
-:-add_ss(borders,pacific,canada).
-:-add_ss(borders,pacific,chile).
-:-add_ss(borders,pacific,colombia).
-:-add_ss(borders,pacific,costa_rica).
-:-add_ss(borders,pacific,ecuador).
-:-add_ss(borders,pacific,el_salvador).
-:-add_ss(borders,pacific,guatemala).
-:-add_ss(borders,pacific,honduras).
-:-add_ss(borders,pacific,mexico).
-:-add_ss(borders,pacific,nicaragua).
-:-add_ss(borders,pacific,panama).
-:-add_ss(borders,pacific,peru).
-:-add_ss(borders,pacific,united_states).
-:-add_ss(borders,pacific,australia).
-:-add_ss(borders,pacific,fiji).
-:-add_ss(borders,pacific,new_zealand).
-:-add_ss(borders,pacific,papua_new_guinea).
-:-add_ss(borders,pacific,tonga).
-:-add_ss(borders,pacific,western_samoa).
+:-add_ss(border,pacific,cambodia).
+:-add_ss(border,pacific,china).
+:-add_ss(border,pacific,indonesia).
+:-add_ss(border,pacific,japan).
+:-add_ss(border,pacific,malaysia).
+:-add_ss(border,pacific,north_korea).
+:-add_ss(border,pacific,philippines).
+:-add_ss(border,pacific,singapore).
+:-add_ss(border,pacific,south_korea).
+:-add_ss(border,pacific,soviet_union).
+:-add_ss(border,pacific,taiwan).
+:-add_ss(border,pacific,thailand).
+:-add_ss(border,pacific,vietnam).
+:-add_ss(border,pacific,canada).
+:-add_ss(border,pacific,chile).
+:-add_ss(border,pacific,colombia).
+:-add_ss(border,pacific,costa_rica).
+:-add_ss(border,pacific,ecuador).
+:-add_ss(border,pacific,el_salvador).
+:-add_ss(border,pacific,guatemala).
+:-add_ss(border,pacific,honduras).
+:-add_ss(border,pacific,mexico).
+:-add_ss(border,pacific,nicaragua).
+:-add_ss(border,pacific,panama).
+:-add_ss(border,pacific,peru).
+:-add_ss(border,pacific,united_states).
+:-add_ss(border,pacific,australia).
+:-add_ss(border,pacific,fiji).
+:-add_ss(border,pacific,new_zealand).
+:-add_ss(border,pacific,papua_new_guinea).
+:-add_ss(border,pacific,tonga).
+:-add_ss(border,pacific,western_samoa).
 
-:-add_ss(borders,southern_ocean,antarctica).
+:-add_ss(border,southern_ocean,antarctica).
 
-:-add_ss(borders,baltic,denmark).
-:-add_ss(borders,baltic,finland).
-:-add_ss(borders,baltic,east_germany).
-:-add_ss(borders,baltic,poland).
-:-add_ss(borders,baltic,sweden).
-:-add_ss(borders,baltic,west_germany).
-:-add_ss(borders,baltic,soviet_union).
+:-add_ss(border,baltic,denmark).
+:-add_ss(border,baltic,finland).
+:-add_ss(border,baltic,east_germany).
+:-add_ss(border,baltic,poland).
+:-add_ss(border,baltic,sweden).
+:-add_ss(border,baltic,west_germany).
+:-add_ss(border,baltic,soviet_union).
 
-:-add_ss(borders,black_sea,bulgaria).
-:-add_ss(borders,black_sea,romania).
-:-add_ss(borders,black_sea,soviet_union).
-:-add_ss(borders,black_sea,turkey).
+:-add_ss(border,black_sea,bulgaria).
+:-add_ss(border,black_sea,romania).
+:-add_ss(border,black_sea,soviet_union).
+:-add_ss(border,black_sea,turkey).
 
-:-add_ss(borders,caspian_sea,iran).
-:-add_ss(borders,caspian_sea,soviet_union).
+:-add_ss(border,caspian_sea,iran).
+:-add_ss(border,caspian_sea,soviet_union).
 
-:-add_ss(borders,mediterranean,albania).
-:-add_ss(borders,mediterranean,cyprus).
-:-add_ss(borders,mediterranean,france).
-:-add_ss(borders,mediterranean,greece).
-:-add_ss(borders,mediterranean,italy).
-:-add_ss(borders,mediterranean,malta).
-:-add_ss(borders,mediterranean,monaco).
-:-add_ss(borders,mediterranean,san_marino).
-:-add_ss(borders,mediterranean,spain).
-:-add_ss(borders,mediterranean,yugoslavia).
-:-add_ss(borders,mediterranean,israel).
-:-add_ss(borders,mediterranean,lebanon).
-:-add_ss(borders,mediterranean,syria).
-:-add_ss(borders,mediterranean,turkey).
-:-add_ss(borders,mediterranean,algeria).
-:-add_ss(borders,mediterranean,egypt).
-:-add_ss(borders,mediterranean,libya).
-:-add_ss(borders,mediterranean,morocco).
-:-add_ss(borders,mediterranean,tunisia).
+:-add_ss(border,mediterranean,albania).
+:-add_ss(border,mediterranean,cyprus).
+:-add_ss(border,mediterranean,france).
+:-add_ss(border,mediterranean,greece).
+:-add_ss(border,mediterranean,italy).
+:-add_ss(border,mediterranean,malta).
+:-add_ss(border,mediterranean,monaco).
+:-add_ss(border,mediterranean,san_marino).
+:-add_ss(border,mediterranean,spain).
+:-add_ss(border,mediterranean,yugoslavia).
+:-add_ss(border,mediterranean,israel).
+:-add_ss(border,mediterranean,lebanon).
+:-add_ss(border,mediterranean,syria).
+:-add_ss(border,mediterranean,turkey).
+:-add_ss(border,mediterranean,algeria).
+:-add_ss(border,mediterranean,egypt).
+:-add_ss(border,mediterranean,libya).
+:-add_ss(border,mediterranean,morocco).
+:-add_ss(border,mediterranean,tunisia).
 
-:-add_ss(borders,persian_gulf,bahrain).
-:-add_ss(borders,persian_gulf,iran).
-:-add_ss(borders,persian_gulf,iraq).
-:-add_ss(borders,persian_gulf,kuwait).
-:-add_ss(borders,persian_gulf,qatar).
-:-add_ss(borders,persian_gulf,saudi_arabia).
-:-add_ss(borders,persian_gulf,united_arab_emirates).
+:-add_ss(border,persian_gulf,bahrain).
+:-add_ss(border,persian_gulf,iran).
+:-add_ss(border,persian_gulf,iraq).
+:-add_ss(border,persian_gulf,kuwait).
+:-add_ss(border,persian_gulf,qatar).
+:-add_ss(border,persian_gulf,saudi_arabia).
+:-add_ss(border,persian_gulf,united_arab_emirates).
 
-:-add_ss(borders,red_sea,israel).
-:-add_ss(borders,red_sea,jordan).
-:-add_ss(borders,red_sea,saudi_arabia).
-:-add_ss(borders,red_sea,yemen).
-:-add_ss(borders,red_sea,egypt).
-:-add_ss(borders,red_sea,ethiopia).
-:-add_ss(borders,red_sea,sudan).
+:-add_ss(border,red_sea,israel).
+:-add_ss(border,red_sea,jordan).
+:-add_ss(border,red_sea,saudi_arabia).
+:-add_ss(border,red_sea,yemen).
+:-add_ss(border,red_sea,egypt).
+:-add_ss(border,red_sea,ethiopia).
+:-add_ss(border,red_sea,sudan).
 /*
 
  _________________________________________________________________________
@@ -1906,10 +1906,88 @@ add_ss(B,X,C):- assertz(direct_ss(B, X,C)), !.
 
 */
 
+intrans_LF(Drain,SpatialRiver,X,path_pred(ends(Flow),Drain,River,X,Y), 
+   [slot(prep(into),Spatial&_,Y,_,free)],_):- 
+ type_begins_thru_ends(River, _Rise, Flow, Drain),
+ bfeature_path(Spatial,River,SpatialRiver).
+
+intrans_LF(Flow,SpatialRiver,X,path_pred(thru,Flow,River,X,Y),
+   [slot(prep(through),Spatial&_,Y,_,free)],_):- 
+ type_begins_thru_ends(River,_Rise, Flow, _Drain),
+ bfeature_path(Spatial,River,SpatialRiver).
+
+intrans_LF(Flow,SpatialRiver,X,path_pred_links(Flow,River,X,Y,Z),
+   [slot(prep(into),Spatial&_,Z,_,free),
+    slot(prep(from),Spatial&_,Y,_,free)],_):- 
+ type_begins_thru_ends(River,_Rise, Flow, _Drain),
+ bfeature_path(Spatial,River,SpatialRiver).
+
+intrans_LF(Rise,SpatialRiver,X,path_pred(begins(Flow),Rise,River,X,Y),
+   [slot(prep(in),Spatial&_,Y,_,free)],_):- 
+ type_begins_thru_ends(River, Rise, Flow, _Drain),
+ bfeature_path(Spatial,River,SpatialRiver).
+
+ti(Type,R) :- 
+   type_begins_thru_ends(Type,_Rise, Flow, _Drain),
+   path_linkages(Flow,Type,R,_L).
+
+path_pred(begins(Flow),Rise,Type,R,C) :-
+  type_begins_thru_ends(Type,Rise,Flow,_Drain),
+  path_linkages(Flow,Type,R,L), last_link(L,C).
+
+path_pred(ends(Flow),Drain,Type,R,S) :- 
+  type_begins_thru_ends(Type,_Rise, Flow, Drain),
+  path_linkages(Flow,Type,R,L), first_link(L,S).
+
+path_pred(thru,Flow,Type,R,C) :-
+ type_begins_thru_ends(Type,_Rise, Flow, _Drain),
+ path_pred_links(Flow,Type,R,C,_).
+
+path_pred_links(Flow,Type,R,C1,C2) :- 
+ type_begins_thru_ends(Type,_Rise, Flow, _Drain),
+ path_linkages(Flow,Type,R,L), link_pairs(L,C2,C1).
+
+first_link([X|_],X).
+
+last_link([X],X).
+last_link([_|L],X) :- last_link(L,X).
+
+link_pairs([X1,X2|_],X1,X2).
+link_pairs([_|L],X1,X2) :- link_pairs(L,X1,X2).
+
+
+
+
 % Facts about rivers.
 % ------------------
 
-path_linkages(river,R,L):-river_flows(R,L).
+type_begins_thru_ends(river,rise,flow,drain).
+
+verb_type_lex_80(rise,main+iv).
+verb_type_lex_80(flow,main+iv).
+verb_type_lex_80(drain,main+iv).
+
+verb_root_lex_80(rise).
+verb_root_lex_80(flow).
+verb_root_lex_80(drain).
+
+regular_pres_lex_80(rise).
+regular_pres_lex_80(flow).
+regular_pres_lex_80(drain).
+
+regular_past_lex_80(flowed,flow).
+regular_past_lex_80(drained,drain).
+
+verb_form_lex_80(rose,rise,past+fin,_).
+verb_form_lex_80(rises,rise,pres+fin,3+sg).
+verb_form_lex_80(risen,rise,past+part,_).
+verb_form_lex_80(flows,flow,pres+fin,3+sg).
+verb_form_lex_80(flowing,flow,pres+part,_).
+verb_form_lex_80(drains,drain,pres+fin,3+sg).
+verb_form_lex_80(draining,drain,pres+part,_).
+
+
+path_linkages(flow,river,R,L):-river_flows(R,L).
 
 river_flows(amazon,[atlantic,brazil,peru]).
 river_flows(amu_darya,[aral_sea,soviet_union,afghanistan]).
@@ -1994,7 +2072,7 @@ nd_costs(american,19,26).
 nd_costs(measure_value,7,7,22,22,51).
 nd_costs(measure_unit,8,51,51).
 nd_costs(asian,21,26).
-nd_costs(borders,29,2,2).
+nd_costs(border,29,2,2).
 nd_costs(capital,22,22).
 nd_costs(capital,22,22,23).
 nd_costs(card,99,100,3).
@@ -2048,7 +2126,7 @@ nd_costs(=<,99,51,51).
 nd_costs(>,99,51,51).
 nd_costs(>=,99,51,51).
 nd_costs(area,22,22,51).
-nd_costs(borders,29,22,22).
+nd_costs(border,29,22,22).
 nd_costs(capital,22,22,23).
 nd_costs(card,99,100,3).
 nd_costs(drains,16,16,10).

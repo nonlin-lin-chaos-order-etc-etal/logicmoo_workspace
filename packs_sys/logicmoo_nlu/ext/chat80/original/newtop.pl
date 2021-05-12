@@ -296,6 +296,22 @@ ed( N, [ what, cities, do, the, countries, bordering, the,
 ed( N, W, _):- 
   clause(ed( W, mini), true, Ref),
   nth_clause(_,N0,Ref),N is N0+29.
+ed( N, W, _):- 
+  clause(ed1( W), true, Ref),
+  nth_clause(_,N0,Ref),N is N0+99.
+
+ed1("iraq borders iran?").
+
+ed1("iraq does border iran?").
+ed1("iraq did border iran?").
+ed1("iraq will border iran?").
+
+ed1("iraq is bordering iran?").
+ed1("iraq was bordering iran?").
+
+ed1("iran is bordered by iraq?").
+%ed1("iraq has border iran?").
+%ed1("iraq has a border china").
 
 /* ----------------------------------------------------------------------
 	Simple Access to demonstrations
@@ -320,9 +336,15 @@ test_chat :- test_chat(_,off).
 
 test_chat(N):- test_chat(N, on).
 
-test_chat(N, OnOff) :-
-	show_title,
+test_chat(N, OnOff) :- (number(N);var(N)),!,
+	(var(N)->show_title ;true),
 	ed(N,Sentence,CorrectAnswer),
+  test_chat(N, Sentence, OnOff, CorrectAnswer).
+
+test_chat(Sentence, OnOff) :-
+  test_chat(0, Sentence, OnOff, _CorrectAnswer).
+
+test_chat(N, Sentence, OnOff, CorrectAnswer) :-
     report_item0(print_test,Sentence),
 	  process5(test,Sentence,CorrectAnswer,Status,Times),
 	  show_results(N,Status,Times),
@@ -453,9 +475,10 @@ ask80(File,P) :-
    see(Old).
 
 
-print_test(X):- doing80(X ,0).
+print_test(X):- doing80(X ,0),!.
+print_test(X):- write(X).
 
-doing80([],_) :- !,nl.
+doing80([],_) :- !. %,nl.
 doing80([X|L],N0) :-
    out80(X),
    advance80(X,N0,N),

@@ -723,6 +723,8 @@ borders(afghanistan, iran).
 borders(iran, afghanistan).
 
 
+
+
 /* THAT HAS COUNTABLE ATTRIBUTES SUCH AS.. */
 
 subject_LF(thing, longitude, measure&position, X, longitude80(X)).

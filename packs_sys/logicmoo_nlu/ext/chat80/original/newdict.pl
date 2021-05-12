@@ -1,5 +1,5 @@
 /*
- _________________________________________________________________________
+ _____________________________________
 |       Copyright (C) 1982                                                |
 |                                                                         |
 |       David Warren,                                                     |
@@ -15,7 +15,7 @@
 |       authorship of the initial program is aknowledged.                 |
 |       Use for commercial purposes without the previous written          |
 |       agreement of the authors is forbidden.                            |
-|_________________________________________________________________________|
+|_____________________________________|
 
 */
 :- [chatops].
@@ -27,25 +27,25 @@ ag_number(N,pl) :- N>1.
 
 chk_word(Word):- word(Word).
 word(Word) :- '`' (Word).
-word(Word) :- conj(Word).
-word(Word) :- adverb_db(Word).
-word(Word) :- sup_adj(Word,_).
-word(Word) :- rel_adj(Word,_).
-word(Word) :- adj_db(Word,_).
+word(Word) :- conj_lex(Word).
+word(Word) :- adverb_lex(Word).
+word(Word) :- sup_adj_lex(Word,_).
+word(Word) :- rel_adj_lex(Word,_).
+word(Word) :- adj_lex(Word,_).
 word(Word) :- name_LF(Word).
-word(Word) :- terminator(Word,_).
-word(Word) :- pers_pron_db(Word,_,_,_,_).
-word(Word) :- poss_pron_db(Word,_,_,_).
+word(Word) :- terminator_lex(Word,_).
+word(Word) :- pers_pron_lex(Word,_,_,_,_).
+word(Word) :- poss_pron_lex(Word,_,_,_).
 word(Word) :- rel_pron(Word,_).
-word(Word) :- verb_form_lex80(Word,_,_,_).
-word(Word) :- noun_form(Word,_,_).
-word(Word) :- prep(Word).
-word(Word) :- quantifier_pron_db(Word,_,_).
+word(Word) :- verb_form_lex(Word,_,_,_).
+word(Word) :- noun_form_lex(Word,_,_).
+word(Word) :- prep_lex(Word).
+word(Word) :- quantifier_pron_lex(Word,_,_).
 word(Word) :- number_lex(Word,_,_).
-word(Word) :- det(Word,_,_,_).
-word(Word) :- int_art(Word,_,_,_).
-word(Word) :- int_pron(Word,_).
-word(Word) :- loc_pred(_,Word,_).
+word(Word) :- det_lex(Word,_,_,_).
+word(Word) :- int_art_lex(Word,_,_,_).
+word(Word) :- int_pron_lex(Word,_).
+word(Word) :- loc_pred_lex(_,Word,_).
 
 '`' how.
 '`' whose.
@@ -67,105 +67,109 @@ word(Word) :- loc_pred(_,Word,_).
 '`' many.
 '`' where.
 '`' when.
-conj(and).
-conj(or).
+conj_lex(and).
+conj_lex(or).
 
-det(a,sg,a,indef).
-det(all,pl,all,indef).
-det(an,sg,a,indef).
-det(any,_,any,indef).
-det(each,sg,each,indef).
-det(every,sg,every,indef).
-det(no,_,no,indef).
-det(some,_,some,indef).
-det(the,No,the(No),def).
+det_lex(a,sg,a,indef).
+det_lex(all,pl,all,indef).
+det_lex(an,sg,a,indef).
+det_lex(any,_,any,indef).
+det_lex(each,sg,each,indef).
+det_lex(every,sg,every,indef).
+det_lex(no,_,no,indef).
+det_lex(some,_,some,indef).
+det_lex(the,No,the(No),def).
 
-int_art(what,X,_,int_det(X)).
-int_art(which,X,_,int_det(X)).
-int_pron(what,undef).
-int_pron(which,undef).
-int_pron(who,subj).
-int_pron(whom,compl).
+int_art_lex(what,X,_,int_det(X)).
+int_art_lex(which,X,_,int_det(X)).
+int_pron_lex(what,undef).
+int_pron_lex(which,undef).
+int_pron_lex(who,subj).
+int_pron_lex(whom,compl).
 
 name_LF(Name) :- name_template_LF(Name,_).
 
-noun_form(Plu,Sin,pl) :- noun_plu(Plu,Sin).
-noun_form(Sin,Sin,sg) :- noun_sin(Sin).
+noun_form_lex(Plu,Sin,pl) :- noun_plu_lex(Plu,Sin).
+noun_form_lex(Sin,Sin,sg) :- noun_sin_lex(Sin).
 
-noun_form(proportion,proportion,_).
-noun_form(percentage,percentage,_).
+noun_form_lex(proportion,proportion,_).
+noun_form_lex(percentage,percentage,_).
 
 number_lex(W,I,Nb) :- 
         tr_number(W,I),
         ag_number(I,Nb).
 
-pers_pron_db(he,masc,3,sg,subj).
-pers_pron_db(her,fem,3,sg,compl(_)).
-pers_pron_db(him,masc,3,sg,compl(_)).
-pers_pron_db(i,_,1,sg,subj).
-pers_pron_db(it,neut,3,sg,_).
-pers_pron_db(me,_,1,sg,compl(_)).
-pers_pron_db(she,fem,3,sg,subj).
-pers_pron_db(them,_,3,pl,compl(_)).
-pers_pron_db(them,_,3,pl,subj).
-pers_pron_db(us,_,1,pl,compl(_)).
-pers_pron_db(we,_,1,pl,subj).
-pers_pron_db(you,_,2,_,_).
+pers_pron_lex(he,masc,3,sg,subj).
+pers_pron_lex(her,fem,3,sg,compl(_)).
+pers_pron_lex(him,masc,3,sg,compl(_)).
+pers_pron_lex(i,_,1,sg,subj).
+pers_pron_lex(it,neut,3,sg,_).
+pers_pron_lex(me,_,1,sg,compl(_)).
+pers_pron_lex(she,fem,3,sg,subj).
+pers_pron_lex(them,_,3,pl,compl(_)).
+pers_pron_lex(them,_,3,pl,subj).
+pers_pron_lex(us,_,1,pl,compl(_)).
+pers_pron_lex(we,_,1,pl,subj).
+pers_pron_lex(you,_,2,_,_).
 
-poss_pron_db(her,fem,3,sg).
-poss_pron_db(his,masc,3,sg).
-poss_pron_db(its,neut,3,sg).
-poss_pron_db(my,_,1,sg).
-poss_pron_db(our,_,1,pl).
-poss_pron_db(their,_,3,pl).
-poss_pron_db(your,_,2,_).
+poss_pron_lex(her,fem,3,sg).
+poss_pron_lex(his,masc,3,sg).
+poss_pron_lex(its,neut,3,sg).
+poss_pron_lex(my,_,1,sg).
+poss_pron_lex(our,_,1,pl).
+poss_pron_lex(their,_,3,pl).
+poss_pron_lex(your,_,2,_).
 
-prep(as).
-prep(at).
-prep(by).
-prep(from).
-prep(in).
-prep(into).
-prep(of).
-prep(on).
-prep(through).
-prep(to).
-prep(with).
+prep_lex(X):- prep_lex_80(X).
 
-quantifier_pron_db(anybody,any,person).
-quantifier_pron_db(anyone,any,person).
-quantifier_pron_db(anything,any,thing).
-quantifier_pron_db(everybody,every,person).
-quantifier_pron_db(everyone,every,person).
-quantifier_pron_db(everything,every,thing).
-quantifier_pron_db(nobody,no,person).
-quantifier_pron_db(nothing,no,thing).
-quantifier_pron_db(somebody,some,person).
-quantifier_pron_db(someone,some,person).
-quantifier_pron_db(something,some,thing).
+prep_lex_80(as).
+prep_lex_80(at).
+prep_lex_80(by).
+prep_lex_80(from).
+prep_lex_80(in).
+prep_lex_80(into).
+prep_lex_80(of).
+prep_lex_80(on).
+prep_lex_80(through).
+prep_lex_80(to).
+prep_lex_80(with).
 
-regular_past(had,have).
+quantifier_pron_lex(anybody,any,person).
+quantifier_pron_lex(anyone,any,person).
+quantifier_pron_lex(anything,any,thing).
+quantifier_pron_lex(everybody,every,person).
+quantifier_pron_lex(everyone,every,person).
+quantifier_pron_lex(everything,every,thing).
+quantifier_pron_lex(nobody,no,person).
+quantifier_pron_lex(nothing,no,thing).
+quantifier_pron_lex(somebody,some,person).
+quantifier_pron_lex(someone,some,person).
+quantifier_pron_lex(something,some,thing).
 
-regular_past(bordered,border).
-regular_past(contained,contain).
-regular_past(drained,drain).
-regular_past(exceeded,exceed).
-regular_past(flowed,flow).
-regular_past(governed,govern).
-regular_pres(border).
-regular_pres(contain).
-regular_pres(drain).
-regular_pres(exceed).
-regular_pres(flow).
-regular_pres(govern).
-regular_pres(rise).
+regular_past_lex(Had,Have):- regular_past_lex_80(Had,Have).
 
-regular_pres(do).
-regular_pres(have).
+regular_past_lex_80(had,have).
 
-rel_pron(which,undef).
-rel_pron(who,subj).
-rel_pron(whom,compl).
+regular_past_lex_80(contained,contain).
+regular_past_lex_80(exceeded,exceed).
+
+regular_past_lex_80(governed,govern).
+
+regular_pres_lex(V):- regular_pres_lex_80(V).
+
+regular_pres_lex_80(contain).
+regular_pres_lex_80(exceed).
+
+
+regular_pres_lex_80(govern).
+
+
+regular_pres_lex_80(do(_Does)).
+regular_pres_lex_80(have).
+
+rel_pron_lex(which,undef).
+rel_pron_lex(who,subj).
+rel_pron_lex(whom,compl).
 
 % wordt niet gebruikt:
 root_form(1+pl).
@@ -173,9 +177,9 @@ root_form(1+sg).
 root_form(2+_).
 root_form(3+pl).
 
-terminator(!,!).
-terminator(.,_).
-terminator(?,?).
+terminator_lex(!,!).
+terminator_lex(.,_).
+terminator_lex(?,?).
 
 tr_number(eight,8).
 tr_number(five,5).
@@ -191,175 +195,185 @@ tr_number(two,2).
 
 
 
-verb_form_lex80(am,be,pres+fin,1+sg).
-verb_form_lex80(are,be,pres+fin,2+sg).
-verb_form_lex80(are,be,pres+fin,_+pl).
-verb_form_lex80(been,be,past+part,_).
-verb_form_lex80(being,be,pres+part,_).
-verb_form_lex80(did,do,past+fin,_).
-verb_form_lex80(does,do,pres+fin,3+sg).
-verb_form_lex80(doing,do,pres+part,_).
-verb_form_lex80(done,do,past+part,_).
-verb_form_lex80(has,have,pres+fin,3+sg).
-verb_form_lex80(having,have,pres+part,_).
-verb_form_lex80(is,be,pres+fin,3+sg).
-verb_form_lex80(was,be,past+fin,1+sg).
-verb_form_lex80(was,be,past+fin,3+sg).
-verb_form_lex80(were,be,past+fin,2+sg).
-verb_form_lex80(were,be,past+fin,_+pl).
+verb_form_lex_80(am,be,pres+fin,1+sg).
+verb_form_lex_80(are,be,pres+fin,2+sg).
+verb_form_lex_80(are,be,pres+fin,_+pl).
+verb_form_lex_80(been,be,past+part,_).
+verb_form_lex_80(being,be,pres+part,_).
+verb_form_lex_80(is,be,pres+fin,3+sg).
+verb_form_lex_80(was,be,past+fin,1+sg).
+verb_form_lex_80(was,be,past+fin,3+sg).
+verb_form_lex_80(were,be,past+fin,2+sg).
+verb_form_lex_80(were,be,past+fin,_+pl).
 
-verb_form_lex80(bordering,border,pres+part,_).
-verb_form_lex80(borders,border,pres+fin,3+sg).
-verb_form_lex80(containing,contain,pres+part,_).
-verb_form_lex80(contains,contain,pres+fin,3+sg).
-verb_form_lex80(draining,drain,pres+part,_).
-verb_form_lex80(drains,drain,pres+fin,3+sg).
-verb_form_lex80(exceeding,exceed,pres+part,_).
-verb_form_lex80(exceeds,exceed,pres+fin,3+sg).
-verb_form_lex80(flowing,flow,pres+part,_).
-verb_form_lex80(flows,flow,pres+fin,3+sg).
-verb_form_lex80(governing,govern,pres+part,_).
-verb_form_lex80(governs,govern,pres+fin,3+sg).
-verb_form_lex80(risen,rise,past+part,_).
-verb_form_lex80(rises,rise,pres+fin,3+sg).
-verb_form_lex80(rose,rise,past+fin,_).
 
-verb_form_lex(Are,Be,PresFin,NthPlOrSing):- verb_form_lex80(Are,Be,PresFin,NthPlOrSing).
-verb_form_lex(Verb,Verb,pres+fin,_+pl) :- Verb = V, verb_root(V).
+verb_form_lex_80(do,do(_Does),pres+fin,_+pl).
+verb_form_lex_80(did,do(_Does),past+fin,_).
+verb_form_lex_80(does,do(_Does),pres+fin,3+sg).
+verb_form_lex_80(doing,do(_Does),pres+part,_).
+verb_form_lex_80(done,do(_Does),past+part,_).
+
+verb_form_lex_80(will,do(_Does),pres+fin,3+sg).
+
+
+verb_form_lex_80(has,have,pres+fin,3+sg).
+verb_form_lex_80(having,have,pres+part,_).
+
+
+verb_form_lex_80(containing,contain,pres+part,_).
+verb_form_lex_80(contains,contain,pres+fin,3+sg).
+verb_form_lex_80(exceeding,exceed,pres+part,_).
+verb_form_lex_80(exceeds,exceed,pres+fin,3+sg).
+verb_form_lex_80(governing,govern,pres+part,_).
+verb_form_lex_80(governs,govern,pres+fin,3+sg).
+
+
+verb_form_lex(Are,Be,PresFin,NthPlOrSing):- verb_form_lex_80(Are,Be,PresFin,NthPlOrSing).
+verb_form_lex(Verb,Verb,pres+fin,_+pl) :- Verb = V, verb_root_lex(V).
 % ... because [which,countries,border,france,?] was not properly parsed (the singular form was)
-verb_form_lex(Verb,Verb,inf,_) :-  Verb = V,  verb_root(V).
+verb_form_lex(Verb,Verb,inf,_) :-  Verb = V,  verb_root_lex(V).
 % ... because [does,france,border,belgium,?] was not properly parsed
-verb_form_lex(Verb,Inf,past+part,_) :- regular_past(Verb,Inf).
-% ... because [is,france,bordered,by,belgium,?] was not properly parsed. Deduced from verb_form_lex80(done,do,past+part,_) bellow.
+verb_form_lex(Verb,Inf,past+part,_) :- regular_past_lex(Verb,Inf).
+% ... because [is,france,bordered,by,belgium,?] was not properly parsed. Deduced from verb_form_lex_80(done,do(_Does),past+part,_) bellow.
 %verb_form_lex(A,A,C,D) :-
 %  writef("********************************** verb_form_db {0} failed", [[A,A,C,D]]).
 %  !,
 %  fail.
 
+verb_root_lex(Root):- verb_root_lex_80(Root).
 
-verb_root(be).
-verb_root(do).
-verb_root(have).
+verb_root_lex_80(be).
+verb_root_lex_80(do(_Does)).
+verb_root_lex_80(have).
 
-verb_root(border).
-verb_root(contain).
-verb_root(drain).
-verb_root(exceed).
-verb_root(flow).
-verb_root(govern).
-verb_root(rise).
 
-verb_type_lex80(be,aux+be).
-verb_type_lex80(do,aux+dv(_Prep)).
-verb_type_lex80(have,aux+have).
+verb_root_lex_80(contain).
+verb_root_lex_80(exceed).
 
-verb_type_lex80(border,main+tv).
-verb_type_lex80(contain,main+tv).
-verb_type_lex80(drain,main+iv).
-verb_type_lex80(exceed,main+tv).
-verb_type_lex80(flow,main+iv).
-verb_type_lex80(govern,main+tv).
-verb_type_lex80(rise,main+iv).
+
+verb_root_lex_80(govern).
+
+verb_type_lex(V,MainTv):- verb_type_lex_80(V,MainTv).
+
+verb_type_lex_80(be,aux+be).
+verb_type_lex_80(do(_Does),aux+dv(_Prep)).
+verb_type_lex_80(have,aux+have).
+
+
+
+verb_type_lex_80(contain,main+tv).
+verb_type_lex_80(exceed,main+tv).
+verb_type_lex_80(govern,main+tv).
+
+
+
 
 
 % =================================================================
 % Specialised Dictionary
 
-adj_db(African,restr):- agentitive_trans_lex80(_,_,African).
-adj_db(Baltic,restr):- agentitive_symmetric_type(_,Baltic).
-%adj_db(american,restr).
-%adj_db(asian,restr).
-%adj_db(european,restr).
-adj_db(average,restr).
-adj_db(big,quantV).
-adj_db(great,quantV).
-adj_db(great,quantV).
-adj_db(large,quantV).
-adj_db(maximum,restr).
-adj_db(minimum,restr).
-adj_db(new,quantV).
-adj_db(old,quantV).
-adj_db(small,quantV).
-adj_db(total,restr).
-adverb_db(tomorrow).
-adverb_db(yesterday).
+adj_lex(African,restr):- agentitive_trans(_,_,African).
+adj_lex(Baltic,restr):- agentitive_symmetric_type(_,Baltic).
+adj_lex(African,Restr):- adj_lex_80(African,Restr).
 
-loc_pred(of,east,prep(cp(east,of))).
-loc_pred(of,north,prep(cp(north,of))).
-loc_pred(of,south,prep(cp(south,of))).
-loc_pred(of,west,prep(cp(west,of))).
+%adj_lex_80(american,restr).
+%adj_lex_80(asian,restr).
+%adj_lex_80(european,restr).
+adj_lex_80(average,restr).
+adj_lex_80(big,quantV).
+adj_lex_80(great,quantV).
+adj_lex_80(great,quantV).
+adj_lex_80(large,quantV).
+adj_lex_80(maximum,restr).
+adj_lex_80(minimum,restr).
+adj_lex_80(new,quantV).
+adj_lex_80(old,quantV).
+adj_lex_80(small,quantV).
+adj_lex_80(total,restr).
 
-noun_plu(areas,area).
-noun_plu(averages,average).
-noun_plu(capitals,capital).
-noun_plu(cities,city).
-noun_plu(continents,continent).
-noun_plu(countries,country).
-noun_plu(nations,nation).
-noun_plu(states,state).
-noun_plu(degrees,degree).
-noun_plu(ksqmiles,ksqmile).
-noun_plu(latitudes,latitude).
-noun_plu(longitudes,longitude).
-noun_plu(million,million).
-noun_plu(numbers,number).
-noun_plu(oceans,ocean).
-noun_plu(persons,person).
-noun_plu(people,person).
-noun_plu(places,place).
-noun_plu(populations,population).
-noun_plu(regions,region).
-noun_plu(rivers,river).
-noun_plu(seamasses,seamass).
-noun_plu(seas,sea).
-noun_plu(sqmiles,sqmile).
-noun_plu(sums,sum).
-noun_plu(thousand,thousand).
-noun_plu(times,time).
-noun_plu(totals,total).
+adverb_lex(tomorrow).
+adverb_lex(yesterday).
 
-noun_sin(area).
-noun_sin(average).
-noun_sin(capital).
-noun_sin(city).
-noun_sin(continent).
-noun_sin(country).
-noun_sin(degree).
-noun_sin(ksqmile).
-noun_sin(latitude).
-noun_sin(longitude).
-noun_sin(million).
-noun_sin(number).
-noun_sin(ocean).
-noun_sin(person).
-noun_sin(place).
-noun_sin(population).
-noun_sin(region).
-noun_sin(river).
-noun_sin(sea).
-noun_sin(seamass).
-noun_sin(sqmile).
-noun_sin(sum).
-noun_sin(thousand).
-noun_sin(time).
-noun_sin(total).
+loc_pred_lex(of,east,prep(cp(east,of))).
+loc_pred_lex(of,north,prep(cp(north,of))).
+loc_pred_lex(of,south,prep(cp(south,of))).
+loc_pred_lex(of,west,prep(cp(west,of))).
 
-rel_adj(bigger,big).
-rel_adj(greater,great).
-rel_adj(larger,large).
-rel_adj(less,small).
-rel_adj(newer,new).
-rel_adj(older,old).
-rel_adj(smaller,small).
+noun_plu_lex(Averages,Average):- noun_plu_lex_80(Averages,Average).
 
-sup_adj(biggest,big).
-sup_adj(largest,large).
-sup_adj(newest,new).
-sup_adj(oldest,old).
-sup_adj(smallest,small).
+noun_plu_lex_80(areas,area).
+noun_plu_lex_80(averages,average).
+noun_plu_lex_80(capitals,capital).
+noun_plu_lex_80(cities,city).
+noun_plu_lex_80(continents,continent).
+noun_plu_lex_80(countries,country).
+noun_plu_lex_80(nations,nation).
+noun_plu_lex_80(states,state).
+noun_plu_lex_80(degrees,degree).
+noun_plu_lex_80(ksqmiles,ksqmile).
+noun_plu_lex_80(latitudes,latitude).
+noun_plu_lex_80(longitudes,longitude).
+noun_plu_lex_80(million,million).
+noun_plu_lex_80(numbers,number).
+noun_plu_lex_80(oceans,ocean).
+noun_plu_lex_80(persons,person).
+noun_plu_lex_80(people,person).
+noun_plu_lex_80(places,place).
+noun_plu_lex_80(populations,population).
+noun_plu_lex_80(regions,region).
+noun_plu_lex_80(rivers,river).
+noun_plu_lex_80(seamasses,seamass).
+noun_plu_lex_80(seas,sea).
+noun_plu_lex_80(sqmiles,sqmile).
+noun_plu_lex_80(sums,sum).
+noun_plu_lex_80(thousand,thousand).
+noun_plu_lex_80(times,time).
+noun_plu_lex_80(totals,total).
 
-comp_adv_db(less).
-comp_adv_db(more).
+noun_sin_lex(Area):- noun_sin_lex_80(Area).
 
-sup_adv_db(least).
-sup_adv_db(most).
+noun_sin_lex_80(area).
+noun_sin_lex_80(average).
+noun_sin_lex_80(capital).
+noun_sin_lex_80(city).
+noun_sin_lex_80(continent).
+noun_sin_lex_80(country).
+noun_sin_lex_80(degree).
+noun_sin_lex_80(ksqmile).
+noun_sin_lex_80(latitude).
+noun_sin_lex_80(longitude).
+noun_sin_lex_80(million).
+noun_sin_lex_80(number).
+noun_sin_lex_80(ocean).
+noun_sin_lex_80(person).
+noun_sin_lex_80(place).
+noun_sin_lex_80(population).
+noun_sin_lex_80(region).
+noun_sin_lex_80(river).
+noun_sin_lex_80(sea).
+noun_sin_lex_80(seamass).
+noun_sin_lex_80(sqmile).
+noun_sin_lex_80(sum).
+noun_sin_lex_80(thousand).
+noun_sin_lex_80(time).
+noun_sin_lex_80(total).
+
+rel_adj_lex(bigger,big).
+rel_adj_lex(greater,great).
+rel_adj_lex(larger,large).
+rel_adj_lex(less,small).
+rel_adj_lex(newer,new).
+rel_adj_lex(older,old).
+rel_adj_lex(smaller,small).
+
+sup_adj_lex(biggest,big).
+sup_adj_lex(largest,large).
+sup_adj_lex(newest,new).
+sup_adj_lex(oldest,old).
+sup_adj_lex(smallest,small).
+
+comp_adv_lex(less).
+comp_adv_lex(more).
+
+sup_adv_lex(least).
+sup_adv_lex(most).

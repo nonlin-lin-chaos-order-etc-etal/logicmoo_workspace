@@ -526,9 +526,7 @@ verbatum_anon_one_or_zero_arg(Verb):- member(Verb, [
  useragent, echo, halt, english,
  mem, types, props,
  memory, model, properties, state, status, perceptq, help, threads,
- spy, nospy, call,
- rtrace, nortrace,
- trace, xnotrace, notrace %, %whereami, whereis, whoami
+ spy, nospy, call, rtrace, nortrace, trace, xnotrace, notrace %, %whereami, whereis, whoami
  ]).
 
 verbatum_anon_one_or_zero_arg(N):- atom(N), atom_length(N, L), L>1, current_predicate(N/0).

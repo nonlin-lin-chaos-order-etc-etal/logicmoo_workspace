@@ -6,14 +6,14 @@
 
 :-thread_local tlxgproc:current_xg_module/1.
 :-thread_local tlxgproc:current_xg_filename/1.
-:-dynamic user:current_xg_pred/4.
-:-multifile user:current_xg_pred/4.
+:-dynamic xgproc:current_xg_pred/4.
+:-multifile xgproc:current_xg_pred/4.
 
 
 abolish_xg(Prop):- ignore(tlxgproc:current_xg_module(M)),
-  doall((user:current_xg_pred(M,F,N,Props),member(Prop,Props),member(Prop,Props),
+  doall((xgproc:current_xg_pred(M,F,N,Props),member(Prop,Props),member(Prop,Props),
                  ignore((memberchk(xg_pred=P,Props),dmsg(abolising(current_xg_pred(M,F,N,Props))),predicate_property(P,number_of_clauses(NC)),flag(xg_assertions,A,A-NC))),
-                 abolish(F,N),retractall(user:current_xg_pred(M,F,N,_)))).
+                 abolish(F,N),retractall(xgproc:current_xg_pred(M,F,N,_)))).
 
 maybe_share_mp(M:F/A):- 
     MFA=M:F/A,!, % FA = F/A,   
@@ -28,12 +28,12 @@ maybe_share_mp(FA):- strip_module(FA,M,_),!,share_mp(M:FA).
 new_pred(P):- must(tlxgproc:current_xg_module(M)),new_pred(M,P).
 new_pred(M,P0):- functor(P0,F,A),functor(P,F,A),new_pred(M,P,F,A),!.
 
-new_pred(M,_,F,A):- user:current_xg_pred(M,F,A,_),!.
+new_pred(M,_,F,A):- xgproc:current_xg_pred(M,F,A,_),!.
 new_pred(_,P,_,_):- recorded(P,'xg.pred',_), !.
 new_pred(M,P,F,A) :-   
    maybe_share_mp(M:F/A),
-   findall(K=V,(((K=xg_source,tlxgproc:current_xg_filename(V));(prolog_load_context(K,V),not(member(K,[stream,directory,variable_names])));((seeing(S),member(G,[(K=file,P=file_name(V)),(K=position,P=position(V))]),G,stream_property(S,P))))),Props),
-   assert_if_new(user:current_xg_pred(M,F,A,[xg_source=F,xg_ctx=M,xg_fa=(F/A),xg_pred=P|Props])),
+   findall(K=V,(((K=xg_source,tlxgproc:current_xg_filename(V));(prolog_load_context(K,V), \+ (member(K,[stream,directory,variable_names])));((seeing(S),member(G,[(K=file,P=file_name(V)),(K=position,P=position(V))]),G,stream_property(S,P))))),Props),
+   assert_if_new(xgproc:current_xg_pred(M,F,A,[xg_source=F,xg_ctx=M,xg_fa=(F/A),xg_pred=P|Props])),
    recordz(P,'xg.pred',_),
    recordz('xg.pred',P,_).
 
@@ -42,27 +42,28 @@ new_pred(M,P,F,A) :-
 
 is_file_ext(Ext):-prolog_load_context(file,F),file_name_extension(_,Ext,F).
 :-thread_local tlxgproc:do_xg_process_te/0.
-:-export(xg_process_te_clone/5).
+:-export(xg_process_te_clone5/5).
 
 processing_xg :- is_file_ext(xg),!.
 processing_xg :- tlxgproc:do_xg_process_te,!.
 
-xg_process_te_clone(L,R,_Mode,P,Q):- expandlhs(L,S0,S,H0,H,P), expandrhs(R,S0,S,H0,H,Q).  %new_pred(P),usurping(Mode,P),!.
+xg_process_te_clone5(L,R,_Mode,P,Q):- expandlhs(L,S0,S,H0,H,P), expandrhs(R,S0,S,H0,H,Q).  %new_pred(P),usurping(Mode,P),!.
 
 :-export(xg_process_te_clone/3).
-xg_process_te_clone((H ... T --> R),Mode,((P :- Q))) :- !, xg_process_te_clone((H ... T),R,Mode,P,Q).
-xg_process_te_clone((L --> R),Mode,((P :- Q))) :- !,xg_process_te_clone(L,R,Mode,P,Q).
-xg_process_te_clone((L ---> R),Mode,((P :- Q))) :- !,xg_process_te_clone(L,R,Mode,P,Q).
+xg_process_te_clone((H ... T --> R),Mode,((P :- Q))) :- !, xg_process_te_clone5((H ... T),R,Mode,P,Q).
+xg_process_te_clone((L ---> R),Mode,((P :- Q))) :- !,xg_process_te_clone5(L,R,Mode,P,Q).
+xg_process_te_clone((L --> R),Mode,PQ) :- !,xg_process_te_clone((L ---> R),Mode,PQ).
 
-chat80_term_expansion(In,Out):- compound(In),functor(In,'-->',_),trace,  must(xg_process_te_clone(In,+,Out)).
-chat80_term_expansion((H ... T ---> R),((P :- Q))) :- must( xg_process_te_clone((H ... T),R,+,P,Q)).
-chat80_term_expansion((L ---> R), ((P :- Q))) :- must(xg_process_te_clone(L,R,+,P,Q)).
+%chat80_term_expansion(In,Out):- compound(In),functor(In,'-->',_),trace,  must(xg_process_te_clone(In,+,Out)).
+chat80_term_expansion((H ... T ---> R),((P :- Q))) :- must( xg_process_te_clone5((H ... T),R,+,P,Q)).
+chat80_term_expansion((L ---> R), ((P :- Q))) :- must(xg_process_te_clone5(L,R,+,P,Q)).
 
 
-chat80_term_expansion_now(( :- _) ,_ ):-!,fail.
-chat80_term_expansion_now(H,':-'(ain(O))):- trace, chat80_term_expansion(H,O),!.
+chat80_term_expansion_now(( :- ain(_)) ,_ ):-!,fail.
+%chat80_term_expansion_now(( :- _) ,_ ):-!,fail.
+chat80_term_expansion_now(H,Into):- chat80_term_expansion(H,O),!, Into = ( :- ain(O)).
 
-system:term_expansion(H, O):- processing_xg->chat80_term_expansion_now(H,O).
+system:term_expansion(H, O):- (processing_xg->chat80_term_expansion_now(H,O)),!.
 
 load_plus_xg_file(File):- strip_module(File,CM,F),must(load_plus_xg_file(CM,F)),!.
 
@@ -103,11 +104,11 @@ consume0(F0,Mode) :-
 
 
 tidy_consume(F,Mode) :-
-   consume(F,Mode),
+   consume_xg(F,Mode),
    fail.
 tidy_consume(_,_).
 
-consume(F,Mode) :-
+consume_xg(F,Mode) :-
    flag(read_terms,_,0),
    repeat,
       read(X),
@@ -122,12 +123,7 @@ xg_process((L ---> R),Mode) :- !,
    usurping(Mode,P),
    xg_assertz((P :- Q)), !.
 
-xg_process((L-->R),Mode) :- !,
-   expandlhs(L,S0,S,H0,H,P),
-   expandrhs(R,S0,S,H0,H,Q),
-   new_pred(P),
-   usurping(Mode,P),
-   xg_assertz((P :- Q)), !.
+xg_process((L-->R),Mode) :- !, xg_process((L ---> R),Mode).
 
 xg_process(( :- G),_) :- !, call(G).
 
@@ -256,7 +252,7 @@ conc_gx([X|L1],L2,[X|L3]) :-
 xg_listing(File) :-
    telling(Old),
    tell(File),
-   list_clauses,
+   list_xg_clauses,
    told,
    tell(Old).
 
@@ -266,13 +262,13 @@ compile_xg_clauses :- !.
 compile_xg_clauses:- 'newg.pl' = F, xg_listing(F),[F].
 %compile_xg_clauses:- tmp_file_stream(text, File, Stream), xg_listing(Stream),[File].
 
-list_clauses :-
+list_xg_clauses :-
    recorded('xg.pred',P,_),
    functor(P,F,N),
    listing(F/N),
    nl,
    fail.
-list_clauses.
+list_xg_clauses.
 
 :-export(load_xg/0).
 
