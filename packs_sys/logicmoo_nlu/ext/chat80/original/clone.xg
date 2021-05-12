@@ -285,7 +285,7 @@ comp(Comp,Adj) --->
 
 % Measure is NON-Numerically More
 comp(more,Adj) --->
-   rel_adj(Adj),
+   comp_adj(Adj),
    theText80(than).
 
 % Measure is same = "as big as"  ?

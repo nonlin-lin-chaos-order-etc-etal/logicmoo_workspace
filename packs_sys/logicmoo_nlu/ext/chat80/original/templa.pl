@@ -37,9 +37,9 @@ property_LF(capital,  SpatialCity,    X,Spatial&geo&country,Y,
  specific_pred(Spatial,nation_capital,Y,X),[],_,_):- feature_path1(Spatial,city,SpatialCity).
 
 property_LF(area,     measure&area,    X,Spatial&_,Y,  measure_pred(Spatial,area,Y,X),[],_,_).
-property_LF(latitude, measure&position,X,Spatial&_,Y,       position_pred(Spatial,latitude,Y,X),[],_,_).
-property_LF(longitude,measure&position,X,Spatial&_,Y,       position_pred(Spatial,longitude,Y,X),[],_,_).
-property_LF(population, measure&heads, X,Spatial&_,Y,          count_pred(Spatial,heads,Y,X),[],_,_).
+property_LF(latitude, measure&position,X,Spatial&_,Y, position_pred(Spatial,latitude,Y,X),[],_,_).
+property_LF(longitude,measure&position,X,Spatial&_,Y, position_pred(Spatial,longitude,Y,X),[],_,_).
+property_LF(population, measure&heads, X,Spatial&_,Y,    count_pred(Spatial,heads,Y,X),[],_,_).
 
 % thing_LF(geo,Spatial&_,X,ti(geo,X),[],_):- spatial(Spatial).
 
@@ -98,9 +98,8 @@ name_template_lf0(X,Spatial&geo&seamass) :- spatial(Spatial), ti(seamass,X).
 /*
 %verb_root_lex_80(border).
 trans_LF(border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
-verb_type_lex_80(border,main+tv).
 %regular_past_lex_80(bordered,border).
-%regular_pres_lex_80(border).
+%% superceeded regular_pres_lex_80(border).
 verb_form_lex_80(bordering,border,pres+part,_):- .
 verb_form_lex_80(borders,border,pres+fin,3+sg).
 verb_form_lex_80(border,border,pres+fin,_+pl). %:- verb_root_lex_80(border)
@@ -116,36 +115,40 @@ trans_LF(Border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,Border,X,
    verb_type_lex(Border,main+tv),
    symmetric_verb(Spatial, Border).
 
+verb_type_lex_80(border,main+tv).
 symmetric_verb(Spatial,border):- spatial(Spatial).
 
-
-use_lexicon_80(_):- fail.
+%use_lexicon_80(_):- !, true.
+use_lexicon_80(chat80).
+use_lexicon_80(chat80_extra).
+use_lexicon_80(talkdb_verb(X)):- verb_type_lex_80(X,_).
+% use_lexicon_80(_):- fail.
 
 :- import(talkdb:talk_db/6).
 %                         nonfinite,  pres+fin, past+fin,  pres+part    past+part,
-talkdb_talk_db(transitive, border,    borders,  bordered,  bordering,  bordered).
-talkdb_talk_db(  Transitive, Write,   Writes,   Wrote,     Writing,  Written):- use_lexicon_80(talkdb_verb),
-  talkdb:talk_db(Transitive, Write,   Writes,   Wrote,     Writing,  Written).
+talkdb_talk_db(transitive,   border,  borders,  bordered,  bordering,  bordered).
+talkdb_talk_db(  Transitive, Write,   Writes,   Wrote,     Writing,    Written):- use_lexicon_80(talkdb_verb(Write)),
+  talkdb:talk_db(Transitive, Write,   Writes,   Wrote,     Writing,    Written).
 
 verb_root_lex(Write):-            talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
 verb_type_lex(Write,main+tv):-    talkdb_talk_db( transitive,Write,_Writes,_Wrote,_Writing,_Written).
 regular_past_lex(Wrote,Write):-   talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
-regular_pres_lex(Write):-         talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
-verb_form_lex(Written,Write,past+part,_):-  talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing, Written).
-verb_form_lex(Writing,Write,pres+part,_):-  talkdb_talk_db(_Transitive,Write,_Writes,_Wrote, Writing,_Written).
-verb_form_lex(Writes,Write,pres+fin,3+sg):- talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
-verb_form_lex(Writes,Write,pres+fin,_):-    talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
-verb_form_lex( Wrote,Write,past+fin,_):-    talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
+% superceeded regular_pres_lex(Write):-         talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
+verb_form_lex(Written,Write,past+part,_):-   talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing, Written).
+verb_form_lex(Writing,Write,pres+part,_):-   talkdb_talk_db(_Transitive,Write,_Writes,_Wrote, Writing,_Written).
+verb_form_lex( Writes,Write,pres+fin,3+sg):- talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
+verb_form_lex( Writes,Write,pres+fin,_):-    talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
+verb_form_lex(  Wrote,Write,past+fin,_):-    talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
 
 
 :- import(clex_iface:clex_verb/4).
 clex_verb80(Looked,Look,VerbType,Form):- use_lexicon_80(clex_verb), clex_iface:clex_verb(Looked,Look,VerbType,Form).
-%regular_pres_lex(Look):- no_loop_check(verb_root_lex(Look)).
+%% superceeded regular_pres_lex(Look):- no_loop_check(verb_root_lex(Look)).
 %verb_form_lex(Looking,Look,pres+part,_):- (atom(Looking)->atom_concat(Look,'ing',Looking);var(Looking)),
 %  no_loop_check(verb_root_lex(Look)),atom(Look),atom_concat(Look,'ing',Looking).
 verb_root_lex(Look):- clex_verb80(_Formed,Look,_Iv,_Finsg).
 regular_past_lex(Looked,Look):- clex_verb80(Looked,Look,_Iv,prep_phrase).
-verb_form_lex(Looks,Look,pres+fin,3+sg):- clex_verb80(Looks,Look,_,finsg).
+verb_form_lex(Looks,Look,pres+fin,3+sg):-  clex_verb80(Looks,Look,_,finsg).
 verb_form_lex(LookPL,Look,pres+fin,3+pl):- clex_verb80(LookPL,Look,_,infpl).
 verb_type_lex(Look,main+ITDV):- clex_verb80(_Formed,Look,ITDV,_Finsg).
 trans_LF(Assign,feature&_,X,dbase_t(Assign,X,Y), [slot(prep(To),feature&_,Y,_,free)],_):- clex_verb80(_Assigned, Assign, dv(To),_).

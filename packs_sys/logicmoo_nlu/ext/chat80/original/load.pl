@@ -66,6 +66,7 @@
 %:- include(contain).
 %:- include(borders).
 :- include(world1).
+:- include(world_pathways).
 
 %:- include(clotab).	% attachment tables
 :- include(newdict).	% syntactic dictionary

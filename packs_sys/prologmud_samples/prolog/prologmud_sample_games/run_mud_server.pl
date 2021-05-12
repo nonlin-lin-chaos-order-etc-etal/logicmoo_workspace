@@ -662,7 +662,12 @@ swi_ide:- use_module(library(swi_ide)),
  ( getenv('DISPLAY',_)
    -> prolog_ide(thread_monitor)
     ;true).
+
 :- add_history(swi_ide).
+:- add_history(test_chat).
+:- add_history([run_mud_server]).
+
+
 
 %:- lps_sanity.
 

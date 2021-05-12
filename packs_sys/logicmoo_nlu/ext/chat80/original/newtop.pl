@@ -83,13 +83,12 @@ q2([which,country,that,borders,the,mediterranean,borders,a,country,
 	testing of a system.
    ---------------------------------------------------------------------- */
 
-ed( [ does, america, contain, new_york, ? ] ,mini).
+ed( [ does, america, contain, new, york, ? ] ,mini).
 ed( [ does, mexico, border, the, united_states, ? ] ,mini).
 ed( [ is, the, population, of, china, greater, than, (200), million, ? ] ,mini).
 ed( [ does, the, population, of, china, exceed, (1000), million, ? ] ,mini).
 ed( [ is, the, population, of, china, (840), million, ? ] ,mini).
-ed( [ does, the, population, of, china, exceed, the, population, of,
-      india, ? ] ,mini).
+ed( [ does, the, population, of, china, exceed, the, population, of, india, ? ] ,mini).
 ed( [ is, spain, bordered, by, the, pacific, ? ] ,mini).
 ed( [ does, the, atlantic, border, spain, ? ] ,mini).
 ed( [ is, the, rhine, in, switzerland, ? ] ,mini).
