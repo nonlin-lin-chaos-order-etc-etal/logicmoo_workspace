@@ -33,13 +33,9 @@ exceeds0(X1--U1,X2--U2) :- once((ratio(U1,U2,M1,M2), X1*M1 > X2*M2)).
 
 ratio(thousand,million,1,1000).
 ratio(million,thousand,1000,1).
-ratio(ksqmiles,sqmiles,1000,1).
-ratio(sqmiles,ksqmiles,1,1000).
 
 unit_format(population,_X--million).
 unit_format(population,_X--thousand).
-
-unit_format(area,_X--ksqmiles).
 
 ti(capital_city,Cap) :- c_r_l_l_s_cap_m(_,_,_,_,_,_,Cap,_). % specific_pred(spatial,nation_capital,_X,C).
 %ti(city,C) :- ti(capital_city,C).
