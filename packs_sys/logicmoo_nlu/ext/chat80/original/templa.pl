@@ -85,7 +85,7 @@ meta_noun_LF(number,of,_,V,Spatial&_,X,P,numberof(X,P,V)):- spatial(Spatial).
 
 name_template_LF(X,Type2):- name_template_lf0(X,Type1), type_conversion(Type1,Type2).
 
-name_template_lf0(X,Spatial&circle) :-  circle_of_latitude(X), spatial(Spatial).
+name_template_lf0(X,Spatial&circle) :-  t(circle_of_latitude,X), spatial(Spatial).
 name_template_lf0(X,SpatialCity) :- ti(city,X), spatial(Spatial), bfeature_path(Spatial,city,SpatialCity).
 name_template_lf0(X,Spatial&geo&continent) :- spatial(Spatial), ti(continent,X).
 name_template_lf0(X,Spatial&geo&country) :- spatial(Spatial), ti(country,X).

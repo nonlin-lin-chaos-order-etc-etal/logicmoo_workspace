@@ -35,7 +35,7 @@ database80(aggregate80(X,Y,Z)) :- aggregate80(X,Y,Z).
 database80(one_of(X,Y)) :- one_of(X,Y).
 database80(ratio(X,Y,Z)) :- ratio(X,Y,Z).
 database80(card(X,Y)) :- card(X,Y).
-database80(circle_of_latitude(X)) :- circle_of_latitude(X).
+%database80(circle_of_latitude(X)) :- circle_of_latitude(X).
 %database80(continent(X)) :- continent(X).
 database80(exceeds(X,Y)) :- exceeds(X,Y).
 database80(ti(Place,X)) :- ti(Place,X).
@@ -126,4 +126,48 @@ ti(sea,red_sea).
 % @TODO ti(sea,caribian).
 
 
+ordering_pred(spatial,cp(east,of),X1,X2) :- position_pred(spatial,longitude,X1,L1), position_pred(spatial,longitude,X2,L2), exceeds(L2,L1).
+ordering_pred(spatial,cp(north,of),X1,X2) :- position_pred(spatial,latitude,X1,L1), position_pred(spatial,latitude,X2,L2), exceeds(L1,L2).
+ordering_pred(spatial,cp(south,of),X1,X2) :- position_pred(spatial,latitude,X1,L1), position_pred(spatial,latitude,X2,L2), exceeds(L2,L1).
+ordering_pred(spatial,cp(west,of),X1,X2) :- position_pred(spatial,longitude,X1,L1), position_pred(spatial,longitude,X2,L2), exceeds(L1,L2).
+
+unit_format(latitude,_X--degrees).
+unit_format(longitude,_X--degrees).
+
+unit_format(area,_X--ksqmiles).
+
+ratio(ksqmiles,sqmiles,1000,1).
+ratio(sqmiles,ksqmiles,1,1000).
+
+measure_pred(Spatial,Heads,C,Total):- is_list(C),maplist(measure_pred(Spatial,Heads),C,Setof), u_total(Setof, Total).
+
+measure_pred(spatial,area,C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is A0/1000.
+
+measure_pred(Spatial,Area,Where,Total) :- \+ c_r_l_l_s_cap_m(Where,_,_,_,_,_,_,_), 
+ % ti(continent,Where),
+ setof(Value:[Country],
+               []^(database80(measure_pred(Spatial, Area, Country, Value)), 
+               %database80(ti(country, Country)), 
+               database80(trans_pred(Spatial,contain,Where,Country))),
+               Setof),
+         database80(aggregate80(total, Setof, Total)).
+
+
+t(circle_of_latitude,C):- circle_latitude(C,_).
+position_pred(spatial,latitude,C,L):- circle_latitude(C,L).
+
+circle_latitude(equator,0--degrees).
+circle_latitude(tropic_of_cancer,23--degrees).
+circle_latitude(tropic_of_capricorn,(-23)--degrees).
+circle_latitude(arctic_circle,67--degrees).
+circle_latitude(antarctic_circle,(-67)--degrees).
+
+position_pred(spatial,latitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,L,_,_,_,_,_).
+position_pred(spatial,longitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,_,L,_,_,_,_).
+
+count_pred(Spatial,Heads,C,Total):- is_list(C),maplist(count_pred(Spatial,Heads),C,Setof), u_total(Setof, Total).
+count_pred(spatial,heads,C,P--thousand) :- city_country_popu(C,_,P).
+count_pred(spatial,heads,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
+
+specific_pred(spatial,nation_capital,C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
 
