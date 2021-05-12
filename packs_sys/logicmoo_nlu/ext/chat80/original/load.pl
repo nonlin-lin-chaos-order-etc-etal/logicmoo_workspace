@@ -75,7 +75,7 @@
 
 :- use_module(qplan).	% query planning
 :- include(talkr).	% query evaluation
-%:- include(ndtabl).	% relation info.
+:- include(ndtabl).	% relation info.
 :- include(readin).	% sentence input
 :- include(ptree).	% print trees
 :- include(aggreg).	% aggregation operators

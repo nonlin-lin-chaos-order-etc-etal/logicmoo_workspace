@@ -45,7 +45,9 @@ property_LF(population, measure&population/*citizens*/, X,Spatial&_,Y,    count_
 
 
 
-thing_LF(nation,Path,X,LF,Slots,Other):- thing_LF(country,Path,X,LF,Slots,Other).
+thing_LF(Nation,Path,X,LF,Slots,Other):- synonymous_thing(Nation,Country), thing_LF(Country,Path,X,LF,Slots,Other).
+
+synonymous_thing(nation,country).
 
 thing_LF_access(area,measure&area,X,unit_format(area,X),[],_).
 thing_LF_access(latitude,measure&position,X,unit_format(latitude,X),[],_).
@@ -61,11 +63,13 @@ btype_conversion(_,_).
 type_conversion(Type1,Type2):- !, Type1=Type2.
 
 
-thing_LF(Place,Spatial&_,X,ti(Place,X),[],_):- spatial(Spatial), place_lex(Place).
-thing_LF(region,Spatial&_,X,ti(region,X),[],_):- spatial(Spatial).
+thing_LF(Place,  Spatial&_,          X,ti(Place,X),  [],_):- spatial(Spatial), place_lex(Place).
+thing_LF(region, Spatial&_,          X,ti(region,X), [],_):- spatial(Spatial).
 thing_LF(country,Spatial&geo&country,X,ti(country,X),[],_):- spatial(Spatial).
-thing_LF(ocean,Spatial&geo&seamass,X,ti(ocean,X),[],_):- spatial(Spatial).
-thing_LF(sea,Spatial&geo&seamass,X,ti(sea,X),[],_):- spatial(Spatial).
+
+thing_LF(OceanOrSea,Path,X,ti(OceanOrSea,X),Nil,Any):- ti_subclass(OceanOrSea,Seamass), Seamass=seamass,
+   thing_LF(Seamass,Path,X,ti(Seamass,X),Nil,Any).
+
 thing_LF(seamass,Spatial&geo&seamass,X,ti(seamass,X),[],_):- spatial(Spatial).
 
 thing_LF(person,_,X,ti(person,X),[],_).

@@ -275,17 +275,17 @@ nominal_kind(dir).
 nominal_kind(ind).
 
 i_sup_op(least,min).
-i_sup_op(most,max).
+i_sup_op(most, max).
 
 conversion(wh(Type-X),same,Type,X,identityQ).
 conversion(N,Op,_,N,Op):- number(N).
 
-measure_op(identityQ,X,X,true).
-measure_op(same,X,Y,X=Y).
-measure_op(less,X,Y,exceeds(Y,X)).
-measure_op(not+less,X,Y,\+exceeds(Y,X)).
-measure_op(more,X,Y,exceeds(X,Y)).
-measure_op(not+more,X,Y,\+exceeds(X,Y)).
+measure_op(identityQ, X,X,    true).
+measure_op(same,      X,Y,    X=Y).
+measure_op(less,      X,Y,    exceeds(Y,X)).
+measure_op(not+less,  X,Y, \+ exceeds(Y,X)).
+measure_op(more,      X,Y,    exceeds(X,Y)).
+measure_op(not+more,  X,Y, \+ exceeds(X,Y)).
 
 op_inverse(most,-,least).
 op_inverse(least,-,most).
