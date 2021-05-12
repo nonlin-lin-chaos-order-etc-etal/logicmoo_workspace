@@ -59,44 +59,32 @@ database80(path_pred(Part,Verb,ObjType,X,Y)) :- path_pred(Part,Verb,ObjType,X,Y)
 database80(path_pred_links(Flow,ObjType,X,Y,Z)) :- path_pred_links(Flow,ObjType,X,Y,Z).
 
 
-:-op(500,xfy,--).
+:- style_check(+singleton).
 
-%exceeds(X--U,Y--U) :- !, X > Y.
-%exceeds(X1--U1,X2--U2) :- ratio(U1,U2,M1,M2), X1*M1 > X2*M2.
-exceeds(X,Y):- term_variables(X-Y,Vars),freeze_until(Vars,exceeds0(X,Y)),!.
+ti(NewType,X) :- agentitive_symmetric_type(Pred,SuperType), fail,
+  % dont loop
+  NewType\==SuperType, NewType\==SuperType, 
+  % get the type names
+  ti(SuperType,NewType), 
+  % find the instances 
+  symmetric_pred(spatial,Pred,NewType,X),
+  % dont find instances already of the super type
+  \+ ti(SuperType,X).
 
-freeze_until([],Goal):-!, term_variables(Goal, Vars),(Vars==[] -> Goal ; freeze_until(Vars,Goal)).
-freeze_until([V|Vars],Goal):- freeze(V,freeze_until(Vars,Goal)),!.
-
-exceeds0(X--U,Y--U) :- !, X > Y.
-exceeds0(X1--U1,X2--U2) :- once((ratio(U1,U2,M1,M2), X1*M1 > X2*M2)).
-
-place_lex(place).
-
-
-ratio(thousand,million,1,1000).
-ratio(million,thousand,1000,1).
-ratio(ksqmiles,sqmiles,1000,1).
-ratio(sqmiles,ksqmiles,1,1000).
-
-unit_format(area,_X--ksqmiles).
-ti(capital_city,Cap) :- c_r_l_l_s_cap_m(_,_,_,_,_,_,Cap,_). % specific_pred(spatial,nation_capital,_X,C).
-%ti(city,C) :- ti(capital_city,C).
-%ti(city,C) :- clause(city_country_popu(C,_,_), true).
-ti(city,C) :- country_contains_thing(_,C), \+ ti(river,C).
-ti(country,C) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,_,_).
-unit_format(latitude,_X--degrees).
-unit_format(longitude,_X--degrees).
+%ti(Sea,X) :- Sea\==seamass,Sea\==ocean,Sea\==sea, agentitive_symmetric_type(Borders,Sea), (symmetric_pred(spatial,Borders,Sea,X)).
+%agentitive_symmetric_type(border,Baltic):- ti(seamass,Baltic).
+% allows "baltic country" "pacific countries"   
+agentitive_symmetric_type(border,seamass).
 
 ti(SC,X) :- ti_subclass(C,SC),ti(C,X).
+
+place_lex(place).
 
 ti_subclass(continent,place).
 ti_subclass(region,place).
 ti_subclass(seamass,place).
 ti_subclass(country,place).
 
-unit_format(population,_X--million).
-unit_format(population,_X--thousand).
 ti(region,R) :- continent_contains_region(_,R).
 
 % if X is contained in africa then X is african.
@@ -110,49 +98,6 @@ agentitive_trans_80(contain,asia,asian).
 agentitive_trans_80(contain,europe,european).
 
 
-
-
-ordering_pred(spatial,cp(east,of),X1,X2) :- position_pred(spatial,longitude,X1,L1), position_pred(spatial,longitude,X2,L2), exceeds(L2,L1).
-ordering_pred(spatial,cp(north,of),X1,X2) :- position_pred(spatial,latitude,X1,L1), position_pred(spatial,latitude,X2,L2), exceeds(L1,L2).
-ordering_pred(spatial,cp(south,of),X1,X2) :- position_pred(spatial,latitude,X1,L1), position_pred(spatial,latitude,X2,L2), exceeds(L2,L1).
-ordering_pred(spatial,cp(west,of),X1,X2) :- position_pred(spatial,longitude,X1,L1), position_pred(spatial,longitude,X2,L2), exceeds(L1,L2).
-
-
-circle_of_latitude(equator).
-circle_of_latitude(tropic_of_cancer).
-circle_of_latitude(tropic_of_capricorn).
-circle_of_latitude(arctic_circle).
-circle_of_latitude(antarctic_circle).
-
-position_pred(spatial,latitude,equator,0--degrees).
-position_pred(spatial,latitude,tropic_of_cancer,23--degrees).
-position_pred(spatial,latitude,tropic_of_capricorn,(-23)--degrees).
-position_pred(spatial,latitude,arctic_circle,67--degrees).
-position_pred(spatial,latitude,antarctic_circle,(-67)--degrees).
-
-position_pred(spatial,latitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,L,_,_,_,_,_).
-position_pred(spatial,longitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,_,L,_,_,_,_).
-
-
-measure_pred(Spatial,Heads,C,Total):- is_list(C),maplist(measure_pred(Spatial,Heads),C,Setof), u_total(Setof, Total).
-
-measure_pred(spatial,area,C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is A0/1000.
-
-measure_pred(Spatial,Area,Where,Total) :- \+ c_r_l_l_s_cap_m(Where,_,_,_,_,_,_,_), 
- % ti(continent,Where),
- setof(Value:[Country],
-               []^(database80(measure_pred(Spatial, Area, Country, Value)), 
-               %database80(ti(country, Country)), 
-               database80(trans_pred(Spatial,contain,Where,Country))),
-               Setof),
-         database80(aggregate80(total, Setof, Total)).
-
-
-count_pred(Spatial,Heads,C,Total):- is_list(C),maplist(count_pred(Spatial,Heads),C,Setof), u_total(Setof, Total).
-count_pred(spatial,heads,C,P--thousand) :- city_country_popu(C,_,P).
-count_pred(spatial,heads,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
-
-specific_pred(spatial,nation_capital,C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
 
 ti(continent,X):- continent(X).
 continent(africa).
@@ -179,23 +124,6 @@ ti(sea,mediterranean).
 ti(sea,persian_gulf).
 ti(sea,red_sea).
 % @TODO ti(sea,caribian).
-
-:- style_check(+singleton).
-
-%ti(Sea,X) :- Sea\==seamass,Sea\==ocean,Sea\==sea, agentitive_symmetric_type(Borders,Sea), (symmetric_pred(spatial,Borders,Sea,X)).
-%agentitive_symmetric_type(border,Baltic):- ti(seamass,Baltic).
-% allows "baltic country" "pacific countries"   
-agentitive_symmetric_type(border,seamass).
-
-ti(NewType,X) :- agentitive_symmetric_type(Pred,SuperType), fail,
-  % dont loop
-  NewType\==SuperType, NewType\==SuperType, 
-  % get the type names
-  ti(SuperType,NewType), 
-  % find the instances 
-  symmetric_pred(spatial,Pred,NewType,X),
-  % dont find instances already of the super type
-  \+ ti(SuperType,X).
 
 
 

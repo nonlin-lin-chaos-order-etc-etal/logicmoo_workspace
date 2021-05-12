@@ -21,6 +21,56 @@
 
 */
 
+ordering_pred(spatial,cp(east,of),X1,X2) :- position_pred(spatial,longitude,X1,L1), position_pred(spatial,longitude,X2,L2), exceeds(L2,L1).
+ordering_pred(spatial,cp(north,of),X1,X2) :- position_pred(spatial,latitude,X1,L1), position_pred(spatial,latitude,X2,L2), exceeds(L1,L2).
+ordering_pred(spatial,cp(south,of),X1,X2) :- position_pred(spatial,latitude,X1,L1), position_pred(spatial,latitude,X2,L2), exceeds(L2,L1).
+ordering_pred(spatial,cp(west,of),X1,X2) :- position_pred(spatial,longitude,X1,L1), position_pred(spatial,longitude,X2,L2), exceeds(L1,L2).
+
+
+circle_of_latitude(equator).
+circle_of_latitude(tropic_of_cancer).
+circle_of_latitude(tropic_of_capricorn).
+circle_of_latitude(arctic_circle).
+circle_of_latitude(antarctic_circle).
+
+position_pred(spatial,latitude,equator,0--degrees).
+position_pred(spatial,latitude,tropic_of_cancer,23--degrees).
+position_pred(spatial,latitude,tropic_of_capricorn,(-23)--degrees).
+position_pred(spatial,latitude,arctic_circle,67--degrees).
+position_pred(spatial,latitude,antarctic_circle,(-67)--degrees).
+
+position_pred(spatial,latitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,L,_,_,_,_,_).
+position_pred(spatial,longitude,C,L--degrees) :- c_r_l_l_s_cap_m(C,_,_,L,_,_,_,_).
+
+
+unit_format(latitude,_X--degrees).
+unit_format(longitude,_X--degrees).
+
+unit_format(area,_X--ksqmiles).
+
+ratio(ksqmiles,sqmiles,1000,1).
+ratio(sqmiles,ksqmiles,1,1000).
+
+measure_pred(Spatial,Heads,C,Total):- is_list(C),maplist(measure_pred(Spatial,Heads),C,Setof), u_total(Setof, Total).
+
+measure_pred(spatial,area,C,A--ksqmiles) :- c_r_l_l_s_cap_m(C,_,_,_,A0,_,_,_), A is A0/1000.
+
+measure_pred(Spatial,Area,Where,Total) :- \+ c_r_l_l_s_cap_m(Where,_,_,_,_,_,_,_), 
+ % ti(continent,Where),
+ setof(Value:[Country],
+               []^(database80(measure_pred(Spatial, Area, Country, Value)), 
+               %database80(ti(country, Country)), 
+               database80(trans_pred(Spatial,contain,Where,Country))),
+               Setof),
+         database80(aggregate80(total, Setof, Total)).
+
+
+count_pred(Spatial,Heads,C,Total):- is_list(C),maplist(count_pred(Spatial,Heads),C,Setof), u_total(Setof, Total).
+count_pred(spatial,heads,C,P--thousand) :- city_country_popu(C,_,P).
+count_pred(spatial,heads,C,P--million) :- c_r_l_l_s_cap_m(C,_,_,_,_,P0,_,_), P is integer(P0/1.0E6).
+
+specific_pred(spatial,nation_capital,C,Cap) :- c_r_l_l_s_cap_m(C,_,_,_,_,_,Cap,_).
+
 % Facts about countries.
 % ---------------------
 
