@@ -89,11 +89,7 @@ int_pron_lex(whom,compl).
 
 name_LF(Name) :- name_template_LF(Name,_).
 
-noun_form_lex(Plu,Sin,pl) :- noun_plu_lex(Plu,Sin).
-noun_form_lex(Sin,Sin,sg) :- noun_sin_lex(Sin).
 
-noun_form_lex(proportion,proportion,_).
-noun_form_lex(percentage,percentage,_).
 
 number_lex(W,I,Nb) :- 
         tr_number(W,I),
@@ -201,8 +197,8 @@ ctx_pron_lex(at,time,when).
 how_many_lex([how,many]).
 
 first_lexicon(X):- available_lexicon(X),!.
-available_lexicon(chat80).
 available_lexicon(talkdb).
+available_lexicon(chat80).
 
 
 %available_lexicon(clex).
@@ -322,15 +318,42 @@ loc_pred_lex(of,north,prep(cp(north,of))).
 loc_pred_lex(of,south,prep(cp(south,of))).
 loc_pred_lex(of,west,prep(cp(west,of))).
 
+noun_form_lex(Sin,Root,_) :- noun_sing_plu_lex(Sin),Root=Sin.
+noun_form_lex(Plu,Root,Agmt) :- noun_plu_lex(Plu,Root), (Plu==Root-> Agmt=_;pl=Agmt).
+noun_form_lex(Sin,Root,Agmt) :- noun_plu_lex(Plu,Sin),Root=Sin, (Plu==Root-> Agmt=_;sg=Agmt).
+%noun_form_lex(Sin,Sin,_) :- noun_plu_lex(Sin,Sin).
+%noun_form_lex(Plu,Sin,pl) :- noun_plu_lex(Plu,Sin), Plu\==Sin.
+%noun_form_lex(Sin,Sin,sg) :- noun_plu_lex(Plu,Sin), Plu\==Sin.
+%noun_sin_lex(A):- noun_plu_lex(_,A). %, \+ noun_plu_lex(A,A).
+
+noun_sing_plu_lex(proportion).
+noun_sing_plu_lex(percentage).
+noun_sing_plu_lex(million).
+noun_sing_plu_lex(thousand).
+noun_sing_plu_lex(fish).
+
+hide_plur_root_noun(1,Millions,Million):- noun_sing_plu_lex(Million), !, Millions\==Million.
+hide_plur_root_noun(1,_Twos,Two):-tr_number(Two,_).
+hide_plur_root_noun(1,_Ins,In):-prep_lex(In).
+hide_plur_root_noun(1,_Mores,More):- comp_adv_lex(More).
+hide_plur_root_noun(1,ares,are).
+hide_plur_root_noun(1,_Noes,No):-det_lex(No,_,_,_).
+%hide_plur_root_noun(1,does,doe).
+hide_plur_root_noun(2,Does,_):- atom(Does), verb_form_lex(Does,do(_),_Y,_Z).
+hide_plur_root_noun(N,_,River):- N\==0, atom(River), verb_form_lex(River,_,_,_).
 
 noun_plu_lex(ksqmiles,ksqmile).
 noun_plu_lex(seamasses,seamass).
 noun_plu_lex(sqmiles,sqmile).
 noun_plu_lex(Averages,Average):- try_lex(noun_plu_db(Averages,Average)).
-noun_plu_db(talkdb,Rivers,River):- talkdb:talk_db(noun1,River,Rivers). %, \+ verb_form_lex(River,_,_,_).
-noun_plu_db(talkdb,Rivers,River):- noun_plu_db(clex,Rivers,River), \+ verb_form_lex(River,_,_,_).
-%noun_plu_db(talkdb,Rivers,River):- noun_plu_db(chat80,Rivers,River). 
-noun_plu_db(clex,Rivers,River):- clex:noun_pl(Rivers,River,_).
+
+which_var(Rivers,River,N):- arg(N,v(Rivers,River),V),var(V),!.
+which_var(_,_,0).
+
+noun_plu_db(talkdb,Rivers,River):- which_var(Rivers,River,N),talkdb:talk_db(noun1,River,Rivers), \+ hide_plur_root_noun(N,Rivers,River).
+noun_plu_db(talkdb,Rivers,River):- noun_plu_db(clex,Rivers,River).
+noun_plu_db(clex,Rivers,River):- which_var(Rivers,River,N),clex:noun_pl(Rivers,River,_), \+ hide_plur_root_noun(N,Rivers,River).
+
 noun_plu_db(chat80,areas,area).
 noun_plu_db(chat80,averages,average).
 noun_plu_db(chat80,capitals,capital).
@@ -342,8 +365,8 @@ noun_plu_db(chat80,states,state).
 noun_plu_db(chat80,degrees,degree).
 noun_plu_db(chat80,latitudes,latitude).
 noun_plu_db(chat80,longitudes,longitude).
-noun_plu_db(chat80,million,million).
-noun_plu_db(chat80,millions,million).
+%noun_plu_db(chat80,million,million).
+%noun_plu_db(chat80,millions,million).
 noun_plu_db(chat80,numbers,number).
 noun_plu_db(chat80,oceans,ocean).
 noun_plu_db(chat80,persons,person).
@@ -354,11 +377,9 @@ noun_plu_db(chat80,regions,region).
 noun_plu_db(chat80,rivers,river).
 noun_plu_db(chat80,seas,sea).
 noun_plu_db(chat80,sums,sum).
-noun_plu_db(chat80,thousand,thousand).
+%noun_plu_db(chat80,thousand,thousand).
 noun_plu_db(chat80,times,time).
 noun_plu_db(chat80,totals,total).
-
-noun_sin_lex(A):- noun_plu_lex(_,A). %, \+ noun_plu_lex(A,A).
 
 
 comp_adj_lex(Smaller,Small):- try_lex(comp_adj_db(Smaller,Small)).
@@ -376,8 +397,9 @@ comp_adj_db(chat80,smaller,small).
 
 sup_adj_lex(Smallest,Small):- try_lex(sup_adj_db(Smallest,Small)).
 sup_adj_db(talkdb,Smallest,Small):- talkdb:talk_db(superl,Small,Smallest).
-sup_adj_db(talkdb,Smaller,Small):- sup_adj_db(clex,Smaller,Small).
+sup_adj_db(talkdb,Smallest,Small):- sup_adj_db(clex,Smallest,Small).
 sup_adj_db(clex,Smallest,Small):- clex:adj_itr_sup(Smallest, Small).
+
 sup_adj_db(chat80,biggest,big).
 sup_adj_db(chat80,largest,large).
 sup_adj_db(chat80,newest,new).

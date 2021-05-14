@@ -363,7 +363,7 @@ strong0(any).
 
 
 weak(det(Det)) :-
-   weak0(Det).
+   weak_det(Det).
 weak(quantV(_, _)).
 weak(index(_)).
 weak(int_det(_, _)).
@@ -372,13 +372,13 @@ weak(int_det(_)).
 weak(generic).
 weak(proportion(_)).
 
-weak0(no).
-weak0(a).
-weak0(all).
-weak0(some).
-weak0(every).
-weak0(the(sg)).
-weak0(notall).
+weak_det(no).
+weak_det(a).
+weak_det(all).
+weak_det(some).
+weak_det(every).
+weak_det(the(sg)).
+weak_det(notall).
 
 
 lower(question80(_), Q, quantV(det(a), X, P, Y)) :-
