@@ -162,7 +162,7 @@ clex_noun(Noun, RootNoun, Type, SG, pn):- clex_noun2(Noun, RootNoun, Type, SG), 
    clex_noun0(Noun, RootNoun, mn, sg):- clex_call(mn_sg,Noun, RootNoun).
    clex_noun0(Noun, RootNoun, mn, pl):- clex_call(mn_pl,Noun, RootNoun).
 
-   clex_noun1(Noun, RootNoun, pl):- when_chat80(clex_call(noun_plu_db,Noun, RootNoun)).
+   clex_noun1(Noun, RootNoun, pl):- when_chat80(clex_call(noun_plu_db,Noun, RootNoun)), Noun\==ares.
    clex_noun1(RootNoun, RootNoun, sg):- when_chat80(clex_call(noun_sin_db,RootNoun)).
 
    clex_noun2(Noun, RootNoun, Type, sg):- clex_call(pn_sg,Noun, RootNoun, Type).

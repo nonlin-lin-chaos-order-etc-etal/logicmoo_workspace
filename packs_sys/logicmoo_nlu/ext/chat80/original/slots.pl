@@ -331,7 +331,7 @@ verb_kind(tv,Verb,TypeS,S,Pred,
 verb_kind(dv(Prep),Verb,TypeS,S,Pred,
       [slot(dir,TypeD,D,SlotD,free),
        slot(ind,TypeI,I,SlotI,free)|Slots]) :-
-   ditrans_lex80(Verb,Prep,TypeS,S,TypeD,D,TypeI,I,Pred,Slots,SlotD,SlotI,_).
+   fail,fail,fail,fail,ditrans_lex80(Verb,Prep,TypeS,S,TypeD,D,TypeI,I,Pred,Slots,SlotD,SlotI,_).
 
 deepen_case(prep(at),time).
 deepen_case(s_subj,dir).

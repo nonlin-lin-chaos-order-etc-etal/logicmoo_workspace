@@ -144,7 +144,7 @@ name_lex_txt(Name) ---> theText80(Name), {name_LF(Name),!}.
 name_lex_txt(Name) ---> theTextL80([W1,'_',W2]),{!,atomic(W1),atomic(W2),atomic_list_concat([W1,'_',W2],Name),name_LF(Name)}.
 name_lex_txt(Name) ---> theTextL80([W1,W2]),{atomic(W1),atomic(W2),atomic_list_concat([W1,'_',W2],Name),name_LF(Name)}.
 
-int_art(X,pl,quantV(same,wh(X))) ---> theText80(how),theText80(many).
+int_art(X,pl,quantV(same,wh(X))) ---> {how_many_lex(HOWMANY)}, theTextL80(HOWMANY).
 int_art(X,Agmt,DX) --->
    theText80(Art),
    {int_art_lex(Art,X,Agmt,DX)}.
@@ -169,8 +169,7 @@ quantifier_pron(Det,Noun) --->
    theText80(W),
    {quantifier_pron_lex(W,Det,Noun)}.
 
-context_pron(prep(in),place) ---> theText80(where).
-context_pron(prep(at),time) ---> theText80(when).
+context_pron(prep(In),Place) ---> {ctx_pron_lex(In,Place,Where)}, theText80(Where).
 
 
 number(I,Number) ---> theText80(W), {!,number_lex(W,I,Number)}.

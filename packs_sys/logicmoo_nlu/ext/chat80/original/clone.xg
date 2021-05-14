@@ -16,7 +16,7 @@
 sentence80(_) ---> if_giveup_dcg,{!,fail}.
 sentence80(S) ---> question80(S), ((terminator('?'),{!}); noText).
 sentence80(S) ---> imperative80(S), ((terminator('!'),{!}); noText).
-sentence80(S) ---> declarative(S), ((terminator('.'),{!})).
+%sentence80(S) ---> declarative(S), ((terminator('.'),{!})).
 sentence80(QS) ---> s80(S,_),(theText80(Punct);(noText,{Punct=missing})),{!,punct_to_sent_type(Punct,S,QS)},{!}.
 sentence80(decl(S)) ---> s80(S,_).
 

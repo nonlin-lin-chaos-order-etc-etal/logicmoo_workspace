@@ -120,7 +120,7 @@ poss_pron_lex(our,_,1,pl).
 poss_pron_lex(their,_,3,pl).
 poss_pron_lex(your,_,2,_).
 
-prep_lex(X):- prep_db(chat80,X).
+prep_lex(X):- try_lex(prep_db(X)).
 
 prep_db(chat80,as).
 prep_db(chat80,at).
@@ -134,6 +134,8 @@ prep_db(chat80,through).
 prep_db(chat80,to).
 prep_db(chat80,with).
 
+prep_db(talkdb,X):- talkdb:talk_db(preposition, X).
+
 quantifier_pron_lex(anybody,any,person).
 quantifier_pron_lex(anyone,any,person).
 quantifier_pron_lex(anything,any,thing).
@@ -146,7 +148,7 @@ quantifier_pron_lex(somebody,some,person).
 quantifier_pron_lex(someone,some,person).
 quantifier_pron_lex(something,some,thing).
 
-regular_past_lex(Had,Have):- use_lexicon_80(chat80), regular_past_db(chat80,Had,Have).
+regular_past_lex(Had,Have):- try_lex(regular_past_db(Had,Have)).
 
 regular_past_db(chat80,had,have).
 
@@ -193,18 +195,25 @@ tr_number(ten,10).
 tr_number(three,3).
 tr_number(two,2).
 
+ctx_pron_lex(in,place,where).
+ctx_pron_lex(at,time,when).
+
+how_many_lex([how,many]).
+
 first_lexicon(X):- available_lexicon(X),!.
 available_lexicon(chat80).
-%available_lexicon(clex).
 available_lexicon(talkdb).
-try_lex(How, G):- G=..[F|ARGS],CALL=..[F,How|ARGS],CALL.
-show_tries_except(Which,TF,G):- !, forall((available_lexicon(Other),Other\==Which),warn_when(TF,try_lex(Other,G))).
+
+
+%available_lexicon(clex).
+try_lex(How, G, CALL):- G=..[F|ARGS], CALL=..[F,How|ARGS].
+show_tries_except(Which,TF,G):- !, forall((available_lexicon(Other),Other\==Which,try_lex(Other,G,CALL),clause(CALL,_)),warn_when(TF,CALL)).
 warn_when(fail,G):- G -> true ; wdmsg(warn_when(failed,G)).
 warn_when(true,G):- G *-> wdmsg(warn_when(succeeded,G)) ; true.
-try_lex(G):- first_lexicon(Which),
- (try_lex(Which,G)
+try_lex(G):- first_lexicon(Which),try_lex(Which,G,CALL),
+ (CALL
     *-> show_tries_except(Which,fail,G)
-    ; (show_tries_except(_,true,G), fail)).
+    ; (show_tries_except(_,true,G),!, fail)).
 
 
 verb_form_lex(am,be,pres+fin,1+sg).
@@ -314,13 +323,14 @@ loc_pred_lex(of,south,prep(cp(south,of))).
 loc_pred_lex(of,west,prep(cp(west,of))).
 
 
-noun_plu_lex(Averages,Average):- try_lex(noun_plu_db(Averages,Average)).
 noun_plu_lex(ksqmiles,ksqmile).
 noun_plu_lex(seamasses,seamass).
 noun_plu_lex(sqmiles,sqmile).
-
-noun_plu_db(talkdb,Rivers,River):- talkdb:talk_db(noun1,River,Rivers).
-
+noun_plu_lex(Averages,Average):- try_lex(noun_plu_db(Averages,Average)).
+noun_plu_db(talkdb,Rivers,River):- talkdb:talk_db(noun1,River,Rivers). %, \+ verb_form_lex(River,_,_,_).
+noun_plu_db(talkdb,Rivers,River):- noun_plu_db(clex,Rivers,River), \+ verb_form_lex(River,_,_,_).
+%noun_plu_db(talkdb,Rivers,River):- noun_plu_db(chat80,Rivers,River). 
+noun_plu_db(clex,Rivers,River):- clex:noun_pl(Rivers,River,_).
 noun_plu_db(chat80,areas,area).
 noun_plu_db(chat80,averages,average).
 noun_plu_db(chat80,capitals,capital).
@@ -333,6 +343,7 @@ noun_plu_db(chat80,degrees,degree).
 noun_plu_db(chat80,latitudes,latitude).
 noun_plu_db(chat80,longitudes,longitude).
 noun_plu_db(chat80,million,million).
+noun_plu_db(chat80,millions,million).
 noun_plu_db(chat80,numbers,number).
 noun_plu_db(chat80,oceans,ocean).
 noun_plu_db(chat80,persons,person).
@@ -347,38 +358,12 @@ noun_plu_db(chat80,thousand,thousand).
 noun_plu_db(chat80,times,time).
 noun_plu_db(chat80,totals,total).
 
+noun_sin_lex(A):- noun_plu_lex(_,A). %, \+ noun_plu_lex(A,A).
 
-noun_sin_lex(River):- use_lexicon_80(talkdb), talkdb:talk_db(noun1,River).
-noun_sin_lex(Area):-  use_lexicon_80(chat80), noun_sin_db(chat80,Area).
-noun_sin_lex(ksqmile).
-noun_sin_lex(seamass).
-noun_sin_lex(sqmile).
-
-noun_sin_db(chat80,area).
-noun_sin_db(chat80,average).
-noun_sin_db(chat80,capital).
-noun_sin_db(chat80,city).
-noun_sin_db(chat80,continent).
-noun_sin_db(chat80,country).
-noun_sin_db(chat80,degree).
-noun_sin_db(chat80,latitude).
-noun_sin_db(chat80,longitude).
-noun_sin_db(chat80,million).
-noun_sin_db(chat80,number).
-noun_sin_db(chat80,ocean).
-noun_sin_db(chat80,person).
-noun_sin_db(chat80,place).
-noun_sin_db(chat80,population).
-noun_sin_db(chat80,region).
-noun_sin_db(chat80,river).
-noun_sin_db(chat80,sea).
-noun_sin_db(chat80,sum).
-noun_sin_db(chat80,thousand).
-noun_sin_db(chat80,time).
-noun_sin_db(chat80,total).
 
 comp_adj_lex(Smaller,Small):- try_lex(comp_adj_db(Smaller,Small)).
 comp_adj_db(talkdb,Smaller,Small):- talkdb:talk_db(comp,Small,Smaller).
+comp_adj_db(talkdb,Smaller,Small):- comp_adj_db(clex,Smaller,Small).
 comp_adj_db(clex,Smaller,Small):- clex:adj_itr_comp(Smaller, Small).
 
 comp_adj_db(chat80,bigger,big).
@@ -390,9 +375,9 @@ comp_adj_db(chat80,older,old).
 comp_adj_db(chat80,smaller,small).
 
 sup_adj_lex(Smallest,Small):- try_lex(sup_adj_db(Smallest,Small)).
-%sup_adj_db(talkdb,Smallest,Small):- talkdb:talk_db(sup,Small,Smallest).
+sup_adj_db(talkdb,Smallest,Small):- talkdb:talk_db(superl,Small,Smallest).
+sup_adj_db(talkdb,Smaller,Small):- sup_adj_db(clex,Smaller,Small).
 sup_adj_db(clex,Smallest,Small):- clex:adj_itr_sup(Smallest, Small).
-
 sup_adj_db(chat80,biggest,big).
 sup_adj_db(chat80,largest,large).
 sup_adj_db(chat80,newest,new).

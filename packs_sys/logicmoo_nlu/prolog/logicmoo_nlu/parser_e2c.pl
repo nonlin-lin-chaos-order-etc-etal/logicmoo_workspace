@@ -15,10 +15,25 @@
 
 
 /*
-  Around 10% of the 1500 lines of code are from Bratko chapter 17 page 455.
-   This comes from Pereira and Warren paper, AI journal, 1980
-   To see original: https://github.com/logicmoo/logicmoo_nlu/blob/master/prolog/logicmoo_nlu/parser_bratko.pl
+ E2C DESCRIPTION/UPDATE:   
 
+  The E2C (English-2-CommonLogic (Used to stand for Eng-2-CycL)) is a Semantic Role Labeling (SRL) https://en.wikipedia.org/wiki/Semantic_role_labeling toolkit
+
+ HISTORY/Summary:
+
+  Semantic role labeling is mostly used for machines to understand the roles of words within sentences. This benefits applications similar to Natural Language Processing programs that need to understand not just the words of languages, but how they can be used in varying sentences.
+
+  Nowadays statistical Neural Net models are used to try to do SRL.  The problem being though, like most NN technology, it is understood the layers of data at some stages are will be a bit messy and any ambiguities/wrongness/garbage found will be cleaned out by later NN stages.   Ideally, "Well its a Neural Net so we are not always going to find what we wanted or understand what we see .. but since NNs are how humans work.. it will fix itself in the end"  (That hasn't happened yet)  Further, projects like NLTK 3.0 removed the capability due to devs no longer understanding how the previous versions worked and assume NNs will broaden the coverage.  Since newer systems only have to be good enough they can be consumed by a Neural Net (or produce a Knowledge Graphs to be read by humans) they remain unusable for those whom use structured data and logical inference. 
+
+  LOGICMOO's first viable E2C version was created in 2002 using OpenCyc 0.6's content that was deleted before OpenCyc 2.0. (After all, it was never intended for OpenCyc to make use of that content.)  Those whom participated in LOGICMOO's development, already had been using SRL for decades, knew how good SRL was from Knowledge Engineering Environments at MIRTE Corp, S.R.I. and Cycorp. That SRL (logical form) had to be (and still is) better than what language models can produce mainly because we had to work directly in a "not so smart" Logical Inference Engines.  Our E2C continues from there that left off!
+
+
+
+ IMPLEMATION/Future:
+
+  Around 10% of the 1500 lines of code are from Bratko chapter 17 page 455.
+  This comes from Pereira and Warren paper, AI journal, 1980
+  To see original: https://github.com/logicmoo/logicmoo_nlu/blob/master/prolog/logicmoo_nlu/parser_bratko.pl
   What is fun and odd about Bratko's version was it goes straight from Text to Deep Logical-Form :)
 
    */
