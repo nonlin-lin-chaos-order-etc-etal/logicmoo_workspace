@@ -51,7 +51,7 @@ t_l:useAltPOS:- fail.
 :-meta_predicate(deepen_pos(0)).
 % temp hack
 deepen_pos(Call):- !, call(Call).
-deepen_pos(Call):- deepen_pos_0(Call) *->  true ; locally(t_l:useAltPOS,deepen_pos_0(Call)).
+deepen_pos(Call):- Call *-> true ; deepen_pos_0(Call) *->  true ; locally(t_l:useAltPOS,deepen_pos_0(Call)).
 
 :- share_mp(deepen_pos_0/1).
 :-meta_predicate(deepen_pos_0(0)).
@@ -361,8 +361,7 @@ e2c_into_segs(Sentence,Segs):- is_list(Sentence),maplist(span_or_word,Sentence),
 e2c_into_segs(Sentence,Segs):- (corenlp_to_segs(Sentence,Segs)->Segs=[_|_]),!.
 e2c_into_segs(Sentence,Segs):- any_to_string(Sentence,S),notrace(text_to_corenlp_segs(S,Segs)),!.
 
-e2c_parse_segs(WL, LF):- no_repeats(LF, deepen_pos(utterance(_How, LF, WL, []))),!.
-e2c_parse_segs(Sentence, unparsed(Sentence)).
+e2c_parse_segs(WL, LF):- no_repeats(LF, deepen_pos(utterance(_How, LF, WL, []))) *-> true ; LF = unparsed(WL).
 /*
 e2c_parse_segs(WL, LF):- fail, deepen_pos(e2c_parse3(WL, LF)).
 

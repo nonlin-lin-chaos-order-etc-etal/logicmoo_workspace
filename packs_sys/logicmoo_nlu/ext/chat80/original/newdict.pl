@@ -120,19 +120,19 @@ poss_pron_lex(our,_,1,pl).
 poss_pron_lex(their,_,3,pl).
 poss_pron_lex(your,_,2,_).
 
-prep_lex(X):- prep_lex_80(X).
+prep_lex(X):- prep_db(chat80,X).
 
-prep_lex_80(as).
-prep_lex_80(at).
-prep_lex_80(by).
-prep_lex_80(from).
-prep_lex_80(in).
-prep_lex_80(into).
-prep_lex_80(of).
-prep_lex_80(on).
-prep_lex_80(through).
-prep_lex_80(to).
-prep_lex_80(with).
+prep_db(chat80,as).
+prep_db(chat80,at).
+prep_db(chat80,by).
+prep_db(chat80,from).
+prep_db(chat80,in).
+prep_db(chat80,into).
+prep_db(chat80,of).
+prep_db(chat80,on).
+prep_db(chat80,through).
+prep_db(chat80,to).
+prep_db(chat80,with).
 
 quantifier_pron_lex(anybody,any,person).
 quantifier_pron_lex(anyone,any,person).
@@ -146,26 +146,26 @@ quantifier_pron_lex(somebody,some,person).
 quantifier_pron_lex(someone,some,person).
 quantifier_pron_lex(something,some,thing).
 
-regular_past_lex(Had,Have):- use_lexicon_80(chat80), regular_past_lex_80(Had,Have).
+regular_past_lex(Had,Have):- use_lexicon_80(chat80), regular_past_db(chat80,Had,Have).
 
-regular_past_lex_80(had,have).
+regular_past_db(chat80,had,have).
 
-%superceeded regular_past_lex_80(contained,contain).
-%superceeded regular_past_lex_80(exceeded,exceed).
+%superceeded regular_past_db(chat80,contained,contain).
+%superceeded regular_past_db(chat80,exceeded,exceed).
 
-%superceeded regular_past_lex_80(governed,govern).
+%superceeded regular_past_db(chat80,governed,govern).
 
-%superceeded regular_pres_lex(V):- % superceeded regular_pres_lex_80(V).
+%superceeded regular_pres_lex(V):- % superceeded regular_pres_db(chat80,V).
 
-% superceeded regular_pres_lex_80(contain).
-% superceeded regular_pres_lex_80(exceed).
-
-
-% superceeded regular_pres_lex_80(govern).
+% superceeded regular_pres_db(chat80,contain).
+% superceeded regular_pres_db(chat80,exceed).
 
 
-regular_pres_lex_80(do(_Does)).
-regular_pres_lex_80(have).
+% superceeded regular_pres_db(chat80,govern).
+
+
+regular_pres_db(chat80,do(_Does)).
+regular_pres_db(chat80,have).
 
 rel_pron_lex(which,undef).
 rel_pron_lex(who,subj).
@@ -193,6 +193,18 @@ tr_number(ten,10).
 tr_number(three,3).
 tr_number(two,2).
 
+first_lexicon(X):- available_lexicon(X),!.
+available_lexicon(chat80).
+%available_lexicon(clex).
+available_lexicon(talkdb).
+try_lex(How, G):- G=..[F|ARGS],CALL=..[F,How|ARGS],CALL.
+show_tries_except(Which,TF,G):- !, forall((available_lexicon(Other),Other\==Which),warn_when(TF,try_lex(Other,G))).
+warn_when(fail,G):- G -> true ; wdmsg(warn_when(failed,G)).
+warn_when(true,G):- G *-> wdmsg(warn_when(succeeded,G)) ; true.
+try_lex(G):- first_lexicon(Which),
+ (try_lex(Which,G)
+    *-> show_tries_except(Which,fail,G)
+    ; (show_tries_except(_,true,G), fail)).
 
 
 verb_form_lex(am,be,pres+fin,1+sg).
@@ -218,52 +230,52 @@ verb_form_lex(will,do(_Does),pres+fin,3+sg).
 
 verb_form_lex(has,have,pres+fin,3+sg).
 verb_form_lex(having,have,pres+part,_).
-
+verb_form_lex(had,have,past+part,_).
 
 /*
-verb_form_lex_80(containing,contain,pres+part,_).
-verb_form_lex_80(contains,contain,pres+fin,3+sg).
-verb_form_lex_80(exceeding,exceed,pres+part,_).
-verb_form_lex_80(exceeds,exceed,pres+fin,3+sg).
-verb_form_lex_80(governing,govern,pres+part,_).
-verb_form_lex_80(governs,govern,pres+fin,3+sg).
+verb_form_db(chat80,containing,contain,pres+part,_).
+verb_form_db(chat80,contains,contain,pres+fin,3+sg).
+verb_form_db(chat80,exceeding,exceed,pres+part,_).
+verb_form_db(chat80,exceeds,exceed,pres+fin,3+sg).
+verb_form_db(chat80,governing,govern,pres+part,_).
+verb_form_db(chat80,governs,govern,pres+fin,3+sg).
 */
 
-%verb_form_lex(Are,Be,PresFin,NthPlOrSing):-  use_lexicon_80(chat80), verb_form_lex_80(Are,Be,PresFin,NthPlOrSing).
+%verb_form_lex(Are,Be,PresFin,NthPlOrSing):-  use_lexicon_80(chat80), verb_form_db(chat80,Are,Be,PresFin,NthPlOrSing).
 
 verb_form_lex(Verb,Verb,pres+fin,_+pl) :- use_lexicon_80(chat80_extra), Verb = V, verb_root_lex(V).
 % ... because [which,countries,border,france,?] was not properly parsed (the singular form was)
 verb_form_lex(Verb,Verb,inf,_) :-  use_lexicon_80(chat80_extra), Verb = V,  verb_root_lex(V).
 % ... because [does,france,border,belgium,?] was not properly parsed
 verb_form_lex(Verb,Inf,past+part,_) :- use_lexicon_80(chat80_extra), regular_past_lex(Verb,Inf).
-% ... because [is,france,bordered,by,belgium,?] was not properly parsed. Deduced from verb_form_lex_80(done,do(_Does),past+part,_) bellow.
+% ... because [is,france,bordered,by,belgium,?] was not properly parsed. Deduced from verb_form_db(chat80,done,do(_Does),past+part,_) bellow.
 %verb_form_lex(A,A,C,D) :-
 %  writef("********************************** verb_form_db {0} failed", [[A,A,C,D]]).
 %  !,
 %  fail.
 
-verb_root_lex(Root):- use_lexicon_80(chat80), %verb_root_lex_80(Root).
-  verb_type_lex_80(Root,_MainTv).
+verb_root_lex(Root):- use_lexicon_80(chat80), %verb_root_db(chat80,Root).
+  verb_type_db(chat80,Root,_MainTv).
 verb_root_lex(be).
 verb_root_lex(do(_Does)).
 verb_root_lex(have).
 
 
-%superceeded verb_root_lex_80(contain).
-%superceeded verb_root_lex_80(exceed).
+%superceeded verb_root_db(chat80,contain).
+%superceeded verb_root_db(chat80,exceed).
 
 
-%superceeded verb_root_lex_80(govern).
+%superceeded verb_root_db(chat80,govern).
 
-verb_type_lex(V,MainTv):- use_lexicon_80(chat80), verb_type_lex_80(V,MainTv).
+verb_type_lex(V,MainTv):- use_lexicon_80(chat80), verb_type_db(chat80,V,MainTv).
 verb_type_lex(be,aux+be).
 verb_type_lex(do(_Does),aux+dv(_Prep)).
 verb_type_lex(have,aux+have).
 
 
-verb_type_lex_80(contain,main+tv).
-verb_type_lex_80(exceed,main+tv).
-verb_type_lex_80(govern,main+tv).
+verb_type_db(chat80,contain,main+tv).
+verb_type_db(chat80,exceed,main+tv).
+verb_type_db(chat80,govern,main+tv).
 
 
 
@@ -274,24 +286,24 @@ verb_type_lex_80(govern,main+tv).
 
 adj_lex(African,restr):- agentitive_trans(_,_,African).
 adj_lex( Baltic,restr):- agentitive_symmetric_type(_,Baltic).
-adj_lex(African,Restr):-  use_lexicon_80(chat80), adj_lex_80(African,Restr).
+adj_lex(African,Restr):-  use_lexicon_80(chat80), adj_db(chat80,African,Restr).
 
-%adj_lex_80(american,restr).
-%adj_lex_80(asian,restr).
-%adj_lex_80(european,restr).
+%adj_db(chat80,american,restr).
+%adj_db(chat80,asian,restr).
+%adj_db(chat80,european,restr).
 
-adj_lex_80(big,quantV).
-adj_lex_80(great,quantV).
-adj_lex_80(great,quantV).
-adj_lex_80(large,quantV).
-adj_lex_80(new,quantV).
-adj_lex_80(old,quantV).
-adj_lex_80(small,quantV).
+adj_db(chat80,big,quantV).
+adj_db(chat80,great,quantV).
+adj_db(chat80,great,quantV).
+adj_db(chat80,large,quantV).
+adj_db(chat80,new,quantV).
+adj_db(chat80,old,quantV).
+adj_db(chat80,small,quantV).
 
-adj_lex_80(average,restr).
-adj_lex_80(maximum,restr).
-adj_lex_80(minimum,restr).
-adj_lex_80(total,restr).
+adj_db(chat80,average,restr).
+adj_db(chat80,maximum,restr).
+adj_db(chat80,minimum,restr).
+adj_db(chat80,total,restr).
 
 adverb_lex(tomorrow).
 adverb_lex(yesterday).
@@ -302,89 +314,90 @@ loc_pred_lex(of,south,prep(cp(south,of))).
 loc_pred_lex(of,west,prep(cp(west,of))).
 
 
-noun_plu_lex(Rivers,River):- use_lexicon_80(talkdb), talkdb:talk_db(noun1,River,Rivers).
-noun_plu_lex(Averages,Average):-  use_lexicon_80(chat80), noun_plu_lex_80(Averages,Average).
+noun_plu_lex(Averages,Average):- try_lex(noun_plu_db(Averages,Average)).
 noun_plu_lex(ksqmiles,ksqmile).
 noun_plu_lex(seamasses,seamass).
 noun_plu_lex(sqmiles,sqmile).
 
-noun_plu_lex_80(areas,area).
-noun_plu_lex_80(averages,average).
-noun_plu_lex_80(capitals,capital).
-noun_plu_lex_80(cities,city).
-noun_plu_lex_80(continents,continent).
-noun_plu_lex_80(countries,country).
-noun_plu_lex_80(nations,nation).
-noun_plu_lex_80(states,state).
-noun_plu_lex_80(degrees,degree).
-noun_plu_lex_80(latitudes,latitude).
-noun_plu_lex_80(longitudes,longitude).
-noun_plu_lex_80(million,million).
-noun_plu_lex_80(numbers,number).
-noun_plu_lex_80(oceans,ocean).
-noun_plu_lex_80(persons,person).
-noun_plu_lex_80(people,person).
-noun_plu_lex_80(places,place).
-noun_plu_lex_80(populations,population).
-noun_plu_lex_80(regions,region).
-noun_plu_lex_80(rivers,river).
-noun_plu_lex_80(seas,sea).
-noun_plu_lex_80(sums,sum).
-noun_plu_lex_80(thousand,thousand).
-noun_plu_lex_80(times,time).
-noun_plu_lex_80(totals,total).
+noun_plu_db(talkdb,Rivers,River):- talkdb:talk_db(noun1,River,Rivers).
+
+noun_plu_db(chat80,areas,area).
+noun_plu_db(chat80,averages,average).
+noun_plu_db(chat80,capitals,capital).
+noun_plu_db(chat80,cities,city).
+noun_plu_db(chat80,continents,continent).
+noun_plu_db(chat80,countries,country).
+noun_plu_db(chat80,nations,nation).
+noun_plu_db(chat80,states,state).
+noun_plu_db(chat80,degrees,degree).
+noun_plu_db(chat80,latitudes,latitude).
+noun_plu_db(chat80,longitudes,longitude).
+noun_plu_db(chat80,million,million).
+noun_plu_db(chat80,numbers,number).
+noun_plu_db(chat80,oceans,ocean).
+noun_plu_db(chat80,persons,person).
+noun_plu_db(chat80,people,person).
+noun_plu_db(chat80,places,place).
+noun_plu_db(chat80,populations,population).
+noun_plu_db(chat80,regions,region).
+noun_plu_db(chat80,rivers,river).
+noun_plu_db(chat80,seas,sea).
+noun_plu_db(chat80,sums,sum).
+noun_plu_db(chat80,thousand,thousand).
+noun_plu_db(chat80,times,time).
+noun_plu_db(chat80,totals,total).
 
 
 noun_sin_lex(River):- use_lexicon_80(talkdb), talkdb:talk_db(noun1,River).
-noun_sin_lex(Area):-  use_lexicon_80(chat80), noun_sin_lex_80(Area).
+noun_sin_lex(Area):-  use_lexicon_80(chat80), noun_sin_db(chat80,Area).
 noun_sin_lex(ksqmile).
 noun_sin_lex(seamass).
 noun_sin_lex(sqmile).
 
-noun_sin_lex_80(area).
-noun_sin_lex_80(average).
-noun_sin_lex_80(capital).
-noun_sin_lex_80(city).
-noun_sin_lex_80(continent).
-noun_sin_lex_80(country).
-noun_sin_lex_80(degree).
-noun_sin_lex_80(latitude).
-noun_sin_lex_80(longitude).
-noun_sin_lex_80(million).
-noun_sin_lex_80(number).
-noun_sin_lex_80(ocean).
-noun_sin_lex_80(person).
-noun_sin_lex_80(place).
-noun_sin_lex_80(population).
-noun_sin_lex_80(region).
-noun_sin_lex_80(river).
-noun_sin_lex_80(sea).
-noun_sin_lex_80(sum).
-noun_sin_lex_80(thousand).
-noun_sin_lex_80(time).
-noun_sin_lex_80(total).
+noun_sin_db(chat80,area).
+noun_sin_db(chat80,average).
+noun_sin_db(chat80,capital).
+noun_sin_db(chat80,city).
+noun_sin_db(chat80,continent).
+noun_sin_db(chat80,country).
+noun_sin_db(chat80,degree).
+noun_sin_db(chat80,latitude).
+noun_sin_db(chat80,longitude).
+noun_sin_db(chat80,million).
+noun_sin_db(chat80,number).
+noun_sin_db(chat80,ocean).
+noun_sin_db(chat80,person).
+noun_sin_db(chat80,place).
+noun_sin_db(chat80,population).
+noun_sin_db(chat80,region).
+noun_sin_db(chat80,river).
+noun_sin_db(chat80,sea).
+noun_sin_db(chat80,sum).
+noun_sin_db(chat80,thousand).
+noun_sin_db(chat80,time).
+noun_sin_db(chat80,total).
 
-comp_adj_lex(Smaller,Small):- use_lexicon_80(talkdb), talkdb:talk_db(comp,Small,Smaller).
-comp_adj_lex(Smaller,Small):- use_lexicon_80(clex), clex:adj_itr_comp(Smaller, Small).
-comp_adj_lex(Smallest,Small):- use_lexicon_80(chat80), comp_adj_lex_80(Smallest,Small).
+comp_adj_lex(Smaller,Small):- try_lex(comp_adj_db(Smaller,Small)).
+comp_adj_db(talkdb,Smaller,Small):- talkdb:talk_db(comp,Small,Smaller).
+comp_adj_db(clex,Smaller,Small):- clex:adj_itr_comp(Smaller, Small).
 
-comp_adj_lex_80(bigger,big).
-comp_adj_lex_80(greater,great).
-comp_adj_lex_80(larger,large).
-comp_adj_lex_80(less,small).
-comp_adj_lex_80(newer,new).
-comp_adj_lex_80(older,old).
-comp_adj_lex_80(smaller,small).
+comp_adj_db(chat80,bigger,big).
+comp_adj_db(chat80,greater,great).
+comp_adj_db(chat80,larger,large).
+comp_adj_db(chat80,less,small).
+comp_adj_db(chat80,newer,new).
+comp_adj_db(chat80,older,old).
+comp_adj_db(chat80,smaller,small).
 
-sup_adj_lex(Smallest,Small):- use_lexicon_80(talkdb), talkdb:talk_db(sup,Small,Smallest).
-sup_adj_lex(Smallest,Small):- use_lexicon_80(clex), clex:adj_itr_sup(Smallest, Small).
-sup_adj_lex(Smallest,Small):- use_lexicon_80(chat80), sup_adj_lex_80(Smallest,Small).
+sup_adj_lex(Smallest,Small):- try_lex(sup_adj_db(Smallest,Small)).
+%sup_adj_db(talkdb,Smallest,Small):- talkdb:talk_db(sup,Small,Smallest).
+sup_adj_db(clex,Smallest,Small):- clex:adj_itr_sup(Smallest, Small).
 
-sup_adj_lex_80(biggest,big).
-sup_adj_lex_80(largest,large).
-sup_adj_lex_80(newest,new).
-sup_adj_lex_80(oldest,old).
-sup_adj_lex_80(smallest,small).
+sup_adj_db(chat80,biggest,big).
+sup_adj_db(chat80,largest,large).
+sup_adj_db(chat80,newest,new).
+sup_adj_db(chat80,oldest,old).
+sup_adj_db(chat80,smallest,small).
 
 
 comp_adv_lex(less).

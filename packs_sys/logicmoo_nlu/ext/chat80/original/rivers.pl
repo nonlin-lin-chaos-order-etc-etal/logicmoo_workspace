@@ -78,30 +78,30 @@ link_pairs([_|L],X1,X2) :- link_pairs(L,X1,X2).
 
 type_begins_thru_ends(river,rise,flow,drain).
 
-verb_type_lex_80(rise,main+iv).
-verb_type_lex_80(flow,main+iv).
-verb_type_lex_80(drain,main+iv).
+verb_type_db(chat80,rise,main+iv).
+verb_type_db(chat80,flow,main+iv).
+verb_type_db(chat80,drain,main+iv).
 
-% superceeded verb_root_lex_80(rise).
-% superceeded verb_root_lex_80(flow).
-% superceeded verb_root_lex_80(drain).
+% superceeded verb_root_db(chat80,rise).
+% superceeded verb_root_db(chat80,flow).
+% superceeded verb_root_db(chat80,drain).
 
-% superceeded regular_pres_lex_80(rise).
-% superceeded regular_pres_lex_80(flow).
-% superceeded regular_pres_lex_80(drain).
+% superceeded regular_pres_db(chat80,rise).
+% superceeded regular_pres_db(chat80,flow).
+% superceeded regular_pres_db(chat80,drain).
 
-regular_past_lex_80(flowed,flow).
-regular_past_lex_80(drained,drain).
+regular_past_db(chat80,flowed,flow).
+regular_past_db(chat80,drained,drain).
 
 /*
 % superceeded 
-verb_form_lex_80(rose,rise,past+fin,_).
-verb_form_lex_80(rises,rise,pres+fin,3+sg).
-verb_form_lex_80(risen,rise,past+part,_).
-verb_form_lex_80(flows,flow,pres+fin,3+sg).
-verb_form_lex_80(flowing,flow,pres+part,_).
-verb_form_lex_80(drains,drain,pres+fin,3+sg).
-verb_form_lex_80(draining,drain,pres+part,_).
+verb_form_db(chat80,rose,rise,past+fin,_).
+verb_form_db(chat80,rises,rise,pres+fin,3+sg).
+verb_form_db(chat80,risen,rise,past+part,_).
+verb_form_db(chat80,flows,flow,pres+fin,3+sg).
+verb_form_db(chat80,flowing,flow,pres+part,_).
+verb_form_db(chat80,drains,drain,pres+fin,3+sg).
+verb_form_db(chat80,draining,drain,pres+part,_).
 */
 
 path_linkages(flow,river,R,L):-river_flows(R,L).

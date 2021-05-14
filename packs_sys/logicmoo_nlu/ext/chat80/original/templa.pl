@@ -100,17 +100,17 @@ name_template_lf0(X,Spatial&geo&seamass) :- spatial(Spatial), ti(seamass,X).
 /* Verbs */
 
 /*
-%verb_root_lex_80(border).
+%verb_root_db(chat80,border).
 trans_LF(border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,borders,X,Y),[],_,_).
-%regular_past_lex_80(bordered,border).
-%% superceeded regular_pres_lex_80(border).
-verb_form_lex_80(bordering,border,pres+part,_):- .
-verb_form_lex_80(borders,border,pres+fin,3+sg).
-verb_form_lex_80(border,border,pres+fin,_+pl). %:- verb_root_lex_80(border)
+%regular_past_db(chat80,bordered,border).
+%% superceeded regular_pres_db(chat80,border).
+verb_form_db(chat80,bordering,border,pres+part,_):- .
+verb_form_db(chat80,borders,border,pres+fin,3+sg).
+verb_form_db(chat80,border,border,pres+fin,_+pl). %:- verb_root_db(chat80,border)
 % ... because [which,countries,border,france,?] was not properly parsed (the singular form was)
-verb_form_lex_80(border,border,inf,_). %:- verb_root_lex_80(border)
+verb_form_db(chat80,border,border,inf,_). %:- verb_root_db(chat80,border)
 % ... because [does,france,border,belgium,?] was not properly parsed
-verb_form_lex_80(bordered,border,past+part,_). % :- regular_past_lex_80(bordered,border).
+verb_form_db(chat80,bordered,border,past+part,_). % :- regular_past_db(chat80,bordered,border).
 */
 
 :- style_check(+singleton).
@@ -119,13 +119,13 @@ trans_LF(Border,Spatial&Geo&_,X,Spatial&Geo&_,Y,symmetric_pred(Spatial,Border,X,
    verb_type_lex(Border,main+tv),
    symmetric_verb(Spatial, Border).
 
-verb_type_lex_80(border,main+tv).
+verb_type_db(chat80,border,main+tv).
 symmetric_verb(Spatial,border):- spatial(Spatial).
 
 %use_lexicon_80(_):- !, true.
 use_lexicon_80(chat80).
 use_lexicon_80(chat80_extra).
-use_lexicon_80(talkdb_verb(X)):- verb_type_lex_80(X,_).
+use_lexicon_80(talkdb_verb(X)):- verb_type_db(chat80,X,_).
 % use_lexicon_80(_):- fail.
 
 :- import(talkdb:talk_db/6).
@@ -138,11 +138,15 @@ verb_root_lex(Write):-            talkdb_talk_db(_Transitive,Write,_Writes,_Wrot
 verb_type_lex(Write,main+tv):-    talkdb_talk_db( transitive,Write,_Writes,_Wrote,_Writing,_Written).
 regular_past_lex(Wrote,Write):-   talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
 % superceeded regular_pres_lex(Write):-         talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
-verb_form_lex(Written,Write,past+part,_):-   talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing, Written).
-verb_form_lex(Writing,Write,pres+part,_):-   talkdb_talk_db(_Transitive,Write,_Writes,_Wrote, Writing,_Written).
-verb_form_lex( Writes,Write,pres+fin,3+sg):- talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
-verb_form_lex( Writes,Write,pres+fin,_):-    talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
-verb_form_lex(  Wrote,Write,past+fin,_):-    talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
+
+verb_form_lex(A,B,C,D):- verb_form_db(talkdb,A,B,C,D).
+% verb_form_db(chat80,A,B,C,D):- verb_form_db(talkdb,A,B,C,D).
+
+verb_form_db(talkdb,Written,Write,past+part,_):-   talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing, Written).
+verb_form_db(talkdb,Writing,Write,pres+part,_):-   talkdb_talk_db(_Transitive,Write,_Writes,_Wrote, Writing,_Written).
+verb_form_db(talkdb, Writes,Write,pres+fin,3+sg):- talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
+verb_form_db(talkdb, Writes,Write,pres+fin,_):-    talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
+verb_form_db(talkdb,  Wrote,Write,past+fin,_):-    talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
 
 
 :- import(clex_iface:clex_verb/4).

@@ -250,11 +250,11 @@ chat80("What is a river that is in asia?").
 chat80("Which rivers are not in asia?").
 chat80("How many rivers are not in asia?" , 25).
 chat80("What is a river that is asian?").
-chat80("What is a river that is not happy?").
+%chat80("What is a river that is not happy?").
 chat80("How many rivers are in asia?", 16).
 chat80("How many asian countries have a population exceeding 10 million?", 20).
 chat80("How many countries have a population exceeding 10 million?", 50).
-chat80("How many countries have a population greater than 10 million?", 50, borked).
+chat80("How many countries have a population greater than 10 million?", 50).
 chat80("What are the continents in which no country contains more than 3 cities?", [africa, antarctica, australasia, europe]).
 chat80("What are the continents containing a country in which contains more than 3 cities?", [america, asia, europe], slow).
 chat80("What are the continents not containing a country?", [antarctica]).
@@ -328,7 +328,7 @@ chat80 :- locally(tracing80,
            locally(t_l:chat80_interactive,
             locally_hide(t_l:useOnlyExternalDBs,
              locally_hide(thglobal:use_cyc_database,
-                  locally(usePlTalk, (told, repeat, prompt_read('CHAT80> ', U),
+                  locally(t_l:usePlTalk, (told, repeat, prompt_read('CHAT80> ', U),
                             to_word_list(U, WL), ((WL==[bye];WL==[end, '_', of, '_', file];control80(WL))))))))).
 
 :- thread_local(t_l:into_form_code/0).

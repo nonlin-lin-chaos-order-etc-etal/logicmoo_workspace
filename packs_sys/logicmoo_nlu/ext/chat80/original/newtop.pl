@@ -334,12 +334,20 @@ inform1([H|T]) :- write(H), put(32), inform1(T).
 
 test_chat80 :- test_chat80(_,off).
 
+:- share_mp(test_chat80/1).
 test_chat80(N):- test_chat80(N, on).
+%test_chat80(L):- ignore(control80(L)).
+test_chat80(U):-
+ locally(t_l:tracing80_nop,
+           locally(t_l:chat80_interactive_nop,
+            locally_hide(t_l:useOnlyExternalDBs,
+             locally_hide(thglobal:use_cyc_database,
+              ignore(control80(U)))))).
 
 test_chat80(N, OnOff) :- (number(N);var(N)),!,
 	(var(N)->show_title ;true),
-	ed(N,Sentence,CorrectAnswer),
-  test_chat80(N, Sentence, OnOff, CorrectAnswer).
+	forall(ed(N,Sentence,CorrectAnswer),
+   test_chat80(N, Sentence, OnOff, CorrectAnswer)).
 
 test_chat80(Sentence, OnOff) :-
   test_chat80(0, Sentence, OnOff, _CorrectAnswer).
@@ -552,14 +560,7 @@ trace_chat80(U):-
              locally_hide(thglobal:use_cyc_database,
               ignore(control80(U)))))).
 
-:- share_mp(test_chat80/1).
-%test_chat80(L):- ignore(control80(L)).
-test_chat80(U):-
- locally(t_l:tracing80_nop,
-           locally(t_l:chat80_interactive_nop,
-            locally_hide(t_l:useOnlyExternalDBs,
-             locally_hide(thglobal:use_cyc_database,
-              ignore(control80(U)))))).
+
 
 process5(How,Sentence,CorrectAnswer,Status,Times) :-
 	process4(How,Sentence,Answer,Times),
@@ -592,7 +593,7 @@ process4(How,Sentence,Answer,Times) :-
    SegTime is StopSeg - StartSeg,
    report(How,U,'segs',SegTime,tree),
    runtime(StartParse))),!,
- ((sentence80(E,U,[],[],[]),
+ ((deepen_pos(sentence80(E,U,[],[],[])),
    notrace((runtime(StopParse),
 
 
@@ -600,12 +601,11 @@ process4(How,Sentence,Answer,Times) :-
     report(How,E,'Parse',ParseTime,tree),
     % !, %%%%%%%%%%%%%%%% added by JPO but breaks "london"
     runtime(StartSem))),
-   must_or_rtrace(i_sentence(E,E1)),
+   must_or_rtrace(deepen_pos(i_sentence(E,E1))),
    report(How,E1,'i_sentence',ParseTime,cmt),
    clausify80(E1,E2),
    report(How,E2,'clausify80',ParseTime,cmt),
-   simplify80(E2,E3),
-   simplify80(E3,S))),
+   simplify80(E2,E3),simplify80(E3,S))),
    runtime(StopSem),
    SemTime is StopSem - StartSem,
    report(How,S,'Semantics',SemTime,expr),
