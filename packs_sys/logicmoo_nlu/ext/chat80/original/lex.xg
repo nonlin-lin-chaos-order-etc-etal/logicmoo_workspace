@@ -38,24 +38,34 @@ the_text_unif(IC,W0):- atom(W0),!,downcase_atom(W0,DC),(var(IC)->IC=DC;downcase_
 the_text_unif(IC,W0):- var(W0),!,nonvar(IC),!,the_text_unif(W0,IC).
 the_text_unif(IC,W0):- parser_tokenize:any_nb_to_atom(W0,W1),!,downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC)).
 
-w001(Cmp)---> next_as_word,{!},[Cmp],{assertion(nonvar(Cmp))}.
+add_prev_w2(W2):- (nb_current('$prev_w2s',Values);Values=[]),!,b_setval('$prev_w2s',[W2|Values]).
+get_prev_w2(Nth,E):- b_getval('$prev_w2s',Values),nth0(Nth,Values,E).
+
+add_prev_span(SPAN):- (nb_current('$prev_spans',Values);Values=[]),!,b_setval('$prev_spans',[SPAN|Values]).
+get_prev_span(Nth,E):- b_getval('$prev_spans',Values),nth0(Nth,Values,E).
+
+w001(Cmp)---> consume_spans_hack, next_as_word,{!},[Cmp],{assertion(nonvar(Cmp)),add_prev_w2(Cmp)},consume_spans_hack.
+
+theTextW2(Text,L) ---> w001(Cmp),{compound(Cmp),!,Cmp=w(Text,L)}.
 
 w01(Text) ---> w001(A), {atomic(A),!,A=Text}.
-w01(Text) ---> w001(Cmp),{compound(Cmp),!,Cmp=w(Text,_)}.
+w01(Text) ---> theTextW2(Text,_).
+
+
 %w01(Text) ---> w001(A), {Text=A}.
 
-w1(Text) ---> consume_spans_hack,w01(Text),consume_spans_hack.
+w1(Text) ---> w01(Text).
 
 move_ahead_spans(S1,S2,G,G):- partition(\=(span(_)),S1,W,S),!,append(W,S,S2).
 
 next_as_word(S1,S2,G,G):- select(W2,S1,SM),compound(W2),W2=w(_,_),!,S2=[W2|SM].
 next_as_word(S1,S1,G,G).
 
-noText ---> next_as_word, consume_spans_hack.
+noText ---> consume_spans_hack.
 
 nomoreText(S1,S1,G,G):- is_list(S1), \+ (member(W2,S1), compound(W2),W2=w(_,_)).
 
-consume_spans_hack ---> [span(NV)],{nonvar(NV),!},consume_spans_hack.
+consume_spans_hack ---> [span(NV)],{nonvar(NV),!,add_prev_span(span(NV))},consume_spans_hack.
 consume_spans_hack ---> [].
 
 theText80(IC) ---> w1(W0),{assertion(nonvar(W0);nonvar(IC)),the_text_unif(IC,W0)}.
@@ -97,8 +107,8 @@ textOpt(_Text) ---> noText.
 
 
 noun(Noun,Agmt) --->
-   theText80(W),
-   {noun_form_lex(W,Noun,Agmt)}.
+   theTextW2(W,L), 
+   {noun_form_wlex(L,W,Noun,Agmt)}.
 
 det(det(Det),Number,Def) --->
    theText80(W),
@@ -133,8 +143,8 @@ rel_pron(Case) --->
    {rel_pron_lex(W,Case)}.
 
 verb_form80(Verb,Tense,Agmt,Role) --->
-   theText80(W),
-   {verb_form_lex(W,Verb,Tense,Agmt)}.
+   theTextW2(W,L),
+   {verb_form_wlex(L,W,Verb,Tense,Agmt)}.
 
 name_xg(Name) --->
    opt_the,

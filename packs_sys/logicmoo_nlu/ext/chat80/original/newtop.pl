@@ -335,7 +335,7 @@ inform1([H|T]) :- write(H), put(32), inform1(T).
 test_chat80 :- test_chat80(_,off).
 
 :- share_mp(test_chat80/1).
-test_chat80(N):- test_chat80(N, on).
+test_chat80(N):- test_chat80(N, on), !.
 %test_chat80(L):- ignore(control80(L)).
 test_chat80(U):-
  locally(t_l:tracing80_nop,

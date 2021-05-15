@@ -13,22 +13,24 @@
 
 :- export(sentence80/5).
 
-sentence80(_) ---> if_giveup_dcg,{!,fail}.
-sentence80(S) ---> question80(S), ((terminator('?'),{!}); noText).
-sentence80(S) ---> imperative80(S), ((terminator('!'),{!}); noText).
+sentence80(S) ---> {b_setval('$prev_w2s',[]),b_setval('$prev_spans',[])},sentence801(S).
+
+sentence801(_) ---> if_giveup_dcg,{!,fail}.
+sentence801(S) ---> question80(S), ((terminator('?'),{!}); noText).
+sentence801(S) ---> imperative80(S), ((terminator('!'),{!}); noText).
 %sentence80(S) ---> declarative(S), ((terminator('.'),{!})).
-sentence80(QS) ---> s80(S,_),(theText80(Punct);(noText,{Punct=missing})),{!,punct_to_sent_type(Punct,S,QS)},{!}.
-sentence80(decl(S)) ---> s80(S,_).
+sentence801(QS) ---> s80(S,_),(theText80(Punct);(noText,{Punct=missing})),{!,punct_to_sent_type(Punct,S,QS)},{!}.
+%sentence801(decl(S)) ---> s80(S,_).
 
 
+punct_to_sent_type((?),S,q(S)).
 punct_to_sent_type((.),S,decl(S)).
 punct_to_sent_type((!),S,decl(S)).
-punct_to_sent_type((?),S,q(S)).
 punct_to_sent_type(missing,S,decl(S)).
 
 
-question80(S)-->wh_question(S).
-question80(S)-->yn_question(S).
+question80(S)--->wh_question(S).
+question80(S)--->yn_question(S).
 
 
 
@@ -164,14 +166,14 @@ np_compls(common,Agmt,Case,Mods,Set0,Mask) --->
 /* Nuclear noun phrase */
 
 np_head0(nameOf(Name),3+sg,def+proper) ---> name_xg(Name).
-np_head0(np_head(Det,Adjs,Head),3+Number,Def+common) --->
-   determiner(Det,Number,Def),
-   adjs_opt(Adjs),
-   noun(Head,Number).
 np_head0(Pronoun,Agmt,def+proper), gen_marker --->
    poss_pron(Pronoun,Agmt).
 np_head0(np_head(Det,[],Noun),3+sg,indef+common) --->
    quantifier_pron(Det,Noun).
+np_head0(np_head(Det,Adjs,Head),3+Number,Def+common) --->
+   determiner(Det,Number,Def),
+   adjs_opt(Adjs),
+   noun(Head,Number).
 
 /* Possessive construction */
 
@@ -403,7 +405,9 @@ neg_opt(_,posP) ---> noText.
 
 rest_verb(aux,have,Root,Voice,[perf|Aspect]) ---> verb_form80(Root0,past+part,_,_), have_vt(Root0,Root,Voice,Aspect).
 rest_verb(aux,be,Root,Voice,Aspect) ---> verb_form80(Root0,Tense0,_,_), be_vt(Tense0,Root0,Root,Voice,Aspect).
-rest_verb(aux,do(_Does),Root,active,[]) ---> verb_form80(Root,inf,_,_).
+rest_verb(aux,do,Root,active,[]) ---> verb_form80(Root,inf,_,_).
+rest_verb(aux,can,Root,active,[]) ---> verb_form80(Root,inf,_,_).
+rest_verb(aux,will,Root,active,[]) ---> verb_form80(Root,inf,_,_).
 rest_verb(main,Root,Root,active,[]) ---> noText.
 
 

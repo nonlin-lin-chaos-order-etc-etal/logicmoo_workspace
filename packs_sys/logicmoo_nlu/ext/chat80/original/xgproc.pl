@@ -52,7 +52,7 @@ xg_process_te_clone5(L,R,_Mode,P,Q):- expandlhs(L,S0,S,H0,H,P), expandrhs(R,S0,S
 :-export(xg_process_te_clone/3).
 xg_process_te_clone((H ... T --> R),Mode,((P :- Q))) :- !, xg_process_te_clone5((H ... T),R,Mode,P,Q).
 xg_process_te_clone((L ---> R),Mode,((P :- Q))) :- !,xg_process_te_clone5(L,R,Mode,P,Q).
-xg_process_te_clone((L --> R),Mode,PQ) :- !,xg_process_te_clone((L ---> R),Mode,PQ).
+xg_process_te_clone((L --> R),Mode,PQ) :- wdmsg(warn(xg_process_te_clone((L --> R)))), !, xg_process_te_clone((L ---> R),Mode,PQ).
 
 %chat80_term_expansion(In,Out):- compound(In),functor(In,'-->',_),trace,  must(xg_process_te_clone(In,+,Out)).
 chat80_term_expansion((H ... T ---> R),((P :- Q))) :- must( xg_process_te_clone5((H ... T),R,+,P,Q)).
@@ -123,18 +123,21 @@ xg_process((L ---> R),Mode) :- !,
    usurping(Mode,P),
    xg_assertz((P :- Q)), !.
 
-xg_process((L-->R),Mode) :- !, xg_process((L ---> R),Mode).
+xg_process((L-->R),Mode) :- 
+   wdmsg(warn(xg_process((L --> R)))), !,
+   xg_process((L ---> R),Mode).
 
 xg_process(( :- G),_) :- !, call(G).
+xg_process(( ?- G),_) :- !, forall(call(G),true).
 
 xg_process((P :- Q),Mode) :-
    usurping(Mode,P),
    new_pred(P),
-   xg_assertz((P :- Q)).
+   xg_assertz((P :- Q)), !.
 xg_process(P,Mode) :-
    usurping(Mode,P),
    new_pred(P),
-   xg_assertz(P).
+   xg_assertz(P), !.
 
 xg_assertz(P):- flag(xg_assertions,A,A+1),must((tlxgproc:current_xg_module(M),nop(dmsg(M:xg_assertz(P))),M:assertz(P))),!.
 

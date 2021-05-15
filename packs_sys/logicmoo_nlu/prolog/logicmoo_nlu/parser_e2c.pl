@@ -74,6 +74,7 @@ deepen_pos(Call):- Call *-> true ; deepen_pos_0(Call) *->  true ; locally(t_l:us
 deepen_pos_0(Call):- deepen_local_0(t_l:usePlTalk,Call).
 
 /*
+
 deepen_pos_0(Call):-
   ( \+ retract(t_l:usePlTalk) -> setup_call_cleanup(true, one_must(Call,locally(t_l:usePlTalk,Call)), ignore(retract(t_l:usePlTalk)))  ; 
      (setup_call_cleanup(true, 

@@ -426,7 +426,11 @@ load_before_compile_now:-
    % ignore(( \+ exists_directory('/tmp/tempDir/') -> catch(shell('./PreStartMUD.sh'),_,true))),
    % ignore(( exists_directory('/tmp/tempDir') -> cd('/tmp/tempDir'))),
     use_module(library(pfc_lib)),
-    baseKB:ensure_loaded(library(logicmoo_nlu)),
+    baseKB:ensure_loaded(library(logicmoo_nlu)),!,
+    load_before_compile_now2.
+
+
+load_before_compile_now2:- 
     baseKB:ensure_loaded(library(logicmoo_mud)),
     baseKB:ensure_loaded(library(logicmoo_clif)),    
     use_module(library(xlisting/xlisting_web)),
@@ -664,8 +668,8 @@ swi_ide:- use_module(library(swi_ide)),
     ;true).
 
 :- add_history(swi_ide).
-:- add_history(test_chat).
 :- add_history([run_mud_server]).
+:- add_history(test_chat80).
 
 
 

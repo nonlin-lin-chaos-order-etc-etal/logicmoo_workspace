@@ -144,9 +144,9 @@ quantifier_pron_lex(somebody,some,person).
 quantifier_pron_lex(someone,some,person).
 quantifier_pron_lex(something,some,thing).
 
-regular_past_lex(Had,Have):- try_lex(regular_past_db(Had,Have)).
+% NEW TRY regular_past_lex(Had,Have):- try_lex(regular_past_db(Had,Have)).
 
-regular_past_db(chat80,had,have).
+%regular_past_db(chat80,had,have).
 
 %superceeded regular_past_db(chat80,contained,contain).
 %superceeded regular_past_db(chat80,exceeded,exceed).
@@ -162,8 +162,8 @@ regular_past_db(chat80,had,have).
 % superceeded regular_pres_db(chat80,govern).
 
 
-regular_pres_db(chat80,do(_Does)).
-regular_pres_db(chat80,have).
+% superceeded regular_pres_db(chat80,do).
+% superceeded regular_pres_db(chat80,have).
 
 rel_pron_lex(which,undef).
 rel_pron_lex(who,subj).
@@ -199,43 +199,60 @@ how_many_lex([how,many]).
 first_lexicon(X):- available_lexicon(X),!.
 available_lexicon(talkdb).
 available_lexicon(chat80).
-
-
 %available_lexicon(clex).
 try_lex(How, G, CALL):- G=..[F|ARGS], CALL=..[F,How|ARGS].
 show_tries_except(Which,TF,G):- !, forall((available_lexicon(Other),Other\==Which,try_lex(Other,G,CALL),clause(CALL,_)),warn_when(TF,CALL)).
 warn_when(fail,G):- G -> true ; wdmsg(warn_when(failed,G)).
 warn_when(true,G):- G *-> wdmsg(warn_when(succeeded,G)) ; true.
-try_lex(G):- first_lexicon(Which),try_lex(Which,G,CALL),
+try_lex(G):- first_lexicon(Which),try_lex(Which,G,CALL),copy_term(G,CopyG),
  (CALL
-    *-> show_tries_except(Which,fail,G)
-    ; (show_tries_except(_,true,G),!, fail)).
+    *-> show_tries_except(Which,fail,CopyG)
+    ; (show_tries_except(_,true,CopyG),!, fail)).
 
 
-verb_form_lex(am,be,pres+fin,1+sg).
-verb_form_lex(are,be,pres+fin,2+sg).
-verb_form_lex(are,be,pres+fin,_+pl).
-verb_form_lex(been,be,past+part,_).
-verb_form_lex(being,be,pres+part,_).
-verb_form_lex(is,be,pres+fin,3+sg).
-verb_form_lex(was,be,past+fin,1+sg).
-verb_form_lex(was,be,past+fin,3+sg).
-verb_form_lex(were,be,past+fin,2+sg).
-verb_form_lex(were,be,past+fin,_+pl).
+correct_root(do,do).
+correct_root(R,R).
+
+verb_form_wlex(_,A,B,C,D):- verb_form_lex(A,B,C,D),!.
+verb_form_wlex(L,_,Root,_,_):- member(pos(V),L),atom_concat('vb',_,V),member(root(Root0),L),!,correct_root(Root0,Root).
+verb_form_aux(am,be,pres+fin,1+sg).
+verb_form_aux(are,be,pres+fin,2+sg).
+verb_form_aux(are,be,pres+fin,_+pl).
+verb_form_aux(been,be,past+part,_).
+verb_form_aux(be,be,inf,_).
+verb_form_aux(being,be,pres+part,_).
+verb_form_aux(is,be,pres+fin,3+sg).
+verb_form_aux(was,be,past+fin,1+sg).
+verb_form_aux(was,be,past+fin,3+sg).
+verb_form_aux(were,be,past+fin,2+sg).
+verb_form_aux(were,be,past+fin,_+pl).
 
 
-verb_form_lex(do,do(_Does),pres+fin,_+pl).
-verb_form_lex(did,do(_Does),past+fin,_).
-verb_form_lex(does,do(_Does),pres+fin,3+sg).
-verb_form_lex(doing,do(_Does),pres+part,_).
-verb_form_lex(done,do(_Does),past+part,_).
+verb_form_aux(do,do,pres+fin,_+pl).
+verb_form_aux(did,do,past+fin,_).
+verb_form_aux(does,do,pres+fin,3+sg).
+verb_form_aux(can,can,pres+fin,3+sg).
+verb_form_aux(doing,do,pres+part,_).
+verb_form_aux(done,do,past+part,_).
 
-verb_form_lex(will,do(_Does),pres+fin,3+sg).
+verb_form_aux(will,will,pres+fin,3+sg).
+verb_form_aux(would,will,past+fin,_).
+
+verb_form_aux(could,can,past+fin,_).
+verb_form_aux(can,can,pres+fin,3+sg).
 
 
-verb_form_lex(has,have,pres+fin,3+sg).
-verb_form_lex(having,have,pres+part,_).
-verb_form_lex(had,have,past+part,_).
+verb_form_aux(has,have,pres+fin,3+sg).
+verb_form_aux(have,have,pres+fin,_+pl).
+verb_form_aux(having,have,pres+part,_).
+verb_form_aux(had,have,past+part,_).
+
+verb_form_lex(A,B,C,D):- verb_form_aux(A,B,C,D).
+verb_form_lex(A,B,C,D):- \+ avoided_verb(A), try_lex(verb_form_db(A,B,C,D)), \+ avoided_verb(A).
+
+avoided_verb(A):- nonvar(A), clause(verb_form_aux(A,_,_,_),true).
+
+
 
 /*
 verb_form_db(chat80,containing,contain,pres+part,_).
@@ -247,23 +264,25 @@ verb_form_db(chat80,governs,govern,pres+fin,3+sg).
 */
 
 %verb_form_lex(Are,Be,PresFin,NthPlOrSing):-  use_lexicon_80(chat80), verb_form_db(chat80,Are,Be,PresFin,NthPlOrSing).
-
-verb_form_lex(Verb,Verb,pres+fin,_+pl) :- use_lexicon_80(chat80_extra), Verb = V, verb_root_lex(V).
+%verb_form_lex(Verb,Verb,pres+fin,_+pl) :- 
+% NEW TRY 
+verb_form_lex(Verb,Verb,pres+fin,_+pl) :-  Verb = V, verb_type_lex(V,_).
 % ... because [which,countries,border,france,?] was not properly parsed (the singular form was)
-verb_form_lex(Verb,Verb,inf,_) :-  use_lexicon_80(chat80_extra), Verb = V,  verb_root_lex(V).
+% NEW TRY 
+%verb_form_lex(Verb,Verb,inf,_) :-  Verb = V, verb_type_lex(V,_).
 % ... because [does,france,border,belgium,?] was not properly parsed
-verb_form_lex(Verb,Inf,past+part,_) :- use_lexicon_80(chat80_extra), regular_past_lex(Verb,Inf).
-% ... because [is,france,bordered,by,belgium,?] was not properly parsed. Deduced from verb_form_db(chat80,done,do(_Does),past+part,_) bellow.
+% NEW TRY verb_form_lex(Verb,Inf,past+part,_) :- use_lexicon_80(chat80_extra), regular_past_lex(Verb,Inf).
+% ... because [is,france,bordered,by,belgium,?] was not properly parsed. Deduced from verb_form_db(chat80,done,do,past+part,_) bellow.
 %verb_form_lex(A,A,C,D) :-
 %  writef("********************************** verb_form_db {0} failed", [[A,A,C,D]]).
 %  !,
 %  fail.
 
-verb_root_lex(Root):- use_lexicon_80(chat80), %verb_root_db(chat80,Root).
-  verb_type_db(chat80,Root,_MainTv).
-verb_root_lex(be).
-verb_root_lex(do(_Does)).
-verb_root_lex(have).
+%verb_root_lex(Root):- use_lexicon_80(chat80), %verb_root_db(chat80,Root).
+%  verb_type_db(chat80,Root,_MainTv).
+%verb_root_lex(be).
+%verb_root_lex(do).
+%verb_root_lex(have).
 
 
 %superceeded verb_root_db(chat80,contain).
@@ -272,10 +291,10 @@ verb_root_lex(have).
 
 %superceeded verb_root_db(chat80,govern).
 
-verb_type_lex(V,MainTv):- use_lexicon_80(chat80), verb_type_db(chat80,V,MainTv).
 verb_type_lex(be,aux+be).
-verb_type_lex(do(_Does),aux+dv(_Prep)).
+verb_type_lex(do,aux+dv(_Prep)).
 verb_type_lex(have,aux+have).
+verb_type_lex(V,MainTv):- try_lex(verb_type_db(V,MainTv)).
 
 
 verb_type_db(chat80,contain,main+tv).
@@ -291,7 +310,7 @@ verb_type_db(chat80,govern,main+tv).
 
 adj_lex(African,restr):- agentitive_trans(_,_,African).
 adj_lex( Baltic,restr):- agentitive_symmetric_type(_,Baltic).
-adj_lex(African,Restr):-  use_lexicon_80(chat80), adj_db(chat80,African,Restr).
+adj_lex(African,Restr):-  adj_db(chat80,African,Restr).
 
 %adj_db(chat80,american,restr).
 %adj_db(chat80,asian,restr).
@@ -318,13 +337,17 @@ loc_pred_lex(of,north,prep(cp(north,of))).
 loc_pred_lex(of,south,prep(cp(south,of))).
 loc_pred_lex(of,west,prep(cp(west,of))).
 
-noun_form_lex(Sin,Root,_) :- noun_sing_plu_lex(Sin),Root=Sin.
-noun_form_lex(Plu,Root,Agmt) :- noun_plu_lex(Plu,Root), (Plu==Root-> Agmt=_;pl=Agmt).
-noun_form_lex(Sin,Root,Agmt) :- noun_plu_lex(Plu,Sin),Root=Sin, (Plu==Root-> Agmt=_;sg=Agmt).
-%noun_form_lex(Sin,Sin,_) :- noun_plu_lex(Sin,Sin).
-%noun_form_lex(Plu,Sin,pl) :- noun_plu_lex(Plu,Sin), Plu\==Sin.
-%noun_form_lex(Sin,Sin,sg) :- noun_plu_lex(Plu,Sin), Plu\==Sin.
-%noun_sin_lex(A):- noun_plu_lex(_,A). %, \+ noun_plu_lex(A,A).
+noun_form_wlex(L,Plu,Root,Agmt) :-
+  noun_form_wlex0(L,Plu,Root,Agmt),!,
+  (Root==flow->(fail,dumpST,break);true).
+
+noun_form_wlex0(_,Plu,Root,Agmt) :- noun_form_lex(Plu,Root,Agmt),!.
+noun_form_wlex0(L,_,Root,sg) :- member(pos(nn),L),member(root(Root),L),!.
+noun_form_wlex0(L,_,Root,pl) :- member(pos(nns),L),member(root(Root),L),!.
+
+noun_form_lex(Word,Root,_) :- noun_sing_plu_lex(Word),!,Root=Word.
+noun_form_lex(Word,Root,Agmt) :- noun_plu_lex(Word,Sin),Root=Sin,!,(Word==Root-> Agmt=_;pl=Agmt).
+noun_form_lex(Word,Root,Agmt) :- noun_plu_lex(Plu,Word),Root=Word, (Plu==Root-> Agmt=_;sg=Agmt).
 
 noun_sing_plu_lex(proportion).
 noun_sing_plu_lex(percentage).
@@ -334,12 +357,13 @@ noun_sing_plu_lex(fish).
 
 hide_plur_root_noun(1,Millions,Million):- noun_sing_plu_lex(Million), !, Millions\==Million.
 hide_plur_root_noun(1,_Twos,Two):-tr_number(Two,_).
-hide_plur_root_noun(1,_Ins,In):-prep_lex(In).
+hide_plur_root_noun(1,_Ins,In):- notrace(prep_lex(In)).
 hide_plur_root_noun(1,_Mores,More):- comp_adv_lex(More).
 hide_plur_root_noun(1,ares,are).
 hide_plur_root_noun(1,_Noes,No):-det_lex(No,_,_,_).
+hide_plur_root_noun(1,_Whats,What):- talkdb:talk_db(pronoun,What).
 %hide_plur_root_noun(1,does,doe).
-hide_plur_root_noun(2,Does,_):- atom(Does), verb_form_lex(Does,do(_),_Y,_Z).
+hide_plur_root_noun(2,Does,_):- atom(Does), verb_form_aux(Does,do,_Y,_Z).
 hide_plur_root_noun(N,_,River):- N\==0, atom(River), verb_form_lex(River,_,_,_).
 
 noun_plu_lex(ksqmiles,ksqmile).
@@ -352,7 +376,8 @@ which_var(_,_,0).
 
 noun_plu_db(talkdb,Rivers,River):- which_var(Rivers,River,N),talkdb:talk_db(noun1,River,Rivers), \+ hide_plur_root_noun(N,Rivers,River).
 noun_plu_db(talkdb,Rivers,River):- noun_plu_db(clex,Rivers,River).
-noun_plu_db(clex,Rivers,River):- which_var(Rivers,River,N),clex:noun_pl(Rivers,River,_), \+ hide_plur_root_noun(N,Rivers,River).
+noun_plu_db(clex,Rivers,River):- which_var(Rivers,River,N),clex:noun_pl(Rivers,River,_), 
+  \+ (hide_plur_root_noun(N,Rivers,River),dmsg(warn(hide_plur_root_noun(N,Rivers,River))),nop(rtrace(hide_plur_root_noun(N,Rivers,River)))).
 
 noun_plu_db(chat80,areas,area).
 noun_plu_db(chat80,averages,average).
@@ -365,8 +390,6 @@ noun_plu_db(chat80,states,state).
 noun_plu_db(chat80,degrees,degree).
 noun_plu_db(chat80,latitudes,latitude).
 noun_plu_db(chat80,longitudes,longitude).
-%noun_plu_db(chat80,million,million).
-%noun_plu_db(chat80,millions,million).
 noun_plu_db(chat80,numbers,number).
 noun_plu_db(chat80,oceans,ocean).
 noun_plu_db(chat80,persons,person).
@@ -377,7 +400,6 @@ noun_plu_db(chat80,regions,region).
 noun_plu_db(chat80,rivers,river).
 noun_plu_db(chat80,seas,sea).
 noun_plu_db(chat80,sums,sum).
-%noun_plu_db(chat80,thousand,thousand).
 noun_plu_db(chat80,times,time).
 noun_plu_db(chat80,totals,total).
 

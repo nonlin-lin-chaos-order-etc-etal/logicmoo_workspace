@@ -131,21 +131,23 @@ use_lexicon_80(talkdb_verb(X)):- verb_type_db(chat80,X,_).
 :- import(talkdb:talk_db/6).
 %                         nonfinite,  pres+fin, past+fin,  pres+part    past+part,
 talkdb_talk_db(transitive,   border,  borders,  bordered,  bordering,  bordered).
-talkdb_talk_db(  Transitive, Write,   Writes,   Wrote,     Writing,    Written):- use_lexicon_80(talkdb_verb(Write)),
+talkdb_talk_db(  Transitive, Write,   Writes,   Wrote,     Writing,    Written):- 
   talkdb:talk_db(Transitive, Write,   Writes,   Wrote,     Writing,    Written).
 
-verb_root_lex(Write):-            talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
-verb_type_lex(Write,main+tv):-    talkdb_talk_db( transitive,Write,_Writes,_Wrote,_Writing,_Written).
-regular_past_lex(Wrote,Write):-   talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
+%verb_root_lex(Write):-            talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
+verb_type_db(talkdb,Write,main+tv):-   \+ avoided_verb(Write), talkdb_talk_db( transitive,Write,_Writes,_Wrote,_Writing,_Written).
+verb_type_db(talkdb,Write,main+iv):-  \+ avoided_verb(Write),   talkdb_talk_db( intransitive,Write,_Writes,_Wrote,_Writing,_Written).
+%regular_past_lex(Wrote,Write):-   talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
 % superceeded regular_pres_lex(Write):-         talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
 
-verb_form_lex(A,B,C,D):- verb_form_db(talkdb,A,B,C,D).
+verb_form_db(chat80,A,B,C,D):- verb_form_db(talkdb,A,B,C,D).
 % verb_form_db(chat80,A,B,C,D):- verb_form_db(talkdb,A,B,C,D).
 
 verb_form_db(talkdb,Written,Write,past+part,_):-   talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing, Written).
 verb_form_db(talkdb,Writing,Write,pres+part,_):-   talkdb_talk_db(_Transitive,Write,_Writes,_Wrote, Writing,_Written).
 verb_form_db(talkdb, Writes,Write,pres+fin,3+sg):- talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
 verb_form_db(talkdb, Writes,Write,pres+fin,_):-    talkdb_talk_db(_Transitive,Write, Writes,_Wrote,_Writing,_Written).
+verb_form_db(talkdb,  Write,Write,      inf,_):-   talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
 verb_form_db(talkdb,  Wrote,Write,past+fin,_):-    talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
 
 
@@ -154,11 +156,12 @@ clex_verb80(Looked,Look,VerbType,Form):- use_lexicon_80(clex_verb), clex_iface:c
 %% superceeded regular_pres_lex(Look):- no_loop_check(verb_root_lex(Look)).
 %verb_form_lex(Looking,Look,pres+part,_):- (atom(Looking)->atom_concat(Look,'ing',Looking);var(Looking)),
 %  no_loop_check(verb_root_lex(Look)),atom(Look),atom_concat(Look,'ing',Looking).
-verb_root_lex(Look):- clex_verb80(_Formed,Look,_Iv,_Finsg).
-regular_past_lex(Looked,Look):- clex_verb80(Looked,Look,_Iv,prep_phrase).
-verb_form_lex(Looks,Look,pres+fin,3+sg):-  clex_verb80(Looks,Look,_,finsg).
-verb_form_lex(LookPL,Look,pres+fin,3+pl):- clex_verb80(LookPL,Look,_,infpl).
-verb_type_lex(Look,main+ITDV):- clex_verb80(_Formed,Look,ITDV,_Finsg).
+% NEW TRY verb_root_lex(Look):- clex_verb80(_Formed,Look,_Iv,_Finsg).
+% regular_past_lex(Looked,Look):- clex_verb80(Looked,Look,_Iv,prep_phrase).
+verb_form_db(clex,Looks,Look,pres+fin,3+sg):-  clex_verb80(Looks,Look,_,finsg).
+verb_form_db(clex,LookPL,Look,pres+fin,3+pl):- clex_verb80(LookPL,Look,_,infpl).
+verb_type_db(clex,Look,main+ITDV):- clex_verb80(_Formed,Look,ITDV,_Finsg).
+
 trans_LF(Assign,feature&_,X,dbase_t(Assign,X,Y), [slot(prep(To),feature&_,Y,_,free)],_):- clex_verb80(_Assigned, Assign, dv(To),_).
 
 

@@ -90,8 +90,8 @@ verb_type_db(chat80,drain,main+iv).
 % superceeded regular_pres_db(chat80,flow).
 % superceeded regular_pres_db(chat80,drain).
 
-regular_past_db(chat80,flowed,flow).
-regular_past_db(chat80,drained,drain).
+% superceeded regular_past_db(chat80,flowed,flow).
+% superceeded regular_past_db(chat80,drained,drain).
 
 /*
 % superceeded 
