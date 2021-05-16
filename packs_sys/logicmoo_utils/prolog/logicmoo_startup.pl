@@ -662,7 +662,7 @@ fav_debug:-
  %set_prolog_flag(debug,true),
  set_prolog_flag(debug_on_error,true),
  set_prolog_flag(debugger_show_context,true),
- set_prolog_flag(debugger_write_options,[quoted(true), portray(true), max_depth(10), attributes(write)]),
+ %set_prolog_flag(debugger_write_options,[quoted(true), portray(true), max_depth(10), attributes(write)]),
  set_prolog_flag(report_error,true),
  set_prolog_flag(runtime_debug, 3), % 2 = important but dont sacrifice other features for it
  set_prolog_flag(runtime_safety, 3),  % 3 = very important

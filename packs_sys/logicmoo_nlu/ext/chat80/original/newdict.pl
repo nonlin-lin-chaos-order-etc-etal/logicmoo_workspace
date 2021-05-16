@@ -266,7 +266,7 @@ verb_form_db(chat80,governs,govern,pres+fin,3+sg).
 %verb_form_lex(Are,Be,PresFin,NthPlOrSing):-  use_lexicon_80(chat80), verb_form_db(chat80,Are,Be,PresFin,NthPlOrSing).
 %verb_form_lex(Verb,Verb,pres+fin,_+pl) :- 
 % NEW TRY 
-verb_form_lex(Verb,Verb,pres+fin,_+pl) :-  Verb = V, verb_type_lex(V,_).
+verb_form_db(chat80,Verb,Verb,pres+fin,_+pl) :-  Verb = V, verb_type_lex(V,_).
 % ... because [which,countries,border,france,?] was not properly parsed (the singular form was)
 % NEW TRY 
 %verb_form_lex(Verb,Verb,inf,_) :-  Verb = V, verb_type_lex(V,_).

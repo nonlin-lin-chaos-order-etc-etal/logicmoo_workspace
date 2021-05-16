@@ -181,6 +181,9 @@ system:t33s:- cls, test_e2c([sanity]).
 system:t33t:- cls, test_e2c([riddle]).
 system:t33ts:- cls, test_e2c([]). % all
 
+:- debug(parser_fwd).
+:- debug(parser_e2c).
+
 system:t33f:-
   mpred_trace_all,
   mpred_trace_exec,
@@ -315,10 +318,12 @@ e2c :- locally(tracing80,
 :-export(e2c/1).
 e2c(Sentence):-
   % with_error_to_predicate(nop, make),
-   mmake,
+   % mmake,
+   fmt('?-'(e2c(Sentence))),
    setup_call_cleanup(
-   (fmt('?-'(e2c(Sentence)),(call_residue_vars(must(e2c_0(Sentence)), Vs), del_e2c_attributes(Vs)))),
-   true), !.
+   (call_residue_vars(must(e2c_0(Sentence)), Vs), 
+    del_e2c_attributes(Vs)),
+   true,true), !.
 :-system:import(e2c/1).
 
 :-export(e2c_0/1).

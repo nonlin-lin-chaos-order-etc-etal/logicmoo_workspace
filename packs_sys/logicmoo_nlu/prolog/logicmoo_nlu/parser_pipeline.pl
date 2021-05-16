@@ -355,8 +355,9 @@ mapnvs(_, O, O).
 show_kvs(V):- \+compound(V),!, print(V).
 show_kvs(List):- is_list(List), sort_term_size(List,Set),!, maplist(show_kvs, Set).
 show_kvs(O):- format('~N',[]),notrace(show_kvs0(O)),!.
+
 show_kvs0(K=V):- !, print(K),write('='),show_kvs0(V). % print_tree_with_final(V,'.').
-show_kvs0(V):- print_tree_with_final(V,'.').
+show_kvs0(V):- pretty_numbervars(V,VV),print_tree_with_final(VV,'.').
 
 :- export(sort_term_size/2).
 sort_term_size(List,Sorted):- notrace((predsort(by_word_term_size,List,S),reverse(S,Sorted))).

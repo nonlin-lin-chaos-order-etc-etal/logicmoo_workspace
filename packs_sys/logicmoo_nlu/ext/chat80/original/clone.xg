@@ -374,10 +374,9 @@ reduced_rel(Agmt,reduced_rel(X,S),Mask) --->
 reduced_wh(Agmt,X),
    np(np(Agmt,wh(X),[]),Agmt,NPCase,_,_,Set0,Mask0),
    verb_form80(be,pres+fin,Agmt,main),
-   neg_opt(_,Neg),
-   pred(Neg,Pred,Mask) --->
-   neg_opt(_,Neg),
-   pred(Neg,Pred,Mask),
+   neg_opt(_,Neg), pred(Neg,Pred,Mask) 
+     --->
+   neg_opt(_,Neg), pred(Neg,Pred,Mask),
    {is_trace82(Set0,Mask0), is_subj_case(NPCase)}.
 reduced_wh(Agmt,X),
    np(np(Agmt,wh(X),[]),Agmt,NPCase,_,_,Set,Mask),

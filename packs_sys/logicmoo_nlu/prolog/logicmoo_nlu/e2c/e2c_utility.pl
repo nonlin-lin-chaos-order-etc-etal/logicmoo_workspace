@@ -37,6 +37,8 @@ w2txt(Text) --> consume_spans_hack_e2c,w2txt01(Text),consume_spans_hack_e2c.
 %w2txt(W0)--> [w(W0,_)],!.
 %w2txt(IC)--> [W0],{!,\+compound(W0),IC=W0}.
 
+:- import(parser_chat80:the_text_unif/2).
+
 theText11(IC)--> {var(IC),!},w2txt(W0),{notrace((assertion(nonvar(W0);nonvar(IC)),the_text_unif(IC,W0)))}.
 theText11([])--> !, [].
 theText11(IC)--> {atomic(IC),!},w2txt(W0),{the_text_unif(IC,W0)},!.

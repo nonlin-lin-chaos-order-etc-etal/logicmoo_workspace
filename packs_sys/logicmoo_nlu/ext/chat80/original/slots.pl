@@ -188,7 +188,7 @@ i_neg(posP,identityQ).
 i_neg(negP,not).
 
 i_subj(Voice,Subj,Slots0,Slots,Quant,Up,Id) :-
-   subj_case_opt(Voice,Case),
+   (subj_case_opt(Voice,Case)*->true;true),
    verb_slot(arg(Case,Subj),[],[],Slots0,Slots,[Quant],[],Up,Id).
 
 i_verb_args(VArgs,XA0,XA,Slots0,Slots,Args0,Args,Up,Id) :-

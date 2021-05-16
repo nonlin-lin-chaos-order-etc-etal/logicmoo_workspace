@@ -232,9 +232,8 @@ is_output_lang(_).
 duplicate_nat(P0,P1):- copy_term_nat(P0,P),duplicate_term(P,P1).
 
 :- export(pprint_ecp_cmt/2).
-pprint_ecp_cmt(C, P0):- 
+pprint_ecp_cmt(C, P):- 
  mort((echo_format('~N'),  
-  duplicate_nat(P0,P),
   print_e_to_string(P, S0),
   into_space_cmt(S0,S),
   to_ansi(C, C0),
@@ -311,11 +310,10 @@ pprint_ec_no_newline(C, P):-
   real_ansi_format(C0, '~s', [S]).
   
 
-print_e_to_string(P0, S):- 
+print_e_to_string(P, S):- 
    mort((
-   duplicate_nat(P0,P),
-   get_operators(P, Ops),
-   pretty_numbervars(P, T))),!,
+   pretty_numbervars(P, T),
+   get_operators(T, Ops))),!,
    print_e_to_string(T, Ops, S).
 /*
 print_e_to_string(P, S):- 
@@ -586,8 +584,7 @@ print_tree_final_options(Term, Final, Options) :-
 :- thread_local(pretty_tl:write_opts_local/1).
 
 % print_tree0(Final,Term) :- as_is(Term),line_position(current_output,0),prefix_spaces(1),format('~N~p',[Term]),!.
-print_final_tree_options_tab(Final,Term0,Options,Tab):- 
-  duplicate_nat(Term0,Term),
+print_final_tree_options_tab(Final,Term,Options,Tab):- 
   notrace(swi_option:merge_options([fullstop(false)],Options,NewOptions)),
   current_prolog_flag(print_write_options,OldOptions),
   setup_call_cleanup(set_prolog_flag(print_write_options,NewOptions),

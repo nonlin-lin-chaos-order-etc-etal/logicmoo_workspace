@@ -126,5 +126,5 @@ map_tree_pred(Pred,Arg1,Arg2):-
 
 user:portray(Term):- notrace(no_memlists(Term)), !.
 
-:- set_prolog_flag(debugger_write_options,[quoted(true),portray(true),max_depth(5000),attributes(dots)]).
+%:- set_prolog_flag(debugger_write_options,[quoted(true),portray(true),max_depth(5000),attributes(dots)]).
 

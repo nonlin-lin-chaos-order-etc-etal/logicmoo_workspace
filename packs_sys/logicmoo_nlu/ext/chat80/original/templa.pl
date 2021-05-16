@@ -150,9 +150,10 @@ verb_form_db(talkdb, Writes,Write,pres+fin,_):-    talkdb_talk_db(_Transitive,Wr
 verb_form_db(talkdb,  Write,Write,      inf,_):-   talkdb_talk_db(_Transitive,Write,_Writes,_Wrote,_Writing,_Written).
 verb_form_db(talkdb,  Wrote,Write,past+fin,_):-    talkdb_talk_db(_Transitive,Write,_Writes, Wrote,_Writing,_Written).
 
+verb_form_db(talkdb,A,B,C,D):- verb_form_db(clex,A,B,C,D).
 
 :- import(clex_iface:clex_verb/4).
-clex_verb80(Looked,Look,VerbType,Form):- use_lexicon_80(clex_verb), clex_iface:clex_verb(Looked,Look,VerbType,Form).
+clex_verb80(Looked,Look,VerbType,Form):- clex_iface:clex_verb(Looked,Look,VerbType,Form).
 %% superceeded regular_pres_lex(Look):- no_loop_check(verb_root_lex(Look)).
 %verb_form_lex(Looking,Look,pres+part,_):- (atom(Looking)->atom_concat(Look,'ing',Looking);var(Looking)),
 %  no_loop_check(verb_root_lex(Look)),atom(Look),atom_concat(Look,'ing',Looking).

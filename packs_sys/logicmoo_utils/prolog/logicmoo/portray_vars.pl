@@ -4,7 +4,7 @@
   may_debug_var/2,
   maybe_debug_var/2,
   guess_varnames/1,
-  guess_varnames/2,
+  %guess_varnames/2,
   toProperCamelAtom/2,
   simpler_textname/2,simpler_textname/3]).
 :- set_module(class(library)).
@@ -214,15 +214,15 @@ bad_varname(UP):-
 
 % mort(G):- must_or_rtrace(G),!.
 
-mort(G):- notrace(catch(G,E,(nl,display(E),nl,fail))),!.
 mort((G1,G2)):- !, mort(G1),mort(G2).
+mort(G):- notrace(catch(G,E,(nl,display(E),nl,fail))),!.
 mort(G):- display(failed_mort(G)),notrace,trace,rtrace(G),notrace,trace,break.
 
 to_var_or_name(L,LL):- var(L),!,LL=L.
 to_var_or_name('~','Not').
 to_var_or_name([],'NList').
 to_var_or_name(L,LL):- \+ atom(L),!,format(atom(LL),"~w",[L]).
-% to_var_or_name(L,LL):- to_var_or_name_2(L,LL),!.
+to_var_or_name(L,LL):- to_var_or_name_2(L,LL),!.
 % to_var_or_name(F,LL):- is_letterless(F), name(F,X),atomic_list_concat([c|X],'c',LL),!.
 % to_var_or_name(F,''):- is_letterless(F),!.
 to_var_or_name(L,L).
@@ -232,10 +232,15 @@ is_letterless(F):- (atom(F);string(F)), downcase_atom(F,C),upcase_atom(F,C1),!,C
 to_var_or_name_2('','').
 to_var_or_name_2('[|]','ListDot').
 to_var_or_name_2(';','LogOR').
+to_var_or_name_2('"','Quote').
+to_var_or_name_2('_','_').
+to_var_or_name_2('-','_').
+to_var_or_name_2(' ','_').
 to_var_or_name_2(',','LogAND').
 to_var_or_name_2('->','LogTHEN').
 to_var_or_name_2('*->','LogEACH').
 to_var_or_name_2('.','ListDot').
+to_var_or_name_2('`','Tilde').
 to_var_or_name_2('\\+','Fail').
 to_var_or_name_2('$','doLLar').
 to_var_or_name_2('&','AND').
@@ -270,15 +275,14 @@ atom_trim_suffix(Root,Suffix,Result):- atom_concat_w_blobs(Result,Suffix,Root) -
 shrink_naut_vars(I,O):- duplicate_term(I,O).
 
 pretty_numbervars(Term, TermO):- current_prolog_flag(no_pretty,true),!,shrink_naut_vars(Term,TermO).
-pretty_numbervars(Term, TermO):-
-  quietly((shrink_naut_vars(Term,Term1),
-  (ground(Term1) 
-    -> TermO = Term1 ;
-  ( guess_pretty(Term1),
-    source_variables_lwv(Term1,Vs),
-   %term_variables(Term1+Vs,TVs),
+pretty_numbervars(Term0, TermO):-
+  quietly((shrink_naut_vars(Term0,Term),
+  (ground(Term) 
+    -> TermO = Term ;
+  (guess_pretty(Term),
+   source_variables_lwv(Term,Vs),   
    copy_term(Term+Vs,TermO+Vs2, _),
-   implode_varnames_pred(to_var_dollar, Vs2))))),!.
+   notrace(implode_varnames_pred(to_var_dollar, Vs2)))))),!.
 
 
 ground_variables_as_atoms(_Pred,[],_Vars):-!.
@@ -312,38 +316,38 @@ vees_to_varname_list([V|Vs],[N=V|NewVs]):-
   once(get_var_name(V,N);gensym('_',N)),
   vees_to_varname_list(Vs,NewVs).
 
-guess_pretty(H):- pretty_enough(H), !.
-guess_pretty(O):- mort((ignore(guess_pretty1(O)),ignore(guess_varnames2(O,_)))).
+guess_pretty(O):- mort((copy_term(O,C),guess_pretty1(O),O=@=C)).
 
 maybe_xfr_varname(CV,V):- get_var_name(CV,Name),may_debug_var(Name,V).
 
 guess_pretty1(H):- pretty_enough(H), !.
-guess_pretty1(H):- term_variables(H,Vs),copy_term(H+Vs,CH+CVs),try_get_varname_cache(CH),CVs\=@=Vs,maplist(maybe_xfr_varname,CVs,Vs).
+%guess_pretty1(H):- term_variables(H,Vs),copy_term(H+Vs,CH+CVs),try_get_varname_cache(CH),CVs\=@=Vs,maplist(maybe_xfr_varname,CVs,Vs),!.
 guess_pretty1(O):- mort(( ignore(pretty1(O)),ignore(pretty_two(O)),ignore(pretty_three(O)),ignore(pretty_final(O)))),!.
 %make_pretty(I,O):- is_user_output,!,shrink_naut_vars(I,O), pretty1(O),pretty_three(O),pretty_final(O).
 %make_pretty(I,O):- I=O, pretty1(O),pretty_three(O),pretty_final(O).
 
 :- export(guess_varnames/1).
 
-guess_varnames(IO):- guess_varnames(IO,_),!.
+guess_varnames(I):- guess_pretty1(I),!.
 
-guess_varnames(I,O):- guess_pretty1(I), guess_varnames2(I,O).
+/*
+guess_varnames(I,O):- guess_pretty1(I), guess_var2names(I,O).
 
 
-guess_varnames2(I,O):-guess_varnames2(add_var_to_env_trimed,I,O).
+guess_var2names(I,O):-guess_var2names(add_var_to_env_trimed,I,O).
 
-:- meta_predicate guess_varnames2(2,*,*).
-guess_varnames2(_Each,G,G):- pretty_enough(G),!.
-guess_varnames2(Each, subrelation(V,N), subrelation(V,N)):- var(V), \+ variable_name(V,_), atomic(N),call(Each,N,V),!.
-guess_varnames2(Each, isNamed(V,N), isNamed(V,N)):- var(V), \+ variable_name(V,_), atomic(N),call(Each,N,V),!.
-guess_varnames2(Each, isNamed(V,H), isNamed(V,H)):- var(V), \+ variable_name(V,_),
+:- meta_predicate guess_var2names(2,*,*).
+guess_var2names(_Each,G,G):- pretty_enough(G),!.
+guess_var2names(Each, subrelation(V,N), subrelation(V,N)):- var(V), \+ variable_name(V,_), atomic(N),call(Each,N,V),!.
+guess_var2names(Each, isNamed(V,N), isNamed(V,N)):- var(V), \+ variable_name(V,_), atomic(N),call(Each,N,V),!.
+guess_var2names(Each, isNamed(V,H), isNamed(V,H)):- var(V), \+ variable_name(V,_),
    compound(H),compound_name_arity(H,F,_), atom(F),
    flag(skolem_count,SKN,SKN+1),
    toCamelcase(F,UF),atom_concat_w_blobs(UF,SKN,UF1),
    call(Each,UF1,V),!.
 
 
-guess_varnames2(Each,H,H ):- H=..[F,V],var(V),
+guess_var2names(Each,H,H ):- H=..[F,V],var(V),
   \+ variable_name(V,_), 
   \+ atom_concat_w_blobs('sk',_,F), 
   \+ atom_concat_w_blobs(_,'Of',F), 
@@ -351,9 +355,9 @@ guess_varnames2(Each,H,H ):- H=..[F,V],var(V),
   flag(skolem_count,SKN,SKN+1),
   toCamelcase(F,UF),atom_concat_w_blobs(UF,SKN,UF1),
   call(Each,UF1,V),!.
-guess_varnames2(Each,H,HH ):- H=..[F|ARGS],!,must_maplist_det(guess_varnames2(Each),ARGS,ARGSO),!,HH=..[F|ARGSO].
-guess_varnames2(_Each, (G), (G)):- guess_pretty1(G),!.
-
+guess_var2names(Each,H,HH ):- H=..[F|ARGS],!,must_maplist_det(guess_var2names(Each),ARGS,ARGSO),!,HH=..[F|ARGSO].
+guess_var2names(_Each, (G), (G)):- guess_pretty1(G),!.
+*/
 
 /*
 :- export(print_clause_plain/1).
@@ -395,7 +399,7 @@ may_debug_var(_,V):- var(V), variable_name(V,IsGood),is_good_name(IsGood),!.
 %may_debug_var(R,V):- var(V), variable_name(V,_), atom(R), \+ is_good_name(R).
 may_debug_var(R,V):- debug_var(R,V).
 
-pretty_enough(H):- notrace(pretty_enough0(H)).
+pretty_enough(H):- notrace(pretty_enough0(H)),!.
 
 pretty_enough0(H):- \+ compound(H),!.
 pretty_enough0(H):- ground(H), !.
@@ -404,12 +408,13 @@ pretty_enough0(H):- compound_name_arity(H,_,0), !.
 
 name_one(R,V):- is_dict(V), dict_pairs(V,VV,_), !, name_one(R,VV).
 name_one(V,R):- is_dict(V), dict_pairs(V,VV,_), !, name_one(VV,R).
-name_one(V,R):- var(V), nonvar(R),!, name_one_var(R,V).
-name_one(R,V):- var(V), nonvar(R),!, name_one_var(R,V).
+name_one(R,V):- nonvar(R),var(V),!, name_one_var(R,V).
+name_one(V,R):- var(V), nonvar(R),!, name_one(R,V).
 name_one(_,_).
 
-name_one_var([_|_],V):- debug_var('List',V).
-name_one_var(R,V):- debug_var(R,V).
+name_one_var([_|_],V):- debug_var('List',V),!.
+name_one_var(R,V):- nonvar(R),var(V),p_n_atom(R,RN),debug_var(RN,V),!.
+name_one_var(R,V):- debug_var(R,V),!.
 
 pretty_element(NV):- ignore((NV=..[_,N,V],ignore(pretty1(N=V)))).
 
@@ -442,7 +447,7 @@ pretty1(pred(V,See,_,_)):- debug_var(See,V).
 pretty1(rel(V,_,On,_)):- debug_var([On,'_'],V).
 pretty1(card(V,Num,R)):- ground(Num:R),atomic_list_concat(['_',R,'_',Num],Eq_2),debug_var(Eq_2,V),!.
 pretty1(Cmpd):-  Cmpd=..[OP, R, V], is_comparison(OP), name_one(V,R), !.
-pretty1(H):-compound_name_arguments(H,_,ARGS),ignore(must_maplist_det(pretty1,ARGS)).
+pretty1(H):-compound_name_arguments(H,_,ARGS),ignore(must_maplist_det(pretty1,ARGS)),!.
 
 is_comparison(OP):- \+ atom(OP),!.
 is_comparison(OP):- atom_concat(_,'=',OP).

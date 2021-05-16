@@ -166,7 +166,7 @@ dbug1(_):- notrace(current_prolog_flag(dmsg_level, never)), !.
 dbug1(Fmt) :- compound(Fmt), compound_name_arity(Fmt,F,_), debugging(F,false), !.
 dbug1(Fmt) :-
  quietly(( \+ \+
-   ((guess_varnames(Fmt),
+   ((guess_pretty(Fmt),
      mu:simplify_dbug(Fmt, FmtSS),     
      portray_vars:pretty_numbervars(FmtSS, FmtS),
      locally(t_l:no_english, term_to_pretty_string(FmtS, "% ", SSS)),

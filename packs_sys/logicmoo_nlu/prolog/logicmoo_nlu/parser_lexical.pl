@@ -1029,7 +1029,7 @@ same_atoms(A1, A2):- A1==A2->true;(A2\==[], A1\==[], downcase_atom(A1, V1), down
 binds_atomic:attr_unify_hook(C, Val):- binds_with(C, Val).
 
 
-:- set_prolog_flag(debugger_write_options, [quoted(true), portray(true), max_depth(20), attributes(dots)]).
+%:- set_prolog_flag(debugger_write_options, [quoted(true), portray(true), max_depth(20), attributes(dots)]).
 :- fixup_exports.
 /* first_clause_only tests  */
 

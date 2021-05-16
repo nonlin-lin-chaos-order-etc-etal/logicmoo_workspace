@@ -127,7 +127,7 @@ reason_to_english(_Aobj, cantdothat(EatCmd), [ 'can\'t do: ', EatCmd]).
 
 
 logic2eng( Obj, Prop, English):-
- guess_varnames(Prop),
+ guess_pretty(Prop),
  \+ ground(Prop), copy_term(Prop, Prop2), !,
  mw_numbervars(Prop2, 55, _), logic2eng(Obj, Prop2, English).
 

@@ -21,8 +21,6 @@
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-:- throw(module(chat80)).
-
 :- module(chat80,
 	  [ chat_process/2,                     % +Question, -Answer
 

@@ -362,15 +362,16 @@ pred1_juncts_to_list(Pred1,AB,ABL):-AB=..[F,A,B],
   pred1_juncts_to_list(Pred1,A,AL),
   pred1_juncts_to_list(Pred1,B,BL),
   append(AL,BL,ABL).
-pred1_juncts_to_list(Pred1,AB,AL):-AB=..[F,A],!,
-  call(Pred1,F),
+pred1_juncts_to_list(Pred1,AB,AL):-AB=..[F,A],
+  call(Pred1,F),!,
   pred1_juncts_to_list(Pred1,A,AL).
 
-pred1_juncts_to_list(Pred1,AB,ABL):-AB=..[F,A|ABB],call(Pred1,F),
+pred1_juncts_to_list(Pred1,AB,ABL):-AB=..[F,A|ABB],
+  call(Pred1,F),
   pred1_juncts_to_list(Pred1,A,AL),
   B=..[F|ABB],  
   pred1_juncts_to_list(Pred1,B,BL),
-  append(AL,BL,ABL).
+  append(AL,BL,ABL),!.
 pred1_juncts_to_list(_Pred1,Lit,[Lit]).
 
 %= 	 	 

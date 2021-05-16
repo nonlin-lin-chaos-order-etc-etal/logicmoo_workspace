@@ -70,7 +70,7 @@ charniak_segs_to_w2(SegsF,InfoS,PosW2s):-
     apply:partition(\=(w(_,_)), SegsF, Info, PosW2s),!,
     sort(Info,InfoS).
 
-charniak_pos(Text,PosW2s):- charniak_pos(Text,PosW2s0,_Info,_LExpr),guess_pretty1(PosW2s0),!,PosW2s=PosW2s0.
+charniak_pos(Text,PosW2s):- charniak_pos(Text,PosW2s0,_Info,_LExpr),guess_pretty(PosW2s0),!,PosW2s=PosW2s0.
 
 %can_be_partof('Obj',W):-!, member(W,['Situation','Event']).
 %can_be_partof(W,W):-!,fail.
