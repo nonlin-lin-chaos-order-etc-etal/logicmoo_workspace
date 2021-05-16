@@ -640,16 +640,17 @@ map_lex_winfo_segs(W2,R):- is_list(W2),maplist(map_lex_winfo_segs,W2,R),!.
 map_lex_winfo_segs(W2,R):- W2 \= w(_,_),!, R=W2.
 map_lex_winfo_segs(W2,R):- lex_winfo(W2,_),R=W2.
 
-into_w2_segs(Sent,UO):- notrace((into_w2_segs0(Sent,UO))).
+into_w2_segs(Sent,UO):- quietly((into_w2_segs0(Sent,UO))).
 into_w2_segs0(Sentence,Sentence):- is_list(Sentence),maplist(span_or_word,Sentence),!.
 into_w2_segs0(Sent,UO):-  
-   any_to_string(Sent,S),
+ maplist(mort,
+   [any_to_string(Sent,S),
    into_text80(S,WL),
    any_to_string(WL, Text80),
    into_w2_segs_pt1(Text80,U1),
    into_w2_segs_pt2(Text80,U2),
    smerge_segs(U1,U2,U),
-   map_lex_winfo_segs(U,UO),!.
+   map_lex_winfo_segs(U,UO)]),!.
 
 into_w2_segs_pt1(Sentence,U):- catch(text_to_charniak_segs(Sentence,U),E,(wdmsg(error(E,text_to_charniak_segs(Sentence))), U=[])),!.
 into_w2_segs_pt2(Sentence,U):- catch(text_to_corenlp_segs(Sentence,U),E,(wdmsg(error(E,text_to_corenlp_segs(Sentence))), U=[])),!.

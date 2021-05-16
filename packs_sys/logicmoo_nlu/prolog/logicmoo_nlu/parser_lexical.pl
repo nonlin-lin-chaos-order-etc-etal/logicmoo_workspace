@@ -347,7 +347,7 @@ unlevelize0(level(_, 0, _, X, _),X):- !.
 unlevelize0(level(_, _, _, X, _),X):- !.
 unlevelize0(text_to_cycword(_, _,_,X),X):-!.
 unlevelize0(todo(_, cycpred,X), cycpred):-  atom(X),!.
-unlevelize0(todo(_, _Cycpred,X),X):- \+ atom(X),!.
+unlevelize0(todo(_, _Cycpred,X),X):- \+ atomic(X),!.
 unlevelize0(todo(_, X,Y),Z):- append_term(X,Y,Z).
 
 

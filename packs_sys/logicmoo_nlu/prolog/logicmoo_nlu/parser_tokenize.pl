@@ -69,6 +69,7 @@ break_atom_symbols(['?',I|List],[S|ListO]):- \+ keep_unbroken(I), !,
 
 break_atom_symbols([I|List],[I|ListO]):- keep_unbroken(I), !, 
    break_atom_symbols(List,ListO).
+
 break_atom_symbols([I|List],[O|ListO]):-  unquoted(I,S),!,
   into_acetext(S,A),
   requoted(A,O),!,

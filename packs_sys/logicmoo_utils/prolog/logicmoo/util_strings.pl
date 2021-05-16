@@ -659,7 +659,7 @@ atomic_list_concat_safe([D1,Atom|Bonus],V):-var(D1),atomic(Atom),sub_string_or_a
 atomic_list_concat_safe([V],V):-!.
 
 string_or_atom_concat(A,B,C):- \+ string(A),\+ string(B),\+ string(C),!, atom_concat(A,B,C).
-string_or_atom_concat(A,B,C):-string_concat(A,B,C).
+string_or_atom_concat(A,B,C):- string_concat(A,B,C).
 
 sub_string_or_atom(V, NBefore, Len, NumAfter, Atom):- (atom(V);atom(Atom)),!,sub_atom(V, NBefore, Len, NumAfter, Atom).
 sub_string_or_atom(V, NBefore, Len, NumAfter, Atom):- assertion(string(V);string(Atom)),sub_string(V, NBefore, Len, NumAfter, Atom).
@@ -672,13 +672,15 @@ sub_string_or_atom(V, NBefore, Len, NumAfter, Atom):- assertion(string(V);string
 % Atomic List Concat Safely Paying Attention To Corner Cases.
 %
 atomic_list_concat_safe(List,Sep,StringO):- (Sep==[];Sep=='';Sep==""),!,atomic_list_concat_safe(List,StringO).
-atomic_list_concat_safe(List,Sep,Str):-ground(Sep:Str), \+ (atom_contains(Str,Sep)),!,List=[Str0],any_to_string_or_var(Str,Str0).
-atomic_list_concat_safe(List,Sep,StringO):- ground(List:Sep),!,atomics_to_string(List,Sep,String),any_to_string_or_var(StringO,String).
 atomic_list_concat_safe(List,_,V):- (V=='';V==""),!,List=[].
-atomic_list_concat_safe(List,Sep,StringO):-ground(StringO),ground(Sep), \+ (atom_contains(StringO,Sep)),!,List=[D1O],any_to_string_or_var(StringO,D1O).
+atomic_list_concat_safe(List,_,V):- List==[],!,any_to_string_or_var('',V).
+atomic_list_concat_safe(List,Sep,Str):- ground(Sep:Str), !, atomic_list_concat(List1,Sep,Str),!,maplist(any_to_string_or_var,List,List1).
+atomic_list_concat_safe(List,Sep,StringO):- ground(List:Sep),!,atomics_to_string(List,Sep,String),any_to_string_or_var(StringO,String).
+%atomic_list_concat_safe(List,Sep,V):- maplist(unify_atomics,['',''],List).
 atomic_list_concat_safe([Atom,A2|Bonus],Sep,V):-atomic(Atom),atomic(A2),atomic_list_concat_safe([Atom,Sep,A2],A3),atomic_list_concat_safe([A3|Bonus],Sep,V),!.
-atomic_list_concat_safe([Atom|Bonus],Sep,V):-atomic(Atom),atomic(V),atomic_list_concat_safe([Atom,Sep,NV],V),!,atomic_list_concat_safe(Bonus,NV).
-atomic_list_concat_safe([D1,PostAtom|Bonus],Sep,V):-var(D1),atomic(V),atomic(Sep),string_concat(Sep,PostAtom,Atom),
+atomic_list_concat_safe([Atom|Bonus],Sep,V):-   atomic(Atom),atomic(V),atomic_list_concat_safe([Atom,Sep,NV],V),!,atomic_list_concat_safe(Bonus,NV).
+atomic_list_concat_safe([D1,PostAtom|Bonus],Sep,V):-var(D1),atomic(V),atomic(Sep),
+  string_concat(Sep,PostAtom,Atom),
   % We calc D1
   sub_string(V, NBefore, _Len, NumAfter, Atom),sub_string(V, 0, NBefore, _, D1O),
   sub_string(V,_,NumAfter,0,NewV),atomic_list_concat_safe(Bonus,Sep,NewV),!,
