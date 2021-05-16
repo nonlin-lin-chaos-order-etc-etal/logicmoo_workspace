@@ -30,13 +30,14 @@ is_captitalized(A):-any_to_string(A,S),name(S,[N,_]), code_type(N,to_lower(L)),!
 e2c_clausify(C, F):- e2c_clausify(C, F, _), !.
 
 % Vars
-e2c_clausify(A,A, []):- structureless(A),!.
+e2c_clausify(A, A, []):- structureless(A),!.
 % Universals
 e2c_clausify( q(all, X, F0), F, [X|V]) :- !, e2c_clausify(F0, F, V).
 % Implications
 e2c_clausify((A0 => C0), (A => C), V) :- !, clausify_antecedent(A0, A, V)-> e2c_clausify(C0, C).
 % Conjunctions
-e2c_clausify(      A0C0,    ACOut, []) :- compound(A0C0), functor(A0C0,CONJ,_), is_junct(CONJ,NCONJ), 
+e2c_clausify(      A0C0,    ACOut, []) :- 
+  compound(A0C0), functor(A0C0,CONJ,_), is_junct(CONJ,NCONJ), 
   show_failure(pred_juncts_to_list(CONJ,A0C0,List)), 
   must(filter_lits(NCONJ,List,ListF)),
   must_maplist(e2c_clausify,ListF,NewList),

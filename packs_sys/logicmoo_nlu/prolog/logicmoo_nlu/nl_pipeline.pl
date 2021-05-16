@@ -76,9 +76,9 @@
 :- if(load_parser_interface(parser_e2c)).
 % ================================================================================================
 
-:- install_converter(parser_e2c, e2c_parse(+acetext, -lf_e2c)).
+:- install_converter(parser_e2c, e2c_parse(+corenlp_segs, -clause_e2c)).
 %:- install_converter(parser_e2c:e2c(+acetext, -lf_e2c)).
-:- install_converter(parser_e2c, e2c_clausify(+lf_e2c, -clause_e2c)).
+%:- install_converter(parser_e2c, e2c_clausify(+lf_e2c, -clause_e2c)).
 :- install_converter(parser_e2c, e2c_reply(+clause_e2c, -reply_e2c)).
 
 %:- debug.
@@ -182,9 +182,9 @@ load_parser_stanford:-  load_parser_interface(parser_stanford).
 :- if(load_parser_stanford).
 % ================================================================================================
 
-:- install_converter(parser_stanford:text_to_corenlp(+acetext, -corenlp)).
+%:- install_converter(parser_stanford:text_to_corenlp(+acetext, -corenlp)).
 %:- install_converter(parser_stanford:corenlp_to_w2(+corenlp, -corenlp_w2)).
-:- install_converter(parser_stanford:corenlp_to_segs(+corenlp, -corenlp_segs)).
+%:- install_converter(parser_stanford:corenlp_to_segs(+corenlp, -corenlp_segs)).
 :- endif.
 
 % ================================================================================================

@@ -279,8 +279,9 @@ sentence_reply(Number, Toks, SExpr, In, In):-
 */
 sort_words(List,Sorted):- predsort(by_word_loc,List,Sorted).
 by_word_loc(R,A,B):-into_loc_sort(A,AK),into_loc_sort(B,BK),compare(RK,AK,BK), (RK == (=) -> compare(R,A,B) ; R = RK).
-into_loc_sort(span(List),Key):- member(seg(S,E),List),member(lnks(L),List),member(size(W),List),RS is 100-W, Key = [E,S,RS,L],!.
 into_loc_sort(w(_,List),Key):- member(loc(S),List), member(lnks(L),List), Key = [S,0,S,L],!.
+into_loc_sort(span(List),Key):- member(seg(S,E),List),once(member(lnks(L),List);L=10),once(member(size(W),List);W=0),RS is 100-W, E1 is E-1, Key = [E1,S,RS,L],!.
+into_loc_sort(span(L1),Key):- member(List,L1),member(seg(_,_),List),into_loc_sort(span(List),Key).
 into_loc_sort(A,Key):- A=..[_|AA], findnsols(4,T, ((sub_term(T,AA),compound(T),arg(1,T,N),number(N));T=AA),Key).
 
 baseKB:regression_test:- test_corenlp(1,X),!,test_corenlp(X).

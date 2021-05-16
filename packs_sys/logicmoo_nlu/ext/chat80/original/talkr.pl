@@ -75,13 +75,22 @@ answer802((answer80([]):-E),[B]) :- !, holds_truthvalue(E,B).
 answer802((answer80([X]):-E),S) :- !, seto(X,E,S).
 answer802((answer80(X):-E),S) :- seto(X,E,S).
 
+/*seto(X,E,S) :- ground(X),
+%	portray_clause(({X} :- E)),
+	phrase(satisfy80(E,G),Vars),
+	pprint_ecp_cmt(yellow,((X+Vars):-G)),!,
+	seto2(X,Vars,G,S).
+
+seto2(X,[],G,S):- !, (setof(X,G,S) -> ignore( S = [X] ) ;  S = []).
+seto2(X,Vars,G,S):- setof(X,Vars^G,S) -> ignore( S = [X]) ;  S = [].
+*/
 
 seto(X,E,S) :-
 %	portray_clause(({X} :- E)),
 	phrase(satisfy80(E,G),Vars),
-	pprint_ecp_cmt(yellow,((X+Vars):-G)),
+	pprint_ecp_cmt(yellow,((X+Vars):-G)),!,
 	(   setof(X,Vars^G,S)
-	->  true
+	*->  true
 	;   S = []
 	).
 

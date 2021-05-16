@@ -579,10 +579,80 @@ eng_to_logic(U,S):- sentence80(E,U,[],[],[]), sent_to_prelogic(E,S).
 
 span_or_word(S):- compound(S), (S = w(_,_); S=span(_)),!.
 
-into_w2_segs(Sentence,Sentence):- maplist(span_or_word,Sentence),!.
-into_w2_segs(Sent,U):-  any_to_string(Sent,Text80), into_w2_segs_pt2(Text80,U),!.
-into_w2_segs_pt2(Sentence,U):- catch(text_to_corenlp_segs(Sentence,U),E,(wdmsg(error(E,text_to_corenlp_segs(Sentence))), fail)),!.
-into_w2_segs_pt2(Sentence,U):- text_to_corenlp_segs(Sentence,U),!.
+/*
+smerge_segsl([span(List)|U1],U2,[span([Seg|NewList])|U3]):-
+   Seg=seg(_,_),select(Seg,List,List0),   
+   select(span(EList),U2,NewU2),
+   select(Seg,EList,List1),!,
+   smerge_w_list(List0,List1,NewList),
+   smerge_segsl(U1,NewU2,U3),!.
+*/
+smerge_segsl(U1,U2,[Out|U3]):-
+   select(span(S1),U1,NewU1),
+   Seg=seg(_,_),
+   select(Seg,S1,List1),
+   select(span(S2),U2,NewU2),
+   select(Seg,S2,List2),!,
+
+   smerge_segsl(NewU1,NewU2,U3),
+
+   smerge_w_list(List1,List2,NewList),!,
+   Out = span([Seg|NewList]).
+smerge_segsl([w(W1,List)|U1],U2,[w(W1,NewList)|U3]):-
+   select(w(W1,EList),U2,NewU2),
+   smerge_w_list(List,EList,NewList),
+   smerge_segsl(U1,NewU2,U3),!.
+smerge_segsl([E|U1],U2,[E|U3]):-
+   smerge_segsl(U1,U2,U3),!.
+smerge_segsl(U1,[E|U2],[MaybeAlt|U3]):-
+   maybe_alt(E,MaybeAlt),
+   smerge_segsl(U1,U2,U3),!.
+smerge_segsl(U1,[],U1):- must(U1==[]),!.
+%smerge_segsl([],U2,U2):-!.
+
+maybe_alt(span(L),span([alt(span)|L])).
+maybe_alt(w(W,L),span([alt(w2),w(W),seg(N,N)|L])):-member(loc(N),L),!.
+%maybe_alt(w(W,L),span([alt|L])).
+maybe_alt(E,span([alt(E)])).
+
+
+smerge_w_list(U1,[],U1):-!.
+smerge_w_list(U1,[E|U2],[O|U3]):-
+ \+ member(E,U1),
+   free_last_arg(E,EE),
+  (member(EE,U1) -> O = alt(E) ; O= E),!,
+   smerge_w_list(U1,U2,U3),!.
+smerge_w_list([E|U1],U2,[E|U3]):-
+   select(E,U2,NewU2),!,
+   smerge_w_list(U1,NewU2,U3),!.
+smerge_w_list([E|U1],U2,[E|U3]):-
+   smerge_w_list(U1,U2,U3),!.
+
+%free_last_arg(E,EE):- compound(E),compound_name_arity(E,_,A),A>0,!,duplicate_term(E,EE), nb_setarg(A,EE,_).
+free_last_arg(E,EE):- compound(E),compound_name_arity(E,F,A),compound_name_arity(EE,F,A),!.
+free_last_arg(E,E).
+  
+smerge_segs(U1,U2,U):- 
+  smerge_segsl(U1,U2,U3),!,
+  parser_stanford:sort_words(U3,U),!.
+
+map_lex_winfo_segs(W2,R):- is_list(W2),maplist(map_lex_winfo_segs,W2,R),!.
+map_lex_winfo_segs(W2,R):- W2 \= w(_,_),!, R=W2.
+map_lex_winfo_segs(W2,R):- lex_winfo(W2,_),R=W2.
+
+into_w2_segs(Sent,UO):- notrace((into_w2_segs0(Sent,UO))).
+into_w2_segs0(Sentence,Sentence):- is_list(Sentence),maplist(span_or_word,Sentence),!.
+into_w2_segs0(Sent,UO):-  
+   any_to_string(Sent,S),
+   into_text80(S,WL),
+   any_to_string(WL, Text80),
+   into_w2_segs_pt1(Text80,U1),
+   into_w2_segs_pt2(Text80,U2),
+   smerge_segs(U1,U2,U),
+   map_lex_winfo_segs(U,UO),!.
+
+into_w2_segs_pt1(Sentence,U):- catch(text_to_charniak_segs(Sentence,U),E,(wdmsg(error(E,text_to_charniak_segs(Sentence))), U=[])),!.
+into_w2_segs_pt2(Sentence,U):- catch(text_to_corenlp_segs(Sentence,U),E,(wdmsg(error(E,text_to_corenlp_segs(Sentence))), U=[])),!.
 %into_w2_segs_pt2(Sentence,U):- check_words(Sentence,U).
 
 process4(How,Sentence,Answer,Times) :-
@@ -624,7 +694,9 @@ process4(How,Sentence,Answer,Times) :-
    report(How,U,'Question',TotalTime,print_test),
    ignore((How\==test, report(always,Answer,'Reply',TimeAns,respond))))),!.
    
-results80(S1,Results):- nonvar(S1),findall(Res,deepen_pos((answer802(S1,Res),Res\=[])),Results).
+results80(S1,Results):- 
+  nonvar(S1),
+  findall(Res,deepen_pos((answer802(S1,Res),Res\=[])),Results).
 
 report(none,_,_,_,_):- !.
 report(test,_,_,_,_):- !.
@@ -842,3 +914,291 @@ Var =+ Val :-
 
 Var =: Val :-
    recorded(Var,val(Val),_).
+
+
+
+smerge_segsl:- 
+
+  A = [  w(how,
+      [  pos(wrb),
+         loc(1),
+         lnks(3),
+         txt("how"),
+         link(1,'WHNP','WHNP#1'),
+         link(2,'SBARQ','SBARQ#1'),
+         link(3,'S1','S1#1')  ]),
+   w(many,
+      [  pos(jj),
+         loc(2),
+         lnks(3),
+         txt("many"),
+         link(1,'WHNP','WHNP#1'),
+         link(2,'SBARQ','SBARQ#1'),
+         link(3,'S1','S1#1')  ]),
+   w(countries,
+      [  pos(nns),
+         loc(3),
+         lnks(3),
+         txt("countries"),
+         link(1,'WHNP','WHNP#1'),
+         link(2,'SBARQ','SBARQ#1'),
+         link(3,'S1','S1#1')  ]),
+   span([  seg(1,3),
+           size(3),
+           lnks(2),
+           #('WHNP#1'),
+           txt( ["how","many","countries"]),
+           phrase('WHNP'),
+           link(1,'SBARQ','SBARQ#1'),
+           link(2,'S1','S1#1')  ]),
+   w(does,
+      [  pos(aux),
+         loc(4),
+         lnks(3),
+         txt("does"),
+         link(1,'SQ','SQ#1'),
+         link(2,'SBARQ','SBARQ#1'),
+         link(3,'S1','S1#1')  ]),
+   w(the,
+      [  pos(dt),
+         loc(5),
+         lnks(4),
+         txt("the"),
+         link(1,'NP','NP#1'),
+         link(2,'SQ','SQ#1'),
+         link(3,'SBARQ','SBARQ#1'),
+         link(4,'S1','S1#1')  ]),
+   w(danube,
+      [  pos(nn),
+         loc(6),
+         lnks(4),
+         txt("danube"),
+         link(1,'NP','NP#1'),
+         link(2,'SQ','SQ#1'),
+         link(3,'SBARQ','SBARQ#1'),
+         link(4,'S1','S1#1')  ]),
+   span([  seg(5,6),
+           size(2),
+           lnks(3),
+           #('NP#1'),
+           txt( ["the","danube"]),
+           phrase('NP'),
+           link(1,'SQ','SQ#1'),
+           link(2,'SBARQ','SBARQ#1'),
+           link(3,'S1','S1#1')  ]),
+   w(flow,
+      [  pos(vb),
+         loc(7),
+         lnks(4),
+         txt("flow"),
+         link(1,'VP','VP#1'),
+         link(2,'SQ','SQ#1'),
+         link(3,'SBARQ','SBARQ#1'),
+         link(4,'S1','S1#1')  ]),
+   w(through,
+      [  pos(rp),
+         loc(8),
+         lnks(5),
+         txt("through"),
+         link(1,'PRT','PRT#27'),
+         link(2,'VP','VP#1'),
+         link(3,'SQ','SQ#1'),
+         link(4,'SBARQ','SBARQ#1'),
+         link(5,'S1','S1#1')  ]),
+   span([  seg(4,8),
+           size(5),
+           lnks(2),
+           #('SQ#1'),
+           txt( ["does","the","danube","flow","through"]),
+           phrase('SQ'),
+           link(1,'SBARQ','SBARQ#1'),
+           link(2,'S1','S1#1')  ]),
+   span([  seg(7,8),
+           size(2),
+           lnks(3),
+           #('VP#1'),
+           txt( ["flow","through"]),
+           phrase('VP'),
+           link(1,'SQ','SQ#1'),
+           link(2,'SBARQ','SBARQ#1'),
+           link(3,'S1','S1#1')  ]),
+   span([  seg(8,8),
+           size(1),
+           lnks(4),
+           #('PRT#27'),
+           txt( ["through"]),
+           phrase('PRT'),
+           link(1,'VP','VP#1'),
+           link(2,'SQ','SQ#1'),
+           link(3,'SBARQ','SBARQ#1'),
+           link(4,'S1','S1#1')  ]),
+   w(?,
+      [  pos('.'),
+         loc(9),
+         lnks(2),
+         txt("?"),
+         link(1,'SBARQ','SBARQ#1'),
+         link(2,'S1','S1#1')  ]),
+   span([  seg(1,9),
+           size(9),
+           lnks(0),
+           #('S1#1'),
+           txt( ["how","many","countries","does","the","danube","flow","through","?"]),
+           phrase('S1')  ])  ],
+
+
+   B = [  w(how,
+      [  pos(wrb),
+         root(how),
+         loc(1),
+         txt("how"),
+         truecase('INIT_UPPER'),
+         lnks(3),
+         link(1,'WHADJP','WHADJP#25'),
+         link(2,'WHNP','WHNP#1'),
+         link(3,'SBARQ','SBARQ#1')  ]),
+   w(many,
+      [  pos(jj),
+         root(many),
+         loc(2),
+         txt("many"),
+         truecase('LOWER'),
+         lnks(3),
+         link(1,'WHADJP','WHADJP#25'),
+         link(2,'WHNP','WHNP#1'),
+         link(3,'SBARQ','SBARQ#1')  ]),
+   span([  seg(1,2),
+           size(2),
+           lnks(2),
+           #('WHADJP#25'),
+           txt( ["how","many"]),
+           phrase('WHADJP'),
+           link(1,'WHNP','WHNP#1'),
+           link(2,'SBARQ','SBARQ#1')  ]),
+   w(countries,
+      [  pos(nns),
+         root(country),
+         loc(3),
+         txt("countries"),
+         truecase('LOWER'),
+         lnks(2),
+         link(1,'WHNP','WHNP#1'),
+         link(2,'SBARQ','SBARQ#1')  ]),
+   span([  seg(1,3),
+           size(3),
+           lnks(1),
+           #('WHNP#1'),
+           txt( ["how","many","countries"]),
+           phrase('WHNP'),
+           link(1,'SBARQ','SBARQ#1')  ]),
+   w(does,
+      [  pos(vbz),
+         root(do),
+         loc(4),
+         txt("does"),
+         truecase('LOWER'),
+         lnks(3),
+         link(1,'VP','VP#1'),
+         link(2,'SQ','SQ#1'),
+         link(3,'SBARQ','SBARQ#1')  ]),
+   w(the,
+      [  pos(dt),
+         root(the),
+         loc(5),
+         txt("the"),
+         truecase('LOWER'),
+         lnks(4),
+         link(1,'NP','NP#1'),
+         link(2,'VP','VP#1'),
+         link(3,'SQ','SQ#1'),
+         link(4,'SBARQ','SBARQ#1')  ]),
+   w(danube,
+      [  pos(nn),
+         root(danube),
+         loc(6),
+         txt("danube"),
+         truecase('INIT_UPPER'),
+         lnks(4),
+         link(1,'NP','NP#1'),
+         link(2,'VP','VP#1'),
+         link(3,'SQ','SQ#1'),
+         link(4,'SBARQ','SBARQ#1')  ]),
+   w(flow,
+      [  pos(nn),
+         root(flow),
+         loc(7),
+         txt("flow"),
+         truecase('LOWER'),
+         lnks(4),
+         link(1,'NP','NP#1'),
+         link(2,'VP','VP#1'),
+         link(3,'SQ','SQ#1'),
+         link(4,'SBARQ','SBARQ#1')  ]),
+   span([  seg(5,7),
+           size(3),
+           lnks(3),
+           #('NP#1'),
+           txt( ["the","danube","flow"]),
+           phrase('NP'),
+           link(1,'VP','VP#1'),
+           link(2,'SQ','SQ#1'),
+           link(3,'SBARQ','SBARQ#1'),
+           corefed,
+           #(2),
+           type('NOMINAL'),
+           numb('SINGULAR'),
+           gender('NEUTRAL'),
+           animacy('INANIMATE'),
+           repm(@(true))  ]),
+   w(through,
+      [  pos(in),
+         root(through),
+         loc(8),
+         txt("through"),
+         truecase('LOWER'),
+         lnks(4),
+         link(1,'PP','PP#1'),
+         link(2,'VP','VP#1'),
+         link(3,'SQ','SQ#1'),
+         link(4,'SBARQ','SBARQ#1')  ]),
+   span([  seg(4,8),
+           size(5),
+           lnks(1),
+           #('SQ#1'),
+           txt( ["does","the","danube","flow","through"]),
+           phrase('SQ'),
+           link(1,'SBARQ','SBARQ#1')  ]),
+   span([  seg(4,8),
+           size(5),
+           lnks(2),
+           #('VP#1'),
+           txt( ["does","the","danube","flow","through"]),
+           phrase('VP'),
+           link(1,'SQ','SQ#1'),
+           link(2,'SBARQ','SBARQ#1')  ]),
+   span([  seg(8,8),
+           size(1),
+           lnks(3),
+           #('PP#1'),
+           txt( ["through"]),
+           phrase('PP'),
+           link(1,'VP','VP#1'),
+           link(2,'SQ','SQ#1'),
+           link(3,'SBARQ','SBARQ#1')  ]),
+   w(?,
+      [  pos('.'),
+         root(?),
+         loc(9),
+         txt("?"),
+         lnks(1),
+         link(1,'SBARQ','SBARQ#1')  ]),
+   span([  seg(1,9),
+           size(9),
+           lnks(0),
+           #('SBARQ#1'),
+           txt( ["how","many","countries","does","the","danube","flow","through","?"]),
+           phrase('SBARQ')  ])  ],
+  smerge_segs(A,B,C),
+  print_tree(C).
+
+

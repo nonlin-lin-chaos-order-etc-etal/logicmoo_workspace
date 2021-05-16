@@ -255,9 +255,12 @@ chat80("How many rivers are in asia?", 16).
 chat80("How many asian countries have a population exceeding 10 million?", 20).
 chat80("How many countries have a population exceeding 10 million?", 50).
 chat80("How many countries have a population greater than 10 million?", 50).
-chat80("What are the continents in which no country contains more than 3 cities?", [africa, antarctica, australasia, europe]).
-chat80("What are the continents containing a country in which contains more than 3 cities?", [america, asia, europe], slow).
+% These are too clow for the Unit Tests
+%chat80("What are the continents in which no country contains more than 3 cities?", [africa, antarctica, australasia, europe], slow).
+%chat80("What are the continents containing a country in which contains more than 3 cities?", [america, asia, europe], slow).
 chat80("What are the continents not containing a country?", [antarctica]).
+chat80("What are the continents containing no countries?", [antarctica]).
+chat80("What are the continents containing no country?", [antarctica]).
 
 chat80("What are the continents no country in which contains more than two cities whose population exceeds 1 million ?", [africa, antarctica, australasia]).
 chat80("What are the continents in which no country contains more than two cities whose population exceeds 1 million?", [africa, antarctica, australasia]).

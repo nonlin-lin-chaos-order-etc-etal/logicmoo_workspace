@@ -661,7 +661,7 @@ pt1(_,Final,Term,Tab) :-
    as_is(Term), !,
    prefix_spaces(Tab), portray_with_vars(Term),write(Final), nop(pt_nl).
 
-pt1(FS,Final,[T|Ts],Tab):- !, must(pt1_list(FS,Final,[T|Ts],Tab)).
+pt1(FS,Final,[T|Ts],Tab):- !, must(pretty_clauses:pt1_list(FS,Final,[T|Ts],Tab)).
 
 
 pt1(FS,Final,q(E,V,G),Tab):- atom(E), !, T=..[E,V,G],!, pt0(FS,Final,T,Tab).

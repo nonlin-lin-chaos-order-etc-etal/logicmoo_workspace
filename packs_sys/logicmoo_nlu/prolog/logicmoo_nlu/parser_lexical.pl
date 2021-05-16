@@ -322,18 +322,33 @@ lex_winfo(Value):-
   lex_winfo(Value,R),
   maplist(wdmsg, R).
 
+merge_lists(L,R):- (L==[] ; R ==[]),!.
 merge_lists(L,R):- nb_set_add(L,R),nb_set_add(R,L).
 
 :- export(lex_winfo/2).
-lex_winfo(W2,R):- W2 = w(Word,_), !,lex_tinfo(text(a),Word,R), merge_lists(W2,R).
+lex_winfo(W2,R):- W2 = w(Word,Had),!, nonvar(Word), !, 
+  ((is_list(Had), member(lex_winfo,Had)) -> R=Had; (lex_tinfo(text(a),Word,R1),
+    unlevelize(R1,R2),R=[lex_winfo|R2], merge_lists(W2,R))).
 lex_winfo(Word,R):- lex_tinfo(text(a), Word, R).
 
 :- export(lex_tinfo/3).
 lex_tinfo(Type, Value,DatumF):-
  findall(Datum, get_info_about_type(_All, 0, Type, Value, Datum), DatumL),
    correct_dos(DatumL, DatumF),
-   maplist(wdmsg, DatumF), !.
+   nop(maplist(wdmsg, DatumF)), !.
 
+
+
+unlevelize(R1,R2):- is_list(R1),!,maplist(unlevelize,R1,R2).
+unlevelize(X,Y):- unlevelize0(X,M),!,unlevelize(M,Y).
+unlevelize(X,X).
+
+unlevelize0(level(_, 0, _, X, _),X):- !.
+unlevelize0(level(_, _, _, X, _),X):- !.
+unlevelize0(text_to_cycword(_, _,_,X),X):-!.
+unlevelize0(todo(_, cycpred,X), cycpred):-  atom(X),!.
+unlevelize0(todo(_, _Cycpred,X),X):- \+ atom(X),!.
+unlevelize0(todo(_, X,Y),Z):- append_term(X,Y,Z).
 
 
 call_lex_arg_type(TypeIn, TypeOut, Value, Result, C):-

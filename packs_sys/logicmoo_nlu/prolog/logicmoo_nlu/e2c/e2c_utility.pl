@@ -19,13 +19,16 @@ dcg_push_w2(A, S, [B|S]):- t_to_w2(A,B).
 
 theText1(IC)-->notrace(theText11(IC)).
 
-w2txt001(Cmp) --> next_as_word_e2c,{!},[Cmp],{assertion(nonvar(Cmp))}.
+w2txt001(Cmp) --> consume_spans_hack_e2c, % next_as_word_e2c,
+   {!},[Cmp],{assertion(nonvar(Cmp))},consume_spans_hack_e2c.
 
-w2txt01(Text) --> w2txt001(A), {atomic(A),!,A=Text}.
-w2txt01(Text) --> w2txt001(Cmp),{compound(Cmp),!,Cmp=w(Text,_)}.
+theTextWW(Text,L) --> w2txt001(Cmp),{W2=w(Text,L),(compound(Cmp)->W2=Cmp;(Text=Cmp,L=open)),parser_e2c:add_prev_w2(W2)}.
+
+w2txt01(Text) --> theTextWW(Text,_L),!.
+%w2txt01(Text) --> w2txt001(A), {atomic(A),!,A=Text}.
 %w01(Text) --> w001(A), {Text=A}.
 
-consume_spans_hack_e2c --> [span(NV)],{nonvar(NV),!},consume_spans_hack_e2c.
+consume_spans_hack_e2c --> [span(NV)],{nonvar(NV),parser_e2c:add_prev_span(span(NV)),!},consume_spans_hack_e2c.
 consume_spans_hack_e2c --> [].
 
 move_ahead_spans_e2c(S1,S2):- partition(\=(span(_)),S1,W,S),!,append(W,S,S2).
@@ -37,9 +40,8 @@ w2txt(Text) --> consume_spans_hack_e2c,w2txt01(Text),consume_spans_hack_e2c.
 %w2txt(W0)--> [w(W0,_)],!.
 %w2txt(IC)--> [W0],{!,\+compound(W0),IC=W0}.
 
-:- import(parser_chat80:the_text_unif/2).
 
-theText11(IC)--> {var(IC),!},w2txt(W0),{notrace((assertion(nonvar(W0);nonvar(IC)),the_text_unif(IC,W0)))}.
+theText11(IC)--> {var(IC),!},w2txt(W0),{notrace((assertion(nonvar(W0);nonvar(IC)), the_text_unif(IC,W0)))}.
 theText11([])--> !, [].
 theText11(IC)--> {atomic(IC),!},w2txt(W0),{the_text_unif(IC,W0)},!.
 theText11([H|T])--> theText11(H),!,theText11(T).

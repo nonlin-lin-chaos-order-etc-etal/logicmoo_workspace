@@ -669,6 +669,8 @@ swi_ide:- use_module(library(swi_ide)),
 
 :- add_history(swi_ide).
 :- add_history([run_mud_server]).
+:- add_history(forall(chat80(X),run_pipeline(X))).
+:- add_history(forall(e2c(X),run_pipeline(X))).
 :- add_history(test_chat80).
 
 

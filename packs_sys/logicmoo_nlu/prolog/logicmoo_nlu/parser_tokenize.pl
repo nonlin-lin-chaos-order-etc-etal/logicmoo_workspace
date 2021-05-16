@@ -63,6 +63,10 @@ break_atom_symbols(['\'',I|List],[S|ListO]):- \+ keep_unbroken(I), !,
    atom_concat('\'',I,S),
    break_atom_symbols(List,ListO).
 
+break_atom_symbols(['?',I|List],[S|ListO]):- \+ keep_unbroken(I), !, 
+   atom_concat('VarRef',I,S),
+   break_atom_symbols(List,ListO).
+
 break_atom_symbols([I|List],[I|ListO]):- keep_unbroken(I), !, 
    break_atom_symbols(List,ListO).
 break_atom_symbols([I|List],[O|ListO]):-  unquoted(I,S),!,

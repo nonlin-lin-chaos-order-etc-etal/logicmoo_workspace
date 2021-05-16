@@ -9,13 +9,24 @@
  char_type_sentence((!), act).
  char_type_sentence((!), tell).
 
-utterance(Type, LF, S, E):-  var(Type), is_list(S), append(First, [ Char], S),
-  \+ \+ char_type_sentence(Char, _), !,
-  char_type_sentence(Char, Type), utterance(Type, LF, First, E).
+partition_segs(Segs,W2s,Spans):- partition(\=(span(_)),Segs,W2s,Spans),!.
 
-utterance(Type, LF, S, E):-  var(Type), is_list(S), append(First, [ Char,_], S),
-  \+ \+ char_type_sentence(Char, _), !,
-  char_type_sentence(Char, Type), utterance(Type, LF, First, E).
+write_simple_seg(w(W,_)):-!,write_cyan(W).
+write_simple_seg(span(W)):-is_list(W),member(S,W),ignore(member('#'(T),W)),compound(S),S=seg(B,E),!,write_cyan(span(B,T,E)).
+write_simple_seg(span([W1,W2|_])):-!,write_cyan(span_(W1,W2)).
+write_cyan(P):- ansi_format(hfg(cyan),'<~w>',[P]).
+
+user:portray(X):- notrace((tracing,compound(X),write_simple_seg(X))),!.
+
+utterance(Type, LF, Sentence, E):- (into_w2_segs(Sentence,Segs)->Sentence\==Segs),!,utterance(Type, LF, Segs, E).
+utterance(Type, LF, Segs, E):-  var(Type), is_list(S), partition_segs(Segs,W2s,_Spans), last(W2s,Char),
+  char_type_sentence(Char, Type),
+  select(Char,S,_First),
+  utterance(Type, LF, Segs, UE),
+  phrase(UE,optional(Char),E).
+  
+
+  %append([Char],ES,E).
 
 utterance(act, LF) -->   quietly(imperative(LF)).
 utterance(ask, LF) -->   quietly(question(LF)).

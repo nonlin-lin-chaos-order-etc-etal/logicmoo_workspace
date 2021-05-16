@@ -302,6 +302,17 @@ riddle(Level) :- forall(test_e2c(Text, riddle(Level)), e2c(Text)).
 :- thread_local(t_l:into_form_code/0).
 :- asserta(t_l:into_form_code).
 
+the_text_unif(IC,W0):- atom(W0),!,downcase_atom(W0,DC),(var(IC)->IC=DC;downcase_atom(IC,DC)).
+the_text_unif(IC,W0):- var(W0),!,nonvar(IC),!,the_text_unif(W0,IC).
+the_text_unif(IC,W0):- parser_tokenize:any_nb_to_atom(W0,W1),!,downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC)).
+:- export(the_text_unif/2).
+
+add_prev_w2(W2):- (nb_current('$prev_w2s',Values);Values=[]),!,b_setval('$prev_w2s',[W2|Values]).
+get_prev_w2(Nth,E):- b_getval('$prev_w2s',Values),nth0(Nth,Values,E).
+
+add_prev_span(SPAN):- (nb_current('$prev_spans',Values);Values=[]),!,b_setval('$prev_spans',[SPAN|Values]).
+get_prev_span(Nth,E):- b_getval('$prev_spans',Values),nth0(Nth,Values,E).
+
 
 % =================================================================
 % %%%%%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%%%%
@@ -316,6 +327,8 @@ e2c :- locally(tracing80,
                             to_wordlist_atoms(U, WL), (WL==[ bye];WL==[end, '_', of, '_', file];e2c(WL)))))).
 
 :-export(e2c/1).
+
+e2c(S):- var(S),!,test_e2c(S, _T).
 e2c(Sentence):-
   % with_error_to_predicate(nop, make),
    % mmake,
@@ -360,12 +373,10 @@ e2c_0(Sentence,
 
 :- assert_if_new(baseKB:mpred_prop(parser_e2c, e2c_parse, 2, prologOnly)).
 
-e2c_parse(Sentence, LF):- %cwc,  
-  must_e2c_segs(Sentence,Segs),
-  e2c_parse0(Segs, LF),
-  del_e2c_attributes(LF),!.
-
-e2c_parse(Sentence, unparsed(Sentence)).
+e2c_parse(Sentence, Clause):- %cwc,  
+  e2c_parse0(Sentence, LF),
+  e2c_clausify(LF, Clause),
+  del_e2c_attributes(Clause),!.
 
 :- assert_if_new(baseKB:mpred_prop(parser_e2c, e2c_parse0, 2, prologOnly)).
 
@@ -373,16 +384,12 @@ e2c_parse0(Sentence, LF):-
   b_setval('$variable_names', []),
   retractall(t_l:usePlTalk),
   retractall(t_l:useAltPOS), !,
-  must_e2c_segs(Sentence,Segs),
+  into_w2_segs(Sentence,Segs),
   e2c_parse_segs(Segs, LF).
 %e2c_parse_segs(WL, LF):- deepen_pos(utterance(_How, LF, WL, []))-> ! ; e2c_parse3(WL, LF).
 
-must_e2c_segs(Sentence,Segs):- must_or_rtrace(e2c_into_segs(Sentence,Segs)).
-e2c_into_segs(Sentence,Segs):- is_list(Sentence),maplist(span_or_word,Sentence),!,Segs=Sentence.
-e2c_into_segs(Sentence,Segs):- (corenlp_to_segs(Sentence,Segs)->Segs=[_|_]),!.
-e2c_into_segs(Sentence,Segs):- any_to_string(Sentence,S),notrace(text_to_corenlp_segs(S,Segs)),!.
-
-e2c_parse_segs(WL, LF):- no_repeats(LF, deepen_pos(utterance(_How, LF, WL, []))) *-> true ; LF = unparsed(WL).
+e2c_parse_segs(WL, LF):- 
+  no_repeats(LF, (deepen_pos(utterance(_How, LF, WL, [])))) *-> true ; LF = unparsed(WL).
 /*
 e2c_parse_segs(WL, LF):- fail, deepen_pos(e2c_parse3(WL, LF)).
 
@@ -418,7 +425,7 @@ e2c_reply(_, error('unknown type')).
 :- include(e2c/e2c_clausify).
 
 e2c_clausify_and_reply(LF, Reply) :-
-   quietly((show_call(e2c_clausify(LF, Clause)),
+   quietly(((e2c_clausify(LF, Clause)),
    e2c_reply(Clause, Reply),
    del_e2c_attributes(Reply))), !.
 

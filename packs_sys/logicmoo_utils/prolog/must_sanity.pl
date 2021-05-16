@@ -77,9 +77,10 @@ handle_mor_event(e(Err,G)):-
    wdmsg(mor_e(Err,G)), ignore(rtrace(G)),
    throw(Err).
 
-handle_mor_event(f(G)):-
+handle_mor_event(f(G)):- notrace(t_l:rtracing),!,wdmsg(warn(f0(G))),G.
+handle_mor_event(f(G)):- 
    wdmsg(f1(G)), dumpST,!,
-   wdmsg(f2(G)), ftrace(G),!,
+   wdmsg(f2(G)), rtrace(G),!,
    wdmsg(failed_must_or_rtrace(i3,G)), dtrace(G).
 
 mor_event(E):- handle_mor_event(E).

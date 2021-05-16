@@ -293,9 +293,10 @@ default_pipeline_opts([lf=_, clause=_, combined_info=_,  simplify80=_, results80
 %  Run a pipeline to yeild NameValues list
 %
 run_pipeline(Text):- 
+  fmt('~N?- ~p.~N',[run_pipeline(Text)]),
   default_pipeline_opts(DefaultOpts),
-  run_pipeline(Text, DefaultOpts, O),  
-  show_kvs(O).
+  run_pipeline(Text, DefaultOpts, O),  !,
+  show_kvs(O),!.
 
 ensure_pipline_spec(_Default,X=Value, [X=Value]):- nonvar(Value), !.
 ensure_pipline_spec(_Default,NVPairs,Flat):- is_list(NVPairs), flatten(NVPairs,Flat),member(_=Value,Flat),nonvar(Value),!.
@@ -352,8 +353,25 @@ mapnvs(NEEDs, RAllNameValues, Out):-
       nb_setarg(2, NV, V))), !, Out=NEEDs.
 mapnvs(_, O, O).
 
-show_kvs(V):- \+compound(V),!, print(V).
-show_kvs(List):- is_list(List), sort_term_size(List,Set),!, maplist(show_kvs, Set).
+factorize_for_print(ListIn,ListO):- \+ is_list(ListIn),!,ListIn=ListO.
+factorize_for_print(ListIn,ListO):-
+  sort_term_size(ListIn,Set),
+  factorize_4_print(Set,Set1),
+  reverse(Set1,SetR),
+  factorize_4_print(SetR,SetRF),
+  reverse(SetRF,ListO),!.
+
+factorize_4_print([N=[V]|SetR],[N=V|List]):- nonvar(N), compound(V),!,
+  subst(SetR,V,[$(N)],SetN),
+  factorize_4_print(SetN,List).
+factorize_4_print([N=V|SetR],[N=V|List]):- nonvar(N), compound(V),  \+ (V = [_]) , !,
+  subst(SetR,V,$(N),SetN),
+  factorize_4_print(SetN,List).
+factorize_4_print(X,X):-!.
+  
+
+show_kvs(V):- \+compound(V),!, print(V),!.
+show_kvs(List):- is_list(List), factorize_for_print(List,ListO),sort_term_size(ListO,SetO), !, must_maplist(show_kvs, SetO).
 show_kvs(O):- format('~N',[]),notrace(show_kvs0(O)),!.
 
 show_kvs0(K=V):- !, print(K),write('='),show_kvs0(V). % print_tree_with_final(V,'.').

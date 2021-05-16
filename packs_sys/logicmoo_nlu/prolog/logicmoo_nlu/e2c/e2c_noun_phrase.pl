@@ -292,6 +292,7 @@ noun1(SO, X, LF) --> theText1(N), {N\==are, noun_lf(SO, X, N, LF)}, nvd(N, X).
 % =================================================================
 named_var_match(Sub, X, LF, Out) --> w2txt(?), w2txt(VarName), {sub_var_match(Sub, VarName, _VarFn, X, LF, Out)}, !.
 named_var_match(Sub, X, LF, Out) --> w2txt(QVAR), {atom_concat('?', VarName, QVAR), sub_var_match(Sub, VarName, _VarFn, X, LF, Out)}, !.
+named_var_match(Sub, X, LF, Out) --> w2txt(QVAR), {atom_concat('varref', VarName, QVAR), sub_var_match(Sub, VarName, _VarFn, X, LF, Out)}, !.
 
 %var_match(pronoun(_X), VarName):- !, pronoun_to_var(VarName, _).
 var_match(len(X), VarName):- !, atom_length(VarName, Len), Len==X.

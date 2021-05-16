@@ -202,7 +202,13 @@ is_pos([Pos, Head],w(WD,[pos(DC),loc(X),lnks(0),txt(SHead)])):- maplist(atom,[Po
 is_pos([Word],Out):-!,is_pos(Word,Out).
 
 
-text_to_charniak_segs(Text,Segs):-
+text_to_charniak_segs(Text,SSegs):-
+  text_to_charniak_list(Text,LExpr),
+  charniak_to_segs(LExpr,CSegs),!,
+  parser_stanford:corenlp_to_segs(CSegs,Segs),!,
+  parser_stanford:sort_words(Segs,SSegs),!.
+
+text_to_charniak_segs_old(Text,Segs):-
   text_to_charniak_list(Text,LExpr),
   charniak_to_segs(LExpr,Segs),!.
 
