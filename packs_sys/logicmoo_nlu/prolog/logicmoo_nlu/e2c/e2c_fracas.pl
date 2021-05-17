@@ -132,19 +132,18 @@ reframe_text(_,Text,_,Text).
 lower_first_word(Text,LText):- name(Text,[C|Rest]),maybe_change_case(Text,C,L),text_to_string([L|Rest],LText).
 
 maybe_change_case(Text,C,L):-code_type(C,to_upper(L)),member(L,`tayndbpiemsof`),
-  into_text80(Text,[W|_]),!,lower_word(W).
+  into_text80(Text,[W|_]),!,l_word(W).
 maybe_change_case(_,C,C).
 
-lower_word(F):- atom_length(F,1).
-lower_word(F):-upcase_atom(F,U),U==F,!,fail.
-lower_word(F):- human_name(F),!,fail.
-lower_word(_).
-human_name('Mary').
-human_name('Bill').
-human_name('Joe').
-human_name('Smith').
-%lower_word(F):- to functionword(F).
-%lower_word(most). lower_word(most). lower_word(both). lower_word(a).
+e2c_fracas:- forall(e2c_fracas(X,Y),run_pipeline(X)).
+
+l_word(F):- atom_length(F,1).
+l_word(F):- upcase_atom(F,U),U==F,!,fail.
+l_word(F):- l_human_name(F),!,fail.
+l_human_name('Mary'). l_human_name('Bill'). l_human_name('Joe'). l_human_name('Smith').
+l_human_name('Dumbo'). l_human_name('Kim'). l_human_name('Mickey'). l_human_name('Pavarotti').
+%l_word(F):- to functionword(F).
+%l_word(most). l_word(most). l_word(both). l_word(a).
 
 part_of_test(p,tell).
 part_of_test(id,zid).

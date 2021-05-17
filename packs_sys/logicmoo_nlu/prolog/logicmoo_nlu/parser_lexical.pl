@@ -326,6 +326,7 @@ merge_lists(L,R):- (L==[] ; R ==[]),!.
 merge_lists(L,R):- nb_set_add(L,R),nb_set_add(R,L).
 
 :- export(lex_winfo/2).
+lex_winfo(_W2,_R):-!.
 lex_winfo(W2,R):- W2 = w(Word,Had),!, nonvar(Word), !, 
   ((is_list(Had), member(lex_winfo,Had)) -> R=Had; (lex_tinfo(text(a),Word,R1),
     unlevelize(R1,R2),R=[lex_winfo|R2], merge_lists(W2,R))).
