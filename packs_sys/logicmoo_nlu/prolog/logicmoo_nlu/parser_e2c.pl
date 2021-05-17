@@ -154,7 +154,7 @@ make_dcg_test_stub(M, F, A):-
    PrologHead =.. [F|PrologHeadArgs],
    append(_, [Out, W, E], PrologHeadArgs),
    TextHead =.. [F, S],
-   (Assert = ( system:TextHead:- M:(make, to_wordlist_atoms(S, W), call_print_reply(Out, M:PrologHead), !, E=[]))),
+   (Assert = ( system:TextHead:- M:(make, to_wordlist_atoms(S, W), call_print_reply(Out, M:PrologHead), !, ignore(E=[])))),
    M:assert_if_new(Assert).
 
 :- system:import(make_dcg_test_stub/3).
@@ -387,6 +387,9 @@ e2c_parse0(Sentence, LF):-
   into_w2_segs(Sentence,Segs),
   e2c_parse_segs(Segs, LF).
 %e2c_parse_segs(WL, LF):- deepen_pos(utterance(_How, LF, WL, []))-> ! ; e2c_parse3(WL, LF).
+
+as_w2_segs(Sentence,Segs):- into_w2_segs(Sentence,Segs)->Sentence\==Segs,!.
+
 
 e2c_parse_segs(WL, LF):- 
   no_repeats(LF, (deepen_pos(utterance(_How, LF, WL, [])))) *-> true ; LF = unparsed(WL).

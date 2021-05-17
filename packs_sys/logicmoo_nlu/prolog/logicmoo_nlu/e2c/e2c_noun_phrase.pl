@@ -30,13 +30,13 @@ noun_phrase0(SO, X, LF, LFOut) -->
 % "her friend" liked "his friend"
 noun_phrase1(SO, X, LF0, LFOut) -->
   theText1(Her), {nl_call(poss_pron_lex, Her, Fem, Pers, SgOrpl)},
-  dcg_when([_], noun_phrase1(obj(_K), X, LF0, LF1)),
+  dcg_when(theText1(_), noun_phrase1(obj(_K), X, LF0, LF1)),
   add_traits(Y, [posessedBy(X, Y), gender(Fem), person(Pers), v_arg(SO), SgOrpl], LF1, LFOut).
 
 % happy friends
 % evil bush
 noun_phrase1(SO, X, LF, LFOut) -->
-    dcg_when([_, _],
+    dcg_when((theText1(_),theText1(_)),
       dcg_and(dcg_thru_2args(noun_pre_mod(SO, X), LF, PreProps), [_|_])),
     % {PreProps \== LF}, !,
     noun_phrase1(SO, X, PreProps, LFOut).

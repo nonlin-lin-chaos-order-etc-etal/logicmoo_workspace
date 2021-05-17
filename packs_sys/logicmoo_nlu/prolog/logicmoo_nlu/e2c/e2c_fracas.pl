@@ -6,6 +6,7 @@
 % Version: 'logicmoo_module_aiml.pl' 1.0.0
 % Revision:  $Revision: 1.7 $
 % Revised At:   $Date: 2002/07/11 21:57:28 $
+% See https://nlp.stanford.edu/~wcmac/downloads/fracas.xml
 % ===================================================================
 
 :- module(fracas_iface, []).
@@ -127,19 +128,20 @@ reframe_text(N,Text,hypothesis,Write):- fracas_iface:fracas_test_problem(N, frac
 reframe_text(_,Text,hypothesis,Write):- lower_first_word(Text,LText), sformat(Write,'You should be able to infer that ~w',[LText]).
 reframe_text(_,Text,'1stexpected_answer',Write):- lower_first_word(Text,LText), sformat(Write,'Your expected answer was ~w.',[LText]).
 reframe_text(_,Text,why,Write):-  lower_first_word(Text,LText), sformat(Write,'Your test is to seek ~w',[LText]).
-reframe_text(_,Text,_,Text).
+reframe_text(_,Text,_,Text). 
 
 lower_first_word(Text,LText):- name(Text,[C|Rest]),maybe_change_case(Text,C,L),text_to_string([L|Rest],LText).
 
-maybe_change_case(Text,C,L):-code_type(C,to_upper(L)),member(L,`tayndbpiemsof`),
-  into_text80(Text,[W|_]),!,l_word(W).
+maybe_change_case(Text,C,L):-code_type(C,to_upper(L)),member(L,`tayndbpiemsof`), into_text80(Text,[W|_]),l_word(W),!.
 maybe_change_case(_,C,C).
 
-e2c_fracas:- forall(e2c_fracas(X,Y),run_pipeline(X)).
+%e2c_fracas:- forall(e2c_fracas(X,_Y),run_pipeline(X)).
+:- add_history(forall(e2c_fracas(X,_Y),fmt('?- run_pipeline( ~p ). ',[X]))).
 
 l_word(F):- atom_length(F,1).
 l_word(F):- upcase_atom(F,U),U==F,!,fail.
 l_word(F):- l_human_name(F),!,fail.
+l_word(_).
 l_human_name('Mary'). l_human_name('Bill'). l_human_name('Joe'). l_human_name('Smith').
 l_human_name('Dumbo'). l_human_name('Kim'). l_human_name('Mickey'). l_human_name('Pavarotti').
 %l_word(F):- to functionword(F).

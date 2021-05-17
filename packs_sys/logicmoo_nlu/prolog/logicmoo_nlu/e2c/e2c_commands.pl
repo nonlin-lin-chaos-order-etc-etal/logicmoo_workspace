@@ -17,7 +17,7 @@ functor_result_color(_, cyan).
 call_print_reply(LF, Goal):-
  catch(
   ((Goal, (e2c_clausify_and_reply(LF, R)->Reply=success(R);Reply=almost_lf(LF)))
-  ->  print_reply_colored(  Reply )
+  ->  print_reply_colored(  Reply->w(Goal) )
    ;  print_reply_colored(  failed(Goal))),
    E, print_reply_colored(  E)).
 

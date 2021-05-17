@@ -66,12 +66,17 @@ p_n_atom1(Cmpd,UP):- string(Cmpd),atom_subst(Cmpd," ","_",String),!,p_n_atom1(St
 p_n_atom1(Cmpd,UP):- Cmpd=='', UP='',!.
 p_n_atom1(Var,UP):- var(Var),get_var_name(Var,UP),!.
 p_n_atom1(Var,UP):- var(Var),term_to_atom(Var,Atom),p_n_atom0(Atom,UP),!.
-p_n_atom1(List,UP):- is_list(List),maplist(p_n_atom,List,UPL),atomic_list_concat(UPL,UP),!.
-p_n_atom1(Cmpd,UP):- compound(Cmpd), compound_name_arguments(Cmpd,F,Args),!,p_n_atom1([F|Args],UP).
+p_n_atom1([H|List],UP):- append(L,R,[H|List]),\+ is_list(R),!,p_n_atom1(L,UP).
+p_n_atom1(List,UP):- is_list(List),length(L,6),append(L,R,List), R \==[], !,p_n_atom1(L,UP).
+p_n_atom1(List,UP):- is_list(List),maplist(p_n_atom1,List,UPL),atomic_list_concat(UPL,'_',UP),!.
+p_n_atom1(Cmpd,UP):- \+ compound(Cmpd),!,term_to_atom(Cmpd,Atom),p_n_atom0(Atom,UP),!.
+p_n_atom1(Cmpd,UP):- compound_name_arity(Cmpd,Name,0),!, p_n_atom1(Name,UP).
+p_n_atom1(Cmpd,UP):- compound_name_arguments(Cmpd,Name,Args),Args=[_],!,p_n_atom1([Name|Args],UP).
+p_n_atom1(Cmpd,UP):- findall(St,(sub_term(St,Cmpd),atom(St)),L),L\==[],list_to_set(L,LL),!,p_n_atom1(LL,UP).
+p_n_atom1(Cmpd,UP):- compound_name_arguments(Cmpd,Name,Args),!,p_n_atom1([Name|Args],UP).
 %p_n_atom1(Cmpd,UP):- compound(Cmpd), sub_term(Atom,Cmpd),atomic(Atom), \+ number(Atom), Atom\==[], catch(p_n_atom0(Atom,UP),_,fail), !.
 %p_n_atom1(Cmpd,UP):- compound(Cmpd), compound_name_arity(Cmpd,Atom,_), catch(p_n_atom0(Atom,UP),_,fail), !.
 % p_n_atom1(Cmpd,UP):- compound(Cmpd), sub_term(Atom,Cmpd),nonvar(Atom),\+ number(Atom), Atom\==[], catch(p_n_atom0(Atom,UP),_,fail),!.
-p_n_atom1(Cmpd,UP):- term_to_atom(Cmpd,Atom),p_n_atom0(Atom,UP),!.
 
 filter_var_chars([58|X],[107, 119, 95|Y]):- filter_var_chars_trim_95(X,Y).
 filter_var_chars([95|X],[95|Y]):- !, filter_var_chars_trim_95(X,Y).

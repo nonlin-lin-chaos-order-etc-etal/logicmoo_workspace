@@ -593,9 +593,7 @@ smerge_segsl(U1,U2,[Out|U3]):-
    select(Seg,S1,List1),
    select(span(S2),U2,NewU2),
    select(Seg,S2,List2),!,
-
    smerge_segsl(NewU1,NewU2,U3),
-
    smerge_w_list(List1,List2,NewList),!,
    Out = span([Seg|NewList]).
 smerge_segsl([w(W1,List)|U1],U2,[w(W1,NewList)|U3]):-
@@ -605,10 +603,14 @@ smerge_segsl([w(W1,List)|U1],U2,[w(W1,NewList)|U3]):-
 smerge_segsl([E|U1],U2,[E|U3]):-
    smerge_segsl(U1,U2,U3),!.
 smerge_segsl(U1,[E|U2],[MaybeAlt|U3]):-
-   maybe_alt(E,MaybeAlt),
+   compound(E),maybe_alt(E,MaybeAlt),!,
    smerge_segsl(U1,U2,U3),!.
-smerge_segsl(U1,[],U1):- must(U1==[]),!.
+smerge_segsl(U1,[_|U2],U3):- !,
+   smerge_segsl(U1,U2,U3),!.
+smerge_segsl(U1,[],U1):- must_or_rtrace(U1==[]),!.
 %smerge_segsl([],U2,U2):-!.
+
+flag_remove_alts:- true.
 
 maybe_alt(span(L),span([alt(span)|L])).
 maybe_alt(w(W,L),span([alt(w2),w(W),seg(N,N)|L])):-member(loc(N),L),!.
