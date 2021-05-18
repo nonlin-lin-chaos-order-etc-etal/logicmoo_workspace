@@ -1427,3 +1427,9 @@ su -
 exit
 /opt/logicmoo_workspace/StartLogicmoo.sh
 exit
+/opt/logicmoo_workspace/StartLogicmoo.sh
+git status
+git diff packs_sys/prologmud_samples/prolog/prologmud_sample_games/.screenrc
+git diff
+git commit -am screen
+exit
