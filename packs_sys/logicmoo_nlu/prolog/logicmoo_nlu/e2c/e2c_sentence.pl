@@ -77,7 +77,7 @@ grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):- Sz==0, select(span(L),SegsI,SegsM)
   wdmsg(dropping_alt(L)),
   grab_primary_segs(Sz,SegsM,SegsO,LFI,LFOut).
 
-grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):- Sz==0, select(span(L),SegsI,SegsM), 
+grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):- fail, Sz==0, select(span(L),SegsI,SegsM), 
   member(phrase(NP),L), member(NP,['NP','WHNP']),
  once((
   member('#'(Ref),L),

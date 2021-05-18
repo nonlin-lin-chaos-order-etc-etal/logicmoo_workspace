@@ -146,16 +146,36 @@ fix_c2s1(A,D):- fix_tree_ses(A,B),fix_tree_ses(B,C),fix_tree_vps(C,D),!.
 %fix_tree_ses(['S1',['S'|MORE]],OUT):- fix_tree_ses(['S1'|MORE],OUT).
 %fix_tree_ses(['S',['S1'|MORE]],OUT):- fix_tree_ses(['S'|MORE],OUT).
 %fix_tree_ses(['S',MORE],OUT):- !, fix_tree_ses(MORE,OUT).
+fix_tree_ses_1(['SBAR',MORE],OUT):- fix_tree_ses(MORE,OUT).
+fix_tree_ses_1(['RB',there],OUT):- fix_tree_ses(['EX',there],OUT).
+/*
+( [  'NP',
+         ['DT',an],
+         ['NNP','Italian'],
+         [  'SBAR',
+            [  'NP',
+               ['WP',who]  ],
+            [  ['VBD',became],
+               [  'NP',
+                  ['DT',the],
+                  ['NN',world],
+                  ['POS','\'s'],
+                  ['JJS',greatest],
+                  ['NN',tenor]  ]  ]  ]  ]).
+*/
+
+
+fix_tree_ses_1(['NP',['NP'|MORE]|MORE2],OUT):- append(['NP'|MORE],MORE2,NPMORE),fix_tree_ses(NPMORE,OUT).
+fix_tree_ses_1(['VP',['NN',X]| MORE],O):- fix_tree_ses( [ 'VP', ['VB',X]| MORE],O).
+%fix_tree_ses_1(['VP'| MORE],O):- fix_tree_ses(MORE,O).
+fix_tree_ses_1(['VP',['AUX'|MORE]|MORE2],OUT):- fix_tree_ses([['AUX'|MORE]|MORE2],OUT).
+fix_tree_ses_1([S,['VP',['VB',Have]|VPMORE]],O):-  fix_tree_ses([S,['VB',Have]|VPMORE],O).
+
+fix_tree_ses_1(['WHADJP'|MORE],OUT):- !, fix_tree_ses(MORE,OUT).
+
+
 fix_tree_ses(['ROOT',MORE],OUT):- fix_tree_ses(MORE,OUT).
-fix_tree_ses(['RB',there],OUT):- fix_tree_ses(['EX',there],OUT).
-
-fix_tree_ses(['NP',['NP'|MORE]|MORE2],OUT):- append(['NP'|MORE],MORE2,NPMORE),fix_tree_ses(NPMORE,OUT).
-fix_tree_ses(['VP',['NN',X]| MORE],O):- fix_tree_ses( [ 'VP', ['VB',X]| MORE],O).
-fix_tree_ses(['VP'| MORE],O):- fix_tree_ses(MORE,O).
-fix_tree_ses(['VP',['AUX'|MORE]|MORE2],OUT):- fix_tree_ses([['AUX'|MORE]|MORE2],OUT).
-fix_tree_ses([S,['VP',['VB',Have]|VPMORE]],O):-  fix_tree_ses([S,['VB',Have]|VPMORE],O).
-
-fix_tree_ses(['WHADJP'|MORE],OUT):- !, fix_tree_ses(MORE,OUT).
+%fix_tree_ses(LIST,OUT):- fix_tree_ses_1(LIST,M),!,fix_tree_ses(M,OUT).
 fix_tree_ses(LIST,OUT):- is_list(LIST), maplist(fix_tree_ses,LIST,OUT),!.
 fix_tree_ses(B,A):- replace_seg_name(B,A).
 fix_tree_ses(S,S):-!.
@@ -165,7 +185,7 @@ marked_segs_replace(w(W,[  pos(POS)|_]),w(W,[pos(POS)])).
 marked_segs_replace('S1','ROOT').
 marked_segs_replace('WHNP','NP').
 marked_segs_replace('VBP','VB').
-marked_segs_replace('S','SBAR').
+%marked_segs_replace('SBAR','S').
 %marked_segs_replace('SBARQ','SBAR').
 marked_segs_replace(SQ,S):- atom_concat(S,'Q',SQ).
 /* 'VP'-'Situation',

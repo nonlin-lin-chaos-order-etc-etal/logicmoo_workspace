@@ -1414,3 +1414,16 @@ swipl
 git status
 git diff ../../../../docker/rootfs/usr/local/lib/swipl/
 git checkout  ../../../../docker/rootfs/usr/local/lib/swipl/
+/opt/logicmoo_workspace/StartLogicmoo.sh
+cls
+exit
+screen
+exit
+/opt/logicmoo_workspace/StartLogicmoo.sh
+cls.
+cls
+vi ~/.screenrc 
+su -
+exit
+/opt/logicmoo_workspace/StartLogicmoo.sh
+exit

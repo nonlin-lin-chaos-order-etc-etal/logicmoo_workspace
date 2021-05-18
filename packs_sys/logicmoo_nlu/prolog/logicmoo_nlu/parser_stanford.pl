@@ -340,8 +340,8 @@ sort_words(List,Sorted):- predsort(by_word_loc,List,Sorted).
 by_word_loc(R,A,B):-into_loc_sort(A,AK),into_loc_sort(B,BK),compare(RK,AK,BK), (RK == (=) -> compare(R,A,B) ; R = RK).
 into_loc_sort(w(_,List),Key):- member(loc(S),List), member(lnks(L),List), Key = [a,S,0,S,L],!.
 into_loc_sort(span(List),Key):- member(seg(S,E),List),once(member(lnks(L),List);L=10),once(member(size(W),List);W=0),
-  RS is 100-W, E1 is E-1, 
-  Key = [span, W, E1,S,RS,L],!.
+  RS is 100-W, % E1 is E-1, 
+  Key = [span, W, E,S,RS,L|List],!.
 into_loc_sort(span(List),Key):- member(seg(S,E),List),
    once(member(lnks(L),List);L=0),once(member(childs(C),List);C=0),once(member(size(W),List);W=0),
    NW is 100-W, NL is 100-L, NC is 100-C, % E1 is E-1,

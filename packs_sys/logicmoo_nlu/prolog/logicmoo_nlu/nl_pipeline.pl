@@ -196,7 +196,7 @@ load_parser_stanford:-  load_parser_interface(parser_stanford).
 :- if(load_parser_interface(parser_lexical)).
 % ================================================================================================
 
-:- install_converter(parser_lexical:lex_winfo(+e2c_segs, -e2c_lexical_segs)).
+%:- install_converter(parser_lexical:lex_winfo(+e2c_segs, -e2c_lexical_segs)).
 :- endif.
 
 % ================================================================================================
