@@ -30,14 +30,13 @@ tokens_to_acetext0([T,P],AceText):- atomic_list_concat([T,P],' ',AceText),!.
 tokens_to_acetext0([T,P|Tokens],AceText):- atomic_list_concat([T,P],' ',TP),!,tokens_to_acetext0([TP|Tokens],AceText).
 
 
-into_text80(I,O):- nonvar(I), 
-  parser_tokenize:(init_to_tokens(I,T),!,fast_break_atom_symbols(T,N),!,maplist(number_to_nb,N,O)),!.
+into_text80(I,O):- into_text80_atoms(I,O).
+   
+into_text80_atoms(I,O):- nonvar(I), parser_tokenize:(init_to_tokens(I,T),!,fast_break_atom_symbols(T,O)),!.
 
-into_text80_atoms(I,O):- nonvar(I), 
-  parser_tokenize:(init_to_tokens(I,T),!,fast_break_atom_symbols(T,O)),!.
+into_text80_string_list(I,O):- into_text80_atoms(I,M),maplist(any_to_string,M,O),!.
 
-into_text80_strings(I,O):- into_text80_atoms(I,N),maplist(any_to_string,N,O),!.
-
+into_text80_string(I,O):- into_text80_string_list(I,M), any_to_string(M, O).
 
 %number_to_nb(nb(N),nb(N)):-!.
 %number_to_nb(A,nb(N)):- atom(A),atom_number(A,N),!.
@@ -110,7 +109,7 @@ split_from_end(S):- split_symbol(S), S \== '#'.
 
 :-share_mp(into_text80/2).
 
-init_to_tokens(I,T):- is_list(I),into_control80(I,T),!.
+init_to_tokens(I,T):- is_list(I),!,into_control80(I,T).
 init_to_tokens(I,T):- any_to_string(I,S),atom_string(A,S),!,tokenizer_tokenize(A,T).
 
 tokenizer_tokenize(A,T):- tokenizer:tokenize(A,M),!, rejoin_pronouns(M,T),!.
@@ -125,9 +124,13 @@ rejoin_pronouns([I|List],[I|ListO]):-
 
 % into_text80(I,O):- notrace((into_control80(I,M),!,break_atom_symbols(M,N),maplist(number_to_nb,N,O))).
 
-into_control80(NotList,Out):-  
-  string(NotList),string_to_atom(NotList,Atom),!,
-  into_control80(Atom,Out).
+%into_control80(W,Out):- throw(into_control80(W,Out)).
+into_control80(W,_Out):- var(W), throw(var_into_control80(W)).
+into_control80(W2,Out):- compound(W2),W2=w(W,_),Out=[W].
+into_control80(W,Out):- atom(W), \+ atom_contains(W, ' '),!, Out = [W].
+into_control80(W,[Out]):- number(W), atom_number(Out,W).
+into_control80(NotList,Out):- string(NotList),string_to_atom(NotList,Atom),!, into_control80(Atom,Out).
+%into_control80(W,_Out):- format(user_error,"~Ninto_control80: ~q",[W]),flush_output(user_error),fail.
 into_control80(NotList,Out):-  atom(NotList),
    on_x_fail(tokenizer_tokenize(NotList,Tokens)),!,
    into_control80(Tokens,Out).
@@ -135,10 +138,12 @@ into_control80(NotList,Out):-
    \+ is_list(NotList), 
    convert_to_atoms_list(NotList,List), !,
    into_control80(List,Out).
+into_control80([W|ListIn],Out):- into_control80(W,H), into_control80(ListIn,T),append(H,T,Out).
 into_control80([W|ListIn],Out):- 
    any_to_atom(W,AW),W\=@=AW,
    maplist(any_to_atom,ListIn,AList),!,
    into_control80([AW|AList],Out).
+
 into_control80(ListIn,Out):- 
    append(Left,[Last],ListIn), 
  ( \+ atom_length(Last,1),
@@ -146,6 +151,7 @@ into_control80(ListIn,Out):-
    atom_concat(Word,P,Last)),
    append(Left,[Word,P],ListMid),!,
    into_control80(ListMid,Out).
+
 /*
 into_control80(ListIn,Out):- 
    append(Left,[P],ListIn), 

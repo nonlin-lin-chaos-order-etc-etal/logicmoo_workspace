@@ -332,7 +332,7 @@ chat80 :- locally(tracing80,
             locally_hide(t_l:useOnlyExternalDBs,
              locally_hide(thglobal:use_cyc_database,
                   locally(t_l:usePlTalk, (told, repeat, prompt_read('CHAT80> ', U),
-                            to_word_list(U, WL), ((WL==[bye];WL==[end, '_', of, '_', file];control80(WL))))))))).
+                      into_text80_atoms(U, WL), ((WL==[bye];WL==[end, '_', of, '_', file];control80(WL))))))))).
 
 :- thread_local(t_l:into_form_code/0).
 :- asserta(t_l:into_form_code).

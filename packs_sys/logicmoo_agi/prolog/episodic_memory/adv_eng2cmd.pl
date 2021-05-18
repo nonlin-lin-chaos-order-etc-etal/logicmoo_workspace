@@ -668,6 +668,7 @@ coerce_text_to_args_0(List, [X|Args]):-
    from_wordlist_atoms(Rest, More),
    coerce_text_to_args_0(More, Args))).
 
+
 is_already_an_arg(Var):- is_ftVar(Var), !, fail.
 is_already_an_arg(Var):- is_list(Var), !, fail.
 is_already_an_arg(Obj):- is_x_instance(Obj), !.

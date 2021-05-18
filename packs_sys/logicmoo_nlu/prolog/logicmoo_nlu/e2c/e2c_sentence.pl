@@ -18,40 +18,99 @@ write_cyan(P):- ansi_format(hfg(cyan),'<~w>',[P]).
 
 user:portray(X):- notrace((tracing,compound(X),write_simple_seg(X))),!.
 
-utterance(Type, LF, Sentence, E):- (into_w2_segs(Sentence,Segs)->Sentence\==Segs),!,utterance(Type, LF, Segs, E).
+
+utterance(Type, LF, Sentence, E):- (into_lexical_segs(Sentence,Segs)->Sentence\==Segs),!,utterance(Type, LF, Segs, E).
 utterance(Type, LF, Segs, E):-  var(Type), is_list(S), partition_segs(Segs,W2s,_Spans), last(W2s,Char),
   char_type_sentence(Char, Type),
-  select(Char,S,_First),
+  select(Char,S,_First),!,
   utterance(Type, LF, Segs, UE),
   phrase(UE,optional(Char),E).
   
 
   %append([Char],ES,E).
 
-utterance(Type, LFOut, Sentence, E):- (grab_primary_segs(0,Sentence,Segs,true,Primary)->Sentence\==Segs),!,
+utterance(Type, LFOut, Sentence, E):- 
+ (grab_primary_segs(0,Sentence,Segs,true,Primary)->Sentence\==Segs),!,
    conjoin_lf(Primary,LF,LFOut),
    utterance(Type, LF, Segs, E).
-utterance(act, LF) -->   quietly(imperative(LF)).
-utterance(ask, LF) -->   quietly(question(LF)).
-utterance(tell, LF) -->  declarative(LF).
+
+
+utterance(Type, LFOut)-->
+ {b_setval('$prev_w2s',[]),b_setval('$prev_spans',[])},
+  utterance2(Type, LF),
+  {b_getval('$prev_spans',Spans),
+  list_to_conjuncts('&',Spans,SpansLF),
+  conjoin_lf(SpansLF,LF,LFOut)}.
+
+
+utterance2(act, LF) -->   quietly(imperative(LF)).
+utterance2(ask, LF) -->   quietly(question(LF)).
+utterance2(tell, LF) -->  declarative(LF).
+utterance2(Type, unparsed(Type,Sentence), Sentence, []).
 
 phrase_unit('VP',X,_,X).
+phrase_unit('PP',X,_,X).
 phrase_unit('NP',_,X,X).
-phrase_unit('S1',_,X,X).
-phrase_unit('S',_,X,X).
+%phrase_unit('S1',_,X,X).
+%phrase_unit('S',_,X,X).
+%phrase_unit(_,_,X,X).
 
-grab_primary_segs(Sz,Sentence,SegsO,LFIn,LFOut):-  select(span(L),Sentence,Segs),
- once((member(seg(X,XX),L),XX is X+ Sz, \+ member(alt(span),L),
-  member(phrase(VP),L), phrase_unit(VP,X,XX,LX), 
-  W2 = w(W,L2), member(W2,Sentence),member(loc(LX),L2),nb_set_add(W2,L),
-  p_n_atom([W],VarNameU),atom_concat(VarNameU,LX,VarName),
-  may_debug_var(VarName,Var), % = '$VAR'(VarName),
-  LFMid1 = iza(Var,w2(W2)))),
-  conjoin_lf(LFIn, LFMid1, LFMid2),!,
-  grab_primary_segs(Sz,Segs,SegsO,LFMid2, LFOut).
+is_word_between(B,E,W2):- W2=w(_,L),
+  member(loc(N),L),between(B,E,N).
 
-grab_primary_segs(Sz,Sentence,SegsO,LFIn,LFOut):- Sz<10, Sz2 is Sz+ 1, !, grab_primary_segs(Sz2,Sentence,SegsO,LFIn,LFOut).
-grab_primary_segs(_Sz,Sentence,Sentence,LFInOut,LFInOut).   
+loc_of(W2,N):- W2=w(_,L), member(loc(N),L).
+
+insert_just_before0(_,Item,[],[Item]):- !.
+insert_just_before0(E,Item,[W2|SegsM2],[Item,W2|SegsM2]):- loc_of(W2,N),N>E,!.
+insert_just_before0(E,Item,[W2|SegsM2],[W2|SegsM3]):- insert_just_before(E,Item,SegsM2,SegsM3).
+
+insert_just_before(E,Item,In,Out):- 
+  sort_words(In,Mid),
+  insert_just_before0(E,Item,Mid,MidM),
+  sort_words(MidM,Out).
+ 
+
+get_word_range(B,E,SegsM,Range,SegsM2):- partition(is_word_between(B,E),SegsM,Range,SegsM2).
+
+grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):- Sz==0, select(span(L),SegsI,SegsM), 
+  member(alt(span),L), \+ member(seg(X,X),L),!,
+  wdmsg(dropping_alt(L)),
+  grab_primary_segs(Sz,SegsM,SegsO,LFI,LFOut).
+
+grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):- Sz==0, select(span(L),SegsI,SegsM), 
+  member(phrase(NP),L), member(NP,['NP','WHNP']),
+ once((
+  member('#'(Ref),L),
+  member(seg(B,E),L),
+  get_word_range(B,E,SegsM,Range,SegsM2),
+  member(txt(Words),L), p_n_atom(Words,VarNameU),
+  atomic_list_concat(['VarRef',Ref,VarNameU,B,E],'_',VarName),
+  insert_just_before(E,w(VarName,[loc(B),pos(NP),root(VarName),words(Range)|L]),SegsM2,SegsM3),
+  LFMid1 = true, %equals(X,VarName))),
+  !)),
+  member(txt(Words),L), 
+  %phrase(noun_phrase(subj,X,true,LFNP),Range,[]), conjoin_lf(LFNP, LFMid1, LFMid2),!,
+  conjoin_lf(LFI, LFMid1, LFMid3),!,
+  grab_primary_segs(Sz,SegsM3,SegsO,LFMid3,LFOut).
+
+  
+grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):-  fail,
+ Sz==0,
+ select(span(L),SegsI,SegsM), 
+ once((member(seg(X,XX),L),XX is X+ Sz,
+  (Sz == 0 -> LX=X ; (member(phrase(NVP),L), phrase_unit(NVP,X,XX,LX))),
+  W2 = w(W,L2), member(W2,SegsI),member(loc(LX),L2),nb_set_add(W2,L),
+  %member(txt(Words),L),
+  p_n_atom(W,VarNameU),
+  atom_concat(VarNameU,LX,VarName),
+  %debug_var(VarName,Var), % = '$VAR'(VarName),
+  LFMid1 = info(VarName,W2))),
+  conjoin_lf(LFI, LFMid1, LFMid2),!,
+  grab_primary_segs(Sz,SegsM,SegsO,LFMid2, LFOut).
+
+grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):- Sz<4,
+  Sz2 is Sz+ 1, !, grab_primary_segs(Sz2,SegsI,SegsO,LFI,LFOut).
+grab_primary_segs(_Sz,SegsI,SegsI,LFIOut,LFIOut).   
 
 parse_for('evtState', Evt, LF, LFOut) --> theText1(to), verb_phrase(Evt, _, VerbLF), conjoin_lf(LF, VerbLF, LFOut).
 parse_for('evtState', Evt, LF, LFOut) --> frame_sentence(Evt, VerbLF), conjoin_lf(LF, VerbLF, LFOut).
@@ -59,7 +118,7 @@ parse_for('evtState', Evt, LF, LFOut) --> frame_sentence(Evt, VerbLF), conjoin_l
 system:sentence_breaker(A) :-
     parser_e2c:
     (   make,
-        to_wordlist_atoms(A, C),
+        into_lexical_segs(A, C),
         call_print_reply(list(List)=B,
                          parser_e2c:sentence_breaker(true, List, B, C, D)),
         !,

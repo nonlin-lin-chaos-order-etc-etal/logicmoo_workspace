@@ -594,7 +594,7 @@ rescan_disk_files:-
 
 :- multifile(prolog:make_hook/2).
 :- dynamic(prolog:make_hook/2).
-prolog:make_hook(after, []):- rescan_disk_files.
+prolog:make_hook(after, []):- once(rescan_disk_files),fail.
 
 :- rescan_disk_files.
 

@@ -1378,3 +1378,39 @@ cls
 cls
 exitr
 exit
+swipl
+kill -9 swipl
+killall -9 swipl
+killall -9 swipl
+killall -9 swipl
+swipl
+killall -9 swipl
+killall -9 swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+cls
+swipl
+swipl
+cls
+swipl
+swiplcls
+cls
+swipl
+swipl
+swipl
+killall -9 swipl
+killall -9 swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+swipl
+git status
+git diff ../../../../docker/rootfs/usr/local/lib/swipl/
+git checkout  ../../../../docker/rootfs/usr/local/lib/swipl/

@@ -1030,7 +1030,7 @@ codesToForms(Codes,cyclist,Out):-!,getSurfaceFromChars(Codes,Out, _).
 codesToForms(Codes,cyclistvars,Out:V):-!,getSurfaceFromChars(Codes,Out,V).
 codesToForms(Codes,cycl,Out):-!,getSurfaceFromChars(Codes,O,_V),balanceBinding(O,Out).
 codesToForms(Codes,cyclvars,Out:V):-!,getSurfaceFromChars(Codes,O,V),balanceBinding(O,Out).
-codesToForms(Codes,words,Out):-!,to_word_list(Codes,Out).
+codesToForms(Codes,words,Out):-!,into_lexical_segs(Codes,Out).
 codesToForms(Codes,idioms(D),Out):-!,idioms(D,Codes,Out).
 codesToForms(Codes,Pred,Out):-atom(Pred),!,Call=..[Pred,Codes,Out],!,Call.
 
@@ -1373,7 +1373,7 @@ english2Kif:-english2Kif('i am happy').
 convertToWordage(Var,Var):-var(Var),!.
 convertToWordage([],['True']):-!.
 convertToWordage(Atom,C):- not(is_list(Atom)),!,
-   must_det(to_word_list(Atom,List)),
+   must_det(into_lexical_segs(Atom,List)),
    must_det(convertToWordage(List,C)),!.
 
 convertToWordage(Words,C):- 
@@ -2483,7 +2483,7 @@ sterm_to_pterm_list([S|STERM],[P|PTERM]):-!,
 sterm_to_pterm_list(VAR,[VAR]).
 
 
-atom_junct(Atom,Words):-!,to_word_list(Atom,Words),!.
+atom_junct(Atom,Words):-!,into_lexical_segs(Atom,Words),!.
 
 atom_junct(Atom,Words):-
    concat_atom(Words1,' ',Atom),

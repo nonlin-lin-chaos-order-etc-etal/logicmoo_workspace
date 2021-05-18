@@ -8,20 +8,52 @@
   charniak_stream/2,
   charniak_pos/2,
   text_to_charniak/2,
-  charniak_to_segs/2,
+  charniak_to_segs/3,
   charniak_segs_to_w2/3,
   charniak_parse/2]).
 
 :- set_module(class(library)).
 :- set_module(base(system)).
 
+check_tree_quality(Srch,X,G1,G2,Total):-findall(Srch,(sub_term(Srch,X),G1,G2),Sols),length(Sols,Total).
+
+tree_quality(X,cmp(vs(G1),ps(G2),ats(G3),as(G4))):- 
+  check_tree_quality(Srch,X,atom(Srch),once(atom_concat('VB',_,Srch);atom_concat('E',_,Srch);atom_concat('AUX',_,Srch)),G1),
+  check_tree_quality(Srch,X,atom(Srch),once(atom_concat('NP',_,Srch);atom_concat('VP',_,Srch)),G2),
+  check_tree_quality(Srch,X,true,once(atom(Srch)),G3),
+  check_tree_quality(Srch,X,true,once(atomic(Srch)),G4),!.
+
+pick_tree(XY,XY,XY,(==),white).
+pick_tree(XX,YY,XY,Why,Color):- tree_quality(XX,X),tree_quality(YY,Y),pick_tree_why(XX,X,YY,Y,XY,Why,Color).
+pick_tree_why( XX,X,_YY,Y,XX,X > Y, cyan):- X @> Y.
+pick_tree_why(_XX,X, YY,Y,YY,X < Y, red):- X @< Y.
+pick_tree_why( XX,X,_YY,Y,XX,X =@= Y, yellow).
+
+dont_format(_,_).
+
+text_to_best_tree(Text,Tree):- 
+  (nonvar(Tree) -> Format = Tree ; (Format = dont_format)),
+  call(Format,'=================================\n',[]),
+  call(Format,'Testing: ~w  \n',[Text]),
+  call(Format,'===========',[]),
+  notrace(text_to_charniak_list(Text,Charniak)),!,
+  call(Format,'===========',[]),
+  notrace( text_to_corenlp_list(Text,CoreNLP)),!,
+  call(Format,'===========~n',[]),!,
+  pick_tree(Charniak,CoreNLP,Result,Why,Color),
+  (var(Tree) -> Tree= Result;
+    ansi_format(hfg(Color),"~@",[print_tree(result(q(Why),Charniak,CoreNLP))])),!.
+   
+
+
 charniak_stream(Text,Out):-
   process_create(path(bash), [('/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/CharniakParse.sh'), Text ],
   [ stdout(pipe(Out))]).
 
 charniak_parse(Text, Lines) :-
+  into_acetext(Text,String),
   setup_call_cleanup(
-  charniak_stream(Text,Out),
+  charniak_stream(String,Out),
   read_lines(Out, Lines),
   close(Out)).
 
@@ -58,11 +90,12 @@ read_lines(StringIn, Out, AllCodes) :-
   read_lines(Line2, Out, Lines),
   atomics_to_string([StringIn,'\n',Lines],AllCodes).
 
-charniak_to_segs(LExpr,SegsF):- with_reset_segs(lxpr_to_segs(LExpr,Segs)),flatten(Segs,SegsF),!.
+charniak_to_segs(Start,LExpr,Sorted):- 
+  with_reset_flag('word',1,with_reset_segs(Start,lxpr_to_segs(LExpr,Segs))),flatten(Segs,SegsF),parser_stanford:sort_words(SegsF,Sorted),!.
 
-charniak_pos(Text,PosW2s,InfoS,LExpr):-
+charniak_pos_info(Text,PosW2s,InfoS,LExpr):-
   text_to_charniak(Text,LExpr),
-  charniak_to_segs(LExpr,SegsF),
+  charniak_to_segs(1,LExpr,SegsF),
   charniak_segs_to_w2(SegsF,Info,PosW2s),!,sort(Info,InfoS).
   
   %writeq(charniak_pos=SegsF),
@@ -70,7 +103,7 @@ charniak_segs_to_w2(SegsF,InfoS,PosW2s):-
     apply:partition(\=(w(_,_)), SegsF, Info, PosW2s),!,
     sort(Info,InfoS).
 
-charniak_pos(Text,PosW2s):- charniak_pos(Text,PosW2s0,_Info,_LExpr),guess_pretty(PosW2s0),!,PosW2s=PosW2s0.
+charniak_pos(Text,PosW2s):- charniak_pos_info(Text,PosW2s0,_Info,_LExpr),guess_pretty(PosW2s0),!,PosW2s=PosW2s0.
 
 %can_be_partof('Obj',W):-!, member(W,['Situation','Event']).
 %can_be_partof(W,W):-!,fail.
@@ -78,34 +111,72 @@ charniak_pos(Text,PosW2s):- charniak_pos(Text,PosW2s0,_Info,_LExpr),guess_pretty
 can_be_partof(_,_).
 
 
-marked_segs(['VP'-'Situation',
+marked_segs([
+ 'VP'-'Situation',
  'WHNP'-'WHNP',
  'SBARQ'-'SBARQ',
-  'ADVP'-'Adv',
-  'SQ'-'SQ',
-  'PP'-'Prep',
-  'VP'-'VPhrase',
-  'ROOT'-'Root','SBAR'-'Thing','NP'-'Obj','NP-TMP'-'NP-TMP','word'-'W','S'-'Situation','S1'-'Event','NML'-'NML','ADJP'-'tCol','FRAG'-'FRAG']).
+ 'ADVP'-'Adv',
+ 'SQ'-'SQ',
+ 'PP'-'PP',
+ % 'VP'-'VPhrase',
+  'S1'-'ROOT',
+  'SBAR'-'Thing','NP'-'Obj',
+  'NP-TMP'-'NP-TMP',
+  'S'-'Situation','S1'-'Event','NML'-'NML','ADJP'-'tCol','FRAG'-'FRAG']).
 %marked_seg_type(Mark,Type):- marked_segs(S),member(Mark-Type,S).
-with_reset_segs(G):- marked_segs(Segs), with_reset_segs(Segs,G).
-with_reset_segs([],G):-!,call(G).
-with_reset_segs([NP-_Type|S],G):- setup_call_cleanup(flag(NP,Was,1),with_reset_segs(S,G), flag(NP,_,Was)).
+with_reset_segs(Start,G):- marked_segs(Segs), with_reset_segs(Start,Segs,G).
+with_reset_segs(_Start,[],G):-!,call(G).
+with_reset_segs(Start,[NP-_Type|S],G):- with_reset_flag(NP,Start,with_reset_segs(Start,S,G)).
 
-charniak_to_parsed(A,C):- fix_c2s(A,B),!,charniak_to_segs(B,SegsF),
+
+with_reset_flag(NP,Start,G):-
+  setup_call_cleanup(flag(NP,Was,Start),G, flag(NP,_,Was)).
+  
+charniak_to_parsed(Start,A,C):- fix_c2s(A,B),!,
+  charniak_to_segs(Start,B,SegsF),
   charniak_segs_to_w2(SegsF,InfoS,PosW2s),reverse(InfoS,InfoR),append(InfoR,PosW2s,C).
 
 
 
 
-fix_c2s(A,D):- with_reset_segs(fix_c2s0(A,D)).
+fix_c2s(A,D):- with_reset_flag('word',1,fix_c2s0(A,D)).
 fix_c2s0(A,D):- fix_c2s1(A,B),fix_c2s1(B,D).
-fix_c2s1(A,D):- fix_tree_ses(A,B),fix_tree_w2s(B,C),fix_tree_vps(C,D),!.
+fix_c2s1(A,D):- fix_tree_ses(A,B),fix_tree_ses(B,C),fix_tree_vps(C,D),!.
 
-fix_tree_ses(['S1',['S'|MORE]],OUT):- fix_tree_ses(['S'|MORE],OUT).
-fix_tree_ses(['S',['S1'|MORE]],OUT):- fix_tree_ses(['S1'|MORE],OUT).
-fix_tree_ses(['S',MORE],OUT):- !, fix_tree_ses(MORE,OUT).
+%fix_tree_ses(['S1',['S'|MORE]],OUT):- fix_tree_ses(['S1'|MORE],OUT).
+%fix_tree_ses(['S',['S1'|MORE]],OUT):- fix_tree_ses(['S'|MORE],OUT).
+%fix_tree_ses(['S',MORE],OUT):- !, fix_tree_ses(MORE,OUT).
+fix_tree_ses(['ROOT',MORE],OUT):- fix_tree_ses(MORE,OUT).
+fix_tree_ses(['RB',there],OUT):- fix_tree_ses(['EX',there],OUT).
+
+fix_tree_ses(['NP',['NP'|MORE]|MORE2],OUT):- append(['NP'|MORE],MORE2,NPMORE),fix_tree_ses(NPMORE,OUT).
+fix_tree_ses(['VP',['NN',X]| MORE],O):- fix_tree_ses( [ 'VP', ['VB',X]| MORE],O).
+fix_tree_ses(['VP'| MORE],O):- fix_tree_ses(MORE,O).
+fix_tree_ses(['VP',['AUX'|MORE]|MORE2],OUT):- fix_tree_ses([['AUX'|MORE]|MORE2],OUT).
+fix_tree_ses([S,['VP',['VB',Have]|VPMORE]],O):-  fix_tree_ses([S,['VB',Have]|VPMORE],O).
+
+fix_tree_ses(['WHADJP'|MORE],OUT):- !, fix_tree_ses(MORE,OUT).
 fix_tree_ses(LIST,OUT):- is_list(LIST), maplist(fix_tree_ses,LIST,OUT),!.
+fix_tree_ses(B,A):- replace_seg_name(B,A).
 fix_tree_ses(S,S):-!.
+
+replace_seg_name(B,A):- atom(B),marked_segs_replace(B,A).
+marked_segs_replace(w(W,[  pos(POS)|_]),w(W,[pos(POS)])).
+marked_segs_replace('S1','ROOT').
+marked_segs_replace('WHNP','NP').
+marked_segs_replace('VBP','VB').
+marked_segs_replace('S','SBAR').
+%marked_segs_replace('SBARQ','SBAR').
+marked_segs_replace(SQ,S):- atom_concat(S,'Q',SQ).
+/* 'VP'-'Situation',
+ 'WHNP'-'WHNP',
+ 'SBARQ'-'SBARQ',
+ 'ADVP'-'Adv',
+ 'SQ'-'SQ',
+ 'PP'-'PP',
+ % 'VP'-'VPhrase',
+  'S1'-'ROOT').
+*/
 
 fix_tree_w2s(WORD,POS):- is_pos(WORD,POS),!. 
 fix_tree_w2s(LIST,OUT):- is_list(LIST), maplist(fix_tree_w2s,LIST,OUT),!.
@@ -142,12 +213,12 @@ create_coref('ROOT',MORES,MORES):- !.
 create_coref(NP,MORES,Out):- atom(NP), % marked_segs(Segs),%member(NP-Type,Segs),
   %flag(NP,N,N+1), 
   flag(NP,N,N+1),
-  atomic_list_concat([NP,'#',N],NPNRef),
-  NPN=span([seg(start,end),size(0),lnks(0),'#'(NPNRef),/*xvar(Var),*/ txt([]),phrase(NP)/*,isa(Type)*/]),
-  add_var_to_env_now(NP,Var),
-  add_p_to_words(Var,NPN,MORES,Out0),
+  atomic_list_concat([NP,'@',N],NPNRef),
+  NPN=span([seg(start,end),phrase(NP),size(0),lnks(0),'#'(NPNRef),txt([]),childs(0)]),
+  %add_var_to_env_now(NP,Var),
+  add_p_to_words(NP,NPN,MORES,Out0),
   Out=[NPN|Out0].
-create_coref(NPN,MORES,Out):-add_p_to_words(_Var,NPN,MORES,Out).
+create_coref(NPN,MORES,Out):- trace,add_p_to_words(NPN,NPN,MORES,Out).
 
 %append_varname_h(_,_).
 append_varname_h(X,Y):- append_varname(X,Y).
@@ -163,54 +234,76 @@ add_loc_to_span3(X,_,Seg):- nb_setarg(2,Seg,X).
 :- add_history((call(make),call(test_corenlp1))).
 
 
-resize_span(P):- ignore((find_subterm(P,seg(S,E)),number(S),number(E),Z is E - S + 1,find_subterm(P,size(_),Size),nb_setarg(1,Size,Z))).
+resize_span(P):- ignore((( find_subterm(P,seg(S,E)),number(S),number(E),Z is E - S + 1,find_subterm(P,size(_),Size),nb_setarg(1,Size,Z)))).
 
-add_p_to_words(_Var,_,[],[]):- !.
-add_p_to_words(Var,P,[[w(H,L)]|T],[HH|TT]):- add_p_to_word(Var,P,w(H,L),HH),add_p_to_words(Var,P,T,TT).
-add_p_to_words(Var,P,[w(H,L)|T],[HH|TT]):- add_p_to_word(Var,P,w(H,L),HH),add_p_to_words(Var,P,T,TT).
-add_p_to_words(Var,P,[H|T],[HH|TT]):- add_p_to_words(Var,P,H,HH),add_p_to_words(Var,P,T,TT).
-add_p_to_words(Var,P,T,TT):- add_p_to_word(Var,P,T,TT),!.
-add_p_to_words(Var,P,H,H):-
-  pprint_ecp_cmt(yellow,add_p_to_words(Var,P,H)),
-  !.
-
-add_p_to_word(_Var,P,Child,OUT):-  
+%add_p_to_words(_Var,_,[],[]):- !.
+%add_p_to_words(Var,P,[[w(H,L)]|T],[HH|TT]):- add_p_to_word(Var,P,w(H,L),HH),add_p_to_words(Var,P,T,TT).
+%add_p_to_words(Var,P,[w(H,L)|T],[HH|TT]):- add_p_to_word(Var,P,w(H,L),HH),add_p_to_words(Var,P,T,TT).
+add_p_to_words(Var,P,List,Out):- is_list(List),!,maplist(add_p_to_words(Var+1,P),List,Out).
+%add_p_to_words(Var,P,T,TT):- add_p_to_word(Var,P,T,TT),!.
+add_p_to_words(Var,P,Child,OUT):-
+ must_or_rtrace(( 
+  functor(Child,ChildType,_),
+  nop(pprint_ecp_cmt(yellow,add_p_to_words(Var,P,Child))),
   find_subterm(P,phrase(Type)),
   find_subterm(P,'#'(ID)),
   find_subterm(P,txt(_),Txt),
   ignore(add_loc_to_span(Child,P)),
+  child_loc(Child,LOC),
   resize_span(P),  
   %ignore((find_subterm(Child,txt(S)), append_varname_h(S,Var))),
-  ignore(( \+ find_subterm(Child,link(_,Type,_ /*,Var*/)), 
-      find_subterm(Child,lnks(OldN),Holder), 
-      N is OldN + 1,
-      nb_setarg(1,Holder,N), 
-      nb_set_add(Child,link(N,Type,/*'#'*/(ID) /*,Var*/)))),
+  ignore(((             
+       %ChildType == span,       
+       (Var=Atom+1+1,atom(Atom)),
+       find_subterm(P,childs(Chldrn),ChldrnHolder), 
+       (find_subterm(Child,phrase(ChildPhrase));(fail,find_subterm(Child,pos(ChildPhrase)))),
+       (find_subterm(Child,'#'(ChildID));ChildID=LOC),       
+       NChldrn is Chldrn + 1, 
+       nb_setarg(1,ChldrnHolder,NChldrn),       
+       nb_set_add(P,child(NChldrn,ChildPhrase,ChildID)),
+       !))),  
+
+  ignore(((
+      %\+ find_subterm(Child,link(_,Type,_,_)), 
+         find_subterm(Child,lnks(OldN),Holder),          
+         LinkNum is OldN + 1,
+         nb_setarg(1,Holder,LinkNum),          
+         nb_set_add(Child,link(LinkNum,Type,ID))))),
+
   OUT=Child,!,
-  ignore((Child= w(_,_),find_subterm(Child,txt(W)), nb_set_add1(Txt,W))).
+  ignore(((ChildType=w,find_subterm(Child,txt(W)), nb_set_add1(Txt,W)))))).
   %[Child,partOf(X,Y)]
 
  
-
+child_loc(Child,LOC):- find_subterm(Child,loc(_),LOC),!.
+child_loc(Child,LOC):- find_subterm(Child,seg(_,_),LOC),!.
 
 %add_p_to_words(_Var,P,[Atom|T],TT):- atom(Atom),trace,add_p_to_words(_Var,P,T,TT).
 %lxpr_to_segs([WORD],[POS]):- is_pos(WORD,POS),!. 
 
+cancle_pos('DT').
+cancle_pos('JJ').
+cancle_pos('CC').
+cancle_pos('RB').
+cancle_pos(_).
+
 is_pos([Pos,[quote,Head]],Out):-!,is_pos([Pos,Head],Out).
-is_pos(['DT',Head],w(WD,[pos(dt),loc(X),lnks(0),txt(SHead)])):- maplist(atom,[Head]),any_to_string(Head,SHead),downcase_atom(Head,WD),!,flag(word,X,X+1).
-is_pos([Pos, Head],w(WD,[pos(DC),loc(X),lnks(0),txt(SHead)])):- maplist(atom,[Pos,Head]),any_to_string(Head,SHead),downcase_atom(Head,WD),downcase_atom(Pos,DC),!,flag(word,X,X+1).
+is_pos([Pos, Head],     w(WD,[pos(DC),loc(X),lnks(0),txt(SHead)])):- cancle_pos(Pos), maplist(atom,[Pos,Head]),any_to_string(Head,SHead),downcase_atom(Head,WD),downcase_atom(Pos,DC),!,flag('word',X,X+1).
+is_pos([Pos, Head],[Pos,w(WD,[pos(DC),loc(X),lnks(0),txt(SHead)])]):- maplist(atom,[Pos,Head]),any_to_string(Head,SHead),downcase_atom(Head,WD),downcase_atom(Pos,DC),!,flag('word',X,X+1).
 is_pos([Word],Out):-!,is_pos(Word,Out).
 
 
-text_to_charniak_segs(Text,SSegs):-
+text_to_charniak_segs_legacy(Text,SSegs):-
   text_to_charniak_list(Text,LExpr),
-  charniak_to_segs(LExpr,CSegs),!,
+  charniak_to_segs(1,LExpr,CSegs),!,
   parser_stanford:corenlp_to_segs(CSegs,Segs),!,
   parser_stanford:sort_words(Segs,SSegs),!.
 
-text_to_charniak_segs_old(Text,Segs):-
-  text_to_charniak_list(Text,LExpr),
-  charniak_to_segs(LExpr,Segs),!.
+text_to_charniak_segs(Text,SSegs):-
+  text_to_best_tree(Text,LExpr),
+  charniak_to_segs(1,LExpr,CSegs),!,
+  parser_stanford:corenlp_to_segs(CSegs,Segs),!,
+  parser_stanford:sort_words(Segs,SSegs),!.
 
 text_to_charniak(Text,Sent):-
    text_to_charniak_segs(Text,Segs),!,
@@ -221,10 +314,12 @@ charniak_segs_to_sentences(Segs,sentence(1,W2,Info)):-
 
 text_to_charniak_list(Text,LExpr):-
   charniak_parse(Text, String),
-  lxpr_to_list(String, LExpr).
+  lxpr_to_list(String, LExpr),
+  nop(print_tree(charniak=LExpr)).
 
 
-lxpr_to_list(String, LExpr):- any_to_codelist(String,Codes), c2s(LExpr0,Codes,_) ,fix_c2s(LExpr0,LExpr).
+lxpr_to_list(String, LExpr):- any_to_codelist(String,Codes), c2s(LExpr0,Codes,_) ,fix_c2s(LExpr0,LExpr),
+ !.
 
 c2s(L)  --> `(`, !, c2s_list(L),!.
 c2s(L)  --> one_blank, !, c2s(L),!.

@@ -31,7 +31,7 @@ noun_phrase0(SO, X, LF, LFOut) -->
 noun_phrase1(SO, X, LF0, LFOut) -->
   theText1(Her), {nl_call(poss_pron_lex, Her, Fem, Pers, SgOrpl)},
   dcg_when(theText1(_), noun_phrase1(obj(_K), X, LF0, LF1)),
-  add_traits(Y, [posessedBy(X, Y), gender(Fem), person(Pers), v_arg(SO), SgOrpl], LF1, LFOut).
+  add_traits(Y, [owner(X, Y), gender(Fem), person(Pers), v_arg(SO), SgOrpl], LF1, LFOut).
 
 % happy friends
 % evil bush
@@ -51,12 +51,12 @@ noun_phrase2(SO, X, LF, LFOut) -->
 % "hers" liked "hers"
 noun_phrase2(SO, X, LF0, LFOut) -->
   theText1(Hers), {atom_concat(Her, 's', Hers), nl_call(poss_pron_lex, Her, Fem, Pers, SgOrpl)},
-  add_traits(Y, [posessedBy(X, Y), gender(Fem), person(Pers), v_arg(SO), SgOrpl], LF0, LFOut), nvd(Hers, X).
+  add_traits(Y, [owner(X, Y), gender(Fem), person(Pers), v_arg(SO), SgOrpl], LF0, LFOut), nvd(Hers, X).
 
 % "his" liked "his"
 noun_phrase2(SO, X, LF0, LFOut) -->
   theText1(His), {nl_call(poss_pron_lex, His, Gender, Pers, SgOrpl)},
-  add_traits(Y, [posessedBy(X, Y), gender(Gender), person(Pers), v_arg(SO), SgOrpl], LF0, LFOut), nvd(His, X).
+  add_traits(Y, [owner(X, Y), gender(Gender), person(Pers), v_arg(SO), SgOrpl], LF0, LFOut), nvd(His, X).
 
 % Fred
 noun_phrase2(_SO, X, LF, LF) --> proper_noun(X).
@@ -99,7 +99,7 @@ near_noun_mod(_SO, X, LF, Out) --> theText1([hapilly, maried]), conjoin_lf(LF , 
 % "of London"
 noun_post_mod(SO, X, LF, Out) --> theText1(of), noun_phrase(SO, Y, LF, LF0), conjoin_lf(LF0, of(X, Y), Out).
 % "owned by me"
-noun_post_mod(SO, X, LF, Out) --> theText1([owned, by]), noun_phrase(SO, Y, LF & posessedBy(X, Y), Out).
+noun_post_mod(SO, X, LF, Out) --> theText1([owned, by]), noun_phrase(SO, Y, LF & owner(X, Y), Out).
 noun_post_mod(SO, X, LF, Out)  --> prepositional_phrase(SO, X, _Frame, LF, Out).
 noun_post_mod(SO, X, LF, Out)  --> rel_clause(SO, X, LF, Out).
 noun_post_mod(_SO, _X, LF, LF)  --> theText1(each);theText1(all).

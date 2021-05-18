@@ -90,7 +90,7 @@ set_rel_path_from_here:-
 :- nl_iface:rexport_qlf(nl_iface, wn_frames).
 % :- load_wordnet.
 
-:- system:consult(pldata(kb_0988)).
+%:- system:consult(pldata(kb_0988)).
 
 :- fixup_exports.
 

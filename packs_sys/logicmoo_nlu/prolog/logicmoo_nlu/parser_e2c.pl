@@ -154,7 +154,7 @@ make_dcg_test_stub(M, F, A):-
    PrologHead =.. [F|PrologHeadArgs],
    append(_, [Out, W, E], PrologHeadArgs),
    TextHead =.. [F, S],
-   (Assert = ( system:TextHead:- M:(make, to_wordlist_atoms(S, W), call_print_reply(Out, M:PrologHead), !, ignore(E=[])))),
+   (Assert = ( system:TextHead:- M:(make, into_lexical_segs(S, W), call_print_reply(Out, M:PrologHead), !, ignore(E=[])))),
    M:assert_if_new(Assert).
 
 :- system:import(make_dcg_test_stub/3).
@@ -324,7 +324,7 @@ system:myb :- e2c.
 e2c :- locally(tracing80,
              with_no_assertions(lmconf:use_cyc_database,
                   locally(t_l:usePlTalk, (told, repeat, prompt_read('E2FC> ', U),
-                            to_wordlist_atoms(U, WL), (WL==[ bye];WL==[end, '_', of, '_', file];e2c(WL)))))).
+                            into_lexical_segs(U, WL), (WL==[ bye];WL==[end, '_', of, '_', file];e2c(WL)))))).
 
 :-export(e2c/1).
 
@@ -352,7 +352,7 @@ e2c(Sentence, Options):- callable(Options), set_e2c_options(Options), !, e2c(Sen
 e2c(Sentence, Reply):- e2c(Sentence, [], Reply),!.
 :-export(e2c/3).
 e2c(Sentence, Options, Reply):-
- %quietly(to_wordlist_atoms(Sentence, WL)), !,
+ %quietly(into_lexical_segs(Sentence, WL)), !,
  set_e2c_options(Options),
  call_residue_vars(e2c_0(Sentence, Reply), Vs), !,
  del_e2c_attributes(Reply+Vs), !.
@@ -384,15 +384,15 @@ e2c_parse0(Sentence, LF):-
   b_setval('$variable_names', []),
   retractall(t_l:usePlTalk),
   retractall(t_l:useAltPOS), !,
-  into_w2_segs(Sentence,Segs),
+  into_lexical_segs(Sentence,Segs),
   e2c_parse_segs(Segs, LF).
 %e2c_parse_segs(WL, LF):- deepen_pos(utterance(_How, LF, WL, []))-> ! ; e2c_parse3(WL, LF).
 
-as_w2_segs(Sentence,Segs):- into_w2_segs(Sentence,Segs)->Sentence\==Segs,!.
+as_w2_segs(Sentence,Segs):- into_lexical_segs(Sentence,Segs)->Sentence\==Segs,!.
 
 
 e2c_parse_segs(WL, LF):- 
-  no_repeats(LF, (deepen_pos(utterance(_How, LF, WL, [])))) *-> true ; LF = unparsed(WL).
+  no_repeats(LF, (deepen_pos(utterance(_How, LF, WL, [])))).
 /*
 e2c_parse_segs(WL, LF):- fail, deepen_pos(e2c_parse3(WL, LF)).
 

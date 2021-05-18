@@ -31,12 +31,52 @@
 
 baseKB:sanity_test:- test_corenlp.
 
-
-:- use_module(library(http/http_client)).
-%:- use_module(library(http/http_open)).
+:- use_module(library(http/http_cookie)).
 :- use_module(library(http/json_convert)).
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
+
+:- use_module(library(http/http_client)).
+:- use_module(library(http/http_open)).
+%get_post_reply(HOST,URL, PostData, Reply):- atom_concat(HOST,URL,PARAMS), http_post(PARAMS, [PostData], json(Reply), []).
+get_post_reply(_Host,URL, PostData, Reply):-
+  atom_length(PostData,Len),
+  tcp_socket(Socket),
+  tcp_connect(Socket, 'localhost':4090),
+	tcp_open_socket(Socket, Read, Write),
+  sformat(S,"POST ~w HTTP/1.0\r
+From: logicmoo@gmail.com\r
+User-Agent: Raw-Socket/1.0\r
+Content-Type: application/x-www-form-urlencoded\r
+Content-Length: ~d\n\n~w\n",[URL,Len,PostData]),
+   format(Write,"~s",[S]), flush_output(Write),catch(close(Write),_,true),
+  % format(user_error,"~N`~s`~N",[S]), flush_output(user_error),
+   peek_code(Read,C),   
+   ( [A123] = `{` ),
+   my_stream_to_codes(A123,C,Read,_,[]),
+   my_stream_to_codes(-1,A123,Read,Codes,[]),
+   %format(user_error,"~N~s~N",[Codes]), flush_output(user_error), 
+   catch(close(Read),_,true), 
+   open_codes_stream(Codes,Stream),
+   json_read(Stream,Reply),
+   close(Stream),
+   !.
+
+my_stream_to_codes(_,-1, _Stream, Tail, Tail) :- !.
+my_stream_to_codes(EOC,EOC, _Stream, Tail, Tail) :- !.
+my_stream_to_codes(EOC,C, Read, [C|T], Tail) :- 
+  % format(user_error,"~s",[[C]]), flush_output(user_error), 
+   get_code(Read,C), 
+   peek_code(Read,C2),    
+   my_stream_to_codes(EOC,C2, Read, T, Tail).
+
+/*
+get_post_reply(URL, PostData, Reply):- 
+   setup_call_cleanup(
+     must_or_rtrace(http_open(URL, In, [post(PostData),method(post),request_header([])])),
+      json_read(In,Reply),
+      close(In)).
+*/
 
 
 corenlp_to_w2(LExpr,W2s):-
@@ -56,6 +96,10 @@ text_to_corenlp(Text,CoreNLP):-
   text_to_corenlp(Text,_Options, CoreNLP).
 
 text_to_corenlp(English, OptionsIn, Out):-
+    text_to_corenlp_low(English, OptionsIn, Reply),    
+    parse_reply([reply], Reply, Out),!.
+
+text_to_corenlp_low(English, OptionsIn, ReplyO):-
  must_or_rtrace((
   DefaultOpts = [  quote, tokenize, ssplit, pos, depparse, ner, parse, coref,mwt,natlog,udfeats,
    relation,lemma, docdate, entitylink, openie, truecase, kbp, gender, cleanxml,
@@ -63,19 +107,28 @@ text_to_corenlp(English, OptionsIn, Out):-
    dcoref], ignore(OptionsIn=DefaultOpts),
   ignore('.\nSome quick brown foxes jumped over the lazy dog after we sang a song. X is Y .  Pee implies Queue.'=English),
   into_acetext(English,ACEEnglish),
-  atomic_list_concat(['.\n',ACEEnglish,'\n.'], PostData),
+  atomic_list_concat(['',ACEEnglish,''], PostData),
   (OptionsIn==[]->Options=DefaultOpts;Options=OptionsIn),
   atomic_list_concat(Options, ',', OptionsStr),
   atomic_list_concat(['{"annotators":"', OptionsStr,'","outputFormat":"json"}'],For),
   uri_encoded(query_value, For, Encoded), 
-  atomic_list_concat(['http://localhost:4090/?properties=',Encoded], URL))),
- % wdmsg(uRL=http_post(URL, [PostData], json(Reply), [])),
-  must_or_rtrace(http_post(URL, [PostData], json(Reply), [])),!,
+  atomic_list_concat(['/?properties=',Encoded], URL))),!,
+  %pprint_ecp_cmt(blue,  uRL=http_post(URL, [PostData], json(Reply), [])),
+  must_or_rtrace((get_post_reply('http://localhost:4090',URL, PostData, Reply))),!,
+ % print_tree(Reply),
   ttyflush,!,
-  must_or_rtrace(parse_reply([reply], Reply, OOut)),!,
-  must_or_rtrace(OOut=Out),!.
+  Reply=ReplyO.
+
 % http://localhost:4090/stanford/?properties={%22annotators%22%3A%22quote,tokenize,ssplit,pos,lemma,depparse,natlog,coref,dcoref,nmat%22%3A%22json%22}
 % http://localhost:4090/stanford/?properties={%22annotators%22%3A%22tokenize%2Cssplit%2Cpos%2Cdepparse%22%2C%22outputFormat%22%3A%22conllu%22}
+
+text_to_corenlp_list(Text,LExpr):-
+  text_to_corenlp_low(Text,_Options, Reply),
+  sub_term(parse=String,Reply),
+  lxpr_to_list(String, LExpr),!.
+  
+:- export(text_to_corenlp_list/2).
+:- system:import(text_to_corenlp_list/2).
 
 is_loc_name(paragraph).
 is_loc_name(index).
@@ -162,7 +215,8 @@ parse_reply_replace(_Ctx, Sub, '$'):- ground(Sub),
   member(Sub, [entitymentions=[], speaker='PER0', openie=[], truecase='O', ner='O', entitylink='O']).
 
 parse_reply_replace(_Ctx, NER=Value, Pred):- atom(NER),
-  member(NER,[normalizedNER,ner,paragraph,openie,kbp,truecase,entitylink,repm]),Pred=..[NER,TValue],into_value_lex_value(Value,TValue).
+  member(NER,[normalizedNER,ner,paragraph,openie,kbp,truecase,entitylink,repm]),
+  Pred=..[NER,TValue],into_value_lex_value(Value,TValue).
 
 parse_reply_replace(_Ctx, Remove=Rest, '$'):- nonvar(Rest),
   member(Remove, [
@@ -185,7 +239,9 @@ parse_reply_replace(_Ctx, _=json(Sub), '$'):- is_list(Sub), member(_ = V, Sub), 
 parse_reply_replace(_Ctx, Parse=Rest, Parse=SegsF):- 
   Rest\==[], atomic(Rest), atom_concat('(',_,Rest),atom_concat(_,')',Rest),  
   lxpr_to_list(Rest, LExpr),
-  charniak_to_parsed(LExpr,SegsF),!.
+  nop(print_tree(corenlp=LExpr)),
+  charniak_to_parsed(60,LExpr,SegsCF),!,
+  SegsF = (SegsCF).
 
 parse_reply_replace(_Ctx, Sub, Replace):- 
  members([index=Index, originalText=String, word=String, 
@@ -278,9 +334,18 @@ sentence_reply(Number, Toks, SExpr, In, In):-
   print_reply_colored(Number=Toks), !.
 */
 sort_words(List,Sorted):- predsort(by_word_loc,List,Sorted).
+:- export(sort_words/2).
+:- system:import(sort_words/2).
+
 by_word_loc(R,A,B):-into_loc_sort(A,AK),into_loc_sort(B,BK),compare(RK,AK,BK), (RK == (=) -> compare(R,A,B) ; R = RK).
-into_loc_sort(w(_,List),Key):- member(loc(S),List), member(lnks(L),List), Key = [S,0,S,L],!.
-into_loc_sort(span(List),Key):- member(seg(S,E),List),once(member(lnks(L),List);L=10),once(member(size(W),List);W=0),RS is 100-W, E1 is E-1, Key = [E1,S,RS,L],!.
+into_loc_sort(w(_,List),Key):- member(loc(S),List), member(lnks(L),List), Key = [a,S,0,S,L],!.
+into_loc_sort(span(List),Key):- member(seg(S,E),List),once(member(lnks(L),List);L=10),once(member(size(W),List);W=0),
+  RS is 100-W, E1 is E-1, 
+  Key = [span, W, E1,S,RS,L],!.
+into_loc_sort(span(List),Key):- member(seg(S,E),List),
+   once(member(lnks(L),List);L=0),once(member(childs(C),List);C=0),once(member(size(W),List);W=0),
+   NW is 100-W, NL is 100-L, NC is 100-C, % E1 is E-1,
+   Key = [span,NW,C,S,E,NL,NC,List],!.
 into_loc_sort(span(L1),Key):- member(List,L1),member(seg(_,_),List),into_loc_sort(span(List),Key).
 into_loc_sort(A,Key):- A=..[_|AA], findnsols(4,T, ((sub_term(T,AA),compound(T),arg(1,T,N),number(N));T=AA),Key).
 

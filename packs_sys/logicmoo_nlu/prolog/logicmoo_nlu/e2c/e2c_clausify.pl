@@ -90,7 +90,7 @@ clausify_literal(L, L).
 % OLD
 make_time_info(Frame, Time, z(Writing, X, Y), Out):- nonvar(Writing), !,
   to_evt_name(Writing, ProperEvent),
-  make_time_info(Frame, Time, iza(Frame, ProperEvent) & doer(Frame, X) & objectOf(Frame, Y), Out).
+  make_time_info(Frame, Time, iza(Frame, ProperEvent) & doer(Frame, X) & patient(Frame, Y), Out).
 
 make_time_info(Frame, Time, z(Writing, X), Out):- nonvar(Writing), !,
   to_evt_name(Writing, ProperEvent),
@@ -133,7 +133,7 @@ expand_lf(_,_, quant(X, Type), true):-
 
 expand_lf(C,N, z(Writing, X, Y ), Out):- 
   to_evt_name(Writing, ProperEvent),
-  expand_lf(C,N, iza(Frame, ProperEvent) & doer(Frame, X) & objectOf(Frame, Y), Out).
+  expand_lf(C,N, iza(Frame, ProperEvent) & doer(Frame, X) & patient(Frame, Y), Out).
 
 expand_lf(C,N,A,B):- compound_name_arity(A,P,0),!,expand_lf(C,N,P,BP),compound_name_arguments(B,BP,0),!.
 

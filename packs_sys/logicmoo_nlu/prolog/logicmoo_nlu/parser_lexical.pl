@@ -17,9 +17,14 @@
 
 % ?- use_module(library(logicmoo_nlu/parser_lexical)).
 
+:- multifile(check:list_undefined/1).
+:- dynamic(check:list_undefined/1).
 :- use_module(library(make)), use_module(library(check)), redefine_system_predicate(check:list_undefined/1).
-:- abolish(check:list_undefined/1).
-:- assert(check:list_undefined(_)).
+%:- abolish(check:list_undefined/1).
+:- asserta((check:list_undefined(Stuff):- Stuff==[], wdmsg(list_undefined(Stuff)),!)).
+:- listing(check:list_undefined).
+% :- break.
+
 
 :- use_module(library(pfc_lib)).
 :- use_module(nl_pipeline).
@@ -43,22 +48,33 @@
 :- kb_global(baseKB:nlfw/4).
 %:- share_mp(nlf:f/4).
 
-connect_preds(HF, BF):-
+:- use_module(parser_lexical_gen). 
+
+guess_strip_module(M:F,M,F):- !.
+guess_strip_module(MF,M,MF):- atom(MF), functor(P,MF,2),!,guess_strip_module(P,M,_).
+guess_strip_module(MF,M,MF):- predicate_module(MF,M).
+guess_strip_module(MF,M,F):- strip_module(MF,M,F).
+
+connect_preds(HMF, BMF):- 
+ guess_strip_module(HMF,HM,HF),
+ guess_strip_module(BMF,BM,BF),
  forall(between(1, 13, N),
  ( length(ARGS, N),
+   share_mp(BM:BF/N),multifile(HM:HF/N),dynamic(HM:HF/N),
    H=..[HF|ARGS],
    B=..[BF|ARGS],
-   asserta_new(H:- B))).
+   multifile(BM:BF/N),dynamic(BM:BF/N),   
+   asserta_if_new(HM:(H:- BM:B)))).
 
-:- connect_preds(cyckb_t, cyckb_h).
-:- connect_preds(cyckb_h, ac).
-
-:- use_module(parser_lexical_gen). 
 
 common_logic_kb_hooks:cyckb_t(A, B, C):- cyckb_p2(A, [B, C]).
 common_logic_kb_hooks:cyckb_t(A, B, C, D):- cyckb_p2(A, [B, C, D]).
 common_logic_kb_hooks:cyckb_t(A, B, C, D, E):- cyckb_p2(A, [B, C, D, E]).
 common_logic_kb_hooks:cyckb_t(A, B, C, D, E, F):- cyckb_p2(A, [B, C, D, E, F]).
+
+:- connect_preds(common_logic_kb_hooks:cyckb_t, cyckb_h).
+:- connect_preds(cyckb_h, kb0988:ac).
+%:- connect_preds(ac, t).
 
 cyckb_p2(A, BC):- \+ is_list(BC), !, between(2, 10, N), length(BC, N), cyckb_p2(A, BC).
 cyckb_p2(A, [B, C|D]):- atom(C), downcase_atom(C, C), cvt_to_real_string(C, S), cyckb_p3(A, B, [S|D]).
@@ -285,9 +301,15 @@ subtype_index(_, text(a), text(str), Value, CArg, PreCall, PostCall):-  PreCall 
 %subtype_index(_, text(a), text(base), Value, CArg, PreCall, PostCall):- PreCall = (CArg = Value), PostCall = true.
                                                
 %subtype_index(_, W, any(W), Value, CArg, PreCall, PostCall):- !, PreCall = freeze(CArg, sub_var(Value, CArg)), PostCall = true.
-subtype_index(_, W, any(W), Value, CArg, PreCall, PostCall):-  PreCall = true, PostCall = sub_var(Value, CArg).
-subtype_index(_, W, seq(W), Value, CArg, PreCall, PostCall):- /*atom(W), */ PreCall = (CArg = [_|_]), PostCall = sub_var(Value, CArg).
+subtype_index(_, W, any(W), Value, CArg, PreCall, PostCall):-  PreCall = true, PostCall = sub_value_word(Value, CArg).
+%subtype_index(_, W, seq(W), Value, CArg, PreCall, PostCall):- /*atom(W), */ PreCall = (CArg = [_|_]), PostCall = member(Value, CArg).
+subtype_index(_, W, seq(W), Value, CArg, PreCall, PostCall):- /*atom(W), */ PreCall = (CArg = [_|_]), PostCall = sub_value_word(Value, CArg).
 subtype_index(_, W, listof(W), Value, CArg, PreCall, PostCall):- PreCall = (CArg = [_|_]), PostCall = member(Value, CArg).
+
+sub_value_word(_Valu, CArg):- var(CArg),!,fail.
+sub_value_word(Value, CArg):- is_list(CArg),!,CArg=[CArgF],sub_value_word(Value, CArgF).
+sub_value_word(Value, CArg):- \+ compound(CArg),!,Value==CArg.
+sub_value_word(Value, CArg):- arg(_,CArg,CArgF),sub_value_word(Value, CArgF).
 
 doable_type(_, DoType, Type):- nonvar(DoType),
   % DoType\==text(str),
@@ -317,6 +339,8 @@ get_vv(X, Arg):- compound(Arg), Arg = +(X).
 get_test_verbs(V):- wnframes:s(_, _, V, v, _, _).
 baseKB:sanity_test:- forall(get_test_verbs(V), lex_info(V)).
 
+
+
 :- export(lex_winfo/1).
 lex_winfo(Value):- 
   lex_winfo(Value,R),
@@ -326,11 +350,15 @@ merge_lists(L,R):- (L==[] ; R ==[]),!.
 merge_lists(L,R):- nb_set_add(L,R),nb_set_add(R,L).
 
 :- export(lex_winfo/2).
-lex_winfo(_W2,_R):-!.
+lex_winfo(W2,R):- is_list(W2),!, maplist(lex_winfo,W2,R),!.
+%lex_winfo(W2,_R):-!.
+lex_winfo(W2,R):- var(W2),!,R=W2.
+lex_winfo(W2,W2):-!.
 lex_winfo(W2,R):- W2 = w(Word,Had),!, nonvar(Word), !, 
   ((is_list(Had), member(lex_winfo,Had)) -> R=Had; (lex_tinfo(text(a),Word,R1),
     unlevelize(R1,R2),R=[lex_winfo|R2], merge_lists(W2,R))).
-lex_winfo(Word,R):- lex_tinfo(text(a), Word, R).
+lex_winfo(Word,w(Word,R)):- lex_tinfo(text(a), Word, R),!.
+lex_winfo(W2,R):- W2 \= w(_,_),!, R=W2.
 
 :- export(lex_tinfo/3).
 lex_tinfo(Type, Value,DatumF):-
@@ -348,8 +376,9 @@ unlevelize0(level(_, 0, _, X, _),X):- !.
 unlevelize0(level(_, _, _, X, _),X):- !.
 unlevelize0(text_to_cycword(_, _,_,X),X):-!.
 unlevelize0(todo(_, cycpred,X), cycpred):-  atom(X),!.
-unlevelize0(todo(_, _Cycpred,X),X):- \+ atomic(X),!.
-unlevelize0(todo(_, X,Y),Z):- append_term(X,Y,Z).
+unlevelize0(todo(_, X,Y),Z):- atom(X),append_term(X,Y,Z).
+unlevelize0(todo(_, X,Y),eq(X,Y)):-!.
+%unlevelize0(todo(_, X,Y),Z):- append_term(X,Y,Z).
 
 
 call_lex_arg_type(TypeIn, TypeOut, Value, Result, C):-
@@ -565,13 +594,6 @@ lex_winfo(Kind, Level, Words, String, Datum):-
 %into_dm(String, txt(AString)):- cvt_to_atom(String, AString).
 
 didnt_do(Todo, skipped(Todo)).
-
-:- export(combined_w2/3).
-combined_w2(W1,W2,W12SS):- append(W1,W2,W12),combined_w2_i(W12,W12S),sort_words(W12S,W12SS),!.
-
-combined_w2_i(I,O):- select(w(D,E1),I,M), member(loc(X),E1), member(w(D,E2),M),member(loc(X),E2),
-   nb_set_add(E2,E1),nb_set_add(E1,E2),!,combined_w2_i(M,O).
-combined_w2_i(I,I).
 
 remove_broken_corefs(Sents,coref(Sent,_, _, _,_,_,_,_,_,_,_),[]):- \+ member(sentence(Sent,_,_),Sents),!.
 remove_broken_corefs(_Sents,sentence(N,Words,Info),sent(N,Words,Info)).
@@ -813,8 +835,8 @@ searches_arg(_F, _A, Arg):- atom_length(Arg, Len), Len<4, !, fail.
 %  morph_atoms(causer, [[W, -er]]).
 
 
+:- abolish(tmp:saved_denote_lex/3).
 :- dynamic(tmp:saved_denote_lex/3).
-:- retractall(tmp:saved_denote_lex(_, _, _)).
 %get_lex_info(Kind, text(a), String, Out):- catch(downcase_atom(String, DCAtom), _, fail), DCAtom\==String, !, get_lex_info(Kind, text(a), DCAtom, Out).
 get_lex_info(_Kind, Type, DCAtom, Out):- tmp:saved_denote_lex(Type, DCAtom, Out), !.
 get_lex_info(Kind, Type, DCAtom, Out):- do_lex_info(Kind, Type, DCAtom, Out), asserta(tmp:saved_denote_lex(Type, DCAtom, Out)), !.
@@ -911,12 +933,12 @@ lex_arg_type( sem, 0, framenet, frels(+(see_also), concept(fn2), concept(fn2), d
 lex_arg_type( sem, 0, framenet, frels(+(subframe), concept(fn2), concept(fn2), data, data)).
 lex_arg_type( sem, 0, framenet, frels(+(using), concept(fn2), data, /* concept(fn2), */ data, data)).
 
-lex_arg_type( syn, 0, framenet, fsr(text(a)-pos, concept(fn), data)).
+%lex_arg_type( syn, 0, framenet, fsr(text(a)-pos, concept(fn), data)).
 lex_arg_type( sem, 0, framenet, semtype(concept(fn), data, data)).
 lex_arg_type( syn, 0, mu, thetaRole(text(a), data, concept(tt2), data, data, concept(tt2), text(str), text(str), data)).
 
 lex_arg_type( sem, 0, tt0, ttholds(concept(tt), concept(tt))).
-lex_arg_type( sem, 0, tt0, ttholds(text(a), concept(tt))).
+lex_arg_type( sem, 0, tt0, ttholds(data, concept(tt))).
 lex_arg_type( sem, 0, tt0, ttholds(data, id(tt), pos)).
 lex_arg_type( sem, 0, tt0, ttholds(data, id(tt), pos, data)).
 lex_arg_type( sem, 0, tt0, ttholds(data, id(tt), pos, data, concept(tt))).

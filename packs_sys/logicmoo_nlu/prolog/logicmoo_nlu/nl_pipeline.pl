@@ -76,7 +76,7 @@
 :- if(load_parser_interface(parser_e2c)).
 % ================================================================================================
 
-:- install_converter(parser_e2c, e2c_parse(+corenlp_segs, -clause_e2c)).
+:- install_converter(parser_e2c, e2c_parse(+e2c_lexical_segs, -clause_e2c)).
 %:- install_converter(parser_e2c:e2c(+acetext, -lf_e2c)).
 %:- install_converter(parser_e2c, e2c_clausify(+lf_e2c, -clause_e2c)).
 :- install_converter(parser_e2c, e2c_reply(+clause_e2c, -reply_e2c)).
@@ -149,10 +149,12 @@ remove_punctuation(W2, W2).
 
 %:- install_converter(nl_pipeline:remove_punctuation(+acetext, -acetext_no_punct)).
 
-%:- install_converter(parser_chat80:words_to_w2(+acetext_no_punct, -pos_sents_pre)).
+%:- install_converter(parser_chat80:words_to_segs(+acetext_no_punct, -pos_sents_pre)).
 % :- install_converter(parser_chat80:into_text80(+(tokens), -text80)).
-:- install_converter(parser_chat80:into_w2_segs(+text80, -corenlp_segs)).
-:- install_converter(parser_chat80:sent_to_parsed(+corenlp_segs, -parsed80)).
+
+:- install_converter(parser_lexical:into_lexical_segs(+text80, -e2c_lexical_segs)).
+% TEMP DISABLE :- install_converter(parser_chat80:smerge_segs(+charniak_segs, +corenlp_segs,-e2c_segs)).
+:- install_converter(parser_chat80:sent_to_parsed(+e2c_lexical_segs, -parsed80)).
 :- install_converter(parser_chat80:i_sentence(+parsed80, -sent80)).
 :- install_converter(parser_chat80:clausify_simplify80(+sent80, -clausify80)).
 %:- install_converter(parser_chat80:simplify80(+clausify80, -simplify80)).
@@ -171,9 +173,10 @@ remove_punctuation(W2, W2).
 :-  if(load_parser_interface(parser_charniak)).
 % ================================================================================================
 %:- install_converter(parser_charniak:text_to_charniak(+acetext, -charniak)).
-%:- install_converter(parser_charniak:charniak_segs_to_w2(+charniak_segs,-charniak_info,-charniak_w2)).
-%:- install_converter(parser_charniak:charniak_segs_to_sentences(+charniak_segs,-charniak_info,-charniak_w2)).
+%:- install_converter(parser_charniak:charniak_segs_to_segs(+charniak_segs,-charniak_info,-charniak_segs)).
+%:- install_converter(parser_charniak:charniak_segs_to_sentences(+charniak_segs,-charniak_info,-charniak_segs)).
 % :- install_converter(parser_charniak:charniak_to_segs(+syntaxTrees, -charniak_segs)).
+% TEMP DISABLE :- install_converter(parser_charniak:text_to_charniak_segs(+text80, -charniak_segs)).
 
 :- endif.
 
@@ -183,8 +186,9 @@ load_parser_stanford:-  load_parser_interface(parser_stanford).
 % ================================================================================================
 
 %:- install_converter(parser_stanford:text_to_corenlp(+acetext, -corenlp)).
-%:- install_converter(parser_stanford:corenlp_to_w2(+corenlp, -corenlp_w2)).
 %:- install_converter(parser_stanford:corenlp_to_segs(+corenlp, -corenlp_segs)).
+%:- install_converter(parser_stanford:corenlp_to_segs(+corenlp, -corenlp_segs)).
+% TEMP DISABLE :- install_converter(parser_corenlp:text_to_corenlp_segs(+text80, -corenlp_segs)).
 :- endif.
 
 % ================================================================================================
@@ -192,13 +196,14 @@ load_parser_stanford:-  load_parser_interface(parser_stanford).
 :- if(load_parser_interface(parser_lexical)).
 % ================================================================================================
 
-:- install_converter(parser_lexical:combined_w2(+charniak_w2, +corenlp_w2, -combined_w2)).
+:- install_converter(parser_lexical:lex_winfo(+e2c_segs, -e2c_lexical_segs)).
 :- endif.
 
 % ================================================================================================
 % English2CycL:
 :-  if((fail, load_parser_interface(parser_e2c))). % TODO confirm CHAT80 runs without E2C
 % ================================================================================================
+
 
 %:- debug.
 

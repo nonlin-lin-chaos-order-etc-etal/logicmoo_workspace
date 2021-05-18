@@ -292,6 +292,8 @@ default_pipeline_opts([lf=_, clause=_, combined_info=_,  simplify80=_, results80
 %
 %  Run a pipeline to yeild NameValues list
 %
+
+run_pipeline(Text):- text_to_best_tree(Text,format),!.
 run_pipeline(Text):- 
   fmt('~N?- ~p.~N',[run_pipeline(Text)]),
   default_pipeline_opts(DefaultOpts),

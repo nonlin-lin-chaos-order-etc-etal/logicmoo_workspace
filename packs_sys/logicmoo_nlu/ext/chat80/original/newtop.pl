@@ -577,40 +577,74 @@ process(_,_).
 
 eng_to_logic(U,S):- sentence80(E,U,[],[],[]), sent_to_prelogic(E,S).
 
-span_or_word(S):- compound(S), (S = w(_,_); S=span(_)),!.
+is_word_or_span(S):- compound(S), (S = w(_,_); S=span(_)),!.
 
+
+into_chat80_merged_segs(Text80,U):- into_chat80_segs_pt1(Text80,U1), into_chat80_segs_pt2(Text80,U2), smerge_segs(U1,U2,U).
+into_chat80_segs_pt1(Sentence,U):- catch(text_to_charniak_segs(Sentence,U),E,(wdmsg(error(E,text_to_charniak_segs(Sentence))), U=[])),!.
+into_chat80_segs_pt2(Sentence,U):- catch(text_to_corenlp_segs(Sentence,U),E,(wdmsg(error(E,text_to_corenlp_segs(Sentence))), U=[])),!.
+smerge_segs(U1,U2,U):- 
+  smerge_segsl(U1,U2,U3),!,
+  parser_stanford:sort_words(U3,U),!.
 /*
 smerge_segsl([span(List)|U1],U2,[span([Seg|NewList])|U3]):-
    Seg=seg(_,_),select(Seg,List,List0),   
-   select(span(EList),U2,NewU2),
-   select(Seg,EList,List1),!,
+   select(span(EList2),U2,NewU2),
+   select(Seg,EList2,List1),!,
    smerge_w_list(List0,List1,NewList),
    smerge_segsl(U1,NewU2,U3),!.
 */
+smerge_segsl(U1,U2,Out):-
+   select(span(S1),U1,NewU1),
+   Seg=seg(_,_),
+   select(Seg,S1,List1),
+   select(span(S2),U2,NewU2),
+   select(Seg,S2,List2),
+  find_subterm(List1,phrase(Type1)),
+  find_subterm(List2,phrase(Type2)),
+  prefered_span_type(Type1,Type2),!,
+  smerge_segsl([span(S2)|NewU1],[span(S1)|NewU2],Out).
+
 smerge_segsl(U1,U2,[Out|U3]):-
    select(span(S1),U1,NewU1),
    Seg=seg(_,_),
    select(Seg,S1,List1),
    select(span(S2),U2,NewU2),
-   select(Seg,S2,List2),!,
+   select(Seg,S2,List2),
+  find_subterm(List1,phrase(Type1)),
+  find_subterm(List2,phrase(Type2)),
+  not_conflicted_span_types(Type1,Type2),
    smerge_segsl(NewU1,NewU2,U3),
    smerge_w_list(List1,List2,NewList),!,
    Out = span([Seg|NewList]).
-smerge_segsl([w(W1,List)|U1],U2,[w(W1,NewList)|U3]):-
-   select(w(W1,EList),U2,NewU2),
-   smerge_w_list(List,EList,NewList),
-   smerge_segsl(U1,NewU2,U3),!.
+
+smerge_segsl([w(W1,EList1)|U1],U2,[w(W1,NewList)|U3]):-
+  select(w(W1,EList2),U2,NewU2),
+  select(pos(Type1),EList1,NewEList1),
+  select(pos(Type2),EList2,NewEList2),
+ (prefered_span_type(Type1,Type2)
+    -> smerge_w_list([pos(Type2)|NewEList1],[pos(Type1)|NewEList2],NewList)
+     ; smerge_w_list(EList1,EList2,NewList)),
+  smerge_segsl(U1,NewU2,U3),!.
 smerge_segsl([E|U1],U2,[E|U3]):-
    smerge_segsl(U1,U2,U3),!.
 smerge_segsl(U1,[E|U2],[MaybeAlt|U3]):-
    compound(E),maybe_alt(E,MaybeAlt),!,
    smerge_segsl(U1,U2,U3),!.
-smerge_segsl(U1,[_|U2],U3):- !,
+smerge_segsl(U1,[Drop|U2],U3):- !,
+   wdmsg(dropping(Drop)),
    smerge_segsl(U1,U2,U3),!.
 smerge_segsl(U1,[],U1):- must_or_rtrace(U1==[]),!.
 %smerge_segsl([],U2,U2):-!.
 
-flag_remove_alts:- true.
+prefered_span_type('rb',X):- X \== 'rb'.
+prefered_span_type('ADVP','NP').
+
+not_conflicted_span_types(Type1,Type2):- Type1==Type2,!.
+not_conflicted_span_types(Type1,Type2):-  Type1 @> Type2,!,not_conflicted_span_types(Type2,Type1).
+not_conflicted_span_types('VP','NP'):- !, fail.
+not_conflicted_span_types(Type1,Type2):- wdmsg(not_conflicted_span_types(Type1,Type2)).
+%flag_remove_alts:- true.
 
 maybe_alt(span(L),span([alt(span)|L])).
 maybe_alt(w(W,L),span([alt(w2),w(W),seg(N,N)|L])):-member(loc(N),L),!.
@@ -633,35 +667,57 @@ smerge_w_list([E|U1],U2,[E|U3]):-
 %free_last_arg(E,EE):- compound(E),compound_name_arity(E,_,A),A>0,!,duplicate_term(E,EE), nb_setarg(A,EE,_).
 free_last_arg(E,EE):- compound(E),compound_name_arity(E,F,A),compound_name_arity(EE,F,A),!.
 free_last_arg(E,E).
-  
-smerge_segs(U1,U2,U):- 
-  smerge_segsl(U1,U2,U3),!,
-  parser_stanford:sort_words(U3,U),!.
 
-map_lex_winfo_segs(W2,R):- is_list(W2),maplist(map_lex_winfo_segs,W2,R),!.
-map_lex_winfo_segs(W2,R):- W2 \= w(_,_),!, R=W2.
-map_lex_winfo_segs(W2,R):- lex_winfo(W2,_),R=W2.
 
-into_w2_segs(Sent,UO):- quietly((into_w2_segs0(Sent,UO))).
-into_w2_segs0(Sentence,Sentence):- is_list(Sentence),maplist(span_or_word,Sentence),!.
-into_w2_segs0(Sent,UO):-  
+
+
+into_chat80_best_segs(Text80,SSegs):-
+  text_to_best_tree(Text80,LExpr),
+  charniak_to_segs(1,LExpr,CSegs),!,
+  parser_stanford:corenlp_to_segs(CSegs,Segs),!,
+  parser_stanford:sort_words(Segs,SSegs).
+
+into_lexical_segs(Sent,UO):- quietly((into_chat80_segs0(Sent,U),lex_winfo(U,UO))),!.
+%into_lexical_segs(Sent,  WordsA):- enotrace((into_text80( Sent,  Words),into_combines(Words,WordsA))),!.
+
+into_chat80_segs0(Sent,Sent):- is_list(Sent),maplist(is_word_or_span,Sent),!.
+into_chat80_segs0(Sent,U):-  
  maplist(mort,
-   [any_to_string(Sent,S),
-   into_text80(S,WL),
-   any_to_string(WL, Text80),
-   into_w2_segs_pt1(Text80,U1),
-   into_w2_segs_pt2(Text80,U2),
-   smerge_segs(U1,U2,U),
-   map_lex_winfo_segs(U,UO)]),!.
+  [into_text80_string(Sent, Text80),
+   %into_chat80_merged_segs(Text80,U),
+   into_chat80_best_segs(Text80,U)]),!.
+into_combines(Words,WordsO):- must_maplist(parser_tokenize:any_nb_to_atom, Words, WordsA), do_txt_rewrites(WordsA,WordsB),
+  must_maplist(t_to_w2,WordsB,WordsO).
 
-into_w2_segs_pt1(Sentence,U):- catch(text_to_charniak_segs(Sentence,U),E,(wdmsg(error(E,text_to_charniak_segs(Sentence))), U=[])),!.
-into_w2_segs_pt2(Sentence,U):- catch(text_to_corenlp_segs(Sentence,U),E,(wdmsg(error(E,text_to_corenlp_segs(Sentence))), U=[])),!.
-%into_w2_segs_pt2(Sentence,U):- check_words(Sentence,U).
+w2_to_t(w(Txt,_),Txt):-!.
+w2_to_t(Txt,Txt).
+
+/*into_lexical_segs(Sentence, WordsA):-
+   into_lexical_segs(Sentence, Words),
+   must_maplist(any_to_atom, Words, WordsA), !.
+*/
+
+
+%t_to_w2(W,W):-t_l:old_text,!.
+t_to_w2(Var,Var):-var(Var),!.
+t_to_w2(w(Txt,Props),w(Txt,Props)):-!.
+% t_to_w2([Prop,Txt],w(Txt,[Prop])):-!.
+%t_to_w2(w(X),w(X,[])):-!.
+
+t_to_w2(S,w(A,open)):-atomic(S),atom_string(A,S),!.
+t_to_w2(S,w(S,open)):-!.
+%t_to_w2(U,w(U,[])):-compound(U),!.
+%t_to_w2(S,w(A,[])):-atomic(S),atom_string(A,S),!.
+%t_to_w2(X,w(X,[])):-!.
+from_wordlist_atoms( Sentence,  Words):- enotrace((must_maplist(w2_to_t,Sentence, Words))).
+
+
+%into_chat80_segs_pt2(Sentence,U):- check_words(Sentence,U).
 
 process4(How,Sentence,Answer,Times) :-
    Times = [ParseTime,SemTime,TimePlan,TimeAns,TotalTime],
   quietly(( runtime(StartSeg),
-   into_w2_segs(Sentence,U),
+   into_lexical_segs(Sentence,U),
    runtime(StopSeg),
    SegTime is StopSeg - StartSeg,
    report(How,U,'segs',SegTime,tree),

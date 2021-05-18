@@ -440,7 +440,7 @@ load_before_compile_now2:-
     baseKB:ensure_loaded(library(logicmoo_ec)),        
     baseKB:ensure_loaded(library('logicmoo/common_logic/common_logic_sumo.pfc')),   
     %system:reexport(pldata(kb_0988)),
-    ensure_loaded(pldata(kb_0988)),        
+    %ensure_loaded(pldata(kb_0988)),        
     baseKB:ensure_loaded(library(narsese)),   
     use_module(library(instant_prolog_docs)),
     add_hist(start_network). 
