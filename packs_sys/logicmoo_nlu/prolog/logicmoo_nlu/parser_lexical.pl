@@ -351,14 +351,18 @@ merge_lists(L,R):- nb_set_add(L,R),nb_set_add(R,L).
 
 :- export(lex_winfo/2).
 lex_winfo(W2,R):- is_list(W2),!, maplist(lex_winfo,W2,R),!.
-%lex_winfo(W2,_R):-!.
-lex_winfo(W2,R):- var(W2),!,R=W2.
-lex_winfo(W2,W2):-!.
-lex_winfo(W2,R):- W2 = w(Word,Had),!, nonvar(Word), !, 
-  ((is_list(Had), member(lex_winfo,Had)) -> R=Had; (lex_tinfo(text(a),Word,R1),
-    unlevelize(R1,R2),R=[lex_winfo|R2], merge_lists(W2,R))).
-lex_winfo(Word,w(Word,R)):- lex_tinfo(text(a), Word, R),!.
-lex_winfo(W2,R):- W2 \= w(_,_),!, R=W2.
+lex_winfo(W2,R):- (var(W2);W2=span(_)),!,R=W2.
+%lex_winfo(W2,W2):-!.
+lex_winfo(W2,W2O):- W2=W2O, W2 = w(Word, Had),!, 
+  nonvar(Word), !,  is_list(Had), 
+  (member(lex_winfo,Had) -> true; 
+     (lex_winfo_r(Word,R),unlevelize(R,R2),nb_set_add(W2,[lex_winfo|R2]))).
+lex_winfo(Word,W2):- lex_winfo_r(Word,Had),  W2 = w(Word, [lex_winfo|Had]),!.
+lex_winfo(W,W):-!.
+
+
+lex_winfo_r(Word,R):- lex_tinfo(text(a), Word, R).
+
 
 :- export(lex_tinfo/3).
 lex_tinfo(Type, Value,DatumF):-

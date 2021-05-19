@@ -6,7 +6,7 @@ startup_message off # Turn off the splash screen
 
 
 #termcapinfo xterm* ti@:te@
-#termcapinfo xterm* ti@:te@
+termcapinfo xterm* ti@:te@
 #terminfo vt** ti=:te=
 
 # caption or the alwayslastline

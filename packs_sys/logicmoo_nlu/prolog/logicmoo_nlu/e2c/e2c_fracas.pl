@@ -135,6 +135,7 @@ lower_first_word(Text,LText):- name(Text,[C|Rest]),maybe_change_case(Text,C,L),t
 maybe_change_case(Text,C,L):-code_type(C,to_upper(L)),member(L,`tayndbpiemsof`), into_text80(Text,[W|_]),l_word(W),!.
 maybe_change_case(_,C,C).
 
+fracas(X):- e2c_fracas(X,_Y).
 %e2c_fracas:- forall(e2c_fracas(X,_Y),run_pipeline(X)).
 :- add_history(forall(e2c_fracas(X,_Y),fmt('?- run_pipeline( ~p ). ',[X]))).
 

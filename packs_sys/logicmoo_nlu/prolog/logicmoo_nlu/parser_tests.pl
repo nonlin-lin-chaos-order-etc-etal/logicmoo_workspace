@@ -8,145 +8,216 @@
 :- endif.
 :- dynamic(parser_e2c:test_e2c/2).
 
+test_e2c(X,[ape(Y)]):- ape_test(Y,Z).
 
-test_e2c("One woman paints.", [ quants]).
-test_e2c("No woman paints.", [ quants]).
-test_e2c("Some woman paints.", [ quants]).
-test_e2c("Every woman paints.", [ quants]).
-test_e2c("Each woman paints.", [ quants]).
-test_e2c("Any woman paints.", [ quants]).
-test_e2c("The woman paints.", [ quants]).
+ape_test(13, 'Every man likes at least 3 things.').
+ape_test(14, 'If a thing A is taller than a thing B then B is shorter than A.').
+ape_test(15, 'If something A is taller than something B and B is taller than something C then A is taller than C.').
+ape_test('15-1', 'If a thing A is taller than a thing that is taller than a thing C then A is taller than C.').
 
-% ;W:\opt\logicmoo_workspace\packs_sys\logicmoo_nlu\ext\candc;W:\opt\logicmoo_workspace\packs_sys\logicmoo_nlu\ext\ape;W:\opt\logicmoo_workspace\packs_sys\logicmoo_nlu\prolog
+% SWRL
+ape_test('15-2', 'If a dog is taller than a cat that is taller than a mouse then the dog is taller than the mouse.').
 
-% test_e2c(S, _T) :- \+ ground(S), !, fail.
+ape_test(16, 'Everybody who writes something is a human.').
+ape_test(17, 'Everybody who writes at least 1 thing is a human.').
 
-test_e2c("The not woman paints.", [ quants]).  % ? The Good Place "the not a girl"
+ape_test(18, 'Everything that somebody writes is a book or is a paper.').
 
-test_e2c("Not a woman paints.", [ quants]).
-test_e2c("Not one woman paints.", [ quants]).
-test_e2c("Not no woman paints.", [ quants_neg_postcond]).
-test_e2c("Not some woman paints.", [ quants]).   % ? not just some woman paints
-test_e2c("Not every woman paints.", [ quants]).
-test_e2c("Not each woman paints.", [ quants]).
-test_e2c("Not any woman paints.", [ quants]).
+ape_test(19, 'Everything identifies at most 1 thing.').
 
+ape_test(20, 'If a thing A loves a thing B then B loves A.').
 
+ape_test(21, 'Nobody who likes a carrot is a carnivore.').
 
-test_e2c("The women paint.", [ quants]).
+ape_test(22, 'Every man likes at least 3 cars.').
 
-test_e2c("Women paint.", [ quants]).
-test_e2c("Some women paint.", [ quants]).
-test_e2c("No women paint.", [ quants]).
-test_e2c("All women paint.", [ quants]).
-test_e2c("Any women paint.", [ quants]).
+ape_test(23, 'Every man likes some cars.').
 
-test_e2c("Not women paint.", [ quants]).
+ape_test(24, 'John likes every car.').
 
-test_e2c("Not no women paint.", [ quants]).
-test_e2c("Not all women paint.", [ quants]).
-test_e2c("Not any women paint.", [ quants]).
+ape_test(25, 'John likes no car.').
 
+ape_test(27, 'If there is a man then a dog likes the man.').
 
-test_e2c("The three women paint.", [ quants]).
+ape_test(28, 'If there is a cat then at least 2 things like the cat.').
 
-test_e2c("Three women paint.", [ quants]).
-test_e2c("Some three women paint.", [ quants]).
-test_e2c("No three women paint.", [ quants]).
-test_e2c("Every three women paint.", [ quants]).
-test_e2c("All three women paint.", [ quants]).
-test_e2c("Any three women paint.", [ quants]).
+ape_test(29, 'If there is a cat then at least 2 persons like the cat.').
 
-test_e2c("Not three women paint.", [ quants]).
-test_e2c("Not some three women paint.", [ quants]).
-test_e2c("Not no three women paint.", [ quants]).
-test_e2c("Not all three women paint.", [ quants]).
-test_e2c("Not every three women paint.", [ quants]).
-test_e2c("Not any three women paint.", [ quants]).
+ape_test(30, 'For every thing at most 1 thing is identified by it.').
 
-test_e2c("Not three of the women paint.", [ quants]).
-test_e2c("Not some of the three women paint.", [ quants]).
-test_e2c("Not no three of the women paint.", [ quants]).
-test_e2c("Not all three of the women paint.", [ quants]).
-test_e2c("Not every three of the women paint.", [ quants]).
-test_e2c("Not any three of the women paint.", [ quants]).
+ape_test(31, 'John likes Mary. Bill sees Mary.').
 
-test_e2c("Not three of the four women paint.", [ quants]).
-test_e2c("Not none of three out of the four women paint.", [ quants]).
-test_e2c("Not all three of the four women paint.", [ quants]).
-test_e2c("Not any three of the four women paint.", [ quants]).
+ape_test(32, 'Every man is somebody that a dog likes.').
 
-test_e2c("Three of the four women paint.", [ quants]).
-test_e2c("Three out of the four women paint.", [ quants]).
-test_e2c("All three of the four women paint.", [ quants]).
-test_e2c("Any three of the four women paint.", [ quants]).
+ape_test(33, 'If a man sees a woman then the woman sees John.').
 
+% SWRL
+ape_test(34, 'If a man sees a woman then a dog sees a cat.').
 
-test_e2c("I paint", [ pronoun]).
-test_e2c("you paint", [ pronoun]).
-test_e2c("We paint", [ pronoun]).
-test_e2c("None paint", [ pronoun]).
-test_e2c("They paint", [ pronoun]).
-test_e2c("Some paint", [ pronoun]).
+ape_test(35, 'If a man sees a woman then John knows the man.').
 
-test_e2c("It paints", [ pronoun]).
-test_e2c("he paints", [ pronoun]).
-test_e2c("She paints", [ pronoun]).
-test_e2c("Someone paints", [ pronoun]).
+ape_test(36, 'Every man waits.').
 
-test_e2c("Anybody paints", [ pronoun]).
-test_e2c("Anyone paints", [ pronoun]).
-test_e2c("Anything paints", [ pronoun]).
-test_e2c("Everybody paints", [ pronoun]).
-test_e2c("Everyone paints", [ pronoun]).
-test_e2c("Everything paints", [ pronoun]).
-test_e2c("Nobody paints", [ pronoun]).
-test_e2c("No one paints", [ pronoun]).
-test_e2c("Nothing paints", [ pronoun]).
-test_e2c("One paints", [ pronoun]).
-test_e2c("Somebody paints", [ pronoun]).
-test_e2c("Something paints", [ pronoun]).
+ape_test(37, 'Every man does not wait.').
 
-test_e2c("Not anybody paints", [ pronoun]).
-test_e2c("Not anyone paints", [ pronoun]).
-test_e2c("Not anything paints", [ pronoun]).
-test_e2c("Not everybody paints", [ pronoun]).
-test_e2c("Not everyone paints", [ pronoun]).
-test_e2c("Not everything paints", [ pronoun]).
-test_e2c("Not nothing paints", [ pronoun]).
-test_e2c("Not one paints", [ pronoun]).
-test_e2c("Not somebody paints", [ pronoun]).
-test_e2c("Not something paints", [ pronoun]).
+ape_test(38, 'Every man is an animal or does not wait.').
 
-test_e2c("She likes i", [ pronoun]).
-test_e2c("She likes me", [ pronoun]).
-test_e2c("She likes you", [ pronoun]).
-test_e2c("She likes it", [ pronoun]).
-test_e2c("She likes us", [ pronoun]).
-test_e2c("She likes them", [ pronoun]).
-test_e2c("She likes no one", [ pronoun]).
-%test_e2c("She likes noone", [ pronoun]).
-test_e2c("She likes none", [ pronoun]).
+ape_test(39, 'No man waits.').
 
+% SWRL
+ape_test(40, 'If a man sees a dog then the man hears the dog.').
 
-% test_e2c("She likes her", [ pronoun]).
-test_e2c("She likes him", [ pronoun]).
-test_e2c("She likes herself", [ pronoun]).
-test_e2c("She likes himself", [ pronoun]).  % Maybe
+ape_test(41, 'For every carnivore everything that the carnivore eats is a meat.').
 
-test_e2c("It is us that paints", [ pronoun]).
-test_e2c("It is them that paints", [ pronoun]).
-test_e2c("It is he that paints", [ pronoun]).
-test_e2c("It is she that paints", [ pronoun]).
-test_e2c("It is her that paints", [ pronoun]).
-test_e2c("It is him that paints", [ pronoun]).
+ape_test(42, 'Every man who sees a dog hears a cat that sees itself.').
+ape_test(43, 'Every man who sees a dog hears a cat that sees a mouse that hates the cat.').
+ape_test(44, 'Every man who sees a dog hears a cat that sees a mouse that hates itself.').
+ape_test(45, 'Every man who likes himself is strange.').
+ape_test(46, 'Every man likes himself.').
 
+ape_test(47, 'Every man who is not liked by a woman and who owns a dog sees a cat.').
+ape_test(48, 'If there is a man and it is false that the man is liked by a woman and that a dog is owned by the man then the man sees a cat.').
 
+ape_test(49, 'John\'s age is 30.').
+ape_test(50, 'John\'s address is "Poland".').
+ape_test(51, 'John is not Mary.').
+ape_test(52, 'It is false that a man sees a woman.').
+ape_test(53, 'Everybody who waits is a grown-up.').
+ape_test(54, 'Everybody whose age is 31 is a grown-up.').
+ape_test(55, 'Everybody whose address is "Poland" is a human.').
+ape_test(56, 'Everybody whose age is 31 and who waits is a grown-up.').
+ape_test(57, 'Every man likes no dog.').
+ape_test(58, 'Every student is John or is Mary.').
+ape_test(59, 'Everybody who is John or who is Mary is a student.').
+ape_test(60, 'John is a man or owns less than 3 cars.').
+ape_test(61, 'John does not like Mary.').
+ape_test(62, 'John does not own a car.').
+ape_test(63, 'John does not own more than 3 cars.').
 
+ape_test(64, 'A man is taller than more than 3 animals.').
+ape_test(65, 'A man is not a woman.').
+ape_test(66, 'Every carnivore eats every meat.').
+ape_test(67, 'Everybody likes everybody.').
+ape_test(68, 'John\'s brother likes everybody.').
 
-test_e2c("We are us that paint", [ pronoun]).
-test_e2c("We are all of us that paint", [ pronoun]).
-test_e2c("It is everybody that paints", [ pronoun]).
+ape_test(69, 'If somebody X loves somebody Y then it is false that X hates Y.').
+
+ape_test(70, 'If a man likes somebody that is a person then the person owns a car.').
+ape_test(71, 'If John is a man then the man is a person.').
+
+ape_test(72, 'If a man owns a dog and the man owns a cat and the dog likes the cat then the man is a human.').
+ape_test(73, 'Every man is at most 3 cars.').
+
+ape_test(74, 'Mary is liked by nobody.').
+
+ape_test(75, 'Every man is something that likes something that owns a car and that likes Mary.').
+
+ape_test(76, 'Every man is something that likes a car and that likes a bike.').
+
+ape_test(77, 'No man is something that likes a car and that likes a bike.').
+
+ape_test(78, 'If there is a goat and everything that the goat eats is an apple then the goat is an animal.').
+
+ape_test(79, 'If there is a goat and everything that the goat eats is not an apple then the goat is an animal.').
+
+ape_test(80, 'Mary likes a cat. Every man likes the cat.').
+
+ape_test(81, 'John does not like every dog.').
+
+ape_test(82, 'John\'s brother likes Mary. An age of the brother is 10.').
+
+ape_test(83, 'John is something that is not Mary.').
+
+ape_test(84, 'John is not something that is Mary.').
+
+ape_test(85, 'Everything that likes something that sees something that hears something hates it.').
+
+ape_test(86, 'Every man owns exactly 3 cars.').
+
+ape_test(87, 'Every man owns exactly 3 things.').
+
+ape_test(88, 'If a man likes a dog that likes a cat and the man likes a cow that likes a sheep then the man owns a car.').
+
+ape_test(89, 'If there is a man then the man likes a dog that likes a cat and the man likes a cow that likes a sheep.').
+
+ape_test(90, 'If there is a man then the man likes a dog that likes a cat and that likes a rat and the man likes a cow that likes a sheep and that likes a pig.').
+
+ape_test(91, 'If a man is a dog that is a cat and the man is a cow that is a sheep then the man is a car.').
+
+ape_test(92, 'If there is a man then the man is a dog that is a cat and that is a rat and the man is a cow that is a sheep and that is a pig.').
+
+ape_test(93, 'If John likes Mary then Mary likes Bill.').
+
+ape_test(94, 'If John owns a car then there are at least 3 women that like John.').
+
+ape_test(95, 'There is at least 1 man.').
+
+ape_test(96, 'John likes at most 3 women.').
+ape_test(97, 'John likes less than 3 women.').
+ape_test(98, 'John likes exactly 3 women.').
+ape_test(99, 'John likes at least 3 women.').
+ape_test(100, 'John likes more than 3 women.').
+ape_test(101, 'John likes at most 1 woman.').
+ape_test(102, 'John likes less than 1 woman.').
+ape_test(103, 'John likes exactly 1 woman.').
+ape_test(104, 'John likes at least 1 woman.').
+ape_test(105, 'John likes more than 1 woman.').
+
+ape_test(106, 'Everybody who loves somebody loves himself.').
+
+ape_test(107, 'If a man likes Mary and Mary hates a dog then the man owns a car.').
+
+ape_test(108, 'If a man likes Mary and Mary does not hate a dog then the man owns a car.').
+
+ape_test(109, 'Every man is John who owns a car.').
+
+ape_test(110, 'Every man is John who does not own a car.').
+
+ape_test(111, 'Everybody\'s age is 31.').
+ape_test(112, 'Everybody\'s address is "Poland".').
+ape_test(113, 'If somebody\'s age is 31 then his address is "Poland".').
+
+ape_test(114, 'John\'s father is Bill.').
+
+/* The following 6 sentences cannot be translated into OWL.
+Note that 'E' and 'F' are variables and not proper names.
+Therefore we have heavy anaphoric references between the IF and the THEN parts.
+BUG: Maybe it's possible to convert this to SWRL though?
+Probably not, since we have disjunction and negation here. */
+ape_test(115, 'If a room contains E and contains F then if the room contains a sculpture X then X is E or is F.').
+ape_test(116, 'For every room that contains E and that contains F if the room contains a sculpture X then X is E or is F.').
+ape_test(117, 'For every room that contains E and that contains F every sculpture that the room contains is E or is F.').
+ape_test(118, 'If a room contains E and contains F then it is false that the room contains a sculpture X and that it is false that X is E or is F.').
+ape_test(119, 'If a room contains E and contains F then it is false that the room contains a sculpture X and that X is not E and that X is not F.').
+ape_test(120, 'No room that contains E and that contains F contains a sculpture that is not E and that is not F.').
+
+ape_test(121, 'If there is a number X then X + 1 = John.').
+ape_test(122, 'If 1.1 * 2 = 2.2 then 0.9 = 2 - 1.1.').
+% Note: E is a variable, Pi is a proper name.
+ape_test(123, 'If E approaches 2 then 3.14 approaches Pi.').
+
+ape_test(124, 'Bill is John\'s father.').
+ape_test(125, 'John\'s father likes Bill.').
+ape_test(126, 'Bill likes John\'s father.').
+ape_test(127, 'If something X is a father of something Y then X is a parent of Y.').
+ape_test(128, 'If something X is a part of something Y and Y is a part of something Z then X is a part of Z.').
+
+% Maps to a SWRL rule with complex classes (negation and disjunction) as atoms
+ape_test(129, 'Every man that owns a car and that is not a manager cleans the car.').
+ape_test(130, 'Every man that does not ride a car, and that rides a bus or that rides a bike owns a dog that likes the man.').
+
+ape_test(131, 'For every thing X for every thing Y if X owns something that contains Y then X owns Y.').
+
+ape_test(132, 'If a man likes something X then the man sees X.').
+
+ape_test(133, 'John is a man.').
+
+ape_test(134, 'John owns a car.').
+
+ape_test(135, 'John is somebody.').
+
+% BUG: RDF/XML is not generated (note: RDF/XML is deprecated now anyway)
+ape_test(136, 'If somebody X sees something that is heard by somebody Y then X likes Y.').
 
 test_e2c("Every man that paints likes monet.", [ bratko]).
 test_e2c("A woman that admires John paints.", [ bratko]).
@@ -289,6 +360,148 @@ test_e2c("a fleet of ships paint", [of]).
 test_e2c("an anthology of stories paint", [of]).
 
 
+%T:\opt\logicmoo_workspace\packs_sys\logicmoo_nlu\ext\ape\examples\output_tests.pl
+:- ensure_loaded(ape('tests/acetexts')).
+%T/opt/logicmoo_workspace/packs_sys/logicmoo_nlu/ext/ape/tests/test_owlswrl.pl
+:- ensure_loaded(ape('tests/test_owlswrl')).
+
+test_e2c("One woman paints.", [ quants]).
+test_e2c("No woman paints.", [ quants]).
+test_e2c("Some woman paints.", [ quants]).
+test_e2c("Every woman paints.", [ quants]).
+test_e2c("Each woman paints.", [ quants]).
+test_e2c("Any woman paints.", [ quants]).
+test_e2c("The woman paints.", [ quants]).
+
+% ;W:\opt\logicmoo_workspace\packs_sys\logicmoo_nlu\ext\candc;W:\opt\logicmoo_workspace\packs_sys\logicmoo_nlu\ext\ape;W:\opt\logicmoo_workspace\packs_sys\logicmoo_nlu\prolog
+
+% test_e2c(S, _T) :- \+ ground(S), !, fail.
+
+test_e2c("The not woman paints.", [ quants]).  % ? The Good Place "the not a girl"
+
+test_e2c("Not a woman paints.", [ quants]).
+test_e2c("Not one woman paints.", [ quants]).
+test_e2c("Not no woman paints.", [ quants_neg_postcond]).
+test_e2c("Not some woman paints.", [ quants]).   % ? not just some woman paints
+test_e2c("Not every woman paints.", [ quants]).
+test_e2c("Not each woman paints.", [ quants]).
+test_e2c("Not any woman paints.", [ quants]).
+
+
+
+test_e2c("The women paint.", [ quants]).
+
+test_e2c("Women paint.", [ quants]).
+test_e2c("Some women paint.", [ quants]).
+test_e2c("No women paint.", [ quants]).
+test_e2c("All women paint.", [ quants]).
+test_e2c("Any women paint.", [ quants]).
+
+test_e2c("Not women paint.", [ quants]).
+
+test_e2c("Not no women paint.", [ quants]).
+test_e2c("Not all women paint.", [ quants]).
+test_e2c("Not any women paint.", [ quants]).
+
+
+test_e2c("The three women paint.", [ quants]).
+
+test_e2c("Three women paint.", [ quants]).
+test_e2c("Some three women paint.", [ quants]).
+test_e2c("No three women paint.", [ quants]).
+test_e2c("Every three women paint.", [ quants]).
+test_e2c("All three women paint.", [ quants]).
+test_e2c("Any three women paint.", [ quants]).
+
+test_e2c("Not three women paint.", [ quants]).
+test_e2c("Not some three women paint.", [ quants]).
+test_e2c("Not no three women paint.", [ quants]).
+test_e2c("Not all three women paint.", [ quants]).
+test_e2c("Not every three women paint.", [ quants]).
+test_e2c("Not any three women paint.", [ quants]).
+
+test_e2c("Not three of the women paint.", [ quants]).
+test_e2c("Not some of the three women paint.", [ quants]).
+test_e2c("Not no three of the women paint.", [ quants]).
+test_e2c("Not all three of the women paint.", [ quants]).
+test_e2c("Not every three of the women paint.", [ quants]).
+test_e2c("Not any three of the women paint.", [ quants]).
+
+test_e2c("Not three of the four women paint.", [ quants]).
+test_e2c("Not none of three out of the four women paint.", [ quants]).
+test_e2c("Not all three of the four women paint.", [ quants]).
+test_e2c("Not any three of the four women paint.", [ quants]).
+
+test_e2c("Three of the four women paint.", [ quants]).
+test_e2c("Three out of the four women paint.", [ quants]).
+test_e2c("All three of the four women paint.", [ quants]).
+test_e2c("Any three of the four women paint.", [ quants]).
+
+
+test_e2c("I paint", [ pronoun]).
+test_e2c("you paint", [ pronoun]).
+test_e2c("We paint", [ pronoun]).
+test_e2c("None paint", [ pronoun]).
+test_e2c("They paint", [ pronoun]).
+test_e2c("Some paint", [ pronoun]).
+
+test_e2c("It paints", [ pronoun]).
+test_e2c("he paints", [ pronoun]).
+test_e2c("She paints", [ pronoun]).
+test_e2c("Someone paints", [ pronoun]).
+
+test_e2c("Anybody paints", [ pronoun]).
+test_e2c("Anyone paints", [ pronoun]).
+test_e2c("Anything paints", [ pronoun]).
+test_e2c("Everybody paints", [ pronoun]).
+test_e2c("Everyone paints", [ pronoun]).
+test_e2c("Everything paints", [ pronoun]).
+test_e2c("Nobody paints", [ pronoun]).
+test_e2c("No one paints", [ pronoun]).
+test_e2c("Nothing paints", [ pronoun]).
+test_e2c("One paints", [ pronoun]).
+test_e2c("Somebody paints", [ pronoun]).
+test_e2c("Something paints", [ pronoun]).
+
+test_e2c("Not anybody paints", [ pronoun]).
+test_e2c("Not anyone paints", [ pronoun]).
+test_e2c("Not anything paints", [ pronoun]).
+test_e2c("Not everybody paints", [ pronoun]).
+test_e2c("Not everyone paints", [ pronoun]).
+test_e2c("Not everything paints", [ pronoun]).
+test_e2c("Not nothing paints", [ pronoun]).
+test_e2c("Not one paints", [ pronoun]).
+test_e2c("Not somebody paints", [ pronoun]).
+test_e2c("Not something paints", [ pronoun]).
+
+test_e2c("She likes i", [ pronoun]).
+test_e2c("She likes me", [ pronoun]).
+test_e2c("She likes you", [ pronoun]).
+test_e2c("She likes it", [ pronoun]).
+test_e2c("She likes us", [ pronoun]).
+test_e2c("She likes them", [ pronoun]).
+test_e2c("She likes no one", [ pronoun]).
+%test_e2c("She likes noone", [ pronoun]).
+test_e2c("She likes none", [ pronoun]).
+
+
+% test_e2c("She likes her", [ pronoun]).
+test_e2c("She likes him", [ pronoun]).
+test_e2c("She likes herself", [ pronoun]).
+test_e2c("She likes himself", [ pronoun]).  % Maybe
+
+test_e2c("It is us that paints", [ pronoun]).
+test_e2c("It is them that paints", [ pronoun]).
+test_e2c("It is he that paints", [ pronoun]).
+test_e2c("It is she that paints", [ pronoun]).
+test_e2c("It is her that paints", [ pronoun]).
+test_e2c("It is him that paints", [ pronoun]).
+
+
+
+test_e2c("We are us that paint", [ pronoun]).
+test_e2c("We are all of us that paint", [ pronoun]).
+test_e2c("It is everybody that paints", [ pronoun]).
 
 /* Prediate:  descriptionTest/2 
 interpreted.

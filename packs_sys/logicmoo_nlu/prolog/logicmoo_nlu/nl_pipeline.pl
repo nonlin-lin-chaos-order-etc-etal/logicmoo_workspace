@@ -97,7 +97,8 @@
 
 
 system:my_aceparagraph_to_drs(AceText, Sentences, SyntaxTrees, UnresolvedDrsCopy, Drs, Messages):-
-   ace_to_drs:aceparagraph_to_drs(AceText, on, off, 1, Sentences, SyntaxTrees, UnresolvedDrsCopy, Drs, Messages, _).
+  lower_first_word(AceText,AceTextL), 
+   ace_to_drs:aceparagraph_to_drs(AceTextL, on, off, 1, Sentences, SyntaxTrees, UnresolvedDrsCopy, Drs, Messages, _).
 
 %:- install_converter(parser_tokenize:into_acetext(+input, -acetext)).
 :- install_converter(parser_tokenize:into_acetext(+text80, -acetext)).

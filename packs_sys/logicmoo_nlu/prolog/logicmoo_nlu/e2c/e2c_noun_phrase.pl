@@ -12,7 +12,9 @@ noun_phrase9(_SO, X, LF, exist(X, LF & iza(X, 'tType'))) --> theText1([a, certai
 
 :- decl_is_dcg(noun_phrase(_SO, _X, _LF, _LFOut)).
 
+noun_phrase(_SO, X, LF, LFOut) --> theTextW2(_Text,L),{member(phrase('NP'),L),member(equals(Root),L),!,conjoin_lf(LF , equalsVar(X,Root), LFOut)}.
 noun_phrase(_SO, X, LF, LFOut) --> {sub_compound(iza(V, What), LF), V==X, nonvar(What)}, parse_for(What, X, LF, LFOut).
+
 noun_phrase(SO, X, LF, LFOut) -->
    ignore_quant(LF),
    noun_phrase0(SO, X, LF, LFOut),

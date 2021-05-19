@@ -77,7 +77,8 @@ grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):- Sz==0, select(span(L),SegsI,SegsM)
   wdmsg(dropping_alt(L)),
   grab_primary_segs(Sz,SegsM,SegsO,LFI,LFOut).
 
-grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):- fail, Sz==0, select(span(L),SegsI,SegsM), 
+grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):- % Sz==0,
+  select(span(L),SegsI,SegsM), 
   member(phrase(NP),L), member(NP,['NP','WHNP']),
  once((
   member('#'(Ref),L),
@@ -85,8 +86,9 @@ grab_primary_segs(Sz,SegsI,SegsO,LFI,LFOut):- fail, Sz==0, select(span(L),SegsI,
   get_word_range(B,E,SegsM,Range,SegsM2),
   member(txt(Words),L), p_n_atom(Words,VarNameU),
   atomic_list_concat(['VarRef',Ref,VarNameU,B,E],'_',VarName),
-  insert_just_before(E,w(VarName,[loc(B),pos(NP),root(VarName),words(Range)|L]),SegsM2,SegsM3),
-  LFMid1 = true, %equals(X,VarName))),
+  FullInfo = [loc(B),pos(NP),equals(VarName),words(Range)|L],
+  insert_just_before(E,w(VarName,FullInfo),SegsM2,SegsM3),
+  LFMid1 = info(VarName,FullInfo),
   !)),
   member(txt(Words),L), 
   %phrase(noun_phrase(subj,X,true,LFNP),Range,[]), conjoin_lf(LFNP, LFMid1, LFMid2),!,

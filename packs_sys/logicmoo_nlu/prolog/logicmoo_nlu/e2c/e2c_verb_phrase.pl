@@ -314,7 +314,7 @@ into_active1(A, ING):- talkdb:talk_db(_, A, _, _, ING, _), !.
 into_active1(A, ING):- talkdb:talk_db(_, _, A, _, ING, _), !.
 into_active1(A, ING):- talkdb:talk_db(_, _, _, A, ING, _), !.
 into_active1(A, ING):- talkdb:talk_db(_, _, _, _, ING, A), !.
-into_active1(A, ING):- talkdb:talk_db(_, _, _, _, A, _), !, A = ING.
+into_active1(A, ING):- talkdb:talk_db(_, _, _, _,   A, _), !, A = ING.
 into_active1(A, ING):- talkdb:talk_db(noun_or_verb, _, ING, A).
 into_active1(A, ING):- atom_contains(A, 'ing'), A = ING.
 into_active2(A, ING):- talkdb:talk_db(noun_or_verb, A, ING, _).

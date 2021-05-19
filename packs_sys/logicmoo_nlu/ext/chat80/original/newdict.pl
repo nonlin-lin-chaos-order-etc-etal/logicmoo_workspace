@@ -417,6 +417,7 @@ comp_adj_db(chat80,newer,new).
 comp_adj_db(chat80,older,old).
 comp_adj_db(chat80,smaller,small).
 
+
 sup_adj_lex(Smallest,Small):- try_lex(sup_adj_db(Smallest,Small)).
 sup_adj_db(talkdb,Smallest,Small):- talkdb:talk_db(superl,Small,Smallest).
 sup_adj_db(talkdb,Smallest,Small):- sup_adj_db(clex,Smallest,Small).

@@ -113,7 +113,7 @@ try_converter(TID, CNV):-
      warn_failure(deepen_pos(catch(Goal,E,(wdmsg(Goal-->E),on_x_fail(rtrace(Goal)),fail)))),
      maplist(must_or_rtrace, CLOSURES), nop(flag(TID, X, X+1))))))).
 
-warn_failure(X):- call(X)*-> true; (nop(dmsg(failed(X))),true).
+warn_failure(X):- call(X)*-> true; (nop(dmsg(failed(X))),!,fail).
 %% make_io_closure(+TID:key, +NameSpec, ?Value, -Closure).
 %
 % Make in-out closure on Convertor arg

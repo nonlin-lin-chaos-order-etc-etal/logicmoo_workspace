@@ -14,37 +14,7 @@
 
 :- set_module(class(library)).
 :- set_module(base(system)).
-
-check_tree_quality(Srch,X,G1,G2,Total):-findall(Srch,(sub_term(Srch,X),G1,G2),Sols),length(Sols,Total).
-
-tree_quality(X,cmp(vs(G1),ps(G2),ats(G3),as(G4))):- 
-  check_tree_quality(Srch,X,atom(Srch),once(atom_concat('VB',_,Srch);atom_concat('E',_,Srch);atom_concat('AUX',_,Srch)),G1),
-  check_tree_quality(Srch,X,atom(Srch),once(atom_concat('NP',_,Srch);atom_concat('VP',_,Srch)),G2),
-  check_tree_quality(Srch,X,true,once(atom(Srch)),G3),
-  check_tree_quality(Srch,X,true,once(atomic(Srch)),G4),!.
-
-pick_tree(XY,XY,XY,(==),white).
-pick_tree(XX,YY,XY,Why,Color):- tree_quality(XX,X),tree_quality(YY,Y),pick_tree_why(XX,X,YY,Y,XY,Why,Color).
-pick_tree_why( XX,X,_YY,Y,XX,X > Y, cyan):- X @> Y.
-pick_tree_why(_XX,X, YY,Y,YY,X < Y, red):- X @< Y.
-pick_tree_why( XX,X,_YY,Y,XX,X =@= Y, yellow).
-
-dont_format(_,_).
-
-text_to_best_tree(Text,Tree):- 
-  (nonvar(Tree) -> Format = Tree ; (Format = dont_format)),
-  call(Format,'=================================\n',[]),
-  call(Format,'Testing: ~w  \n',[Text]),
-  call(Format,'===========',[]),
-  notrace(text_to_charniak_list(Text,Charniak)),!,
-  call(Format,'===========',[]),
-  notrace( text_to_corenlp_list(Text,CoreNLP)),!,
-  call(Format,'===========~n',[]),!,
-  pick_tree(Charniak,CoreNLP,Result,Why,Color),
-  (var(Tree) -> Tree= Result;
-    ansi_format(hfg(Color),"~@",[print_tree(result(q(Why),Charniak,CoreNLP))])),!.
-   
-
+:- reexport(library(logicmoo_nlu/parser_penn_trees)).
 
 charniak_stream(Text,Out):-
   process_create(path(bash), [('/opt/logicmoo_workspace/packs_xtra/logicmoo_pldata/bllip-parser/CharniakParse.sh'), Text ],
@@ -105,127 +75,12 @@ charniak_segs_to_w2(SegsF,InfoS,PosW2s):-
 
 charniak_pos(Text,PosW2s):- charniak_pos_info(Text,PosW2s0,_Info,_LExpr),guess_pretty(PosW2s0),!,PosW2s=PosW2s0.
 
-%can_be_partof('Obj',W):-!, member(W,['Situation','Event']).
-%can_be_partof(W,W):-!,fail.
-%can_be_partof('Situation','Event'):-!,fail.
-can_be_partof(_,_).
-
-
-marked_segs([
- 'VP'-'Situation',
- 'WHNP'-'WHNP',
- 'SBARQ'-'SBARQ',
- 'ADVP'-'Adv',
- 'SQ'-'SQ',
- 'PP'-'PP',
- % 'VP'-'VPhrase',
-  'S1'-'ROOT',
-  'SBAR'-'Thing','NP'-'Obj',
-  'NP-TMP'-'NP-TMP',
-  'S'-'Situation','S1'-'Event','NML'-'NML','ADJP'-'tCol','FRAG'-'FRAG']).
-%marked_seg_type(Mark,Type):- marked_segs(S),member(Mark-Type,S).
-with_reset_segs(Start,G):- marked_segs(Segs), with_reset_segs(Start,Segs,G).
-with_reset_segs(_Start,[],G):-!,call(G).
-with_reset_segs(Start,[NP-_Type|S],G):- with_reset_flag(NP,Start,with_reset_segs(Start,S,G)).
-
-
-with_reset_flag(NP,Start,G):-
-  setup_call_cleanup(flag(NP,Was,Start),G, flag(NP,_,Was)).
-  
 charniak_to_parsed(Start,A,C):- fix_c2s(A,B),!,
   charniak_to_segs(Start,B,SegsF),
   charniak_segs_to_w2(SegsF,InfoS,PosW2s),reverse(InfoS,InfoR),append(InfoR,PosW2s,C).
 
 
 
-
-fix_c2s(A,D):- with_reset_flag('word',1,fix_c2s0(A,D)).
-fix_c2s0(A,D):- fix_c2s1(A,B),fix_c2s1(B,D).
-fix_c2s1(A,D):- fix_tree_ses(A,B),fix_tree_ses(B,C),fix_tree_vps(C,D),!.
-
-%fix_tree_ses(['S1',['S'|MORE]],OUT):- fix_tree_ses(['S1'|MORE],OUT).
-%fix_tree_ses(['S',['S1'|MORE]],OUT):- fix_tree_ses(['S'|MORE],OUT).
-%fix_tree_ses(['S',MORE],OUT):- !, fix_tree_ses(MORE,OUT).
-fix_tree_ses_1(['SBAR',MORE],OUT):- fix_tree_ses(MORE,OUT).
-fix_tree_ses_1(['RB',there],OUT):- fix_tree_ses(['EX',there],OUT).
-/*
-( [  'NP',
-         ['DT',an],
-         ['NNP','Italian'],
-         [  'SBAR',
-            [  'NP',
-               ['WP',who]  ],
-            [  ['VBD',became],
-               [  'NP',
-                  ['DT',the],
-                  ['NN',world],
-                  ['POS','\'s'],
-                  ['JJS',greatest],
-                  ['NN',tenor]  ]  ]  ]  ]).
-*/
-
-
-fix_tree_ses_1(['NP',['NP'|MORE]|MORE2],OUT):- append(['NP'|MORE],MORE2,NPMORE),fix_tree_ses(NPMORE,OUT).
-fix_tree_ses_1(['VP',['NN',X]| MORE],O):- fix_tree_ses( [ 'VP', ['VB',X]| MORE],O).
-%fix_tree_ses_1(['VP'| MORE],O):- fix_tree_ses(MORE,O).
-fix_tree_ses_1(['VP',['AUX'|MORE]|MORE2],OUT):- fix_tree_ses([['AUX'|MORE]|MORE2],OUT).
-fix_tree_ses_1([S,['VP',['VB',Have]|VPMORE]],O):-  fix_tree_ses([S,['VB',Have]|VPMORE],O).
-
-fix_tree_ses_1(['WHADJP'|MORE],OUT):- !, fix_tree_ses(MORE,OUT).
-
-
-fix_tree_ses(['ROOT',MORE],OUT):- fix_tree_ses(MORE,OUT).
-%fix_tree_ses(LIST,OUT):- fix_tree_ses_1(LIST,M),!,fix_tree_ses(M,OUT).
-fix_tree_ses(LIST,OUT):- is_list(LIST), maplist(fix_tree_ses,LIST,OUT),!.
-fix_tree_ses(B,A):- replace_seg_name(B,A).
-fix_tree_ses(S,S):-!.
-
-replace_seg_name(B,A):- atom(B),marked_segs_replace(B,A).
-marked_segs_replace(w(W,[  pos(POS)|_]),w(W,[pos(POS)])).
-marked_segs_replace('S1','ROOT').
-marked_segs_replace('WHNP','NP').
-marked_segs_replace('VBP','VB').
-%marked_segs_replace('SBAR','S').
-%marked_segs_replace('SBARQ','SBAR').
-marked_segs_replace(SQ,S):- atom_concat(S,'Q',SQ).
-/* 'VP'-'Situation',
- 'WHNP'-'WHNP',
- 'SBARQ'-'SBARQ',
- 'ADVP'-'Adv',
- 'SQ'-'SQ',
- 'PP'-'PP',
- % 'VP'-'VPhrase',
-  'S1'-'ROOT').
-*/
-
-fix_tree_w2s(WORD,POS):- is_pos(WORD,POS),!. 
-fix_tree_w2s(LIST,OUT):- is_list(LIST), maplist(fix_tree_w2s,LIST,OUT),!.
-fix_tree_w2s(I,I).
-
-fix_tree_vps([S|MORE],[S|OUT]):- atom(S),fix_tree_pp(MORE,OUT),!.
-fix_tree_vps(LIST,OUT):- is_list(LIST), maplist(fix_tree_vps,LIST,OUT),!.
-fix_tree_vps(I,I).
-%fix_tree_pp([[H]|MORE],OUT):- fix_tree_pp([H|MORE],OUT),!.
-fix_tree_pp([['PP',w(S,List)|PPMORE]|MORE],OUT):-  fix_tree_pp([w(S,['PP'|List])|PPMORE],PPOUT),fix_tree_pp(MORE,MMORE),append(PPOUT,MMORE,OUT).
-fix_tree_pp(['PP',w(S,List)|PPMORE],[w(S,['PP'|List])|OUT]):- fix_tree_pp(PPMORE,OUT).
-% fix_tree_pp([['ADVP',w(S,List)|PPMORE]|MORE],OUT):-  fix_tree_pp([w(S,['ADVP'|List])|PPMORE],PPOUT),fix_tree_pp(MORE,MMORE),append(PPOUT,MMORE,OUT).
-fix_tree_pp([S|MORE],[S|OUT]):- atom(S),fix_tree_pp(MORE,OUT),!.
-fix_tree_pp([H|MORE],[H|OUT]):- fix_tree_pp(MORE,OUT),!.
-fix_tree_pp(I,I).
-%fix_tree_pp([['ADVP',w(S,List)|PPMORE]|MORE],OUT):-  fix_tree_pp(['ADVP',w(S,List)|PPMORE],PPOUT),fix_tree_pp(MORE,MMORE),append(PPOUT,MMORE,OUT).
-
-%fix_tree_pp(['PP',w(S,List)]|MORE],OUT):- fix_tree_pp([w(S,['PP'|List])|MORE],OUT).
-%fix_tree_pp(['ADVP',w(S,List)]|MORE],OUT):- fix_tree_pp([w(S,['ADVP'|List])|MORE],OUT).
-
-
-lxpr_to_segs([],[]):- !.
-
-lxpr_to_segs(WORD,[POS]):- is_pos(WORD,POS),!. 
-lxpr_to_segs([WORD|MORE],[POS|POSS]):- is_pos(WORD,POS),lxpr_to_segs(MORE,POSS).
-lxpr_to_segs([[WORD]|MORE],[POS|POSS]):- is_pos(WORD,POS),lxpr_to_segs(MORE,POSS).
-lxpr_to_segs([P|MORE],Out):- atom(P),maplist(lxpr_to_segs,MORE,MORES),create_coref(P,MORES,Out).
-lxpr_to_segs([H|T],POS):- lxpr_to_segs(H,POSH),lxpr_to_segs(T,POST), !, append(POSH,POST,POS).
-lxpr_to_segs(I,I).
 
 %add_p_to_words(_Var,_,[],[]):-!.
 % create_coref('S',MORES,MORES):- !.
@@ -301,16 +156,26 @@ child_loc(Child,LOC):- find_subterm(Child,seg(_,_),LOC),!.
 %add_p_to_words(_Var,P,[Atom|T],TT):- atom(Atom),trace,add_p_to_words(_Var,P,T,TT).
 %lxpr_to_segs([WORD],[POS]):- is_pos(WORD,POS),!. 
 
-cancle_pos('DT').
-cancle_pos('JJ').
-cancle_pos('CC').
-cancle_pos('RB').
-cancle_pos(_).
-
 is_pos([Pos,[quote,Head]],Out):-!,is_pos([Pos,Head],Out).
 is_pos([Pos, Head],     w(WD,[pos(DC),loc(X),lnks(0),txt(SHead)])):- cancle_pos(Pos), maplist(atom,[Pos,Head]),any_to_string(Head,SHead),downcase_atom(Head,WD),downcase_atom(Pos,DC),!,flag('word',X,X+1).
 is_pos([Pos, Head],[Pos,w(WD,[pos(DC),loc(X),lnks(0),txt(SHead)])]):- maplist(atom,[Pos,Head]),any_to_string(Head,SHead),downcase_atom(Head,WD),downcase_atom(Pos,DC),!,flag('word',X,X+1).
 is_pos([Word],Out):-!,is_pos(Word,Out).
+
+sort_words(List,Sorted):- predsort(by_word_loc,List,Sorted).
+:- export(sort_words/2).
+:- system:import(sort_words/2).
+
+by_word_loc(R,A,B):-into_loc_sort(A,AK),into_loc_sort(B,BK),compare(RK,AK,BK), (RK == (=) -> compare(R,A,B) ; R = RK).
+into_loc_sort(w(_,List),Key):- member(loc(S),List), member(lnks(L),List), Key = [a,S,0,S,L],!.
+into_loc_sort(span(List),Key):- member(seg(S,E),List),once(member(lnks(L),List);L=10),once(member(size(W),List);W=0),
+  RS is 100-W, % E1 is E-1, 
+  Key = [span, W, E,S,RS,L|List],!.
+into_loc_sort(span(List),Key):- member(seg(S,E),List),
+   once(member(lnks(L),List);L=0),once(member(childs(C),List);C=0),once(member(size(W),List);W=0),
+   NW is 100-W, NL is 100-L, NC is 100-C, % E1 is E-1,
+   Key = [span,NW,C,S,E,NL,NC,List],!.
+into_loc_sort(span(L1),Key):- member(List,L1),member(seg(_,_),List),into_loc_sort(span(List),Key).
+into_loc_sort(A,Key):- A=..[_|AA], findnsols(4,T, ((sub_term(T,AA),compound(T),arg(1,T,N),number(N));T=AA),Key).
 
 
 text_to_charniak_segs_legacy(Text,SSegs):-
@@ -337,20 +202,6 @@ text_to_charniak_list(Text,LExpr):-
   lxpr_to_list(String, LExpr),
   nop(print_tree(charniak=LExpr)).
 
-
-lxpr_to_list(String, LExpr):- any_to_codelist(String,Codes), c2s(LExpr0,Codes,_) ,fix_c2s(LExpr0,LExpr),
- !.
-
-c2s(L)  --> `(`, !, c2s_list(L),!.
-c2s(L)  --> one_blank, !, c2s(L),!.
-c2s(L)  --> c2w_chars(Chars),!,{any_to_atom(Chars,L)}.
-
-c2w_chars([]) --> dcg_peek(one_blank;`(`;`)`),!.
-c2w_chars([C|X]) --> [C],!,c2w_chars(X).
-
-c2s_list(X) --> one_blank,!,c2s_list(X).
-c2s_list([]) --> `)`, !.
-c2s_list([Car|Cdr]) --> c2s(Car), !, c2s_list(Cdr),!.
 
 
 baseKB:regression_test:- test_charniak(1,X),!,test_charniak(X).

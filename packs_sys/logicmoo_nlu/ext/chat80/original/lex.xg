@@ -36,10 +36,10 @@ theTextL(W1,_CYCPOS,WHY) ---> theTextL80(W1),{call(WHY)}.
 
 w001(Cmp)---> consume_spans_hack, next_as_word,{!},[Cmp],{assertion(nonvar(Cmp)),parser_e2c:add_prev_w2(Cmp)},consume_spans_hack.
 
-theTextW2(Text,L) ---> w001(Cmp),{compound(Cmp),!,Cmp=w(Text,L)}.
+theText80_W2(Text,L) ---> w001(Cmp),{compound(Cmp),!,Cmp=w(Text,L)}.
 
 w01(Text) ---> w001(A), {atomic(A),!,A=Text}.
-w01(Text) ---> theTextW2(Text,_).
+w01(Text) ---> theText80_W2(Text,_).
 
 
 %w01(Text) ---> w001(A), {Text=A}.
@@ -57,6 +57,12 @@ nomoreText(S1,S1,G,G):- is_list(S1), \+ (member(W2,S1), compound(W2),W2=w(_,_)).
 
 consume_spans_hack ---> [span(NV)],{nonvar(NV),!,parser_e2c:add_prev_span(span(NV))},consume_spans_hack.
 consume_spans_hack ---> [].
+
+
+theText80Penn(A) --->{atomic(A),!},theText80(A).
+theText80Penn(Cmp) --->{compound(Cmp),!},w001(Cmp).
+theText80Penn(w(W,L1)) ---> theText80_W2(W,L2),{L1=L2}.
+
 
 theText80(IC) ---> w1(W0),{assertion(nonvar(W0);nonvar(IC)),parser_e2c:the_text_unif(IC,W0)}.
 %theText80(IC) ---> {t_l:old_text,!},[W0],{parser_tokenize:any_nb_to_atom(W0,W1),downcase_atom(W1,DC),(var(IC)->IC=DC;downcase_atom(IC,DC))}.
@@ -97,7 +103,7 @@ textOpt(_Text) ---> noText.
 
 
 noun(Noun,Agmt) --->
-   theTextW2(W,L), 
+   theText80_W2(W,L), 
    {noun_form_wlex(L,W,Noun,Agmt)}.
 
 det(det(Det),Number,Def) --->
@@ -133,7 +139,7 @@ rel_pron(Case) --->
    {rel_pron_lex(W,Case)}.
 
 verb_form80(Verb,Tense,Agmt,Role) --->
-   theTextW2(W,L),
+   theText80_W2(W,L),
    {verb_form_wlex(L,W,Verb,Tense,Agmt)}.
 
 name_xg(Name) --->

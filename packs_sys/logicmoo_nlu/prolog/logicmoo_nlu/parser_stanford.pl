@@ -19,6 +19,7 @@
             test_corenlp/1,
             test_corenlp/2,
             corenlp_to_w2/2,
+            stanford_options/2,
             text_to_corenlp_segs/2,
             corenlp_to_segs/2,
 
@@ -92,11 +93,16 @@ text_to_corenlp_segs(Text,SSegs):-
   sort_words(Segs,SSegs),!.
 
 
+text_to_corenlp_w2(Text,W2s):- 
+    text_to_corenlp_segs(Text, CoreNLP),
+    corenlp_to_w2(CoreNLP,W2s).
+
 text_to_corenlp(Text,CoreNLP):-
   text_to_corenlp(Text,_Options, CoreNLP).
 
 text_to_corenlp(English, OptionsIn, Out):-
-    text_to_corenlp_low(English, OptionsIn, Reply),    
+    text_to_corenlp_low(English, OptionsIn, Reply),
+    
     parse_reply([reply], Reply, Out),!.
 
 text_to_corenlp_low(English, OptionsIn, ReplyO):-
@@ -122,6 +128,7 @@ text_to_corenlp_low(English, OptionsIn, ReplyO):-
 % http://localhost:4090/stanford/?properties={%22annotators%22%3A%22quote,tokenize,ssplit,pos,lemma,depparse,natlog,coref,dcoref,nmat%22%3A%22json%22}
 % http://localhost:4090/stanford/?properties={%22annotators%22%3A%22tokenize%2Cssplit%2Cpos%2Cdepparse%22%2C%22outputFormat%22%3A%22conllu%22}
 
+  
 text_to_corenlp_list(Text,LExpr):-
   text_to_corenlp_low(Text,_Options, Reply),
   sub_term(parse=String,Reply),
@@ -211,9 +218,11 @@ into_value_lex_value(A,V):- \+ atom(A),!, A=V.
 into_value_lex_value(A,V):- catch(atom_to_term(A,V,Vs),_,fail),maplist(call,Vs),!.
 into_value_lex_value(A,A).
 
+:- dynamic(stanford_options/2).
 parse_reply_replace(_Ctx, Sub, '$'):- ground(Sub), 
   member(Sub, [entitymentions=[], speaker='PER0', openie=[], truecase='O', ner='O', entitylink='O']).
 
+parse_reply_replace(_Ctx, Sub, '$'):- ground(Sub), Sub=(parse=_), \+ stanford_options(use_parser_tree,true), !.
 parse_reply_replace(_Ctx, NER=Value, Pred):- atom(NER),
   member(NER,[normalizedNER,ner,paragraph,openie,kbp,truecase,entitylink,repm]),
   Pred=..[NER,TValue],into_value_lex_value(Value,TValue).
@@ -333,21 +342,6 @@ sentence_reply(Number, Toks, SExpr, In, In):-
   print_reply_colored(Number=SExpr),
   print_reply_colored(Number=Toks), !.
 */
-sort_words(List,Sorted):- predsort(by_word_loc,List,Sorted).
-:- export(sort_words/2).
-:- system:import(sort_words/2).
-
-by_word_loc(R,A,B):-into_loc_sort(A,AK),into_loc_sort(B,BK),compare(RK,AK,BK), (RK == (=) -> compare(R,A,B) ; R = RK).
-into_loc_sort(w(_,List),Key):- member(loc(S),List), member(lnks(L),List), Key = [a,S,0,S,L],!.
-into_loc_sort(span(List),Key):- member(seg(S,E),List),once(member(lnks(L),List);L=10),once(member(size(W),List);W=0),
-  RS is 100-W, % E1 is E-1, 
-  Key = [span, W, E,S,RS,L|List],!.
-into_loc_sort(span(List),Key):- member(seg(S,E),List),
-   once(member(lnks(L),List);L=0),once(member(childs(C),List);C=0),once(member(size(W),List);W=0),
-   NW is 100-W, NL is 100-L, NC is 100-C, % E1 is E-1,
-   Key = [span,NW,C,S,E,NL,NC,List],!.
-into_loc_sort(span(L1),Key):- member(List,L1),member(seg(_,_),List),into_loc_sort(span(List),Key).
-into_loc_sort(A,Key):- A=..[_|AA], findnsols(4,T, ((sub_term(T,AA),compound(T),arg(1,T,N),number(N));T=AA),Key).
 
 baseKB:regression_test:- test_corenlp(1,X),!,test_corenlp(X).
 baseKB:sanity_test:- make, forall(test_corenlp(1,X),test_corenlp(X)).
@@ -378,6 +372,8 @@ test_corenlp(English, Options):- \+ number(English), nonvar(English),
   text_to_corenlp(English, Options, OutF),!,
   ttyflush, print_tree(OutF),!, ttyflush, 
   format('~N?- ~p.~n',[test_corenlp(English, Options)]),ttyflush,!.
+
+:- fixup_exports.
 
 test_corenlp(1,".\nThe Norwegian lives in the first house.\n.").
 

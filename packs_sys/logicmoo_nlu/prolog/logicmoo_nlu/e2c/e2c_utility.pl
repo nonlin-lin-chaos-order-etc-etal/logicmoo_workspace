@@ -24,9 +24,9 @@ w2txt001(IC, A, B) :- notrace(as_w2_segs(A, C)),!,w2txt001(IC, C, B).
 w2txt001(Cmp) --> consume_spans_hack_e2c, % next_as_word_e2c,
    {!},[Cmp],{assertion(nonvar(Cmp))},consume_spans_hack_e2c.
 
-theTextWW(Text,L) --> w2txt001(Cmp),{W2=w(Text,L),(compound(Cmp)->W2=Cmp;(Text=Cmp,L=open)),parser_e2c:add_prev_w2(W2)}.
+theTextW2(Text,L) --> w2txt001(Cmp),{W2=w(Text,L),(compound(Cmp)->W2=Cmp;(Text=Cmp,L=open)),parser_e2c:add_prev_w2(W2)}.
 
-w2txt01(Text) --> theTextWW(Text,_L),!.
+w2txt01(Text) --> theTextW2(Text,_L),!.
 %w2txt01(Text) --> w2txt001(A), {atomic(A),!,A=Text}.
 %w01(Text) --> w001(A), {Text=A}.
 
@@ -95,4 +95,5 @@ maybe_toPropercase(X,Y):- first_char_to_upper(X,Y).
 
 conc([], L, L).
 conc([H|T], L, [H|R]) :- conc(T, L, R).
+
 
